@@ -46,8 +46,7 @@ body {
   justify-content:center;
   color:#fff;
   position:relative;
-  background-size:cover;
-  background-position:center center;
+  background: linear-gradient(135deg,#0f1f3c 0%,#1a3a52 40%,#006b94 100%);
 }
 .hero::after {
   content:"";
@@ -344,7 +343,7 @@ footer a:hover {
 
 <body>
 
-<header class="hero" style="background-image:var(--hero-url, url('https://images.unsplash.com/photo-1502784444185-1bd0c6b1cd02?q=80&w=1600&auto=format&fit=crop'))">
+<header class="hero hero-placeholder">
   <div class="hero-inner">
     <h1>Parth Chaudhari</h1>
     <p>Veterinarian • Internationally Trained • NAVLE Candidate</p>
@@ -352,6 +351,7 @@ footer a:hover {
       <a class="btn" href="#about">About</a>
       <a class="btn btn-outline" href="#contact">Contact</a>
     </div>
+    <p class="hero-note" style="margin-top:14px;opacity:0.9;font-size:13px;">Hero photo placeholder — add a professional image in the future.</p>
   </div>
 </header>
 
