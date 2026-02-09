@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HUMAN vs AI: IQ Challenge</title>
+  <title>Personal IQ Challenge | Parth Chaudhari</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
         
@@ -521,12 +521,7 @@
   <div class="container">
     <header>
       <h1>Neural Challenge</h1>
-      <div class="subtitle">Cognitive Supremacy Test</div>
-      <div class="vs-badge">
-        <span class="player-tag human-tag">You</span>
-        <span class="vs-text">VS</span>
-        <span class="player-tag ai-tag">Kimi AI</span>
-      </div>
+      <div class="subtitle">Personal Cognitive Assessment</div>
     </header>
 
     <!-- Intro Screen -->
@@ -534,8 +529,8 @@
       <div class="intro-card">
         <h2 style="font-family: 'Orbitron', monospace; margin-bottom: 20px; color: #00d4ff;">Mission Briefing</h2>
         <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 30px;">
-          15 challenges. 4 cognitive dimensions. One winner.<br>
-          Race against time while I attempt to solve the same problems simultaneously.<br>
+          15 challenges. 4 cognitive dimensions. One personal benchmark.<br>
+          Race against time and challenge your own performance.<br>
           Your performance will be calculated into an estimated IQ score.
         </p>
                 
@@ -568,12 +563,8 @@
         <div class="status-bar">
           <div class="score-board">
             <div class="score-item">
-              <div class="score-label">You</div>
+              <div class="score-label">Score</div>
               <div class="score-value human-score" id="humanScore">0</div>
-            </div>
-            <div class="score-item">
-              <div class="score-label">AI</div>
-              <div class="score-value ai-score" id="aiScore">0</div>
             </div>
           </div>
           <div class="timer" id="timer">00:30</div>
@@ -589,15 +580,6 @@
           <div id="questionVisual"></div>
           <div class="options-grid" id="optionsGrid"></div>
         </div>
-      </div>
-    </div>
-
-    <!-- AI Thinking Indicator -->
-    <div class="ai-thinking" id="aiThinking">
-      <div class="ai-avatar">AI</div>
-      <div>
-        <div style="font-weight: 700;">AI Processing</div>
-        <div style="font-size: 0.9rem; opacity: 0.8;">Analyzing patterns...</div>
       </div>
     </div>
 
@@ -619,19 +601,15 @@
                 
         <div class="comparison-table">
           <div class="table-row">
-            <span>Your Correct Answers</span>
+            <span>Correct Answers</span>
             <span id="finalHumanScore">0/15</span>
-          </div>
-          <div class="table-row">
-            <span>AI Correct Answers</span>
-            <span id="finalAiScore">0/15</span>
           </div>
           <div class="table-row">
             <span>Average Response Time</span>
             <span id="avgTime">0s</span>
           </div>
           <div class="table-row">
-            <span>Final Result</span>
+            <span>Performance Level</span>
             <span id="finalResult">Calculating...</span>
           </div>
         </div>
@@ -665,7 +643,6 @@
     // Game State
     let currentQuestion = 0;
     let humanScore = 0;
-    let aiScore = 0;
     let timeLeft = 30;
     let timerInterval;
     let startTime;
@@ -853,7 +830,6 @@
       document.getElementById('gameScreen').classList.add('active');
       currentQuestion = 0;
       humanScore = 0;
-      aiScore = 0;
       totalTime = 0;
       loadQuestion();
     }
@@ -913,8 +889,6 @@
         }
       }, 1000);
             
-      // AI simulation
-      simulateAI(q);
     }
 
     function updateTimer() {
@@ -923,19 +897,6 @@
       document.getElementById('timer').textContent = 
         `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
       document.getElementById('timer').style.color = timeLeft < 10 ? '#ff006e' : '#ffd700';
-    }
-
-    function simulateAI(question) {
-      const aiThinking = document.getElementById('aiThinking');
-      aiThinking.classList.add('active');
-            
-      setTimeout(() => {
-        aiThinking.classList.remove('active');
-        if (Math.random() < question.aiAccuracy) {
-          aiScore++;
-          document.getElementById('aiScore').textContent = aiScore;
-        }
-      }, question.aiTime);
     }
 
     function selectAnswer(choice) {
@@ -993,25 +954,24 @@
             
       document.getElementById('iqScore').textContent = Math.round(estimatedIQ);
       document.getElementById('finalHumanScore').textContent = `${humanScore}/15`;
-      document.getElementById('finalAiScore').textContent = `${aiScore}/15`;
       document.getElementById('avgTime').textContent = `${avgTime.toFixed(1)}s`;
             
-      // Winner determination
+      // Performance level
       const banner = document.getElementById('winnerBanner');
-      if (humanScore > aiScore) {
-        banner.textContent = '🏆 Victory! Human Superiority Confirmed';
+      if (humanScore >= 13) {
+        banner.textContent = '🏆 Exceptional Performance';
         banner.className = 'winner-banner human-wins';
-        document.getElementById('finalResult').textContent = 'HUMAN DOMINANCE';
-      } else if (aiScore > humanScore) {
-        banner.textContent = '🤖 AI Supremacy Achieved';
-        banner.className = 'winner-banner ai-wins';
-        document.getElementById('finalResult').textContent = 'AI SUPERIORITY';
+        document.getElementById('finalResult').textContent = 'Exceptional';
+      } else if (humanScore >= 9) {
+        banner.textContent = '✅ Strong Performance';
+        banner.className = 'winner-banner human-wins';
+        document.getElementById('finalResult').textContent = 'Strong';
       } else {
-        banner.textContent = '⚡ Perfect Equilibrium';
+        banner.textContent = '📈 Keep Practicing';
         banner.style.background = 'rgba(255, 215, 0, 0.2)';
         banner.style.borderColor = '#ffd700';
         banner.style.color = '#ffd700';
-        document.getElementById('finalResult').textContent = 'TIE - PARALLEL MINDS';
+        document.getElementById('finalResult').textContent = 'Developing';
       }
             
       // Category breakdown
@@ -1024,7 +984,7 @@
     }
 
     function shareResults() {
-      const text = `I scored ${document.getElementById('iqScore').textContent} IQ in Human vs AI Challenge! ${humanScore > aiScore ? 'I beat the AI!' : 'The AI got me...'} Can you do better?`;
+      const text = `I scored ${document.getElementById('iqScore').textContent} in the Personal IQ Challenge. Can you beat my score?`;
       navigator.clipboard.writeText(text).then(() => {
         alert('Results copied to clipboard!');
       });
