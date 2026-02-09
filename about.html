@@ -132,6 +132,24 @@
       nav { gap:12px; }
     }
     /* Floating animals removed */
+
+    /* Side CTA for IQ challenge */
+    .side-cta {
+      position:fixed;
+      right:-48px;
+      top:50%;
+      transform:rotate(-90deg) translateY(-50%);
+      transform-origin:center;
+      background:linear-gradient(90deg,var(--accent),var(--accent-light));
+      color:#fff;
+      padding:10px 20px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:700;
+      box-shadow:0 8px 24px rgba(0,180,216,0.15);
+      z-index:9999;
+    }
+    .side-cta:hover { transform:rotate(-90deg) translateY(-50%) translateY(-4px); }
   </style>
 </head>
 <body>
@@ -158,6 +176,7 @@
     My clinical interests include internal medicine, emergency and critical care, and evidence-based clinical decision-making. I am actively preparing for the North American Veterinary Licensing Examination (NAVLE) and continue to pursue professional development opportunities.
   </p>
 </div>
+<a class="side-cta" href="/iq.html" aria-label="Take the IQ challenge">Take IQ Test</a>
 <footer>© 2026 Parth Chaudhari</footer>
 
 </body>

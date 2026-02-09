@@ -188,6 +188,24 @@
       .contact-item { padding:20px; }
     }
     /* Floating animals removed */
+
+    /* Side CTA for IQ challenge */
+    .side-cta {
+      position:fixed;
+      right:-48px;
+      top:50%;
+      transform:rotate(-90deg) translateY(-50%);
+      transform-origin:center;
+      background:linear-gradient(90deg,var(--accent),var(--accent-light));
+      color:#fff;
+      padding:10px 20px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:700;
+      box-shadow:0 8px 24px rgba(0,180,216,0.15);
+      z-index:9999;
+    }
+    .side-cta:hover { transform:rotate(-90deg) translateY(-50%) translateY(-4px); }
   </style>
 </head>
 <body>
@@ -234,6 +252,7 @@
   </div>
 </div>
 
+<a class="side-cta" href="/iq.html" aria-label="Take the IQ challenge">Take IQ Test</a>
 <footer>
   <div style="max-width:1100px;margin:auto;padding:20px 24px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
     <div>© 2026 Parth Chaudhari</div>

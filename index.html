@@ -337,6 +337,24 @@ footer a:hover {
   footer { padding:40px 20px; font-size:14px; }
 }
 
+/* Side CTA for IQ challenge */
+.side-cta {
+  position:fixed;
+  right:-48px;
+  top:50%;
+  transform:rotate(-90deg) translateY(-50%);
+  transform-origin:center;
+  background:linear-gradient(90deg,var(--accent),var(--accent-light));
+  color:#fff;
+  padding:10px 20px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:700;
+  box-shadow:0 8px 24px rgba(0,180,216,0.15);
+  z-index:9999;
+}
+.side-cta:hover { transform:rotate(-90deg) translateY(-50%) translateY(-4px); }
+
 /* Floating animals removed for a more professional hero layout */
 </style>
 </head>
@@ -459,5 +477,8 @@ const observer = new IntersectionObserver(entries => {
 sections.forEach(section => observer.observe(section));
 </script>
 
+<a class="side-cta" href="/iq.html" aria-label="Take the IQ challenge">Take IQ Test</a>
+
 </body>
 </html>
+
