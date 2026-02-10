@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="Snake screenshot preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#19324f"/>
+      <stop offset="1" stop-color="#1c2038"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="70" y="52" width="1140" height="616" rx="22" fill="rgba(0,0,0,0.34)" stroke="rgba(255,255,255,0.22)"/>
+  <text x="112" y="118" fill="#6af2dd" font-family="Inter,Arial" font-size="48" font-weight="700">Snake</text>
+  <text x="112" y="157" fill="#d9e7f6" font-family="Inter,Arial" font-size="22">Classic mode with color options and directional controls</text>
+
+  <rect x="116" y="196" width="620" height="420" rx="16" fill="#061114" stroke="#2d6f70"/>
+  <g stroke="rgba(255,255,255,0.08)">
+    <line x1="178" y1="196" x2="178" y2="616"/><line x1="240" y1="196" x2="240" y2="616"/><line x1="302" y1="196" x2="302" y2="616"/>
+    <line x1="364" y1="196" x2="364" y2="616"/><line x1="426" y1="196" x2="426" y2="616"/><line x1="488" y1="196" x2="488" y2="616"/>
+    <line x1="550" y1="196" x2="550" y2="616"/><line x1="612" y1="196" x2="612" y2="616"/><line x1="674" y1="196" x2="674" y2="616"/>
+    <line x1="116" y1="258" x2="736" y2="258"/><line x1="116" y1="320" x2="736" y2="320"/><line x1="116" y1="382" x2="736" y2="382"/>
+    <line x1="116" y1="444" x2="736" y2="444"/><line x1="116" y1="506" x2="736" y2="506"/><line x1="116" y1="568" x2="736" y2="568"/>
+  </g>
+
+  <rect x="428" y="382" width="58" height="58" rx="10" fill="#36e0c8"/>
+  <rect x="366" y="382" width="58" height="58" rx="10" fill="#34cbb6"/>
+  <rect x="304" y="382" width="58" height="58" rx="10" fill="#2db9a7"/>
+  <circle cx="578" cy="474" r="22" fill="#f39c12"/>
+
+  <rect x="778" y="196" width="392" height="420" rx="16" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)"/>
+  <text x="816" y="250" fill="#6af2dd" font-family="Inter,Arial" font-size="26" font-weight="700">Score: 12</text>
+  <rect x="820" y="286" width="308" height="56" rx="12" fill="#12856e"/>
+  <text x="974" y="322" text-anchor="middle" fill="white" font-family="Inter,Arial" font-size="24" font-weight="700">Start Snake</text>
+
+  <g transform="translate(878,372)">
+    <rect x="86" y="0" width="82" height="82" rx="16" fill="#1f6f72"/>
+    <rect x="0" y="88" width="82" height="82" rx="16" fill="#1f6f72"/>
+    <rect x="86" y="88" width="82" height="82" rx="16" fill="#1f6f72"/>
+    <rect x="172" y="88" width="82" height="82" rx="16" fill="#1f6f72"/>
+    <rect x="86" y="176" width="82" height="82" rx="16" fill="#1f6f72"/>
+    <polygon points="127,22 142,52 112,52" fill="white"/>
+    <polygon points="23,129 53,114 53,144" fill="white"/>
+    <rect x="116" y="118" width="22" height="22" rx="6" fill="white"/>
+    <polygon points="231,129 201,114 201,144" fill="white"/>
+    <polygon points="127,236 142,206 112,206" fill="white"/>
+  </g>
+</svg>

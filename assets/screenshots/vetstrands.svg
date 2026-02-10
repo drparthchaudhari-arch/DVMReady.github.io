@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="VetStrands screenshot preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#12344a"/>
+      <stop offset="1" stop-color="#1b213d"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#173d4c"/>
+      <stop offset="1" stop-color="#0f2934"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="60" y="50" width="1160" height="620" rx="24" fill="rgba(0,0,0,0.3)" stroke="rgba(255,255,255,0.24)"/>
+  <text x="100" y="118" fill="#5bf5d0" font-family="Inter,Arial" font-size="48" font-weight="700">VetStrands</text>
+  <text x="102" y="160" fill="#d8e7f4" font-family="Inter,Arial" font-size="24">Veterinary Word Puzzle</text>
+  <rect x="94" y="192" width="680" height="430" rx="18" fill="url(#panel)" stroke="rgba(255,255,255,0.18)"/>
+  <g fill="#d8f5ff" font-family="Inter,Arial" font-size="38" font-weight="700" text-anchor="middle">
+    <text x="180" y="272">V</text><text x="260" y="272">E</text><text x="340" y="272">T</text><text x="420" y="272">S</text><text x="500" y="272">T</text><text x="580" y="272">R</text><text x="660" y="272">A</text>
+    <text x="180" y="348">A</text><text x="260" y="348">N</text><text x="340" y="348">A</text><text x="420" y="348">T</text><text x="500" y="348">O</text><text x="580" y="348">M</text><text x="660" y="348">Y</text>
+    <text x="180" y="424">C</text><text x="260" y="424">L</text><text x="340" y="424">I</text><text x="420" y="424">N</text><text x="500" y="424">I</text><text x="580" y="424">C</text><text x="660" y="424">S</text>
+    <text x="180" y="500">S</text><text x="260" y="500">U</text><text x="340" y="500">R</text><text x="420" y="500">G</text><text x="500" y="500">E</text><text x="580" y="500">R</text><text x="660" y="500">Y</text>
+    <text x="180" y="576">H</text><text x="260" y="576">E</text><text x="340" y="576">A</text><text x="420" y="576">R</text><text x="500" y="576">T</text><text x="580" y="576">W</text><text x="660" y="576">O</text>
+  </g>
+  <rect x="814" y="194" width="372" height="430" rx="18" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)"/>
+  <text x="846" y="244" fill="#5bf5d0" font-family="Inter,Arial" font-size="24" font-weight="700">Words to find</text>
+  <g fill="#e6f7ff" font-family="Inter,Arial" font-size="28" font-weight="600">
+    <text x="846" y="295">ANATOMY</text>
+    <text x="846" y="340">CLINICS</text>
+    <text x="846" y="385">SURGERY</text>
+    <text x="846" y="430">HEART</text>
+    <text x="846" y="475">VET</text>
+  </g>
+  <rect x="846" y="536" width="300" height="58" rx="12" fill="#12856e"/>
+  <text x="996" y="572" text-anchor="middle" fill="white" font-family="Inter,Arial" font-size="24" font-weight="700">Next Level</text>
+</svg>

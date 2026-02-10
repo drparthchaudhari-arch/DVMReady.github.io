@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="Tic Tac Toe screenshot preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a3552"/>
+      <stop offset="1" stop-color="#1d1f37"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="62" y="52" width="1156" height="616" rx="22" fill="rgba(0,0,0,0.34)" stroke="rgba(255,255,255,0.22)"/>
+  <text x="104" y="118" fill="#6af2dd" font-family="Inter,Arial" font-size="48" font-weight="700">Tic Tac Toe Levels</text>
+  <text x="104" y="156" fill="#d9e7f6" font-family="Inter,Arial" font-size="22">Choose 3x3, 4x4 or 5x5 and play against the computer</text>
+
+  <rect x="104" y="188" width="540" height="430" rx="16" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.16)"/>
+  <g stroke="#2ab7a5" stroke-width="6">
+    <line x1="244" y1="246" x2="244" y2="560"/>
+    <line x1="384" y1="246" x2="384" y2="560"/>
+    <line x1="524" y1="246" x2="524" y2="560"/>
+    <line x1="140" y1="316" x2="596" y2="316"/>
+    <line x1="140" y1="386" x2="596" y2="386"/>
+    <line x1="140" y1="456" x2="596" y2="456"/>
+  </g>
+  <g fill="none" stroke-width="8" stroke-linecap="round">
+    <path d="M170 274 L214 318 M214 274 L170 318" stroke="#58ead4"/>
+    <circle cx="314" cy="296" r="24" stroke="#f39c12"/>
+    <path d="M450 274 L494 318 M494 274 L450 318" stroke="#58ead4"/>
+    <circle cx="314" cy="436" r="24" stroke="#f39c12"/>
+    <path d="M450 414 L494 458 M494 414 L450 458" stroke="#58ead4"/>
+    <circle cx="170" cy="506" r="24" stroke="#f39c12"/>
+  </g>
+
+  <rect x="690" y="188" width="486" height="430" rx="16" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)"/>
+  <text x="730" y="246" fill="#6af2dd" font-family="Inter,Arial" font-size="26" font-weight="700">Level: 5x5</text>
+  <text x="730" y="286" fill="#e7f8ff" font-family="Inter,Arial" font-size="24" font-weight="600">Your turn (X)</text>
+  <rect x="730" y="322" width="396" height="58" rx="12" fill="#12856e"/>
+  <text x="928" y="358" text-anchor="middle" fill="white" font-family="Inter,Arial" font-size="24" font-weight="700">Start Tic Tac Toe</text>
+
+  <rect x="730" y="410" width="396" height="170" rx="12" fill="rgba(0,0,0,0.28)" stroke="rgba(255,255,255,0.12)"/>
+  <text x="756" y="452" fill="#cfe2f6" font-family="Inter,Arial" font-size="22">Smart AI checks:</text>
+  <text x="756" y="490" fill="#cfe2f6" font-family="Inter,Arial" font-size="20">• Winning move</text>
+  <text x="756" y="522" fill="#cfe2f6" font-family="Inter,Arial" font-size="20">• Blocking move</text>
+  <text x="756" y="554" fill="#cfe2f6" font-family="Inter,Arial" font-size="20">• Center and corners</text>
+</svg>

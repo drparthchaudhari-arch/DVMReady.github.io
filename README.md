@@ -6,9 +6,13 @@ Personal website and games portal for Parth Chaudhari.
 
 - `index.html`: landing portal with entry points to profile and games.
 - `info.html`: main professional profile page.
-- `games.html`: games hub page.
+- `games.html`: screenshot-based games gallery launcher.
 - `iq.html`: IQ challenge page.
+- `memory-match.html`: standalone Memory Match game page.
+- `snake.html`: standalone Snake game page.
+- `tic-tac-toe.html`: standalone Tic Tac Toe game page.
 - `index1.html`: redirect wrapper for VetStrands.
+- `assets/screenshots/`: preview images used by the games gallery.
 - `dist/`: built VetStrands app served as static assets.
 - `src/`: VetStrands source (React + TypeScript + Vite).
 

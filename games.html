@@ -6,17 +6,18 @@
     <title>Games | Parth Chaudhari</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #0d7377;
             --primary-light: #14a085;
             --secondary: #32e0c4;
-            --accent: #f39c12;
             --dark: #1a1a2e;
             --darker: #16213e;
             --white: #ffffff;
+            --card: rgba(255, 255, 255, 0.06);
+            --card-border: rgba(255, 255, 255, 0.18);
             --transition: all 0.25s ease;
         }
 
@@ -27,33 +28,19 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
             min-height: 100vh;
+            font-family: 'Inter', sans-serif;
             color: var(--white);
+            background: radial-gradient(circle at 12% 10%, #1e3859 0%, transparent 42%),
+                        radial-gradient(circle at 82% 85%, #1c2747 0%, transparent 44%),
+                        linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
         }
 
         .games-header {
             text-align: center;
-            padding: 2.5rem 1.5rem;
-            background: rgba(0,0,0,0.2);
-        }
-
-        .games-header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 0.45rem;
-        }
-
-        .games-header h1 span {
-            color: var(--secondary);
-        }
-
-        .games-header p {
-            color: rgba(255,255,255,0.75);
-            font-size: 1.02rem;
-            max-width: 620px;
-            margin: 0 auto;
+            padding: 2.4rem 1.25rem 1.4rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .back-link {
@@ -62,326 +49,96 @@
             gap: 0.5rem;
             color: var(--secondary);
             text-decoration: none;
-            margin-bottom: 1rem;
+            margin-bottom: 0.9rem;
             font-weight: 600;
             transition: var(--transition);
         }
 
         .back-link:hover {
-            gap: 0.85rem;
+            gap: 0.8rem;
+        }
+
+        .games-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 0.4rem;
+        }
+
+        .games-header h1 span {
+            color: var(--secondary);
+        }
+
+        .games-header p {
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1rem;
         }
 
         .games-container {
-            max-width: 1200px;
+            max-width: 1250px;
             margin: 0 auto;
-            padding: 1.5rem;
+            padding: 1.6rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.35rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
         }
 
-        .game-card {
-            background: rgba(255,255,255,0.05);
+        .game-tile {
+            display: block;
+            text-decoration: none;
+            color: inherit;
             border-radius: 18px;
-            padding: 1.35rem;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.12);
+            overflow: hidden;
+            background: var(--card);
+            border: 1px solid var(--card-border);
             transition: var(--transition);
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.24);
         }
 
-        .game-card:hover {
+        .game-tile:hover {
             transform: translateY(-4px);
-            border-color: rgba(50,224,196,0.5);
-            box-shadow: 0 16px 35px rgba(0,0,0,0.25);
+            border-color: rgba(50, 224, 196, 0.6);
+            box-shadow: 0 22px 40px rgba(0, 0, 0, 0.34);
         }
 
-        .game-card h3 {
-            font-size: 1.35rem;
-            margin-bottom: 0.45rem;
-            display: flex;
-            align-items: center;
-            gap: 0.65rem;
-        }
-
-        .game-card h3 i {
-            color: var(--secondary);
-        }
-
-        .game-card p {
-            color: rgba(255,255,255,0.68);
-            margin-bottom: 0.9rem;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .btn-game {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: var(--white);
-            border: none;
-            padding: 0.85rem 1.2rem;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
+        .game-thumb {
             width: 100%;
-            margin-top: 0.7rem;
-            font-size: 0.95rem;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(0, 0, 0, 0.25);
         }
 
-        .btn-game:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(13,115,119,0.35);
+        .game-meta {
+            padding: 0.9rem 1rem 1rem;
         }
 
-        .btn-link {
+        .game-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            line-height: 1.35;
+            margin-bottom: 0.35rem;
+        }
+
+        .game-open {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            gap: 0.5rem;
-        }
-
-        .control-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .control-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-
-        .control-item label {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.7);
+            gap: 0.45rem;
+            color: var(--secondary);
             font-weight: 600;
-            letter-spacing: 0.02em;
-        }
-
-        .control-item select {
-            width: 100%;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(0,0,0,0.35);
-            color: var(--white);
-            padding: 0.55rem;
             font-size: 0.9rem;
-        }
-
-        .game-panel {
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 0.85rem;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .micro-text {
-            color: rgba(255,255,255,0.55);
-            font-size: 0.78rem;
-            line-height: 1.4;
-            margin-top: 0.45rem;
-        }
-
-        /* Memory Match */
-        .memory-stats {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 0.45rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .memory-stat {
-            background: rgba(255,255,255,0.08);
-            border-radius: 8px;
-            padding: 0.5rem;
-            text-align: center;
-        }
-
-        .memory-stat-value {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--secondary);
-            line-height: 1.1;
-        }
-
-        .memory-stat-label {
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.65);
-            margin-top: 0.2rem;
-        }
-
-        .memory-board-wrap {
-            max-height: 420px;
-            overflow: auto;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 0.55rem;
-            background: rgba(0,0,0,0.25);
-        }
-
-        .memory-grid {
-            display: grid;
-            grid-template-columns: repeat(var(--memory-cols, 4), var(--memory-cell-size, 58px));
-            gap: 6px;
-            width: max-content;
-            margin: 0 auto;
-        }
-
-        .memory-card {
-            width: var(--memory-cell-size, 58px);
-            height: var(--memory-cell-size, 58px);
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.22);
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: var(--white);
-            font-size: calc(var(--memory-cell-size, 58px) * 0.4);
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            user-select: none;
-            transition: transform 0.15s ease, background 0.2s ease;
-            padding: 0;
-        }
-
-        .memory-card:hover {
-            transform: translateY(-1px);
-        }
-
-        .memory-card.flipped {
-            background: rgba(255,255,255,0.9);
-            color: #132;
-        }
-
-        .memory-card.matched {
-            background: rgba(46,204,113,0.6);
-            border-color: rgba(46,204,113,0.9);
-            color: #0b1b10;
-        }
-
-        /* Snake */
-        .snake-container {
-            text-align: center;
-        }
-
-        #snakeCanvas {
-            width: 100%;
-            max-width: 400px;
-            background: rgba(0,0,0,0.45);
-            border-radius: 10px;
-            border: 2px solid var(--primary);
-            display: block;
-            margin: 0 auto;
-        }
-
-        .snake-controls {
-            margin-top: 0.65rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.45rem;
-        }
-
-        .snake-score {
-            font-size: 1.1rem;
-            color: var(--secondary);
-            font-weight: 700;
-        }
-
-        .snake-dpad {
-            display: grid;
-            grid-template-columns: repeat(3, 48px);
-            gap: 5px;
-            margin-top: 0.25rem;
-        }
-
-        .snake-btn {
-            width: 48px;
-            height: 48px;
-            background: rgba(255,255,255,0.1);
-            border: 2px solid var(--primary);
-            border-radius: 10px;
-            color: var(--white);
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .snake-btn:hover {
-            background: var(--primary);
-        }
-
-        .snake-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Tic Tac Toe */
-        .ttt-status {
-            text-align: center;
-            margin: 0.5rem 0 0.75rem;
-            font-size: 1rem;
-            color: var(--secondary);
-            font-weight: 600;
-            min-height: 1.4rem;
-        }
-
-        .ttt-board-wrap {
-            overflow: auto;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 0.55rem;
-            background: rgba(0,0,0,0.2);
-        }
-
-        .ttt-grid {
-            display: grid;
-            grid-template-columns: repeat(var(--ttt-size, 3), var(--ttt-cell-size, 74px));
-            gap: 8px;
-            width: max-content;
-            margin: 0 auto;
-        }
-
-        .ttt-cell {
-            width: var(--ttt-cell-size, 74px);
-            height: var(--ttt-cell-size, 74px);
-            border-radius: 10px;
-            border: 2px solid var(--primary);
-            background: rgba(255,255,255,0.1);
-            color: var(--white);
-            font-size: calc(var(--ttt-cell-size, 74px) * 0.52);
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            padding: 0;
-        }
-
-        .ttt-cell:hover {
-            background: rgba(255,255,255,0.16);
-        }
-
-        .ttt-cell.x {
-            color: var(--secondary);
-        }
-
-        .ttt-cell.o {
-            color: var(--accent);
         }
 
         .games-footer {
             text-align: center;
-            padding: 1.6rem;
-            color: rgba(255,255,255,0.55);
+            padding: 0.6rem 1rem 1.5rem;
+            color: rgba(255, 255, 255, 0.55);
             font-size: 0.9rem;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 700px) {
             .games-container {
                 grid-template-columns: 1fr;
                 padding: 1rem;
@@ -395,724 +152,54 @@
             <i class="fas fa-arrow-left"></i>
             Back to Home
         </a>
-        <h1><span>Fun</span> Games</h1>
-        <p>Games now include configurable levels and options. All external game pages open in a new tab.</p>
+        <h1><span>Games</span> Gallery</h1>
+        <p>Only game screenshots and names are shown below. Click any game card to open that game in a new tab.</p>
     </header>
 
-    <div class="games-container">
-        <section class="game-card">
-            <h3><i class="fas fa-puzzle-piece"></i> VetStrands Word Puzzle</h3>
-            <p>Your uploaded game is now integrated here. Click below to open it in a new tab.</p>
-            <a class="btn-game btn-link" href="index1.html" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-up-right-from-square"></i>
-                Open VetStrands
-            </a>
-            <p class="micro-text">If a browser blocks auto-redirects, use the fallback link shown on the `index1.html` page.</p>
-        </section>
-
-        <section class="game-card">
-            <h3><i class="fas fa-brain"></i> Memory Match</h3>
-            <p>Board size from 2x2 up to 50x50, with multiple symbol themes.</p>
-
-            <div class="control-row">
-                <div class="control-item">
-                    <label for="memorySizeSelect">Grid Size</label>
-                    <select id="memorySizeSelect"></select>
-                </div>
-                <div class="control-item">
-                    <label for="memoryThemeSelect">Theme</label>
-                    <select id="memoryThemeSelect">
-                        <option value="animals">Animals</option>
-                        <option value="nature">Nature + Symbols</option>
-                        <option value="mixed">Mixed</option>
-                    </select>
-                </div>
+    <main class="games-container" aria-label="Game gallery">
+        <a class="game-tile" href="index1.html" target="_blank" rel="noopener noreferrer">
+            <img class="game-thumb" src="assets/screenshots/vetstrands.svg" alt="VetStrands game screenshot">
+            <div class="game-meta">
+                <h2 class="game-name">VetStrands Word Puzzle</h2>
+                <span class="game-open">Click to Open <i class="fas fa-up-right-from-square"></i></span>
             </div>
+        </a>
 
-            <button class="btn-game" id="memoryStartBtn">Start Memory Game</button>
-
-            <div class="game-panel" style="margin-top: 0.8rem;">
-                <div class="memory-stats">
-                    <div class="memory-stat">
-                        <div class="memory-stat-value" id="memoryMoves">0</div>
-                        <div class="memory-stat-label">MOVES</div>
-                    </div>
-                    <div class="memory-stat">
-                        <div class="memory-stat-value" id="memoryMatches">0</div>
-                        <div class="memory-stat-label">MATCHES</div>
-                    </div>
-                    <div class="memory-stat">
-                        <div class="memory-stat-value" id="memoryTime">0:00</div>
-                        <div class="memory-stat-label">TIME</div>
-                    </div>
-                </div>
-                <div class="memory-board-wrap">
-                    <div class="memory-grid" id="memoryGrid"></div>
-                </div>
-                <p class="micro-text">Tip: For very large boards, scroll inside the game panel.</p>
+        <a class="game-tile" href="memory-match.html" target="_blank" rel="noopener noreferrer">
+            <img class="game-thumb" src="assets/screenshots/memory-match.svg" alt="Memory Match game screenshot">
+            <div class="game-meta">
+                <h2 class="game-name">Memory Match</h2>
+                <span class="game-open">Click to Open <i class="fas fa-up-right-from-square"></i></span>
             </div>
-        </section>
+        </a>
 
-        <section class="game-card">
-            <h3><i class="fas fa-snake"></i> Snake</h3>
-            <p>Change snake color and game type before starting.</p>
-
-            <div class="control-row">
-                <div class="control-item">
-                    <label for="snakeColorSelect">Snake Color</label>
-                    <select id="snakeColorSelect">
-                        <option value="teal">Teal</option>
-                        <option value="lime">Lime</option>
-                        <option value="sunset">Sunset</option>
-                        <option value="violet">Violet</option>
-                        <option value="rainbow">Rainbow</option>
-                    </select>
-                </div>
-                <div class="control-item">
-                    <label for="snakeTypeSelect">Game Type</label>
-                    <select id="snakeTypeSelect">
-                        <option value="classic">Classic</option>
-                        <option value="wrap">Wraparound</option>
-                        <option value="speed">Speedster</option>
-                        <option value="zen">Zen</option>
-                    </select>
-                </div>
+        <a class="game-tile" href="snake.html" target="_blank" rel="noopener noreferrer">
+            <img class="game-thumb" src="assets/screenshots/snake.svg" alt="Snake game screenshot">
+            <div class="game-meta">
+                <h2 class="game-name">Snake</h2>
+                <span class="game-open">Click to Open <i class="fas fa-up-right-from-square"></i></span>
             </div>
+        </a>
 
-            <button class="btn-game" id="snakeStartBtn">Start Snake</button>
-
-            <div class="game-panel" style="margin-top: 0.8rem;">
-                <div class="snake-container">
-                    <canvas id="snakeCanvas" width="400" height="400"></canvas>
-                    <div class="snake-controls">
-                        <div class="snake-score">Score: <span id="snakeScore">0</span></div>
-                        <div class="snake-dpad">
-                            <div></div>
-                            <button class="snake-btn" id="snakeUpBtn"><i class="fas fa-arrow-up"></i></button>
-                            <div></div>
-                            <button class="snake-btn" id="snakeLeftBtn"><i class="fas fa-arrow-left"></i></button>
-                            <button class="snake-btn" id="snakePauseBtn"><i class="fas fa-pause"></i></button>
-                            <button class="snake-btn" id="snakeRightBtn"><i class="fas fa-arrow-right"></i></button>
-                            <div></div>
-                            <button class="snake-btn" id="snakeDownBtn"><i class="fas fa-arrow-down"></i></button>
-                            <div></div>
-                        </div>
-                        <p class="micro-text">Use keyboard arrows or the controls.</p>
-                    </div>
-                </div>
+        <a class="game-tile" href="tic-tac-toe.html" target="_blank" rel="noopener noreferrer">
+            <img class="game-thumb" src="assets/screenshots/tic-tac-toe.svg" alt="Tic Tac Toe game screenshot">
+            <div class="game-meta">
+                <h2 class="game-name">Tic Tac Toe Levels</h2>
+                <span class="game-open">Click to Open <i class="fas fa-up-right-from-square"></i></span>
             </div>
-        </section>
+        </a>
 
-        <section class="game-card">
-            <h3><i class="fas fa-grip"></i> Tic Tac Toe Levels</h3>
-            <p>Select board level from 3x3x3 to 5x5x5.</p>
-
-            <div class="control-row">
-                <div class="control-item">
-                    <label for="tttLevelSelect">Level</label>
-                    <select id="tttLevelSelect">
-                        <option value="3">3x3x3</option>
-                        <option value="4">4x4x4</option>
-                        <option value="5">5x5x5</option>
-                    </select>
-                </div>
+        <a class="game-tile" href="iq.html" target="_blank" rel="noopener noreferrer">
+            <img class="game-thumb" src="assets/screenshots/iq-challenge.svg" alt="Personal IQ Challenge game screenshot">
+            <div class="game-meta">
+                <h2 class="game-name">Personal IQ Challenge</h2>
+                <span class="game-open">Click to Open <i class="fas fa-up-right-from-square"></i></span>
             </div>
-
-            <button class="btn-game" id="tttStartBtn">Start Tic Tac Toe</button>
-            <div class="ttt-status" id="tttStatus">Select a level and start the game.</div>
-
-            <div class="ttt-board-wrap">
-                <div class="ttt-grid" id="tttGrid"></div>
-            </div>
-        </section>
-
-        <section class="game-card">
-            <h3><i class="fas fa-brain"></i> Personal IQ Challenge</h3>
-            <p>The IQ challenge now generates different question sets automatically every run.</p>
-            <a class="btn-game btn-link" href="iq.html" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-up-right-from-square"></i>
-                Open Personal IQ Test
-            </a>
-        </section>
-    </div>
+        </a>
+    </main>
 
     <footer class="games-footer">
-        <p>&copy; 2026 Parth Chaudhari | Configurable game hub</p>
+        <p>&copy; 2026 Parth Chaudhari | Every game opens separately in a new tab</p>
     </footer>
-
-    <script>
-        function randomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
-        function shuffle(array) {
-            const arr = [...array];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
-
-        /* ==================== MEMORY MATCH ==================== */
-        const memorySizeSelect = document.getElementById('memorySizeSelect');
-        const memoryThemeSelect = document.getElementById('memoryThemeSelect');
-        const memoryStartBtn = document.getElementById('memoryStartBtn');
-        const memoryGrid = document.getElementById('memoryGrid');
-        const memoryMovesEl = document.getElementById('memoryMoves');
-        const memoryMatchesEl = document.getElementById('memoryMatches');
-        const memoryTimeEl = document.getElementById('memoryTime');
-
-        const memoryThemes = {
-            animals: [
-                '🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐸','🐵','🐔','🐧','🐦','🦉','🦄',
-                '🐺','🐗','🐴','🦓','🦌','🐘','🦏','🦒','🦘','🐐','🐏','🦙','🐪','🦥','🦦','🦨','🦔','🐿️','🦝','🦇',
-                '🐢','🐍','🦎','🦂','🦀','🐙','🦑','🐠','🐟','🐬','🐳','🦈','🐊','🦜','🦚','🦢','🦩','🐓','🐇','🐕'
-            ],
-            nature: [
-                '🌲','🌳','🌴','🌵','🌿','🍀','🌻','🌷','🌹','🌺','🍁','🍂','🍄','🌎','🌞','🌙','⭐','⚡','🔥','💧',
-                '🌊','❄️','☁️','⛰️','🏝️','🍇','🍉','🍎','🍋','🍓','🥝','🥥','🥕','🌽','🍞','🧀','🍯','🎯','🎲','🎵',
-                '🔔','💎','🧭','⌛','🧠','💡','🔷','🔶','🔺','⬜','⬛','🟢','🔵','🟣','🟡','🟥','🔐','🧩','🧱','📘'
-            ]
-        };
-
-        let memoryDeck = [];
-        let memoryFlipped = [];
-        let memoryMatchedPairs = 0;
-        let memoryMoves = 0;
-        let memorySeconds = 0;
-        let memoryLock = false;
-        let memoryTimer = null;
-
-        function fillMemorySizeOptions() {
-            for (let size = 2; size <= 50; size += 2) {
-                const opt = document.createElement('option');
-                opt.value = String(size);
-                opt.textContent = `${size}x${size}`;
-                if (size === 4) opt.selected = true;
-                memorySizeSelect.appendChild(opt);
-            }
-        }
-
-        function getMemoryPool(theme) {
-            if (theme === 'mixed') {
-                return [...memoryThemes.animals, ...memoryThemes.nature];
-            }
-            return memoryThemes[theme] || memoryThemes.animals;
-        }
-
-        function getExpandedSymbols(theme, requiredPairs) {
-            const basePool = getMemoryPool(theme);
-            const symbols = [];
-            let idx = 0;
-
-            while (symbols.length < requiredPairs) {
-                const base = basePool[idx % basePool.length];
-                const cycle = Math.floor(idx / basePool.length);
-                symbols.push(cycle === 0 ? base : `${base}${cycle + 1}`);
-                idx++;
-            }
-
-            return symbols;
-        }
-
-        function getMemoryCellSize(size) {
-            if (size <= 4) return 66;
-            if (size <= 6) return 58;
-            if (size <= 10) return 44;
-            if (size <= 14) return 36;
-            if (size <= 20) return 30;
-            if (size <= 30) return 24;
-            if (size <= 40) return 20;
-            return 18;
-        }
-
-        function formatDuration(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        function resetMemoryStats() {
-            memoryMatchedPairs = 0;
-            memoryMoves = 0;
-            memorySeconds = 0;
-            memoryLock = false;
-            memoryFlipped = [];
-
-            memoryMovesEl.textContent = '0';
-            memoryMatchesEl.textContent = '0';
-            memoryTimeEl.textContent = '0:00';
-
-            if (memoryTimer) {
-                clearInterval(memoryTimer);
-            }
-
-            memoryTimer = setInterval(() => {
-                memorySeconds++;
-                memoryTimeEl.textContent = formatDuration(memorySeconds);
-            }, 1000);
-        }
-
-        function initMemoryGame() {
-            const size = parseInt(memorySizeSelect.value, 10);
-            const totalCards = size * size;
-            const pairCount = totalCards / 2;
-            const theme = memoryThemeSelect.value;
-
-            const symbolSet = getExpandedSymbols(theme, pairCount);
-            memoryDeck = shuffle([...symbolSet, ...symbolSet]);
-
-            const cellSize = getMemoryCellSize(size);
-            memoryGrid.style.setProperty('--memory-cols', String(size));
-            memoryGrid.style.setProperty('--memory-cell-size', `${cellSize}px`);
-            memoryGrid.style.gap = size > 30 ? '2px' : size > 16 ? '4px' : '6px';
-
-            memoryGrid.innerHTML = '';
-            resetMemoryStats();
-
-            memoryDeck.forEach((symbol, index) => {
-                const card = document.createElement('button');
-                card.type = 'button';
-                card.className = 'memory-card';
-                card.dataset.symbol = symbol;
-                card.dataset.index = String(index);
-                card.textContent = '?';
-                card.addEventListener('click', () => flipMemoryCard(card));
-                memoryGrid.appendChild(card);
-            });
-        }
-
-        function flipMemoryCard(card) {
-            if (memoryLock || card.classList.contains('flipped') || card.classList.contains('matched')) {
-                return;
-            }
-
-            card.classList.add('flipped');
-            card.textContent = card.dataset.symbol;
-            memoryFlipped.push(card);
-
-            if (memoryFlipped.length < 2) {
-                return;
-            }
-
-            memoryMoves++;
-            memoryMovesEl.textContent = String(memoryMoves);
-
-            const [first, second] = memoryFlipped;
-            if (first.dataset.symbol === second.dataset.symbol) {
-                first.classList.add('matched');
-                second.classList.add('matched');
-                memoryFlipped = [];
-                memoryMatchedPairs++;
-                memoryMatchesEl.textContent = String(memoryMatchedPairs);
-
-                if (memoryMatchedPairs === memoryDeck.length / 2) {
-                    clearInterval(memoryTimer);
-                    setTimeout(() => {
-                        alert(`Completed! ${memoryDeck.length} cards matched in ${memoryMoves} moves.`);
-                    }, 120);
-                }
-                return;
-            }
-
-            memoryLock = true;
-            setTimeout(() => {
-                first.classList.remove('flipped');
-                second.classList.remove('flipped');
-                first.textContent = '?';
-                second.textContent = '?';
-                memoryFlipped = [];
-                memoryLock = false;
-            }, 500);
-        }
-
-        memoryStartBtn.addEventListener('click', initMemoryGame);
-
-        /* ==================== SNAKE ==================== */
-        const snakeCanvas = document.getElementById('snakeCanvas');
-        const snakeCtx = snakeCanvas.getContext('2d');
-        const snakeScoreEl = document.getElementById('snakeScore');
-        const snakeStartBtn = document.getElementById('snakeStartBtn');
-        const snakeColorSelect = document.getElementById('snakeColorSelect');
-        const snakeTypeSelect = document.getElementById('snakeTypeSelect');
-
-        const snakeUpBtn = document.getElementById('snakeUpBtn');
-        const snakeDownBtn = document.getElementById('snakeDownBtn');
-        const snakeLeftBtn = document.getElementById('snakeLeftBtn');
-        const snakeRightBtn = document.getElementById('snakeRightBtn');
-        const snakePauseBtn = document.getElementById('snakePauseBtn');
-
-        const snakeModes = {
-            classic: { speed: 110, wrap: false },
-            wrap: { speed: 110, wrap: true },
-            speed: { speed: 75, wrap: false },
-            zen: { speed: 140, wrap: true }
-        };
-
-        const snakeColorMap = {
-            teal: ['#32e0c4'],
-            lime: ['#b6ff5c'],
-            sunset: ['#ff7f50'],
-            violet: ['#c084fc'],
-            rainbow: ['#22d3ee', '#60a5fa', '#a78bfa', '#f472b6', '#f59e0b', '#34d399']
-        };
-
-        const snakeGridSize = 20;
-        const snakeTiles = snakeCanvas.width / snakeGridSize;
-        let snakeBody = [{ x: 10, y: 10 }];
-        let snakeFood = { x: 6, y: 6 };
-        let snakeDirection = { x: 1, y: 0 };
-        let nextSnakeDirection = { x: 1, y: 0 };
-        let snakeScore = 0;
-        let snakeLoop = null;
-        let snakePaused = false;
-        let currentSnakeMode = snakeModes.classic;
-        let currentSnakeColor = 'teal';
-
-        function stopSnakeLoop() {
-            if (snakeLoop) {
-                clearInterval(snakeLoop);
-                snakeLoop = null;
-            }
-        }
-
-        function snakePositionTaken(x, y) {
-            return snakeBody.some(part => part.x === x && part.y === y);
-        }
-
-        function spawnSnakeFood() {
-            let x;
-            let y;
-            do {
-                x = randomInt(0, snakeTiles - 1);
-                y = randomInt(0, snakeTiles - 1);
-            } while (snakePositionTaken(x, y));
-            snakeFood = { x, y };
-        }
-
-        function setSnakeDirection(x, y) {
-            if (snakeBody.length > 1 && x === -snakeDirection.x && y === -snakeDirection.y) {
-                return;
-            }
-            nextSnakeDirection = { x, y };
-        }
-
-        function drawSnakeBoard() {
-            snakeCtx.fillStyle = 'rgba(0, 0, 0, 0.86)';
-            snakeCtx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
-
-            snakeCtx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
-            for (let i = 0; i <= snakeTiles; i++) {
-                const p = i * snakeGridSize;
-                snakeCtx.beginPath();
-                snakeCtx.moveTo(p, 0);
-                snakeCtx.lineTo(p, snakeCanvas.height);
-                snakeCtx.stroke();
-                snakeCtx.beginPath();
-                snakeCtx.moveTo(0, p);
-                snakeCtx.lineTo(snakeCanvas.width, p);
-                snakeCtx.stroke();
-            }
-
-            snakeBody.forEach((segment, index) => {
-                const palette = snakeColorMap[currentSnakeColor] || snakeColorMap.teal;
-                const color = palette.length === 1 ? palette[0] : palette[index % palette.length];
-
-                snakeCtx.fillStyle = color;
-                snakeCtx.fillRect(
-                    segment.x * snakeGridSize + 1,
-                    segment.y * snakeGridSize + 1,
-                    snakeGridSize - 2,
-                    snakeGridSize - 2
-                );
-
-                if (index === 0) {
-                    snakeCtx.fillStyle = '#ffffff';
-                    snakeCtx.fillRect(segment.x * snakeGridSize + 6, segment.y * snakeGridSize + 6, 3, 3);
-                }
-            });
-
-            snakeCtx.fillStyle = '#f39c12';
-            snakeCtx.beginPath();
-            snakeCtx.arc(
-                snakeFood.x * snakeGridSize + snakeGridSize / 2,
-                snakeFood.y * snakeGridSize + snakeGridSize / 2,
-                snakeGridSize * 0.33,
-                0,
-                Math.PI * 2
-            );
-            snakeCtx.fill();
-        }
-
-        function endSnakeGame() {
-            stopSnakeLoop();
-            alert(`Snake game over. Score: ${snakeScore}`);
-        }
-
-        function updateSnakeGame() {
-            if (snakePaused) {
-                return;
-            }
-
-            snakeDirection = nextSnakeDirection;
-            const head = {
-                x: snakeBody[0].x + snakeDirection.x,
-                y: snakeBody[0].y + snakeDirection.y
-            };
-
-            if (currentSnakeMode.wrap) {
-                head.x = (head.x + snakeTiles) % snakeTiles;
-                head.y = (head.y + snakeTiles) % snakeTiles;
-            } else if (head.x < 0 || head.y < 0 || head.x >= snakeTiles || head.y >= snakeTiles) {
-                endSnakeGame();
-                return;
-            }
-
-            if (snakeBody.some(part => part.x === head.x && part.y === head.y)) {
-                endSnakeGame();
-                return;
-            }
-
-            snakeBody.unshift(head);
-
-            if (head.x === snakeFood.x && head.y === snakeFood.y) {
-                snakeScore++;
-                snakeScoreEl.textContent = String(snakeScore);
-                spawnSnakeFood();
-            } else {
-                snakeBody.pop();
-            }
-
-            drawSnakeBoard();
-        }
-
-        function startSnakeGame() {
-            currentSnakeMode = snakeModes[snakeTypeSelect.value] || snakeModes.classic;
-            currentSnakeColor = snakeColorSelect.value;
-
-            snakeBody = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }];
-            snakeDirection = { x: 1, y: 0 };
-            nextSnakeDirection = { x: 1, y: 0 };
-            snakeScore = 0;
-            snakePaused = false;
-            snakeScoreEl.textContent = '0';
-            spawnSnakeFood();
-            drawSnakeBoard();
-
-            stopSnakeLoop();
-            snakeLoop = setInterval(updateSnakeGame, currentSnakeMode.speed);
-        }
-
-        snakeStartBtn.addEventListener('click', startSnakeGame);
-        snakeUpBtn.addEventListener('click', () => setSnakeDirection(0, -1));
-        snakeDownBtn.addEventListener('click', () => setSnakeDirection(0, 1));
-        snakeLeftBtn.addEventListener('click', () => setSnakeDirection(-1, 0));
-        snakeRightBtn.addEventListener('click', () => setSnakeDirection(1, 0));
-        snakePauseBtn.addEventListener('click', () => {
-            snakePaused = !snakePaused;
-            snakePauseBtn.innerHTML = snakePaused ? '<i class="fas fa-play"></i>' : '<i class="fas fa-pause"></i>';
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
-                return;
-            }
-
-            event.preventDefault();
-            if (event.key === 'ArrowUp') setSnakeDirection(0, -1);
-            if (event.key === 'ArrowDown') setSnakeDirection(0, 1);
-            if (event.key === 'ArrowLeft') setSnakeDirection(-1, 0);
-            if (event.key === 'ArrowRight') setSnakeDirection(1, 0);
-        });
-
-        /* ==================== TIC TAC TOE ==================== */
-        const tttLevelSelect = document.getElementById('tttLevelSelect');
-        const tttStartBtn = document.getElementById('tttStartBtn');
-        const tttGrid = document.getElementById('tttGrid');
-        const tttStatus = document.getElementById('tttStatus');
-
-        let tttSize = 3;
-        let tttWinLength = 3;
-        let tttBoard = [];
-        let tttActive = false;
-
-        function tttCellSize(size) {
-            if (size === 3) return 78;
-            if (size === 4) return 66;
-            return 56;
-        }
-
-        function createTttGrid() {
-            tttGrid.innerHTML = '';
-            tttGrid.style.setProperty('--ttt-size', String(tttSize));
-            tttGrid.style.setProperty('--ttt-cell-size', `${tttCellSize(tttSize)}px`);
-
-            for (let i = 0; i < tttBoard.length; i++) {
-                const cell = document.createElement('button');
-                cell.type = 'button';
-                cell.className = 'ttt-cell';
-                cell.dataset.index = String(i);
-                cell.addEventListener('click', () => playTttMove(i));
-                tttGrid.appendChild(cell);
-            }
-        }
-
-        function getTttValue(row, col) {
-            return tttBoard[row * tttSize + col];
-        }
-
-        function setTttValue(row, col, value) {
-            tttBoard[row * tttSize + col] = value;
-        }
-
-        function checkTttWinner(player) {
-            const directions = [
-                [1, 0],
-                [0, 1],
-                [1, 1],
-                [1, -1]
-            ];
-
-            for (let row = 0; row < tttSize; row++) {
-                for (let col = 0; col < tttSize; col++) {
-                    if (getTttValue(row, col) !== player) {
-                        continue;
-                    }
-
-                    for (const [dx, dy] of directions) {
-                        let count = 1;
-                        let r = row;
-                        let c = col;
-
-                        while (count < tttWinLength) {
-                            r += dy;
-                            c += dx;
-                            if (r < 0 || r >= tttSize || c < 0 || c >= tttSize) {
-                                break;
-                            }
-                            if (getTttValue(r, c) !== player) {
-                                break;
-                            }
-                            count++;
-                        }
-
-                        if (count >= tttWinLength) {
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        function updateTttView() {
-            const cells = tttGrid.querySelectorAll('.ttt-cell');
-            cells.forEach((cell, idx) => {
-                const value = tttBoard[idx];
-                cell.textContent = value;
-                cell.className = `ttt-cell ${value ? value.toLowerCase() : ''}`;
-            });
-        }
-
-        function findCriticalMove(player) {
-            for (let i = 0; i < tttBoard.length; i++) {
-                if (tttBoard[i] !== '') continue;
-                tttBoard[i] = player;
-                const wins = checkTttWinner(player);
-                tttBoard[i] = '';
-                if (wins) return i;
-            }
-            return -1;
-        }
-
-        function chooseTttMove() {
-            let move = findCriticalMove('O');
-            if (move !== -1) return move;
-
-            move = findCriticalMove('X');
-            if (move !== -1) return move;
-
-            const center = Math.floor((tttSize * tttSize) / 2);
-            if (tttBoard[center] === '') return center;
-
-            const preferred = [];
-            const last = tttSize - 1;
-            preferred.push(0, last, last * tttSize, last * tttSize + last);
-
-            for (const idx of preferred) {
-                if (tttBoard[idx] === '') return idx;
-            }
-
-            const empty = tttBoard
-                .map((value, idx) => (value === '' ? idx : -1))
-                .filter(idx => idx !== -1);
-
-            return empty[Math.floor(Math.random() * empty.length)];
-        }
-
-        function finishTtt(message) {
-            tttStatus.textContent = message;
-            tttActive = false;
-        }
-
-        function playTttMove(index) {
-            if (!tttActive || tttBoard[index] !== '') {
-                return;
-            }
-
-            tttBoard[index] = 'X';
-            updateTttView();
-
-            if (checkTttWinner('X')) {
-                finishTtt('You win this round.');
-                return;
-            }
-
-            if (tttBoard.every(cell => cell !== '')) {
-                finishTtt('Draw game.');
-                return;
-            }
-
-            tttStatus.textContent = 'Computer thinking...';
-
-            setTimeout(() => {
-                const aiMove = chooseTttMove();
-                if (aiMove === undefined) return;
-                tttBoard[aiMove] = 'O';
-                updateTttView();
-
-                if (checkTttWinner('O')) {
-                    finishTtt('Computer wins this round.');
-                    return;
-                }
-
-                if (tttBoard.every(cell => cell !== '')) {
-                    finishTtt('Draw game.');
-                    return;
-                }
-
-                tttStatus.textContent = 'Your turn (X).';
-            }, 300);
-        }
-
-        function initTicTacToe() {
-            tttSize = parseInt(tttLevelSelect.value, 10);
-            tttWinLength = tttSize;
-            tttBoard = new Array(tttSize * tttSize).fill('');
-            tttActive = true;
-            tttStatus.textContent = `Level ${tttSize}x${tttSize}x${tttSize} | Your turn (X).`;
-            createTttGrid();
-        }
-
-        tttStartBtn.addEventListener('click', initTicTacToe);
-
-        /* ==================== INIT ==================== */
-        fillMemorySizeOptions();
-        initMemoryGame();
-        initTicTacToe();
-        drawSnakeBoard();
-    </script>
 </body>
 </html>
