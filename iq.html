@@ -5,990 +5,1126 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Personal IQ Challenge | Parth Chaudhari</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
-        
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;700&display=swap');
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-        
+
     body {
-      background: #0a0a0f;
-      color: #e0e0ff;
       font-family: 'Rajdhani', sans-serif;
       min-height: 100vh;
-      overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 20% 50%, #1a1a2e 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, #16213e 0%, transparent 50%);
+      color: #e8f1ff;
+      background: radial-gradient(circle at 20% 10%, #1b2842 0%, transparent 40%),
+                  radial-gradient(circle at 80% 80%, #2b163d 0%, transparent 40%),
+                  #0b0f19;
+      padding: 1rem;
     }
-        
+
     .container {
-      max-width: 900px;
+      max-width: 940px;
       margin: 0 auto;
-      padding: 20px;
     }
-        
+
+    .top-nav {
+      display: flex;
+      justify-content: center;
+      margin: 0.6rem 0 1.3rem;
+    }
+
+    .home-link {
+      color: #6ff5dc;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
     header {
       text-align: center;
-      padding: 40px 0;
-      border-bottom: 2px solid #00d4ff;
-      margin-bottom: 30px;
-      position: relative;
+      margin-bottom: 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 1.2rem;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(6px);
     }
-        
+
     h1 {
       font-family: 'Orbitron', monospace;
-      font-size: 3rem;
-      background: linear-gradient(45deg, #00d4ff, #ff006e);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: 0.08em;
+      background: linear-gradient(45deg, #00d4ff, #89ffbb);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      animation: glow 3s ease-in-out infinite alternate;
     }
-        
-    @keyframes glow {
-      from { filter: drop-shadow(0 0 10px #00d4ff); }
-      to { filter: drop-shadow(0 0 20px #ff006e); }
-    }
-        
+
     .subtitle {
-      color: #8892b0;
-      margin-top: 10px;
-      font-size: 1.2rem;
-      letter-spacing: 2px;
+      margin-top: 0.35rem;
+      color: #9eb2d8;
+      font-size: 1.03rem;
     }
-        
-    .vs-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 20px;
-      margin-top: 20px;
-      font-family: 'Orbitron', monospace;
-    }
-        
-    .player-tag {
-      padding: 10px 30px;
-      border: 2px solid;
-      border-radius: 30px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-        
-    .human-tag {
-      border-color: #00d4ff;
-      color: #00d4ff;
-      box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-    }
-        
-    .ai-tag {
-      border-color: #ff006e;
-      color: #ff006e;
-      box-shadow: 0 0 15px rgba(255, 0, 110, 0.3);
-    }
-        
-    .vs-text {
-      font-size: 1.5rem;
-      color: #ffd700;
-    }
-        
+
     .screen {
       display: none;
-      animation: fadeIn 0.5s ease;
+      animation: fadeIn 0.4s ease;
     }
-        
+
     .screen.active {
       display: block;
     }
-        
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
-        
-    .intro-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 40px;
+
+    .panel {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 1rem;
+    }
+
+    .intro-text {
+      font-size: 1.04rem;
+      line-height: 1.65;
+      color: #c0cdee;
       text-align: center;
-      backdrop-filter: blur(10px);
     }
-        
-    .test-info {
+
+    .bullet-grid {
+      margin: 1rem 0;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin: 30px 0;
+      gap: 0.7rem;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
-        
-    .info-item {
-      background: rgba(0, 212, 255, 0.05);
-      padding: 20px;
+
+    .bullet-item {
       border-radius: 10px;
-      border-left: 4px solid #00d4ff;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      padding: 0.7rem;
+      text-align: center;
     }
-        
-    .info-item h3 {
-      color: #00d4ff;
-      margin-bottom: 10px;
-      font-family: 'Orbitron', monospace;
+
+    .bullet-item strong {
+      display: block;
+      color: #6ff5dc;
+      margin-bottom: 0.2rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.03em;
     }
-        
+
     .btn {
-      background: linear-gradient(45deg, #00d4ff, #0099cc);
       border: none;
-      color: #0a0a0f;
-      padding: 18px 50px;
-      font-size: 1.2rem;
-      font-family: 'Orbitron', monospace;
+      border-radius: 999px;
+      padding: 0.8rem 1.25rem;
+      font-size: 0.95rem;
       font-weight: 700;
-      border-radius: 50px;
+      letter-spacing: 0.04em;
       cursor: pointer;
-      transition: all 0.3s;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin: 10px;
-      position: relative;
-      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      width: 100%;
+      max-width: 280px;
+      margin: 0.4rem auto;
+      display: block;
     }
-        
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+
+    .btn-primary {
+      background: linear-gradient(45deg, #00d4ff, #00ffb3);
+      color: #0b0f19;
+      box-shadow: 0 12px 24px rgba(0, 212, 255, 0.3);
     }
-        
+
     .btn-secondary {
       background: transparent;
-      border: 2px solid #00d4ff;
-      color: #00d4ff;
+      color: #94d7ff;
+      border: 1px solid rgba(148, 215, 255, 0.45);
     }
-        
-    .btn-secondary:hover {
-      background: rgba(0, 212, 255, 0.1);
+
+    .btn:hover {
+      transform: translateY(-2px);
     }
-        
-    .game-interface {
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 20px;
-      padding: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-        
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 15px;
-      font-family: 'Orbitron', monospace;
-    }
-        
-    .score-board {
-      display: flex;
-      gap: 30px;
-    }
-        
-    .score-item {
-      text-align: center;
-    }
-        
-    .score-label {
-      font-size: 0.8rem;
-      color: #8892b0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-        
-    .score-value {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-        
-    .human-score { color: #00d4ff; }
-    .ai-score { color: #ff006e; }
-        
-    .timer {
-      font-size: 1.5rem;
-      color: #ffd700;
-      font-weight: 700;
-    }
-        
-    .question-container {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 15px;
-      padding: 40px;
-      margin-bottom: 30px;
-      min-height: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      overflow: hidden;
-    }
-        
-    .question-type {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background: rgba(0, 212, 255, 0.2);
-      color: #00d4ff;
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-        
-    .question-text {
-      font-size: 1.5rem;
-      text-align: center;
-      margin-bottom: 30px;
-      line-height: 1.6;
-      font-weight: 500;
-    }
-        
-    .pattern-box {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 20px 0;
-    }
-        
-    .pattern-item {
-      width: 80px;
-      height: 80px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      font-weight: 700;
-      transition: all 0.3s;
-    }
-        
-    .options-grid {
+
+    .status-row {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      width: 100%;
-      max-width: 600px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-bottom: 0.8rem;
     }
-        
-    .option-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      color: #e0e0ff;
-      padding: 20px;
+
+    .status-item {
+      background: rgba(0, 0, 0, 0.3);
       border-radius: 10px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 600;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.55rem;
+      text-align: center;
     }
-        
-    .option-btn:hover:not(.disabled) {
-      background: rgba(0, 212, 255, 0.2);
-      border-color: #00d4ff;
-      transform: translateX(5px);
+
+    .status-label {
+      font-size: 0.73rem;
+      color: #9db1d8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
-        
-    .option-btn.correct {
-      background: rgba(0, 255, 136, 0.2) !important;
-      border-color: #00ff88 !important;
-      color: #00ff88;
-    }
-        
-    .option-btn.wrong {
-      background: rgba(255, 0, 110, 0.2) !important;
-      border-color: #ff006e !important;
-      color: #ff006e;
-    }
-        
-    .option-btn.disabled {
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
-        
-    .ai-thinking {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: rgba(255, 0, 110, 0.1);
-      border: 1px solid #ff006e;
-      padding: 20px;
-      border-radius: 15px;
-      display: none;
-      align-items: center;
-      gap: 15px;
+
+    .status-value {
       font-family: 'Orbitron', monospace;
-      color: #ff006e;
-      box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
+      font-size: 1.2rem;
+      margin-top: 0.2rem;
     }
-        
-    .ai-thinking.active {
-      display: flex;
-      animation: pulse 1s infinite;
-    }
-        
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-        
-    .ai-avatar {
-      width: 40px;
-      height: 40px;
-      background: #ff006e;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-    }
-        
-    .progress-bar {
+
+    .progress-track {
       width: 100%;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 3px;
-      margin: 20px 0;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
       overflow: hidden;
+      margin-bottom: 0.9rem;
     }
-        
+
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, #00d4ff, #00ff88);
-      transition: width 0.3s;
+      background: linear-gradient(90deg, #00d4ff, #00ffb3);
+      width: 0%;
+      transition: width 0.25s ease;
     }
-        
-    .results-screen {
+
+    .question-panel {
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 12px;
+      padding: 0.95rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 0.8rem;
+    }
+
+    .question-type {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 0.18rem 0.75rem;
+      border: 1px solid rgba(0, 212, 255, 0.4);
+      color: #7de4ff;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .question-text {
+      font-size: 1.2rem;
+      line-height: 1.45;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .question-visual {
+      margin-bottom: 0.65rem;
+      min-height: 46px;
+    }
+
+    .visual-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      justify-content: center;
+    }
+
+    .visual-chip {
+      min-width: 54px;
+      padding: 0.45rem 0.55rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       text-align: center;
+      font-size: 1.1rem;
+      font-weight: 700;
     }
-        
-    .iq-circle {
-      width: 250px;
-      height: 250px;
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+
+    .option-btn {
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #e8f1ff;
+      padding: 0.7rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: #6ff5dc;
+      background: rgba(111, 245, 220, 0.13);
+      transform: translateY(-1px);
+    }
+
+    .option-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.75;
+    }
+
+    .option-btn.correct {
+      border-color: #00ff88;
+      background: rgba(0, 255, 136, 0.2);
+      color: #00ffb0;
+    }
+
+    .option-btn.wrong {
+      border-color: #ff4f8f;
+      background: rgba(255, 79, 143, 0.2);
+      color: #ff7eb0;
+    }
+
+    .result-head {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .iq-badge {
+      width: 220px;
+      height: 220px;
       border-radius: 50%;
-      background: conic-gradient(from 0deg, #00d4ff, #00ff88, #ffd700, #ff006e);
-      margin: 30px auto;
+      margin: 0.7rem auto;
+      background: conic-gradient(#00d4ff, #00ffb3, #ffdd57, #ff5d9e, #00d4ff);
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      animation: rotate 10s linear infinite;
+      animation: spin 10s linear infinite;
     }
-        
-    @keyframes rotate {
+
+    .iq-inner {
+      width: 188px;
+      height: 188px;
+      border-radius: 50%;
+      background: #0b0f19;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: spin 10s linear infinite reverse;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .iq-number {
+      font-family: 'Orbitron', monospace;
+      font-size: 2.7rem;
+      font-weight: 900;
+      color: #7df8ff;
+    }
+
+    .iq-label {
+      color: #9cb2d8;
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    @keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
-        
-    .iq-inner {
-      width: 220px;
-      height: 220px;
-      background: #0a0a0f;
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      animation: rotate 10s linear infinite reverse;
-    }
-        
-    .iq-number {
-      font-family: 'Orbitron', monospace;
-      font-size: 4rem;
-      font-weight: 900;
-      background: linear-gradient(45deg, #00d4ff, #00ff88);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-        
-    .iq-label {
-      color: #8892b0;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 0.9rem;
-    }
-        
-    .comparison-table {
+
+    .summary {
+      margin: 1rem 0;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
       background: rgba(255, 255, 255, 0.03);
-      border-radius: 15px;
-      padding: 30px;
-      margin: 30px 0;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.7rem;
     }
-        
-    .table-row {
+
+    .summary-row {
       display: flex;
       justify-content: space-between;
-      padding: 15px;
+      gap: 0.7rem;
+      padding: 0.45rem 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
-        
-    .table-row:last-child {
+
+    .summary-row:last-child {
       border-bottom: none;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #00ff88;
-      margin-top: 10px;
-      padding-top: 20px;
-      border-top: 2px solid rgba(255, 255, 255, 0.2);
     }
-        
-    .winner-banner {
-      font-size: 2rem;
-      font-family: 'Orbitron', monospace;
-      margin: 20px 0;
-      padding: 20px;
-      border-radius: 15px;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-    }
-        
-    .human-wins {
-      background: rgba(0, 212, 255, 0.2);
-      border: 2px solid #00d4ff;
-      color: #00d4ff;
-      animation: victory 2s ease infinite;
-    }
-        
-    .ai-wins {
-      background: rgba(255, 0, 110, 0.2);
-      border: 2px solid #ff006e;
-      color: #ff006e;
-    }
-        
-    @keyframes victory {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-        
+
     .breakdown {
+      margin: 0.9rem 0;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-      margin: 30px 0;
+      gap: 0.55rem;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     }
-        
-    .skill-card {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 20px;
+
+    .break-item {
       border-radius: 10px;
-      border-top: 3px solid;
+      padding: 0.55rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      text-align: center;
     }
-        
-    .skill-card.logical { border-color: #00d4ff; }
-    .skill-card.spatial { border-color: #ff006e; }
-    .skill-card.numerical { border-color: #ffd700; }
-    .skill-card.verbal { border-color: #00ff88; }
-        
-    .skill-name {
-      font-size: 0.9rem;
-      color: #8892b0;
+
+    .break-item strong {
+      display: block;
+      color: #7de4ff;
+      font-size: 0.82rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.2rem;
     }
-        
-    .skill-score {
-      font-size: 1.5rem;
-      font-weight: 700;
+
+    .result-tag {
+      text-align: center;
+      border-radius: 10px;
+      padding: 0.65rem;
+      margin-top: 0.45rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 212, 255, 0.18);
+      color: #7df8ff;
     }
-        
-    @media (max-width: 600px) {
-      h1 { font-size: 2rem; }
-      .options-grid { grid-template-columns: 1fr; }
-      .status-bar { flex-direction: column; gap: 15px; }
+
+    @media (max-width: 700px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .status-row {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>Neural Challenge</h1>
-      <div class="subtitle">Personal Cognitive Assessment</div>
-    </header>
-
-    <!-- Intro Screen -->
-    <div class="screen active" id="introScreen">
-      <div class="intro-card">
-        <h2 style="font-family: 'Orbitron', monospace; margin-bottom: 20px; color: #00d4ff;">Mission Briefing</h2>
-        <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 30px;">
-          15 challenges. 4 cognitive dimensions. One personal benchmark.<br>
-          Race against time and challenge your own performance.<br>
-          Your performance will be calculated into an estimated IQ score.
-        </p>
-                
-        <div class="test-info">
-          <div class="info-item">
-            <h3>Pattern Recognition</h3>
-            <p>Visual sequences and logical progressions</p>
-          </div>
-          <div class="info-item">
-            <h3>Spatial Logic</h3>
-            <p>3D manipulation and orientation</p>
-          </div>
-          <div class="info-item">
-            <h3>Numerical Reasoning</h3>
-            <p>Mathematical sequences and logic</p>
-          </div>
-          <div class="info-item">
-            <h3>Verbal Analogy</h3>
-            <p>Language relationships and logic</p>
-          </div>
-        </div>
-                
-        <button class="btn" onclick="startGame()">Initialize Test</button>
-      </div>
+    <div class="top-nav">
+      <a class="home-link" href="index.html">Back to Home</a>
     </div>
 
-    <!-- Game Screen -->
-    <div class="screen" id="gameScreen">
-      <div class="game-interface">
-        <div class="status-bar">
-          <div class="score-board">
-            <div class="score-item">
-              <div class="score-label">Score</div>
-              <div class="score-value human-score" id="humanScore">0</div>
-            </div>
+    <header>
+      <h1>Neural Challenge</h1>
+      <p class="subtitle">Dynamic IQ Questions Generated Every Attempt</p>
+    </header>
+
+    <section class="screen active" id="introScreen">
+      <div class="panel">
+        <p class="intro-text">
+          This IQ challenge creates a fresh set of questions every time you start.
+          No fixed question list is reused.
+        </p>
+
+        <div class="bullet-grid">
+          <div class="bullet-item">
+            <strong>15 Questions</strong>
+            Mixed categories
           </div>
-          <div class="timer" id="timer">00:30</div>
+          <div class="bullet-item">
+            <strong>30 Sec Limit</strong>
+            Per question
+          </div>
+          <div class="bullet-item">
+            <strong>4 Skills</strong>
+            Pattern, numerical, spatial, verbal
+          </div>
+          <div class="bullet-item">
+            <strong>Dynamic Generation</strong>
+            New values each run
+          </div>
         </div>
-                
-        <div class="progress-bar">
-          <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+
+        <button class="btn btn-primary" id="startBtn">Start Dynamic IQ Test</button>
+      </div>
+    </section>
+
+    <section class="screen" id="gameScreen">
+      <div class="panel">
+        <div class="status-row">
+          <div class="status-item">
+            <div class="status-label">Question</div>
+            <div class="status-value" id="questionCounter">1 / 15</div>
+          </div>
+          <div class="status-item">
+            <div class="status-label">Score</div>
+            <div class="status-value" id="scoreValue">0</div>
+          </div>
+          <div class="status-item">
+            <div class="status-label">Timer</div>
+            <div class="status-value" id="timerValue">00:30</div>
+          </div>
         </div>
-                
-        <div class="question-container" id="questionContainer">
+
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="question-panel">
           <div class="question-type" id="questionType">Pattern</div>
-          <div class="question-text" id="questionText">Loading...</div>
-          <div id="questionVisual"></div>
+          <div class="question-text" id="questionText">Loading question...</div>
+          <div class="question-visual" id="questionVisual"></div>
           <div class="options-grid" id="optionsGrid"></div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Results Screen -->
-    <div class="screen" id="resultsScreen">
-      <div class="results-screen">
-        <h2 style="font-family: 'Orbitron', monospace; font-size: 2.5rem; margin-bottom: 10px;">Test Complete</h2>
-                
-        <div class="iq-circle">
-          <div class="iq-inner">
-            <div class="iq-number" id="iqScore">120</div>
-            <div class="iq-label">Estimated IQ</div>
+    <section class="screen" id="resultScreen">
+      <div class="panel">
+        <div class="result-head">
+          <h2 style="font-family: 'Orbitron', monospace; letter-spacing: 0.08em;">Results</h2>
+          <div class="iq-badge">
+            <div class="iq-inner">
+              <div class="iq-number" id="iqNumber">120</div>
+              <div class="iq-label">Estimated IQ</div>
+            </div>
           </div>
         </div>
-                
-        <div class="winner-banner" id="winnerBanner">
-          Victory!
+
+        <div class="summary">
+          <div class="summary-row"><span>Correct Answers</span><strong id="resultScore">0 / 15</strong></div>
+          <div class="summary-row"><span>Average Response Time</span><strong id="resultAvgTime">0.0s</strong></div>
+          <div class="summary-row"><span>Question Set</span><strong id="resultSetType">Generated Live</strong></div>
         </div>
-                
-        <div class="comparison-table">
-          <div class="table-row">
-            <span>Correct Answers</span>
-            <span id="finalHumanScore">0/15</span>
-          </div>
-          <div class="table-row">
-            <span>Average Response Time</span>
-            <span id="avgTime">0s</span>
-          </div>
-          <div class="table-row">
-            <span>Performance Level</span>
-            <span id="finalResult">Calculating...</span>
-          </div>
-        </div>
-                
+
         <div class="breakdown">
-          <div class="skill-card logical">
-            <div class="skill-name">Pattern</div>
-            <div class="skill-score" id="patternScore">85%</div>
-          </div>
-          <div class="skill-card spatial">
-            <div class="skill-name">Spatial</div>
-            <div class="skill-score" id="spatialScore">70%</div>
-          </div>
-          <div class="skill-card numerical">
-            <div class="skill-name">Numerical</div>
-            <div class="skill-score" id="numericalScore">90%</div>
-          </div>
-          <div class="skill-card verbal">
-            <div class="skill-name">Verbal</div>
-            <div class="skill-score" id="verbalScore">80%</div>
-          </div>
+          <div class="break-item"><strong>Pattern</strong><span id="patternPct">0%</span></div>
+          <div class="break-item"><strong>Numerical</strong><span id="numericalPct">0%</span></div>
+          <div class="break-item"><strong>Spatial</strong><span id="spatialPct">0%</span></div>
+          <div class="break-item"><strong>Verbal</strong><span id="verbalPct">0%</span></div>
         </div>
-                
-        <button class="btn" onclick="location.reload()">Retake Test</button>
-        <button class="btn btn-secondary" onclick="shareResults()">Share Results</button>
+
+        <div class="result-tag" id="resultTag">Strong</div>
+
+        <button class="btn btn-primary" id="retakeBtn">Generate New Test</button>
+        <button class="btn btn-secondary" id="shareBtn">Copy Result Text</button>
       </div>
-    </div>
+    </section>
   </div>
 
   <script>
-    // Game State
-    let currentQuestion = 0;
-    let humanScore = 0;
-    let timeLeft = 30;
-    let timerInterval;
-    let startTime;
-    let totalTime = 0;
+    const TOTAL_QUESTIONS = 15;
+    const QUESTION_TIME_LIMIT = 30;
+
+    const startBtn = document.getElementById('startBtn');
+    const introScreen = document.getElementById('introScreen');
+    const gameScreen = document.getElementById('gameScreen');
+    const resultScreen = document.getElementById('resultScreen');
+
+    const questionCounter = document.getElementById('questionCounter');
+    const scoreValue = document.getElementById('scoreValue');
+    const timerValue = document.getElementById('timerValue');
+    const progressFill = document.getElementById('progressFill');
+
+    const questionType = document.getElementById('questionType');
+    const questionText = document.getElementById('questionText');
+    const questionVisual = document.getElementById('questionVisual');
+    const optionsGrid = document.getElementById('optionsGrid');
+
+    const iqNumber = document.getElementById('iqNumber');
+    const resultScore = document.getElementById('resultScore');
+    const resultAvgTime = document.getElementById('resultAvgTime');
+    const resultTag = document.getElementById('resultTag');
+
+    const patternPct = document.getElementById('patternPct');
+    const numericalPct = document.getElementById('numericalPct');
+    const spatialPct = document.getElementById('spatialPct');
+    const verbalPct = document.getElementById('verbalPct');
+
+    const retakeBtn = document.getElementById('retakeBtn');
+    const shareBtn = document.getElementById('shareBtn');
+
+    let questions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let timeLeft = QUESTION_TIME_LIMIT;
+    let timer = null;
+    let answerLocked = false;
+    let questionStartMs = 0;
+    let totalResponseTime = 0;
+
     let categoryScores = {
       pattern: { correct: 0, total: 0 },
-      spatial: { correct: 0, total: 0 },
       numerical: { correct: 0, total: 0 },
+      spatial: { correct: 0, total: 0 },
       verbal: { correct: 0, total: 0 }
     };
 
-    // Question Database (15 questions)
-    const questions = [
-      // Pattern Recognition
-      {
-        type: 'Pattern',
-        category: 'pattern',
-        text: 'Complete the sequence:',
-        visual: ['◆', '◆◆', '◆◆◆', '?'],
-        options: ['◆◆◆◆', '◆◆', '◆◆◆◆◆', '◆'],
-        correct: 0,
-        aiAccuracy: 0.95,
-        aiTime: 2000
-      },
-      {
-        type: 'Pattern',
-        category: 'pattern',
-        text: 'What comes next?',
-        visual: ['2', '4', '8', '16', '?'],
-        options: ['24', '32', '20', '30'],
-        correct: 1,
-        aiAccuracy: 0.98,
-        aiTime: 1500
-      },
-      {
-        type: 'Pattern',
-        category: 'pattern',
-        text: 'Complete the pattern:',
-        visual: ['🅰', '🅲', '🅴', '?'],
-        options: ['🅶', '🅵', '🅷', '🅳'],
-        correct: 0,
-        aiAccuracy: 0.9,
-        aiTime: 2200
-      },
-      {
-        type: 'Pattern',
-        category: 'pattern',
-        text: 'Which shape breaks the rule?',
-        visual: ['🔺🔺🔺', '🔺🔺🔺', '🔺🔺🔺', '🔺🔺🔺'],
-        options: ['Position 3', 'Position 1', 'Position 4', 'Position 2'],
-        correct: 3,
-        aiAccuracy: 0.85,
-        aiTime: 3000
-      },
-            
-      // Spatial Logic
-      {
-        type: 'Spatial',
-        category: 'spatial',
-        text: 'If you fold this cube, which face is opposite 🔵?',
-        visual: ['🔵⬜⬜', '⬜🟥🟨', '⬜⬜🟩'],
-        options: ['🟥', '🟨', '🟩', '⬜'],
-        correct: 2,
-        aiAccuracy: 0.88,
-        aiTime: 3500
-      },
-      {
-        type: 'Spatial',
-        category: 'spatial',
-        text: 'Rotate 90° clockwise:',
-        visual: ['↗️'],
-        options: ['↘️', '↙️', '↖️', '➡️'],
-        correct: 0,
-        aiAccuracy: 0.92,
-        aiTime: 1800
-      },
-      {
-        type: 'Spatial',
-        category: 'spatial',
-        text: 'Mirror image of:',
-        visual: ['🎪'],
-        options: ['⛺', '🎭', '🎨', '🎬'],
-        correct: 1,
-        aiAccuracy: 0.87,
-        aiTime: 2500
-      },
-      {
-        type: 'Spatial',
-        category: 'spatial',
-        text: 'How many blocks in 3D structure?',
-        visual: ['⬛⬛', '⬛⬛⬛', '⬛'],
-        options: ['5', '6', '7', '8'],
-        correct: 1,
-        aiAccuracy: 0.9,
-        aiTime: 2800
-      },
-            
-      // Numerical Reasoning
-      {
-        type: 'Numerical',
-        category: 'numerical',
-        text: 'If 3 workers take 3 hours, how long for 9 workers?',
-        visual: null,
-        options: ['1 hour', '3 hours', '9 hours', '27 hours'],
-        correct: 0,
-        aiAccuracy: 0.96,
-        aiTime: 2000
-      },
-      {
-        type: 'Numerical',
-        category: 'numerical',
-        text: 'Next number: 1, 1, 2, 3, 5, 8, ?',
-        visual: null,
-        options: ['11', '13', '12', '21'],
-        correct: 1,
-        aiAccuracy: 0.99,
-        aiTime: 1200
-      },
-      {
-        type: 'Numerical',
-        category: 'numerical',
-        text: 'Which number is the odd one out?',
-        visual: ['16', '25', '36', '49', '52'],
-        options: ['16', '25', '36', '52'],
-        correct: 3,
-        aiAccuracy: 0.93,
-        aiTime: 2400
-      },
-      {
-        type: 'Numerical',
-        category: 'numerical',
-        text: 'Complete: 2, 6, 12, 20, ?',
-        visual: null,
-        options: ['28', '30', '32', '36'],
-        correct: 1,
-        aiAccuracy: 0.91,
-        aiTime: 2600
-      },
-            
-      // Verbal Analogy
-      {
-        type: 'Verbal',
-        category: 'verbal',
-        text: 'Book is to Reading as Fork is to:',
-        visual: null,
-        options: ['Cooking', 'Eating', 'Kitchen', 'Food'],
-        correct: 1,
-        aiAccuracy: 0.94,
-        aiTime: 1800
-      },
-      {
-        type: 'Verbal',
-        category: 'verbal',
-        text: 'Which word does not belong?',
-        visual: ['Orange', 'Banana', 'Carrot', 'Apple'],
-        options: ['Orange', 'Banana', 'Carrot', 'Apple'],
-        correct: 2,
-        aiAccuracy: 0.89,
-        aiTime: 2100
-      },
-      {
-        type: 'Verbal',
-        category: 'verbal',
-        text: 'Embarrassed is to Humiliated as Frightened is to:',
-        visual: null,
-        options: ['Terrified', 'Anxious', 'Nervous', 'Scared'],
-        correct: 0,
-        aiAccuracy: 0.86,
-        aiTime: 3000
-      },
-      {
-        type: 'Verbal',
-        category: 'verbal',
-        text: 'Rearrange to form a meaningful word: O C E A N',
-        visual: null,
-        options: ['CANOE', 'OCEAN', 'ACORN', 'CRONE'],
-        correct: 0,
-        aiAccuracy: 0.95,
-        aiTime: 1500
-      }
-    ];
+    const categoryLabels = {
+      pattern: 'Pattern',
+      numerical: 'Numerical',
+      spatial: 'Spatial',
+      verbal: 'Verbal'
+    };
 
-    function startGame() {
-      document.getElementById('introScreen').classList.remove('active');
-      document.getElementById('gameScreen').classList.add('active');
-      currentQuestion = 0;
-      humanScore = 0;
-      totalTime = 0;
-      loadQuestion();
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    function loadQuestion() {
-      if (currentQuestion >= questions.length) {
-        endGame();
+    function shuffle(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function makeOptions(correctValue, distractorValues) {
+      const correct = String(correctValue);
+      const unique = [];
+
+      for (const item of distractorValues.map(String)) {
+        if (item !== correct && !unique.includes(item)) {
+          unique.push(item);
+        }
+      }
+
+      const chosenDistractors = shuffle(unique).slice(0, 3);
+      const finalOptions = shuffle([correct, ...chosenDistractors]);
+
+      while (finalOptions.length < 4) {
+        const extra = String(randomInt(2, 200));
+        if (!finalOptions.includes(extra)) {
+          finalOptions.push(extra);
+        }
+      }
+
+      return {
+        options: finalOptions,
+        correctIndex: finalOptions.indexOf(correct)
+      };
+    }
+
+    function getRandomDifferentItem(list, excludedValues) {
+      const blocked = new Set(excludedValues.map(String));
+      const candidates = list.filter(item => !blocked.has(String(item)));
+      return candidates[Math.floor(Math.random() * candidates.length)];
+    }
+
+    /* ==================== QUESTION GENERATORS ==================== */
+    function generatePatternArithmetic() {
+      const start = randomInt(2, 30);
+      const step = randomInt(2, 9);
+      const seq = [start, start + step, start + (step * 2), start + (step * 3)];
+      const correct = start + (step * 4);
+
+      const { options, correctIndex } = makeOptions(correct, [
+        correct - step,
+        correct + step,
+        correct + (step * 2),
+        correct - (step * 2)
+      ]);
+
+      return {
+        type: 'Pattern',
+        category: 'pattern',
+        text: 'Find the next number in this sequence.',
+        visual: [...seq.map(String), '?'],
+        options,
+        correct: correctIndex
+      };
+    }
+
+    function generatePatternGeometric() {
+      const start = randomInt(2, 6);
+      const ratio = randomInt(2, 3);
+      const seq = [start, start * ratio, start * ratio * ratio, start * ratio * ratio * ratio];
+      const correct = seq[3] * ratio;
+
+      const { options, correctIndex } = makeOptions(correct, [
+        correct + start,
+        correct - start,
+        correct + ratio,
+        correct - ratio
+      ]);
+
+      return {
+        type: 'Pattern',
+        category: 'pattern',
+        text: 'Complete this growth pattern.',
+        visual: [...seq.map(String), '?'],
+        options,
+        correct: correctIndex
+      };
+    }
+
+    function generatePatternLetters() {
+      const jump = randomInt(2, 3);
+      const startCode = randomInt(65, 90 - (jump * 4));
+      const seq = [0, 1, 2, 3].map(i => String.fromCharCode(startCode + (jump * i)));
+      const correct = String.fromCharCode(startCode + (jump * 4));
+
+      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+      const distractors = [
+        letters[Math.max(0, letters.indexOf(correct) - 1)],
+        letters[Math.min(25, letters.indexOf(correct) + 1)],
+        letters[Math.max(0, letters.indexOf(correct) - jump)]
+      ];
+
+      const allOptions = shuffle([correct, ...distractors.filter(Boolean)]).slice(0, 4);
+      while (allOptions.length < 4) {
+        const extra = letters[randomInt(0, 25)];
+        if (!allOptions.includes(extra)) allOptions.push(extra);
+      }
+
+      return {
+        type: 'Pattern',
+        category: 'pattern',
+        text: 'Choose the next letter in the sequence.',
+        visual: [...seq, '?'],
+        options: allOptions,
+        correct: allOptions.indexOf(correct)
+      };
+    }
+
+    function generateNumericalEquation() {
+      const a = randomInt(2, 15);
+      const b = randomInt(2, 15);
+      const c = randomInt(2, 8);
+      const correct = (a + b) * c;
+
+      const { options, correctIndex } = makeOptions(correct, [
+        (a * b) + c,
+        (a + b) + c,
+        correct + b,
+        correct - c
+      ]);
+
+      return {
+        type: 'Numerical',
+        category: 'numerical',
+        text: 'Calculate the value of the expression.',
+        visual: [`(${a} + ${b}) x ${c} = ?`],
+        options,
+        correct: correctIndex
+      };
+    }
+
+    function generateNumericalPercent() {
+      const percentOptions = [10, 20, 25, 50, 75];
+      const percent = percentOptions[randomInt(0, percentOptions.length - 1)];
+      const base = randomInt(4, 40) * 4;
+      const correct = (base * percent) / 100;
+
+      const { options, correctIndex } = makeOptions(correct, [
+        correct + randomInt(2, 15),
+        correct - randomInt(1, 8),
+        Math.round(base / 2),
+        Math.round(base / 4)
+      ]);
+
+      return {
+        type: 'Numerical',
+        category: 'numerical',
+        text: `What is ${percent}% of ${base}?`,
+        visual: null,
+        options,
+        correct: correctIndex
+      };
+    }
+
+    function generateNumericalRatio() {
+      const unit = randomInt(3, 15);
+      const q1 = randomInt(2, 8);
+      let q2 = randomInt(3, 12);
+      if (q2 === q1) q2 += 1;
+
+      const cost1 = unit * q1;
+      const correct = unit * q2;
+
+      const { options, correctIndex } = makeOptions(correct, [
+        cost1 + q2,
+        cost1 + unit,
+        unit + q1 + q2,
+        correct - unit
+      ]);
+
+      return {
+        type: 'Numerical',
+        category: 'numerical',
+        text: `${q1} notebooks cost $${cost1}. At the same rate, what is the cost of ${q2} notebooks?`,
+        visual: null,
+        options: options.map(v => `$${v}`),
+        correct: options.indexOf(String(correct))
+      };
+    }
+
+    function rotateArrow(arrow, turns) {
+      const order = ['↑', '→', '↓', '←'];
+      const diagOrder = ['↗', '↘', '↙', '↖'];
+
+      if (order.includes(arrow)) {
+        const idx = order.indexOf(arrow);
+        return order[(idx + turns) % 4];
+      }
+
+      const idx = diagOrder.indexOf(arrow);
+      return diagOrder[(idx + turns) % 4];
+    }
+
+    function generateSpatialRotation() {
+      const allArrows = ['↑', '→', '↓', '←', '↗', '↘', '↙', '↖'];
+      const arrow = allArrows[randomInt(0, allArrows.length - 1)];
+      const turns = randomInt(1, 3);
+      const degrees = turns * 90;
+      const correct = rotateArrow(arrow, turns);
+
+      const distractors = shuffle(allArrows.filter(v => v !== correct)).slice(0, 3);
+      const options = shuffle([correct, ...distractors]);
+
+      return {
+        type: 'Spatial',
+        category: 'spatial',
+        text: `Rotate the symbol ${degrees}° clockwise.`,
+        visual: [arrow],
+        options,
+        correct: options.indexOf(correct)
+      };
+    }
+
+    function generateSpatialMirror() {
+      const mirrorPairs = {
+        '(': ')',
+        '<': '>',
+        '/': '\\',
+        '↗': '↖',
+        '↘': '↙',
+        '{': '}'
+      };
+
+      const keys = Object.keys(mirrorPairs);
+      const source = keys[randomInt(0, keys.length - 1)];
+      const correct = mirrorPairs[source];
+
+      const allValues = Object.values(mirrorPairs);
+      const distractors = shuffle(allValues.filter(v => v !== correct)).slice(0, 3);
+      const options = shuffle([correct, ...distractors]);
+
+      return {
+        type: 'Spatial',
+        category: 'spatial',
+        text: 'Select the mirror image (left-right reflection).',
+        visual: [source],
+        options,
+        correct: options.indexOf(correct)
+      };
+    }
+
+    function generateSpatialGridCount() {
+      const rows = randomInt(2, 8);
+      const cols = randomInt(2, 8);
+      const correct = rows * cols;
+
+      const { options, correctIndex } = makeOptions(correct, [
+        correct + rows,
+        correct + cols,
+        correct - rows,
+        correct - cols
+      ]);
+
+      return {
+        type: 'Spatial',
+        category: 'spatial',
+        text: `How many small cells are in a ${rows} x ${cols} grid?`,
+        visual: [`${rows} x ${cols}`],
+        options,
+        correct: correctIndex
+      };
+    }
+
+    function generateVerbalAnalogy() {
+      const pairs = [
+        ['Bird', 'Nest'], ['Bee', 'Hive'], ['Fish', 'Water'], ['Doctor', 'Hospital'],
+        ['Painter', 'Brush'], ['Writer', 'Pen'], ['Chef', 'Kitchen'], ['Pilot', 'Cockpit'],
+        ['Farmer', 'Field'], ['Teacher', 'Classroom'], ['Singer', 'Stage'], ['Driver', 'Road']
+      ];
+
+      const pairA = pairs[randomInt(0, pairs.length - 1)];
+      let pairB = pairs[randomInt(0, pairs.length - 1)];
+      while (pairB[0] === pairA[0]) {
+        pairB = pairs[randomInt(0, pairs.length - 1)];
+      }
+
+      const correct = pairB[1];
+      const distractors = shuffle(pairs.map(p => p[1]).filter(v => v !== correct)).slice(0, 3);
+      const options = shuffle([correct, ...distractors]);
+
+      return {
+        type: 'Verbal',
+        category: 'verbal',
+        text: `${pairA[0]} is to ${pairA[1]} as ${pairB[0]} is to ?`,
+        visual: null,
+        options,
+        correct: options.indexOf(correct)
+      };
+    }
+
+    function generateVerbalAnagram() {
+      const words = [
+        'BRAIN', 'LOGIC', 'THINK', 'REASON', 'MEMORY', 'PUZZLE',
+        'MIND', 'FOCUS', 'LEARN', 'SKILL', 'SMART', 'SOLVE'
+      ];
+
+      const word = words[randomInt(0, words.length - 1)];
+      let scrambled = shuffle(word.split('')).join('');
+
+      while (scrambled === word) {
+        scrambled = shuffle(word.split('')).join('');
+      }
+
+      const distractors = shuffle(words.filter(w => w !== word)).slice(0, 3);
+      const options = shuffle([word, ...distractors]);
+
+      return {
+        type: 'Verbal',
+        category: 'verbal',
+        text: `Unscramble this word: ${scrambled}`,
+        visual: null,
+        options,
+        correct: options.indexOf(word)
+      };
+    }
+
+    function generateVerbalOddOneOut() {
+      const groups = {
+        fruits: ['Apple', 'Banana', 'Orange', 'Grape', 'Mango', 'Pear'],
+        animals: ['Tiger', 'Lion', 'Wolf', 'Fox', 'Bear', 'Horse'],
+        colors: ['Red', 'Blue', 'Green', 'Yellow', 'Purple', 'Orange'],
+        planets: ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn'],
+        tools: ['Hammer', 'Saw', 'Wrench', 'Drill', 'Pliers', 'Chisel']
+      };
+
+      const groupNames = Object.keys(groups);
+      const mainGroup = groupNames[randomInt(0, groupNames.length - 1)];
+      let oddGroup = groupNames[randomInt(0, groupNames.length - 1)];
+
+      while (oddGroup === mainGroup) {
+        oddGroup = groupNames[randomInt(0, groupNames.length - 1)];
+      }
+
+      const mainItems = shuffle(groups[mainGroup]).slice(0, 3);
+      const oddItem = groups[oddGroup][randomInt(0, groups[oddGroup].length - 1)];
+      const options = shuffle([...mainItems, oddItem]);
+
+      return {
+        type: 'Verbal',
+        category: 'verbal',
+        text: 'Which word does not belong with the others?',
+        visual: null,
+        options,
+        correct: options.indexOf(oddItem)
+      };
+    }
+
+    const generators = {
+      pattern: [generatePatternArithmetic, generatePatternGeometric, generatePatternLetters],
+      numerical: [generateNumericalEquation, generateNumericalPercent, generateNumericalRatio],
+      spatial: [generateSpatialRotation, generateSpatialMirror, generateSpatialGridCount],
+      verbal: [generateVerbalAnalogy, generateVerbalAnagram, generateVerbalOddOneOut]
+    };
+
+    function generateQuestionSet(total) {
+      const categories = ['pattern', 'numerical', 'spatial', 'verbal'];
+      const list = [];
+
+      for (let i = 0; i < total; i++) {
+        const category = categories[i % categories.length];
+        const categoryGenerators = generators[category];
+        const question = categoryGenerators[randomInt(0, categoryGenerators.length - 1)]();
+        list.push(question);
+      }
+
+      return shuffle(list);
+    }
+
+    function resetState() {
+      questions = generateQuestionSet(TOTAL_QUESTIONS);
+      currentQuestionIndex = 0;
+      score = 0;
+      timeLeft = QUESTION_TIME_LIMIT;
+      totalResponseTime = 0;
+      answerLocked = false;
+      scoreValue.textContent = '0';
+
+      categoryScores = {
+        pattern: { correct: 0, total: 0 },
+        numerical: { correct: 0, total: 0 },
+        spatial: { correct: 0, total: 0 },
+        verbal: { correct: 0, total: 0 }
+      };
+    }
+
+    function switchScreen(fromEl, toEl) {
+      fromEl.classList.remove('active');
+      toEl.classList.add('active');
+    }
+
+    function formatTimer(seconds) {
+      return `00:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function renderQuestion() {
+      if (currentQuestionIndex >= questions.length) {
+        finishTest();
         return;
       }
 
-      const q = questions[currentQuestion];
-      startTime = Date.now();
-            
-      // Update UI
-      document.getElementById('questionType').textContent = q.type;
-      document.getElementById('questionText').textContent = q.text;
-      document.getElementById('progressBar').style.width = ((currentQuestion / questions.length) * 100) + '%';
-            
-      // Visual elements
-      const visualContainer = document.getElementById('questionVisual');
-      visualContainer.innerHTML = '';
-      if (q.visual) {
-        if (Array.isArray(q.visual)) {
-          const box = document.createElement('div');
-          box.className = 'pattern-box';
-          q.visual.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'pattern-item';
-            div.textContent = item;
-            box.appendChild(div);
-          });
-          visualContainer.appendChild(box);
-        } else {
-          visualContainer.innerHTML = `<div style="font-size: 3rem; margin: 20px;">${q.visual}</div>`;
-        }
+      const q = questions[currentQuestionIndex];
+      answerLocked = false;
+      questionStartMs = Date.now();
+      timeLeft = QUESTION_TIME_LIMIT;
+      timerValue.textContent = formatTimer(timeLeft);
+      timerValue.style.color = '#7de4ff';
+
+      questionCounter.textContent = `${currentQuestionIndex + 1} / ${TOTAL_QUESTIONS}`;
+      progressFill.style.width = `${(currentQuestionIndex / TOTAL_QUESTIONS) * 100}%`;
+
+      questionType.textContent = q.type;
+      questionText.textContent = q.text;
+
+      questionVisual.innerHTML = '';
+      if (q.visual && Array.isArray(q.visual)) {
+        const row = document.createElement('div');
+        row.className = 'visual-row';
+        q.visual.forEach(item => {
+          const chip = document.createElement('div');
+          chip.className = 'visual-chip';
+          chip.textContent = item;
+          row.appendChild(chip);
+        });
+        questionVisual.appendChild(row);
       }
-            
-      // Options
-      const grid = document.getElementById('optionsGrid');
-      grid.innerHTML = '';
-      q.options.forEach((opt, idx) => {
+
+      optionsGrid.innerHTML = '';
+      q.options.forEach((option, index) => {
         const btn = document.createElement('button');
+        btn.type = 'button';
         btn.className = 'option-btn';
-        btn.textContent = opt;
-        btn.onclick = () => selectAnswer(idx);
-        grid.appendChild(btn);
+        btn.textContent = option;
+        btn.addEventListener('click', () => answerQuestion(index));
+        optionsGrid.appendChild(btn);
       });
-            
-      // Start timer
-      timeLeft = 30;
-      updateTimer();
-      timerInterval = setInterval(() => {
+
+      clearInterval(timer);
+      timer = setInterval(() => {
         timeLeft--;
-        updateTimer();
+        timerValue.textContent = formatTimer(timeLeft);
+
+        if (timeLeft <= 8) {
+          timerValue.style.color = '#ff7eb0';
+        }
+
         if (timeLeft <= 0) {
-          selectAnswer(-1); // Time out
+          answerQuestion(-1);
         }
       }, 1000);
-            
     }
 
-    function updateTimer() {
-      const mins = Math.floor(timeLeft / 60);
-      const secs = timeLeft % 60;
-      document.getElementById('timer').textContent = 
-        `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-      document.getElementById('timer').style.color = timeLeft < 10 ? '#ff006e' : '#ffd700';
-    }
+    function answerQuestion(selectedIndex) {
+      if (answerLocked) return;
+      answerLocked = true;
 
-    function selectAnswer(choice) {
-      clearInterval(timerInterval);
-      const q = questions[currentQuestion];
-      const timeTaken = (Date.now() - startTime) / 1000;
-      totalTime += timeTaken;
-            
-      // Track category
-      categoryScores[q.category].total++;
-            
-      // Disable buttons
-      document.querySelectorAll('.option-btn').forEach(btn => {
-        btn.classList.add('disabled');
+      clearInterval(timer);
+
+      const q = questions[currentQuestionIndex];
+      const elapsed = Math.min(QUESTION_TIME_LIMIT, (Date.now() - questionStartMs) / 1000);
+      totalResponseTime += elapsed;
+
+      categoryScores[q.category].total += 1;
+
+      const buttons = optionsGrid.querySelectorAll('.option-btn');
+      buttons.forEach((btn, index) => {
         btn.disabled = true;
+        if (index === q.correct) {
+          btn.classList.add('correct');
+        }
       });
-            
-      // Check answer
-      const buttons = document.querySelectorAll('.option-btn');
-      if (choice === q.correct) {
-        buttons[choice].classList.add('correct');
-        humanScore++;
-        categoryScores[q.category].correct++;
-        document.getElementById('humanScore').textContent = humanScore;
-      } else if (choice !== -1) {
-        buttons[choice].classList.add('wrong');
-        buttons[q.correct].classList.add('correct');
-      } else {
-        buttons[q.correct].classList.add('correct');
+
+      if (selectedIndex === q.correct) {
+        score++;
+        scoreValue.textContent = String(score);
+        categoryScores[q.category].correct += 1;
+      } else if (selectedIndex >= 0 && buttons[selectedIndex]) {
+        buttons[selectedIndex].classList.add('wrong');
       }
-            
-      // Next question delay
+
       setTimeout(() => {
-        currentQuestion++;
-        loadQuestion();
-      }, 1500);
+        currentQuestionIndex++;
+        renderQuestion();
+      }, 700);
     }
 
-    function endGame() {
-      document.getElementById('gameScreen').classList.remove('active');
-      document.getElementById('resultsScreen').classList.add('active');
-            
-      // Calculate IQ (100 base, +5 per correct, -2 per wrong, time bonus)
-      let estimatedIQ = 100;
-      estimatedIQ += (humanScore * 5);
-      estimatedIQ -= ((15 - humanScore) * 2);
-            
-      // Time bonus
-      const avgTime = totalTime / 15;
-      if (avgTime < 10) estimatedIQ += 10;
-      else if (avgTime < 20) estimatedIQ += 5;
-            
-      // Cap IQ
-      estimatedIQ = Math.max(80, Math.min(160, estimatedIQ));
-            
-      document.getElementById('iqScore').textContent = Math.round(estimatedIQ);
-      document.getElementById('finalHumanScore').textContent = `${humanScore}/15`;
-      document.getElementById('avgTime').textContent = `${avgTime.toFixed(1)}s`;
-            
-      // Performance level
-      const banner = document.getElementById('winnerBanner');
-      if (humanScore >= 13) {
-        banner.textContent = '🏆 Exceptional Performance';
-        banner.className = 'winner-banner human-wins';
-        document.getElementById('finalResult').textContent = 'Exceptional';
-      } else if (humanScore >= 9) {
-        banner.textContent = '✅ Strong Performance';
-        banner.className = 'winner-banner human-wins';
-        document.getElementById('finalResult').textContent = 'Strong';
+    function safePercent(correct, total) {
+      if (!total) return 0;
+      return Math.round((correct / total) * 100);
+    }
+
+    function finishTest() {
+      progressFill.style.width = '100%';
+      switchScreen(gameScreen, resultScreen);
+
+      const avgTime = totalResponseTime / TOTAL_QUESTIONS;
+      let iq = 88 + (score * 4);
+
+      if (avgTime <= 8) iq += 8;
+      else if (avgTime <= 14) iq += 4;
+      else if (avgTime >= 24) iq -= 5;
+
+      iq = Math.max(80, Math.min(160, Math.round(iq)));
+
+      iqNumber.textContent = String(iq);
+      resultScore.textContent = `${score} / ${TOTAL_QUESTIONS}`;
+      resultAvgTime.textContent = `${avgTime.toFixed(1)}s`;
+
+      const patternValue = safePercent(categoryScores.pattern.correct, categoryScores.pattern.total);
+      const numericalValue = safePercent(categoryScores.numerical.correct, categoryScores.numerical.total);
+      const spatialValue = safePercent(categoryScores.spatial.correct, categoryScores.spatial.total);
+      const verbalValue = safePercent(categoryScores.verbal.correct, categoryScores.verbal.total);
+
+      patternPct.textContent = `${patternValue}%`;
+      numericalPct.textContent = `${numericalValue}%`;
+      spatialPct.textContent = `${spatialValue}%`;
+      verbalPct.textContent = `${verbalValue}%`;
+
+      if (score >= 13) {
+        resultTag.textContent = 'Exceptional Performance';
+      } else if (score >= 10) {
+        resultTag.textContent = 'Strong Performance';
+      } else if (score >= 7) {
+        resultTag.textContent = 'Good Base, Keep Training';
       } else {
-        banner.textContent = '📈 Keep Practicing';
-        banner.style.background = 'rgba(255, 215, 0, 0.2)';
-        banner.style.borderColor = '#ffd700';
-        banner.style.color = '#ffd700';
-        document.getElementById('finalResult').textContent = 'Developing';
-      }
-            
-      // Category breakdown
-      for (let cat in categoryScores) {
-        const pct = categoryScores[cat].total > 0 
-          ? Math.round((categoryScores[cat].correct / categoryScores[cat].total) * 100)
-          : 0;
-        document.getElementById(`${cat}Score`).textContent = `${pct}%`;
+        resultTag.textContent = 'Practice More for Better Precision';
       }
     }
 
-    function shareResults() {
-      const text = `I scored ${document.getElementById('iqScore').textContent} in the Personal IQ Challenge. Can you beat my score?`;
-      navigator.clipboard.writeText(text).then(() => {
-        alert('Results copied to clipboard!');
-      });
+    function startTest() {
+      resetState();
+      switchScreen(introScreen, gameScreen);
+      renderQuestion();
     }
+
+    function copyResult() {
+      const text = `I scored ${iqNumber.textContent} in a dynamically generated IQ challenge (${score}/${TOTAL_QUESTIONS}).`;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text)
+          .then(() => alert('Result copied to clipboard.'))
+          .catch(() => alert(text));
+      } else {
+        alert(text);
+      }
+    }
+
+    startBtn.addEventListener('click', startTest);
+    retakeBtn.addEventListener('click', () => {
+      switchScreen(resultScreen, gameScreen);
+      startTest();
+    });
+    shareBtn.addEventListener('click', copyResult);
   </script>
 </body>
 </html>
