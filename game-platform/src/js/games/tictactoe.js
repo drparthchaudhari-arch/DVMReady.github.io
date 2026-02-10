@@ -164,13 +164,20 @@ const TicTacToe = {
                 move = this.getRandomMove();
                 break;
             case 'medium':
-                move = Math.random() < 0.6 ? this.getBestMove() : this.getRandomMove();
+                if (this.gridSize === 3) {
+                    move = Math.random() < 0.6 ? this.getBestMove() : this.getRandomMove();
+                } else {
+                    move = Math.random() < 0.7 ? this.getStrategicMove() : this.getRandomMove();
+                }
                 break;
             case 'hard':
-                move = this.getBestMove();
+                move = this.gridSize === 3 ? this.getBestMove() : this.getStrategicMove();
                 break;
         }
         
+        if (move === undefined || move === null) {
+            move = this.getRandomMove();
+        }
         this.aiThinking = false;
         this.makeMove(move);
     },
@@ -178,6 +185,81 @@ const TicTacToe = {
     getRandomMove() {
         const available = this.board.map((cell, i) => cell === '' ? i : null).filter(i => i !== null);
         return available[Math.floor(Math.random() * available.length)];
+    },
+
+    findCriticalMove(player) {
+        for (let i = 0; i < this.board.length; i++) {
+            if (this.board[i] !== '') continue;
+            this.board[i] = player;
+            const wins = this.checkWin(player);
+            this.board[i] = '';
+            if (wins) return i;
+        }
+        return -1;
+    },
+
+    getStrategicMove() {
+        // 1) Win this turn if possible.
+        let move = this.findCriticalMove('O');
+        if (move !== -1) return move;
+
+        // 2) Block immediate opponent win.
+        move = this.findCriticalMove('X');
+        if (move !== -1) return move;
+
+        // 3) Take center when possible.
+        const center = Math.floor((this.gridSize * this.gridSize) / 2);
+        if (this.board[center] === '') {
+            return center;
+        }
+
+        // 4) Score empty cells based on nearby pieces.
+        let bestScore = -Infinity;
+        let bestMoves = [];
+        for (let index = 0; index < this.board.length; index++) {
+            if (this.board[index] !== '') continue;
+
+            const row = Math.floor(index / this.gridSize);
+            const col = index % this.gridSize;
+            let score = 0;
+
+            for (let dRow = -1; dRow <= 1; dRow++) {
+                for (let dCol = -1; dCol <= 1; dCol++) {
+                    if (dRow === 0 && dCol === 0) continue;
+
+                    const nRow = row + dRow;
+                    const nCol = col + dCol;
+                    if (nRow < 0 || nRow >= this.gridSize || nCol < 0 || nCol >= this.gridSize) {
+                        continue;
+                    }
+
+                    const neighbor = this.board[nRow * this.gridSize + nCol];
+                    if (neighbor === 'O') score += 2;
+                    if (neighbor === 'X') score += 1;
+                }
+            }
+
+            if (score > bestScore) {
+                bestScore = score;
+                bestMoves = [index];
+            } else if (score === bestScore) {
+                bestMoves.push(index);
+            }
+        }
+
+        if (bestMoves.length > 0 && bestScore > 0) {
+            return bestMoves[Math.floor(Math.random() * bestMoves.length)];
+        }
+
+        // 5) Prefer corners before random fallback.
+        const size = this.gridSize;
+        const corners = [0, size - 1, size * (size - 1), size * size - 1];
+        const freeCorner = corners.find(i => this.board[i] === '');
+        if (freeCorner !== undefined) {
+            return freeCorner;
+        }
+
+        return this.getRandomMove();
     },
     
     getBestMove() {

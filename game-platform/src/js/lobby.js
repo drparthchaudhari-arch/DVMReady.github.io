@@ -38,7 +38,12 @@ const LobbySystem = {
     
     // Join existing lobby
     joinLobby(code) {
-        code = code.toUpperCase().trim();
+        code = code.trim().replace(/\D/g, '');
+        if (code.length !== 6) {
+            alert('Enter a valid 6-digit lobby code.');
+            return false;
+        }
+
         const lobby = this.lobbies.find(l => l.code === code);
         
         if (!lobby) {
@@ -128,11 +133,16 @@ const LobbySystem = {
     
     // Generate random lobby code
     generateLobbyCode() {
-        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        const digits = '0123456789';
         let code = '';
-        for (let i = 0; i < 6; i++) {
-            code += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
+
+        do {
+            code = '';
+            for (let i = 0; i < 6; i++) {
+                code += digits.charAt(Math.floor(Math.random() * digits.length));
+            }
+        } while (this.lobbies.some(lobby => lobby.code === code));
+
         return code;
     },
     

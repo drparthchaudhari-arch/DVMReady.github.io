@@ -194,13 +194,19 @@ if (isTouchDevice()) {
 
 // Service Worker registration for PWA
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('SW registered:', registration);
-            })
-            .catch(error => {
-                console.log('SW registration failed:', error);
-            });
+    window.addEventListener('load', async () => {
+        const swUrl = 'sw.js';
+
+        try {
+            const response = await fetch(swUrl, { method: 'HEAD' });
+            if (!response.ok) {
+                return;
+            }
+
+            const registration = await navigator.serviceWorker.register(swUrl);
+            console.log('SW registered:', registration);
+        } catch (error) {
+            console.log('SW registration skipped:', error);
+        }
     });
 }

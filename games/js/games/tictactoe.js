@@ -199,7 +199,7 @@ const TicTacToe = {
     },
 
     getStrategicMove() {
-        // 1) Win if possible this turn.
+        // 1) Win this turn if possible.
         let move = this.findCriticalMove('O');
         if (move !== -1) return move;
 
@@ -207,13 +207,13 @@ const TicTacToe = {
         move = this.findCriticalMove('X');
         if (move !== -1) return move;
 
-        // 3) Take center when available.
+        // 3) Take center when possible.
         const center = Math.floor((this.gridSize * this.gridSize) / 2);
         if (this.board[center] === '') {
             return center;
         }
 
-        // 4) Choose high-value cells near existing marks.
+        // 4) Score empty cells based on nearby pieces.
         let bestScore = -Infinity;
         let bestMoves = [];
         for (let index = 0; index < this.board.length; index++) {
@@ -251,7 +251,7 @@ const TicTacToe = {
             return bestMoves[Math.floor(Math.random() * bestMoves.length)];
         }
 
-        // 5) Fall back to corners, then random.
+        // 5) Prefer corners before random fallback.
         const size = this.gridSize;
         const corners = [0, size - 1, size * (size - 1), size * size - 1];
         const freeCorner = corners.find(i => this.board[i] === '');

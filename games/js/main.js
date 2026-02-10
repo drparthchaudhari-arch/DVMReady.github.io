@@ -52,6 +52,40 @@ function showSection(sectionId) {
     }
 }
 
+function getGameController(gameName) {
+    switch (gameName) {
+        case 'wordvet': return WordVet;
+        case 'sudoku': return Sudoku;
+        case 'tictactoe': return TicTacToe;
+        case 'memory': return MemoryGame;
+        case 'snake': return SnakeGame;
+        case 'game2048': return Game2048;
+        case 'hangman': return Hangman;
+        case 'wordguess': return WordGuess;
+        case 'iq': return IQChallenge;
+        default: return null;
+    }
+}
+
+function cleanupGame(gameName = GameState.currentGame) {
+    const controller = getGameController(gameName);
+    if (controller && typeof controller.cleanup === 'function') {
+        try {
+            controller.cleanup();
+        } catch (error) {
+            console.warn(`Cleanup failed for ${gameName}:`, error);
+        }
+    }
+}
+
+function resetGameOverlays() {
+    document.getElementById('pause-menu').classList.add('hidden');
+    document.getElementById('level-complete-modal').classList.add('hidden');
+    document.getElementById('game-over-modal').classList.add('hidden');
+    document.getElementById('pause-btn').innerHTML = '<i class="fas fa-pause"></i>';
+    GameState.isPaused = false;
+}
+
 // Update Navigation Stats
 function updateNavStats() {
     document.getElementById('total-score').textContent = GameState.totalScore.toLocaleString();
@@ -60,6 +94,8 @@ function updateNavStats() {
 
 // Start Game
 function startGame(gameName) {
+    cleanupGame(GameState.currentGame);
+
     GameState.currentGame = gameName;
     GameState.currentLevel = GameState.gameProgress[gameName] || 1;
     GameState.score = 0;
@@ -71,13 +107,18 @@ function startGame(gameName) {
     // Hide main content, show game container
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.getElementById('game-container').classList.remove('hidden');
+    resetGameOverlays();
     
     // Set game title
     const gameNames = {
         'wordvet': 'WordVet',
+        'sudoku': 'Sudoku Master',
         'tictactoe': 'Tic Tac Toe Pro',
         'memory': 'Memory Match',
         'snake': 'Snake Challenge',
+        'game2048': '2048 Puzzle',
+        'hangman': 'Hangman Classic',
+        'wordguess': 'Word Guess',
         'iq': 'IQ Challenge'
     };
     document.getElementById('current-game-name').textContent = gameNames[gameName];
@@ -104,6 +145,9 @@ function startGame(gameName) {
         case 'wordvet':
             WordVet.init(gameArea, GameState.currentLevel);
             break;
+        case 'sudoku':
+            Sudoku.init(gameArea, GameState.currentLevel);
+            break;
         case 'tictactoe':
             TicTacToe.init(gameArea, GameState.currentLevel);
             break;
@@ -112,6 +156,15 @@ function startGame(gameName) {
             break;
         case 'snake':
             SnakeGame.init(gameArea, GameState.currentLevel);
+            break;
+        case 'game2048':
+            Game2048.init(gameArea, GameState.currentLevel);
+            break;
+        case 'hangman':
+            Hangman.init(gameArea, GameState.currentLevel);
+            break;
+        case 'wordguess':
+            WordGuess.init(gameArea, GameState.currentLevel);
             break;
         case 'iq':
             IQChallenge.init(gameArea, GameState.currentLevel);
@@ -177,6 +230,9 @@ function useHint() {
             case 'wordvet':
                 WordVet.showHint();
                 break;
+            case 'sudoku':
+                Sudoku.showHint();
+                break;
             case 'tictactoe':
                 TicTacToe.showHint();
                 break;
@@ -185,6 +241,15 @@ function useHint() {
                 break;
             case 'snake':
                 SnakeGame.showHint();
+                break;
+            case 'game2048':
+                Game2048.showHint();
+                break;
+            case 'hangman':
+                Hangman.showHint();
+                break;
+            case 'wordguess':
+                WordGuess.showHint();
                 break;
             case 'iq':
                 IQChallenge.showHint();
@@ -200,10 +265,8 @@ function restartLevel() {
     GameState.score = 0;
     GameState.streak = 0;
     GameState.hints = 3;
-    GameState.isPaused = false;
-    
-    document.getElementById('pause-menu').classList.add('hidden');
-    document.getElementById('pause-btn').innerHTML = '<i class="fas fa-pause"></i>';
+    resetGameOverlays();
+
     document.getElementById('game-score').textContent = '0';
     document.getElementById('game-streak').textContent = '0';
     document.getElementById('hint-count').textContent = '3';
@@ -214,6 +277,8 @@ function restartLevel() {
 // Exit Game
 function exitGame() {
     stopTimer();
+    cleanupGame(GameState.currentGame);
+    resetGameOverlays();
     
     // Save progress
     if (GameState.score > 0) {
@@ -232,6 +297,7 @@ function exitGame() {
     
     // Clear game area
     document.getElementById('game-area').innerHTML = '';
+    GameState.currentGame = null;
 }
 
 // Level Complete
@@ -373,18 +439,27 @@ function loadLeaderboard(game = 'all') {
     // Sample leaderboard data (in real app, fetch from server)
     const leaderboardData = [
         { rank: 1, name: 'Parth', score: 15000, level: 15, game: 'wordvet' },
-        { rank: 2, name: 'Alex', score: 12500, level: 12, game: 'tictactoe' },
-        { rank: 3, name: 'Sarah', score: 11000, level: 14, game: 'memory' },
-        { rank: 4, name: 'Mike', score: 9500, level: 10, game: 'snake' },
-        { rank: 5, name: 'Emma', score: 8200, level: 11, game: 'iq' },
-        { rank: 6, name: 'John', score: 7800, level: 9, game: 'wordvet' },
-        { rank: 7, name: 'Lisa', score: 6500, level: 8, game: 'tictactoe' },
-        { rank: 8, name: 'David', score: 5400, level: 7, game: 'memory' },
+        { rank: 2, name: 'Ava', score: 14200, level: 14, game: 'sudoku' },
+        { rank: 3, name: 'Alex', score: 12500, level: 12, game: 'tictactoe' },
+        { rank: 4, name: 'Sarah', score: 11000, level: 14, game: 'memory' },
+        { rank: 5, name: 'Mike', score: 9500, level: 10, game: 'snake' },
+        { rank: 6, name: 'Noah', score: 9000, level: 13, game: 'game2048' },
+        { rank: 7, name: 'Liam', score: 8700, level: 11, game: 'hangman' },
+        { rank: 8, name: 'Emma', score: 8200, level: 11, game: 'iq' },
+        { rank: 9, name: 'Mia', score: 7900, level: 10, game: 'wordguess' },
+        { rank: 10, name: 'John', score: 7800, level: 9, game: 'wordvet' },
+        { rank: 11, name: 'Lisa', score: 6500, level: 8, game: 'tictactoe' },
+        { rank: 12, name: 'David', score: 5400, level: 7, game: 'memory' }
     ];
     
     let filteredData = game === 'all' 
         ? leaderboardData 
         : leaderboardData.filter(d => d.game === game);
+
+    if (filteredData.length === 0) {
+        tbody.innerHTML = '<div class="table-row"><span class="player" style="grid-column: 1 / -1; justify-content: center;">No scores yet for this game.</span></div>';
+        return;
+    }
     
     tbody.innerHTML = filteredData.map(entry => `
         <div class="table-row">
