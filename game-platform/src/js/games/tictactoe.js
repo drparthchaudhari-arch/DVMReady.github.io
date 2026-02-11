@@ -9,11 +9,11 @@ const TicTacToe = {
         this.cleanup();
         const safeLevel = Number.isFinite(level) ? level : 1;
         container.innerHTML = `
-            <div class="embedded-game-shell" style="width:100%;min-height:75vh;border-radius:16px;overflow:hidden;background:#0f172a;">
+            <div class="embedded-game-shell" style="background:#0f172a;">
                 <iframe
                     title="Tic Tac Toe"
                     src="tic-tac-toe.html?level=${encodeURIComponent(String(safeLevel))}"
-                    style="width:100%;height:75vh;border:0;display:block;background:#fff;"
+                    style="width:100%;height:100%;border:0;display:block;background:#fff;"
                     loading="lazy"
                     referrerpolicy="no-referrer"
                 ></iframe>

@@ -68,26 +68,36 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 2rem;
-    background: rgba(26, 26, 46, 0.9);
-    backdrop-filter: blur(20px);
+    padding: 0.45rem 1rem;
+    min-height: 50px;
+    background: rgba(8, 10, 26, 0.55);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 999;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.main-nav.nav-hidden {
+    transform: translateY(-100%);
+}
+
+.main-nav.nav-scrolled {
+    background: rgba(8, 10, 26, 0.82);
 }
 
 .nav-brand {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--primary);
 }
 
 .nav-brand i {
-    font-size: 1.75rem;
+    font-size: 1.1rem;
 }
 
 .nav-links {
@@ -99,7 +109,7 @@ body::before {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.6rem 1.2rem;
+    padding: 0.4rem 0.8rem;
     color: var(--text-secondary);
     text-decoration: none;
     border-radius: var(--radius);
@@ -126,7 +136,7 @@ body::before {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
+    padding: 0.35rem 0.7rem;
     background: var(--bg-light);
     border-radius: var(--radius);
     font-weight: 600;
@@ -188,7 +198,7 @@ body::before {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 80px);
+    min-height: calc(100vh - 50px);
     text-align: center;
     padding: 2rem;
 }

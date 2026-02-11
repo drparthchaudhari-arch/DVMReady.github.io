@@ -17,12 +17,20 @@ const GameState = {
     gameProgress: JSON.parse(localStorage.getItem('gameProgress')) || {}
 };
 
+const UIState = {
+    gameActive: false,
+    lastScrollY: 0,
+    controlsFadeTimer: null,
+    timerHideTimer: null
+};
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     updateNavStats();
     loadLeaderboard();
     setupNavigation();
     setupTabs();
+    setupImmersiveUI();
 });
 
 // Navigation
@@ -48,6 +56,7 @@ function showSection(sectionId) {
         resetGameOverlays();
         gameContainer.classList.add('hidden');
         GameState.currentGame = null;
+        setGameUIActive(false);
     }
 
     const sections = document.querySelectorAll('.section');
@@ -59,6 +68,88 @@ function showSection(sectionId) {
     if (targetSection) {
         targetSection.classList.add('active');
     }
+}
+
+function setupImmersiveUI() {
+    const compactTimer = document.getElementById('compact-timer');
+    if (compactTimer) {
+        compactTimer.addEventListener('click', () => {
+            compactTimer.classList.toggle('expanded');
+            resetActivityTimer();
+        });
+    }
+
+    const onActivity = () => resetActivityTimer();
+    document.addEventListener('mousemove', onActivity);
+    document.addEventListener('touchstart', onActivity, { passive: true });
+    document.addEventListener('keydown', onActivity);
+
+    window.addEventListener('scroll', () => {
+        const prevScrollY = UIState.lastScrollY;
+        const currentScrollY = window.scrollY;
+        const nav = document.querySelector('.main-nav');
+        if (nav) {
+            nav.classList.toggle('nav-scrolled', currentScrollY > 8);
+            if (currentScrollY > prevScrollY && currentScrollY > 100) {
+                nav.classList.add('nav-hidden');
+            } else {
+                nav.classList.remove('nav-hidden');
+            }
+        }
+
+        if (UIState.gameActive) {
+            const header = document.getElementById('mini-header');
+            if (header) {
+                if (currentScrollY > prevScrollY && currentScrollY > 80) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+            }
+        }
+        UIState.lastScrollY = currentScrollY;
+    }, { passive: true });
+}
+
+function setGameUIActive(active) {
+    UIState.gameActive = active;
+    const controls = document.getElementById('overlay-controls');
+    const timer = document.getElementById('compact-timer');
+    const header = document.getElementById('mini-header');
+
+    if (!active) {
+        if (controls) controls.classList.remove('fade');
+        if (timer) {
+            timer.classList.remove('expanded');
+            timer.classList.remove('timer-hidden');
+        }
+        if (header) header.classList.remove('header-hidden');
+        clearTimeout(UIState.controlsFadeTimer);
+        clearTimeout(UIState.timerHideTimer);
+        return;
+    }
+
+    resetActivityTimer();
+}
+
+function resetActivityTimer() {
+    if (!UIState.gameActive) return;
+
+    const controls = document.getElementById('overlay-controls');
+    const timer = document.getElementById('compact-timer');
+    if (controls) controls.classList.remove('fade');
+    if (timer) timer.classList.remove('timer-hidden');
+
+    clearTimeout(UIState.controlsFadeTimer);
+    clearTimeout(UIState.timerHideTimer);
+
+    UIState.controlsFadeTimer = setTimeout(() => {
+        if (UIState.gameActive && controls) controls.classList.add('fade');
+    }, 2000);
+
+    UIState.timerHideTimer = setTimeout(() => {
+        if (UIState.gameActive && timer) timer.classList.add('timer-hidden');
+    }, 3000);
 }
 
 function getGameController(gameName) {
@@ -114,6 +205,7 @@ function startGame(gameName) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.getElementById('game-container').classList.remove('hidden');
     resetGameOverlays();
+    setGameUIActive(true);
     
     // Set game title
     const gameNames = {
@@ -192,12 +284,14 @@ function stopTimer() {
 function updateTimerDisplay() {
     const minutes = Math.floor(GameState.timer / 60).toString().padStart(2, '0');
     const seconds = (GameState.timer % 60).toString().padStart(2, '0');
-    document.getElementById('game-timer').textContent = `${minutes}:${seconds}`;
+    const timerEl = document.getElementById('game-timer');
+    if (timerEl) timerEl.textContent = `${minutes}:${seconds}`;
 }
 
 function updateProgressBar() {
     const progress = ((GameState.currentLevel - 1) / 15) * 100;
-    document.getElementById('level-progress').style.width = `${progress}%`;
+    const bar = document.getElementById('level-progress');
+    if (bar) bar.style.width = `${progress}%`;
 }
 
 // Pause Game
@@ -213,6 +307,7 @@ function togglePause() {
         pauseMenu.classList.add('hidden');
         pauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
     }
+    resetActivityTimer();
 }
 
 // Use Hint
@@ -220,6 +315,7 @@ function useHint() {
     if (GameState.hints > 0) {
         GameState.hints--;
         document.getElementById('hint-count').textContent = GameState.hints;
+        resetActivityTimer();
         
         // Call game's hint function
         switch(GameState.currentGame) {
@@ -257,6 +353,7 @@ function restartLevel() {
     document.getElementById('game-score').textContent = '0';
     document.getElementById('game-streak').textContent = '0';
     document.getElementById('hint-count').textContent = '3';
+    resetActivityTimer();
     
     startGame(GameState.currentGame);
 }
@@ -275,6 +372,7 @@ function exitGame() {
     
     // Hide game container
     document.getElementById('game-container').classList.add('hidden');
+    setGameUIActive(false);
     
     // Show games section
     showSection('games');
@@ -405,6 +503,14 @@ function updateStreak(increment = true) {
     }
     
     document.getElementById('game-streak').textContent = GameState.streak;
+}
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.();
+    } else {
+        document.exitFullscreen?.();
+    }
 }
 
 // Leaderboard Tabs

@@ -9,11 +9,11 @@ const Game2048 = {
         this.cleanup();
         const safeLevel = Number.isFinite(level) ? level : 1;
         container.innerHTML = `
-            <div class="embedded-game-shell" style="width:100%;min-height:75vh;border-radius:16px;overflow:hidden;background:#0f0f1a;">
+            <div class="embedded-game-shell" style="background:#0f0f1a;">
                 <iframe
                     title="2048"
                     src="2048.html?level=${encodeURIComponent(String(safeLevel))}"
-                    style="width:100%;height:75vh;border:0;display:block;background:#0f0f1a;"
+                    style="width:100%;height:100%;border:0;display:block;background:#0f0f1a;"
                     loading="lazy"
                     referrerpolicy="no-referrer"
                 ></iframe>
