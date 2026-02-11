@@ -67,10 +67,7 @@ function getGameController(gameName) {
         case 'sudoku': return Sudoku;
         case 'tictactoe': return TicTacToe;
         case 'memory': return MemoryGame;
-        case 'snake': return SnakeGame;
         case 'game2048': return Game2048;
-        case 'hangman': return Hangman;
-        case 'wordguess': return WordGuess;
         case 'iq': return IQChallenge;
         default: return null;
     }
@@ -124,10 +121,7 @@ function startGame(gameName) {
         'sudoku': 'Sudoku Master',
         'tictactoe': 'Tic Tac Toe Pro',
         'memory': 'Memory Match',
-        'snake': 'Snake Challenge',
         'game2048': '2048 Puzzle',
-        'hangman': 'Hangman Classic',
-        'wordguess': 'Word Guess',
         'iq': 'IQ Challenge'
     };
     document.getElementById('current-game-name').textContent = gameNames[gameName];
@@ -155,10 +149,7 @@ function startGame(gameName) {
         sudoku: () => Sudoku.init(gameArea, GameState.currentLevel),
         tictactoe: () => TicTacToe.init(gameArea, GameState.currentLevel),
         memory: () => MemoryGame.init(gameArea, GameState.currentLevel),
-        snake: () => SnakeGame.init(gameArea, GameState.currentLevel),
         game2048: () => Game2048.init(gameArea, GameState.currentLevel),
-        hangman: () => Hangman.init(gameArea, GameState.currentLevel),
-        wordguess: () => WordGuess.init(gameArea, GameState.currentLevel),
         iq: () => IQChallenge.init(gameArea, GameState.currentLevel)
     };
 
@@ -244,17 +235,8 @@ function useHint() {
             case 'memory':
                 MemoryGame.showHint();
                 break;
-            case 'snake':
-                SnakeGame.showHint();
-                break;
             case 'game2048':
                 Game2048.showHint();
-                break;
-            case 'hangman':
-                Hangman.showHint();
-                break;
-            case 'wordguess':
-                WordGuess.showHint();
                 break;
             case 'iq':
                 IQChallenge.showHint();
@@ -447,14 +429,11 @@ function loadLeaderboard(game = 'all') {
         { rank: 2, name: 'Ava', score: 14200, level: 14, game: 'sudoku' },
         { rank: 3, name: 'Alex', score: 12500, level: 12, game: 'tictactoe' },
         { rank: 4, name: 'Sarah', score: 11000, level: 14, game: 'memory' },
-        { rank: 5, name: 'Mike', score: 9500, level: 10, game: 'snake' },
-        { rank: 6, name: 'Noah', score: 9000, level: 13, game: 'game2048' },
-        { rank: 7, name: 'Liam', score: 8700, level: 11, game: 'hangman' },
-        { rank: 8, name: 'Emma', score: 8200, level: 11, game: 'iq' },
-        { rank: 9, name: 'Mia', score: 7900, level: 10, game: 'wordguess' },
-        { rank: 10, name: 'John', score: 7800, level: 9, game: 'wordvet' },
-        { rank: 11, name: 'Lisa', score: 6500, level: 8, game: 'tictactoe' },
-        { rank: 12, name: 'David', score: 5400, level: 7, game: 'memory' }
+        { rank: 5, name: 'Noah', score: 9000, level: 13, game: 'game2048' },
+        { rank: 6, name: 'Emma', score: 8200, level: 11, game: 'iq' },
+        { rank: 7, name: 'John', score: 7800, level: 9, game: 'wordvet' },
+        { rank: 8, name: 'Lisa', score: 6500, level: 8, game: 'tictactoe' },
+        { rank: 9, name: 'David', score: 5400, level: 7, game: 'memory' }
     ];
     
     let filteredData = game === 'all' 
