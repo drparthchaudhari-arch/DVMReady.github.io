@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-mode="pro" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/portal.css">
+    <script src="assets/js/theme-toggle.js" defer></script>
     <style>
         :root {
             --primary: #0d7377;
@@ -1247,25 +1250,22 @@
         }
     </style>
 </head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">Parth Chaudhari</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="games.html" style="color: var(--secondary);" target="_blank" rel="noopener noreferrer"><i class="fas fa-gamepad"></i> Games</a></li>
-                <li><a href="iq.html" target="_blank" rel="noopener noreferrer">IQ Test</a></li>
-                <li><a href="Parth-Chaudhari-CV.txt" download>Download CV</a></li>
-            </ul>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
+<body class="pc-page pc-page--info">
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="index.html">ParthChaudhari</a>
+            <div class="pc-nav-group">
+                <a class="pc-nav-link pc-is-active" href="info.html">Profile</a>
+                <a class="pc-nav-link" href="games/">Play</a>
+                <a class="pc-nav-link" href="bridge/">Bridge</a>
+                <a class="pc-nav-link" href="search.html">Search</a>
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle>
+                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
+                </button>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle>
+                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -1301,7 +1301,7 @@
                         <i class="fas fa-brain"></i>
                         Personal IQ Test
                     </a>
-                    <a href="games.html" class="btn btn-outline" style="border-color: var(--secondary); color: var(--secondary);" target="_blank" rel="noopener noreferrer">
+                    <a href="games/" class="btn btn-outline" style="border-color: var(--secondary); color: var(--secondary);">
                         <i class="fas fa-gamepad"></i>
                         Play Games
                     </a>
@@ -1317,9 +1317,10 @@
                         class="hero-photo"
                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                     >
-                    <div class="hero-photo-placeholder" style="display: none;">
-                        <i class="fas fa-user-md"></i>
-                        <p>Add Professional Photo</p>
+                    <div class="hero-photo-placeholder pc-photo-note" style="display: none;">
+                        <i class="fas fa-shield-heart"></i>
+                        <p>Professional portrait placeholder</p>
+                        <span>Image can be added later without layout changes.</span>
                     </div>
                 </div>
                 <div class="hero-stats">
@@ -1479,110 +1480,40 @@
         <div class="section-header animate-on-scroll">
             <span class="section-label">Expertise</span>
             <h2 class="section-title">Professional Skills</h2>
-            <p class="section-subtitle">Comprehensive skill set developed through years of clinical practice and continuous learning.</p>
+            <p class="section-subtitle">Clinical and operational strengths presented as practical capability cards.</p>
         </div>
-        <div class="skills-container">
-            <div class="skills-grid">
-                <div class="skill-category animate-on-scroll">
-                    <h4 class="skill-category-title">
-                        <i class="fas fa-stethoscope"></i>
-                        Clinical Skills
-                    </h4>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Disease Diagnosis & Treatment</span>
-                            <span class="skill-percent">95%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="95"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Animal Handling & Restraint</span>
-                            <span class="skill-percent">90%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="90"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Surgical Assistance</span>
-                            <span class="skill-percent">85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="85"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-category animate-on-scroll">
-                    <h4 class="skill-category-title">
-                        <i class="fas fa-microscope"></i>
-                        Laboratory & Technical
-                    </h4>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Laboratory Sample Collection</span>
-                            <span class="skill-percent">92%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="92"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Radiology & Imaging</span>
-                            <span class="skill-percent">80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="80"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Cornerstone Software</span>
-                            <span class="skill-percent">88%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="88"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill-category animate-on-scroll">
-                    <h4 class="skill-category-title">
-                        <i class="fas fa-users"></i>
-                        Soft Skills
-                    </h4>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Client Education</span>
-                            <span class="skill-percent">90%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="90"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Medical Record Management</span>
-                            <span class="skill-percent">85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="85"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-header">
-                            <span class="skill-name">Team Collaboration</span>
-                            <span class="skill-percent">95%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="95"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="pc-skill-card-grid">
+            <article class="pc-skill-card animate-on-scroll">
+                <h4 class="pc-skill-card__title">Clinical Skills</h4>
+                <ul class="pc-skill-tags">
+                    <li class="pc-skill-tag">Disease Diagnosis</li>
+                    <li class="pc-skill-tag">Treatment Planning</li>
+                    <li class="pc-skill-tag">Animal Handling</li>
+                    <li class="pc-skill-tag">Surgical Assistance</li>
+                </ul>
+            </article>
+            <article class="pc-skill-card animate-on-scroll">
+                <h4 class="pc-skill-card__title">Laboratory and Technical</h4>
+                <ul class="pc-skill-tags">
+                    <li class="pc-skill-tag">Sample Collection</li>
+                    <li class="pc-skill-tag">Radiology and Imaging</li>
+                    <li class="pc-skill-tag">Cornerstone Software</li>
+                    <li class="pc-skill-tag">Patient Monitoring</li>
+                </ul>
+            </article>
+            <article class="pc-skill-card animate-on-scroll">
+                <h4 class="pc-skill-card__title">Communication and Operations</h4>
+                <ul class="pc-skill-tags">
+                    <li class="pc-skill-tag">Client Education</li>
+                    <li class="pc-skill-tag">Medical Records</li>
+                    <li class="pc-skill-tag">Team Collaboration</li>
+                    <li class="pc-skill-tag">Cross-Cultural Care</li>
+                </ul>
+            </article>
+        </div>
+        <div class="pc-link-strip animate-on-scroll" aria-label="Portal links">
+            <a class="pc-link-chip pc-link-chip--primary" href="games/">Play WordVet</a>
+            <a class="pc-link-chip pc-link-chip--muted" href="bridge/">Bridge Case Studies</a>
         </div>
     </section>
 
@@ -1722,6 +1653,12 @@
         </div>
     </section>
 
+    <section class="pc-section" aria-label="Clinical education">
+        <h2>Clinical Education</h2>
+        <p>Applied case studies for veterinary students:</p>
+        <a href="/bridge/" class="pc-btn">View Case Studies</a>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
@@ -1750,13 +1687,15 @@
     <script>
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+        if (navbar) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
 
         // Scroll to top button
         const scrollTop = document.getElementById('scrollTop');

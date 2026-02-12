@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search | Parth Chaudhari Portal</title>
+    <meta name="description" content="Search case studies, veterinary games, and learning resources across parthchaudhari.com.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Search | Parth Chaudhari Portal">
+    <meta property="og:description" content="Find bridge case studies, WordVet links, and veterinary learning resources.">
+    <meta property="og:url" content="https://parthchaudhari.com/search.html">
+    <link rel="canonical" href="https://parthchaudhari.com/search.html">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/portal.css">
+    <script src="assets/js/theme-toggle.js" defer></script>
+    <script src="assets/js/search-index.js" defer></script>
+    <script src="assets/js/search-handler.js" defer></script>
+</head>
+<body class="pc-page pc-page--search">
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">ParthChaudhari</a>
+            <div class="pc-nav-group">
+                <a class="pc-nav-link" href="/info.html">Profile</a>
+                <a class="pc-nav-link" href="/games/">Play</a>
+                <a class="pc-nav-link" href="/bridge/">Bridge</a>
+                <a class="pc-nav-link pc-is-active" href="/search.html">Search</a>
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle>
+                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
+                </button>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle>
+                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pc-search-shell">
+        <section class="pc-bridge-hero">
+            <p class="pc-kicker">Site Search</p>
+            <h1 class="pc-fork-title">Find Cases, Games, and Study Resources</h1>
+            <p class="pc-fork-copy">Search by symptom, species, topic, or game name to jump directly into the right learning asset.</p>
+        </section>
+
+        <section class="pc-search-panel" aria-label="Search tools">
+            <form id="pc-search-form" class="pc-search-form" role="search">
+                <label class="pc-search-label" for="pc-search-input">Search keyword</label>
+                <input id="pc-search-input" class="pc-search-input" type="search" placeholder="Try: heart, mastitis, wordvet" autocomplete="off">
+            </form>
+            <p id="pc-search-summary" class="pc-search-summary" aria-live="polite">Type a keyword to search cases, games, and resources.</p>
+            <div id="pc-search-results" class="pc-search-results"></div>
+        </section>
+    </main>
+</body>
+</html>
