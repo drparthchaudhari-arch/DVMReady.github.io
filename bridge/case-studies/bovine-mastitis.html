@@ -15,6 +15,7 @@
     <script src="/assets/js/theme-toggle.js" defer></script>
 </head>
 <body class="pc-page pc-page--bridge pc-case-page">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
         <div class="pc-portal-nav__inner">
             <a class="pc-logo" href="/">ParthChaudhari</a>
@@ -23,17 +24,17 @@
                 <a class="pc-nav-link" href="/play/">Play</a>
                 <a class="pc-nav-link pc-is-active" href="/bridge/">Bridge</a>
                 <a class="pc-nav-link" href="/search.html">Search</a>
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle>
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
                     <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
                 </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
                     <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
                 </button>
             </div>
         </div>
     </nav>
 
-    <main class="pc-bridge-shell pc-bridge-shell--case" role="main">
+    <main id="pc-main" class="pc-bridge-shell pc-bridge-shell--case" role="main">
         <article class="pc-case-article">
             <p class="pc-kicker">Production Animal Case</p>
             <h1>Bovine Clinical Mastitis</h1>
@@ -97,17 +98,17 @@
                 <p><strong>Question:</strong> Best diagnostic sample?</p>
 
                 <form class="pc-diagnose-form" data-pc-diagnose-form
-                      data-case-key="pc_case_bovine_mastitis"
+                      data-case-key="pc_case_mastitis"
                       data-correct="A"
-                      data-correct-label="Sterile milk culture"
-                      data-explanation="Sterile milk culture from the affected quarter identifies the causative organism and guides targeted antimicrobial selection. This improves treatment accuracy and supports antimicrobial stewardship at herd level."
-                      data-teaching="NAVLE production medicine questions often prioritize obtaining the sample that directly identifies etiology before broad empiric escalation."
+                      data-correct-label="Sterile milk culture from affected quarter"
+                      data-explanation="Milk culture identifies the causative organism, guides targeted therapy, and provides resistance data for herd management."
+                      data-teaching="Culture and sensitivity guide rational antimicrobial use in production medicine."
                       data-study-link="/play/wordvet/"
-                      data-study-label="Study Production Terms in WordVet">
+                      data-study-label="Study Related Terms in WordVet">
 
                     <label>
-                        <input type="radio" name="pc_diagnosis" value="A">
-                        <span>A) Sterile milk culture</span>
+                        <input type="radio" name="pc_diagnosis" value="A" required>
+                        <span>A) Sterile milk culture from affected quarter</span>
                     </label>
 
                     <label>
@@ -117,11 +118,11 @@
 
                     <label>
                         <input type="radio" name="pc_diagnosis" value="C">
-                        <span>C) Udder ultrasound</span>
+                        <span>C) Ultrasound imaging</span>
                     </label>
 
                     <div class="pc-diagnose-actions">
-                        <button type="button" class="pc-btn" data-pc-check-answer>Check Answer</button>
+                        <button type="button" class="pc-btn pc-btn--primary" data-pc-check-answer>Check Answer</button>
                         <span class="pc-completed-badge" data-pc-completed hidden>✓ Completed</span>
                     </div>
                 </form>

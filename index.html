@@ -15,6 +15,7 @@
     <script src="/assets/js/theme-toggle.js" defer></script>
 </head>
 <body class="pc-page pc-page--home">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
         <div class="pc-portal-nav__inner">
             <a class="pc-logo" href="/">ParthChaudhari</a>
@@ -23,17 +24,17 @@
                 <a class="pc-nav-link" href="/play/">Play</a>
                 <a class="pc-nav-link" href="/bridge/">Bridge</a>
                 <a class="pc-nav-link" href="/search.html">Search</a>
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle>
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
                     <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
                 </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
                     <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
                 </button>
             </div>
         </div>
     </nav>
 
-    <main class="pc-home-shell" role="main">
+    <main id="pc-main" class="pc-home-shell" role="main">
         <section class="pc-fork-wrap" aria-label="Portal fork">
             <div class="pc-fork-layout">
                 <article class="pc-fork-panel pc-fork-panel--pro">
@@ -71,24 +72,26 @@
                         </ul>
                     </div>
                     <div class="pc-panel-actions">
-                        <a class="pc-btn pc-btn--mint" href="/play/">Start Playing</a>
+                        <a class="pc-btn pc-btn--mint" href="/play/wordvet/">Start Playing</a>
                         <a class="pc-btn pc-btn--secondary" href="/bridge/case-studies/">Case Directory</a>
                     </div>
                 </article>
             </div>
 
             <aside class="pc-intersection" aria-label="Challenge card">
-                <p class="pc-intersection__title">Clinical Cases Starter</p>
+                <p class="pc-intersection__title">Play WordVet Now</p>
                 <p class="pc-intersection__copy">
-                    Begin with a real case, make your differential, then reinforce key terms in WordVet.
+                    Jump straight into WordVet for direct practice, then review a clinical case for deeper reasoning.
                 </p>
                 <div class="pc-intersection__meta">
-                    <span class="pc-chip">Step 1: Read a case</span>
-                    <span class="pc-chip">Step 2: Diagnose</span>
-                    <span class="pc-chip">Step 3: Reinforce terms</span>
+                    <span class="pc-chip">Direct launch enabled</span>
+                    <span class="pc-chip">No extra clicks</span>
                     <span class="pc-chip">3 Clinical Cases Available</span>
                 </div>
-                <a class="pc-btn pc-btn--primary pc-intersection__cta" href="/bridge/">Start with Clinical Cases &rarr;</a>
+                <a class="pc-btn pc-btn--primary pc-intersection__cta" href="/play/wordvet/">Play WordVet Now</a>
+                <div class="pc-panel-actions">
+                    <a class="pc-btn pc-btn--secondary" href="/bridge/">Browse Clinical Cases &rarr;</a>
+                </div>
             </aside>
         </section>
 

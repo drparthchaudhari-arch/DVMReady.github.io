@@ -15,6 +15,7 @@
     <script src="/assets/js/theme-toggle.js" defer></script>
 </head>
 <body class="pc-page pc-page--bridge pc-case-page">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
         <div class="pc-portal-nav__inner">
             <a class="pc-logo" href="/">ParthChaudhari</a>
@@ -23,17 +24,17 @@
                 <a class="pc-nav-link" href="/play/">Play</a>
                 <a class="pc-nav-link pc-is-active" href="/bridge/">Bridge</a>
                 <a class="pc-nav-link" href="/search.html">Search</a>
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle>
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
                     <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
                 </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
                     <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
                 </button>
             </div>
         </div>
     </nav>
 
-    <main class="pc-bridge-shell pc-bridge-shell--case" role="main">
+    <main id="pc-main" class="pc-bridge-shell pc-bridge-shell--case" role="main">
         <article class="pc-case-article">
             <p class="pc-kicker">Endocrine Emergency Case</p>
             <h1>Canine Diabetic Ketoacidosis (DKA)</h1>
@@ -100,20 +101,20 @@
                 <form class="pc-diagnose-form" data-pc-diagnose-form
                       data-case-key="pc_case_dka"
                       data-correct="A"
-                      data-correct-label="IV fluid therapy"
-                      data-explanation="In canine DKA, restoring intravascular volume and perfusion is the first life-saving step. Fluid therapy reduces counter-regulatory hormone drive, improves renal perfusion, and begins lowering blood glucose before insulin is started."
-                      data-teaching="NAVLE-style emergencies prioritize stabilization first: fluids before insulin to avoid dangerous osmotic and electrolyte shifts during early DKA management."
+                      data-correct-label="Aggressive IV isotonic fluid therapy"
+                      data-explanation="Fluid resuscitation restores perfusion and begins correcting electrolyte derangements before insulin therapy. Insulin without fluids risks osmotic shifts and cerebral edema."
+                      data-teaching="NAVLE emphasizes that DKA management prioritizes perfusion restoration over immediate insulin administration."
                       data-study-link="/play/wordvet/"
-                      data-study-label="Study Endocrine Terms in WordVet">
+                      data-study-label="Study Related Terms in WordVet">
 
                     <label>
-                        <input type="radio" name="pc_diagnosis" value="A">
-                        <span>A) IV fluid therapy</span>
+                        <input type="radio" name="pc_diagnosis" value="A" required>
+                        <span>A) Aggressive IV isotonic fluid therapy</span>
                     </label>
 
                     <label>
                         <input type="radio" name="pc_diagnosis" value="B">
-                        <span>B) Immediate insulin bolus</span>
+                        <span>B) Intravenous insulin bolus</span>
                     </label>
 
                     <label>
@@ -122,7 +123,7 @@
                     </label>
 
                     <div class="pc-diagnose-actions">
-                        <button type="button" class="pc-btn" data-pc-check-answer>Check Answer</button>
+                        <button type="button" class="pc-btn pc-btn--primary" data-pc-check-answer>Check Answer</button>
                         <span class="pc-completed-badge" data-pc-completed hidden>✓ Completed</span>
                     </div>
                 </form>

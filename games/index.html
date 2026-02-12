@@ -256,9 +256,9 @@
 </head>
 <body class="pc-page pc-page--games">
     <div class="pc-games-quickbar">
-      <a href="/play/" class="pc-games-quickbar__link">← Back to Portal</a>
-      <button type="button" class="pc-games-quickbar__toggle" data-pc-mode-toggle>Mode</button>
-      <button type="button" class="pc-games-quickbar__toggle" data-pc-theme-toggle>Theme</button>
+      <a href="/" class="pc-games-quickbar__link">← Back to Portal</a>
+      <button type="button" class="pc-games-quickbar__toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">Mode</button>
+      <button type="button" class="pc-games-quickbar__toggle" data-pc-theme-toggle aria-label="Toggle light or dark theme">Theme</button>
     </div>
     <script src="/assets/js/theme-toggle.js"></script>
     <!-- Main Container -->
@@ -350,7 +350,7 @@
                 <h3>Studying for NAVLE?</h3>
                 <p>Reinforce clinical concepts with case studies first:</p>
                 <div class="pc-panel-actions">
-                    <a href="/bridge/case-studies/canine-chf.html" class="pc-btn">CHF Case Study</a>
+                    <a href="/bridge/case-studies/chf-dog.html" class="pc-btn">CHF Case Study</a>
                     <a href="/bridge/" class="pc-btn pc-btn-secondary">All Cases</a>
                 </div>
             </section>
@@ -793,5 +793,45 @@
     <script src="js/games/iq.js?v=20260210c"></script>
     <script src="js/lobby.js?v=20260210c"></script>
     <script src="js/main.js?v=20260210c"></script>
+    <script>
+        (function () {
+            var map = {
+                wordvet: 'wordvet',
+                sudoku: 'sudoku',
+                memory: 'memory',
+                'memory-match': 'memory',
+                '2048': 'game2048',
+                tictactoe: 'tictactoe',
+                'tic-tac-toe': 'tictactoe',
+                iq: 'iq',
+                iqchallenge: 'iq',
+                'iq-challenge': 'iq'
+            };
+
+            function inferFromReferrer() {
+                var referrer = document.referrer || '';
+                if (referrer.indexOf('/play/wordvet/') !== -1 || referrer.indexOf('/games/wordvet/') !== -1) {
+                    return 'wordvet';
+                }
+                return '';
+            }
+
+            function autoStartRequestedGame() {
+                var params = new URLSearchParams(window.location.search);
+                var requested = (params.get('game') || inferFromReferrer() || '').toLowerCase();
+                var target = map[requested];
+                if (!target || typeof window.startGame !== 'function') {
+                    return;
+                }
+                window.startGame(target);
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', autoStartRequestedGame, { once: true });
+            } else {
+                autoStartRequestedGame();
+            }
+        })();
+    </script>
 </body>
 </html>

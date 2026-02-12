@@ -144,6 +144,29 @@
     outline-offset: 2px;
 }
 
+.pc-skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0.5rem;
+    z-index: 3000;
+    min-height: 44px;
+    border-radius: 10px;
+    border: 1px solid var(--pc-border);
+    background: var(--pc-surface);
+    color: var(--pc-text);
+    padding: 0.55rem 0.8rem;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+}
+
+.pc-skip-link:focus-visible {
+    left: max(0.5rem, env(safe-area-inset-left));
+    outline: 3px solid var(--pc-focus);
+    outline-offset: 2px;
+}
+
 .pc-home-shell {
     width: min(1180px, 100%);
     margin: 0 auto;
@@ -1186,6 +1209,14 @@
     min-width: 0;
 }
 
+.pc-game-nav__right {
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
 .pc-game-nav__back {
     min-height: 44px;
     border-radius: 10px;
@@ -1355,7 +1386,11 @@
     }
 
     .pc-game-nav__center {
-        justify-content: space-between;
+        justify-content: center;
+    }
+
+    .pc-game-nav__right {
+        justify-content: center;
     }
 
     .pc-game-stage {

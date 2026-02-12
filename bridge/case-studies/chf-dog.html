@@ -15,6 +15,7 @@
     <script src="/assets/js/theme-toggle.js" defer></script>
 </head>
 <body class="pc-page pc-page--bridge pc-case-page">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
         <div class="pc-portal-nav__inner">
             <a class="pc-logo" href="/">ParthChaudhari</a>
@@ -23,17 +24,17 @@
                 <a class="pc-nav-link" href="/play/">Play</a>
                 <a class="pc-nav-link pc-is-active" href="/bridge/">Bridge</a>
                 <a class="pc-nav-link" href="/search.html">Search</a>
-                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle>
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
                     <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
                 </button>
-                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
                     <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
                 </button>
             </div>
         </div>
     </nav>
 
-    <main class="pc-bridge-shell pc-bridge-shell--case" role="main">
+    <main id="pc-main" class="pc-bridge-shell pc-bridge-shell--case" role="main">
         <article class="pc-case-article">
             <p class="pc-kicker">Cardio Case</p>
             <h1>Canine Congestive Heart Failure (CHF)</h1>
@@ -103,14 +104,14 @@
               <form class="pc-diagnose-form" data-pc-diagnose-form
                     data-case-key="pc_case_chf"
                     data-correct="A"
-                    data-correct-label="Thoracic radiographs"
-                    data-explanation="While echocardiography provides detailed cardiac structure assessment and NT-proBNP indicates stretch, thoracic radiographs are the most appropriate initial test to confirm active pulmonary congestion and rule out primary airway disease. They provide immediate visualization of pulmonary patterns, cardiac silhouette size, and pleural space."
-                    data-teaching="NAVLE prioritizes starting with the test that confirms the clinical syndrome (CHF) before pursuing advanced characterization. Radiographs differentiate cardiogenic from non-cardiogenic causes of cough in dogs with murmurs."
+                    data-correct-label="Thoracic radiographs (lateral and dorsoventral views)"
+                    data-explanation="While echocardiography provides detailed cardiac structure assessment, thoracic radiographs are the most appropriate initial test to confirm active pulmonary congestion and rule out primary airway disease."
+                    data-teaching="NAVLE prioritizes starting with the test that confirms the clinical syndrome before pursuing advanced characterization."
                     data-study-link="/play/wordvet/"
-                    data-study-label="Study Cardiology Terms in WordVet">
+                    data-study-label="Study Related Terms in WordVet">
 
                 <label>
-                  <input type="radio" name="pc_diagnosis" value="A">
+                  <input type="radio" name="pc_diagnosis" value="A" required>
                   <span>A) Thoracic radiographs (lateral and dorsoventral views)</span>
                 </label>
 
@@ -125,7 +126,7 @@
                 </label>
 
                 <div class="pc-diagnose-actions">
-                  <button type="button" class="pc-btn" data-pc-check-answer>Check Answer</button>
+                  <button type="button" class="pc-btn pc-btn--primary" data-pc-check-answer>Check Answer</button>
                   <span class="pc-completed-badge" data-pc-completed hidden>✓ Completed</span>
                 </div>
               </form>
