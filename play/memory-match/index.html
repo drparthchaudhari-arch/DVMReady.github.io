@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="play" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Match Launch | ParthChaudhari Play</title>
+    <meta name="description" content="Launch Memory Match in full-viewport mode with fast return to the arcade dashboard.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Memory Match Launch | ParthChaudhari Play">
+    <meta property="og:description" content="Play Memory Match inside the portal wrapper with navigation and fullscreen support.">
+    <link rel="stylesheet" href="../../assets/css/tokens.css">
+    <link rel="stylesheet" href="../../assets/css/portal.css">
+    <script src="../../assets/js/theme-toggle.js" defer></script>
+    <script src="../../assets/js/fullscreen.js" defer></script>
+</head>
+<body class="pc-page pc-page--gameframe">
+    <header class="pc-game-nav" aria-label="Game controls">
+        <a class="pc-btn pc-btn-secondary" href="/play/">&larr; Back to Arcade</a>
+        <div class="pc-game-nav__center">
+            <p class="pc-game-title">Memory Match</p>
+            <button type="button" class="pc-nav-toggle" data-pc-mode-toggle>
+                <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Play</span>
+            </button>
+        </div>
+        <button type="button" class="pc-btn" data-pc-fullscreen data-pc-target="[data-pc-fullscreen-target]">Fullscreen</button>
+    </header>
+
+    <main class="pc-game-stage" data-pc-fullscreen-target>
+        <iframe
+            class="pc-game-iframe"
+            src="/games/memory-match/index.html"
+            title="Memory Match game"
+            allow="fullscreen; autoplay"
+            sandbox="allow-scripts allow-same-origin"
+            loading="eager"
+            referrerpolicy="same-origin"
+        ></iframe>
+    </main>
+</body>
+</html>

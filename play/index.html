@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="play" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Veterinary Games | ParthChaudhari</title>
+    <meta name="description" content="Arcade dashboard for veterinary learning games with quick play links, study-first case links, and progress stats.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Play Veterinary Games | ParthChaudhari">
+    <meta property="og:description" content="Train with WordVet and supporting puzzle games while linking each session to clinical case studies.">
+    <link rel="canonical" href="https://parthchaudhari.com/play/">
+    <link rel="stylesheet" href="../assets/css/tokens.css">
+    <link rel="stylesheet" href="../assets/css/portal.css">
+    <script src="../assets/js/theme-toggle.js" defer></script>
+</head>
+<body class="pc-page pc-page--play">
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">ParthChaudhari</a>
+            <div class="pc-nav-group">
+                <a class="pc-nav-link" href="/info.html">Profile</a>
+                <a class="pc-nav-link pc-is-active" href="/play/">Play</a>
+                <a class="pc-nav-link" href="/bridge/">Bridge</a>
+                <a class="pc-nav-link" href="/search.html">Search</a>
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle>
+                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Play</span>
+                </button>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle>
+                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Night</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pc-play-shell">
+        <section class="pc-arcade-stats" aria-label="Player stats">
+            <div class="pc-arcade-stat"><span class="pc-arcade-label">Level</span><strong>1</strong></div>
+            <div class="pc-arcade-stat"><span class="pc-arcade-label">Streak</span><strong>0 days</strong></div>
+            <div class="pc-arcade-stat pc-arcade-stat--xp">
+                <span class="pc-arcade-label">XP</span>
+                <div class="pc-xp-track" aria-label="XP progress">
+                    <div class="pc-xp-fill" style="width: 0%;"></div>
+                </div>
+                <small>0 / 100</small>
+            </div>
+            <div class="pc-arcade-stat"><span class="pc-arcade-label">VetPoints</span><strong>0</strong></div>
+        </section>
+
+        <section class="pc-featured-game" aria-label="Featured game">
+            <article class="pc-game-card pc-game-card--featured">
+                <div class="pc-game-thumb pc-game-thumb--wordvet">WordVet</div>
+                <div class="pc-game-body">
+                    <span class="pc-badge">Clinical Vocabulary</span>
+                    <h1>Featured: WordVet</h1>
+                    <p>Start each study block with terminology recall loops mapped to cardiology, endocrine, and emergency case content.</p>
+                    <p class="pc-difficulty">Difficulty: ●●●○○</p>
+                    <div class="pc-panel-actions">
+                        <a class="pc-btn" href="/play/wordvet/">Quick Play</a>
+                        <a class="pc-btn pc-btn-secondary" href="/bridge/case-studies/chf-dog.html">Study First</a>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="pc-game-grid" aria-label="Game list">
+            <article class="pc-game-card">
+                <div class="pc-game-thumb pc-game-thumb--sudoku">Sudoku</div>
+                <div class="pc-game-body">
+                    <span class="pc-badge">Logic</span>
+                    <h2>Sudoku</h2>
+                    <p class="pc-difficulty">Difficulty: ●●●●○</p>
+                    <div class="pc-panel-actions">
+                        <a class="pc-btn" href="/play/sudoku/">Quick Play</a>
+                        <a class="pc-link-chip" href="/bridge/case-studies/dka-dog.html">Study First</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="pc-game-card">
+                <div class="pc-game-thumb pc-game-thumb--memory">Memory Match</div>
+                <div class="pc-game-body">
+                    <span class="pc-badge">Anatomy</span>
+                    <h2>Memory Match</h2>
+                    <p class="pc-difficulty">Difficulty: ●●○○○</p>
+                    <div class="pc-panel-actions">
+                        <a class="pc-btn" href="/play/memory-match/">Quick Play</a>
+                        <a class="pc-link-chip" href="/bridge/case-studies/pyometra-dog.html">Study First</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="pc-game-card">
+                <div class="pc-game-thumb pc-game-thumb--2048">2048</div>
+                <div class="pc-game-body">
+                    <span class="pc-badge">Pharm</span>
+                    <h2>2048</h2>
+                    <p class="pc-difficulty">Difficulty: ●●●○○</p>
+                    <div class="pc-panel-actions">
+                        <a class="pc-btn" href="/play/2048/">Quick Play</a>
+                        <a class="pc-link-chip" href="/bridge/case-studies/dka-dog.html">Study First</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="pc-game-card">
+                <div class="pc-game-thumb pc-game-thumb--ttt">TicTacToe</div>
+                <div class="pc-game-body">
+                    <span class="pc-badge">Surgery</span>
+                    <h2>Tic-Tac-Toe</h2>
+                    <p class="pc-difficulty">Difficulty: ●●○○○</p>
+                    <div class="pc-panel-actions">
+                        <a class="pc-btn" href="/play/tictactoe/">Quick Play</a>
+                        <a class="pc-link-chip" href="/bridge/case-studies/pyometra-dog.html">Study First</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="pc-game-card">
+                <div class="pc-game-thumb pc-game-thumb--iq">IQ Challenge</div>
+                <div class="pc-game-body">
+                    <span class="pc-badge">Emergency</span>
+                    <h2>IQ Challenge</h2>
+                    <p class="pc-difficulty">Difficulty: ●●●●○</p>
+                    <div class="pc-panel-actions">
+                        <a class="pc-btn" href="/play/iq-challenge/">Quick Play</a>
+                        <a class="pc-link-chip" href="/bridge/case-studies/chf-dog.html">Study First</a>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
