@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parth Chaudhari | Home</title>
-    <meta name="description" content="VetLudics by Parth Chaudhari: clinical veterinary expertise turned into engaging learning games led by WordVet.">
+    <title>VetLudics | Parth Chaudhari</title>
+    <meta name="description" content="VetLudics by Parth Chaudhari combines clinical veterinary expertise with game mechanics for NAVLE prep, terminology training, client education, and anatomy puzzles.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -12,15 +12,14 @@
     <style>
         :root {
             --primary: #0d7377;
-            --primary-light: #14a085;
             --secondary: #32e0c4;
-            --dark: #1a1a2e;
-            --darker: #16213e;
+            --dark: #111a2c;
+            --darker: #0b1324;
             --white: #ffffff;
-            --muted: rgba(255, 255, 255, 0.72);
+            --muted: rgba(255, 255, 255, 0.74);
             --card: rgba(255, 255, 255, 0.08);
-            --card-border: rgba(255, 255, 255, 0.18);
-            --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            --card-border: rgba(255, 255, 255, 0.17);
+            --shadow: 0 20px 55px rgba(0, 0, 0, 0.35);
             --transition: all 0.25s ease;
         }
 
@@ -34,19 +33,10 @@
             min-height: 100vh;
             font-family: 'Inter', sans-serif;
             color: var(--white);
-            background: radial-gradient(circle at 20% 10%, #184a64 0%, transparent 45%),
-                        radial-gradient(circle at 80% 90%, #0f3f4f 0%, transparent 40%),
-                        linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-
-        .portal {
-            width: min(980px, 100%);
-            text-align: center;
-            animation: fade-up 0.7s ease-out;
+            background: radial-gradient(circle at 12% 5%, #1f425f 0%, transparent 42%),
+                        radial-gradient(circle at 82% 85%, #1d2c4f 0%, transparent 44%),
+                        linear-gradient(140deg, var(--dark) 0%, var(--darker) 100%);
+            padding: 1.2rem;
         }
 
         .about-corner {
@@ -56,13 +46,13 @@
             display: inline-flex;
             align-items: center;
             gap: 0.45rem;
-            padding: 0.6rem 0.95rem;
+            padding: 0.55rem 0.9rem;
             border-radius: 999px;
             text-decoration: none;
             color: var(--white);
             font-weight: 600;
-            font-size: 0.86rem;
-            background: rgba(50, 224, 196, 0.18);
+            font-size: 0.84rem;
+            background: rgba(50, 224, 196, 0.17);
             border: 1px solid rgba(50, 224, 196, 0.45);
             backdrop-filter: blur(12px);
             transition: var(--transition);
@@ -71,7 +61,21 @@
 
         .about-corner:hover {
             transform: translateY(-2px);
-            background: rgba(50, 224, 196, 0.26);
+            background: rgba(50, 224, 196, 0.25);
+        }
+
+        .shell {
+            width: min(1120px, 100%);
+            margin: 0 auto;
+            animation: fade-up 0.7s ease-out;
+        }
+
+        .hero {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
         }
 
         .eyebrow {
@@ -83,140 +87,213 @@
             border: 1px solid rgba(50, 224, 196, 0.35);
             border-radius: 999px;
             padding: 0.45rem 0.9rem;
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-size: 0.76rem;
+            font-weight: 700;
             letter-spacing: 0.03em;
             text-transform: uppercase;
         }
 
         h1 {
-            margin-top: 1.25rem;
-            margin-bottom: 0.65rem;
+            margin-top: 1rem;
+            margin-bottom: 0.7rem;
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 4vw, 3.25rem);
+            font-size: clamp(2rem, 4vw, 3.1rem);
             line-height: 1.15;
         }
 
         .subtitle {
             color: var(--muted);
-            max-width: 640px;
-            margin: 0 auto;
-            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            max-width: 840px;
+            font-size: clamp(0.95rem, 2vw, 1.08rem);
+            line-height: 1.7;
         }
 
-        .audience-strip {
-            margin-top: 1rem;
+        .hero-actions {
+            margin-top: 1.3rem;
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.55rem;
+            gap: 0.75rem;
         }
 
-        .audience-item {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.9);
-            padding: 0.32rem 0.75rem;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-
-        .options {
-            margin-top: 2.2rem;
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1.2rem;
-        }
-
-        .option-card {
-            text-decoration: none;
-            color: inherit;
-            background: var(--card);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 1.75rem;
-            text-align: left;
-            backdrop-filter: blur(14px);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .option-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(50, 224, 196, 0.07), rgba(13, 115, 119, 0.04));
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .option-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(50, 224, 196, 0.55);
-        }
-
-        .option-card:hover::before {
-            opacity: 1;
-        }
-
-        .option-icon {
-            width: 54px;
-            height: 54px;
-            border-radius: 14px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            background: rgba(50, 224, 196, 0.14);
-            color: var(--secondary);
-            font-size: 1.35rem;
-        }
-
-        .option-title {
-            font-size: 1.35rem;
-            font-weight: 700;
-            margin-bottom: 0.55rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .option-description {
-            color: var(--muted);
-            line-height: 1.6;
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .tier-label {
-            display: inline-block;
-            margin-bottom: 0.7rem;
-            color: var(--secondary);
-            font-size: 0.74rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            font-weight: 700;
-            position: relative;
-            z-index: 1;
-        }
-
-        .option-action {
-            color: var(--secondary);
-            font-weight: 600;
+        .hero-btn {
             display: inline-flex;
             align-items: center;
             gap: 0.45rem;
-            position: relative;
-            z-index: 1;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            padding: 0.72rem 1rem;
+            transition: var(--transition);
+        }
+
+        .hero-btn.primary {
+            color: #051418;
+            background: linear-gradient(135deg, #32e0c4, #14a085);
+        }
+
+        .hero-btn.ghost {
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .section {
+            margin-top: 1.2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            padding: 1.6rem;
+        }
+
+        .section h2 {
+            font-size: 1.35rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .section p.lead {
+            color: var(--muted);
+            max-width: 900px;
+            line-height: 1.65;
+            margin-bottom: 1rem;
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.9rem;
+        }
+
+        .tier-card {
+            border-radius: 16px;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .tier-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(50, 224, 196, 0.5);
+        }
+
+        .tier-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .tier-card h3 {
+            margin-top: 0.45rem;
+            margin-bottom: 0.45rem;
+            font-size: 1.05rem;
+        }
+
+        .tier-card p {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.55;
+            margin-bottom: 0.75rem;
+        }
+
+        .tier-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+        }
+
+        .opportunity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+        }
+
+        .opportunity-card {
+            border-radius: 16px;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            padding: 1rem;
+        }
+
+        .opportunity-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .opportunity-card p {
+            color: var(--muted);
+            font-size: 0.86rem;
+            line-height: 1.55;
+        }
+
+        .opportunity-meta {
+            margin-top: 0.7rem;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .meta-row {
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.13);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 0.5rem 0.6rem;
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        .meta-row strong {
+            color: var(--secondary);
+        }
+
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+        }
+
+        .roadmap-column {
+            border-radius: 16px;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            padding: 1rem;
+        }
+
+        .roadmap-column h3 {
+            margin-bottom: 0.55rem;
+            font-size: 1rem;
+        }
+
+        .roadmap-column ul {
+            list-style: none;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .roadmap-column li {
+            color: var(--muted);
+            font-size: 0.86rem;
+            line-height: 1.5;
+            padding: 0.45rem 0.55rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
         }
 
         .footer-note {
-            margin-top: 1.4rem;
-            color: rgba(255, 255, 255, 0.5);
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.56);
             font-size: 0.82rem;
+            text-align: center;
         }
 
         @keyframes fade-up {
@@ -231,24 +308,26 @@
         }
 
         @media (max-width: 980px) {
-            .options {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+            .tier-grid,
+            .opportunity-grid,
+            .roadmap-grid {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 768px) {
-            .options {
-                grid-template-columns: 1fr;
+            .hero {
+                padding: 1.25rem;
             }
 
-            .option-card {
-                padding: 1.4rem;
+            .section {
+                padding: 1rem;
             }
 
             .about-corner {
                 top: auto;
-                bottom: 1rem;
-                right: 1rem;
+                bottom: 0.9rem;
+                right: 0.9rem;
             }
         }
     </style>
@@ -259,47 +338,128 @@
         About Me
     </a>
 
-    <main class="portal">
-        <span class="eyebrow">
-            <i class="fas fa-stethoscope"></i>
-            VetLudics by Parth Chaudhari
-        </span>
-        <h1>Clinical Veterinary Expertise, Made Playable</h1>
-        <p class="subtitle">WordVet blends veterinary knowledge with casual puzzle design for students, professionals, pet owners, and curious gamers.</p>
-        <div class="audience-strip" aria-label="Audience segments">
-            <span class="audience-item">Vet Students</span>
-            <span class="audience-item">Veterinary Professionals</span>
-            <span class="audience-item">Pet Owners</span>
-            <span class="audience-item">Casual Gamers</span>
-        </div>
-
-        <section class="options" aria-label="Main sections">
-            <a class="option-card" href="games/index.html">
-                <span class="option-icon"><i class="fas fa-font"></i></span>
-                <span class="tier-label">Free Portfolio Tier</span>
-                <h2 class="option-title">Start WordVet Free</h2>
-                <p class="option-description">Play veterinary-themed word challenges and build vocabulary in short, repeatable sessions.</p>
-                <span class="option-action">Open WordVet <i class="fas fa-arrow-right"></i></span>
-            </a>
-
-            <a class="option-card" href="games.html">
-                <span class="option-icon"><i class="fas fa-gamepad"></i></span>
-                <span class="tier-label">Pro Gaming Tier</span>
-                <h2 class="option-title">Explore Full Platform</h2>
-                <p class="option-description">Play the full collection with progression, hints, score tracking, and multiplayer-ready experiences.</p>
-                <span class="option-action">Open Game Hub <i class="fas fa-arrow-right"></i></span>
-            </a>
-
-            <a class="option-card" href="info.html#contact">
-                <span class="option-icon"><i class="fas fa-graduation-cap"></i></span>
-                <span class="tier-label">Educational B2B Tier</span>
-                <h2 class="option-title">For Schools and Clinics</h2>
-                <p class="option-description">Discuss pilots for veterinary education cohorts, clinic teams, and outcomes-focused learning programs.</p>
-                <span class="option-action">Discuss a Pilot <i class="fas fa-arrow-right"></i></span>
-            </a>
+    <main class="shell">
+        <section class="hero">
+            <span class="eyebrow">
+                <i class="fas fa-stethoscope"></i>
+                VetLudics: Clinical Knowledge x Game Mechanics
+            </span>
+            <h1>Veterinary Learning Games Built By a NAVLE Candidate</h1>
+            <p class="subtitle">Parthchaudhari.com now focuses on the whitespace between veterinary education and casual gaming: exam-relevant rigor with game loops that keep people coming back daily.</p>
+            <div class="hero-actions">
+                <a class="hero-btn primary" href="games/index.html#games">
+                    <i class="fas fa-play"></i>
+                    Start WordVet
+                </a>
+                <a class="hero-btn ghost" href="games.html#feature-roadmap">
+                    <i class="fas fa-road"></i>
+                    View Feature Roadmap
+                </a>
+                <a class="hero-btn ghost" href="games.html#market-gap">
+                    <i class="fas fa-chart-line"></i>
+                    See Market Gaps
+                </a>
+            </div>
         </section>
 
-        <p class="footer-note">&copy; 2026 Parth Chaudhari | VetLudics</p>
+        <section class="section" aria-label="Three tier positioning">
+            <h2>Three-Tier Positioning Strategy</h2>
+            <p class="lead">The product now maps to three tiers so the website can serve individual users and scale to institutional buyers without losing focus.</p>
+            <div class="tier-grid">
+                <article class="tier-card">
+                    <span class="tier-label">Free Portfolio Tier</span>
+                    <h3>WordVet Free</h3>
+                    <p>Fast veterinary terminology gameplay for students and early discovery from pet owners and gamers.</p>
+                    <a class="tier-link" href="games/index.html#games">Open Free Tier <i class="fas fa-arrow-right"></i></a>
+                </article>
+                <article class="tier-card">
+                    <span class="tier-label">Pro Gaming Tier</span>
+                    <h3>Engagement and Progression</h3>
+                    <p>Full game suite, streaks, multiplayer loops, and progression layers that retain daily users.</p>
+                    <a class="tier-link" href="games/index.html#roadmap">See Pro Features <i class="fas fa-arrow-right"></i></a>
+                </article>
+                <article class="tier-card">
+                    <span class="tier-label">Educational B2B Tier</span>
+                    <h3>Schools and Clinic Pilots</h3>
+                    <p>Cohort mode, reporting, and structured modules for veterinary schools and practice groups.</p>
+                    <a class="tier-link" href="games.html#b2b-tier">View B2B Path <i class="fas fa-arrow-right"></i></a>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" aria-label="Untapped opportunities">
+            <h2>Five Untapped Opportunities With Unfair Advantage</h2>
+            <p class="lead">These opportunities combine what generic game portals cannot offer (clinical authenticity) and what traditional prep tools underuse (game-native engagement loops).</p>
+            <div class="opportunity-grid">
+                <article class="opportunity-card">
+                    <h3>Gamified NAVLE Sprint Mode</h3>
+                    <p>Blueprint-tagged, timed question loops with species and domain focus for prep in short sessions.</p>
+                    <div class="opportunity-meta">
+                        <div class="meta-row"><strong>Quick win:</strong> timed sprint rounds + weak-domain tags.</div>
+                        <div class="meta-row"><strong>Moat:</strong> adaptive readiness predictor tied to blueprint areas.</div>
+                    </div>
+                </article>
+                <article class="opportunity-card">
+                    <h3>WordVet Clinical Lexicon Ladder</h3>
+                    <p>Vocabulary gameplay that escalates into definitions, context, and case relevance.</p>
+                    <div class="opportunity-meta">
+                        <div class="meta-row"><strong>Quick win:</strong> definitions and why-it-matters cards.</div>
+                        <div class="meta-row"><strong>Moat:</strong> spaced repetition and case-linked recall loops.</div>
+                    </div>
+                </article>
+                <article class="opportunity-card">
+                    <h3>Pet Owner Education Microgames</h3>
+                    <p>Simple client-facing games for urgency triage, preventive care, and common toxicities.</p>
+                    <div class="opportunity-meta">
+                        <div class="meta-row"><strong>Quick win:</strong> triage and preventive care mini-games.</div>
+                        <div class="meta-row"><strong>Moat:</strong> clinic-branded education analytics and QR flows.</div>
+                    </div>
+                </article>
+                <article class="opportunity-card">
+                    <h3>Veterinary Anatomy Puzzle Track</h3>
+                    <p>2D/3D anatomy puzzle workflows across species to improve structure recognition and retention.</p>
+                    <div class="opportunity-meta">
+                        <div class="meta-row"><strong>Quick win:</strong> canine and feline label puzzles.</div>
+                        <div class="meta-row"><strong>Moat:</strong> 3D comparative anatomy with station-style challenges.</div>
+                    </div>
+                </article>
+                <article class="opportunity-card">
+                    <h3>Cohort and Campus Mode</h3>
+                    <p>Institutional layer for schools, hospitals, and CE cohorts with measurable progression.</p>
+                    <div class="opportunity-meta">
+                        <div class="meta-row"><strong>Quick win:</strong> cohort codes and weekly challenge packs.</div>
+                        <div class="meta-row"><strong>Moat:</strong> instructor dashboards and LMS-compatible exports.</div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" aria-label="Roadmap overview">
+            <h2>Feature Roadmap: Quick Wins vs Long-Term Differentiation</h2>
+            <p class="lead">Execution is split into near-term launches that ship quickly and longer-cycle systems that create durable category leadership.</p>
+            <div class="roadmap-grid">
+                <article class="roadmap-column">
+                    <h3>Quick Wins (0-60 Days)</h3>
+                    <ul>
+                        <li>Ship NAVLE Sprint Mode with timed rounds and blueprint tags.</li>
+                        <li>Add WordVet definitions, clinical context, and progress badges.</li>
+                        <li>Launch three client education mini-games for pet owners.</li>
+                        <li>Introduce cohort codes and weekly leaderboard challenges.</li>
+                    </ul>
+                </article>
+                <article class="roadmap-column">
+                    <h3>Long-Term Differentiation (3-12 Months)</h3>
+                    <ul>
+                        <li>Adaptive NAVLE readiness system with weak-domain planner.</li>
+                        <li>Anatomy puzzle suite evolving from 2D to interactive 3D.</li>
+                        <li>Term-to-case progression ladders for applied clinical thinking.</li>
+                        <li>B2B licensing layer for schools, clinics, and CE partners.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <p class="footer-note">&copy; 2026 Parth Chaudhari | VetLudics category website</p>
     </main>
 </body>
 </html>

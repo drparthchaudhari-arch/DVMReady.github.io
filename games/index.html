@@ -84,12 +84,133 @@
             background: rgba(15, 23, 42, 0.35);
         }
 
+        .strategy-badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.55rem;
+            margin: 0 auto 1rem;
+            max-width: 820px;
+        }
+
+        .strategy-badge {
+            padding: 0.34rem 0.66rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            border: 1px solid var(--border);
+            color: #cde6ff;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .strategy-track-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .strategy-track-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+        }
+
+        .strategy-track-card h3 {
+            margin-bottom: 0.35rem;
+            font-size: 1rem;
+        }
+
+        .strategy-track-card p {
+            color: var(--text-secondary);
+            font-size: 0.86rem;
+            line-height: 1.55;
+            margin-bottom: 0.65rem;
+        }
+
+        .strategy-note {
+            font-size: 0.77rem;
+            color: #e2edff;
+            padding: 0.4rem 0.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 0.38rem;
+        }
+
+        .strategy-note strong {
+            color: #63f0d8;
+        }
+
+        .strategy-roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .strategy-roadmap-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+        }
+
+        .strategy-roadmap-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.55rem;
+        }
+
+        .strategy-roadmap-card ul {
+            list-style: none;
+            display: grid;
+            gap: 0.38rem;
+        }
+
+        .strategy-roadmap-card li {
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            line-height: 1.45;
+            padding: 0.36rem 0.42rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .b2b-banner {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(99, 240, 216, 0.4);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .b2b-banner h3 {
+            margin-bottom: 0.35rem;
+            font-size: 1rem;
+        }
+
+        .b2b-banner p {
+            color: #d8f8ef;
+            font-size: 0.88rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.55;
+        }
+
+        .b2b-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
         #game-container:not(.hidden) ~ .about-corner-link {
             opacity: 0;
             pointer-events: none;
         }
 
         @media (max-width: 768px) {
+            .strategy-roadmap-grid {
+                grid-template-columns: 1fr;
+            }
+
             .about-corner-link {
                 top: auto;
                 bottom: 0.8rem;
@@ -144,6 +265,8 @@
             <div class="nav-links">
                 <a href="#home" class="active"><i class="fas fa-home"></i> Home</a>
                 <a href="#games"><i class="fas fa-dice"></i> Games</a>
+                <a href="#tracks"><i class="fas fa-route"></i> Tracks</a>
+                <a href="#roadmap"><i class="fas fa-road"></i> Roadmap</a>
                 <a href="#multiplayer"><i class="fas fa-users"></i> Multiplayer</a>
                 <a href="#leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a>
             </div>
@@ -164,13 +287,13 @@
             <div class="hero">
                 <div class="hero-content">
                     <h1>WordVet: Veterinary Learning Through Play</h1>
-                    <p>Build clinical vocabulary and reasoning through fast, replayable puzzle sessions. Start with WordVet, then explore the full game platform.</p>
+                    <p>Build NAVLE-relevant vocabulary and clinical reasoning through fast, replayable puzzle sessions. Start with WordVet, then track strategy rollout by audience and tier.</p>
                     <div class="hero-buttons">
                         <button class="btn btn-primary" onclick="showSection('games')">
                             <i class="fas fa-play"></i> Start WordVet
                         </button>
-                        <button class="btn btn-secondary" onclick="showSection('multiplayer')">
-                            <i class="fas fa-users"></i> Join Multiplayer
+                        <button class="btn btn-secondary" onclick="showSection('roadmap')">
+                            <i class="fas fa-road"></i> View Roadmap
                         </button>
                     </div>
                     <div class="audience-pill-row" aria-label="Audience segments">
@@ -178,6 +301,13 @@
                         <span class="audience-pill">Professionals</span>
                         <span class="audience-pill">Pet Owners</span>
                         <span class="audience-pill">Casual Gamers</span>
+                    </div>
+                    <div class="strategy-badge-row" aria-label="Core opportunity themes">
+                        <span class="strategy-badge">NAVLE Sprint Prep</span>
+                        <span class="strategy-badge">Terminology Ladder</span>
+                        <span class="strategy-badge">Client Education Games</span>
+                        <span class="strategy-badge">Anatomy Puzzle Track</span>
+                        <span class="strategy-badge">Campus Mode</span>
                     </div>
                 </div>
 
@@ -205,7 +335,7 @@
         <section id="games" class="section">
             <div class="section-header">
                 <h2><i class="fas fa-dice"></i> Choose Your Learning and Play Track</h2>
-                <p>WordVet is the clinical core, with supporting puzzle games for daily retention and engagement.</p>
+                <p>WordVet is the clinical core, with supporting games driving retention while roadmap features roll out.</p>
             </div>
             
             <!-- Games Grid with Inline Ads -->
@@ -304,6 +434,97 @@
                     <button class="btn btn-play" onclick="startGame('iq')">
                         <i class="fas fa-play"></i> Play
                     </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tracks Section -->
+        <section id="tracks" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-route"></i> Audience and Learning Tracks</h2>
+                <p>Execution is organized around the four core audiences plus an anatomy specialization track.</p>
+            </div>
+            <div class="strategy-track-grid">
+                <article class="strategy-track-card">
+                    <h3>Vet Student Track</h3>
+                    <p>Terminology mastery, NAVLE sprint prep, and case-linked vocabulary retention.</p>
+                    <div class="strategy-note"><strong>Quick win:</strong> timed NAVLE sprint rounds.</div>
+                    <div class="strategy-note"><strong>Long-term:</strong> adaptive readiness predictor.</div>
+                </article>
+                <article class="strategy-track-card">
+                    <h3>Professional Track</h3>
+                    <p>Short daily modules for clinical terminology refresh and decision-support habits.</p>
+                    <div class="strategy-note"><strong>Quick win:</strong> advanced terminology streak mode.</div>
+                    <div class="strategy-note"><strong>Long-term:</strong> cohort analytics for teams.</div>
+                </article>
+                <article class="strategy-track-card">
+                    <h3>Pet Owner Track</h3>
+                    <p>Client education microgames for preventive care and urgency awareness.</p>
+                    <div class="strategy-note"><strong>Quick win:</strong> triage and prevention mini-games.</div>
+                    <div class="strategy-note"><strong>Long-term:</strong> clinic-branded education flows.</div>
+                </article>
+                <article class="strategy-track-card">
+                    <h3>Casual Gamer Track</h3>
+                    <p>Puzzle-first experience with meaningful subject matter and progression loops.</p>
+                    <div class="strategy-note"><strong>Quick win:</strong> challenge ladders and weekly events.</div>
+                    <div class="strategy-note"><strong>Long-term:</strong> competitive seasonal formats.</div>
+                </article>
+                <article class="strategy-track-card">
+                    <h3>Anatomy Puzzle Track</h3>
+                    <p>Cross-species anatomy exploration from 2D labeling to advanced interactive modules.</p>
+                    <div class="strategy-note"><strong>Quick win:</strong> canine and feline label puzzles.</div>
+                    <div class="strategy-note"><strong>Long-term:</strong> 3D anatomy with station-style tasks.</div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Roadmap Section -->
+        <section id="roadmap" class="section">
+            <div class="section-header">
+                <h2><i class="fas fa-road"></i> Feature Roadmap</h2>
+                <p>Prioritized from quick wins into long-term differentiation and B2B moat building.</p>
+            </div>
+            <div class="strategy-roadmap-grid">
+                <article class="strategy-roadmap-card">
+                    <h3>0-60 Days: Quick Wins</h3>
+                    <ul>
+                        <li>NAVLE Sprint Mode with timed blueprint-tagged rounds.</li>
+                        <li>WordVet definition cards and clinical context snippets.</li>
+                        <li>First client education mini-game release.</li>
+                        <li>Cohort code support and weekly challenge loop.</li>
+                    </ul>
+                </article>
+                <article class="strategy-roadmap-card">
+                    <h3>3-6 Months: Differentiation</h3>
+                    <ul>
+                        <li>2D anatomy puzzle packs across high-value species.</li>
+                        <li>Adaptive weak-area reinforcement pathways.</li>
+                        <li>Term-to-case progression ladders for students.</li>
+                        <li>Team reporting layer for pilot institutions.</li>
+                    </ul>
+                </article>
+                <article class="strategy-roadmap-card">
+                    <h3>6-12 Months: Category Moat</h3>
+                    <ul>
+                        <li>Adaptive NAVLE readiness engine and study planner.</li>
+                        <li>3D anatomy puzzle environment and comparative modules.</li>
+                        <li>Educational B2B licensing and dashboard suite.</li>
+                        <li>Clinic deployment playbook and CE-aligned modules.</li>
+                    </ul>
+                </article>
+            </div>
+            <div class="b2b-banner">
+                <h3>Educational B2B Tier</h3>
+                <p>For veterinary schools, clinics, and CE providers: deploy cohort gameplay with measurable outcomes and pilot support.</p>
+                <div class="b2b-actions">
+                    <a href="../games.html#b2b-tier" class="btn btn-primary">
+                        <i class="fas fa-handshake"></i>
+                        Open B2B Strategy
+                    </a>
+                    <a href="../info.html#contact" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i>
+                        Request Pilot
+                    </a>
                 </div>
             </div>
         </section>
@@ -543,7 +764,7 @@
             </div>
         </div>
 
-        <a class="about-corner-link" href="../info.html" target="_blank" rel="noopener noreferrer">
+        <a class="about-corner-link" href="../info.html">
             <i class="fas fa-user-doctor"></i>
             About Me
         </a>

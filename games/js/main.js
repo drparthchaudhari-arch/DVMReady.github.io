@@ -68,6 +68,11 @@ function showSection(sectionId) {
     if (targetSection) {
         targetSection.classList.add('active');
     }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        const target = link.getAttribute('href')?.replace('#', '');
+        link.classList.toggle('active', target === sectionId);
+    });
 }
 
 function setupImmersiveUI() {
