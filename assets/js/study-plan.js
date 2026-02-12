@@ -288,9 +288,28 @@
         return createPlan(raw.planId, raw);
     }
 
-    function savePlan(plan) {
+    function triggerBackgroundSync(trigger) {
+        if (!window.pcSync || typeof window.pcSync.syncToServer !== 'function') {
+            return;
+        }
+
+        window.pcSync.syncToServer({ trigger: trigger || 'study_update' }).catch(function () {
+            // Study updates stay local-first if sync fails.
+        });
+    }
+
+    function savePlan(plan, options) {
+        var settings = options || {};
         state.plan = plan;
         safeSetItem(STORAGE_KEY, JSON.stringify(plan));
+
+        if (settings.markDirty === true && window.pcStorage && typeof window.pcStorage.touchField === 'function') {
+            window.pcStorage.touchField('study_plan');
+        }
+
+        if (settings.sync === true) {
+            triggerBackgroundSync(settings.syncTrigger || 'study_progress_update');
+        }
     }
 
     function getElements() {
@@ -514,7 +533,11 @@
             }
         }
 
-        savePlan(state.plan);
+        savePlan(state.plan, {
+            markDirty: true,
+            sync: true,
+            syncTrigger: 'study_topic_update'
+        });
         renderAll();
     }
 
@@ -539,13 +562,21 @@
             break;
         }
 
-        savePlan(state.plan);
+        savePlan(state.plan, {
+            markDirty: true,
+            sync: true,
+            syncTrigger: 'study_item_update'
+        });
         renderAll();
     }
 
     function applyPlan(planId) {
         state.plan = createPlan(planId, state.plan);
-        savePlan(state.plan);
+        savePlan(state.plan, {
+            markDirty: true,
+            sync: true,
+            syncTrigger: 'study_plan_switch'
+        });
         renderAll();
     }
 
@@ -587,7 +618,10 @@
         }
 
         state.plan = getStoredPlan() || createPlan('10week');
-        savePlan(state.plan);
+        savePlan(state.plan, {
+            markDirty: false,
+            sync: false
+        });
 
         bindEvents();
         renderAll();

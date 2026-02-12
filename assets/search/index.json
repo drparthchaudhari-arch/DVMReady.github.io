@@ -77,6 +77,27 @@
     "date": "2024-01-20"
   },
   {
+    "title": "Account Settings",
+    "url": "/account/",
+    "type": "resource",
+    "tags": ["account", "sync", "magic link", "export", "import"],
+    "date": "2026-02-12"
+  },
+  {
+    "title": "Top Learners Leaderboard",
+    "url": "/leaderboard/",
+    "type": "resource",
+    "tags": ["leaderboard", "weekly score", "rank", "streak", "cases"],
+    "date": "2026-02-12"
+  },
+  {
+    "title": "Privacy Policy",
+    "url": "/privacy/",
+    "type": "resource",
+    "tags": ["privacy", "data", "email", "sync", "delete account"],
+    "date": "2026-02-12"
+  },
+  {
     "title": "Professional Profile",
     "url": "/info.html",
     "type": "profile",

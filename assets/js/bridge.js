@@ -15,6 +15,16 @@
         }
     }
 
+    function triggerBackgroundSync(trigger) {
+        if (!window.pcSync || typeof window.pcSync.syncToServer !== 'function') {
+            return;
+        }
+
+        window.pcSync.syncToServer({ trigger: trigger || 'bridge_update' }).catch(function () {
+            // Sync failures should not block case-study interactions.
+        });
+    }
+
     function initDiagnoseBlock(block) {
         var form = block.querySelector('[data-pc-diagnose-form]');
         var button = block.querySelector('[data-pc-check-answer]');
@@ -57,10 +67,15 @@
                 '<div class="pc-panel-actions"><a class="pc-btn pc-btn--secondary" href="' + studyLink + '">' + studyLabel + '</a></div>';
 
             if (caseKey) {
-                safeSet(caseKey, 'completed');
+                if (window.pcStorage && typeof window.pcStorage.markCaseCompleted === 'function') {
+                    window.pcStorage.markCaseCompleted(caseKey);
+                } else {
+                    safeSet(caseKey, 'completed');
+                }
                 if (completedBadge) {
                     completedBadge.hidden = false;
                 }
+                triggerBackgroundSync('case_completion');
             }
         });
     }

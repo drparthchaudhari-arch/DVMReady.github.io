@@ -53,7 +53,24 @@
     }
 
     function saveGameActivity(activity) {
-        return safeSetItem(GAME_ACTIVITY_KEY, JSON.stringify(activity));
+        var saved = safeSetItem(GAME_ACTIVITY_KEY, JSON.stringify(activity));
+        if (saved) {
+            if (window.pcStorage && typeof window.pcStorage.touchField === 'function') {
+                window.pcStorage.touchField('game_activity');
+            } else {
+                try {
+                    var rawMeta = localStorage.getItem('pc_sync_meta');
+                    var meta = safeParse(rawMeta, {});
+                    var now = new Date().toISOString();
+                    meta.game_activity = now;
+                    meta.updated_at = now;
+                    localStorage.setItem('pc_sync_meta', JSON.stringify(meta));
+                } catch (error) {
+                    // Ignore localStorage failures.
+                }
+            }
+        }
+        return saved;
     }
 
     function toDayStamp(date) {

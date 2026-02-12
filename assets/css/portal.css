@@ -1582,6 +1582,130 @@
     background: var(--pc-surface-strong);
 }
 
+.pc-auth-indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.35rem;
+    font-size: 0.7rem;
+    line-height: 1;
+}
+
+.pc-auth-indicator--on {
+    color: var(--pc-success, #169b62);
+}
+
+.pc-auth-indicator--off {
+    color: var(--pc-text-muted);
+}
+
+.pc-account-shell,
+.pc-leaderboard-shell,
+.pc-privacy-shell {
+    width: min(1080px, 100%);
+    margin: 0 auto;
+    padding-bottom: 2rem;
+}
+
+.pc-account-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.pc-account-card {
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-lg);
+    background: color-mix(in srgb, var(--pc-surface) 92%, transparent);
+    padding: clamp(1rem, 1.6vw, 1.4rem);
+}
+
+.pc-account-card h2,
+.pc-account-card h3 {
+    margin-top: 0;
+}
+
+.pc-account-status {
+    margin: 0.5rem 0 0;
+    color: var(--pc-text-muted);
+}
+
+.pc-account-actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+.pc-account-field {
+    margin-top: 0.8rem;
+    display: grid;
+    gap: 0.4rem;
+}
+
+.pc-account-input {
+    min-height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--pc-border);
+    padding: 0.55rem 0.7rem;
+    background: color-mix(in srgb, var(--pc-surface) 88%, transparent);
+    color: var(--pc-text);
+}
+
+.pc-account-message {
+    margin-top: 0.7rem;
+    min-height: 1.25rem;
+    color: var(--pc-text-muted);
+}
+
+.pc-account-message.pc-is-error {
+    color: var(--pc-danger, #b42318);
+}
+
+.pc-account-message.pc-is-success {
+    color: var(--pc-success, #169b62);
+}
+
+.pc-account-note {
+    color: var(--pc-text-muted);
+    margin-top: 0.5rem;
+}
+
+.pc-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--pc-border);
+    border-radius: 12px;
+}
+
+.pc-leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 620px;
+}
+
+.pc-leaderboard-table th,
+.pc-leaderboard-table td {
+    padding: 0.72rem 0.8rem;
+    border-bottom: 1px solid var(--pc-border);
+    text-align: left;
+}
+
+.pc-leaderboard-table th {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--pc-text-muted);
+}
+
+.pc-leaderboard-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.pc-empty-state {
+    margin: 1rem 0 0;
+    color: var(--pc-text-muted);
+}
+
 @media print {
     .pc-case-page .pc-portal-nav,
     .pc-case-page .pc-games-quickbar {

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account | Parth Chaudhari</title>
+    <meta name="description" content="Manage local study data, optional cross-device sync, and privacy settings.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Account | Parth Chaudhari">
+    <meta property="og:description" content="Export/import your local progress and optionally enable Supabase sync.">
+    <meta property="og:url" content="https://parthchaudhari.com/account/">
+    <link rel="canonical" href="https://parthchaudhari.com/account/">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/storage.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+    <script src="/assets/js/supabase-config.js" defer></script>
+    <script src="/assets/js/sync.js" defer></script>
+    <script src="/assets/js/account.js" defer></script>
+</head>
+<body class="pc-page pc-page--study">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">ParthChaudhari</a>
+            <div class="pc-nav-group">
+                <a class="pc-nav-link" href="/info.html">Profile</a>
+                <a class="pc-nav-link" href="/play/">Play</a>
+                <a class="pc-nav-link" href="/bridge/">Bridge</a>
+                <a class="pc-nav-link" href="/search.html">Search</a>
+                <a class="pc-nav-link" href="/study/">Study Plan</a>
+                <a class="pc-nav-link pc-is-active" href="/account/"><span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>Account</a>
+                <a class="pc-nav-link" href="/leaderboard/">Leaderboard</a>
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
+                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
+                </button>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="pc-account-shell" role="main" data-page="account">
+        <section class="pc-bridge-hero" id="pc-account-root">
+            <p class="pc-kicker">Account</p>
+            <h1 class="pc-fork-title">Your Learning Data</h1>
+            <p class="pc-fork-copy">Anonymous mode stays enabled by default. Use this page to export local data, import backups, and optionally enable cross-device sync.</p>
+        </section>
+
+        <section class="pc-account-grid" aria-label="Account settings">
+            <article class="pc-account-card" aria-labelledby="pc-local-data-title">
+                <h2 id="pc-local-data-title">Local Data Status</h2>
+                <p id="pc-local-cases" class="pc-account-status">Cases completed: 0</p>
+                <p id="pc-local-streak" class="pc-account-status">Current streak: 0 days</p>
+                <div class="pc-account-actions">
+                    <button type="button" id="pc-export-button" class="pc-btn">Export My Data (JSON download)</button>
+                    <button type="button" id="pc-import-button" class="pc-btn pc-btn--secondary">Import Data (JSON upload)</button>
+                    <input type="file" id="pc-import-input" accept="application/json" hidden>
+                </div>
+            </article>
+
+            <article id="pc-sync-section" class="pc-account-card" aria-labelledby="pc-sync-title">
+                <h2 id="pc-sync-title">Cross-Device Sync</h2>
+
+                <div id="pc-sync-not-configured" class="pc-account-note" hidden>
+                    Sync not configured yet. Follow the setup guide in <code>/docs/supabase-setup.md</code>.
+                </div>
+
+                <div id="pc-sync-logged-out" hidden>
+                    <div class="pc-account-field">
+                        <label for="pc-sync-email">Email</label>
+                        <input id="pc-sync-email" class="pc-account-input" type="email" autocomplete="email" placeholder="you@example.com">
+                    </div>
+                    <div class="pc-account-actions">
+                        <button id="pc-send-magic-link" type="button" class="pc-btn">Send Magic Link</button>
+                    </div>
+                    <p class="pc-account-note">We'll email you a login link. No password needed.</p>
+                </div>
+
+                <div id="pc-sync-logged-in" hidden>
+                    <p id="pc-sync-welcome" class="pc-account-status">Welcome back</p>
+                    <p class="pc-account-status">Last synced: <span id="pc-sync-last-synced">Never</span></p>
+                    <div class="pc-account-actions">
+                        <button id="pc-sync-now" type="button" class="pc-btn">Sync Now</button>
+                        <button id="pc-logout" type="button" class="pc-btn pc-btn--secondary">Logout</button>
+                    </div>
+                </div>
+
+                <p id="pc-account-message" class="pc-account-message" aria-live="polite"></p>
+            </article>
+
+            <article class="pc-account-card" aria-labelledby="pc-privacy-title">
+                <h2 id="pc-privacy-title">Data Privacy</h2>
+                <p class="pc-account-note">Your data is stored securely. You can export or delete it anytime.</p>
+                <div class="pc-account-actions">
+                    <a class="pc-btn pc-btn--secondary" href="/privacy/">Open Privacy Policy</a>
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

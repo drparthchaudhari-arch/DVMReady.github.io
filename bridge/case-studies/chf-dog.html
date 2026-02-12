@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="../../assets/css/tokens.css">
     <link rel="stylesheet" href="../../assets/css/portal.css">
     <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/storage.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+    <script src="/assets/js/supabase-config.js" defer></script>
+    <script src="/assets/js/sync.js" defer></script>
 </head>
 <body class="pc-page pc-page--bridge pc-case-page">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
@@ -25,6 +30,8 @@
                 <a class="pc-nav-link pc-is-active" href="/bridge/">Bridge</a>
                 <a class="pc-nav-link" href="/search.html">Search</a>
                 <a class="pc-nav-link" href="/study/">Study Plan</a>
+                <a class="pc-nav-link" href="/account/"><span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>Account</a>
+                <a class="pc-nav-link" href="/leaderboard/">Leaderboard</a>
                 <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
                     <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
                 </button>
