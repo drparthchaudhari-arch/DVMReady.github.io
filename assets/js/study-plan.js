@@ -23,7 +23,7 @@
             description: 'CHF reasoning and cardiology vocabulary loops.',
             items: [
                 { id: 'chf_case', title: 'Read CHF Case Study', type: 'case', url: '/bridge/case-studies/chf-dog.html', estimatedTime: '30min' },
-                { id: 'wordvet_cardio', title: 'Play WordVet Cardiology Set', type: 'game', url: '/play/wordvet/', estimatedTime: '15min' },
+                { id: 'wordvet_cardio', title: 'Review WordVet Cardiology Topics', type: 'resource', url: '/study/wordvet/', estimatedTime: '15min' },
                 { id: 'chf_radiographs', title: 'Review CHF Radiograph Findings', type: 'resource', url: '/bridge/case-studies/chf-dog.html', estimatedTime: '20min' }
             ]
         },
@@ -34,7 +34,7 @@
             items: [
                 { id: 'dka_case', title: 'Read Canine DKA Case', type: 'case', url: '/bridge/case-studies/dka-dog.html', estimatedTime: '30min' },
                 { id: 'hyperthyroid_case', title: 'Read Feline Hyperthyroid Case', type: 'case', url: '/bridge/case-studies/feline-hyperthyroid.html', estimatedTime: '30min' },
-                { id: 'endocrine_wordvet', title: 'Play WordVet Endocrine Terms', type: 'game', url: '/play/wordvet/', estimatedTime: '15min' }
+                { id: 'endocrine_wordvet', title: 'Review WordVet Endocrine Topics', type: 'resource', url: '/study/wordvet/', estimatedTime: '15min' }
             ]
         },
         {

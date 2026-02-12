@@ -28,11 +28,11 @@
     "date": "2024-01-18"
   },
   {
-    "title": "WordVet Game",
-    "url": "/play/wordvet/",
-    "type": "game",
-    "tags": ["vocabulary", "cardiology", "words", "navle"],
-    "date": "2024-01-10"
+    "title": "WordVet NAVLE Study Tool",
+    "url": "/study/wordvet/",
+    "type": "resource",
+    "tags": ["wordvet", "navle", "study guide", "species", "systems"],
+    "date": "2024-01-21"
   },
   {
     "title": "Sudoku Game",

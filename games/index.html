@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0f0f23">
-    <title>WordVet by Parth Chaudhari | Veterinary Learning Games and Puzzles</title>
-    <meta name="description" content="Play WordVet and other puzzle games where veterinary education meets casual play. Built for vet students, professionals, pet owners, and gamers.">
-    <meta name="keywords" content="wordvet, veterinary word game, veterinary education games, vet student study game, veterinary puzzle, casual learning games">
+    <title>VetLudics by Parth Chaudhari | Veterinary Puzzle Games</title>
+    <meta name="description" content="Play veterinary puzzle games for reinforcement. WordVet topics are now available in the Study portal.">
+    <meta name="keywords" content="veterinary education games, vet student puzzle game, veterinary puzzle, casual learning games">
     <meta name="author" content="Parth Chaudhari">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://parthchaudhari.com/games/">
-    <meta property="og:title" content="WordVet by Parth Chaudhari - Veterinary Learning Through Play">
-    <meta property="og:description" content="Play WordVet and puzzle games that combine clinical veterinary vocabulary with engaging progression and multiplayer features.">
+    <meta property="og:title" content="VetLudics by Parth Chaudhari - Veterinary Puzzle Reinforcement">
+    <meta property="og:description" content="Play puzzle games for veterinary reinforcement and use the WordVet NAVLE topic library in Study.">
     <meta property="og:image" content="https://parthchaudhari.com/games/og-image.jpg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://parthchaudhari.com/games/">
-    <meta property="twitter:title" content="WordVet by Parth Chaudhari - Veterinary Learning Through Play">
-    <meta property="twitter:description" content="WordVet and puzzle games designed for vet students, professionals, pet owners, and gamers.">
+    <meta property="twitter:title" content="VetLudics by Parth Chaudhari - Veterinary Puzzle Reinforcement">
+    <meta property="twitter:description" content="Puzzle games for veterinary reinforcement. WordVet topics live in the Study portal.">
     <meta property="twitter:image" content="https://parthchaudhari.com/games/og-image.jpg">
     
     <!-- Canonical URL -->
@@ -225,9 +225,9 @@
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "WordVet by Parth Chaudhari",
+        "name": "VetLudics by Parth Chaudhari",
         "url": "https://parthchaudhari.com/games/",
-        "description": "Veterinary learning games led by WordVet, combining clinical vocabulary with puzzle-based play.",
+        "description": "Veterinary puzzle games for reinforcement learning.",
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://parthchaudhari.com/games/?search={search_term_string}",
@@ -240,9 +240,9 @@
     {
         "@context": "https://schema.org",
         "@type": "VideoGame",
-        "name": "WordVet and VetLudics Collection",
-        "description": "A collection of veterinary and puzzle games with level progression and multiplayer support.",
-        "genre": ["Puzzle", "Strategy", "Arcade", "Word"],
+        "name": "VetLudics Puzzle Collection",
+        "description": "A collection of veterinary puzzle games with level progression and multiplayer support.",
+        "genre": ["Puzzle", "Strategy", "Arcade"],
         "gamePlatform": ["Web Browser", "Mobile Browser"],
         "operatingSystem": "Any",
         "applicationCategory": "Game",
@@ -294,15 +294,13 @@
         <section id="home" class="section active">
             <div class="hero">
                 <div class="hero-content">
-                    <h1>WordVet: Veterinary Learning Through Play</h1>
-                    <p>Build NAVLE-relevant vocabulary and clinical reasoning through fast, replayable puzzle sessions. Start with WordVet, then track strategy rollout by audience and tier.</p>
+                    <h1>VetLudics: Veterinary Puzzle Learning Hub</h1>
+                    <p>Use this hub for replayable puzzle reinforcement. For NAVLE topic review, use the WordVet study tool in the Study portal.</p>
                     <div class="hero-buttons">
                         <button class="btn btn-primary" onclick="showSection('games')">
-                            <i class="fas fa-play"></i> Start WordVet
+                            <i class="fas fa-play"></i> Start Puzzle Games
                         </button>
-                        <button class="btn btn-secondary" onclick="showSection('roadmap')">
-                            <i class="fas fa-road"></i> View Roadmap
-                        </button>
+                        <a class="btn btn-secondary" href="/study/wordvet/"><i class="fas fa-book"></i> Open WordVet Topics</a>
                     </div>
                     <div class="audience-pill-row" aria-label="Audience segments">
                         <span class="audience-pill">Vet Students</span>
@@ -322,8 +320,8 @@
                 <div class="hero-stats">
                     <div class="stat-card">
                         <i class="fas fa-gamepad"></i>
-                        <span class="stat-number">1</span>
-                        <span class="stat-label">WordVet Flagship</span>
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Puzzle Games</span>
                     </div>
                     <div class="stat-card">
                         <i class="fas fa-layer-group"></i>
@@ -343,13 +341,14 @@
         <section id="games" class="section">
             <div class="section-header">
                 <h2><i class="fas fa-dice"></i> Choose Your Learning and Play Track</h2>
-                <p>WordVet is the clinical core, with supporting games driving retention while roadmap features roll out.</p>
+                <p>WordVet topics are now in Study. Use these games for diagnostic logic, memory, and pattern reinforcement.</p>
             </div>
 
             <section class="pc-clinical-context" aria-label="Clinical context">
                 <h3>Studying for NAVLE?</h3>
-                <p>Reinforce clinical concepts with case studies first:</p>
+                <p>Open WordVet topics first, then reinforce with case studies and puzzle drills:</p>
                 <div class="pc-panel-actions">
+                    <a href="/study/wordvet/" class="pc-btn">WordVet Topic Library</a>
                     <a href="/bridge/case-studies/chf-dog.html" class="pc-btn">CHF Case Study</a>
                     <a href="/bridge/" class="pc-btn pc-btn-secondary">All Cases</a>
                 </div>
@@ -357,22 +356,6 @@
             
             <!-- Games Grid with Inline Ads -->
             <div class="games-grid">
-                <!-- WordVet Card -->
-                <div class="game-card" data-game="wordvet">
-                    <div class="game-icon"><i class="fas fa-font"></i></div>
-                    <div class="game-info">
-                        <h3>WordVet</h3>
-                        <p>Find hidden veterinary words across anatomy, diseases, diagnostics, treatments, and specialties.</p>
-                        <div class="game-meta">
-                            <span class="badge"><i class="fas fa-layer-group"></i> 15+ Levels</span>
-                            <span class="badge"><i class="fas fa-stethoscope"></i> Clinical Vocabulary</span>
-                        </div>
-                    </div>
-                    <button class="btn btn-play" onclick="startGame('wordvet')">
-                        <i class="fas fa-play"></i> Play
-                    </button>
-                </div>
-
                 <!-- Sudoku Card -->
                 <div class="game-card" data-game="sudoku">
                     <div class="game-icon" style="background: linear-gradient(135deg, #8b5cf6, #6366f1);"><i class="fas fa-th"></i></div>
@@ -506,7 +489,7 @@
                     <h3>0-60 Days: Quick Wins</h3>
                     <ul>
                         <li>NAVLE Sprint Mode with timed blueprint-tagged rounds.</li>
-                        <li>WordVet definition cards and clinical context snippets.</li>
+                        <li>WordVet topic cards and clinical context snippets.</li>
                         <li>First client education mini-game release.</li>
                         <li>Cohort code support and weekly challenge loop.</li>
                     </ul>
@@ -595,7 +578,6 @@
             <div class="leaderboard-container">
                 <div class="leaderboard-tabs">
                     <button class="tab-btn active" data-tab="all">All Games</button>
-                    <button class="tab-btn" data-tab="wordvet">WordVet</button>
                     <button class="tab-btn" data-tab="sudoku">Sudoku</button>
                     <button class="tab-btn" data-tab="tictactoe">Tic Tac Toe</button>
                     <button class="tab-btn" data-tab="memory">Memory</button>
@@ -785,7 +767,6 @@
 
     <!-- Scripts -->
     <script src="js/utils.js?v=20260210c"></script>
-    <script src="js/games/wordvet.js?v=20260210c"></script>
     <script src="js/games/sudoku.js?v=20260210c"></script>
     <script src="js/games/tictactoe.js?v=20260210c"></script>
     <script src="js/games/memory.js?v=20260210c"></script>
@@ -796,7 +777,6 @@
     <script>
         (function () {
             var map = {
-                wordvet: 'wordvet',
                 sudoku: 'sudoku',
                 memory: 'memory',
                 'memory-match': 'memory',
@@ -809,10 +789,6 @@
             };
 
             function inferFromReferrer() {
-                var referrer = document.referrer || '';
-                if (referrer.indexOf('/play/wordvet/') !== -1 || referrer.indexOf('/games/wordvet/') !== -1) {
-                    return 'wordvet';
-                }
                 return '';
             }
 

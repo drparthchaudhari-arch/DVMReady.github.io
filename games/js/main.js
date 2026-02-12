@@ -536,15 +536,13 @@ function loadLeaderboard(game = 'all') {
     
     // Sample leaderboard data (in real app, fetch from server)
     const leaderboardData = [
-        { rank: 1, name: 'Parth', score: 15000, level: 15, game: 'wordvet' },
-        { rank: 2, name: 'Ava', score: 14200, level: 14, game: 'sudoku' },
-        { rank: 3, name: 'Alex', score: 12500, level: 12, game: 'tictactoe' },
-        { rank: 4, name: 'Sarah', score: 11000, level: 14, game: 'memory' },
-        { rank: 5, name: 'Noah', score: 9000, level: 13, game: 'game2048' },
-        { rank: 6, name: 'Emma', score: 8200, level: 11, game: 'iq' },
-        { rank: 7, name: 'John', score: 7800, level: 9, game: 'wordvet' },
-        { rank: 8, name: 'Lisa', score: 6500, level: 8, game: 'tictactoe' },
-        { rank: 9, name: 'David', score: 5400, level: 7, game: 'memory' }
+        { rank: 1, name: 'Ava', score: 14200, level: 14, game: 'sudoku' },
+        { rank: 2, name: 'Alex', score: 12500, level: 12, game: 'tictactoe' },
+        { rank: 3, name: 'Sarah', score: 11000, level: 14, game: 'memory' },
+        { rank: 4, name: 'Noah', score: 9000, level: 13, game: 'game2048' },
+        { rank: 5, name: 'Emma', score: 8200, level: 11, game: 'iq' },
+        { rank: 6, name: 'Lisa', score: 6500, level: 8, game: 'tictactoe' },
+        { rank: 7, name: 'David', score: 5400, level: 7, game: 'memory' }
     ];
     
     let filteredData = game === 'all' 
