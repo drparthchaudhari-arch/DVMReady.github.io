@@ -1186,6 +1186,19 @@
     min-width: 0;
 }
 
+.pc-game-nav__back {
+    min-height: 44px;
+    border-radius: 10px;
+    border: 1px solid var(--pc-border);
+    background: color-mix(in srgb, var(--pc-surface) 90%, transparent);
+    color: var(--pc-text);
+    padding: 0.55rem 0.8rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 700;
+}
+
 .pc-game-title {
     margin: 0;
     font-weight: 700;
@@ -1386,4 +1399,16 @@
     .pc-btn {
         border: 2px solid currentColor;
     }
+}
+
+@media print {
+  .pc-games-quickbar,
+  .pc-portal-nav {
+    display: none !important;
+  }
+
+  .pc-page {
+    background: white !important;
+    color: black !important;
+  }
 }

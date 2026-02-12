@@ -42,7 +42,6 @@
     <link rel="stylesheet" href="styles/lobby.css?v=20260210c">
     <link rel="stylesheet" href="../assets/css/tokens.css">
     <link rel="stylesheet" href="../assets/css/portal.css">
-    <script src="../assets/js/theme-toggle.js" defer></script>
     <style>
         .about-corner-link {
             position: fixed;
@@ -256,6 +255,12 @@
     </script>
 </head>
 <body class="pc-page pc-page--games">
+    <div class="pc-games-quickbar">
+      <a href="/play/" class="pc-games-quickbar__link">← Back to Portal</a>
+      <button type="button" class="pc-games-quickbar__toggle" data-pc-mode-toggle>Mode</button>
+      <button type="button" class="pc-games-quickbar__toggle" data-pc-theme-toggle>Theme</button>
+    </div>
+    <script src="/assets/js/theme-toggle.js"></script>
     <!-- Main Container -->
     <div id="app">
 
@@ -776,18 +781,6 @@
             </div>
         </div>
 
-        <div class="pc-games-quickbar" role="region" aria-label="Portal quick controls">
-            <a class="pc-games-quickbar__link" href="/">Back to Portal</a>
-            <a class="pc-games-quickbar__link" href="/info.html">Profile</a>
-            <a class="pc-games-quickbar__link" href="/bridge/">Bridge</a>
-            <a class="pc-games-quickbar__link" href="/search.html">Search</a>
-            <button type="button" class="pc-games-quickbar__toggle" data-pc-mode-toggle>
-                <span data-pc-mode-label>Mode: Professional</span>
-            </button>
-            <button type="button" class="pc-games-quickbar__toggle" data-pc-theme-toggle>
-                <span data-pc-theme-label>Theme: Day</span>
-            </button>
-        </div>
     </div>
 
     <!-- Scripts -->

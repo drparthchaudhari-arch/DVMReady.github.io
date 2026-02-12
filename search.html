@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="assets/css/tokens.css">
     <link rel="stylesheet" href="assets/css/portal.css">
     <script src="assets/js/theme-toggle.js" defer></script>
-    <script src="assets/js/search-index.js" defer></script>
-    <script src="assets/js/search-handler.js" defer></script>
 </head>
 <body class="pc-page pc-page--search">
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
@@ -44,12 +42,14 @@
 
         <section class="pc-search-panel" aria-label="Search tools">
             <form id="pc-search-form" class="pc-search-form" role="search">
-                <label class="pc-search-label" for="pc-search-input">Search keyword</label>
-                <input id="pc-search-input" class="pc-search-input" type="search" placeholder="Try: heart, mastitis, wordvet" autocomplete="off">
+                <label class="pc-search-label" for="search-input">Search keyword</label>
+                <input id="search-input" class="pc-search-input" type="search" placeholder="Try: cardio, wordvet, endocrine" autocomplete="off">
             </form>
             <p id="pc-search-summary" class="pc-search-summary" aria-live="polite">Type a keyword to search cases, games, and resources.</p>
-            <div id="pc-search-results" class="pc-search-results"></div>
+            <div id="search-results" class="pc-search-results"></div>
         </section>
     </main>
+    <script src="/assets/js/search-index.js"></script>
+    <script src="/assets/js/search-handler.js"></script>
 </body>
 </html>

@@ -12,8 +12,7 @@
     <link rel="canonical" href="https://parthchaudhari.com/bridge/case-studies/chf-dog.html">
     <link rel="stylesheet" href="../../assets/css/tokens.css">
     <link rel="stylesheet" href="../../assets/css/portal.css">
-    <script src="../../assets/js/theme-toggle.js" defer></script>
-    <script src="../../assets/js/bridge.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
 </head>
 <body class="pc-page pc-page--bridge pc-case-page">
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
@@ -98,28 +97,40 @@
             </section>
 
             <section class="pc-diagnose-box" data-pc-diagnose>
-                <h2>Diagnose This</h2>
-                <p><strong>Question:</strong> What is the most appropriate next diagnostic test?</p>
-                <form
-                    data-pc-diagnose-form
+              <h3>Diagnose This</h3>
+              <p><strong>Question:</strong> What is the most appropriate next diagnostic test?</p>
+
+              <form class="pc-diagnose-form" data-pc-diagnose-form
                     data-case-key="pc_case_chf"
-                    data-correct="a"
-                    data-correct-label="A) Thoracic radiographs"
-                    data-explanation="Thoracic radiographs are the most appropriate next step to evaluate pulmonary edema pattern, heart silhouette changes, and immediate cardiopulmonary status in a coughing dog with suspected CHF."
-                    data-teaching="For NAVLE-style cardiology questions, prioritize the test that best confirms active congestive changes and guides immediate stabilization decisions."
-                    data-study-link="/play/wordvet/?topic=cardio"
-                    data-study-label="Study Cardio Terms"
-                    class="pc-diagnose-form"
-                >
-                    <label><input type="radio" name="pc_diagnosis" value="a"> A) Thoracic radiographs</label>
-                    <label><input type="radio" name="pc_diagnosis" value="b"> B) Echocardiogram</label>
-                    <label><input type="radio" name="pc_diagnosis" value="c"> C) NT-proBNP blood test</label>
-                    <div class="pc-panel-actions">
-                        <button type="button" class="pc-btn" data-pc-check-answer>Check Answer</button>
-                        <span class="pc-completed-badge" data-pc-completed hidden>✓ Completed</span>
-                    </div>
-                </form>
-                <div class="pc-answer" data-pc-feedback hidden aria-live="polite"></div>
+                    data-correct="A"
+                    data-correct-label="Thoracic radiographs"
+                    data-explanation="While echocardiography provides detailed cardiac structure assessment and NT-proBNP indicates stretch, thoracic radiographs are the most appropriate initial test to confirm active pulmonary congestion and rule out primary airway disease. They provide immediate visualization of pulmonary patterns, cardiac silhouette size, and pleural space."
+                    data-teaching="NAVLE prioritizes starting with the test that confirms the clinical syndrome (CHF) before pursuing advanced characterization. Radiographs differentiate cardiogenic from non-cardiogenic causes of cough in dogs with murmurs."
+                    data-study-link="/play/wordvet/"
+                    data-study-label="Study Cardiology Terms in WordVet">
+
+                <label>
+                  <input type="radio" name="pc_diagnosis" value="A">
+                  <span>A) Thoracic radiographs (lateral and dorsoventral views)</span>
+                </label>
+
+                <label>
+                  <input type="radio" name="pc_diagnosis" value="B">
+                  <span>B) Echocardiogram with Doppler</span>
+                </label>
+
+                <label>
+                  <input type="radio" name="pc_diagnosis" value="C">
+                  <span>C) NT-proBNP blood test</span>
+                </label>
+
+                <div class="pc-diagnose-actions">
+                  <button type="button" class="pc-btn" data-pc-check-answer>Check Answer</button>
+                  <span class="pc-completed-badge" data-pc-completed hidden>✓ Completed</span>
+                </div>
+              </form>
+
+              <div class="pc-answer" data-pc-feedback hidden aria-live="polite"></div>
             </section>
 
             <section>
@@ -153,5 +164,6 @@
             <p class="pc-disclaimer">For educational purposes only. Not a substitute for veterinary advice.</p>
         </article>
     </main>
+    <script src="/assets/js/bridge.js"></script>
 </body>
 </html>

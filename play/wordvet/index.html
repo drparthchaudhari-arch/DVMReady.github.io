@@ -1,42 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" data-mode="play" data-theme="dark">
+<html lang="en" data-mode="play" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WordVet Launch | ParthChaudhari Play</title>
-    <meta name="description" content="Launch WordVet in full-viewport mode with fast return to the arcade dashboard.">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="WordVet Launch | ParthChaudhari Play">
-    <meta property="og:description" content="Play WordVet inside the portal wrapper with navigation and fullscreen support.">
-    <meta property="og:url" content="https://parthchaudhari.com/play/wordvet/">
-    <link rel="canonical" href="https://parthchaudhari.com/play/wordvet/">
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/portal.css">
-    <script src="/assets/js/theme-toggle.js" defer></script>
-    <script src="/assets/js/fullscreen.js" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>WordVet | Veterinary Games | ParthChaudhari</title>
+  <meta name="description" content="Play WordVet - Veterinary education game for NAVLE prep.">
+  <link rel="canonical" href="https://parthchaudhari.com/play/wordvet/">
+  <meta property="og:title" content="WordVet | Veterinary Games">
+  <meta property="og:description" content="Clinical vocabulary and reasoning games for vet students.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://parthchaudhari.com/play/wordvet/">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/portal.css">
 </head>
-<body class="pc-page pc-page--gameframe">
-    <header class="pc-game-nav" aria-label="Game controls">
-        <a class="pc-btn pc-btn-secondary" href="/play/" aria-label="Exit game and return to arcade">&larr; Exit Game</a>
-        <div class="pc-game-nav__center">
-            <p class="pc-game-title">WordVet</p>
-            <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle play mode">
-                <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Play</span>
-            </button>
-        </div>
-        <button type="button" class="pc-btn" data-pc-fullscreen data-pc-target="[data-pc-fullscreen-target]" aria-label="Toggle fullscreen mode">Fullscreen</button>
-    </header>
-
-    <main class="pc-game-stage" data-pc-fullscreen-target role="main">
-        <iframe
+<body class="pc-page pc-page--gameframe" data-mode="play" data-theme="light">
+  <nav class="pc-game-nav" aria-label="Game launch controls">
+    <a href="/play/" class="pc-game-nav__back">&larr; Back to Arcade</a>
+    <div class="pc-game-nav__center">
+      <h1 class="pc-game-title">WordVet</h1>
+      <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle mode">
+        <span data-pc-mode-label>Mode: Play</span>
+      </button>
+      <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle theme">
+        <span data-pc-theme-label>Theme: Day</span>
+      </button>
+      <button id="fullscreenBtn" type="button" class="pc-nav-toggle" data-pc-fullscreen data-pc-target="[data-pc-fullscreen-target]" aria-label="Toggle fullscreen">Fullscreen</button>
+    </div>
+  </nav>
+  <main class="pc-game-stage" data-pc-fullscreen-target role="main">
+    <iframe src="/games/wordvet/index.html"
             class="pc-game-iframe"
-            src="/games/index.html"
-            title="WordVet game"
             allow="fullscreen; autoplay"
             sandbox="allow-scripts allow-same-origin"
-            loading="eager"
-            referrerpolicy="same-origin"
-        ></iframe>
-    </main>
+            title="WordVet"></iframe>
+  </main>
+  <script src="/assets/js/theme-toggle.js"></script>
+  <script src="/assets/js/fullscreen.js"></script>
 </body>
 </html>
