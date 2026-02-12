@@ -136,6 +136,7 @@
 .pc-portal-nav a:focus-visible,
 .pc-nav-toggle:focus-visible,
 .pc-btn:focus-visible,
+.pc-popup-close:focus-visible,
 .pc-competency-card:focus-visible,
 .pc-games-quickbar__link:focus-visible,
 .pc-games-quickbar__toggle:focus-visible,
@@ -320,6 +321,25 @@
     border-radius: 16px;
     padding: 1rem;
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.18);
+}
+
+.pc-popup-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    min-height: 36px;
+    border-radius: 999px;
+    border: 1px solid var(--pc-border);
+    background: color-mix(in srgb, var(--pc-surface) 90%, transparent);
+    color: var(--pc-text);
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 0.3rem 0.7rem;
+    cursor: pointer;
+}
+
+.pc-popup-close:hover {
+    border-color: var(--pc-primary);
 }
 
 .pc-intersection__title {
