@@ -30,6 +30,19 @@
     --transition: all 0.3s ease;
 }
 
+[data-theme='light'] {
+    --bg-dark: #162034;
+    --bg-card: #202e45;
+    --bg-light: #2a3d59;
+    --bg-hover: #355176;
+    --text-primary: #f6f9ff;
+    --text-secondary: #c5d7ee;
+    --text-muted: #9eb5d2;
+    --border: rgba(197, 215, 238, 0.25);
+    --shadow: 0 4px 20px rgba(3, 8, 18, 0.4);
+    --shadow-lg: 0 8px 40px rgba(3, 8, 18, 0.5);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -42,6 +55,13 @@ body {
     color: var(--text-primary);
     min-height: 100vh;
     overflow-x: hidden;
+}
+
+[data-theme='light'] body::before {
+    background:
+        radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
 }
 
 /* Background Animation */
