@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games | Parth Chaudhari</title>
-    <meta name="description" content="Launch the Parth Games platform with 6 games, levels, hints, and multiplayer support.">
+    <title>WordVet and VetLudics Hub | Parth Chaudhari</title>
+    <meta name="description" content="Launch WordVet and the VetLudics game hub where veterinary education meets casual gameplay with levels, hints, and multiplayer support.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -48,6 +48,31 @@
             padding: 1.4rem;
         }
 
+        .about-corner {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.6rem 0.95rem;
+            border-radius: 999px;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.86rem;
+            background: rgba(50, 224, 196, 0.18);
+            border: 1px solid rgba(50, 224, 196, 0.45);
+            backdrop-filter: blur(12px);
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .about-corner:hover {
+            transform: translateY(-2px);
+            background: rgba(50, 224, 196, 0.26);
+        }
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -79,6 +104,22 @@
             line-height: 1.6;
         }
 
+        .category-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.6rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: var(--secondary);
+            border: 1px solid rgba(50, 224, 196, 0.35);
+            background: rgba(50, 224, 196, 0.1);
+        }
+
         .game-launch {
             text-align: center;
             margin: 2rem 0;
@@ -99,6 +140,39 @@
         .game-preview h2 {
             font-size: 1.25rem;
             margin-bottom: 0.75rem;
+        }
+
+        .audience-section {
+            margin-top: 1.8rem;
+        }
+
+        .audience-section h2 {
+            font-size: 1.2rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .audience-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            border-radius: 12px;
+            padding: 0.9rem;
+        }
+
+        .audience-chip h3 {
+            font-size: 0.95rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .audience-chip p {
+            font-size: 0.83rem;
+            color: rgba(255, 255, 255, 0.66);
+            line-height: 1.45;
         }
 
         .preview-grid {
@@ -149,25 +223,62 @@
             .games-container {
                 padding: 1rem;
             }
+
+            .about-corner {
+                top: auto;
+                bottom: 1rem;
+                right: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <a class="about-corner" href="info.html">
+        <i class="fas fa-user-doctor"></i>
+        About Me
+    </a>
+
     <main class="games-container">
         <a href="index.html" class="btn btn-back">
             <i class="fas fa-arrow-left"></i>
             Back to Home
         </a>
 
-        <h1>Games</h1>
-        <p class="lead">Play all games from one platform with levels, hints, score tracking, and multiplayer lobby support.</p>
+        <span class="category-pill">
+            <i class="fas fa-stethoscope"></i>
+            VetLudics Category: Veterinary Learning + Casual Play
+        </span>
+        <h1>WordVet and Game Hub</h1>
+        <p class="lead">Start with WordVet for veterinary vocabulary and clinical recall, then move into the full game suite for daily engagement and skill-building momentum.</p>
 
         <div class="game-launch">
             <a href="games/index.html" class="btn btn-primary">
                 <i class="fas fa-gamepad"></i>
-                Launch Game Platform
+                Launch WordVet Platform
             </a>
         </div>
+
+        <section class="audience-section" aria-label="Audience tracks">
+            <h2>Built For Four Audiences</h2>
+            <div class="audience-grid">
+                <article class="audience-chip">
+                    <h3>Vet Students</h3>
+                    <p>Fast sessions to reinforce anatomy, disease, and treatment terminology.</p>
+                </article>
+                <article class="audience-chip">
+                    <h3>Professionals</h3>
+                    <p>Daily micro-practice to keep terminology and pattern recognition sharp.</p>
+                </article>
+                <article class="audience-chip">
+                    <h3>Pet Owners</h3>
+                    <p>Friendly gameplay that improves confidence with veterinary language.</p>
+                </article>
+                <article class="audience-chip">
+                    <h3>Casual Gamers</h3>
+                    <p>Puzzle progression with real-world subject matter and stronger meaning.</p>
+                </article>
+            </div>
+        </section>
 
         <section class="game-preview" aria-label="Available games">
             <h2>Available Games</h2>
@@ -175,12 +286,12 @@
                 <article class="preview-card">
                     <i class="fas fa-font"></i>
                     <h3>WordVet</h3>
-                    <p>Find hidden words</p>
+                    <p>Veterinary terms and clinical vocabulary</p>
                 </article>
                 <article class="preview-card">
                     <i class="fas fa-th"></i>
                     <h3>Sudoku Master</h3>
-                    <p>Logic with notes mode</p>
+                    <p>Logic warm-up with notes mode</p>
                 </article>
                 <article class="preview-card">
                     <i class="fas fa-times"></i>
@@ -190,22 +301,22 @@
                 <article class="preview-card">
                     <i class="fas fa-brain"></i>
                     <h3>Memory Match</h3>
-                    <p>Match cards quickly</p>
+                    <p>Retention-focused speed matching</p>
                 </article>
                 <article class="preview-card">
                     <i class="fas fa-cubes"></i>
                     <h3>2048 Puzzle</h3>
-                    <p>Merge to higher tiles</p>
+                    <p>Strategic progression challenge</p>
                 </article>
                 <article class="preview-card">
                     <i class="fas fa-lightbulb"></i>
                     <h3>IQ Challenge</h3>
-                    <p>Math, logic, and patterns</p>
+                    <p>Math, logic, and reasoning patterns</p>
                 </article>
             </div>
         </section>
 
-        <p class="footer-note">Platform build: 6 integrated games, 15+ level progression, multiplayer-ready lobby flow.</p>
+        <p class="footer-note">Tier path: Free portfolio discovery -> Pro gameplay progression -> Educational pilots for schools and clinics.</p>
     </main>
 </body>
 </html>

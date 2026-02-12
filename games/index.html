@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0f0f23">
-    <title>Parth Games - Play Free Online Games | Word Puzzles, Sudoku, Tic Tac Toe & More</title>
-    <meta name="description" content="Play free online games at Parth Games. Enjoy WordVet, Sudoku, Tic Tac Toe, Memory Match, 2048, and IQ Challenge. 15+ levels per game with multiplayer support!">
-    <meta name="keywords" content="free online games, word games, sudoku, tic tac toe, memory games, 2048, iq challenge, multiplayer games, browser games">
+    <title>WordVet by Parth Chaudhari | Veterinary Learning Games and Puzzles</title>
+    <meta name="description" content="Play WordVet and other puzzle games where veterinary education meets casual play. Built for vet students, professionals, pet owners, and gamers.">
+    <meta name="keywords" content="wordvet, veterinary word game, veterinary education games, vet student study game, veterinary puzzle, casual learning games">
     <meta name="author" content="Parth Chaudhari">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://parthchaudhari.com/games/">
-    <meta property="og:title" content="Parth Games - Play Free Online Games">
-    <meta property="og:description" content="Play free online games including WordVet, Sudoku, Tic Tac Toe, Memory Match, and more. 15+ levels per game!">
+    <meta property="og:title" content="WordVet by Parth Chaudhari - Veterinary Learning Through Play">
+    <meta property="og:description" content="Play WordVet and puzzle games that combine clinical veterinary vocabulary with engaging progression and multiplayer features.">
     <meta property="og:image" content="https://parthchaudhari.com/games/og-image.jpg">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://parthchaudhari.com/games/">
-    <meta property="twitter:title" content="Parth Games - Play Free Online Games">
-    <meta property="twitter:description" content="Play free online games including WordVet, Sudoku, Tic Tac Toe, Memory Match, and more.">
+    <meta property="twitter:title" content="WordVet by Parth Chaudhari - Veterinary Learning Through Play">
+    <meta property="twitter:description" content="WordVet and puzzle games designed for vet students, professionals, pet owners, and gamers.">
     <meta property="twitter:image" content="https://parthchaudhari.com/games/og-image.jpg">
     
     <!-- Canonical URL -->
@@ -40,14 +40,71 @@
     <link rel="stylesheet" href="styles/main.css?v=20260210c">
     <link rel="stylesheet" href="styles/games.css?v=20260210c">
     <link rel="stylesheet" href="styles/lobby.css?v=20260210c">
+    <style>
+        .about-corner-link {
+            position: fixed;
+            top: 0.85rem;
+            right: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.48rem 0.82rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #e7f9ff;
+            background: rgba(15, 23, 42, 0.76);
+            border: 1px solid rgba(56, 189, 248, 0.55);
+            backdrop-filter: blur(8px);
+            transition: all 0.25s ease;
+            z-index: 1001;
+        }
+
+        .about-corner-link:hover {
+            transform: translateY(-2px);
+            background: rgba(56, 189, 248, 0.2);
+        }
+
+        .audience-pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.55rem;
+            margin: 0 auto 1.7rem;
+            max-width: 760px;
+        }
+
+        .audience-pill {
+            padding: 0.35rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            background: rgba(15, 23, 42, 0.35);
+        }
+
+        #game-container:not(.hidden) ~ .about-corner-link {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .about-corner-link {
+                top: auto;
+                bottom: 0.8rem;
+                right: 0.8rem;
+            }
+        }
+    </style>
     <!-- Structured Data for SEO -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "Parth Games",
+        "name": "WordVet by Parth Chaudhari",
         "url": "https://parthchaudhari.com/games/",
-        "description": "Play free online games including WordVet, Sudoku, Tic Tac Toe, Memory Match, 2048, IQ Challenge, and more.",
+        "description": "Veterinary learning games led by WordVet, combining clinical vocabulary with puzzle-based play.",
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://parthchaudhari.com/games/?search={search_term_string}",
@@ -60,8 +117,8 @@
     {
         "@context": "https://schema.org",
         "@type": "VideoGame",
-        "name": "Parth Games Collection",
-        "description": "A collection of free online games with 15+ levels each",
+        "name": "WordVet and VetLudics Collection",
+        "description": "A collection of veterinary and puzzle games with level progression and multiplayer support.",
         "genre": ["Puzzle", "Strategy", "Arcade", "Word"],
         "gamePlatform": ["Web Browser", "Mobile Browser"],
         "operatingSystem": "Any",
@@ -82,7 +139,7 @@
         <nav class="main-nav">
             <div class="nav-brand">
                 <i class="fas fa-gamepad"></i>
-                <span>Parth Games</span>
+                <span>VetLudics Hub</span>
             </div>
             <div class="nav-links">
                 <a href="#home" class="active"><i class="fas fa-home"></i> Home</a>
@@ -106,33 +163,39 @@
         <section id="home" class="section active">
             <div class="hero">
                 <div class="hero-content">
-                    <h1>Play Amazing Games Online</h1>
-                    <p>Challenge yourself with word puzzles, strategy games, and more. Play solo or invite friends! All games are free with 15+ levels each.</p>
+                    <h1>WordVet: Veterinary Learning Through Play</h1>
+                    <p>Build clinical vocabulary and reasoning through fast, replayable puzzle sessions. Start with WordVet, then explore the full game platform.</p>
                     <div class="hero-buttons">
                         <button class="btn btn-primary" onclick="showSection('games')">
-                            <i class="fas fa-play"></i> Play Now
+                            <i class="fas fa-play"></i> Start WordVet
                         </button>
                         <button class="btn btn-secondary" onclick="showSection('multiplayer')">
-                            <i class="fas fa-users"></i> Play with Friends
+                            <i class="fas fa-users"></i> Join Multiplayer
                         </button>
+                    </div>
+                    <div class="audience-pill-row" aria-label="Audience segments">
+                        <span class="audience-pill">Vet Students</span>
+                        <span class="audience-pill">Professionals</span>
+                        <span class="audience-pill">Pet Owners</span>
+                        <span class="audience-pill">Casual Gamers</span>
                     </div>
                 </div>
 
                 <div class="hero-stats">
                     <div class="stat-card">
                         <i class="fas fa-gamepad"></i>
-                        <span class="stat-number">6</span>
-                        <span class="stat-label">Games</span>
+                        <span class="stat-number">1</span>
+                        <span class="stat-label">WordVet Flagship</span>
                     </div>
                     <div class="stat-card">
                         <i class="fas fa-layer-group"></i>
                         <span class="stat-number">90+</span>
-                        <span class="stat-label">Levels</span>
+                        <span class="stat-label">Playable Levels</span>
                     </div>
                     <div class="stat-card">
-                        <i class="fas fa-users"></i>
-                        <span class="stat-number">∞</span>
-                        <span class="stat-label">Multiplayer</span>
+                        <i class="fas fa-graduation-cap"></i>
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">Audience Tracks</span>
                     </div>
                 </div>
             </div>
@@ -141,8 +204,8 @@
         <!-- Games Section -->
         <section id="games" class="section">
             <div class="section-header">
-                <h2><i class="fas fa-dice"></i> Choose Your Game</h2>
-                <p>Select a game to start playing. Each game has multiple levels and difficulty options.</p>
+                <h2><i class="fas fa-dice"></i> Choose Your Learning and Play Track</h2>
+                <p>WordVet is the clinical core, with supporting puzzle games for daily retention and engagement.</p>
             </div>
             
             <!-- Games Grid with Inline Ads -->
@@ -152,10 +215,10 @@
                     <div class="game-icon"><i class="fas fa-font"></i></div>
                     <div class="game-info">
                         <h3>WordVet</h3>
-                        <p>Find hidden words in a grid. Mix of normal and veterinary terms!</p>
+                        <p>Find hidden veterinary words across anatomy, diseases, diagnostics, treatments, and specialties.</p>
                         <div class="game-meta">
                             <span class="badge"><i class="fas fa-layer-group"></i> 15+ Levels</span>
-                            <span class="badge"><i class="fas fa-brain"></i> Puzzle</span>
+                            <span class="badge"><i class="fas fa-stethoscope"></i> Clinical Vocabulary</span>
                         </div>
                     </div>
                     <button class="btn btn-play" onclick="startGame('wordvet')">
@@ -232,10 +295,10 @@
                     <div class="game-icon"><i class="fas fa-lightbulb"></i></div>
                     <div class="game-info">
                         <h3>IQ Challenge</h3>
-                        <p>Test your intelligence with math, logic, and pattern puzzles!</p>
+                        <p>Train pattern recognition, math speed, and logic that supports clinical decision habits.</p>
                         <div class="game-meta">
                             <span class="badge"><i class="fas fa-layer-group"></i> 15+ Levels</span>
-                            <span class="badge"><i class="fas fa-graduation-cap"></i> Educational</span>
+                            <span class="badge"><i class="fas fa-graduation-cap"></i> Cognitive Training</span>
                         </div>
                     </div>
                     <button class="btn btn-play" onclick="startGame('iq')">
@@ -479,6 +542,11 @@
                 </div>
             </div>
         </div>
+
+        <a class="about-corner-link" href="../info.html" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-user-doctor"></i>
+            About Me
+        </a>
     </div>
 
     <!-- Scripts -->

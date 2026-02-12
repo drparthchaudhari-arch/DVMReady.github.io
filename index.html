@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parth Chaudhari | Home</title>
-    <meta name="description" content="Choose between Parth Chaudhari's professional profile and games.">
+    <meta name="description" content="VetLudics by Parth Chaudhari: clinical veterinary expertise turned into engaging learning games led by WordVet.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -49,6 +49,31 @@
             animation: fade-up 0.7s ease-out;
         }
 
+        .about-corner {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.6rem 0.95rem;
+            border-radius: 999px;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.86rem;
+            background: rgba(50, 224, 196, 0.18);
+            border: 1px solid rgba(50, 224, 196, 0.45);
+            backdrop-filter: blur(12px);
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .about-corner:hover {
+            transform: translateY(-2px);
+            background: rgba(50, 224, 196, 0.26);
+        }
+
         .eyebrow {
             display: inline-flex;
             align-items: center;
@@ -79,10 +104,27 @@
             font-size: clamp(0.95rem, 2vw, 1.1rem);
         }
 
+        .audience-strip {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.55rem;
+        }
+
+        .audience-item {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.9);
+            padding: 0.32rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
         .options {
             margin-top: 2.2rem;
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 1.2rem;
         }
 
@@ -149,6 +191,18 @@
             z-index: 1;
         }
 
+        .tier-label {
+            display: inline-block;
+            margin-bottom: 0.7rem;
+            color: var(--secondary);
+            font-size: 0.74rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
         .option-action {
             color: var(--secondary);
             font-weight: 600;
@@ -176,6 +230,12 @@
             }
         }
 
+        @media (max-width: 980px) {
+            .options {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
             .options {
                 grid-template-columns: 1fr;
@@ -184,35 +244,62 @@
             .option-card {
                 padding: 1.4rem;
             }
+
+            .about-corner {
+                top: auto;
+                bottom: 1rem;
+                right: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <a class="about-corner" href="info.html">
+        <i class="fas fa-user-doctor"></i>
+        About Me
+    </a>
+
     <main class="portal">
         <span class="eyebrow">
-            <i class="fas fa-compass"></i>
-            Choose a section
+            <i class="fas fa-stethoscope"></i>
+            VetLudics by Parth Chaudhari
         </span>
-        <h1>Parth Chaudhari</h1>
-        <p class="subtitle">Welcome. Choose one of the two options below to continue.</p>
+        <h1>Clinical Veterinary Expertise, Made Playable</h1>
+        <p class="subtitle">WordVet blends veterinary knowledge with casual puzzle design for students, professionals, pet owners, and curious gamers.</p>
+        <div class="audience-strip" aria-label="Audience segments">
+            <span class="audience-item">Vet Students</span>
+            <span class="audience-item">Veterinary Professionals</span>
+            <span class="audience-item">Pet Owners</span>
+            <span class="audience-item">Casual Gamers</span>
+        </div>
 
         <section class="options" aria-label="Main sections">
-            <a class="option-card" href="info.html">
-                <span class="option-icon"><i class="fas fa-user-doctor"></i></span>
-                <h2 class="option-title">My Info</h2>
-                <p class="option-description">Professional profile, work experience, education, skills, and contact details.</p>
-                <span class="option-action">Open My Info <i class="fas fa-arrow-right"></i></span>
+            <a class="option-card" href="games/index.html">
+                <span class="option-icon"><i class="fas fa-font"></i></span>
+                <span class="tier-label">Free Portfolio Tier</span>
+                <h2 class="option-title">Start WordVet Free</h2>
+                <p class="option-description">Play veterinary-themed word challenges and build vocabulary in short, repeatable sessions.</p>
+                <span class="option-action">Open WordVet <i class="fas fa-arrow-right"></i></span>
             </a>
 
-            <a class="option-card" href="games.html" target="_blank" rel="noopener noreferrer">
+            <a class="option-card" href="games.html">
                 <span class="option-icon"><i class="fas fa-gamepad"></i></span>
-                <h2 class="option-title">Games</h2>
-                <p class="option-description">Play your game collection including the new VetStrands puzzle experience.</p>
-                <span class="option-action">Open Games <i class="fas fa-arrow-right"></i></span>
+                <span class="tier-label">Pro Gaming Tier</span>
+                <h2 class="option-title">Explore Full Platform</h2>
+                <p class="option-description">Play the full collection with progression, hints, score tracking, and multiplayer-ready experiences.</p>
+                <span class="option-action">Open Game Hub <i class="fas fa-arrow-right"></i></span>
+            </a>
+
+            <a class="option-card" href="info.html#contact">
+                <span class="option-icon"><i class="fas fa-graduation-cap"></i></span>
+                <span class="tier-label">Educational B2B Tier</span>
+                <h2 class="option-title">For Schools and Clinics</h2>
+                <p class="option-description">Discuss pilots for veterinary education cohorts, clinic teams, and outcomes-focused learning programs.</p>
+                <span class="option-action">Discuss a Pilot <i class="fas fa-arrow-right"></i></span>
             </a>
         </section>
 
-        <p class="footer-note">&copy; 2026 Parth Chaudhari</p>
+        <p class="footer-note">&copy; 2026 Parth Chaudhari | VetLudics</p>
     </main>
 </body>
 </html>
