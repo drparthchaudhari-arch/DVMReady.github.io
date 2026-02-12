@@ -16,9 +16,6 @@
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/storage.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
-    <script src="/assets/js/supabase-config.js" defer></script>
-    <script src="/assets/js/sync.js" defer></script>
-    <script src="/assets/js/account.js" defer></script>
 </head>
 <body class="pc-page pc-page--study pc-page--account">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
@@ -60,20 +57,11 @@
         <section class="pc-account-grid" aria-label="Account settings">
             <article class="pc-account-card pc-account-card--local" aria-labelledby="pc-local-data-title">
                 <h2 id="pc-local-data-title">Local Data Status</h2>
-                <div class="pc-account-metric-grid" role="list">
-                    <div class="pc-account-metric" role="listitem">
-                        <p class="pc-account-metric__label">Cases Completed</p>
-                        <p id="pc-local-cases" class="pc-account-metric__value" data-pc-value-only="true">0</p>
-                    </div>
-                    <div class="pc-account-metric" role="listitem">
-                        <p class="pc-account-metric__label">Current Streak</p>
-                        <p id="pc-local-streak" class="pc-account-metric__value" data-pc-value-only="true">0 days</p>
-                    </div>
-                </div>
+                <div id="pc-local-data" class="pc-account-metric-grid" role="list"></div>
                 <div class="pc-account-actions">
-                    <button type="button" id="pc-export-button" class="pc-btn">Export My Data (JSON download)</button>
-                    <button type="button" id="pc-import-button" class="pc-btn pc-btn--secondary">Import Data (JSON upload)</button>
-                    <input type="file" id="pc-import-input" accept="application/json" hidden>
+                    <button type="button" id="pc-export-btn" class="pc-btn">Export My Data</button>
+                    <input type="file" id="pc-import-file" accept=".json" hidden>
+                    <button type="button" id="pc-import-btn" class="pc-btn pc-btn--secondary">Import Data</button>
                 </div>
             </article>
 
@@ -81,31 +69,27 @@
                 <h2 id="pc-sync-title">Cross-Device Sync</h2>
                 <p class="pc-account-note">Use magic-link login to sync your learning progress across devices.</p>
 
-                <div id="pc-sync-not-configured" class="pc-account-note" hidden>
-                    Sync not configured yet. Follow the setup guide in <code>/docs/supabase-setup.md</code>.
-                </div>
-
-                <div id="pc-sync-logged-out" hidden>
+                <div id="pc-logged-out-section">
                     <div class="pc-account-field">
-                        <label for="pc-sync-email">Email</label>
-                        <input id="pc-sync-email" class="pc-account-input" type="email" autocomplete="email" placeholder="you@example.com">
+                        <label for="pc-email-input">Email</label>
+                        <input id="pc-email-input" class="pc-account-input" type="email" autocomplete="email" placeholder="your@email.com">
                     </div>
                     <div class="pc-account-actions">
-                        <button id="pc-send-magic-link" type="button" class="pc-btn">Send Magic Link</button>
+                        <button id="pc-send-link-btn" type="button" class="pc-btn">Send Magic Link</button>
                     </div>
                     <p class="pc-account-note">We'll email you a login link. No password needed.</p>
                 </div>
 
-                <div id="pc-sync-logged-in" hidden>
-                    <p id="pc-sync-welcome" class="pc-account-status">Welcome back</p>
-                    <p class="pc-account-status">Last synced: <span id="pc-sync-last-synced">Never</span></p>
+                <div id="pc-logged-in-section" hidden>
+                    <p class="pc-account-status">Sync is active for your account.</p>
+                    <p id="pc-last-sync" class="pc-account-status">Last synced: Never</p>
                     <div class="pc-account-actions">
-                        <button id="pc-sync-now" type="button" class="pc-btn">Sync Now</button>
-                        <button id="pc-logout" type="button" class="pc-btn pc-btn--secondary">Logout</button>
+                        <button id="pc-sync-btn" type="button" class="pc-btn">Sync Now</button>
+                        <button id="pc-logout-btn" type="button" class="pc-btn pc-btn--secondary">Log Out</button>
                     </div>
                 </div>
 
-                <p id="pc-account-message" class="pc-account-message" aria-live="polite"></p>
+                <div id="pc-account-status" class="pc-account-message" aria-live="polite"></div>
             </article>
 
             <article class="pc-account-card pc-account-card--privacy" aria-labelledby="pc-privacy-title">
@@ -117,5 +101,8 @@
             </article>
         </section>
     </main>
+    <script src="/assets/js/supabase-config.js"></script>
+    <script src="/assets/js/sync.js"></script>
+    <script src="/assets/js/account-ui.js"></script>
 </body>
 </html>

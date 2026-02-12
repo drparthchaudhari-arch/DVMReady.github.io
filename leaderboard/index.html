@@ -16,9 +16,6 @@
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/storage.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
-    <script src="/assets/js/supabase-config.js" defer></script>
-    <script src="/assets/js/sync.js" defer></script>
-    <script src="/assets/js/leaderboard.js" defer></script>
 </head>
 <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
@@ -62,20 +59,19 @@
                             <th>Weekly Score</th>
                         </tr>
                     </thead>
-                    <tbody id="pc-leaderboard-body">
-                        <tr>
-                            <td colspan="5">Loading leaderboard...</td>
-                        </tr>
-                    </tbody>
+                    <tbody id="pc-leaderboard-body"></tbody>
                 </table>
             </div>
-            <p id="pc-leaderboard-status" class="pc-empty-state" aria-live="polite"></p>
+            <div id="pc-leaderboard-empty" class="pc-empty-state" hidden>Loading...</div>
         </section>
 
-        <section id="pc-my-rank-card" class="pc-account-card" hidden>
+        <section class="pc-account-card">
             <h2>Your Rank</h2>
-            <p id="pc-my-rank" class="pc-account-status">Loading your rank...</p>
+            <div id="pc-user-rank" class="pc-account-status"></div>
         </section>
     </main>
+    <script src="/assets/js/supabase-config.js"></script>
+    <script src="/assets/js/sync.js"></script>
+    <script src="/assets/js/leaderboard-loader.js"></script>
 </body>
 </html>
