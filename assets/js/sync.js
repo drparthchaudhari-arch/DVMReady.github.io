@@ -364,9 +364,61 @@
         };
     }
 
+    function getErrorCode(error) {
+        if (!error || typeof error !== 'object') {
+            return '';
+        }
+
+        if (error.code) {
+            return String(error.code);
+        }
+
+        return '';
+    }
+
+    function getErrorMessage(error) {
+        if (!error) {
+            return '';
+        }
+
+        if (typeof error === 'string') {
+            return error;
+        }
+
+        if (error.message) {
+            return String(error.message);
+        }
+
+        return String(error);
+    }
+
+    function isRlsViolation(error, tableName) {
+        var code = getErrorCode(error);
+        if (code === '42501') {
+            return true;
+        }
+
+        var message = getErrorMessage(error).toLowerCase();
+        if (!message) {
+            return false;
+        }
+
+        if (message.indexOf('row-level security') !== -1) {
+            if (!tableName) {
+                return true;
+            }
+            return message.indexOf(String(tableName).toLowerCase()) !== -1;
+        }
+
+        return false;
+    }
+
     async function ensureProfile(client, user) {
         if (!client || !user) {
-            return;
+            return {
+                ok: false,
+                skipped: true
+            };
         }
 
         var payload = {
@@ -377,8 +429,15 @@
 
         var response = await client.from('profiles').upsert(payload, { onConflict: 'id' });
         if (response.error) {
-            throw response.error;
+            return {
+                ok: false,
+                error: response.error
+            };
         }
+
+        return {
+            ok: true
+        };
     }
 
     async function upsertLeaderboard(client, user, payload, updatedAt) {
@@ -512,14 +571,31 @@
         try {
             var localPayload = getLocalPayload();
             var updatedAt = nowIso();
+            var warnings = [];
 
-            await ensureProfile(client, user);
+            var profileResult = await ensureProfile(client, user);
+            if (!profileResult.ok) {
+                if (profileResult.error && isRlsViolation(profileResult.error, 'profiles')) {
+                    warnings.push('Profile sync skipped due profiles table RLS policy.');
+                } else if (profileResult.error) {
+                    warnings.push('Profile sync skipped: ' + getErrorMessage(profileResult.error));
+                }
+            }
 
             var progressPayload = {
                 user_id: user.id,
-                case_completions: localPayload.case_completions,
-                study_plan: localPayload.study_plan,
-                game_activity: localPayload.game_activity,
+                case_completions: {
+                    data: localPayload.case_completions && localPayload.case_completions.data ? localPayload.case_completions.data : {},
+                    updatedAt: updatedAt
+                },
+                study_plan: {
+                    data: localPayload.study_plan && localPayload.study_plan.data ? localPayload.study_plan.data : {},
+                    updatedAt: updatedAt
+                },
+                game_activity: {
+                    data: localPayload.game_activity && localPayload.game_activity.data ? localPayload.game_activity.data : {},
+                    updatedAt: updatedAt
+                },
                 updated_at: updatedAt
             };
 
@@ -530,7 +606,15 @@
                 throw progressResult.error;
             }
 
-            await upsertLeaderboard(client, user, localPayload, updatedAt);
+            try {
+                await upsertLeaderboard(client, user, localPayload, updatedAt);
+            } catch (leaderboardError) {
+                if (isRlsViolation(leaderboardError, 'leaderboard')) {
+                    warnings.push('Leaderboard sync skipped due leaderboard table RLS policy.');
+                } else {
+                    warnings.push('Leaderboard sync skipped: ' + getErrorMessage(leaderboardError));
+                }
+            }
 
             var storage = getStorageApi();
             if (storage && typeof storage.setLastSyncedAt === 'function') {
@@ -543,7 +627,8 @@
             return {
                 ok: true,
                 syncedAt: updatedAt,
-                trigger: options && options.trigger ? options.trigger : 'manual'
+                trigger: options && options.trigger ? options.trigger : 'manual',
+                warnings: warnings
             };
         } catch (error) {
             if (shouldQueueForRetry(error)) {
@@ -720,12 +805,44 @@
                 otpOptions.data = metadata;
             }
 
-            var response = await client.auth.signInWithOtp({
-                email: trimmedEmail,
-                options: otpOptions
-            });
+            function isRedirectPolicyError(error) {
+                var message = getErrorMessage(error).toLowerCase();
+                return message.indexOf('redirect') !== -1 ||
+                    message.indexOf('not allowed') !== -1 ||
+                    message.indexOf('site url') !== -1 ||
+                    message.indexOf('invalid') !== -1;
+            }
 
+            async function sendWithRedirect(redirectUrl) {
+                var localOptions = {
+                    emailRedirectTo: redirectUrl
+                };
+
+                if (metadata) {
+                    localOptions.data = metadata;
+                }
+
+                return client.auth.signInWithOtp({
+                    email: trimmedEmail,
+                    options: localOptions
+                });
+            }
+
+            var response = await sendWithRedirect(redirectTo);
             if (response.error) {
+                var fallbackRedirect = window.location.origin + '/account/';
+                if (redirectTo !== fallbackRedirect && isRedirectPolicyError(response.error)) {
+                    var fallbackResponse = await sendWithRedirect(fallbackRedirect);
+                    if (fallbackResponse.error) {
+                        throw fallbackResponse.error;
+                    }
+
+                    return {
+                        ok: true,
+                        redirectFallback: true
+                    };
+                }
+
                 throw response.error;
             }
 

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Furosemide",
+    "category": "Diuretic",
+    "dose_mg_kg": 2,
+    "max_mg_kg": 4,
+    "frequency": "SID-BID",
+    "concentrations": ["50 mg/mL"]
+  },
+  {
+    "name": "Carprofen",
+    "category": "NSAID",
+    "dose_mg_kg": 2.2,
+    "max_mg_kg": 4.4,
+    "frequency": "SID",
+    "concentrations": ["50 mg/mL", "100 mg/mL"]
+  },
+  {
+    "name": "Enrofloxacin",
+    "category": "Antibiotic",
+    "dose_mg_kg": 5,
+    "max_mg_kg": 10,
+    "frequency": "SID",
+    "concentrations": ["100 mg/mL"]
+  },
+  {
+    "name": "Gabapentin",
+    "category": "Analgesic",
+    "dose_mg_kg": 10,
+    "max_mg_kg": 20,
+    "frequency": "BID-TID",
+    "concentrations": ["50 mg/mL", "100 mg/mL"]
+  },
+  {
+    "name": "Meloxicam",
+    "category": "NSAID",
+    "dose_mg_kg": 0.2,
+    "max_mg_kg": 0.3,
+    "frequency": "SID",
+    "concentrations": ["5 mg/mL", "1.5 mg/mL"]
+  }
+]

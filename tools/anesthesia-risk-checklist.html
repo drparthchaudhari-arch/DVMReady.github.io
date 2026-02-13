@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
-    <title>Anesthesia Risk Checklist (Draft) | VetLudics Tools</title>
-    <meta name="description" content="Draft anesthesia risk checklist for pre-op screening, stabilization, and monitoring planning.">
+    <title>Anesthesia Risk Checklist | VetLudics Tools</title>
+    <meta name="description" content="Pre-op anesthesia risk checklist with weighted factors and checklist output for monitoring intensity planning.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Anesthesia Risk Checklist (Draft) | VetLudics Tools">
-    <meta property="og:description" content="In-progress checklist tool for pre-anesthetic planning.">
+    <meta property="og:title" content="Anesthesia Risk Checklist | VetLudics Tools">
+    <meta property="og:description" content="Generate a peri-anesthetic risk tier and practical monitoring checklist.">
     <meta property="og:url" content="https://parthchaudhari.com/tools/anesthesia-risk-checklist.html">
     <link rel="canonical" href="https://parthchaudhari.com/tools/anesthesia-risk-checklist.html">
     <link rel="stylesheet" href="/assets/css/tokens.css">
     <link rel="stylesheet" href="/assets/css/portal.css">
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/anesthesia-risk-checklist.js" defer></script>
 </head>
 <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
@@ -34,23 +35,68 @@
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
         <section class="pc-bridge-hero">
-            <p class="pc-kicker">Planned Module</p>
-            <h1 class="pc-fork-title">Anesthesia Risk Checklist (Draft)</h1>
-            <p class="pc-fork-copy">Starter page is live. Interactive risk staging and checklist generation is in progress.</p>
+            <p class="pc-kicker">Live Module</p>
+            <h1 class="pc-fork-title">Anesthesia Risk Checklist</h1>
+            <p class="pc-fork-copy">Combine ASA baseline and major risk factors to stage peri-anesthetic risk and prep monitoring intensity before induction.</p>
             <div class="pc-panel-actions">
                 <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
             </div>
         </section>
 
-        <section class="pc-bridge-section" aria-label="Build status">
-            <h2 class="pc-bridge-title">Build Status</h2>
+        <section class="pc-bridge-section" aria-labelledby="ars-form-title">
+            <h2 id="ars-form-title" class="pc-bridge-title">Pre-op Inputs</h2>
+            <form id="ars-form" class="pc-calculator-grid" novalidate>
+                <label class="pc-calculator-field" for="ars-asa">
+                    <span>ASA Baseline</span>
+                    <select id="ars-asa" class="pc-input">
+                        <option value="1">ASA I</option>
+                        <option value="2">ASA II</option>
+                        <option value="3">ASA III</option>
+                        <option value="4">ASA IV</option>
+                        <option value="5">ASA V</option>
+                    </select>
+                </label>
+
+                <div class="pc-calculator-field">
+                    <span>Weighted Risk Factors</span>
+                    <label><input id="ars-age" type="checkbox"> Advanced age / frailty</label><br>
+                    <label><input id="ars-cardiac" type="checkbox"> Significant cardiac disease</label><br>
+                    <label><input id="ars-respiratory" type="checkbox"> Respiratory compromise</label><br>
+                    <label><input id="ars-renal-hepatic" type="checkbox"> Renal or hepatic compromise</label><br>
+                    <label><input id="ars-anemia" type="checkbox"> Moderate-severe anemia</label><br>
+                    <label><input id="ars-hypotension-history" type="checkbox"> Prior hypotension under anesthesia</label><br>
+                    <label><input id="ars-emergency-procedure" type="checkbox"> Emergency procedure context</label>
+                </div>
+
+                <div class="pc-calculator-actions">
+                    <button type="submit" class="pc-btn pc-btn--primary">Update Risk Tier</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="ars-output-title">
+            <h2 id="ars-output-title" class="pc-bridge-title">Checklist Output</h2>
+            <div class="pc-stat-grid pc-stat-grid--results">
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">Composite Score</p>
+                    <p id="ars-score" class="pc-stat-number">-</p>
+                </article>
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">Risk Tier</p>
+                    <p id="ars-tier" class="pc-stat-number">-</p>
+                </article>
+            </div>
             <article class="pc-tool-module">
-                <p class="pc-tool-module__status pc-tool-module__status--planned">Planned</p>
-                <h3>Scope In Progress</h3>
-                <p>Signalment + comorbidity checklist, anesthesia risk tiering, and a monitoring checklist for pre-op and intra-op use.</p>
-                <p>Next build step: dynamic checklist rendering and printable handoff sheet.</p>
+                <h3>Monitoring Checklist</h3>
+                <p id="ars-checklist">Select risk factors to generate a checklist.</p>
             </article>
-            <p class="pc-disclaimer">Merck baseline reference: <a href="https://www.merckvetmanual.com/multimedia/table/anesthetic-monitoring-guidelines" target="_blank" rel="noopener noreferrer">Anesthetic Monitoring Guidelines</a>.</p>
+            <p id="ars-note" class="pc-calculator-note">Checklist output will update automatically after selections.</p>
+            <p class="pc-disclaimer">Educational triage support only. This does not replace full anesthetic planning, diagnostics, or patient-specific protocol decisions.</p>
+            <p class="pc-disclaimer">
+                Merck source baseline (reviewed February 13, 2026):
+                <a href="https://www.merckvetmanual.com/multimedia/table/anesthetic-monitoring-guidelines" target="_blank" rel="noopener noreferrer">Anesthetic Monitoring Guidelines</a>,
+                <a href="https://www.merckvetmanual.com/pharmacology/systemic-pharmacotherapeutics-of-the-cardiovascular-system/anesthetics-used-in-veterinary-medicine" target="_blank" rel="noopener noreferrer">Anesthetics Used in Veterinary Medicine</a>.
+            </p>
         </section>
     </main>
 </body>

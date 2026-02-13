@@ -15,10 +15,10 @@
     <link rel="stylesheet" href="/assets/css/portal.css">
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
-    <script src="/assets/js/storage.js" defer></script>
+    <script src="/assets/js/storage.js?v=20260213d" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
     <script src="/assets/js/supabase-config.js" defer></script>
-    <script src="/assets/js/sync.js" defer></script>
+    <script src="/assets/js/sync.js?v=20260213d" defer></script>
 </head>
 <body class="pc-page pc-page--bridge pc-case-page">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
@@ -106,103 +106,97 @@
             <section class="pc-diagnose-box pc-card">
                 <h3>Diagnose This</h3>
 
-                <div class="pc-diagnose-container">
+                <div class="pc-diagnose-container" id="mastitis-diagnose">
                     <p class="pc-diagnose-question"><strong>Question:</strong> What is the most appropriate diagnostic sample?</p>
 
                     <div class="pc-diagnose-options">
-                        <button class="pc-diagnose-option" data-answer="A" data-correct="true">
+                        <label class="pc-radio-label">
+                            <input type="radio" name="mastitis_answer" value="A">
                             <span class="pc-option-letter">A</span>
                             <span class="pc-option-text">Sterile milk culture from the affected quarter</span>
-                        </button>
+                        </label>
 
-                        <button class="pc-diagnose-option" data-answer="B" data-correct="false">
+                        <label class="pc-radio-label">
+                            <input type="radio" name="mastitis_answer" value="B">
                             <span class="pc-option-letter">B</span>
                             <span class="pc-option-text">Blood culture</span>
-                        </button>
+                        </label>
 
-                        <button class="pc-diagnose-option" data-answer="C" data-correct="false">
+                        <label class="pc-radio-label">
+                            <input type="radio" name="mastitis_answer" value="C">
                             <span class="pc-option-letter">C</span>
                             <span class="pc-option-text">Ultrasound imaging</span>
-                        </button>
+                        </label>
                     </div>
 
-                    <div class="pc-diagnose-feedback" hidden>
-                        <div class="pc-feedback-content">
-                            <h4 class="pc-feedback-title"></h4>
-                            <p class="pc-feedback-explanation"></p>
-                            <p class="pc-feedback-teaching"></p>
-                            <a href="/play/wordvet/" class="pc-btn pc-btn--primary">Study Production Terms</a>
-                        </div>
+                    <button class="pc-btn pc-btn--primary" id="mastitis-check-btn" type="button" onclick="checkMastitisAnswer()">Check Answer</button>
+
+                    <div class="pc-diagnose-feedback" id="mastitis-feedback" style="display:none;">
+                        <h4 id="mastitis-feedback-title"></h4>
+                        <p id="mastitis-feedback-text"></p>
+                        <a href="/play/wordvet/" class="pc-btn pc-btn--secondary">Study Production Terms</a>
                     </div>
 
-                    <div class="pc-completion-badge" hidden>
+                    <div class="pc-completed-badge" id="mastitis-completed" style="display:none;">
                         ✓ Completed
                     </div>
                 </div>
 
                 <script>
-                (function() {
-                    var container = document.querySelector('.pc-diagnose-container');
-                    if (!container) return;
+                function checkMastitisAnswer() {
+                    var selected = document.querySelector('input[name="mastitis_answer"]:checked');
+                    var feedback = document.getElementById('mastitis-feedback');
+                    var title = document.getElementById('mastitis-feedback-title');
+                    var text = document.getElementById('mastitis-feedback-text');
+                    var completed = document.getElementById('mastitis-completed');
 
-                    var options = container.querySelectorAll('.pc-diagnose-option');
-                    var feedback = container.querySelector('.pc-diagnose-feedback');
-                    var badge = container.querySelector('.pc-completion-badge');
-
-                    if (localStorage.getItem('pc_case_mastitis') === 'completed') {
-                        badge.hidden = false;
-                        options.forEach(function(opt) {
-                            opt.disabled = true;
-                        });
+                    if (!selected) {
+                        alert('Please select an answer');
+                        return;
                     }
 
-                    options.forEach(function(option) {
-                        option.addEventListener('click', function() {
-                            var isCorrect = this.dataset.correct === 'true';
+                    feedback.style.display = 'block';
 
-                            options.forEach(function(opt) {
-                                opt.disabled = true;
-                                if (opt.dataset.correct === 'true') {
-                                    opt.classList.add('pc-diagnose-option--correct');
-                                } else if (opt === option && !isCorrect) {
-                                    opt.classList.add('pc-diagnose-option--incorrect');
-                                }
-                            });
+                    if (selected.value === 'A') {
+                        title.textContent = '✓ Correct!';
+                        title.style.color = '#48BB78';
+                        text.textContent = 'Sterile milk culture from the affected quarter identifies the causative organism and supports targeted therapy plus herd-level control decisions.';
 
-                            feedback.hidden = false;
-                            var title = feedback.querySelector('.pc-feedback-title');
-                            var explanation = feedback.querySelector('.pc-feedback-explanation');
-                            var teaching = feedback.querySelector('.pc-feedback-teaching');
+                        localStorage.setItem('pc_case_mastitis', 'completed');
+                        localStorage.setItem('pc_case_mastitis_date', new Date().toISOString());
+                        completed.style.display = 'inline-flex';
 
-                            if (isCorrect) {
-                                title.textContent = '✓ Correct!';
-                                title.className = 'pc-feedback-title pc-feedback-title--correct';
-                                localStorage.setItem('pc_case_mastitis', 'completed');
-                                localStorage.setItem('pc_case_mastitis_completedAt', new Date().toISOString());
-
-                                // Also mark today's task complete if applicable.
-                                if (window.PCStorage && typeof PCStorage.markTaskComplete === 'function') {
-                                    var todayKey = PCStorage.getTodayKey();
-                                    var daily = PCStorage.getDaily(todayKey);
-                                    var task = daily && daily.tasks ? daily.tasks.find(function(t) {
-                                        return t.url && t.url.indexOf('bovine-mastitis') !== -1;
-                                    }) : null;
-                                    if (task && !task.completed) {
-                                        PCStorage.markTaskComplete(task.taskId);
-                                    }
-                                }
-
-                                badge.hidden = false;
-                            } else {
-                                title.textContent = '✗ Not the best choice';
-                                title.className = 'pc-feedback-title pc-feedback-title--incorrect';
+                        if (window.PCStorage && typeof PCStorage.markTaskComplete === 'function') {
+                            var todayKey = PCStorage.getTodayKey();
+                            var daily = PCStorage.getDaily(todayKey);
+                            var task = daily && Array.isArray(daily.tasks) ? daily.tasks.find(function (item) {
+                                return item.url && item.url.indexOf('bovine-mastitis') !== -1;
+                            }) : null;
+                            if (task && !task.completed) {
+                                PCStorage.markTaskComplete(task.taskId);
                             }
+                        }
+                    } else {
+                        title.textContent = '✗ Not the best choice';
+                        title.style.color = '#E53E3E';
+                        text.textContent = selected.value === 'B'
+                            ? 'Blood culture may be indicated for severe systemic disease, but quarter-level sterile milk culture is the first best sample.'
+                            : 'Ultrasound can support evaluation, but culture from the affected quarter is needed for targeted antimicrobial decisions.';
+                    }
 
-                            explanation.textContent = 'Sterile milk culture from the affected quarter identifies the causative organism and supports targeted therapy plus herd-level control decisions.';
-                            teaching.textContent = 'In production medicine, sample the affected site first to support pathogen-specific treatment and antimicrobial stewardship.';
-                        });
+                    document.querySelectorAll('input[name="mastitis_answer"]').forEach(function (node) {
+                        node.disabled = true;
                     });
-                })();
+                    document.getElementById('mastitis-check-btn').disabled = true;
+                }
+
+                if (localStorage.getItem('pc_case_mastitis') === 'completed') {
+                    document.getElementById('mastitis-completed').style.display = 'inline-flex';
+                    document.querySelectorAll('input[name="mastitis_answer"]').forEach(function (node) {
+                        node.disabled = true;
+                    });
+                    document.getElementById('mastitis-check-btn').disabled = true;
+                }
                 </script>
             </section>
 

@@ -44,6 +44,7 @@ alter table leaderboard enable row level security;
 
 -- Policies
 create policy "Users can read own profile" on profiles for select using ( auth.uid() = id );
+create policy "Users can insert own profile" on profiles for insert with check ( auth.uid() = id );
 create policy "Users can update own profile" on profiles for update using ( auth.uid() = id );
 create policy "Users can read own progress" on user_progress for select using ( auth.uid() = user_id );
 create policy "Users can upsert own progress" on user_progress for all using ( auth.uid() = user_id );
@@ -59,11 +60,17 @@ Run `supabase/migrations/20260213_navle_freemium.sql` after the base schema abov
 - `profiles.subscription_expires_at`
 - `answers` table for per-question analytics (with RLS policies)
 
+### RLS hotfix for sync/profile writes
+If you see `new row violates row-level security policy for table "profiles"`, run:
+
+- `supabase/migrations/20260213_sync_rls_hotfix.sql`
+
 ## Step 3: Configure Auth
 - Authentication -> Providers -> Enable Email
 - Turn OFF "Confirm email" (optional)
 - Site URL: `https://parthchaudhari.com`
 - Redirect URLs: `https://parthchaudhari.com/account/`
+  - `https://parthchaudhari.com/study/navle/practice/`
 
 ## Step 4: Configure CORS
 - API -> Settings -> Add your domain:

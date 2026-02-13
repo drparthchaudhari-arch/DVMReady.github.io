@@ -473,13 +473,25 @@
                 } catch (error) {
                     // Ignore storage failures.
                 }
-                showSuccess('Sync complete');
+                if (result && Array.isArray(result.warnings) && result.warnings.length) {
+                    showStatus('Sync complete with warnings: ' + result.warnings.join(' '), 'info');
+                } else {
+                    showSuccess('Sync complete');
+                }
                 updateLocalDataDisplay();
                 updateAuthUI();
             } else {
+                if (isProfilesRlsError(result && result.error)) {
+                    showError('Sync blocked by Supabase RLS on profiles. Add a profiles INSERT policy (auth.uid() = id) and retry.');
+                    return;
+                }
                 showError('Sync failed: ' + getErrorMessage(result && result.error));
             }
         } catch (error) {
+            if (isProfilesRlsError(error)) {
+                showError('Sync blocked by Supabase RLS on profiles. Add a profiles INSERT policy (auth.uid() = id) and retry.');
+                return;
+            }
             showError('Sync error: ' + getErrorMessage(error));
         }
     }
@@ -505,6 +517,11 @@
 
     function isSuccessResult(result) {
         return !!(result && (result.success === true || result.ok === true));
+    }
+
+    function isProfilesRlsError(error) {
+        var message = getErrorMessage(error).toLowerCase();
+        return message.indexOf('row-level security') !== -1 && message.indexOf('profiles') !== -1;
     }
 
     function getErrorMessage(error) {

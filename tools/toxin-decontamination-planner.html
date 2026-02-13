@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
-    <title>Toxin Decontamination Planner (Draft) | VetLudics Tools</title>
-    <meta name="description" content="Draft toxin decontamination planner for ingestion timing and decontamination workflow.">
+    <title>Toxin Decontamination Planner | VetLudics Tools</title>
+    <meta name="description" content="Toxin decontamination planner for timing-based emesis screening and activated charcoal estimate support.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Toxin Decontamination Planner (Draft) | VetLudics Tools">
-    <meta property="og:description" content="In-progress toxicology decontamination support tool.">
+    <meta property="og:title" content="Toxin Decontamination Planner | VetLudics Tools">
+    <meta property="og:description" content="Quick decontamination support with emesis eligibility flags and charcoal estimates.">
     <meta property="og:url" content="https://parthchaudhari.com/tools/toxin-decontamination-planner.html">
     <link rel="canonical" href="https://parthchaudhari.com/tools/toxin-decontamination-planner.html">
     <link rel="stylesheet" href="/assets/css/tokens.css">
     <link rel="stylesheet" href="/assets/css/portal.css">
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/toxin-decontamination-planner.js" defer></script>
 </head>
 <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
@@ -34,23 +35,62 @@
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
         <section class="pc-bridge-hero">
-            <p class="pc-kicker">Planned Module</p>
-            <h1 class="pc-fork-title">Toxin Decontamination Planner (Draft)</h1>
-            <p class="pc-fork-copy">Starter page is live. Time-window decontamination guidance and dose support are in progress.</p>
+            <p class="pc-kicker">Live Module</p>
+            <h1 class="pc-fork-title">Toxin Decontamination Planner</h1>
+            <p class="pc-fork-copy">Screen basic emesis eligibility and activated charcoal estimates while capturing aspiration-risk flags for rapid triage.</p>
             <div class="pc-panel-actions">
                 <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
             </div>
         </section>
 
-        <section class="pc-bridge-section" aria-label="Build status">
-            <h2 class="pc-bridge-title">Build Status</h2>
-            <article class="pc-tool-module">
-                <p class="pc-tool-module__status pc-tool-module__status--planned">Planned</p>
-                <h3>Scope In Progress</h3>
-                <p>Ingestion timing triage, emesis eligibility checks, charcoal prompts, and monitoring reminders.</p>
-                <p>Next build step: structured workflow form with printable triage summary.</p>
-            </article>
-            <p class="pc-disclaimer">Merck baseline reference: <a href="https://www.merckvetmanual.com/emergency-medicine-and-critical-care/toxicoses/toxicoses-in-small-animals" target="_blank" rel="noopener noreferrer">Toxicoses in Small Animals</a>.</p>
+        <section class="pc-bridge-section" aria-labelledby="tdp-form-title">
+            <h2 id="tdp-form-title" class="pc-bridge-title">Toxicology Inputs</h2>
+            <form id="tdp-form" class="pc-calculator-grid" novalidate>
+                <label class="pc-calculator-field" for="tdp-weight">
+                    <span>Weight (kg)</span>
+                    <input id="tdp-weight" class="pc-input" type="number" min="0.5" step="0.1" value="10" required>
+                </label>
+
+                <label class="pc-calculator-field" for="tdp-hours">
+                    <span>Hours Since Ingestion</span>
+                    <input id="tdp-hours" class="pc-input" type="number" min="0" step="0.1" value="1" required>
+                </label>
+
+                <div class="pc-calculator-field">
+                    <span>Contraindication / Risk Flags</span>
+                    <label><input id="tdp-neuro" type="checkbox"> Neurologic signs or mentation compromise</label><br>
+                    <label><input id="tdp-corrosive" type="checkbox"> Possible corrosive ingestion</label><br>
+                    <label><input id="tdp-hydrocarbon" type="checkbox"> Hydrocarbon exposure concern</label>
+                </div>
+
+                <div class="pc-calculator-actions">
+                    <button type="submit" class="pc-btn pc-btn--primary">Build Decon Plan</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="tdp-output-title">
+            <h2 id="tdp-output-title" class="pc-bridge-title">Decontamination Output</h2>
+            <div class="pc-stat-grid pc-stat-grid--results">
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">Emesis Screen</p>
+                    <p id="tdp-emesis" class="pc-stat-number">-</p>
+                </article>
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">Activated Charcoal</p>
+                    <p id="tdp-charcoal" class="pc-stat-number">-</p>
+                </article>
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">Slurry Estimate</p>
+                    <p id="tdp-slurry" class="pc-stat-number">-</p>
+                </article>
+            </div>
+            <p id="tdp-note" class="pc-calculator-note">Enter case details and run the planner.</p>
+            <p class="pc-disclaimer">Educational support only. Decontamination decisions must be clinician-led and adapted to toxin identity, dose, and patient stability.</p>
+            <p class="pc-disclaimer">
+                Merck source baseline (reviewed February 13, 2026):
+                <a href="https://www.merckvetmanual.com/emergency-medicine-and-critical-care/toxicoses/toxicoses-in-small-animals" target="_blank" rel="noopener noreferrer">Toxicoses in Small Animals</a>.
+            </p>
         </section>
     </main>
 </body>

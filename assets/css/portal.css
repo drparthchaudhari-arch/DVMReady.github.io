@@ -1395,18 +1395,61 @@
 }
 
 .pc-game-thumb {
+    position: relative;
+    isolation: isolate;
     min-height: 130px;
     border-bottom: 1px solid var(--pc-border);
-    background: color-mix(in srgb, var(--pc-primary) 35%, var(--pc-surface-strong));
-    display: grid;
-    place-items: center;
+    background-color: color-mix(in srgb, var(--pc-primary) 35%, var(--pc-surface-strong));
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
     color: #f5fbff;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
     padding: 1rem;
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.06);
+}
+
+.pc-game-thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(2, 19, 27, 0.12) 0%, rgba(2, 19, 27, 0.76) 100%);
+    z-index: 0;
+}
+
+.pc-game-thumb__chip {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.4rem 0.75rem 0.4rem 0.4rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    background: rgba(2, 16, 24, 0.72);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.pc-game-thumb__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.pc-game-thumb__label {
+    font-size: 0.86rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
 }
 
 .pc-game-card--featured .pc-game-thumb {
@@ -1416,31 +1459,39 @@
 }
 
 .pc-game-thumb--studycore {
-    background: color-mix(in srgb, var(--pc-accent) 38%, var(--pc-primary));
+    background-image: url('/assets/screenshots/vetstrands.svg');
 }
 
 .pc-game-thumb--sudoku {
-    background: color-mix(in srgb, var(--pc-primary) 52%, var(--pc-surface-strong));
+    background-image: url('/assets/screenshots/sudoku.svg');
 }
 
 .pc-game-thumb--memory {
-    background: color-mix(in srgb, var(--pc-accent) 36%, var(--pc-surface-strong));
+    background-image: url('/assets/screenshots/memory-match.svg');
 }
 
 .pc-game-thumb--2048 {
-    background: color-mix(in srgb, var(--pc-primary) 44%, var(--pc-accent));
+    background-image: url('/assets/screenshots/2048.svg');
 }
 
 .pc-game-thumb--ttt {
-    background: color-mix(in srgb, var(--pc-primary) 52%, var(--pc-bg));
+    background-image: url('/assets/screenshots/tic-tac-toe.svg');
 }
 
 .pc-game-thumb--iq {
-    background: color-mix(in srgb, var(--pc-accent) 38%, var(--pc-bg));
+    background-image: url('/assets/screenshots/iq-challenge.svg');
 }
 
 [data-theme='dark'] .pc-game-thumb {
-    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.22);
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.16);
+}
+
+[data-theme='dark'] .pc-game-thumb::before {
+    background: linear-gradient(180deg, rgba(2, 19, 27, 0.2) 0%, rgba(2, 19, 27, 0.82) 100%);
+}
+
+[data-theme='dark'] .pc-game-thumb__chip {
+    background: rgba(2, 16, 24, 0.78);
 }
 
 .pc-game-body {
@@ -3926,6 +3977,209 @@
 .pc-practice-option--incorrect {
     border-color: color-mix(in srgb, var(--pc-error) 62%, var(--pc-border));
     background: color-mix(in srgb, var(--pc-error) 14%, var(--pc-surface));
+}
+
+.pc-question-card {
+    background: var(--pc-bg-secondary);
+    border: 1px solid var(--pc-border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.pc-question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+    color: var(--pc-text-muted);
+    flex-wrap: wrap;
+}
+
+.pc-question-stem {
+    font-size: 1.1rem;
+    margin: 0 0 1.2rem;
+    line-height: 1.6;
+    color: var(--pc-text);
+}
+
+.pc-question-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.1rem;
+}
+
+.pc-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--pc-bg-tertiary);
+    border: 2px solid var(--pc-border);
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    color: var(--pc-text);
+    transition: border-color var(--pc-transition-fast), background-color var(--pc-transition-fast);
+}
+
+.pc-option-btn:hover:not(:disabled) {
+    border-color: var(--pc-teal);
+    background: var(--pc-bg-secondary);
+}
+
+.pc-option-btn:disabled {
+    cursor: default;
+}
+
+.pc-option-key {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-weight: 700;
+    color: #FFFFFF;
+    background: var(--pc-teal);
+    flex-shrink: 0;
+}
+
+.pc-option--correct {
+    border-color: var(--pc-success) !important;
+    background: color-mix(in srgb, var(--pc-success) 16%, var(--pc-bg-secondary)) !important;
+}
+
+.pc-option--incorrect {
+    border-color: var(--pc-error) !important;
+    background: color-mix(in srgb, var(--pc-error) 14%, var(--pc-bg-secondary)) !important;
+}
+
+.pc-option--correct .pc-option-key {
+    background: var(--pc-success);
+}
+
+.pc-option--incorrect .pc-option-key {
+    background: var(--pc-error);
+}
+
+.pc-question-feedback {
+    padding: 1.1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.pc-feedback--correct {
+    background: color-mix(in srgb, var(--pc-success) 12%, var(--pc-bg-secondary));
+    border-left: 4px solid var(--pc-success);
+}
+
+.pc-feedback--incorrect {
+    background: color-mix(in srgb, var(--pc-error) 12%, var(--pc-bg-secondary));
+    border-left: 4px solid var(--pc-error);
+}
+
+.pc-view-controls {
+    position: fixed;
+    right: max(0.85rem, env(safe-area-inset-right));
+    bottom: max(0.85rem, env(safe-area-inset-bottom));
+    z-index: 2050;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.55rem;
+}
+
+.pc-view-trigger {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid var(--pc-border);
+    background: color-mix(in srgb, var(--pc-surface) 90%, transparent);
+    color: var(--pc-text);
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
+
+.pc-view-trigger:hover,
+.pc-view-trigger:focus-visible {
+    border-color: var(--pc-teal);
+}
+
+.pc-view-panel {
+    width: min(86vw, 260px);
+    border: 1px solid var(--pc-border);
+    border-radius: 12px;
+    padding: 0.8rem;
+    background: color-mix(in srgb, var(--pc-bg-secondary) 94%, transparent);
+    box-shadow: 0 14px 26px rgba(0, 0, 0, 0.2);
+}
+
+.pc-view-panel__title {
+    margin: 0 0 0.55rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--pc-text);
+}
+
+.pc-view-scale-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pc-view-mini-btn {
+    min-height: 34px;
+    border: 1px solid var(--pc-border);
+    border-radius: 8px;
+    padding: 0.3rem 0.55rem;
+    background: var(--pc-bg-tertiary);
+    color: var(--pc-text);
+    cursor: pointer;
+}
+
+.pc-view-mini-btn:hover,
+.pc-view-mini-btn:focus-visible {
+    border-color: var(--pc-teal);
+}
+
+.pc-view-scale-value {
+    text-align: center;
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--pc-text);
+}
+
+.pc-view-desktop-toggle {
+    margin-top: 0.6rem;
+    width: 100%;
+    min-height: 36px;
+    border: 1px solid var(--pc-border);
+    border-radius: 8px;
+    background: var(--pc-bg-tertiary);
+    color: var(--pc-text);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.pc-view-desktop-toggle:hover,
+.pc-view-desktop-toggle:focus-visible {
+    border-color: var(--pc-teal);
+}
+
+.pc-force-desktop-view body {
+    min-width: 1200px;
+}
+
+@media print {
+    .pc-view-controls {
+        display: none !important;
+    }
 }
 
 .pc-modal {

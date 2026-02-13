@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/assets/css/portal.css">
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
-    <script src="/assets/js/storage.js" defer></script>
+    <script src="/assets/js/storage.js?v=20260213d" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
 </head>
 <body class="pc-page pc-page--study pc-page--account">
@@ -78,6 +78,25 @@
                 </div>
             </article>
 
+            <article class="pc-account-card pc-account-section" aria-labelledby="pc-quick-stats-title">
+                <h2 id="pc-quick-stats-title" class="pc-account-section__title">Quick Study Stats</h2>
+                <div class="pc-account-metric-grid" role="list">
+                    <div class="pc-account-metric" role="listitem">
+                        <p class="pc-account-metric__label">Cases Completed</p>
+                        <p class="pc-account-metric__value" id="stat-cases">0</p>
+                    </div>
+                    <div class="pc-account-metric" role="listitem">
+                        <p class="pc-account-metric__label">Current Streak</p>
+                        <p class="pc-account-metric__value" id="stat-streak">0</p>
+                    </div>
+                    <div class="pc-account-metric" role="listitem">
+                        <p class="pc-account-metric__label">Today Completed</p>
+                        <p class="pc-account-metric__value" id="stat-today">0</p>
+                    </div>
+                </div>
+                <ul id="completed-cases-list" class="pc-navle-topic-list"></ul>
+            </article>
+
             <article id="pc-sync-section" class="pc-account-card pc-account-card--sync pc-account-section" aria-labelledby="pc-sync-title">
                 <h2 id="pc-sync-title" class="pc-account-section__title">Cross-Device Sync</h2>
                 <p class="pc-account-note">Email login is optional. Use magic-link access only when you want sync across devices.</p>
@@ -115,7 +134,8 @@
         </section>
     </main>
     <script src="/assets/js/supabase-config.js"></script>
-    <script src="/assets/js/sync.js"></script>
-    <script src="/assets/js/account-ui.js"></script>
+    <script src="/assets/js/sync.js?v=20260213d"></script>
+    <script src="/assets/js/account-ui.js?v=20260213d"></script>
+    <script src="/assets/js/account-stats.js?v=20260213d"></script>
 </body>
 </html>

@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
-    <title>Nutrition RER/MER Calculator (Draft) | VetLudics Tools</title>
-    <meta name="description" content="Draft calculator for resting energy requirement and maintenance energy requirement planning.">
+    <title>Nutrition RER/MER Calculator | VetLudics Tools</title>
+    <meta name="description" content="RER and MER calculator for small animals with nutrition-plan factor selection and optional cup conversion.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Nutrition RER/MER Calculator (Draft) | VetLudics Tools">
-    <meta property="og:description" content="In-progress nutrition energy planning support tool.">
+    <meta property="og:title" content="Nutrition RER/MER Calculator | VetLudics Tools">
+    <meta property="og:description" content="Calculate daily calorie targets and optional cups/day from kcal per cup.">
     <meta property="og:url" content="https://parthchaudhari.com/tools/nutrition-rer-mer-calculator.html">
     <link rel="canonical" href="https://parthchaudhari.com/tools/nutrition-rer-mer-calculator.html">
     <link rel="stylesheet" href="/assets/css/tokens.css">
     <link rel="stylesheet" href="/assets/css/portal.css">
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/nutrition-rer-mer-calculator.js" defer></script>
 </head>
 <body class="pc-page pc-page--study">
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
@@ -34,23 +35,66 @@
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
         <section class="pc-bridge-hero">
-            <p class="pc-kicker">Planned Module</p>
-            <h1 class="pc-fork-title">Nutrition RER/MER Calculator (Draft)</h1>
-            <p class="pc-fork-copy">Starter page is live. Calorie planning calculator logic is in progress.</p>
+            <p class="pc-kicker">Live Module</p>
+            <h1 class="pc-fork-title">Nutrition RER/MER Calculator</h1>
+            <p class="pc-fork-copy">Estimate resting and maintenance energy requirements with plan-specific multipliers and optional cups/day conversion.</p>
             <div class="pc-panel-actions">
                 <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
             </div>
         </section>
 
-        <section class="pc-bridge-section" aria-label="Build status">
-            <h2 class="pc-bridge-title">Build Status</h2>
-            <article class="pc-tool-module">
-                <p class="pc-tool-module__status pc-tool-module__status--planned">Planned</p>
-                <h3>Scope In Progress</h3>
-                <p>RER and MER generation with life-stage and disease-modifier multipliers plus feeding transition prompts.</p>
-                <p>Next build step: daily kcal target output and food-label conversion worksheet.</p>
-            </article>
-            <p class="pc-disclaimer">Merck baseline reference: <a href="https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/feeding-practices-for-dogs-and-cats" target="_blank" rel="noopener noreferrer">Feeding Practices for Dogs and Cats</a>.</p>
+        <section class="pc-bridge-section" aria-labelledby="nrm-form-title">
+            <h2 id="nrm-form-title" class="pc-bridge-title">Nutrition Inputs</h2>
+            <form id="nrm-form" class="pc-calculator-grid" novalidate>
+                <label class="pc-calculator-field" for="nrm-weight">
+                    <span>Weight (kg)</span>
+                    <input id="nrm-weight" class="pc-input" type="number" min="0.5" step="0.1" value="10" required>
+                </label>
+
+                <label class="pc-calculator-field" for="nrm-plan">
+                    <span>Nutrition Plan</span>
+                    <select id="nrm-plan" class="pc-input">
+                        <option value="weight_loss">Weight loss</option>
+                        <option value="maintenance_neutered" selected>Maintenance (neutered)</option>
+                        <option value="maintenance_intact">Maintenance (intact)</option>
+                        <option value="growth_puppy">Growth (puppy/kitten)</option>
+                        <option value="recovery">Recovery / convalescence</option>
+                    </select>
+                </label>
+
+                <label class="pc-calculator-field" for="nrm-kcal-cup">
+                    <span>Food Energy Density (kcal/cup, optional)</span>
+                    <input id="nrm-kcal-cup" class="pc-input" type="number" min="1" step="1" placeholder="e.g. 350">
+                </label>
+
+                <div class="pc-calculator-actions">
+                    <button type="submit" class="pc-btn pc-btn--primary">Calculate Energy Plan</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="nrm-output-title">
+            <h2 id="nrm-output-title" class="pc-bridge-title">Energy Output</h2>
+            <div class="pc-stat-grid pc-stat-grid--results">
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">RER</p>
+                    <p id="nrm-rer" class="pc-stat-number">-</p>
+                </article>
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">MER</p>
+                    <p id="nrm-mer" class="pc-stat-number">-</p>
+                </article>
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">Cups / Day (Optional)</p>
+                    <p id="nrm-cups" class="pc-stat-number">-</p>
+                </article>
+            </div>
+            <p id="nrm-note" class="pc-calculator-note">Enter patient details to calculate daily energy targets.</p>
+            <p class="pc-disclaimer">Educational planning tool only. Adjust final feeding plans to body-condition trends, concurrent disease, and clinician goals.</p>
+            <p class="pc-disclaimer">
+                Merck source baseline (reviewed February 13, 2026):
+                <a href="https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/feeding-practices-for-dogs-and-cats" target="_blank" rel="noopener noreferrer">Feeding Practices for Dogs and Cats</a>.
+            </p>
         </section>
     </main>
 </body>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="2048 screenshot preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22446a"/>
+      <stop offset="1" stop-color="#2a1f42"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="62" y="50" width="1156" height="620" rx="22" fill="rgba(0,0,0,0.34)" stroke="rgba(255,255,255,0.2)"/>
+  <text x="104" y="118" fill="#72f4d8" font-family="Inter,Arial" font-size="48" font-weight="700">2048</text>
+  <text x="104" y="156" fill="#d9e7f6" font-family="Inter,Arial" font-size="22">Tile merge strategy board with score and best tracking</text>
+
+  <rect x="104" y="188" width="620" height="430" rx="16" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.16)"/>
+  <rect x="160" y="240" width="508" height="320" rx="16" fill="#1e4557" stroke="#6ed8ca" stroke-width="4"/>
+  <g transform="translate(186,266)">
+    <rect x="0" y="0" width="106" height="66" rx="10" fill="#2f6074"/><rect x="118" y="0" width="106" height="66" rx="10" fill="#c9e5f2"/>
+    <rect x="236" y="0" width="106" height="66" rx="10" fill="#a8d7e9"/><rect x="354" y="0" width="106" height="66" rx="10" fill="#2f6074"/>
+    <rect x="0" y="78" width="106" height="66" rx="10" fill="#f5c26a"/><rect x="118" y="78" width="106" height="66" rx="10" fill="#f0a658"/>
+    <rect x="236" y="78" width="106" height="66" rx="10" fill="#2f6074"/><rect x="354" y="78" width="106" height="66" rx="10" fill="#dcecf6"/>
+    <rect x="0" y="156" width="106" height="66" rx="10" fill="#2f6074"/><rect x="118" y="156" width="106" height="66" rx="10" fill="#2f6074"/>
+    <rect x="236" y="156" width="106" height="66" rx="10" fill="#e98e42"/><rect x="354" y="156" width="106" height="66" rx="10" fill="#dcecf6"/>
+    <rect x="0" y="234" width="106" height="66" rx="10" fill="#a8d7e9"/><rect x="118" y="234" width="106" height="66" rx="10" fill="#2f6074"/>
+    <rect x="236" y="234" width="106" height="66" rx="10" fill="#f6d37e"/><rect x="354" y="234" width="106" height="66" rx="10" fill="#2f6074"/>
+
+    <g fill="#193543" font-family="Inter,Arial" font-size="26" font-weight="700" text-anchor="middle">
+      <text x="171" y="42">2</text><text x="289" y="42">4</text>
+      <text x="53" y="120">16</text><text x="171" y="120">32</text><text x="407" y="120">2</text>
+      <text x="289" y="198">64</text><text x="407" y="198">2</text>
+      <text x="53" y="276">4</text><text x="289" y="276">8</text>
+    </g>
+  </g>
+
+  <rect x="760" y="188" width="458" height="430" rx="16" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.16)"/>
+  <text x="796" y="248" fill="#72f4d8" font-family="Inter,Arial" font-size="24" font-weight="700">Session</text>
+  <text x="796" y="292" fill="#e8f8ff" font-family="Inter,Arial" font-size="22">Score: 11,820</text>
+  <text x="796" y="326" fill="#e8f8ff" font-family="Inter,Arial" font-size="22">Best: 29,104</text>
+  <text x="796" y="360" fill="#e8f8ff" font-family="Inter,Arial" font-size="22">Highest Tile: 512</text>
+
+  <rect x="796" y="398" width="386" height="56" rx="12" fill="#1b8d76"/>
+  <text x="990" y="432" text-anchor="middle" fill="#fff" font-family="Inter,Arial" font-size="22" font-weight="700">New Game</text>
+  <rect x="796" y="470" width="386" height="56" rx="12" fill="rgba(255,255,255,0.16)"/>
+  <text x="990" y="504" text-anchor="middle" fill="#fff" font-family="Inter,Arial" font-size="22" font-weight="700">Undo</text>
+</svg>
