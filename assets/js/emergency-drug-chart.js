@@ -10,17 +10,30 @@
             unit: 'mg/kg',
             concentration: 0.1,
             concentrationUnit: 'mg/mL',
-            route: 'IV/IO'
+            route: 'IV/IO',
+            species: 'both'
         },
         {
-            use: 'Anaphylaxis',
-            drug: 'Epinephrine',
-            dose: '0.01 mg/kg',
-            doseValue: 0.01,
+            use: 'CPR',
+            drug: 'Epinephrine (high dose)',
+            dose: '0.1 mg/kg',
+            doseValue: 0.1,
             unit: 'mg/kg',
-            concentration: 1,
+            concentration: 0.1,
             concentrationUnit: 'mg/mL',
-            route: 'IM'
+            route: 'IV/IO',
+            species: 'both'
+        },
+        {
+            use: 'CPR',
+            drug: 'Vasopressin',
+            dose: '0.8 U/kg',
+            doseValue: 0.8,
+            unit: 'U/kg',
+            concentration: 20,
+            concentrationUnit: 'U/mL',
+            route: 'IV/IO',
+            species: 'both'
         },
         {
             use: 'Bradycardia',
@@ -30,67 +43,30 @@
             unit: 'mg/kg',
             concentration: 0.54,
             concentrationUnit: 'mg/mL',
-            route: 'IV/IM'
+            route: 'IV/IM',
+            species: 'both'
         },
         {
-            use: 'Hyperkalemia',
-            drug: 'Calcium gluconate 10%',
-            dose: '100 mg/kg',
-            doseValue: 100,
+            use: 'Opioid reversal',
+            drug: 'Naloxone',
+            dose: '0.01-0.04 mg/kg',
+            doseValue: 0.02,
             unit: 'mg/kg',
-            concentration: 100,
+            concentration: 0.4,
             concentrationUnit: 'mg/mL',
-            route: 'Slow IV'
+            route: 'IV/IM/IN',
+            species: 'both'
         },
         {
-            use: 'Hyperkalemia',
-            drug: 'Regular insulin',
-            dose: '0.2 U/kg (+ dextrose 1-2 g per U insulin)',
-            doseValue: 0.2,
-            unit: 'U/kg',
-            concentration: 100,
-            concentrationUnit: 'U/mL',
-            route: 'IV'
-        },
-        {
-            use: 'Hypoglycemia',
-            drug: 'Dextrose 50% (dilute)',
-            dose: '1 mL/kg',
-            doseValue: 1,
-            unit: 'mL/kg',
-            concentration: null,
-            concentrationUnit: '',
-            route: 'IV'
-        },
-        {
-            use: 'Seizure control',
-            drug: 'Diazepam',
-            dose: '0.5 mg/kg',
-            doseValue: 0.5,
+            use: 'Anaphylaxis',
+            drug: 'Epinephrine (IM)',
+            dose: '0.01 mg/kg',
+            doseValue: 0.01,
             unit: 'mg/kg',
-            concentration: 5,
+            concentration: 1,
             concentrationUnit: 'mg/mL',
-            route: 'IV/IN'
-        },
-        {
-            use: 'Seizure control',
-            drug: 'Midazolam',
-            dose: '0.2 mg/kg',
-            doseValue: 0.2,
-            unit: 'mg/kg',
-            concentration: 5,
-            concentrationUnit: 'mg/mL',
-            route: 'IV/IM/IN'
-        },
-        {
-            use: 'Status epilepticus',
-            drug: 'Levetiracetam',
-            dose: '60 mg/kg',
-            doseValue: 60,
-            unit: 'mg/kg',
-            concentration: 100,
-            concentrationUnit: 'mg/mL',
-            route: 'IV loading'
+            route: 'IM',
+            species: 'both'
         },
         {
             use: 'Anaphylaxis adjunct',
@@ -100,7 +76,272 @@
             unit: 'mg/kg',
             concentration: 50,
             concentrationUnit: 'mg/mL',
-            route: 'IM/IV'
+            route: 'IM/IV',
+            species: 'both'
+        },
+        {
+            use: 'Shock adjunct',
+            drug: 'Dexamethasone SP',
+            dose: '0.1 mg/kg',
+            doseValue: 0.1,
+            unit: 'mg/kg',
+            concentration: 4,
+            concentrationUnit: 'mg/mL',
+            route: 'IV/IM',
+            species: 'both'
+        },
+        {
+            use: 'Shock adjunct',
+            drug: 'Hydrocortisone sodium succinate',
+            dose: '5 mg/kg',
+            doseValue: 5,
+            unit: 'mg/kg',
+            concentration: 50,
+            concentrationUnit: 'mg/mL',
+            route: 'IV',
+            species: 'both'
+        },
+        {
+            use: 'Hyperkalemia',
+            drug: 'Calcium gluconate 10%',
+            dose: '100 mg/kg',
+            doseValue: 100,
+            unit: 'mg/kg',
+            concentration: 100,
+            concentrationUnit: 'mg/mL',
+            route: 'Slow IV',
+            species: 'both'
+        },
+        {
+            use: 'Hyperkalemia',
+            drug: 'Calcium chloride 10%',
+            dose: '10 mg/kg',
+            doseValue: 10,
+            unit: 'mg/kg',
+            concentration: 100,
+            concentrationUnit: 'mg/mL',
+            route: 'Slow IV',
+            species: 'both'
+        },
+        {
+            use: 'Hyperkalemia',
+            drug: 'Regular insulin',
+            dose: '0.2 U/kg (+ dextrose support)',
+            doseValue: 0.2,
+            unit: 'U/kg',
+            concentration: 100,
+            concentrationUnit: 'U/mL',
+            route: 'IV',
+            species: 'both'
+        },
+        {
+            use: 'Metabolic acidosis',
+            drug: 'Sodium bicarbonate 8.4%',
+            dose: '1-2 mEq/kg',
+            doseValue: 1.5,
+            unit: 'mEq/kg',
+            concentration: 1,
+            concentrationUnit: 'mEq/mL',
+            route: 'IV',
+            species: 'both'
+        },
+        {
+            use: 'Cerebral edema',
+            drug: 'Mannitol 20%',
+            dose: '0.5 g/kg',
+            doseValue: 500,
+            unit: 'mg/kg',
+            concentration: 200,
+            concentrationUnit: 'mg/mL',
+            route: 'IV',
+            species: 'both'
+        },
+        {
+            use: 'Hypoglycemia',
+            drug: 'Dextrose 50% (dilute)',
+            dose: '1 mL/kg',
+            doseValue: 1,
+            unit: 'mL/kg',
+            concentration: null,
+            concentrationUnit: '',
+            route: 'IV',
+            species: 'both'
+        },
+        {
+            use: 'Arrhythmia',
+            drug: 'Lidocaine (dog)',
+            dose: '2 mg/kg',
+            doseValue: 2,
+            unit: 'mg/kg',
+            concentration: 20,
+            concentrationUnit: 'mg/mL',
+            route: 'IV',
+            species: 'dog'
+        },
+        {
+            use: 'Arrhythmia',
+            drug: 'Lidocaine (cat)',
+            dose: '0.25 mg/kg',
+            doseValue: 0.25,
+            unit: 'mg/kg',
+            concentration: 20,
+            concentrationUnit: 'mg/mL',
+            route: 'IV',
+            species: 'cat'
+        },
+        {
+            use: 'Arrhythmia',
+            drug: 'Amiodarone',
+            dose: '5 mg/kg',
+            doseValue: 5,
+            unit: 'mg/kg',
+            concentration: 50,
+            concentrationUnit: 'mg/mL',
+            route: 'IV',
+            species: 'both'
+        },
+        {
+            use: 'CHF/Pulmonary edema',
+            drug: 'Furosemide',
+            dose: '2 mg/kg',
+            doseValue: 2,
+            unit: 'mg/kg',
+            concentration: 50,
+            concentrationUnit: 'mg/mL',
+            route: 'IV/IM',
+            species: 'both'
+        },
+        {
+            use: 'Antiemetic',
+            drug: 'Metoclopramide',
+            dose: '0.2 mg/kg',
+            doseValue: 0.2,
+            unit: 'mg/kg',
+            concentration: 5,
+            concentrationUnit: 'mg/mL',
+            route: 'IV/IM/SQ',
+            species: 'both'
+        },
+        {
+            use: 'Antiemetic',
+            drug: 'Maropitant',
+            dose: '1 mg/kg',
+            doseValue: 1,
+            unit: 'mg/kg',
+            concentration: 10,
+            concentrationUnit: 'mg/mL',
+            route: 'SQ',
+            species: 'both'
+        },
+        {
+            use: 'GI protection',
+            drug: 'Famotidine',
+            dose: '1 mg/kg',
+            doseValue: 1,
+            unit: 'mg/kg',
+            concentration: 10,
+            concentrationUnit: 'mg/mL',
+            route: 'IV',
+            species: 'both'
+        },
+        {
+            use: 'Analgesia',
+            drug: 'Butorphanol',
+            dose: '0.2-0.4 mg/kg',
+            doseValue: 0.3,
+            unit: 'mg/kg',
+            concentration: 10,
+            concentrationUnit: 'mg/mL',
+            route: 'IV/IM',
+            species: 'both'
+        },
+        {
+            use: 'Analgesia',
+            drug: 'Buprenorphine',
+            dose: '0.02 mg/kg',
+            doseValue: 0.02,
+            unit: 'mg/kg',
+            concentration: 0.3,
+            concentrationUnit: 'mg/mL',
+            route: 'IV/IM',
+            species: 'both'
+        },
+        {
+            use: 'Seizure control',
+            drug: 'Diazepam',
+            dose: '0.5 mg/kg',
+            doseValue: 0.5,
+            unit: 'mg/kg',
+            concentration: 5,
+            concentrationUnit: 'mg/mL',
+            route: 'IV/IN',
+            species: 'both'
+        },
+        {
+            use: 'Seizure control',
+            drug: 'Midazolam',
+            dose: '0.2 mg/kg',
+            doseValue: 0.2,
+            unit: 'mg/kg',
+            concentration: 5,
+            concentrationUnit: 'mg/mL',
+            route: 'IV/IM/IN',
+            species: 'both'
+        },
+        {
+            use: 'Status epilepticus',
+            drug: 'Levetiracetam',
+            dose: '60 mg/kg',
+            doseValue: 60,
+            unit: 'mg/kg',
+            concentration: 100,
+            concentrationUnit: 'mg/mL',
+            route: 'IV loading',
+            species: 'both'
+        },
+        {
+            use: 'Sedation/Induction',
+            drug: 'Ketamine',
+            dose: '5 mg/kg',
+            doseValue: 5,
+            unit: 'mg/kg',
+            concentration: 100,
+            concentrationUnit: 'mg/mL',
+            route: 'IV/IM',
+            species: 'both'
+        },
+        {
+            use: 'Sedation/Induction',
+            drug: 'Propofol',
+            dose: '4 mg/kg',
+            doseValue: 4,
+            unit: 'mg/kg',
+            concentration: 10,
+            concentrationUnit: 'mg/mL',
+            route: 'IV',
+            species: 'both'
+        },
+        {
+            use: 'Sedation/Induction',
+            drug: 'Etomidate',
+            dose: '1.5 mg/kg',
+            doseValue: 1.5,
+            unit: 'mg/kg',
+            concentration: 2,
+            concentrationUnit: 'mg/mL',
+            route: 'IV',
+            species: 'both'
+        },
+        {
+            use: 'Anticholinergic',
+            drug: 'Glycopyrrolate',
+            dose: '0.01 mg/kg',
+            doseValue: 0.01,
+            unit: 'mg/kg',
+            concentration: 0.2,
+            concentrationUnit: 'mg/mL',
+            route: 'IV/IM',
+            species: 'both'
         }
     ];
 
@@ -143,6 +384,10 @@
             return weight * item.doseValue;
         }
 
+        if (item.unit === 'mEq/kg') {
+            return weight * item.doseValue;
+        }
+
         if (item.unit === 'U/kg') {
             return weight * item.doseValue;
         }
@@ -157,6 +402,9 @@
     function getDoseSuffix(unit) {
         if (unit.indexOf('mg') === 0) {
             return ' mg';
+        }
+        if (unit.indexOf('mEq') === 0) {
+            return ' mEq';
         }
         if (unit.indexOf('U') === 0) {
             return ' U';
@@ -242,8 +490,14 @@
         }
 
         var rows = [];
+        var visibleDrugs = 0;
         for (var i = 0; i < DRUGS.length; i += 1) {
             var item = DRUGS[i];
+            var matchesSpecies = !item.species || item.species === 'both' || item.species === species;
+            if (!matchesSpecies) {
+                continue;
+            }
+            visibleDrugs += 1;
             var doseValue = calculateDose(weight, item);
             var concentrationValue = getActiveConcentration(item, i);
             var volumeValue = calculateVolume(doseValue, item, concentrationValue);
@@ -272,7 +526,7 @@
         var overrideText = overrideCount
             ? ' Includes ' + overrideCount + ' custom concentration override' + (overrideCount === 1 ? '' : 's') + '.'
             : '';
-        note.textContent = 'Dose estimates generated for a ' + format(weight, 1) + ' kg ' + species + '. Re-check concentrations before administration.' + overrideText;
+        note.textContent = 'Dose estimates generated for a ' + format(weight, 1) + ' kg ' + species + ' using ' + visibleDrugs + ' species-matched emergency drugs. Re-check concentrations before administration.' + overrideText;
     }
 
     function updateConcentration(index, rawValue) {
@@ -310,6 +564,10 @@
 
         for (var i = 0; i < DRUGS.length; i += 1) {
             var item = DRUGS[i];
+            var matchesSpecies = !item.species || item.species === 'both' || item.species === state.lastSpecies;
+            if (!matchesSpecies) {
+                continue;
+            }
             var doseValue = calculateDose(weight, item);
             var concentrationValue = getActiveConcentration(item, i);
             var volumeValue = calculateVolume(doseValue, item, concentrationValue);

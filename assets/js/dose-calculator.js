@@ -18,11 +18,23 @@
 
     function getDoseFrequencyMultiplier(frequency) {
         var text = String(frequency || '').toUpperCase();
-        if (text.indexOf('TID') !== -1) {
+        if (text.indexOf('Q4H') !== -1 || text.indexOf('QID') !== -1) {
+            return 4;
+        }
+        if (text.indexOf('Q6H') !== -1) {
+            return 4;
+        }
+        if (text.indexOf('TID') !== -1 || text.indexOf('Q8H') !== -1) {
             return 3;
+        }
+        if (text.indexOf('Q12H') !== -1) {
+            return 2;
         }
         if (text.indexOf('BID') !== -1) {
             return 2;
+        }
+        if (text.indexOf('QOD') !== -1) {
+            return 0.5;
         }
         return 1;
     }
@@ -108,7 +120,12 @@
         }
 
         if (hint) {
-            hint.textContent = 'Available concentrations: ' + drug.concentrations.join(', ');
+            var categoryLabel = drug.category ? ('Category: ' + drug.category + '. ') : '';
+            var doseLabel = Number.isFinite(Number(drug.dose_mg_kg))
+                ? ('Standard dose: ' + Number(drug.dose_mg_kg) + ' mg/kg')
+                : 'Standard dose unavailable';
+            var frequencyLabel = drug.frequency ? (' (' + drug.frequency + ')') : '';
+            hint.textContent = categoryLabel + doseLabel + frequencyLabel + '. Available concentrations: ' + drug.concentrations.join(', ') + '.';
         }
     }
 
@@ -121,6 +138,14 @@
 
             var data = await response.json();
             drugsData = Array.isArray(data) ? data : [];
+            drugsData.sort(function (left, right) {
+                var leftCategory = String(left && left.category || '').toLowerCase();
+                var rightCategory = String(right && right.category || '').toLowerCase();
+                if (leftCategory !== rightCategory) {
+                    return leftCategory.localeCompare(rightCategory);
+                }
+                return String(left && left.name || '').localeCompare(String(right && right.name || ''));
+            });
 
             var select = byId('drug-select');
             if (!select) {
@@ -129,7 +154,8 @@
 
             select.innerHTML = '<option value="">Select drug...</option>' +
                 drugsData.map(function (drug) {
-                    return '<option value="' + drug.name + '">' + drug.name + '</option>';
+                    var categoryLabel = drug.category ? (' - ' + drug.category) : '';
+                    return '<option value="' + drug.name + '">' + drug.name + categoryLabel + '</option>';
                 }).join('');
         } catch (error) {
             console.error('Failed to load drugs:', error);
@@ -143,11 +169,22 @@
     function updateConcentrations() {
         var drugName = byId('drug-select') ? byId('drug-select').value : '';
         var concentrationInput = byId('concentration');
+        var referenceHint = byId('drug-reference-hint');
         var drug = drugsData.find(function (item) {
             return item.name === drugName;
         });
 
         renderConcentrationOptions(drug);
+
+        if (referenceHint) {
+            if (drug && drug.reference) {
+                referenceHint.textContent = 'Reference baseline: ' + drug.reference + '.';
+            } else if (drug) {
+                referenceHint.textContent = 'Reference baseline: DailyMed + Merck Vet Manual + approved site reference map.';
+            } else {
+                referenceHint.textContent = 'Choose a drug to see reference context.';
+            }
+        }
 
         if (!drug || !Array.isArray(drug.concentrations) || !drug.concentrations.length || !concentrationInput) {
             return;

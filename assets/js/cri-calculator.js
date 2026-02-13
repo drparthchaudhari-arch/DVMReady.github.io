@@ -196,6 +196,71 @@
             requiresFilter: false,
             incompatibleWith: [],
             reference: 'Anticholinergic infusion support'
+        },
+        {
+            id: 'norepinephrine',
+            name: 'Norepinephrine',
+            defaultRate: 0.05,
+            rateUnit: 'mcg_kg_min',
+            stockConcentration: 1,
+            range: { min: 0.05, max: 2, unit: 'mcg_kg_min' },
+            maxSafeConcentration: 0.3,
+            lightSensitive: true,
+            requiresFilter: false,
+            incompatibleWith: ['alkaline solutions'],
+            reference: 'Vasopressor titration protocols'
+        },
+        {
+            id: 'milrinone',
+            name: 'Milrinone',
+            defaultRate: 0.5,
+            rateUnit: 'mcg_kg_min',
+            stockConcentration: 1,
+            range: { min: 0.25, max: 0.75, unit: 'mcg_kg_min' },
+            maxSafeConcentration: 0.2,
+            lightSensitive: false,
+            requiresFilter: false,
+            incompatibleWith: ['furosemide in same line'],
+            reference: 'Advanced cardiogenic support protocols'
+        },
+        {
+            id: 'midazolam',
+            name: 'Midazolam',
+            defaultRate: 0.2,
+            rateUnit: 'mg_kg_hr',
+            stockConcentration: 5,
+            range: { min: 0.1, max: 0.3, unit: 'mg_kg_hr' },
+            maxSafeConcentration: 0.5,
+            lightSensitive: false,
+            requiresFilter: false,
+            incompatibleWith: [],
+            reference: 'Sedation CRI support protocols'
+        },
+        {
+            id: 'alfaxalone',
+            name: 'Alfaxalone',
+            defaultRate: 2,
+            rateUnit: 'mg_kg_hr',
+            stockConcentration: 10,
+            range: { min: 1, max: 4, unit: 'mg_kg_hr' },
+            maxSafeConcentration: 2,
+            lightSensitive: false,
+            requiresFilter: false,
+            incompatibleWith: [],
+            reference: 'Continuous sedation protocols'
+        },
+        {
+            id: 'insulin_regular',
+            name: 'Regular Insulin (DKA CRI)',
+            defaultRate: 0.0008,
+            rateUnit: 'u_kg_min',
+            stockConcentration: 100,
+            range: { min: 0.0005, max: 0.001, unit: 'u_kg_min' },
+            maxSafeConcentration: 2,
+            lightSensitive: false,
+            requiresFilter: false,
+            incompatibleWith: [],
+            reference: 'DKA CRI protocols'
         }
     ];
 

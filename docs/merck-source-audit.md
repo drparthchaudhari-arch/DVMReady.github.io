@@ -89,3 +89,8 @@ This file tracks the Merck Veterinary Manual source baseline used by the tool pa
 - `assets/js/emergency-drug-chart.js`
   - Updated regular insulin hyperkalemia default dose from `0.1 U/kg` to `0.2 U/kg` and added dextrose co-administration reminder in the standard dose text.
   - Added printable chart output and editable concentration inputs with reset-to-default support.
+  - Expanded emergency drug table to a broader, species-aware list (dog/cat/both) including CPR, arrhythmia, antiemetic, seizure, induction, and electrolyte support entries.
+
+- `content/drugs.json` + `assets/js/dose-calculator.js`
+  - Expanded routine drug library from a small starter list to a broader multi-category set (cardiology, GI, antibiotics, analgesia, neurologic, endocrine, emergency support).
+  - Added per-drug reference baseline metadata and improved daily-frequency multiplier parsing (`BID/TID/QID/q8h/q12h` patterns).
