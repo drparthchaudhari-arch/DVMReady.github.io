@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
     <title>Play Veterinary Games | VetLudics</title>
-    <meta name="description" content="Arcade dashboard for veterinary learning games with quick play links, study-first case links, and progress stats.">
+    <meta name="description" content="Arcade dashboard for veterinary games with quick play links and progress stats.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Play Veterinary Games | VetLudics">
-    <meta property="og:description" content="Use puzzle games for reinforcement while the main NAVLE topic library lives in Study.">
+    <meta property="og:description" content="Play quick veterinary puzzle games with a clean game-only dashboard.">
     <meta property="og:url" content="https://parthchaudhari.com/play/">
     <link rel="canonical" href="https://parthchaudhari.com/play/">
     <link rel="stylesheet" href="../assets/css/tokens.css">
@@ -27,7 +27,6 @@
                 <a class="pc-nav-link pc-is-active" href="/play/">Play</a>
                 <a class="pc-nav-link" href="/bridge/">Bridge</a>
                 <a class="pc-nav-link" href="/search.html">Search</a>
-                <a class="pc-nav-link" href="/study/">Study Plan</a>
                 <a class="pc-nav-link" href="/account/"><span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>Account</a>
                 <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
                     <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Play</span>
@@ -53,28 +52,6 @@
             <div class="pc-arcade-stat"><span class="pc-arcade-label">VetPoints</span><strong>0</strong></div>
         </section>
 
-        <section class="pc-featured-game" aria-label="Featured study tool">
-            <article class="pc-game-card pc-game-card--featured">
-                <div class="pc-game-thumb pc-game-thumb--studycore">
-                    <span class="pc-game-thumb__chip">
-                        <span class="pc-game-thumb__icon" aria-hidden="true">📘</span>
-                        <span class="pc-game-thumb__label">Study Core</span>
-                    </span>
-                </div>
-                <div class="pc-game-body">
-                    <span class="pc-badge">NAVLE Core</span>
-                    <a class="pc-study-link-badge" href="/study/">Open Study Planner</a>
-                    <h1>Study Planner and Case Workflow</h1>
-                    <p class="pc-play-subtitle">Use the NAVLE study planner and case library as your main source list, then return here for puzzle reinforcement.</p>
-                    <p>This game hub now focuses on Sudoku, Memory Match, 2048, Tic-Tac-Toe, and IQ Challenge.</p>
-                    <div class="pc-panel-actions">
-                        <a class="pc-btn" href="/study/">Open Study Planner</a>
-                        <a class="pc-btn pc-btn-secondary" href="/bridge/case-studies/">Open Case Directory</a>
-                    </div>
-                </div>
-            </article>
-        </section>
-
         <section class="pc-game-grid" aria-label="Game list">
             <article class="pc-game-card" data-pc-game-card data-pc-game-id="sudoku" data-game-id="sudoku">
                 <div class="pc-game-thumb pc-game-thumb--sudoku">
@@ -85,13 +62,11 @@
                 </div>
                 <div class="pc-game-body">
                     <span class="pc-badge">Logic</span>
-                    <a class="pc-study-link-badge" href="/bridge/case-studies/dka-dog.html">Logic for Diagnostics</a>
                     <span class="pc-played-badge" data-pc-played-badge id="badge-sudoku" hidden>Played Today</span>
                     <h2>Sudoku</h2>
                     <p class="pc-difficulty">Difficulty: ●●●●○</p>
                     <div class="pc-panel-actions">
                         <a class="pc-btn pc-game-launch-btn" href="/play/sudoku/">Launch Game</a>
-                        <a class="pc-link-chip" href="/bridge/case-studies/dka-dog.html">Study First</a>
                     </div>
                 </div>
             </article>
@@ -110,7 +85,6 @@
                     <p class="pc-difficulty">Difficulty: ●●○○○</p>
                     <div class="pc-panel-actions">
                         <a class="pc-btn pc-game-launch-btn" href="/play/memory-match/">Launch Game</a>
-                        <a class="pc-link-chip" href="/bridge/case-studies/bovine-mastitis.html">Study First</a>
                     </div>
                 </div>
             </article>
@@ -129,7 +103,6 @@
                     <p class="pc-difficulty">Difficulty: ●●●○○</p>
                     <div class="pc-panel-actions">
                         <a class="pc-btn pc-game-launch-btn" href="/play/2048/">Launch Game</a>
-                        <a class="pc-link-chip" href="/bridge/case-studies/dka-dog.html">Study First</a>
                     </div>
                 </div>
             </article>
@@ -148,7 +121,6 @@
                     <p class="pc-difficulty">Difficulty: ●●○○○</p>
                     <div class="pc-panel-actions">
                         <a class="pc-btn pc-game-launch-btn" href="/play/tictactoe/">Launch Game</a>
-                        <a class="pc-link-chip" href="/bridge/case-studies/bovine-mastitis.html">Study First</a>
                     </div>
                 </div>
             </article>
@@ -167,7 +139,6 @@
                     <p class="pc-difficulty">Difficulty: ●●●●○</p>
                     <div class="pc-panel-actions">
                         <a class="pc-btn pc-game-launch-btn" href="/play/iq-challenge/">Launch Game</a>
-                        <a class="pc-link-chip" href="/bridge/case-studies/chf-dog.html">Study First</a>
                     </div>
                 </div>
             </article>
