@@ -72,6 +72,10 @@
     flex-wrap: wrap;
 }
 
+[data-pc-mode-toggle] {
+    display: none !important;
+}
+
 .pc-nav-link,
 .pc-nav-pill,
 .pc-nav-toggle {
@@ -620,6 +624,38 @@
 .pc-home-tier-links a:focus-visible::after {
     transform: translateX(2px);
     opacity: 0.95;
+}
+
+.pc-navle-priority-row {
+    margin-top: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.pc-navle-clean-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+.pc-navle-clean-card {
+    border: 1px solid color-mix(in srgb, var(--pc-primary) 28%, var(--pc-border));
+    border-radius: 16px;
+    padding: 0.95rem;
+    background:
+        linear-gradient(160deg, color-mix(in srgb, var(--pc-surface) 94%, transparent), color-mix(in srgb, var(--pc-primary) 8%, var(--pc-surface)));
+    box-shadow: 0 14px 28px rgba(2, 12, 27, 0.12);
+}
+
+.pc-navle-clean-card h3 {
+    margin: 0 0 0.35rem;
+    color: var(--pc-primary);
+}
+
+.pc-navle-clean-card p {
+    margin: 0 0 0.65rem;
+    color: var(--pc-text-muted);
 }
 
 .pc-home-window-links a::after {
@@ -2471,6 +2507,10 @@
         grid-template-columns: 1fr 1fr;
     }
 
+    .pc-navle-clean-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
     .pc-arcade-stats {
         grid-template-columns: 1fr 1fr;
     }
@@ -2576,6 +2616,10 @@
     .pc-bridge-card-grid,
     .pc-stat-grid,
     .pc-topic-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pc-navle-clean-grid {
         grid-template-columns: 1fr;
     }
 
