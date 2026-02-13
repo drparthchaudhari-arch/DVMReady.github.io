@@ -105,6 +105,7 @@
 
     function readInputs() {
         var weight = toNumber(document.getElementById('icp-weight').value);
+        var species = String(document.getElementById('icp-species').value || 'dog');
         var dose = toNumber(document.getElementById('icp-dose').value);
         var bagVolume = toNumber(document.getElementById('icp-bag-volume').value);
         var insulinUnits = toNumber(document.getElementById('icp-insulin-units').value);
@@ -122,6 +123,7 @@
 
         return {
             weight: weight,
+            species: species,
             dose: dose,
             bagVolume: bagVolume,
             insulinUnits: insulinUnits,
@@ -137,6 +139,7 @@
         }
 
         var weight = input.weight;
+        var species = input.species;
         var dose = input.dose;
         var bagVolume = input.bagVolume;
         var insulinUnits = input.insulinUnits;
@@ -148,11 +151,17 @@
         var infusionRateMlHr = requiredUnitsPerHour / concentration;
         var dextroseLow = requiredUnitsPerHour * 1;
         var dextroseHigh = requiredUnitsPerHour * 2;
+        var referenceUnitsPerKgPer250 = species === 'cat' ? 1.1 : 2.2;
+        var referenceUnits = referenceUnitsPerKgPer250 * weight * (bagVolume / 250);
+        var referenceDelta = insulinUnits - referenceUnits;
+        var referenceLabel = format(referenceUnits, 2) + ' U expected for ' + format(bagVolume, 0) + ' mL bag' +
+            ' (' + (referenceDelta >= 0 ? '+' : '') + format(referenceDelta, 2) + ' U vs entered)';
 
         setText('icp-conc', format(concentration, 4, ' U/mL'));
         setText('icp-uhr', format(requiredUnitsPerHour, 3, ' U/hr'));
         setText('icp-rate', format(infusionRateMlHr, 2, ' mL/hr'));
         setText('icp-dextrose', format(dextroseLow, 1, '') + ' - ' + format(dextroseHigh, 1, ' g/hr'));
+        setText('icp-ref-bag', referenceLabel);
 
         var notes = [];
         if (Number.isFinite(bg)) {
@@ -195,6 +204,7 @@
             source: 'tool_insulin_cri',
             inputs: {
                 weightKg: input.weight,
+                species: input.species,
                 doseUkgHr: input.dose,
                 bagVolumeMl: input.bagVolume,
                 insulinUnitsAdded: input.insulinUnits,

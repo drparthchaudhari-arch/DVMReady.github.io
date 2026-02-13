@@ -157,7 +157,7 @@
         var shockNode = document.getElementById('fluid-shock');
         if (shockNode) {
             var dogLow = weight * 10;
-            var dogHigh = weight * 20;
+            var dogHigh = weight * 15;
             var catLow = weight * 5;
             var catHigh = weight * 10;
             shockNode.textContent =

@@ -37,7 +37,7 @@
 
         var isCat = species === 'cat';
         var bolusLowPerKg = isCat ? 5 : 10;
-        var bolusHighPerKg = isCat ? 10 : 20;
+        var bolusHighPerKg = isCat ? 10 : 15;
         var shockLowPerKg = isCat ? 40 : 80;
         var shockHighPerKg = isCat ? 60 : 90;
 

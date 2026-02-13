@@ -1,12 +1,13 @@
 (function () {
     'use strict';
 
-    var MER_FACTORS = {
-        weight_loss: 1,
-        maintenance_neutered: 1.6,
-        maintenance_intact: 1.8,
-        growth_puppy: 2.5,
-        recovery: 1.3
+    var PLAN_FACTORS = {
+        weight_loss: { dog: 1, cat: 0.8 },
+        maintenance_neutered: { dog: 1.6, cat: 1.2 },
+        maintenance_intact: { dog: 1.8, cat: 1.4 },
+        growth_under_4mo: { dog: 3, cat: 2.5 },
+        growth_over_4mo: { dog: 2, cat: 2 },
+        recovery: { dog: 1, cat: 1 }
     };
 
     function toNumber(value) {
@@ -28,11 +29,19 @@
         }
     }
 
+    function getFactor(species, plan) {
+        var speciesKey = species === 'cat' ? 'cat' : 'dog';
+        var planEntry = PLAN_FACTORS[plan] || PLAN_FACTORS.maintenance_neutered;
+        var value = planEntry[speciesKey];
+        return Number.isFinite(value) ? value : PLAN_FACTORS.maintenance_neutered[speciesKey];
+    }
+
     function render(event) {
         if (event) {
             event.preventDefault();
         }
 
+        var species = String(document.getElementById('nrm-species').value || 'dog');
         var weight = toNumber(document.getElementById('nrm-weight').value);
         var plan = String(document.getElementById('nrm-plan').value || 'maintenance_neutered');
         var kcalPerCup = toNumber(document.getElementById('nrm-kcal-cup').value);
@@ -43,7 +52,7 @@
         }
 
         var rer = 70 * Math.pow(weight, 0.75);
-        var factor = MER_FACTORS[plan] || MER_FACTORS.maintenance_neutered;
+        var factor = getFactor(species, plan);
         var mer = rer * factor;
 
         setText('nrm-rer', format(rer, 0, ' kcal/day'));
@@ -56,7 +65,11 @@
             setText('nrm-cups', '-');
         }
 
-        setText('nrm-note', 'Use ideal body-weight targets and reassess body condition score every 2-4 weeks during plan adjustments.');
+        var planNote = 'Factor used: ' + format(factor, 2) + ' x RER for ' + (species === 'cat' ? 'cat' : 'dog') + '.';
+        setText(
+            'nrm-note',
+            planNote + ' Use ideal body weight targets and reassess body condition score every 2-4 weeks during plan adjustments.'
+        );
     }
 
     function init() {
@@ -66,6 +79,7 @@
         }
         form.addEventListener('submit', render);
         form.addEventListener('change', render);
+        form.addEventListener('input', render);
         render();
     }
 

@@ -20,17 +20,20 @@
         }
     }
 
-    function getAdditiveBand(currentK) {
-        if (currentK < 2.5) {
-            return { low: 60, high: 80 };
+    function getDoseBand(currentK) {
+        if (currentK < 2.0) {
+            return { low: 0.5, high: 0.5 };
         }
-        if (currentK < 3) {
-            return { low: 40, high: 60 };
+        if (currentK < 2.6) {
+            return { low: 0.3, high: 0.4 };
         }
-        if (currentK < 3.5) {
-            return { low: 20, high: 40 };
+        if (currentK < 3.1) {
+            return { low: 0.2, high: 0.25 };
         }
-        return { low: 10, high: 20 };
+        if (currentK <= 3.5) {
+            return { low: 0.1, high: 0.15 };
+        }
+        return { low: 0.05, high: 0.05 };
     }
 
     function render(event) {
@@ -59,27 +62,29 @@
             return;
         }
 
-        var band = getAdditiveBand(currentK);
-        var midpoint = (band.low + band.high) / 2;
-        var maxSafe = 0.5 * weight;
-        var maxAdditiveByRate = (maxSafe * 1000) / fluidRate;
+        var doseBand = getDoseBand(currentK);
+        var midpointDose = (doseBand.low + doseBand.high) / 2;
+        var maxSafeDose = 0.5;
 
-        var effectiveLow = Math.min(band.low, maxAdditiveByRate);
-        var effectiveHigh = Math.min(band.high, maxAdditiveByRate);
-        var suggestedAdditive = Math.min(midpoint, maxAdditiveByRate);
-        var hourlyLoad = (suggestedAdditive / 1000) * fluidRate;
+        var effectiveLowDose = Math.min(doseBand.low, maxSafeDose);
+        var effectiveHighDose = Math.min(doseBand.high, maxSafeDose);
+        var suggestedDose = Math.min(midpointDose, maxSafeDose);
+        var hourlyLoad = suggestedDose * weight;
         var kclMlPerHour = hourlyLoad / 2;
+        var additiveLow = (effectiveLowDose * weight * 1000) / fluidRate;
+        var additiveHigh = (effectiveHighDose * weight * 1000) / fluidRate;
+        var suggestedAdditive = (suggestedDose * weight * 1000) / fluidRate;
         var hourlyLabel = format(hourlyLoad, 2) + ' mEq/hr (~' + format(kclMlPerHour, 2) + ' mL/hr of 2 mEq/mL KCl)';
 
         setText('erp-deficit', format(deficit, 2, ' mEq/L gap'));
-        setText('erp-additive', format(effectiveLow, 0, '') + '-' + format(effectiveHigh, 0, ' mEq/L in fluids'));
+        setText('erp-additive', format(additiveLow, 0, '') + '-' + format(additiveHigh, 0, ' mEq/L in fluids'));
         setText('erp-hourly', hourlyLabel);
 
         var note = 'Check serum potassium every 2-4 hours during active correction.';
-        if (maxAdditiveByRate < band.low) {
-            note += ' Infusion-rate safety cap limits additive below the usual band; consider lowering fluid rate, central-line protocol, or staged correction.';
-        } else {
-            note += ' Suggested mid-band target is ' + format(suggestedAdditive, 0, ' mEq/L with max safe ceiling ' + format(maxAdditiveByRate, 0, ' mEq/L at current fluid rate.'));
+        note += ' Dose band target is ' + format(effectiveLowDose, 2, '') + '-' + format(effectiveHighDose, 2, ' mEq/kg/hr');
+        note += ' (AAHA-style K replacement ranges), with suggested additive around ' + format(suggestedAdditive, 0, ' mEq/L at this fluid rate.');
+        if (additiveHigh > 80) {
+            note += ' This concentration may exceed typical peripheral-line comfort limits; central-line protocol may be needed.';
         }
         setText('erp-note', note);
     }
