@@ -885,6 +885,217 @@
         return card;
     }
 
+    function buildHandoffText(encounterData) {
+        var encounter = encounterData && typeof encounterData === 'object' ? encounterData : {};
+        var outcomes = encounter.outcomes && typeof encounter.outcomes === 'object' ? encounter.outcomes : {};
+        var calculations = Array.isArray(encounter.calculations) ? encounter.calculations : [];
+        var maxRows = Math.min(calculations.length, 5);
+        var lines = [];
+        var i;
+
+        lines.push('Encounter ID: ' + (encounter.id || ''));
+        lines.push('Case: ' + (encounter.caseTitle || encounter.caseId || ''));
+        lines.push('Status: ' + (encounter.status || 'open'));
+        lines.push('Updated: ' + (encounter.updatedAt || ''));
+        lines.push('Outcome: ' + (outcomes.resolution || 'not documented'));
+        lines.push('Follow-up needed: ' + (outcomes.followUpNeeded ? 'yes' : 'no'));
+        lines.push('Complications: ' + (Array.isArray(outcomes.complications) && outcomes.complications.length ? outcomes.complications.join('; ') : 'none listed'));
+        lines.push('Actual treatment: ' + (outcomes.actualTreatment || 'not documented'));
+        lines.push('Recent calculator activity:');
+
+        if (!maxRows) {
+            lines.push('- none');
+        } else {
+            for (i = calculations.length - maxRows; i < calculations.length; i += 1) {
+                var calc = calculations[i] || {};
+                lines.push('- ' + (calc.calculatorLabel || calc.calculatorId || 'calculator') + ' @ ' + (calc.createdAt || ''));
+            }
+        }
+
+        lines.push('Generated from VetLudics collaboration card.');
+        return lines.join('\n');
+    }
+
+    function copyTextToClipboard(text) {
+        var value = String(text || '');
+        if (!value) {
+            return Promise.resolve(false);
+        }
+
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+            return navigator.clipboard.writeText(value)
+                .then(function () {
+                    return true;
+                })
+                .catch(function () {
+                    return false;
+                });
+        }
+
+        var area = document.createElement('textarea');
+        area.value = value;
+        area.setAttribute('readonly', 'readonly');
+        area.style.position = 'fixed';
+        area.style.top = '-9999px';
+        document.body.appendChild(area);
+        area.select();
+        var ok = false;
+        try {
+            ok = document.execCommand('copy');
+        } catch (error) {
+            ok = false;
+        }
+        document.body.removeChild(area);
+        return Promise.resolve(ok);
+    }
+
+    function createCollaborationCard(config, encounter, onShared) {
+        var card = document.createElement('article');
+        card.className = 'pc-tool-module pc-case-collab';
+        card.innerHTML = '<h3>Collaboration</h3>';
+
+        var intro = document.createElement('p');
+        intro.className = 'pc-case-intel__summary';
+        intro.textContent = 'Create share links for team review and generate handoff text for shift transitions.';
+        card.appendChild(intro);
+
+        var grid = document.createElement('div');
+        grid.className = 'pc-case-outcome__grid';
+
+        var permField = document.createElement('label');
+        permField.className = 'pc-case-outcome__field';
+        permField.innerHTML = '<span>Permission</span>';
+        var permSelect = document.createElement('select');
+        permSelect.className = 'pc-input';
+        permSelect.innerHTML =
+            '<option value="view_only">View only</option>' +
+            '<option value="comment">Comment</option>' +
+            '<option value="edit">Edit</option>';
+        permField.appendChild(permSelect);
+        grid.appendChild(permField);
+
+        var expiryField = document.createElement('label');
+        expiryField.className = 'pc-case-outcome__field';
+        expiryField.innerHTML = '<span>Expiry</span>';
+        var expirySelect = document.createElement('select');
+        expirySelect.className = 'pc-input';
+        expirySelect.innerHTML =
+            '<option value="1_hour">1 hour</option>' +
+            '<option value="24_hours">24 hours</option>' +
+            '<option value="case_duration">Case duration</option>';
+        expiryField.appendChild(expirySelect);
+        grid.appendChild(expiryField);
+
+        card.appendChild(grid);
+
+        var actions = document.createElement('div');
+        actions.className = 'pc-panel-actions';
+
+        var shareButton = document.createElement('button');
+        shareButton.type = 'button';
+        shareButton.className = 'pc-btn pc-btn--secondary';
+        shareButton.textContent = 'Copy Share Link';
+        actions.appendChild(shareButton);
+
+        var handoffButton = document.createElement('button');
+        handoffButton.type = 'button';
+        handoffButton.className = 'pc-btn pc-btn--secondary';
+        handoffButton.textContent = 'Copy Handoff Summary';
+        actions.appendChild(handoffButton);
+
+        card.appendChild(actions);
+
+        var status = document.createElement('p');
+        status.className = 'pc-case-outcome__status';
+        status.textContent = 'No collaboration action taken yet.';
+        card.appendChild(status);
+
+        function resolveShareLink() {
+            var params = {
+                collab: '1',
+                perm: permSelect.value,
+                exp: expirySelect.value
+            };
+
+            var path = window.location.pathname || '/';
+            if (window.pcIntegration && typeof window.pcIntegration.buildPrefillUrl === 'function') {
+                return window.location.origin + window.pcIntegration.buildPrefillUrl(path, params, {
+                    caseId: config.caseId,
+                    encounterId: encounter.id
+                });
+            }
+
+            var direct = new URL(path, window.location.origin);
+            direct.searchParams.set('case', config.caseId);
+            direct.searchParams.set('encounter', encounter.id);
+            direct.searchParams.set('collab', '1');
+            direct.searchParams.set('perm', permSelect.value);
+            direct.searchParams.set('exp', expirySelect.value);
+            return direct.toString();
+        }
+
+        shareButton.addEventListener('click', function () {
+            var link = resolveShareLink();
+            copyTextToClipboard(link).then(function (copied) {
+                if (copied) {
+                    status.textContent = 'Share link copied (' + permSelect.value + ', ' + expirySelect.value + ').';
+                } else {
+                    status.textContent = 'Clipboard blocked. Share link: ' + link;
+                }
+
+                if (window.pcIntegration && typeof window.pcIntegration.logCaseAction === 'function') {
+                    window.pcIntegration.logCaseAction({
+                        encounterId: encounter.id,
+                        caseId: config.caseId,
+                        caseTitle: config.title,
+                        action: 'encounter_shared',
+                        source: 'case_collaboration',
+                        details: {
+                            permission: permSelect.value,
+                            expiry: expirySelect.value
+                        }
+                    });
+                }
+
+                if (typeof onShared === 'function') {
+                    onShared();
+                }
+            });
+        });
+
+        handoffButton.addEventListener('click', function () {
+            var currentEncounter = window.pcIntegration && typeof window.pcIntegration.getEncounter === 'function'
+                ? window.pcIntegration.getEncounter(encounter.id)
+                : encounter;
+            var handoffText = buildHandoffText(currentEncounter);
+
+            copyTextToClipboard(handoffText).then(function (copied) {
+                status.textContent = copied
+                    ? 'Handoff summary copied for shift transition.'
+                    : 'Clipboard blocked. Handoff summary generated but not copied.';
+
+                if (window.pcIntegration && typeof window.pcIntegration.logCaseAction === 'function') {
+                    window.pcIntegration.logCaseAction({
+                        encounterId: encounter.id,
+                        caseId: config.caseId,
+                        caseTitle: config.title,
+                        action: 'handoff_summary_generated',
+                        source: 'case_collaboration',
+                        details: {
+                            copied: !!copied
+                        }
+                    });
+                }
+
+                if (typeof onShared === 'function') {
+                    onShared();
+                }
+            });
+        });
+
+        return card;
+    }
+
     function createPanel(config, encounter) {
         var panel = document.createElement('section');
         panel.className = 'pc-case-section pc-card pc-case-intel';
@@ -985,6 +1196,13 @@
         });
         if (outcomeCard) {
             grid.appendChild(outcomeCard);
+        }
+
+        var collabCard = createCollaborationCard(config, encounter, function () {
+            renderStats(encounter.id, stats);
+        });
+        if (collabCard) {
+            grid.appendChild(collabCard);
         }
 
         var actions = document.createElement('div');
