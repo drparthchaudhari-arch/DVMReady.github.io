@@ -664,7 +664,7 @@
         });
     }
 
-    async function sendMagicLink(email) {
+    async function sendMagicLink(email, options) {
         var trimmedEmail = String(email || '').trim();
         if (!trimmedEmail) {
             return {
@@ -690,6 +690,12 @@
 
         try {
             var redirectTo = window.location.origin + '/account/';
+            if (options && typeof options === 'object' && options.redirectTo) {
+                var customRedirect = String(options.redirectTo).trim();
+                if (customRedirect) {
+                    redirectTo = customRedirect;
+                }
+            }
             var response = await client.auth.signInWithOtp({
                 email: trimmedEmail,
                 options: {

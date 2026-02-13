@@ -98,6 +98,83 @@
     "date": "2026-02-12"
   },
   {
+    "title": "Clinical Tools Hub",
+    "url": "/tools/",
+    "type": "resource",
+    "tags": ["tools", "calculator", "dose", "fluid", "clinical"],
+    "date": "2026-02-13"
+  },
+  {
+    "title": "Dose Calculator",
+    "url": "/tools/dose-calculator.html",
+    "type": "resource",
+    "tags": ["dose", "drug", "mg", "ml", "calculator"],
+    "date": "2026-02-13"
+  },
+  {
+    "title": "Fluid Calculator",
+    "url": "/tools/fluid-calculator.html",
+    "type": "resource",
+    "tags": ["fluid", "dehydration", "maintenance", "shock", "calculator"],
+    "date": "2026-02-13"
+  },
+  {
+    "title": "Clinical Reference Hub",
+    "url": "/reference/",
+    "type": "resource",
+    "tags": ["reference", "lookup", "toxicities", "normal values"],
+    "date": "2026-02-13"
+  },
+  {
+    "title": "Normal Values Reference",
+    "url": "/reference/normal-values.html",
+    "type": "resource",
+    "tags": ["cbc", "chemistry", "dog", "cat", "critical values"],
+    "date": "2026-02-13"
+  },
+  {
+    "title": "Toxicity Triage Reference",
+    "url": "/reference/toxicities.html",
+    "type": "resource",
+    "tags": ["chocolate", "xylitol", "lily", "grapes", "nsaid"],
+    "date": "2026-02-13"
+  },
+  {
+    "title": "NAVLE Topic Guides",
+    "url": "/study/navle/topics/",
+    "type": "resource",
+    "tags": ["navle", "topics", "algorithms", "free guide"],
+    "date": "2026-02-13"
+  },
+  {
+    "title": "Cardiology Topic Guide",
+    "url": "/study/navle/topics/cardiology.html",
+    "type": "resource",
+    "tags": ["chf", "cardiology", "murmur", "pimobendan", "furosemide"],
+    "date": "2026-02-13"
+  },
+  {
+    "title": "Emergency Topic Guide",
+    "url": "/study/navle/topics/emergency.html",
+    "type": "resource",
+    "tags": ["gdv", "dka", "triage", "stabilization", "toxicity"],
+    "date": "2026-02-13"
+  },
+  {
+    "title": "NAVLE Practice Questions",
+    "url": "/study/navle/practice/",
+    "type": "resource",
+    "tags": ["question bank", "practice", "freemium", "magic link", "navle"],
+    "date": "2026-02-13"
+  },
+  {
+    "title": "NAVLE Exam Simulator",
+    "url": "/study/navle/exam-simulator/",
+    "type": "resource",
+    "tags": ["exam simulator", "timed exam", "premium", "navle"],
+    "date": "2026-02-13"
+  },
+  {
     "title": "About Me",
     "url": "/info.html",
     "type": "about",

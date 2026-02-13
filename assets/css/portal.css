@@ -3521,3 +3521,325 @@
 .pc-task-complete-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--pc-success); color: white; border-radius: 20px; font-weight: 600; }
 .pc-study-break { background: linear-gradient(135deg, var(--pc-bg-tertiary) 0%, var(--pc-bg-secondary) 100%); border: 2px dashed var(--pc-coral); border-radius: 12px; padding: 2rem; text-align: center; margin-bottom: 2rem; }
 .pc-completion-celebration { background: linear-gradient(135deg, rgba(0, 245, 212, 0.1) 0%, var(--pc-bg-secondary) 100%); border: 2px solid var(--pc-mint); border-radius: 12px; padding: 2rem; text-align: center; }
+
+/* ===============================
+   Phase 7: NAVLE Freemium Pages
+   =============================== */
+.pc-calculator-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+}
+
+.pc-calculator-field {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.pc-calculator-field span {
+    font-weight: 700;
+    color: var(--pc-text);
+}
+
+.pc-calculator-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.pc-calculator-note {
+    margin: 0.75rem 0 0;
+    color: var(--pc-text-muted);
+    line-height: 1.6;
+}
+
+.pc-calculator-warning {
+    margin: 0.65rem 0 0;
+    border: 1px solid color-mix(in srgb, var(--pc-border) 70%, transparent);
+    border-radius: 10px;
+    padding: 0.55rem 0.7rem;
+    background: color-mix(in srgb, var(--pc-surface-strong) 85%, transparent);
+    color: var(--pc-text);
+}
+
+.pc-calculator-warning--danger {
+    border-color: color-mix(in srgb, var(--pc-error) 45%, var(--pc-border));
+    background: color-mix(in srgb, var(--pc-error) 12%, var(--pc-surface));
+    color: var(--pc-error);
+}
+
+.pc-calculator-warning--caution {
+    border-color: color-mix(in srgb, var(--pc-warning) 48%, var(--pc-border));
+    background: color-mix(in srgb, var(--pc-warning) 12%, var(--pc-surface));
+    color: color-mix(in srgb, var(--pc-warning) 80%, var(--pc-text));
+}
+
+.pc-stat-grid--results {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pc-bridge-card--inline {
+    margin-top: 0.8rem;
+}
+
+.pc-calculator-highlight {
+    margin: 0;
+    color: var(--pc-primary);
+    font-size: clamp(1.3rem, 2.8vw, 1.7rem);
+    font-weight: 800;
+}
+
+.pc-table-row--critical td {
+    background: color-mix(in srgb, var(--pc-error) 10%, var(--pc-bg-secondary));
+}
+
+.pc-triage-tree {
+    border: 1px solid var(--pc-border);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--pc-surface-strong) 90%, transparent);
+    padding: 0.95rem;
+}
+
+.pc-triage-question {
+    margin: 0;
+    font-size: 1.02rem;
+    font-weight: 700;
+}
+
+.pc-triage-options {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.pc-triage-result {
+    margin: 0.75rem 0;
+    border: 1px solid var(--pc-border);
+    border-radius: 12px;
+    padding: 0.7rem 0.75rem;
+    background: color-mix(in srgb, var(--pc-surface) 92%, transparent);
+}
+
+.pc-triage-result--yes {
+    border-color: color-mix(in srgb, var(--pc-error) 52%, var(--pc-border));
+    background: color-mix(in srgb, var(--pc-error) 13%, var(--pc-surface));
+    color: var(--pc-error);
+}
+
+.pc-triage-result--no {
+    border-color: color-mix(in srgb, var(--pc-success) 48%, var(--pc-border));
+    background: color-mix(in srgb, var(--pc-success) 11%, var(--pc-surface));
+    color: color-mix(in srgb, var(--pc-success) 75%, var(--pc-text));
+}
+
+.pc-topic-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.pc-topic-card {
+    border: 1px solid var(--pc-border);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--pc-surface-strong) 88%, transparent);
+    padding: 0.85rem;
+}
+
+.pc-topic-card h3 {
+    margin: 0 0 0.35rem;
+    color: var(--pc-primary);
+}
+
+.pc-topic-card p {
+    margin: 0.28rem 0 0;
+    color: var(--pc-text-muted);
+}
+
+.pc-algorithm-rail {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.pc-algorithm-step {
+    min-height: 44px;
+    border-radius: 10px;
+    border: 1px solid var(--pc-border);
+    background: color-mix(in srgb, var(--pc-surface) 90%, transparent);
+    color: var(--pc-text);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.pc-algorithm-step:hover {
+    border-color: var(--pc-primary);
+}
+
+.pc-algorithm-step.pc-is-active {
+    background: color-mix(in srgb, var(--pc-primary) 16%, var(--pc-surface));
+    border-color: var(--pc-primary);
+    color: var(--pc-primary);
+}
+
+.pc-algorithm-panel {
+    border: 1px solid var(--pc-border);
+    border-radius: 12px;
+    padding: 0.85rem;
+    background: color-mix(in srgb, var(--pc-surface) 92%, transparent);
+}
+
+.pc-algorithm-panel + .pc-algorithm-panel {
+    margin-top: 0.55rem;
+}
+
+.pc-algorithm-panel h3 {
+    margin: 0 0 0.5rem;
+    color: var(--pc-primary);
+}
+
+.pc-algorithm-stack {
+    display: grid;
+    gap: 0.6rem;
+}
+
+.pc-protocol-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.5rem;
+    color: var(--pc-text);
+    line-height: 1.6;
+}
+
+.pc-practice-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.6rem;
+}
+
+.pc-practice-counter,
+.pc-practice-score {
+    margin: 0;
+    font-weight: 700;
+    color: var(--pc-text);
+}
+
+.pc-practice-card {
+    border: 1px solid var(--pc-border);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--pc-surface) 94%, transparent);
+    padding: 0.95rem;
+}
+
+.pc-practice-stem {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--pc-text);
+}
+
+.pc-practice-options {
+    margin-top: 0.85rem;
+    display: grid;
+    gap: 0.55rem;
+}
+
+.pc-practice-option {
+    width: 100%;
+    text-align: left;
+    border: 1px solid var(--pc-border);
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--pc-surface-strong) 88%, transparent);
+    color: var(--pc-text);
+    min-height: 44px;
+    padding: 0.7rem 0.75rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: border-color var(--pc-transition-fast), background-color var(--pc-transition-fast);
+}
+
+.pc-practice-option:hover:not(:disabled) {
+    border-color: var(--pc-primary);
+    background: color-mix(in srgb, var(--pc-primary) 8%, var(--pc-surface));
+}
+
+.pc-practice-option:disabled {
+    cursor: default;
+}
+
+.pc-practice-option strong {
+    margin-right: 0.25rem;
+}
+
+.pc-practice-option--correct {
+    border-color: color-mix(in srgb, var(--pc-success) 65%, var(--pc-border));
+    background: color-mix(in srgb, var(--pc-success) 14%, var(--pc-surface));
+}
+
+.pc-practice-option--incorrect {
+    border-color: color-mix(in srgb, var(--pc-error) 62%, var(--pc-border));
+    background: color-mix(in srgb, var(--pc-error) 14%, var(--pc-surface));
+}
+
+.pc-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: grid;
+    place-items: center;
+    z-index: 2100;
+    padding: 1rem;
+}
+
+.pc-modal[hidden] {
+    display: none;
+}
+
+.pc-modal__surface {
+    width: min(520px, 100%);
+    border: 1px solid var(--pc-border);
+    border-radius: 16px;
+    background: var(--pc-bg-secondary);
+    box-shadow: var(--pc-shadow-xl);
+    padding: 1rem;
+}
+
+.pc-modal__surface h2 {
+    margin: 0 0 0.6rem;
+    color: var(--pc-primary);
+}
+
+.pc-modal__surface p {
+    margin: 0.4rem 0;
+    color: var(--pc-text-muted);
+}
+
+.pc-text-small {
+    font-size: 0.82rem;
+    color: var(--pc-text-muted);
+}
+
+@media (max-width: 900px) {
+    .pc-calculator-grid,
+    .pc-topic-cards,
+    .pc-algorithm-rail,
+    .pc-stat-grid--results {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .pc-practice-stem {
+        font-size: 1rem;
+    }
+
+    .pc-practice-option {
+        font-size: 0.92rem;
+    }
+}

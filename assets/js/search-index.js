@@ -9,7 +9,18 @@ const searchIndex = [
   { title: "2048 Puzzle", url: "/play/2048/", type: "game", keywords: "puzzle merge numbers logic" },
   { title: "Tic Tac Toe Pro", url: "/play/tictactoe/", type: "game", keywords: "strategy ai multiplayer" },
   { title: "IQ Challenge", url: "/play/iq-challenge/", type: "game", keywords: "math logic patterns challenge" },
-  { title: "About Me", url: "/info.html", type: "about", keywords: "veterinarian experience navle BVSc&AH" },
   { title: "Case Studies", url: "/bridge/case-studies/", type: "resource", keywords: "clinical cases education navle prep" },
-  { title: "NAVLE Study Planner", url: "/study/", type: "resource", keywords: "study planner schedule streak progress navle" }
+  { title: "NAVLE Study Planner", url: "/study/", type: "resource", keywords: "study planner schedule streak progress navle" },
+  { title: "Clinical Tools Hub", url: "/tools/", type: "resource", keywords: "tools calculators dose fluid veterinary" },
+  { title: "Dose Calculator", url: "/tools/dose-calculator.html", type: "resource", keywords: "dose calculator mg ml drug concentration dog cat" },
+  { title: "Fluid Calculator", url: "/tools/fluid-calculator.html", type: "resource", keywords: "fluid calculator dehydration maintenance hourly rate" },
+  { title: "Clinical Reference Hub", url: "/reference/", type: "resource", keywords: "reference lookup normal values toxicities" },
+  { title: "Normal Values Reference", url: "/reference/normal-values.html", type: "resource", keywords: "dog cat cbc chemistry critical values" },
+  { title: "Toxicity Triage Reference", url: "/reference/toxicities.html", type: "resource", keywords: "chocolate xylitol lilies grapes nsaids emergency" },
+  { title: "NAVLE Topic Guides", url: "/study/navle/topics/", type: "resource", keywords: "navle topics algorithms cardiology emergency free" },
+  { title: "Cardiology Topic Guide", url: "/study/navle/topics/cardiology.html", type: "resource", keywords: "chf cardiology murmur dog cough furosemide pimobendan" },
+  { title: "Emergency Topic Guide", url: "/study/navle/topics/emergency.html", type: "resource", keywords: "gdv dka emergency toxicity triage" },
+  { title: "NAVLE Practice Questions", url: "/study/navle/practice/", type: "resource", keywords: "question bank practice freemium magic link navle" },
+  { title: "NAVLE Exam Simulator", url: "/study/navle/exam-simulator/", type: "resource", keywords: "full exam simulator paid premium navle" },
+  { title: "About Me", url: "/info.html", type: "about", keywords: "veterinarian experience navle BVSc&AH" }
 ];

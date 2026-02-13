@@ -50,7 +50,14 @@
             return 'bridge';
         }
 
-        if (pathname === '/study' || pathname.indexOf('/study/') === 0) {
+        if (
+            pathname === '/study' ||
+            pathname.indexOf('/study/') === 0 ||
+            pathname === '/tools' ||
+            pathname.indexOf('/tools/') === 0 ||
+            pathname === '/reference' ||
+            pathname.indexOf('/reference/') === 0
+        ) {
             return 'study';
         }
 

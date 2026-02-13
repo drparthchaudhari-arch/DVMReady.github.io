@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+    <title>Dose Calculator | VetLudics Tools</title>
+    <meta name="description" content="Free veterinary dose calculator with species, drug, concentration, and max safety checks.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Dose Calculator | VetLudics Tools">
+    <meta property="og:description" content="Calculate mg, mL, and daily totals with max dose warnings.">
+    <meta property="og:url" content="https://parthchaudhari.com/tools/dose-calculator.html">
+    <link rel="canonical" href="https://parthchaudhari.com/tools/dose-calculator.html">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/dose-calculator.js" defer></script>
+</head>
+<body class="pc-page pc-page--study">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">VetLudics Portal</a>
+            <div class="pc-nav-group">
+                <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
+                    <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
+                </button>
+                <button type="button" class="pc-nav-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+                    <span class="pc-nav-toggle__label" data-pc-theme-label>Theme: Day</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="pc-bridge-shell" role="main">
+        <section class="pc-bridge-hero">
+            <p class="pc-kicker">Free Tool</p>
+            <h1 class="pc-fork-title">Dose Calculator</h1>
+            <p class="pc-fork-copy">Select species, weight, and drug to calculate dose per administration, mL volume, and daily totals with safety alerts.</p>
+            <div class="pc-panel-actions">
+                <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+                <a class="pc-btn pc-btn--secondary" href="/reference/normal-values.html">Normal Values</a>
+            </div>
+        </section>
+
+        <section class="pc-bridge-section" aria-labelledby="dose-form-title">
+            <h2 id="dose-form-title" class="pc-bridge-title">Calculate Dose</h2>
+            <form id="dose-form" class="pc-calculator-grid" novalidate>
+                <label class="pc-calculator-field" for="dose-species">
+                    <span>Species</span>
+                    <select id="dose-species" class="pc-input">
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                    </select>
+                </label>
+
+                <label class="pc-calculator-field" for="dose-weight">
+                    <span>Weight (kg)</span>
+                    <input id="dose-weight" class="pc-input" type="number" min="0.2" step="0.1" placeholder="e.g. 18.5" required>
+                </label>
+
+                <label class="pc-calculator-field" for="dose-drug">
+                    <span>Drug</span>
+                    <select id="dose-drug" class="pc-input"></select>
+                </label>
+
+                <label class="pc-calculator-field" for="dose-concentration">
+                    <span>Concentration (mg/mL)</span>
+                    <input id="dose-concentration" class="pc-input" type="number" min="0.1" step="0.1" placeholder="e.g. 50" required>
+                </label>
+
+                <div class="pc-calculator-actions">
+                    <button type="submit" class="pc-btn pc-btn--primary">Calculate</button>
+                    <button type="button" id="dose-copy" class="pc-btn pc-btn--secondary">Copy Result</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="pc-bridge-section" aria-live="polite" aria-labelledby="dose-result-title">
+            <h2 id="dose-result-title" class="pc-bridge-title">Result</h2>
+            <div class="pc-stat-grid pc-stat-grid--results">
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">mg per dose</p>
+                    <p id="dose-mg" class="pc-stat-number">-</p>
+                </article>
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">mL per dose</p>
+                    <p id="dose-ml" class="pc-stat-number">-</p>
+                </article>
+                <article class="pc-stat-card">
+                    <p class="pc-stat-label">Total daily (mg)</p>
+                    <p id="dose-daily" class="pc-stat-number">-</p>
+                </article>
+            </div>
+            <p id="dose-meta" class="pc-calculator-note">Choose a drug and run the calculator.</p>
+            <p id="dose-warning" class="pc-calculator-warning" hidden></p>
+            <p class="pc-disclaimer">Always confirm final dosing with current label directions, renal/hepatic status, and patient-specific contraindications.</p>
+        </section>
+    </main>
+</body>
+</html>

@@ -10,9 +10,9 @@
     };
 
     var POPULAR_LINKS = [
-        { label: 'WordWeb Study Tool', url: '/study/wordweb/' },
-        { label: 'CHF Case', url: '/bridge/case-studies/chf-dog.html' },
-        { label: 'Study Plan', url: '/study/' }
+        { label: 'NAVLE Practice', url: '/study/navle/practice/' },
+        { label: 'Free Topic Guides', url: '/study/navle/topics/' },
+        { label: 'Clinical Tools', url: '/tools/' }
     ];
 
     var state = {
