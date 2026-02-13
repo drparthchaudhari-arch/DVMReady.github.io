@@ -1,4 +1,5 @@
 User-agent: *
+Allow: /
 Allow: /assets/css/
 Allow: /assets/js/
 Allow: /assets/img/
@@ -17,7 +18,5 @@ Disallow: /games/
 Disallow: /game-platform/
 Disallow: /bridge/case-studies/canine-chf.html
 Disallow: /index1.html
-Disallow: /*?*
-Disallow: /*#*
 
 Sitemap: https://parthchaudhari.com/sitemap.xml
