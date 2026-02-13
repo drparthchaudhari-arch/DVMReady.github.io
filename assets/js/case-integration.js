@@ -44,7 +44,48 @@
                     summary: 'Plan potassium/phosphorus support alongside insulin.',
                     params: {}
                 }
-            ]
+            ],
+            assessment: {
+                passScorePercent: 80,
+                items: [
+                    {
+                        id: 'fluid_deficit',
+                        step: 1,
+                        label: 'Fluid deficit',
+                        prompt: 'Calculate dehydration deficit for a 28 kg dog at 8% dehydration.',
+                        expected: 2.24,
+                        tolerance: 0.1,
+                        weight: 40,
+                        unit: 'L',
+                        triggerTool: 'fluid_calculator',
+                        teachablePoint: 'Deficit (L) = body weight (kg) x dehydration fraction.'
+                    },
+                    {
+                        id: 'insulin_rate',
+                        step: 2,
+                        label: 'Insulin infusion rate',
+                        prompt: 'At 0.08 U/kg/hr for 28 kg, what is the required insulin rate?',
+                        expected: 2.24,
+                        tolerance: 0.1,
+                        weight: 35,
+                        unit: 'U/hr',
+                        triggerTool: 'insulin_cri',
+                        teachablePoint: 'Insulin starts after initial fluid stabilization in DKA.'
+                    },
+                    {
+                        id: 'monitoring_frequency',
+                        step: 3,
+                        label: 'Monitoring interval',
+                        prompt: 'Choose a typical early recheck interval for BG/electrolytes.',
+                        expected: 3,
+                        tolerance: 1,
+                        weight: 25,
+                        unit: 'hours',
+                        triggerTool: 'potassium_planner',
+                        teachablePoint: 'Frequent rechecks prevent iatrogenic shifts during stabilization.'
+                    }
+                ]
+            }
         },
         'chf-dog.html': {
             caseId: 'chf_canine_001',
@@ -165,6 +206,11 @@
         return CASE_CONFIG[getPageKey()] || null;
     }
 
+    function toNumber(value) {
+        var parsed = Number(value);
+        return Number.isFinite(parsed) ? parsed : NaN;
+    }
+
     function renderStats(encounterId, node) {
         if (!node || !window.pcIntegration || typeof window.pcIntegration.getEncounter !== 'function') {
             return;
@@ -179,6 +225,279 @@
         var calcCount = Array.isArray(encounter.calculations) ? encounter.calculations.length : 0;
         var eventCount = Array.isArray(encounter.events) ? encounter.events.length : 0;
         node.textContent = 'Encounter log: ' + calcCount + ' calculations and ' + eventCount + ' timeline events captured.';
+    }
+
+    function getToolById(config, toolId) {
+        if (!config || !Array.isArray(config.tools) || !toolId) {
+            return null;
+        }
+
+        var normalized = String(toolId);
+        var i;
+        for (i = 0; i < config.tools.length; i += 1) {
+            if (config.tools[i] && config.tools[i].id === normalized) {
+                return config.tools[i];
+            }
+        }
+
+        return null;
+    }
+
+    function getToolHref(config, encounter, toolId) {
+        var tool = getToolById(config, toolId);
+        if (!tool) {
+            return '';
+        }
+
+        if (window.pcIntegration && typeof window.pcIntegration.buildPrefillUrl === 'function') {
+            return window.pcIntegration.buildPrefillUrl(tool.href, tool.params || {}, {
+                caseId: config.caseId,
+                encounterId: encounter.id
+            });
+        }
+
+        return tool.href;
+    }
+
+    function calculateAssessmentScore(items, answers) {
+        var rubricItems = Array.isArray(items) ? items : [];
+        var answerMap = answers && typeof answers === 'object' ? answers : {};
+        var weightedTotal = 0;
+        var weightedEarned = 0;
+        var completedSteps = 0;
+        var i;
+
+        for (i = 0; i < rubricItems.length; i += 1) {
+            var item = rubricItems[i];
+            var weight = Number.isFinite(Number(item.weight)) ? Number(item.weight) : 0;
+            weightedTotal += weight;
+
+            if (!answerMap[item.id]) {
+                continue;
+            }
+
+            completedSteps += 1;
+            if (answerMap[item.id].isCorrect) {
+                weightedEarned += weight;
+            }
+        }
+
+        var percent = weightedTotal > 0 ? Math.round((weightedEarned / weightedTotal) * 100) : 0;
+        return {
+            earned: weightedEarned,
+            total: weightedTotal,
+            percent: percent,
+            completed: completedSteps,
+            stepCount: rubricItems.length
+        };
+    }
+
+    function createAssessmentCard(config, encounter, onScoreUpdate) {
+        var assessment = config && config.assessment && typeof config.assessment === 'object' ? config.assessment : null;
+        var items = assessment && Array.isArray(assessment.items) ? assessment.items : [];
+
+        if (!items.length) {
+            return null;
+        }
+
+        var passScore = Number.isFinite(Number(assessment.passScorePercent)) ? Number(assessment.passScorePercent) : 80;
+        var answers = {};
+
+        var card = document.createElement('article');
+        card.className = 'pc-tool-module pc-case-assessment';
+        card.innerHTML = '<h3>Teachable Moment Skill Check</h3>';
+
+        var intro = document.createElement('p');
+        intro.className = 'pc-case-intel__summary';
+        intro.textContent = 'Validate each step in sequence. A step unlocks when the answer is within tolerance.';
+        card.appendChild(intro);
+
+        var status = document.createElement('p');
+        status.className = 'pc-case-assessment__score';
+        card.appendChild(status);
+
+        var stepsWrap = document.createElement('div');
+        stepsWrap.className = 'pc-case-assessment__steps';
+        card.appendChild(stepsWrap);
+
+        function updateStatus(lastAttempt) {
+            var score = calculateAssessmentScore(items, answers);
+            var passState = score.percent >= passScore ? 'Pass' : 'In progress';
+            var suffix = '';
+
+            if (score.completed === score.stepCount) {
+                passState = score.percent >= passScore ? 'Pass' : 'Needs review';
+            }
+
+            if (lastAttempt && lastAttempt.id) {
+                suffix = ' | Last step: ' + lastAttempt.id + ' (' + (lastAttempt.isCorrect ? 'correct' : 'retry') + ')';
+            }
+
+            status.textContent =
+                'Score: ' + score.percent + '% (' + score.earned + '/' + score.total + ' weighted points) | ' +
+                score.completed + '/' + score.stepCount + ' steps attempted | ' +
+                passState + suffix;
+
+            status.classList.remove('pc-case-assessment__score--pass');
+            status.classList.remove('pc-case-assessment__score--review');
+            if (score.percent >= passScore) {
+                status.classList.add('pc-case-assessment__score--pass');
+            } else if (score.completed === score.stepCount) {
+                status.classList.add('pc-case-assessment__score--review');
+            }
+
+            if (typeof onScoreUpdate === 'function') {
+                onScoreUpdate(score);
+            }
+        }
+
+        function setLocked(row, isLocked) {
+            var input = row.querySelector('input');
+            var button = row.querySelector('button');
+            row.classList.toggle('pc-case-step--locked', !!isLocked);
+
+            if (input) {
+                input.disabled = !!isLocked;
+            }
+            if (button) {
+                button.disabled = !!isLocked;
+            }
+        }
+
+        function unlockStep(index) {
+            var rows = stepsWrap.querySelectorAll('[data-step-row]');
+            if (!rows[index]) {
+                return;
+            }
+            setLocked(rows[index], false);
+        }
+
+        var i;
+        for (i = 0; i < items.length; i += 1) {
+            (function (item, index) {
+                var row = document.createElement('div');
+                row.className = 'pc-case-step';
+                row.setAttribute('data-step-row', item.id);
+
+                var stepTitle = document.createElement('p');
+                stepTitle.className = 'pc-case-step__title';
+                stepTitle.textContent = 'Step ' + (item.step || (index + 1)) + ': ' + item.label + ' (' + item.weight + ' pts)';
+                row.appendChild(stepTitle);
+
+                var prompt = document.createElement('p');
+                prompt.className = 'pc-case-step__prompt';
+                prompt.textContent = item.prompt;
+                row.appendChild(prompt);
+
+                var teachable = document.createElement('p');
+                teachable.className = 'pc-case-step__teachable';
+                teachable.textContent = item.teachablePoint || '';
+                row.appendChild(teachable);
+
+                var controls = document.createElement('div');
+                controls.className = 'pc-case-step__controls';
+
+                var input = document.createElement('input');
+                input.className = 'pc-input';
+                input.type = 'number';
+                input.step = 'any';
+                input.placeholder = 'Expected near ' + item.expected + (item.unit ? ' ' + item.unit : '');
+                controls.appendChild(input);
+
+                var button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'pc-btn pc-btn--secondary';
+                button.textContent = 'Validate Step';
+                controls.appendChild(button);
+
+                if (item.triggerTool) {
+                    var launch = document.createElement('a');
+                    launch.className = 'pc-link-chip pc-link-chip--muted';
+                    launch.textContent = 'Open linked tool';
+                    launch.href = getToolHref(config, encounter, item.triggerTool) || '#';
+                    controls.appendChild(launch);
+                }
+
+                row.appendChild(controls);
+
+                var feedback = document.createElement('p');
+                feedback.className = 'pc-case-step__feedback';
+                row.appendChild(feedback);
+
+                if (index > 0) {
+                    setLocked(row, true);
+                }
+
+                button.addEventListener('click', function () {
+                    var value = toNumber(input.value);
+                    if (!Number.isFinite(value)) {
+                        feedback.textContent = 'Enter a numeric value before validating.';
+                        feedback.classList.remove('pc-case-step__feedback--ok');
+                        feedback.classList.add('pc-case-step__feedback--warn');
+                        return;
+                    }
+
+                    var tolerance = Number.isFinite(Number(item.tolerance)) ? Number(item.tolerance) : 0;
+                    var diff = Math.abs(value - item.expected);
+                    var isCorrect = diff <= tolerance;
+
+                    answers[item.id] = {
+                        value: value,
+                        expected: item.expected,
+                        tolerance: tolerance,
+                        isCorrect: isCorrect,
+                        attemptedAt: new Date().toISOString()
+                    };
+
+                    row.classList.remove('pc-case-step--correct');
+                    row.classList.remove('pc-case-step--retry');
+                    feedback.classList.remove('pc-case-step__feedback--ok');
+                    feedback.classList.remove('pc-case-step__feedback--warn');
+
+                    if (isCorrect) {
+                        row.classList.add('pc-case-step--correct');
+                        feedback.classList.add('pc-case-step__feedback--ok');
+                        feedback.textContent = 'Correct within tolerance. Diff: ' + diff.toFixed(2) + (item.unit ? ' ' + item.unit : '') + '.';
+                        unlockStep(index + 1);
+                    } else {
+                        row.classList.add('pc-case-step--retry');
+                        feedback.classList.add('pc-case-step__feedback--warn');
+                        feedback.textContent = 'Outside tolerance. Expected ~' + item.expected + (item.unit ? ' ' + item.unit : '') +
+                            ' (±' + tolerance + ').';
+                    }
+
+                    updateStatus({
+                        id: item.id,
+                        isCorrect: isCorrect
+                    });
+
+                    if (window.pcIntegration && typeof window.pcIntegration.logCaseAction === 'function') {
+                        var score = calculateAssessmentScore(items, answers);
+                        window.pcIntegration.logCaseAction({
+                            encounterId: encounter.id,
+                            caseId: config.caseId,
+                            caseTitle: config.title,
+                            action: 'skill_check_validate',
+                            source: 'case_skill_check',
+                            details: {
+                                stepId: item.id,
+                                stepLabel: item.label,
+                                entered: value,
+                                expected: item.expected,
+                                tolerance: tolerance,
+                                withinTolerance: isCorrect,
+                                scorePercent: score.percent
+                            }
+                        });
+                    }
+                });
+
+                stepsWrap.appendChild(row);
+            })(items[i], i);
+        }
+
+        updateStatus();
+        return card;
     }
 
     function createPanel(config, encounter) {
@@ -266,6 +585,11 @@
         decisionsCard.appendChild(decisionsList);
         grid.appendChild(toolsCard);
         grid.appendChild(decisionsCard);
+
+        var assessmentCard = createAssessmentCard(config, encounter);
+        if (assessmentCard) {
+            grid.appendChild(assessmentCard);
+        }
 
         var actions = document.createElement('div');
         actions.className = 'pc-panel-actions';

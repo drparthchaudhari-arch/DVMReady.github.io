@@ -3711,9 +3711,109 @@
     padding: 0.55rem 0.7rem;
 }
 
+.pc-case-assessment {
+    grid-column: 1 / -1;
+}
+
+.pc-case-assessment__score {
+    margin: 0.1rem 0 0.75rem;
+    border: 1px solid color-mix(in srgb, var(--pc-primary) 24%, var(--pc-border));
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--pc-primary) 10%, var(--pc-surface));
+    padding: 0.58rem 0.68rem;
+    font-weight: 700;
+    color: var(--pc-text);
+}
+
+.pc-case-assessment__score--pass {
+    border-color: color-mix(in srgb, #169b62 54%, var(--pc-border));
+    background: color-mix(in srgb, #169b62 14%, var(--pc-surface));
+    color: #0f7a4e;
+}
+
+.pc-case-assessment__score--review {
+    border-color: color-mix(in srgb, #c05918 48%, var(--pc-border));
+    background: color-mix(in srgb, #f7b063 18%, var(--pc-surface));
+    color: #8a3f0e;
+}
+
+.pc-case-assessment__steps {
+    display: grid;
+    gap: 0.72rem;
+}
+
+.pc-case-step {
+    border: 1px solid var(--pc-border);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--pc-surface) 95%, transparent);
+    padding: 0.72rem;
+}
+
+.pc-case-step--locked {
+    opacity: 0.62;
+}
+
+.pc-case-step--correct {
+    border-color: color-mix(in srgb, #169b62 48%, var(--pc-border));
+    background: color-mix(in srgb, #169b62 11%, var(--pc-surface));
+}
+
+.pc-case-step--retry {
+    border-color: color-mix(in srgb, #c05918 48%, var(--pc-border));
+    background: color-mix(in srgb, #f7b063 14%, var(--pc-surface));
+}
+
+.pc-case-step__title {
+    margin: 0;
+    font-weight: 750;
+    color: var(--pc-primary);
+}
+
+.pc-case-step__prompt {
+    margin: 0.3rem 0 0;
+    color: var(--pc-text);
+    line-height: 1.5;
+}
+
+.pc-case-step__teachable {
+    margin: 0.32rem 0 0;
+    color: var(--pc-text-muted);
+    font-size: 0.9rem;
+}
+
+.pc-case-step__controls {
+    margin-top: 0.65rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.pc-case-step__controls .pc-input {
+    width: min(220px, 100%);
+}
+
+.pc-case-step__feedback {
+    margin: 0.55rem 0 0;
+    font-weight: 650;
+    color: var(--pc-text-muted);
+}
+
+.pc-case-step__feedback--ok {
+    color: #0f7a4e;
+}
+
+.pc-case-step__feedback--warn {
+    color: #8a3f0e;
+}
+
 @media (max-width: 900px) {
     .pc-case-intel__grid {
         grid-template-columns: 1fr;
+    }
+
+    .pc-case-step__controls .pc-input {
+        width: 100%;
     }
 }
 
