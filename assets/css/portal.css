@@ -3911,3 +3911,294 @@
         font-size: 0.92rem;
     }
 }
+
+/* ===============================
+   Navigation Hierarchy Refresh
+   =============================== */
+.pc-nav-group {
+    gap: 0.32rem;
+}
+
+.pc-nav-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.pc-nav-item--has-menu > .pc-nav-link {
+    padding-right: 1.05rem;
+}
+
+.pc-nav-item--has-menu > .pc-nav-link::before {
+    content: '▾';
+    font-size: 0.62rem;
+    opacity: 0.7;
+    margin-left: 0.35rem;
+}
+
+.pc-nav-submenu {
+    position: absolute;
+    top: calc(100% + 0.45rem);
+    left: 0;
+    min-width: 210px;
+    border: 1px solid var(--pc-border);
+    border-radius: 12px;
+    padding: 0.35rem;
+    display: grid;
+    gap: 0.2rem;
+    background: color-mix(in srgb, var(--pc-surface) 97%, transparent);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.14);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity 0.16s ease, transform 0.16s ease;
+    z-index: 1700;
+}
+
+.pc-nav-item--has-menu:hover .pc-nav-submenu,
+.pc-nav-item--has-menu:focus-within .pc-nav-submenu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.pc-nav-submenu__link {
+    min-height: 40px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--pc-text);
+    font-size: 0.82rem;
+    font-weight: 650;
+    padding: 0.45rem 0.6rem;
+}
+
+.pc-nav-submenu__link:hover,
+.pc-nav-submenu__link:focus-visible {
+    border-color: color-mix(in srgb, var(--pc-primary) 45%, var(--pc-border));
+    background: color-mix(in srgb, var(--pc-primary) 12%, var(--pc-surface));
+}
+
+.pc-nav-submenu__link--active {
+    border-color: color-mix(in srgb, var(--pc-primary) 48%, var(--pc-border));
+    background: color-mix(in srgb, var(--pc-primary) 14%, var(--pc-surface));
+    color: var(--pc-primary);
+}
+
+/* ===============================
+   Mode Visual Split
+   =============================== */
+[data-mode='pro'] {
+    --pc-mode-bg: radial-gradient(circle at 8% 8%, color-mix(in srgb, var(--pc-primary) 13%, transparent), transparent 52%),
+                  linear-gradient(160deg, color-mix(in srgb, var(--pc-bg-primary) 96%, #fff 4%), var(--pc-bg-primary));
+    --pc-mode-surface: color-mix(in srgb, var(--pc-surface) 95%, transparent);
+    --pc-mode-border: color-mix(in srgb, var(--pc-primary) 32%, var(--pc-border));
+}
+
+[data-mode='play'] {
+    --pc-mode-bg: radial-gradient(circle at 14% 16%, color-mix(in srgb, #ffb347 34%, transparent), transparent 48%),
+                  radial-gradient(circle at 85% 0%, color-mix(in srgb, #00d4b8 24%, transparent), transparent 40%),
+                  linear-gradient(150deg, color-mix(in srgb, #ff6b35 10%, var(--pc-bg-primary)), var(--pc-bg-primary));
+    --pc-mode-surface: color-mix(in srgb, var(--pc-surface) 90%, color-mix(in srgb, #ff6b35 8%, transparent));
+    --pc-mode-border: color-mix(in srgb, var(--pc-accent) 42%, var(--pc-border));
+}
+
+.pc-page {
+    background: var(--pc-mode-bg, var(--pc-bg-primary));
+}
+
+.pc-card,
+.pc-account-card,
+.pc-study-panel,
+.pc-bridge-hero,
+.pc-bridge-section,
+.pc-case-article,
+.pc-search-panel,
+.pc-search-group,
+.pc-section {
+    background: var(--pc-mode-surface, var(--pc-bg-secondary));
+    border-color: var(--pc-mode-border, var(--pc-border));
+}
+
+/* ===============================
+   Toggle Redesign
+   =============================== */
+.pc-nav-toggle {
+    position: relative;
+    overflow: hidden;
+}
+
+.pc-nav-toggle--mode {
+    min-inline-size: 11.5rem !important;
+    justify-content: center;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+[data-mode='pro'] .pc-nav-toggle--mode {
+    background: linear-gradient(120deg, color-mix(in srgb, var(--pc-primary) 14%, var(--pc-bg-secondary)), var(--pc-bg-secondary));
+    border-color: color-mix(in srgb, var(--pc-primary) 52%, var(--pc-border));
+    color: var(--pc-primary);
+}
+
+[data-mode='play'] .pc-nav-toggle--mode {
+    background: linear-gradient(120deg, color-mix(in srgb, var(--pc-accent) 22%, var(--pc-bg-secondary)), color-mix(in srgb, #ffb347 18%, var(--pc-bg-secondary)));
+    border-color: color-mix(in srgb, var(--pc-accent) 54%, var(--pc-border));
+    color: color-mix(in srgb, var(--pc-text) 80%, #000);
+}
+
+.pc-nav-toggle--theme {
+    min-inline-size: 44px !important;
+    width: 44px;
+    padding: 0 !important;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 999px;
+}
+
+.pc-nav-toggle--theme::before {
+    content: '';
+    position: absolute;
+    inset: -30%;
+    background: conic-gradient(from 90deg, transparent 0deg, rgba(255, 191, 71, 0.6) 75deg, rgba(0, 212, 184, 0.6) 165deg, transparent 235deg, transparent 360deg);
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    animation: pc-theme-path 1.15s linear infinite;
+}
+
+.pc-nav-toggle--theme:hover::before,
+.pc-nav-toggle--theme:focus-visible::before {
+    opacity: 1;
+}
+
+.pc-nav-toggle__icon {
+    position: relative;
+    z-index: 1;
+    font-size: 1.02rem;
+    line-height: 1;
+}
+
+.pc-nav-toggle__label--visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+    white-space: nowrap;
+}
+
+@keyframes pc-theme-path {
+    0% {
+        transform: rotate(0deg) scale(1);
+        filter: blur(0.6px);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+        filter: blur(0.6px);
+    }
+}
+
+@media (max-width: 900px) {
+    .pc-nav-item {
+        width: 100%;
+    }
+
+    .pc-nav-item--has-menu > .pc-nav-link::before {
+        display: none;
+    }
+
+    .pc-nav-submenu {
+        position: static;
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+        margin-top: 0.3rem;
+        min-width: 0;
+    }
+}
+
+/* ===============================
+   Clinical Toolkit Modules
+   =============================== */
+.pc-tool-module-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.pc-tool-module {
+    border: 1px solid var(--pc-border);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--pc-surface) 94%, transparent);
+    padding: 0.85rem;
+    display: grid;
+    gap: 0.55rem;
+}
+
+.pc-tool-module h3 {
+    margin: 0;
+    color: var(--pc-primary);
+    font-size: 1.03rem;
+}
+
+.pc-tool-module p {
+    margin: 0;
+    color: var(--pc-text-muted);
+    line-height: 1.55;
+}
+
+.pc-tool-module__status {
+    margin: 0;
+    width: fit-content;
+    min-height: 26px;
+    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border: 1px solid var(--pc-border);
+}
+
+.pc-tool-module__status--live {
+    color: #169b62;
+    border-color: color-mix(in srgb, #169b62 45%, var(--pc-border));
+    background: color-mix(in srgb, #169b62 12%, var(--pc-surface));
+}
+
+.pc-tool-module__status--partial {
+    color: #9a6700;
+    border-color: color-mix(in srgb, #9a6700 42%, var(--pc-border));
+    background: color-mix(in srgb, #f5b742 20%, var(--pc-surface));
+}
+
+.pc-tool-module__status--planned {
+    color: var(--pc-text-muted);
+    border-color: color-mix(in srgb, var(--pc-border) 85%, transparent);
+    background: color-mix(in srgb, var(--pc-surface-strong) 84%, transparent);
+}
+
+.pc-account-note.pc-is-error {
+    color: #b42318;
+}
+
+.pc-account-note.pc-is-success {
+    color: #169b62;
+}
+
+@media (max-width: 1024px) {
+    .pc-tool-module-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .pc-tool-module-grid {
+        grid-template-columns: 1fr;
+    }
+}

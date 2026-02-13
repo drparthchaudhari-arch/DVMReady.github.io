@@ -28,11 +28,50 @@
     }
 
     function modeLabel(value) {
-        return value === 'play' ? 'Mode: Play' : 'Mode: Professional';
+        return value === 'play' ? 'Mode: Gaming' : 'Mode: Professional';
+    }
+
+    function modeTargetLabel(value) {
+        return value === 'play' ? 'Professional' : 'Gaming';
     }
 
     function themeLabel(value) {
         return value === 'dark' ? 'Theme: Night' : 'Theme: Day';
+    }
+
+    function themeTargetLabel(value) {
+        return value === 'dark' ? 'Day' : 'Night';
+    }
+
+    function themeIcon(value) {
+        return value === 'dark' ? '&#9790;' : '&#9728;';
+    }
+
+    function ensureThemeIconNode(button) {
+        var icon = button.querySelector('[data-pc-theme-icon]');
+        if (icon) {
+            return icon;
+        }
+
+        icon = document.createElement('span');
+        icon.className = 'pc-nav-toggle__icon';
+        icon.setAttribute('data-pc-theme-icon', '');
+        icon.setAttribute('aria-hidden', 'true');
+        button.insertBefore(icon, button.firstChild);
+        return icon;
+    }
+
+    function ensureThemeLabelNode(button) {
+        var label = button.querySelector('[data-pc-theme-label]');
+        if (label) {
+            return label;
+        }
+
+        label = document.createElement('span');
+        label.setAttribute('data-pc-theme-label', '');
+        label.className = 'pc-nav-toggle__label';
+        button.appendChild(label);
+        return label;
     }
 
     function applySettings() {
@@ -47,8 +86,11 @@
 
         var modeButtons = document.querySelectorAll('[data-pc-mode-toggle]');
         for (var i = 0; i < modeButtons.length; i += 1) {
-            modeButtons[i].setAttribute('aria-pressed', String(currentMode === 'play'));
-            modeButtons[i].setAttribute('aria-label', 'Toggle site mode. Current setting: ' + modeLabel(currentMode));
+            var modeButton = modeButtons[i];
+            modeButton.classList.add('pc-nav-toggle--mode');
+            modeButton.setAttribute('aria-pressed', String(currentMode === 'play'));
+            modeButton.setAttribute('aria-label', 'Switch to ' + modeTargetLabel(currentMode) + ' mode');
+            modeButton.setAttribute('title', 'Switch to ' + modeTargetLabel(currentMode) + ' mode');
         }
 
         var modeLabels = document.querySelectorAll('[data-pc-mode-label]');
@@ -58,13 +100,24 @@
 
         var themeButtons = document.querySelectorAll('[data-pc-theme-toggle]');
         for (var k = 0; k < themeButtons.length; k += 1) {
-            themeButtons[k].setAttribute('aria-pressed', String(currentTheme === 'dark'));
-            themeButtons[k].setAttribute('aria-label', 'Toggle day or night theme. Current setting: ' + themeLabel(currentTheme));
-        }
+            var themeButton = themeButtons[k];
+            themeButton.classList.add('pc-nav-toggle--theme');
+            themeButton.setAttribute('aria-pressed', String(currentTheme === 'dark'));
+            themeButton.setAttribute('aria-label', 'Switch to ' + themeTargetLabel(currentTheme) + ' theme');
+            themeButton.setAttribute('title', 'Switch to ' + themeTargetLabel(currentTheme) + ' theme');
 
-        var themeLabels = document.querySelectorAll('[data-pc-theme-label]');
-        for (var n = 0; n < themeLabels.length; n += 1) {
-            themeLabels[n].textContent = themeLabel(currentTheme);
+            for (var t = themeButton.childNodes.length - 1; t >= 0; t -= 1) {
+                if (themeButton.childNodes[t].nodeType === 3) {
+                    themeButton.removeChild(themeButton.childNodes[t]);
+                }
+            }
+
+            var icon = ensureThemeIconNode(themeButton);
+            icon.innerHTML = themeIcon(currentTheme);
+
+            var labelNode = ensureThemeLabelNode(themeButton);
+            labelNode.textContent = themeLabel(currentTheme);
+            labelNode.classList.add('pc-nav-toggle__label--visually-hidden');
         }
     }
 

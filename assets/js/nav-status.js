@@ -1,13 +1,44 @@
 (function () {
     var AUTH_STATE_KEY = 'pc_sync_auth_state';
-    var GLOBAL_NAV_LINKS = [
+    var NAV_ITEMS = [
         { id: 'home', label: 'Home', href: '/' },
-        { id: 'today', label: 'Today', href: '/today/' },
-        { id: 'bridge', label: 'Bridge', href: '/bridge/' },
-        { id: 'study', label: 'Study', href: '/study/' },
-        { id: 'profile', label: 'Profile', href: '/account/' },
-        { id: 'leaderboard', label: 'Leaderboard', href: '/leaderboard/' },
-        { id: 'play', label: 'Play', href: '/play/' }
+        {
+            id: 'study',
+            label: 'Study',
+            href: '/study/',
+            children: [
+                { label: 'Clinical Tools', href: '/tools/' },
+                { label: 'NAVLE Practice', href: '/study/navle/practice/' },
+                { label: 'Reference', href: '/reference/' },
+                { label: 'NAVLE Topics', href: '/study/wordweb/' },
+                { label: 'Topic Guides', href: '/study/navle/topics/' },
+                { label: "Today's Plan", href: '/today/' },
+                { label: 'Case Directory', href: '/bridge/case-studies/' }
+            ]
+        },
+        {
+            id: 'play',
+            label: 'Play',
+            href: '/play/',
+            children: [
+                { label: 'Sudoku', href: '/play/sudoku/' },
+                { label: 'Memory Match', href: '/play/memory-match/' },
+                { label: '2048', href: '/play/2048/' },
+                { label: 'Tic-Tac-Toe', href: '/play/tictactoe/' },
+                { label: 'IQ Challenge', href: '/play/iq-challenge/' },
+                { label: 'WordVet', href: '/play/wordvet/' }
+            ]
+        },
+        {
+            id: 'profile',
+            label: 'Profile',
+            href: '/account/',
+            children: [
+                { label: 'Account & Sync', href: '/account/' },
+                { label: 'About Me', href: '/info.html' }
+            ]
+        },
+        { id: 'search', label: 'Search', href: '/search.html' }
     ];
 
     function isLoggedInFromCache() {
@@ -29,70 +60,88 @@
         }
     }
 
+    function normalizePath(pathname) {
+        var path = String(pathname || '/');
+        if (!path) {
+            return '/';
+        }
+
+        if (path === '/index.html') {
+            return '/';
+        }
+
+        if (path.length > 1 && path.charAt(path.length - 1) === '/') {
+            path = path.slice(0, -1);
+        }
+
+        return path || '/';
+    }
+
+    function isPathMatch(pathname, href) {
+        var current = normalizePath(pathname);
+        var target = normalizePath(href);
+
+        if (target === '/') {
+            return current === '/';
+        }
+
+        if (target.indexOf('.html') !== -1) {
+            return current === target;
+        }
+
+        return current === target || current.indexOf(target + '/') === 0;
+    }
+
     function getActiveNavId(pathname) {
-        if (pathname === '/' || pathname === '/index.html') {
+        var path = normalizePath(pathname);
+
+        if (path === '/') {
             return 'home';
         }
 
-        if (pathname === '/today' || pathname.indexOf('/today/') === 0) {
-            return 'today';
-        }
-
-        if (pathname === '/play' || pathname.indexOf('/play/') === 0) {
-            return 'play';
-        }
-
-        if (pathname === '/leaderboard' || pathname.indexOf('/leaderboard/') === 0) {
-            return 'leaderboard';
-        }
-
-        if (pathname === '/bridge' || pathname.indexOf('/bridge/') === 0) {
-            return 'bridge';
-        }
-
         if (
-            pathname === '/study' ||
-            pathname.indexOf('/study/') === 0 ||
-            pathname === '/tools' ||
-            pathname.indexOf('/tools/') === 0 ||
-            pathname === '/reference' ||
-            pathname.indexOf('/reference/') === 0
+            path === '/study' ||
+            path.indexOf('/study/') === 0 ||
+            path === '/tools' ||
+            path.indexOf('/tools/') === 0 ||
+            path === '/reference' ||
+            path.indexOf('/reference/') === 0 ||
+            path === '/today' ||
+            path.indexOf('/today/') === 0 ||
+            path === '/bridge' ||
+            path.indexOf('/bridge/') === 0
         ) {
             return 'study';
         }
 
-        if (
-            pathname === '/account' ||
-            pathname.indexOf('/account/') === 0 ||
-            pathname === '/info' ||
-            pathname === '/info.html'
-        ) {
+        if (path === '/play' || path.indexOf('/play/') === 0 || path === '/leaderboard' || path.indexOf('/leaderboard/') === 0) {
+            return 'play';
+        }
+
+        if (path === '/search' || path === '/search.html') {
+            return 'search';
+        }
+
+        if (path === '/account' || path.indexOf('/account/') === 0 || path === '/info' || path === '/info.html') {
             return 'profile';
         }
 
         return 'home';
     }
 
-    function hasTodayLink(container) {
-        if (!container) {
-            return false;
-        }
-        var links = container.querySelectorAll('a[href]');
-        for (var i = 0; i < links.length; i += 1) {
-            var href = links[i].getAttribute('href');
-            if (href === '/today/' || href === '/today') {
-                return true;
-            }
-        }
-        return false;
-    }
+    function createPortalNavItem(item, activeId, pathname) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'pc-nav-item';
 
-    function createPortalNavLink(link, activeId) {
+        if (item.children && item.children.length) {
+            wrapper.className += ' pc-nav-item--has-menu';
+        }
+
         var anchor = document.createElement('a');
-        anchor.className = 'pc-nav-link' + (link.id === activeId ? ' pc-is-active' : '');
-        anchor.href = link.href;
+        anchor.className = 'pc-nav-link' + (item.id === activeId ? ' pc-is-active' : '');
+        anchor.href = item.href;
 
-        if (link.id === 'profile') {
+        if (item.id === 'profile') {
             var indicator = document.createElement('span');
             indicator.className = 'pc-auth-indicator';
             indicator.setAttribute('data-pc-auth-indicator', '');
@@ -101,15 +150,39 @@
             anchor.appendChild(indicator);
         }
 
-        anchor.appendChild(document.createTextNode(link.label));
-        return anchor;
+        anchor.appendChild(document.createTextNode(item.label));
+        wrapper.appendChild(anchor);
+
+        if (item.children && item.children.length) {
+            var submenu = document.createElement('div');
+            submenu.className = 'pc-nav-submenu';
+            submenu.setAttribute('role', 'menu');
+            submenu.setAttribute('aria-label', item.label + ' links');
+
+            for (var i = 0; i < item.children.length; i += 1) {
+                var child = item.children[i];
+                var childLink = document.createElement('a');
+                childLink.className = 'pc-nav-submenu__link';
+                if (isPathMatch(pathname, child.href)) {
+                    childLink.className += ' pc-nav-submenu__link--active';
+                }
+                childLink.href = child.href;
+                childLink.textContent = child.label;
+                childLink.setAttribute('role', 'menuitem');
+                submenu.appendChild(childLink);
+            }
+
+            wrapper.appendChild(submenu);
+        }
+
+        return wrapper;
     }
 
-    function createLegacyNavLink(link, activeId) {
+    function createLegacyNavLink(item, activeId) {
         var anchor = document.createElement('a');
-        anchor.className = 'pc-nav__link' + (link.id === activeId ? ' pc-nav__link--active' : '');
-        anchor.href = link.href;
-        anchor.textContent = link.label;
+        anchor.className = 'pc-nav__link' + (item.id === activeId ? ' pc-nav__link--active' : '');
+        anchor.href = item.href;
+        anchor.textContent = item.label;
         return anchor;
     }
 
@@ -128,17 +201,17 @@
             var themeToggle = group.querySelector('[data-pc-theme-toggle]');
             var insertBefore = modeToggle || themeToggle || null;
 
-            var existingLinks = group.querySelectorAll('.pc-nav-link');
-            for (var j = 0; j < existingLinks.length; j += 1) {
-                existingLinks[j].remove();
+            var existingItems = group.querySelectorAll('.pc-nav-link, .pc-nav-item');
+            for (var j = 0; j < existingItems.length; j += 1) {
+                existingItems[j].remove();
             }
 
-            for (var k = 0; k < GLOBAL_NAV_LINKS.length; k += 1) {
-                var navLink = createPortalNavLink(GLOBAL_NAV_LINKS[k], activeId);
+            for (var k = 0; k < NAV_ITEMS.length; k += 1) {
+                var navItem = createPortalNavItem(NAV_ITEMS[k], activeId, pathname);
                 if (insertBefore) {
-                    group.insertBefore(navLink, insertBefore);
+                    group.insertBefore(navItem, insertBefore);
                 } else {
-                    group.appendChild(navLink);
+                    group.appendChild(navItem);
                 }
             }
         }
@@ -156,38 +229,9 @@
         for (var i = 0; i < legacyGroups.length; i += 1) {
             var group = legacyGroups[i];
             group.innerHTML = '';
-            for (var j = 0; j < GLOBAL_NAV_LINKS.length; j += 1) {
-                group.appendChild(createLegacyNavLink(GLOBAL_NAV_LINKS[j], activeId));
+            for (var j = 0; j < NAV_ITEMS.length; j += 1) {
+                group.appendChild(createLegacyNavLink(NAV_ITEMS[j], activeId));
             }
-        }
-    }
-
-    function ensureTodayFooterLink() {
-        var footerLinks = document.querySelectorAll('.pc-footer-links');
-        for (var i = 0; i < footerLinks.length; i += 1) {
-            var footer = footerLinks[i];
-            if (hasTodayLink(footer)) {
-                continue;
-            }
-            var todayLink = document.createElement('a');
-            todayLink.href = '/today/';
-            todayLink.textContent = 'Today';
-            footer.appendChild(todayLink);
-        }
-    }
-
-    function ensureTodayQuickLinks() {
-        var strips = document.querySelectorAll('.pc-link-strip');
-        for (var i = 0; i < strips.length; i += 1) {
-            var strip = strips[i];
-            if (hasTodayLink(strip)) {
-                continue;
-            }
-            var chip = document.createElement('a');
-            chip.className = 'pc-link-chip';
-            chip.href = '/today/';
-            chip.textContent = 'Today';
-            strip.appendChild(chip);
         }
     }
 
@@ -208,13 +252,22 @@
         var strip = document.createElement('div');
         strip.className = 'pc-link-strip';
         strip.setAttribute('data-pc-global-quick-links', 'true');
-        strip.setAttribute('aria-label', 'Quick links');
+        strip.setAttribute('aria-label', 'Quick references');
 
-        for (var i = 0; i < GLOBAL_NAV_LINKS.length; i += 1) {
+        var quickLinks = [
+            { label: 'Clinical Tools', href: '/tools/' },
+            { label: 'NAVLE Practice', href: '/study/navle/practice/' },
+            { label: 'Reference', href: '/reference/' },
+            { label: 'NAVLE Topics', href: '/study/wordweb/' },
+            { label: 'Topic Guides', href: '/study/navle/topics/' },
+            { label: 'Play', href: '/play/' }
+        ];
+
+        for (var i = 0; i < quickLinks.length; i += 1) {
             var link = document.createElement('a');
             link.className = 'pc-link-chip';
-            link.href = GLOBAL_NAV_LINKS[i].href;
-            link.textContent = GLOBAL_NAV_LINKS[i].label;
+            link.href = quickLinks[i].href;
+            link.textContent = quickLinks[i].label;
             strip.appendChild(link);
         }
 
@@ -224,8 +277,6 @@
     function init() {
         normalizePortalNav();
         normalizeLegacyNav();
-        ensureTodayFooterLink();
-        ensureTodayQuickLinks();
         appendGlobalQuickLinksIfMissing();
 
         applyIndicator(isLoggedInFromCache());

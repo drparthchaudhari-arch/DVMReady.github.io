@@ -30,7 +30,6 @@
                 <a class="pc-nav-link" href="/search.html">Search</a>
                 <a class="pc-nav-link" href="/study/">Study Plan</a>
                 <a class="pc-nav-link pc-is-active" href="/account/"><span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>Account</a>
-                <a class="pc-nav-link" href="/leaderboard/">Leaderboard</a>
                 <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
                     <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
                 </button>
@@ -46,7 +45,7 @@
             <div class="pc-account-hero__surface pc-card">
                 <p class="pc-kicker">Account</p>
                 <h1 class="pc-fork-title">Your Learning Data</h1>
-                <p class="pc-fork-copy">Anonymous mode is always available. Export local data, import backups, and optionally turn on cross-device sync.</p>
+                <p class="pc-fork-copy">Anonymous mode is always available. Save your name locally, export backups, and optionally use email login for sync.</p>
                 <div class="pc-account-hero__chips" aria-label="Account highlights">
                     <span class="pc-chip">Anonymous First</span>
                     <span class="pc-chip">Optional Sync</span>
@@ -56,6 +55,19 @@
         </section>
 
         <section class="pc-account-grid pc-account-section" aria-label="Account settings">
+            <article class="pc-account-card pc-account-card--profile pc-account-section" aria-labelledby="pc-profile-identity-title">
+                <h2 id="pc-profile-identity-title" class="pc-account-section__title">Profile Identity</h2>
+                <p class="pc-account-note">Keep your display name even in guest mode. Add email login only when you want cross-device sync.</p>
+                <div class="pc-account-field">
+                    <label for="pc-display-name-input">Display Name</label>
+                    <input id="pc-display-name-input" class="pc-account-input pc-input" type="text" maxlength="40" placeholder="Your name">
+                </div>
+                <div class="pc-account-actions">
+                    <button type="button" id="pc-save-name-btn" class="pc-btn pc-btn--primary">Save Name</button>
+                </div>
+                <p id="pc-display-name-note" class="pc-account-note">Saved locally on this device.</p>
+            </article>
+
             <article class="pc-account-card pc-account-card--local pc-account-section" aria-labelledby="pc-local-data-title">
                 <h2 id="pc-local-data-title" class="pc-account-section__title">Local Data Status</h2>
                 <div id="pc-local-data" class="pc-account-metric-grid" role="list"></div>
@@ -68,7 +80,7 @@
 
             <article id="pc-sync-section" class="pc-account-card pc-account-card--sync pc-account-section" aria-labelledby="pc-sync-title">
                 <h2 id="pc-sync-title" class="pc-account-section__title">Cross-Device Sync</h2>
-                <p class="pc-account-note">Use magic-link login to sync your learning progress across devices.</p>
+                <p class="pc-account-note">Email login is optional. Use magic-link access only when you want sync across devices.</p>
 
                 <div id="pc-logged-out-section" class="pc-auth-form">
                     <div class="pc-account-field">

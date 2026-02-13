@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Veterinary paw icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b7285"/>
+      <stop offset="100%" stop-color="#14b8a6"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <g fill="#ffffff">
+    <ellipse cx="18" cy="20" rx="5" ry="7"/>
+    <ellipse cx="29" cy="16" rx="5" ry="7"/>
+    <ellipse cx="40" cy="16" rx="5" ry="7"/>
+    <ellipse cx="50" cy="20" rx="5" ry="7"/>
+    <path d="M32 28c-7.8 0-13 6.2-13 12.8C19 47.6 24.6 52 32 52s13-4.4 13-11.2C45 34.2 39.8 28 32 28z"/>
+  </g>
+  <rect x="30" y="34" width="4" height="11" rx="1" fill="#0b7285"/>
+  <rect x="26.5" y="37.5" width="11" height="4" rx="1" fill="#0b7285"/>
+</svg>

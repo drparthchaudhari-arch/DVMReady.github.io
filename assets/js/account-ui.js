@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    var DISPLAY_NAME_KEY = 'pc_profile_name';
+
     document.addEventListener('DOMContentLoaded', function () {
         initAccountUI();
     });
@@ -19,8 +21,10 @@
         var sendLinkBtn = document.getElementById('pc-send-link-btn');
         var syncBtn = document.getElementById('pc-sync-btn');
         var logoutBtn = document.getElementById('pc-logout-btn');
+        var saveNameBtn = document.getElementById('pc-save-name-btn');
 
         updateLocalDataDisplay();
+        hydrateDisplayNameInput();
         updateAuthUI();
 
         if (exportBtn) {
@@ -44,6 +48,10 @@
 
         if (logoutBtn) {
             logoutBtn.addEventListener('click', handleLogout);
+        }
+
+        if (saveNameBtn) {
+            saveNameBtn.addEventListener('click', handleSaveDisplayName);
         }
 
         window.addEventListener('pc-auth-status-change', updateAuthUI);
@@ -109,11 +117,92 @@
         }
     }
 
+    function readStoredDisplayName() {
+        try {
+            return String(localStorage.getItem(DISPLAY_NAME_KEY) || '').trim();
+        } catch (error) {
+            return '';
+        }
+    }
+
+    function writeStoredDisplayName(name) {
+        try {
+            var trimmed = String(name || '').trim();
+            if (!trimmed) {
+                localStorage.removeItem(DISPLAY_NAME_KEY);
+                return true;
+            }
+            localStorage.setItem(DISPLAY_NAME_KEY, trimmed);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    function hydrateDisplayNameInput() {
+        var input = document.getElementById('pc-display-name-input');
+        if (!input) {
+            return;
+        }
+
+        input.value = readStoredDisplayName();
+        updateDisplayNameNote('Saved locally on this device.');
+    }
+
+    function updateDisplayNameNote(message, isError) {
+        var note = document.getElementById('pc-display-name-note');
+        if (!note) {
+            return;
+        }
+
+        note.textContent = message || '';
+        note.classList.remove('pc-is-error');
+        note.classList.remove('pc-is-success');
+
+        if (!message) {
+            return;
+        }
+
+        note.classList.add(isError ? 'pc-is-error' : 'pc-is-success');
+    }
+
+    function getCurrentUser() {
+        if (!window.pcSync || typeof window.pcSync.getCurrentUser !== 'function') {
+            return null;
+        }
+        return window.pcSync.getCurrentUser();
+    }
+
+    function getDisplayNameForUser(user) {
+        var localName = readStoredDisplayName();
+        if (localName) {
+            return localName;
+        }
+
+        if (user && user.user_metadata) {
+            var profileName = user.user_metadata.display_name || user.user_metadata.full_name || user.user_metadata.name;
+            if (profileName) {
+                return String(profileName).trim();
+            }
+        }
+
+        if (user && user.email) {
+            return String(user.email).split('@')[0];
+        }
+
+        return 'Learner';
+    }
+
     function updateAuthUI() {
         var user = getCurrentUser();
         var loggedInSection = document.getElementById('pc-logged-in-section');
         var loggedOutSection = document.getElementById('pc-logged-out-section');
         var statusDiv = document.getElementById('pc-account-status');
+        var nameInput = document.getElementById('pc-display-name-input');
+
+        if (nameInput && !nameInput.value) {
+            nameInput.value = readStoredDisplayName();
+        }
 
         if (user) {
             if (loggedInSection) {
@@ -123,7 +212,8 @@
                 loggedOutSection.hidden = true;
             }
             if (statusDiv) {
-                statusDiv.innerHTML = '<p class="pc-status-success">Logged in as ' + escapeHtml(user.email || 'Learner') + '</p>';
+                var displayName = getDisplayNameForUser(user);
+                statusDiv.innerHTML = '<p class="pc-status-success">Logged in as ' + escapeHtml(displayName) + '</p>';
             }
 
             var lastSync = getLastSyncTimestamp();
@@ -131,16 +221,17 @@
             if (syncTimeDiv && lastSync) {
                 syncTimeDiv.textContent = 'Last synced: ' + new Date(lastSync).toLocaleString();
             }
-        } else {
-            if (loggedInSection) {
-                loggedInSection.hidden = true;
-            }
-            if (loggedOutSection) {
-                loggedOutSection.hidden = false;
-            }
-            if (statusDiv) {
-                statusDiv.innerHTML = '<p class="pc-status-info">Working in local mode. Log in to sync across devices.</p>';
-            }
+            return;
+        }
+
+        if (loggedInSection) {
+            loggedInSection.hidden = true;
+        }
+        if (loggedOutSection) {
+            loggedOutSection.hidden = false;
+        }
+        if (statusDiv) {
+            statusDiv.innerHTML = '<p class="pc-status-info">Working in local mode. Email login is optional for sync.</p>';
         }
     }
 
@@ -157,11 +248,86 @@
         }
     }
 
-    function getCurrentUser() {
-        if (!window.pcSync || typeof window.pcSync.getCurrentUser !== 'function') {
-            return null;
+    async function syncDisplayNameToProfile(displayName) {
+        var user = getCurrentUser();
+        if (!user || !displayName) {
+            return { ok: false, skipped: true };
         }
-        return window.pcSync.getCurrentUser();
+
+        if (typeof window.getSupabaseClient !== 'function') {
+            return { ok: false, skipped: true };
+        }
+
+        var client = window.getSupabaseClient();
+        if (!client || typeof client.from !== 'function') {
+            return { ok: false, skipped: true };
+        }
+
+        try {
+            var response = await client
+                .from('profiles')
+                .upsert({
+                    id: user.id,
+                    email: user.email || (user.id + '@local.invalid'),
+                    display_name: displayName
+                }, { onConflict: 'id' });
+
+            if (response.error) {
+                throw response.error;
+            }
+
+            if (client.auth && typeof client.auth.updateUser === 'function') {
+                await client.auth.updateUser({
+                    data: {
+                        display_name: displayName,
+                        name: displayName
+                    }
+                });
+            }
+
+            return { ok: true };
+        } catch (error) {
+            return { ok: false, error: error };
+        }
+    }
+
+    async function handleSaveDisplayName() {
+        var nameInput = document.getElementById('pc-display-name-input');
+        if (!nameInput) {
+            return;
+        }
+
+        var trimmed = String(nameInput.value || '').replace(/\s+/g, ' ').trim();
+        if (!trimmed) {
+            writeStoredDisplayName('');
+            updateDisplayNameNote('Name cleared. You can continue in guest mode.', false);
+            updateAuthUI();
+            return;
+        }
+
+        if (trimmed.length < 2) {
+            updateDisplayNameNote('Name should be at least 2 characters.', true);
+            return;
+        }
+
+        if (!writeStoredDisplayName(trimmed)) {
+            updateDisplayNameNote('Could not save name in this browser.', true);
+            return;
+        }
+
+        var user = getCurrentUser();
+        if (user) {
+            var syncResult = await syncDisplayNameToProfile(trimmed);
+            if (syncResult.ok) {
+                updateDisplayNameNote('Name saved locally and synced to your profile.', false);
+            } else {
+                updateDisplayNameNote('Name saved locally. Profile sync can be retried later.', true);
+            }
+        } else {
+            updateDisplayNameNote('Name saved locally. You can log in later to sync.', false);
+        }
+
+        updateAuthUI();
     }
 
     async function handleExport() {
@@ -255,6 +421,7 @@
     async function handleSendLink() {
         var emailInput = document.getElementById('pc-email-input');
         var email = emailInput ? String(emailInput.value || '').trim() : '';
+        var preferredName = readStoredDisplayName();
 
         if (!email || email.indexOf('@') === -1) {
             showError('Please enter a valid email address');
@@ -267,7 +434,15 @@
         }
 
         try {
-            var result = await window.pcSync.sendMagicLink(email);
+            var options = {};
+            if (preferredName) {
+                options.metadata = {
+                    display_name: preferredName,
+                    name: preferredName
+                };
+            }
+
+            var result = await window.pcSync.sendMagicLink(email, options);
             if (isSuccessResult(result)) {
                 showSuccess('Magic link sent. Check your email.');
                 emailInput.value = '';

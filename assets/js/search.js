@@ -10,9 +10,10 @@
     };
 
     var POPULAR_LINKS = [
+        { label: 'Clinical Tools', url: '/tools/' },
         { label: 'NAVLE Practice', url: '/study/navle/practice/' },
-        { label: 'Free Topic Guides', url: '/study/navle/topics/' },
-        { label: 'Clinical Tools', url: '/tools/' }
+        { label: 'Reference', url: '/reference/' },
+        { label: 'NAVLE Topics', url: '/study/wordweb/' }
     ];
 
     var state = {

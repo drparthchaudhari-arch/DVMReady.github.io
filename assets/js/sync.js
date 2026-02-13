@@ -690,17 +690,39 @@
 
         try {
             var redirectTo = window.location.origin + '/account/';
+            var metadata = null;
             if (options && typeof options === 'object' && options.redirectTo) {
                 var customRedirect = String(options.redirectTo).trim();
                 if (customRedirect) {
                     redirectTo = customRedirect;
                 }
             }
+
+            if (options && typeof options === 'object' && options.metadata && typeof options.metadata === 'object') {
+                metadata = options.metadata;
+            }
+
+            if (!metadata && options && typeof options === 'object' && options.displayName) {
+                var displayName = String(options.displayName).trim();
+                if (displayName) {
+                    metadata = {
+                        display_name: displayName,
+                        name: displayName
+                    };
+                }
+            }
+
+            var otpOptions = {
+                emailRedirectTo: redirectTo
+            };
+
+            if (metadata) {
+                otpOptions.data = metadata;
+            }
+
             var response = await client.auth.signInWithOtp({
                 email: trimmedEmail,
-                options: {
-                    emailRedirectTo: redirectTo
-                }
+                options: otpOptions
             });
 
             if (response.error) {

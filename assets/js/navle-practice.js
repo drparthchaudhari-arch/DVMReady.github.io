@@ -8,7 +8,7 @@
     var LOGGED_COUNT_KEY = 'pc_logged_questions_today';
     var LOGGED_DATE_KEY = 'pc_logged_questions_date';
     var ANON_DAILY_LIMIT = 5;
-    var LOGGED_DAILY_LIMIT = 7;
+    var LOGGED_DAILY_LIMIT = Number.POSITIVE_INFINITY;
 
     var QUESTIONS = [
         {
@@ -808,7 +808,7 @@
             return;
         }
 
-        if (!state.isPaid) {
+        if (!state.isPaid && maxAllowed < QUESTIONS.length) {
             openModal('payment-gate');
         }
     }
@@ -919,7 +919,9 @@
                 openModal('question-gate');
                 return;
             }
-            openModal('payment-gate');
+            if (maxAllowed < QUESTIONS.length) {
+                openModal('payment-gate');
+            }
             return;
         }
 
@@ -939,7 +941,7 @@
         if (!state.isPaid && usedCount >= maxAllowed) {
             if (!state.isAuthenticated) {
                 openModal('question-gate');
-            } else {
+            } else if (maxAllowed < QUESTIONS.length) {
                 openModal('payment-gate');
             }
             return;
@@ -973,7 +975,7 @@
                 var redirectTarget = window.location.origin + '/study/navle/practice/';
                 var result = await window.pcSync.sendMagicLink(email, { redirectTo: redirectTarget });
                 if (result && result.ok) {
-                    setGateMessage('Magic link sent. Check your email to log in and unlock 7 more questions.', false);
+                    setGateMessage('Magic link sent. Check your email to log in and unlock the full question bank.', false);
                 } else {
                     setGateMessage('Could not send magic link right now. Please try again.', true);
                 }
