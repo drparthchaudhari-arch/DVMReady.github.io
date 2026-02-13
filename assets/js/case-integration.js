@@ -211,6 +211,25 @@
         return Number.isFinite(parsed) ? parsed : NaN;
     }
 
+    function formatResolutionLabel(value) {
+        var normalized = String(value || '').trim().toLowerCase();
+        if (!normalized) {
+            return '';
+        }
+        return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+    }
+
+    function parseComplicationsInput(value) {
+        return String(value || '')
+            .split(',')
+            .map(function (item) {
+                return String(item || '').trim();
+            })
+            .filter(function (item) {
+                return !!item;
+            });
+    }
+
     function renderStats(encounterId, node) {
         if (!node || !window.pcIntegration || typeof window.pcIntegration.getEncounter !== 'function') {
             return;
@@ -224,7 +243,12 @@
 
         var calcCount = Array.isArray(encounter.calculations) ? encounter.calculations.length : 0;
         var eventCount = Array.isArray(encounter.events) ? encounter.events.length : 0;
-        node.textContent = 'Encounter log: ' + calcCount + ' calculations and ' + eventCount + ' timeline events captured.';
+        var outcomes = encounter.outcomes && typeof encounter.outcomes === 'object' ? encounter.outcomes : {};
+        var outcomeSummary = outcomes.resolution
+            ? (' Outcome: ' + formatResolutionLabel(outcomes.resolution) + (outcomes.followUpNeeded ? ' (follow-up required).' : '.'))
+            : ' Outcome: not documented.';
+
+        node.textContent = 'Encounter log: ' + calcCount + ' calculations and ' + eventCount + ' timeline events captured.' + outcomeSummary;
     }
 
     function getToolById(config, toolId) {
@@ -500,6 +524,153 @@
         return card;
     }
 
+    function createOutcomeCard(config, encounter, onOutcomeSaved) {
+        var card = document.createElement('article');
+        card.className = 'pc-tool-module pc-case-outcome';
+        card.innerHTML = '<h3>Clinical Outcome Snapshot</h3>';
+
+        var intro = document.createElement('p');
+        intro.className = 'pc-case-intel__summary';
+        intro.textContent = 'Capture treatment summary and outcome to keep case and calculator history linked.';
+        card.appendChild(intro);
+
+        var grid = document.createElement('div');
+        grid.className = 'pc-case-outcome__grid';
+
+        var treatmentField = document.createElement('label');
+        treatmentField.className = 'pc-case-outcome__field';
+        treatmentField.innerHTML = '<span>Actual treatment</span>';
+        var treatmentInput = document.createElement('textarea');
+        treatmentInput.className = 'pc-input pc-case-outcome__text';
+        treatmentInput.rows = 3;
+        treatmentInput.placeholder = 'e.g., Fluid stabilization, insulin CRI, potassium support';
+        treatmentField.appendChild(treatmentInput);
+        grid.appendChild(treatmentField);
+
+        var complicationsField = document.createElement('label');
+        complicationsField.className = 'pc-case-outcome__field';
+        complicationsField.innerHTML = '<span>Complications (comma separated)</span>';
+        var complicationsInput = document.createElement('input');
+        complicationsInput.className = 'pc-input';
+        complicationsInput.type = 'text';
+        complicationsInput.placeholder = 'e.g., hypokalemia, recurrent vomiting';
+        complicationsField.appendChild(complicationsInput);
+        grid.appendChild(complicationsField);
+
+        var resolutionField = document.createElement('label');
+        resolutionField.className = 'pc-case-outcome__field';
+        resolutionField.innerHTML = '<span>Resolution</span>';
+        var resolutionSelect = document.createElement('select');
+        resolutionSelect.className = 'pc-input';
+        resolutionSelect.innerHTML =
+            '<option value="">Select</option>' +
+            '<option value="improved">Improved</option>' +
+            '<option value="static">Static</option>' +
+            '<option value="deteriorated">Deteriorated</option>' +
+            '<option value="euthanized">Euthanized</option>';
+        resolutionField.appendChild(resolutionSelect);
+        grid.appendChild(resolutionField);
+
+        var followUpField = document.createElement('label');
+        followUpField.className = 'pc-case-outcome__check';
+        var followUpInput = document.createElement('input');
+        followUpInput.type = 'checkbox';
+        followUpField.appendChild(followUpInput);
+        followUpField.appendChild(document.createTextNode('Follow-up required'));
+        grid.appendChild(followUpField);
+
+        card.appendChild(grid);
+
+        var actions = document.createElement('div');
+        actions.className = 'pc-panel-actions';
+        var saveButton = document.createElement('button');
+        saveButton.type = 'button';
+        saveButton.className = 'pc-btn pc-btn--secondary';
+        saveButton.textContent = 'Save Outcome Snapshot';
+        actions.appendChild(saveButton);
+        card.appendChild(actions);
+
+        var status = document.createElement('p');
+        status.className = 'pc-case-outcome__status';
+        status.textContent = 'No outcome snapshot saved yet.';
+        card.appendChild(status);
+
+        function loadExistingOutcome() {
+            if (!window.pcIntegration || typeof window.pcIntegration.getEncounter !== 'function') {
+                return;
+            }
+
+            var current = window.pcIntegration.getEncounter(encounter.id);
+            var outcomes = current && current.outcomes && typeof current.outcomes === 'object' ? current.outcomes : null;
+            if (!outcomes) {
+                return;
+            }
+
+            treatmentInput.value = String(outcomes.actualTreatment || '');
+            complicationsInput.value = Array.isArray(outcomes.complications) ? outcomes.complications.join(', ') : '';
+            resolutionSelect.value = String(outcomes.resolution || '');
+            followUpInput.checked = !!outcomes.followUpNeeded;
+
+            if (outcomes.updatedAt) {
+                status.textContent = 'Loaded previous snapshot (' + new Date(outcomes.updatedAt).toLocaleString() + ').';
+            }
+        }
+
+        saveButton.addEventListener('click', function () {
+            if (!window.pcIntegration || typeof window.pcIntegration.updateEncounterOutcome !== 'function') {
+                status.textContent = 'Outcome save is unavailable in this environment.';
+                return;
+            }
+
+            var payload = {
+                actualTreatment: treatmentInput.value,
+                complications: parseComplicationsInput(complicationsInput.value),
+                resolution: resolutionSelect.value,
+                followUpNeeded: !!followUpInput.checked
+            };
+
+            var response = window.pcIntegration.updateEncounterOutcome({
+                encounterId: encounter.id,
+                caseId: config.caseId,
+                caseTitle: config.title,
+                outcomes: payload
+            });
+
+            if (!response || !response.ok) {
+                status.textContent = 'Failed to save outcome snapshot.';
+                return;
+            }
+
+            var resolved = response.outcomes && response.outcomes.resolution
+                ? formatResolutionLabel(response.outcomes.resolution)
+                : 'not set';
+            status.textContent = 'Outcome saved. Resolution: ' + resolved +
+                (response.outcomes.followUpNeeded ? ' | follow-up required.' : ' | no follow-up flagged.');
+
+            if (window.pcIntegration && typeof window.pcIntegration.logCaseAction === 'function') {
+                window.pcIntegration.logCaseAction({
+                    encounterId: encounter.id,
+                    caseId: config.caseId,
+                    caseTitle: config.title,
+                    action: 'outcome_snapshot_saved',
+                    source: 'case_outcome_card',
+                    details: {
+                        resolution: response.outcomes.resolution || '',
+                        followUpNeeded: !!response.outcomes.followUpNeeded,
+                        complicationCount: Array.isArray(response.outcomes.complications) ? response.outcomes.complications.length : 0
+                    }
+                });
+            }
+
+            if (typeof onOutcomeSaved === 'function') {
+                onOutcomeSaved(response.outcomes);
+            }
+        });
+
+        loadExistingOutcome();
+        return card;
+    }
+
     function createPanel(config, encounter) {
         var panel = document.createElement('section');
         panel.className = 'pc-case-section pc-card pc-case-intel';
@@ -586,9 +757,20 @@
         grid.appendChild(toolsCard);
         grid.appendChild(decisionsCard);
 
+        var stats = document.createElement('p');
+        stats.className = 'pc-calculator-note';
+        stats.setAttribute('data-pc-encounter-stats', '');
+
         var assessmentCard = createAssessmentCard(config, encounter);
         if (assessmentCard) {
             grid.appendChild(assessmentCard);
+        }
+
+        var outcomeCard = createOutcomeCard(config, encounter, function () {
+            renderStats(encounter.id, stats);
+        });
+        if (outcomeCard) {
+            grid.appendChild(outcomeCard);
         }
 
         var actions = document.createElement('div');
@@ -596,10 +778,6 @@
         actions.innerHTML =
             '<button type="button" class="pc-btn pc-btn--secondary" data-pc-export-json>Export Encounter JSON</button>' +
             '<button type="button" class="pc-btn pc-btn--secondary" data-pc-export-csv>Export Encounter CSV</button>';
-
-        var stats = document.createElement('p');
-        stats.className = 'pc-calculator-note';
-        stats.setAttribute('data-pc-encounter-stats', '');
 
         panel.appendChild(header);
         panel.appendChild(grid);

@@ -8,6 +8,12 @@
     var MAX_EVENTS_PER_ENCOUNTER = 500;
     var MAX_OFFLINE_QUEUE = 100;
     var listenersBound = false;
+    var RESOLUTION_ALLOWED = {
+        improved: true,
+        static: true,
+        deteriorated: true,
+        euthanized: true
+    };
 
     function safeParse(value, fallback) {
         if (!value) {
@@ -106,6 +112,49 @@
         return {
             caseId: caseId,
             encounterId: encounterId
+        };
+    }
+
+    function normalizeComplications(value) {
+        if (Array.isArray(value)) {
+            var cleaned = [];
+            var i;
+
+            for (i = 0; i < value.length; i += 1) {
+                var item = String(value[i] || '').trim();
+                if (item) {
+                    cleaned.push(item);
+                }
+            }
+            return cleaned;
+        }
+
+        if (typeof value === 'string') {
+            return value.split(',')
+                .map(function (item) {
+                    return String(item || '').trim();
+                })
+                .filter(function (item) {
+                    return !!item;
+                });
+        }
+
+        return [];
+    }
+
+    function sanitizeOutcomePayload(outcomes) {
+        var source = outcomes && typeof outcomes === 'object' ? outcomes : {};
+        var resolution = String(source.resolution || '').trim().toLowerCase();
+
+        if (!RESOLUTION_ALLOWED[resolution]) {
+            resolution = '';
+        }
+
+        return {
+            actualTreatment: String(source.actualTreatment || '').trim(),
+            complications: normalizeComplications(source.complications),
+            resolution: resolution,
+            followUpNeeded: !!source.followUpNeeded
         };
     }
 
@@ -212,6 +261,13 @@
                 status: 'open',
                 patient: safeClone(opts.patient || {}, {}),
                 tags: Array.isArray(opts.tags) ? safeClone(opts.tags, []) : [],
+                outcomes: {
+                    actualTreatment: '',
+                    complications: [],
+                    resolution: '',
+                    followUpNeeded: false,
+                    updatedAt: ''
+                },
                 createdAt: nowIso(),
                 updatedAt: nowIso(),
                 events: [],
@@ -227,6 +283,15 @@
             }
             if (opts.patient && typeof opts.patient === 'object') {
                 encounters[encounterId].patient = safeClone(opts.patient, {});
+            }
+            if (!encounters[encounterId].outcomes || typeof encounters[encounterId].outcomes !== 'object') {
+                encounters[encounterId].outcomes = {
+                    actualTreatment: '',
+                    complications: [],
+                    resolution: '',
+                    followUpNeeded: false,
+                    updatedAt: ''
+                };
             }
             encounters[encounterId].updatedAt = nowIso();
         }
@@ -364,6 +429,8 @@
             outputs: safeClone(opts.outputs || {}, {}),
             warnings: Array.isArray(opts.warnings) ? safeClone(opts.warnings, []) : [],
             references: Array.isArray(opts.references) ? safeClone(opts.references, []) : [],
+            userOverride: !!opts.userOverride,
+            overrideReason: String(opts.overrideReason || '').trim(),
             createdAt: nowIso()
         };
 
@@ -386,6 +453,64 @@
         return {
             encounterId: encounter.id,
             calculationId: calculation.id
+        };
+    }
+
+    function updateEncounterOutcome(options) {
+        var opts = options && typeof options === 'object' ? options : {};
+        var encounter = ensureEncounter(opts);
+        var encounters = getAllEncounters();
+        var record = encounters[encounter.id];
+
+        if (!record) {
+            return {
+                ok: false,
+                reason: 'encounter_not_found'
+            };
+        }
+
+        var incoming = sanitizeOutcomePayload(opts.outcomes);
+        var previous = record.outcomes && typeof record.outcomes === 'object' ? record.outcomes : {};
+        var hasActualTreatment = opts.outcomes && Object.prototype.hasOwnProperty.call(opts.outcomes, 'actualTreatment');
+        var hasComplications = opts.outcomes && Object.prototype.hasOwnProperty.call(opts.outcomes, 'complications');
+        var hasResolution = opts.outcomes && Object.prototype.hasOwnProperty.call(opts.outcomes, 'resolution');
+        var hasFollowUp = opts.outcomes && Object.prototype.hasOwnProperty.call(opts.outcomes, 'followUpNeeded');
+
+        var merged = {
+            actualTreatment: hasActualTreatment ? incoming.actualTreatment : String(previous.actualTreatment || '').trim(),
+            complications: hasComplications ? incoming.complications : normalizeComplications(previous.complications),
+            resolution: hasResolution ? incoming.resolution : String(previous.resolution || '').trim().toLowerCase(),
+            followUpNeeded: hasFollowUp ? !!opts.outcomes.followUpNeeded : !!previous.followUpNeeded,
+            updatedAt: nowIso()
+        };
+
+        record.outcomes = merged;
+        record.updatedAt = merged.updatedAt;
+        encounters[encounter.id] = record;
+        setAllEncounters(encounters);
+
+        appendEvent({
+            encounterId: encounter.id,
+            caseId: record.caseId,
+            caseTitle: record.caseTitle,
+            source: 'outcome_snapshot',
+            type: 'outcome_update',
+            details: {
+                resolution: merged.resolution,
+                followUpNeeded: merged.followUpNeeded,
+                complicationCount: merged.complications.length
+            }
+        });
+
+        triggerSync('phase4_outcome', {
+            encounterId: encounter.id,
+            resolution: merged.resolution
+        });
+
+        return {
+            ok: true,
+            encounterId: encounter.id,
+            outcomes: safeClone(merged, {})
         };
     }
 
@@ -420,11 +545,18 @@
             'created_at',
             'inputs',
             'outputs',
-            'warnings'
+            'warnings',
+            'user_override',
+            'override_reason',
+            'outcome_resolution',
+            'outcome_follow_up_needed',
+            'outcome_complications',
+            'outcome_actual_treatment'
         ].join(','));
 
         for (i = 0; i < calculations.length; i += 1) {
             var row = calculations[i];
+            var outcomes = encounter.outcomes && typeof encounter.outcomes === 'object' ? encounter.outcomes : {};
             lines.push([
                 toCsvCell(encounter.id),
                 toCsvCell(encounter.caseId),
@@ -436,7 +568,36 @@
                 toCsvCell(row.createdAt),
                 toCsvCell(row.inputs),
                 toCsvCell(row.outputs),
-                toCsvCell(Array.isArray(row.warnings) ? row.warnings.join('; ') : '')
+                toCsvCell(Array.isArray(row.warnings) ? row.warnings.join('; ') : ''),
+                toCsvCell(row.userOverride ? 'yes' : 'no'),
+                toCsvCell(row.overrideReason || ''),
+                toCsvCell(outcomes.resolution || ''),
+                toCsvCell(outcomes.followUpNeeded ? 'yes' : 'no'),
+                toCsvCell(Array.isArray(outcomes.complications) ? outcomes.complications.join('; ') : ''),
+                toCsvCell(outcomes.actualTreatment || '')
+            ].join(','));
+        }
+
+        if (!calculations.length) {
+            var emptyOutcomes = encounter.outcomes && typeof encounter.outcomes === 'object' ? encounter.outcomes : {};
+            lines.push([
+                toCsvCell(encounter.id),
+                toCsvCell(encounter.caseId),
+                toCsvCell(encounter.caseTitle),
+                toCsvCell(encounter.status || 'open'),
+                toCsvCell('outcome_snapshot'),
+                toCsvCell(''),
+                toCsvCell(''),
+                toCsvCell(emptyOutcomes.updatedAt || encounter.updatedAt || ''),
+                toCsvCell(''),
+                toCsvCell(''),
+                toCsvCell(''),
+                toCsvCell(''),
+                toCsvCell(''),
+                toCsvCell(emptyOutcomes.resolution || ''),
+                toCsvCell(emptyOutcomes.followUpNeeded ? 'yes' : 'no'),
+                toCsvCell(Array.isArray(emptyOutcomes.complications) ? emptyOutcomes.complications.join('; ') : ''),
+                toCsvCell(emptyOutcomes.actualTreatment || '')
             ].join(','));
         }
 
@@ -607,6 +768,7 @@
         logCaseOpen: logCaseOpen,
         logCaseAction: logCaseAction,
         logCalculation: logCalculation,
+        updateEncounterOutcome: updateEncounterOutcome,
         exportEncounter: exportEncounter,
         queueAction: queueAction,
         flushQueue: flushQueue,

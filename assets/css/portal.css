@@ -3807,6 +3807,55 @@
     color: #8a3f0e;
 }
 
+.pc-case-outcome {
+    grid-column: 1 / -1;
+}
+
+.pc-case-outcome__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+}
+
+.pc-case-outcome__field {
+    display: grid;
+    gap: 0.32rem;
+}
+
+.pc-case-outcome__field span {
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--pc-text-muted);
+}
+
+.pc-case-outcome__field:first-child {
+    grid-column: 1 / -1;
+}
+
+.pc-case-outcome__text {
+    min-height: 84px;
+    resize: vertical;
+}
+
+.pc-case-outcome__check {
+    min-height: 44px;
+    border: 1px solid var(--pc-border);
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--pc-surface) 92%, transparent);
+    padding: 0.45rem 0.6rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: var(--pc-text);
+}
+
+.pc-case-outcome__status {
+    margin: 0.1rem 0 0;
+    color: var(--pc-text-muted);
+    font-weight: 650;
+}
+
 @media (max-width: 900px) {
     .pc-case-intel__grid {
         grid-template-columns: 1fr;
@@ -3814,6 +3863,10 @@
 
     .pc-case-step__controls .pc-input {
         width: 100%;
+    }
+
+    .pc-case-outcome__grid {
+        grid-template-columns: 1fr;
     }
 }
 
