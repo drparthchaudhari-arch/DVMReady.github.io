@@ -32,6 +32,24 @@
         }
     }
 
+    function setOverrideNote(message, isWarning) {
+        var note = document.getElementById('icp-override-note');
+        if (!note) {
+            return;
+        }
+
+        if (!message) {
+            note.hidden = true;
+            note.textContent = '';
+            note.classList.remove('pc-is-warning');
+            return;
+        }
+
+        note.hidden = false;
+        note.textContent = message;
+        note.classList.toggle('pc-is-warning', !!isWarning);
+    }
+
     function parseQuery() {
         try {
             return new URLSearchParams(window.location.search || '');
@@ -91,6 +109,9 @@
         var bagVolume = toNumber(document.getElementById('icp-bag-volume').value);
         var insulinUnits = toNumber(document.getElementById('icp-insulin-units').value);
         var bg = toNumber(document.getElementById('icp-bg').value);
+        var userOverride = !!(document.getElementById('icp-override') && document.getElementById('icp-override').checked);
+        var overrideReasonNode = document.getElementById('icp-override-reason');
+        var overrideReason = overrideReasonNode ? String(overrideReasonNode.value || '').trim() : '';
 
         if (!Number.isFinite(weight) || weight <= 0 ||
             !Number.isFinite(dose) || dose <= 0 ||
@@ -104,7 +125,9 @@
             dose: dose,
             bagVolume: bagVolume,
             insulinUnits: insulinUnits,
-            bg: bg
+            bg: bg,
+            userOverride: userOverride,
+            overrideReason: overrideReason
         };
     }
 
@@ -183,7 +206,9 @@
                 infusionRateMlHr: output.infusionRateMlHr,
                 dextroseSupportRangeGhr: [output.dextroseLow, output.dextroseHigh]
             },
-            references: REFERENCE_BASELINE
+            references: REFERENCE_BASELINE,
+            userOverride: input.userOverride,
+            overrideReason: input.overrideReason
         });
     }
 
@@ -201,6 +226,17 @@
         var output = renderCalculation(input);
         if (!output) {
             return;
+        }
+
+        if (input.userOverride && !input.overrideReason) {
+            setOverrideNote('Override is selected. Enter an override reason to save this run in encounter logs.', true);
+            return;
+        }
+
+        if (input.userOverride) {
+            setOverrideNote('Override reason captured and saved with this calculation.', false);
+        } else {
+            setOverrideNote('', false);
         }
 
         logCalculation(input, output);

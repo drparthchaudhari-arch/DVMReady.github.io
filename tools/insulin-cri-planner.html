@@ -72,6 +72,16 @@
                     <input id="icp-bg" class="pc-input" type="number" min="20" step="1" placeholder="e.g. 320">
                 </label>
 
+                <label class="pc-calculator-field" for="icp-override">
+                    <span>User override applied?</span>
+                    <input id="icp-override" type="checkbox">
+                </label>
+
+                <label class="pc-calculator-field" for="icp-override-reason">
+                    <span>Override reason (required if checked)</span>
+                    <input id="icp-override-reason" class="pc-input" type="text" placeholder="e.g. protocol adjustment for unstable patient">
+                </label>
+
                 <div class="pc-calculator-actions">
                     <button type="submit" class="pc-btn pc-btn--primary">Calculate CRI</button>
                 </div>
@@ -100,6 +110,7 @@
                 </article>
             </div>
             <p id="icp-note" class="pc-calculator-note">Run the calculator to generate CRI planning notes.</p>
+            <p id="icp-override-note" class="pc-calculator-note" hidden></p>
             <p class="pc-disclaimer">Educational support tool only. Final insulin and dextrose changes must follow clinician protocol and frequent bedside reassessment.</p>
             <p class="pc-disclaimer">
                 Approved reference baseline (reviewed February 13, 2026):

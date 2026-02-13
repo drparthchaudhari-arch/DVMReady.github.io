@@ -85,10 +85,31 @@
         node.textContent = formatNumber(value, 1) + (suffix || '');
     }
 
+    function setOverrideNote(message, isWarning) {
+        var note = document.getElementById('fluid-override-note');
+        if (!note) {
+            return;
+        }
+
+        if (!message) {
+            note.hidden = true;
+            note.textContent = '';
+            note.classList.remove('pc-is-warning');
+            return;
+        }
+
+        note.hidden = false;
+        note.textContent = message;
+        note.classList.toggle('pc-is-warning', !!isWarning);
+    }
+
     function readInputs() {
         var weight = toNumber(document.getElementById('fluid-weight').value);
         var dehydrationPercent = toNumber(document.getElementById('fluid-dehydration').value);
         var maintenanceFactor = toNumber(document.getElementById('fluid-maintenance').value);
+        var userOverride = !!(document.getElementById('fluid-override') && document.getElementById('fluid-override').checked);
+        var overrideReasonNode = document.getElementById('fluid-override-reason');
+        var overrideReason = overrideReasonNode ? String(overrideReasonNode.value || '').trim() : '';
 
         if (!Number.isFinite(weight) || weight <= 0) {
             return null;
@@ -105,7 +126,9 @@
         return {
             weight: weight,
             dehydrationPercent: dehydrationPercent,
-            maintenanceFactor: maintenanceFactor
+            maintenanceFactor: maintenanceFactor,
+            userOverride: userOverride,
+            overrideReason: overrideReason
         };
     }
 
@@ -173,7 +196,9 @@
                 total24hMl: output.total24hMl,
                 hourlyMl: output.hourlyMl
             },
-            references: REFERENCE_BASELINE
+            references: REFERENCE_BASELINE,
+            userOverride: input.userOverride,
+            overrideReason: input.overrideReason
         });
     }
 
@@ -190,6 +215,17 @@
         var output = renderCalculation(input);
         if (!output) {
             return;
+        }
+
+        if (input.userOverride && !input.overrideReason) {
+            setOverrideNote('Override is selected. Enter an override reason to save this run in encounter logs.', true);
+            return;
+        }
+
+        if (input.userOverride) {
+            setOverrideNote('Override reason captured and saved with this calculation.', false);
+        } else {
+            setOverrideNote('', false);
         }
 
         logCalculation(input, output);

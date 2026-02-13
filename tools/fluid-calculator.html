@@ -62,6 +62,16 @@
                     <input id="fluid-maintenance" class="pc-input" type="number" min="20" max="120" step="1" value="60" required>
                 </label>
 
+                <label class="pc-calculator-field" for="fluid-override">
+                    <span>User override applied?</span>
+                    <input id="fluid-override" type="checkbox">
+                </label>
+
+                <label class="pc-calculator-field" for="fluid-override-reason">
+                    <span>Override reason (required if checked)</span>
+                    <input id="fluid-override-reason" class="pc-input" type="text" placeholder="e.g. concurrent renal compromise">
+                </label>
+
                 <div class="pc-calculator-actions">
                     <button type="submit" class="pc-btn pc-btn--primary">Calculate</button>
                 </div>
@@ -90,6 +100,7 @@
                 <p id="fluid-hourly" class="pc-calculator-highlight">-</p>
                 <p id="fluid-shock" class="pc-calculator-note">Shock bolus reminder: dogs 10-20 mL/kg aliquots; cats 5-10 mL/kg aliquots, then reassess perfusion.</p>
             </article>
+            <p id="fluid-override-note" class="pc-calculator-note" hidden></p>
             <p class="pc-disclaimer">Use this as an educational estimate. Adjust for ongoing losses, comorbidities, and serial reassessment.</p>
             <p class="pc-disclaimer">
                 Approved reference baseline (reviewed February 13, 2026):

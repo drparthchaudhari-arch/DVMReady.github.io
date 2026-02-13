@@ -20,6 +20,24 @@
         }
     }
 
+    function setOverrideNote(message, isWarning) {
+        var note = document.getElementById('chf-override-note');
+        if (!note) {
+            return;
+        }
+
+        if (!message) {
+            note.hidden = true;
+            note.textContent = '';
+            note.classList.remove('pc-is-warning');
+            return;
+        }
+
+        note.hidden = false;
+        note.textContent = message;
+        note.classList.toggle('pc-is-warning', !!isWarning);
+    }
+
     function parseQuery() {
         try {
             return new URLSearchParams(window.location.search || '');
@@ -74,10 +92,12 @@
         }
     }
 
-    function logCalculation(inputs, outputs) {
+    function logCalculation(inputs, outputs, overrideMeta) {
         if (!window.pcIntegration || typeof window.pcIntegration.logCalculation !== 'function') {
             return;
         }
+
+        var meta = overrideMeta && typeof overrideMeta === 'object' ? overrideMeta : {};
 
         window.pcIntegration.logCalculation({
             caseId: integrationContext.caseId,
@@ -88,7 +108,9 @@
             source: 'tool_chf_staging',
             inputs: inputs,
             outputs: outputs,
-            references: REFERENCE_BASELINE
+            references: REFERENCE_BASELINE,
+            userOverride: !!meta.userOverride,
+            overrideReason: String(meta.overrideReason || '').trim()
         });
     }
 
@@ -101,6 +123,9 @@
         var clinicalSigns = document.getElementById('chf-signs').checked;
         var edema = document.getElementById('chf-edema').checked;
         var remodeling = document.getElementById('chf-remodeling').checked;
+        var userOverride = !!(document.getElementById('chf-override') && document.getElementById('chf-override').checked);
+        var overrideReasonNode = document.getElementById('chf-override-reason');
+        var overrideReason = overrideReasonNode ? String(overrideReasonNode.value || '').trim() : '';
 
         var stage;
         var next;
@@ -125,7 +150,22 @@
         setText('chf-recheck', recheck);
         setText('chf-note', 'Educational staging support only. Final stage assignment requires full cardiology workup and clinician judgment.');
 
+        if (opts.skipLog && !userOverride) {
+            setOverrideNote('', false);
+        }
+
         if (!opts.skipLog) {
+            if (userOverride && !overrideReason) {
+                setOverrideNote('Override is selected. Enter an override reason to save this run in encounter logs.', true);
+                return;
+            }
+
+            if (userOverride) {
+                setOverrideNote('Override reason captured and saved with this calculation.', false);
+            } else {
+                setOverrideNote('', false);
+            }
+
             logCalculation(
                 {
                     clinicalSigns: clinicalSigns,
@@ -136,6 +176,10 @@
                     stage: stage,
                     nextStep: next,
                     recheckTiming: recheck
+                },
+                {
+                    userOverride: userOverride,
+                    overrideReason: overrideReason
                 }
             );
         }

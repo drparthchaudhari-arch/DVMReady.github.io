@@ -4607,6 +4607,14 @@
     line-height: 1.6;
 }
 
+.pc-calculator-note.pc-is-warning {
+    border: 1px solid color-mix(in srgb, var(--pc-warning) 46%, var(--pc-border));
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--pc-warning) 12%, var(--pc-surface));
+    color: color-mix(in srgb, var(--pc-warning) 88%, var(--pc-text));
+    padding: 0.5rem 0.65rem;
+}
+
 .pc-calculator-warning {
     margin: 0.65rem 0 0;
     border: 1px solid color-mix(in srgb, var(--pc-border) 70%, transparent);
