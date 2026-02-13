@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'PC System Sans';
+    src: local('Inter'), local('Segoe UI'), local('Roboto'), local('Helvetica Neue');
+    font-display: swap;
+}
+
 :root {
     /* Light Mode (Default) */
     --pc-bg-primary: #F7F7F2;
@@ -36,8 +42,8 @@
     --pc-space-3xl: 4rem;
 
     /* Typography */
-    --pc-font-heading: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --pc-font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --pc-font-heading: 'PC System Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --pc-font-body: 'PC System Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --pc-font-mono: 'SF Mono', Monaco, monospace;
     --pc-font-display: var(--pc-font-heading);
 

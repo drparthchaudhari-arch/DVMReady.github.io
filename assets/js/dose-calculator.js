@@ -51,6 +51,39 @@
         }
     }
 
+    function setFormMessage(message, isError) {
+        var node = byId('dose-form-message');
+        if (!node) {
+            return;
+        }
+        node.textContent = message || '';
+        node.classList.remove('pc-is-error');
+        node.classList.remove('pc-is-success');
+        if (message) {
+            node.classList.add(isError ? 'pc-is-error' : 'pc-is-success');
+        }
+    }
+
+    function setFieldInvalid(field, message) {
+        if (!field) {
+            return;
+        }
+        field.setAttribute('aria-invalid', message ? 'true' : 'false');
+    }
+
+    function validateRequiredFields(fields) {
+        var firstInvalid = null;
+        for (var i = 0; i < fields.length; i += 1) {
+            var field = fields[i];
+            var invalid = !field || !String(field.value || '').trim();
+            setFieldInvalid(field, invalid);
+            if (invalid && !firstInvalid) {
+                firstInvalid = field;
+            }
+        }
+        return firstInvalid;
+    }
+
     function renderConcentrationOptions(drug) {
         var list = byId('dose-concentration-list');
         var hint = byId('concentration-hint');
@@ -135,18 +168,23 @@
         var weight = parseFloat(byId('weight') ? byId('weight').value : '');
         var drugName = byId('drug-select') ? byId('drug-select').value : '';
         var concentration = parseFloat(byId('concentration') ? byId('concentration').value : '');
+        var firstInvalid = validateRequiredFields([byId('weight'), byId('drug-select'), byId('concentration')]);
 
-        if (!species || !weight || !drugName || !concentration) {
-            alert('Please fill in all fields');
+        if (firstInvalid || !species || !weight || !drugName || !concentration) {
+            setFormMessage('Please complete species, weight, drug, and concentration before calculating.', true);
+            if (firstInvalid && typeof firstInvalid.focus === 'function') {
+                firstInvalid.focus();
+            }
             return;
         }
+        setFormMessage('', false);
 
         var drug = drugsData.find(function (item) {
             return item.name === drugName;
         });
 
         if (!drug) {
-            alert('Selected drug is unavailable. Please refresh and try again.');
+            setFormMessage('Selected drug is unavailable. Refresh and try again.', true);
             return;
         }
 
@@ -160,6 +198,7 @@
             totalDaily.toFixed(2) + ' mg/day',
             ''
         );
+        setFormMessage('Calculation complete.', false);
 
         var maxDose = weight * Number(drug.max_mg_kg || 0);
         if (mgPerDose > maxDose && maxDose > 0) {

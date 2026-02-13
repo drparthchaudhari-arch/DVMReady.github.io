@@ -1,0 +1,240 @@
+{
+  "killSwitch": false,
+  "minWordCount": 420,
+  "pages": [
+    {
+      "primaryQuery": "canine cbc normal values",
+      "slug": "canine-cbc-normal-values",
+      "title": "Canine CBC Normal Values Reference – VetLudics",
+      "metaDescription": "Review canine CBC normal values with practical interpretation notes, variability warnings, and escalation red flags for veterinary study and case prep.",
+      "h1": "Canine CBC Normal Values: Practical Reference for Study and Case Review",
+      "intro": [
+        "This page is for veterinary students and early-career clinicians who need a fast but clinically useful CBC orientation in dogs.",
+        "Use it to review common ranges, recognize when a value is likely meaningful, and avoid over-interpreting isolated results.",
+        "Reference intervals vary by analyzer and laboratory, so this guide is educational and should always be cross-checked with local lab reports."
+      ],
+      "table": {
+        "columns": [
+          "CBC Parameter",
+          "Typical Dog Range",
+          "Clinical Use Note"
+        ],
+        "rows": [
+          ["PCV (Hematocrit)", "37-55%", "Interpret with hydration status and trend, not as a single-point diagnosis."],
+          ["Hemoglobin", "12-18 g/dL", "Use with PCV and RBC count to frame anemia severity and oxygen-carrying risk."],
+          ["RBC", "5.5-8.5 x10^6/uL", "Low values need context from reticulocyte response and blood-loss history."],
+          ["WBC", "6-17 x10^3/uL", "Prioritize neutrophil pattern, left shift, and toxic change over total count alone."],
+          ["Platelets", "200-500 x10^3/uL", "Confirm low counts with smear review to exclude clumping artifacts."],
+          ["Neutrophils", "3-12 x10^3/uL", "Persistent neutrophilia with left shift supports active inflammatory demand."],
+          ["Lymphocytes", "1-4.8 x10^3/uL", "Stress leukograms can lower lymphocyte count without primary immune disease."],
+          ["Monocytes", "0.15-1.35 x10^3/uL", "Monocytosis often aligns with chronic inflammation or stress patterns."],
+          ["Eosinophils", "0.1-1.25 x10^3/uL", "Interpret with parasite, allergy, and endocrinopathy context."],
+          ["Reticulocytes", "10-110 x10^3/uL", "Essential for regenerative versus non-regenerative anemia classification."]
+        ]
+      },
+      "howToUse": [
+        "Start with syndrome framing before chasing isolated values. In dyspnea, collapse, bleeding, or sepsis-style presentations, prioritize perfusion and stabilization decisions while using CBC to support the direction of care.",
+        "Use trend logic whenever possible. Two CBC panels 6 to 24 hours apart are often more informative than one panel in rapidly changing emergency cases, especially for white-cell dynamics and platelet behavior.",
+        "Pair CBC values with problem-list structure: oxygen delivery risk, inflammatory load, hemorrhage risk, and probable underlying process. This prevents overfitting to one abnormal number and improves exam-style reasoning.",
+        "When values look inconsistent with the clinical picture, verify sample quality, collection method, and analyzer notes before escalating disease assumptions."
+      ],
+      "variabilityWarnings": [
+        "Reference intervals differ by laboratory analyzer, age profile, and population characteristics.",
+        "Mild abnormalities can appear during stress or handling and do not always indicate primary disease.",
+        "Platelet clumping and sample artifacts can mimic clinically dangerous thrombocytopenia.",
+        "Hydration status can compress or dilute interpretation of red-cell indices."
+      ],
+      "escalationRedFlags": [
+        "Rapid PCV decline with perfusion compromise, active bleeding signs, or worsening mentation.",
+        "Marked leukopenia or neutropenia in a clinically unstable patient with suspected sepsis.",
+        "Severe thrombocytopenia with petechiation, melena, epistaxis, or uncontrolled hemorrhage.",
+        "CBC trends that worsen despite initial stabilization and source-control efforts."
+      ],
+      "example": {
+        "title": "Worked Interpretation Example",
+        "steps": [
+          "A dog presents with tachypnea and weakness. CBC shows PCV 24%, reticulocytes elevated, and platelets low-normal.",
+          "Initial interpretation suggests regenerative anemia with possible blood loss or hemolysis. Platelet count is monitored rather than over-called as severe thrombocytopenia.",
+          "Follow-up CBC at 12 hours shows further PCV decline and worsening perfusion signs. This shifts urgency from watchful trending to immediate escalation and cause-directed intervention."
+        ]
+      },
+      "pitfalls": [
+        "Treating one abnormal value as definitive without history, exam, and trend integration.",
+        "Ignoring analyzer and smear quality notes when platelet counts are unexpectedly low.",
+        "Missing dynamic change by relying only on initial intake CBC.",
+        "Overlooking hydration correction effects on red-cell interpretation."
+      ],
+      "sources": [
+        {
+          "label": "Merck Veterinary Manual: Hematology",
+          "href": "https://www.merckvetmanual.com/clinical-pathology-and-procedures/hematology"
+        },
+        {
+          "label": "Merck Veterinary Manual: Clinical Pathology",
+          "href": "https://www.merckvetmanual.com/clinical-pathology-and-procedures"
+        }
+      ],
+      "relatedLinks": [
+        { "label": "Dog and Cat Normal Values Hub", "href": "/dog-cat-normal-values/" },
+        { "label": "Lab Interpretation Caveats Guide", "href": "/lab-interpretation-caveats/" },
+        { "label": "Unit Converter Tool", "href": "/tools/unit-converter.html" },
+        { "label": "Try 5 Free Practice Questions", "href": "/study/navle/practice/" }
+      ],
+      "lastReviewed": "February 13, 2026"
+    },
+    {
+      "primaryQuery": "feline chemistry normal values",
+      "slug": "feline-chemistry-normal-values",
+      "title": "Feline Chemistry Normal Values Reference – VetLudics",
+      "metaDescription": "Use this feline chemistry normal values guide to review common ranges, interpretation caveats, and urgent red flags for practical veterinary study.",
+      "h1": "Feline Chemistry Normal Values: Context-First Study Reference",
+      "intro": [
+        "This feline chemistry reference is designed for rapid review during NAVLE prep and case-based learning sessions.",
+        "It focuses on values that commonly influence triage, renal assessment, endocrine reasoning, and fluid decisions.",
+        "Always interpret chemistry in combination with hydration status, urinalysis, and the patient timeline."
+      ],
+      "table": {
+        "columns": [
+          "Chemistry Parameter",
+          "Typical Cat Range",
+          "Clinical Use Note"
+        ],
+        "rows": [
+          ["Creatinine", "0.8-2.4 mg/dL", "Trend with urine concentration and body condition for renal staging accuracy."],
+          ["BUN", "16-36 mg/dL", "Interpret with hydration and GI bleed context before assigning renal etiology."],
+          ["ALT", "20-100 U/L", "Persistent elevation requires hepatobiliary context and trend evaluation."],
+          ["ALP", "10-90 U/L", "Cats often have lower baseline ALP, so moderate rises can still be meaningful."],
+          ["Total Bilirubin", "0.0-0.4 mg/dL", "Correlate with hemolysis, cholestasis, and appetite history."],
+          ["Glucose", "70-150 mg/dL", "Stress hyperglycemia is common; confirm with context before diabetes labeling."],
+          ["Sodium", "147-156 mmol/L", "Use with osmolality and hydration markers in fluid planning."],
+          ["Potassium", "3.4-5.6 mmol/L", "Prioritize ECG correlation in marked potassium derangement."],
+          ["Phosphorus", "2.5-6.0 mg/dL", "Track with renal markers and stage-dependent diet management."],
+          ["Total Calcium", "8.2-10.8 mg/dL", "Confirm significance with albumin and ionized calcium when needed."]
+        ]
+      },
+      "howToUse": [
+        "Use this table as a starting point for pattern recognition, then verify each value against your laboratory reference report. Range overlap between healthy and sick cats can occur, so clinical framing is essential.",
+        "In dehydrated or hypotensive patients, chemistry abnormalities may partly reflect perfusion state. Repeat values after stabilization can change management decisions significantly.",
+        "When assessing renal disease risk, combine creatinine, BUN, phosphorus, urine concentration, and trend trajectory. This integrated approach is more reliable than relying on one chemistry value.",
+        "For endocrine differentials, avoid over-calling diabetes from a single high glucose in stressed cats without corroborating signs or repeat confirmation."
+      ],
+      "variabilityWarnings": [
+        "Stress hyperglycemia may confound endocrine interpretation in feline patients.",
+        "Hydration shifts can exaggerate azotemia or mask severity during initial intake.",
+        "Albumin and protein status can influence interpretation of total calcium values.",
+        "Analyzer differences and sample handling delays can alter chemistry reliability."
+      ],
+      "escalationRedFlags": [
+        "Severe hyperkalemia with weakness, bradycardia, or ECG instability.",
+        "Rapidly rising creatinine or phosphorus with worsening urine output.",
+        "Marked bilirubin increase with systemic decline or neurologic changes.",
+        "Persistent severe glucose instability despite initial correction attempts."
+      ],
+      "example": {
+        "title": "Worked Interpretation Example",
+        "steps": [
+          "A senior cat presents for weight loss and lethargy. Chemistry shows creatinine 2.6 mg/dL, phosphorus high-normal, and glucose 188 mg/dL.",
+          "Given stress at presentation, glucose is not immediately labeled diabetic. Renal risk is prioritized with urinalysis and blood pressure integration.",
+          "Repeat chemistry after stabilization confirms persistent azotemia with stable glucose trend, supporting renal-focused follow-up and staging plan."
+        ]
+      },
+      "pitfalls": [
+        "Assuming all feline hyperglycemia indicates diabetes without stress-context review.",
+        "Using creatinine in isolation without muscle condition and urine data.",
+        "Ignoring recheck chemistry after fluid and perfusion correction.",
+        "Failing to integrate blood pressure and target-organ risk in renal cases."
+      ],
+      "sources": [
+        {
+          "label": "Merck Veterinary Manual: Biochemistry Reference",
+          "href": "https://www.merckvetmanual.com/clinical-pathology-and-procedures/biochemistry"
+        },
+        {
+          "label": "Merck Veterinary Manual: Renal and Urinary Disorders",
+          "href": "https://www.merckvetmanual.com/urinary-system"
+        }
+      ],
+      "relatedLinks": [
+        { "label": "Dog and Cat Normal Values Hub", "href": "/dog-cat-normal-values/" },
+        { "label": "Osmolality Basics Guide", "href": "/osmolality-basics-veterinary/" },
+        { "label": "Anion Gap Interpretation", "href": "/anion-gap-interpretation/" },
+        { "label": "Electrolyte Replacement Planner", "href": "/tools/electrolyte-replacement-planner.html" }
+      ],
+      "lastReviewed": "February 13, 2026"
+    },
+    {
+      "primaryQuery": "chocolate toxicity dose thresholds dog",
+      "slug": "chocolate-toxicity-dose-thresholds-dogs",
+      "title": "Chocolate Toxicity Dose Thresholds in Dogs – VetLudics",
+      "metaDescription": "Review educational chocolate toxicity dose thresholds in dogs with triage framing, uncertainty handling, and safety caveats for veterinary learning.",
+      "h1": "Chocolate Toxicity Dose Thresholds in Dogs: Educational Triage Guide",
+      "intro": [
+        "This page provides an educational framework for estimating chocolate exposure risk in dogs using dose-per-kilogram logic.",
+        "It is intended for study and triage reasoning practice, not as a substitute for real-time toxicology consultation.",
+        "Exposure history is often incomplete, so conservative interpretation and escalation planning are central to safe decision-making."
+      ],
+      "table": {
+        "columns": [
+          "Chocolate Type",
+          "Typical Theobromine Content",
+          "Educational Risk Framing"
+        ],
+        "rows": [
+          ["White chocolate", "Very low", "Usually low risk for methylxanthine toxicity, but GI upset and fat load still matter."],
+          ["Milk chocolate", "Lower to moderate", "Risk rises with larger ingestions or small body size."],
+          ["Dark chocolate", "Moderate to high", "Meaningful toxicity risk at lower gram intake than milk chocolate."],
+          ["Baking chocolate/cocoa powder", "High", "Highest practical risk category; treat uncertain histories conservatively."]
+        ]
+      },
+      "howToUse": [
+        "Step 1: Estimate total amount ingested and identify chocolate type. If product details are uncertain, assume a higher-risk concentration category rather than a lower one.",
+        "Step 2: Convert estimated active exposure into mg/kg using body weight. Keep estimates as ranges when owner history is incomplete.",
+        "Step 3: Integrate time since ingestion, current signs, and progression velocity. Symptomatic patients should be triaged by clinical status first, not delayed for perfect dose precision.",
+        "Step 4: Use thresholds as triage support only. Escalate early when signs suggest neurologic, cardiovascular, or persistent gastrointestinal involvement."
+      ],
+      "variabilityWarnings": [
+        "Commercial products vary substantially in cocoa concentration and labeling clarity.",
+        "Owner-reported amount ingested may under- or over-estimate true exposure.",
+        "Co-ingestants such as xylitol or raisins can change urgency independent of theobromine math.",
+        "Time from ingestion and symptom trajectory can outweigh calculated dose alone."
+      ],
+      "escalationRedFlags": [
+        "Tremors, seizures, severe agitation, or rapidly worsening neurologic status.",
+        "Persistent tachycardia, arrhythmia concern, or collapse episodes.",
+        "Refractory vomiting, dehydration progression, or declining mentation.",
+        "Any symptomatic presentation with uncertain or likely high-concentration chocolate source."
+      ],
+      "example": {
+        "title": "Worked Triage Example",
+        "steps": [
+          "A 10 kg dog is suspected to have ingested an uncertain amount of dark chocolate 60 minutes ago.",
+          "Because amount and concentration are uncertain, the calculation is treated as a range and triage is set conservatively.",
+          "The dog develops increasing restlessness and tachycardia during observation, prompting escalation despite uncertainty in exact mg/kg estimate."
+        ]
+      },
+      "pitfalls": [
+        "Treating threshold estimates as absolute guarantees rather than risk guides.",
+        "Waiting for perfect dose certainty in a symptomatic patient.",
+        "Ignoring co-ingestant risk while focusing only on chocolate type.",
+        "Failing to communicate uncertainty and return precautions clearly to owners."
+      ],
+      "sources": [
+        {
+          "label": "Merck Veterinary Manual: Toxicology",
+          "href": "https://www.merckvetmanual.com/toxicology"
+        },
+        {
+          "label": "Merck Veterinary Manual: Small Animal Poisoning",
+          "href": "https://www.merckvetmanual.com/toxicology/toxicoses-from-human-and-veterinary-medications"
+        }
+      ],
+      "relatedLinks": [
+        { "label": "Toxic Dose Calculations Guide", "href": "/toxic-dose-calculations-guide/" },
+        { "label": "Toxin Decontamination Planner", "href": "/tools/toxin-decontamination-planner.html" },
+        { "label": "Sources and Limitations", "href": "/sources-and-limitations/" },
+        { "label": "Try 5 Free Practice Questions", "href": "/study/navle/practice/" }
+      ],
+      "lastReviewed": "February 13, 2026"
+    }
+  ]
+}

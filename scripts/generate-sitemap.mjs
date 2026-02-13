@@ -1,4 +1,4 @@
-import { writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 
 const BASE_URL = 'https://parthchaudhari.com';
 const LASTMOD = new Date().toISOString().slice(0, 10);
@@ -96,7 +96,31 @@ const CANONICAL_PATHS = [
   '/play/wordvet/'
 ];
 
-const urlEntries = CANONICAL_PATHS.map((path) => {
+function loadProgrammaticRoutes() {
+  var manifestPath = 'content/programmatic/manifest.phase3.json';
+  if (!existsSync(manifestPath)) {
+    return [];
+  }
+
+  try {
+    var manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+    if (!manifest || !Array.isArray(manifest.pages)) {
+      return [];
+    }
+
+    return manifest.pages
+      .filter((page) => page && page.indexable === true && typeof page.route === 'string')
+      .map((page) => page.route);
+  } catch (error) {
+    console.error('Could not parse programmatic manifest for sitemap:', error);
+    return [];
+  }
+}
+
+const PROGRAMMATIC_PATHS = loadProgrammaticRoutes();
+const ALL_CANONICAL_PATHS = Array.from(new Set(CANONICAL_PATHS.concat(PROGRAMMATIC_PATHS)));
+
+const urlEntries = ALL_CANONICAL_PATHS.map((path) => {
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
   const loc = `${BASE_URL}${cleanPath}`;
   return [
@@ -115,4 +139,4 @@ const xml = [
 ].join('\n');
 
 writeFileSync('sitemap.xml', `${xml}\n`, 'utf8');
-console.log(`Generated sitemap.xml with ${CANONICAL_PATHS.length} canonical URLs.`);
+console.log(`Generated sitemap.xml with ${ALL_CANONICAL_PATHS.length} canonical URLs.`);

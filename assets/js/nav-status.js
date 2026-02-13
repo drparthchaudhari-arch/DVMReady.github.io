@@ -10,6 +10,13 @@
     var TEXT_SCALE_STEP = 0.1;
     var DESKTOP_WIDTH = 1280;
     var desktopViewDefaultViewport = '';
+    var ANALYTICS_SESSION_KEY = 'pc_analytics_session_v1';
+    var ANALYTICS_VISITOR_KEY = 'pc_analytics_visitor_v1';
+    var LAST_VISIT_KEY = 'pc_last_visit_iso_v1';
+    var RETENTION_7D_EMIT_KEY = 'pc_retention_7d_emit_day_v1';
+    var RETENTION_30D_EMIT_KEY = 'pc_retention_30d_emit_day_v1';
+    var ANALYTICS_BUFFER_KEY = 'pc_analytics_buffer_v1';
+    var ANALYTICS_BUFFER_LIMIT = 80;
     var NAV_ITEMS = [
         {
             id: 'tools',
@@ -113,6 +120,27 @@
             }
         }
         return false;
+    }
+
+    function scheduleNonCritical(fn, timeoutMs) {
+        var wait = typeof timeoutMs === 'number' ? timeoutMs : 150;
+        if (typeof window.requestIdleCallback === 'function') {
+            window.requestIdleCallback(function () {
+                fn();
+            }, { timeout: wait });
+            return;
+        }
+        window.setTimeout(fn, wait);
+    }
+
+    function loadScriptAsync(src) {
+        if (!src || document.querySelector('script[src="' + src + '"]')) {
+            return;
+        }
+        var script = document.createElement('script');
+        script.src = src;
+        script.defer = true;
+        document.head.appendChild(script);
     }
 
     function isLoggedInFromCache() {
@@ -313,6 +341,57 @@
         }
     }
 
+    function bindPortalMenuKeyboardSupport() {
+        var menuItems = document.querySelectorAll('.pc-nav-item--has-menu');
+        for (var i = 0; i < menuItems.length; i += 1) {
+            (function (item) {
+                var trigger = item.querySelector('.pc-nav-link');
+                var submenu = item.querySelector('.pc-nav-submenu');
+                if (!trigger || !submenu) {
+                    return;
+                }
+
+                trigger.setAttribute('aria-haspopup', 'true');
+                trigger.setAttribute('aria-expanded', 'false');
+
+                item.addEventListener('focusin', function () {
+                    trigger.setAttribute('aria-expanded', 'true');
+                });
+
+                item.addEventListener('focusout', function (event) {
+                    if (item.contains(event.relatedTarget)) {
+                        return;
+                    }
+                    trigger.setAttribute('aria-expanded', 'false');
+                });
+
+                trigger.addEventListener('keydown', function (event) {
+                    if (event.key === 'ArrowDown') {
+                        var firstLink = submenu.querySelector('.pc-nav-submenu__link');
+                        if (firstLink) {
+                            event.preventDefault();
+                            firstLink.focus();
+                            trigger.setAttribute('aria-expanded', 'true');
+                        }
+                    }
+
+                    if (event.key === 'Escape') {
+                        trigger.setAttribute('aria-expanded', 'false');
+                        trigger.blur();
+                    }
+                });
+
+                submenu.addEventListener('keydown', function (event) {
+                    if (event.key === 'Escape') {
+                        event.preventDefault();
+                        trigger.setAttribute('aria-expanded', 'false');
+                        trigger.focus();
+                    }
+                });
+            })(menuItems[i]);
+        }
+    }
+
     function normalizeLegacyNav() {
         var legacyGroups = document.querySelectorAll('.pc-nav .pc-nav__links');
         if (!legacyGroups.length) {
@@ -338,6 +417,32 @@
             logos[i].setAttribute('aria-label', SITE_BRAND + ' home');
             logos[i].setAttribute('title', SITE_BRAND);
         }
+    }
+
+    function ensureSkipLink() {
+        if (document.querySelector('.pc-skip-link')) {
+            return;
+        }
+
+        var main = document.querySelector('main');
+        if (!main) {
+            return;
+        }
+
+        if (!main.id) {
+            main.id = 'pc-main';
+        }
+
+        var link = document.createElement('a');
+        link.className = 'pc-skip-link';
+        link.href = '#' + main.id;
+        link.textContent = 'Skip to main content';
+
+        var body = document.body;
+        if (!body) {
+            return;
+        }
+        body.insertBefore(link, body.firstChild);
     }
 
     function ensureCanonicalLink() {
@@ -633,6 +738,344 @@
         }
     }
 
+    function safeGetItem(key) {
+        try {
+            return localStorage.getItem(key);
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function safeSetItem(key, value) {
+        try {
+            localStorage.setItem(key, value);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    function createId(prefix) {
+        var seed = String(Math.random()).slice(2, 8) + String(Date.now()).slice(-6);
+        return prefix + '_' + seed;
+    }
+
+    function readOrCreateId(storageKey, prefix) {
+        var existing = safeGetItem(storageKey);
+        if (existing) {
+            return existing;
+        }
+        var next = createId(prefix);
+        safeSetItem(storageKey, next);
+        return next;
+    }
+
+    function toIsoDateOnly(dateInput) {
+        var date = dateInput instanceof Date ? dateInput : new Date(dateInput);
+        if (Number.isNaN(date.getTime())) {
+            return '';
+        }
+        return date.toISOString().slice(0, 10);
+    }
+
+    function readAnalyticsBuffer() {
+        var raw = safeGetItem(ANALYTICS_BUFFER_KEY);
+        if (!raw) {
+            return [];
+        }
+        try {
+            var parsed = JSON.parse(raw);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+            return [];
+        }
+    }
+
+    function writeAnalyticsBuffer(buffer) {
+        if (!Array.isArray(buffer)) {
+            return;
+        }
+        safeSetItem(ANALYTICS_BUFFER_KEY, JSON.stringify(buffer.slice(-ANALYTICS_BUFFER_LIMIT)));
+    }
+
+    function getPageTemplate(path) {
+        if (!path) {
+            return 'unknown';
+        }
+        if (path === '/' || path === '/index.html') {
+            return 'home';
+        }
+        if (path.indexOf('/tools/') === 0 && path.indexOf('/tools/index.html') === -1) {
+            return 'tool';
+        }
+        if (path === '/tools/' || path.indexOf('/veterinary-calculators') === 0 || startsWithAny(normalizePath(path), TOOL_LANDING_PATHS)) {
+            return 'tools_hub';
+        }
+        if (path.indexOf('/study/navle/practice') === 0 || path.indexOf('/navle-practice-questions') === 0) {
+            return 'practice';
+        }
+        if (path.indexOf('/study/') === 0 || startsWithAny(normalizePath(path), STUDY_LANDING_PATHS)) {
+            return 'topic';
+        }
+        if (path.indexOf('/reference/') === 0 || path.indexOf('/dog-cat-normal-values') === 0 || path.indexOf('/sources-and-limitations') === 0) {
+            return 'reference';
+        }
+        if (path.indexOf('/bridge/case-studies/') === 0 || path.indexOf('/clinical-case-studies/') === 0) {
+            return 'case';
+        }
+        if (path.indexOf('/pricing/') === 0 || path === '/pricing') {
+            return 'pricing';
+        }
+        return 'content';
+    }
+
+    function getPathForAnalytics() {
+        return normalizePath(window.location.pathname || '/');
+    }
+
+    function parseQueryValue(url, key) {
+        var queryIndex = url.indexOf('?');
+        if (queryIndex === -1) {
+            return '';
+        }
+        var query = url.slice(queryIndex + 1).split('&');
+        for (var i = 0; i < query.length; i += 1) {
+            var part = query[i].split('=');
+            if (decodeURIComponent(part[0] || '') === key) {
+                return decodeURIComponent((part[1] || '').replace(/\+/g, ' '));
+            }
+        }
+        return '';
+    }
+
+    function createAnalyticsPayload(params) {
+        var path = getPathForAnalytics();
+        return Object.assign({
+            page_path: path,
+            page_template: getPageTemplate(path),
+            page_title: document.title || '',
+            referrer: document.referrer || '',
+            session_id: readOrCreateId(ANALYTICS_SESSION_KEY, 'sess'),
+            visitor_id: readOrCreateId(ANALYTICS_VISITOR_KEY, 'vis')
+        }, params || {});
+    }
+
+    function trackAnalyticsEvent(name, params) {
+        if (!name) {
+            return;
+        }
+
+        var payload = createAnalyticsPayload(params);
+        var eventEnvelope = {
+            event: name,
+            timestamp: new Date().toISOString(),
+            params: payload
+        };
+
+        var buffer = readAnalyticsBuffer();
+        buffer.push(eventEnvelope);
+        writeAnalyticsBuffer(buffer);
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(Object.assign({ event: name }, payload));
+
+        if (typeof window.gtag === 'function') {
+            window.gtag('event', name, payload);
+        }
+    }
+
+    function emitRetentionEvents() {
+        var now = new Date();
+        var today = toIsoDateOnly(now);
+        var previous = safeGetItem(LAST_VISIT_KEY);
+        var previousDate = previous ? new Date(previous) : null;
+        var dayMs = 24 * 60 * 60 * 1000;
+
+        if (previousDate && !Number.isNaN(previousDate.getTime())) {
+            var deltaDays = Math.floor((now.getTime() - previousDate.getTime()) / dayMs);
+
+            if (deltaDays >= 7 && safeGetItem(RETENTION_7D_EMIT_KEY) !== today) {
+                trackAnalyticsEvent('returning_user_7d', { days_since_last_visit: deltaDays });
+                safeSetItem(RETENTION_7D_EMIT_KEY, today);
+            }
+
+            if (deltaDays >= 30 && safeGetItem(RETENTION_30D_EMIT_KEY) !== today) {
+                trackAnalyticsEvent('returning_user_30d', { days_since_last_visit: deltaDays });
+                safeSetItem(RETENTION_30D_EMIT_KEY, today);
+            }
+        }
+
+        safeSetItem(LAST_VISIT_KEY, now.toISOString());
+    }
+
+    function inferToolName(path) {
+        var file = path.split('/').pop() || '';
+        if (!file) {
+            return 'unknown_tool';
+        }
+        return file.replace('.html', '').replace(/[-_]+/g, ' ');
+    }
+
+    function trackCorePageEvents() {
+        var path = getPathForAnalytics();
+        trackAnalyticsEvent('landing_page_view', {
+            landing_path: path
+        });
+
+        emitRetentionEvents();
+
+        if (path === '/pricing' || path === '/pricing/') {
+            trackAnalyticsEvent('pricing_viewed', {
+                plan_primary: 'premium_9_usd_month'
+            });
+        }
+
+        if (path.indexOf('/bridge/case-studies/') === 0 && path.indexOf('/index.html') === -1) {
+            var caseId = path.split('/').pop() || '';
+            caseId = caseId.replace('.html', '') || 'unknown_case';
+            trackAnalyticsEvent('case_opened', { case_id: caseId });
+        }
+
+    }
+
+    function bindGlobalClickTracking() {
+        document.addEventListener('click', function (event) {
+            var target = event.target;
+            if (!target || !target.closest) {
+                return;
+            }
+
+            var link = target.closest('a[href]');
+            if (!link) {
+                return;
+            }
+
+            var href = link.getAttribute('href') || '';
+            if (!href) {
+                return;
+            }
+
+            if (href.indexOf('/pricing/') === 0) {
+                trackAnalyticsEvent('paywall_viewed', {
+                    source_path: getPathForAnalytics(),
+                    cta_label: (link.textContent || '').trim().slice(0, 64)
+                });
+            }
+
+            if (href.indexOf('/account/subscription/') === 0) {
+                trackAnalyticsEvent('checkout_started', {
+                    plan: parseQueryValue(href, 'plan') || 'premium'
+                });
+            }
+        }, { passive: true });
+    }
+
+    function bindToolUsageTracking() {
+        var path = getPathForAnalytics();
+        if (path.indexOf('/tools/') !== 0 || path === '/tools') {
+            return;
+        }
+
+        var submitted = false;
+        document.addEventListener('submit', function (event) {
+            var form = event.target;
+            if (!form || submitted) {
+                return;
+            }
+            if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
+                return;
+            }
+            submitted = true;
+            trackAnalyticsEvent('tool_used', {
+                tool_name: inferToolName(path)
+            });
+            trackAnalyticsEvent('calculator_completed', {
+                tool_name: inferToolName(path)
+            });
+        }, true);
+    }
+
+    function bindPracticePaywallObserver() {
+        var path = getPathForAnalytics();
+        if (path.indexOf('/study/navle/practice/') !== 0) {
+            return;
+        }
+
+        function isVisible(node) {
+            if (!node) {
+                return false;
+            }
+            if (node.hasAttribute('hidden')) {
+                return false;
+            }
+            if (node.style && node.style.display === 'none') {
+                return false;
+            }
+            return true;
+        }
+
+        var gate = document.getElementById('gate-modal');
+        var paymentGate = document.getElementById('payment-gate');
+
+        if (gate) {
+            var gateObserver = new MutationObserver(function () {
+                if (isVisible(gate)) {
+                    trackAnalyticsEvent('paywall_viewed', { source: 'free_limit_gate' });
+                }
+            });
+            gateObserver.observe(gate, { attributes: true, attributeFilter: ['style', 'hidden', 'class'] });
+        }
+
+        if (paymentGate) {
+            var paymentObserver = new MutationObserver(function () {
+                if (isVisible(paymentGate)) {
+                    trackAnalyticsEvent('paywall_viewed', { source: 'payment_gate' });
+                }
+            });
+            paymentObserver.observe(paymentGate, { attributes: true, attributeFilter: ['style', 'hidden', 'class'] });
+        }
+    }
+
+    function trackPurchaseFromQuery() {
+        var path = getPathForAnalytics();
+        if (path.indexOf('/account/subscription/') !== 0) {
+            return;
+        }
+
+        var search = window.location.search || '';
+        var status = parseQueryValue(search, 'status') || parseQueryValue(search, 'purchase');
+        if (!status) {
+            return;
+        }
+
+        if (String(status).toLowerCase() === 'success') {
+            trackAnalyticsEvent('purchase_completed', {
+                plan: parseQueryValue(search, 'plan') || 'premium'
+            });
+        }
+    }
+
+    function exposeAnalyticsApi() {
+        window.pcAnalytics = window.pcAnalytics || {};
+        window.pcAnalytics.track = trackAnalyticsEvent;
+    }
+
+    function initAnalytics() {
+        exposeAnalyticsApi();
+        trackCorePageEvents();
+        bindGlobalClickTracking();
+        bindToolUsageTracking();
+        bindPracticePaywallObserver();
+        trackPurchaseFromQuery();
+    }
+
+    function loadRouteEnhancements() {
+        var path = getPathForAnalytics();
+        if (path === '/' || path === '/index.html') {
+            loadScriptAsync('/assets/js/home-popup.js');
+        }
+    }
+
     function clamp(value, min, max) {
         if (value < min) {
             return min;
@@ -856,11 +1299,16 @@
         applyDesktopView(desktopEnabled);
         updateDesktopLabel(desktopEnabled);
 
+        var resizeTimer = null;
         window.addEventListener('resize', function () {
-            if (readDesktopViewPreference()) {
-                setDesktopViewport();
+            if (!readDesktopViewPreference()) {
+                return;
             }
-        });
+            clearTimeout(resizeTimer);
+            resizeTimer = window.setTimeout(function () {
+                setDesktopViewport();
+            }, 120);
+        }, { passive: true });
     }
 
     function initUserViewControls() {
@@ -870,18 +1318,30 @@
     }
 
     function init() {
+        ensureSkipLink();
         applyBrandLabel();
         ensureCanonicalLink();
         normalizePortalNav();
+        bindPortalMenuKeyboardSupport();
         normalizeLegacyNav();
-        appendSectionBreadcrumbIfMissing();
-        appendGlobalQuickLinksIfMissing();
-        appendGlobalFooterIfMissing();
-        appendSiteStructuredDataIfMissing();
-        recordLastLearningLocation();
-        initUserViewControls();
-
         applyIndicator(isLoggedInFromCache());
+
+        scheduleNonCritical(function () {
+            appendSectionBreadcrumbIfMissing();
+            appendGlobalQuickLinksIfMissing();
+            appendGlobalFooterIfMissing();
+            appendSiteStructuredDataIfMissing();
+            recordLastLearningLocation();
+            initUserViewControls();
+        }, 120);
+
+        scheduleNonCritical(function () {
+            initAnalytics();
+        }, 60);
+
+        scheduleNonCritical(function () {
+            loadRouteEnhancements();
+        }, 200);
 
         window.addEventListener('storage', function (event) {
             if (event.key === AUTH_STATE_KEY) {

@@ -3,12 +3,17 @@
 
     var SESSION_KEY = 'pc_navle_practice_emergency_session_v1';
     var FREE_BANK_URL = '/content/navle/questions.json';
+    var AUTH_STATE_KEY = 'pc_sync_auth_state';
+    var SUPABASE_UMD_URL = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+    var SUPABASE_CONFIG_URL = '/assets/js/supabase-config.js';
+    var SYNC_URL = '/assets/js/sync.js?v=20260213d';
 
     var currentQuestion = null;
     var questionIndex = 0;
     var questions = [];
     var wasLoggedIn = false;
     var authHydrationInFlight = false;
+    var practiceStartedTracked = false;
 
     function byId(id) {
         return document.getElementById(id);
@@ -37,6 +42,12 @@
             return true;
         } catch (error) {
             return false;
+        }
+    }
+
+    function trackEvent(name, params) {
+        if (window.pcAnalytics && typeof window.pcAnalytics.track === 'function') {
+            window.pcAnalytics.track(name, params || {});
         }
     }
 
@@ -69,6 +80,56 @@
     function writeSessionIndex(index) {
         var normalized = Math.max(0, Number(index) || 0);
         safeSet(SESSION_KEY, JSON.stringify({ index: normalized }));
+    }
+
+    function loadScriptOnce(src) {
+        return new Promise(function (resolve, reject) {
+            var existing = document.querySelector('script[src="' + src + '"]');
+            if (existing && existing.getAttribute('data-pc-loaded') === 'true') {
+                resolve();
+                return;
+            }
+
+            if (existing) {
+                if (existing.getAttribute('data-pc-loading') === 'true') {
+                    existing.addEventListener('load', function () { resolve(); }, { once: true });
+                    existing.addEventListener('error', function () { reject(new Error('Failed to load ' + src)); }, { once: true });
+                    return;
+                }
+                resolve();
+                return;
+            }
+
+            var script = document.createElement('script');
+            script.src = src;
+            script.defer = true;
+            script.setAttribute('data-pc-loading', 'true');
+            script.addEventListener('load', function () {
+                script.setAttribute('data-pc-loaded', 'true');
+                script.removeAttribute('data-pc-loading');
+                resolve();
+            }, { once: true });
+            script.addEventListener('error', function () {
+                script.removeAttribute('data-pc-loading');
+                reject(new Error('Failed to load ' + src));
+            }, { once: true });
+            document.head.appendChild(script);
+        });
+    }
+
+    async function ensureAuthStackLoaded() {
+        if (window.pcSync) {
+            return true;
+        }
+
+        await loadScriptOnce(SUPABASE_UMD_URL);
+        await loadScriptOnce(SUPABASE_CONFIG_URL);
+        await loadScriptOnce(SYNC_URL);
+        return !!window.pcSync;
+    }
+
+    function shouldHydrateAuthOnLoad() {
+        return safeGet(AUTH_STATE_KEY) === 'signed_in';
     }
 
     function queueProgressSync() {
@@ -116,6 +177,153 @@
         if (fill) {
             fill.style.width = String((counter.current / counter.total) * 100) + '%';
         }
+    }
+
+    function isModalVisible(modal) {
+        if (!modal) {
+            return false;
+        }
+        if (modal.hasAttribute('hidden')) {
+            return false;
+        }
+        return modal.style.display !== 'none';
+    }
+
+    function getFocusableElements(modal) {
+        if (!modal) {
+            return [];
+        }
+        return Array.prototype.slice.call(
+            modal.querySelectorAll(
+                'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            )
+        );
+    }
+
+    function openModal(modal, source) {
+        if (!modal) {
+            return;
+        }
+
+        modal.removeAttribute('hidden');
+        modal.style.display = 'flex';
+        modal.setAttribute('aria-hidden', 'false');
+
+        var focusables = getFocusableElements(modal);
+        if (focusables.length) {
+            focusables[0].focus();
+        }
+
+        if (source) {
+            trackEvent('paywall_viewed', { source: source });
+        }
+    }
+
+    function closeModal(modal) {
+        if (!modal) {
+            return;
+        }
+        modal.setAttribute('hidden', '');
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+    }
+
+    function bindModalFocusTrap(modal) {
+        if (!modal || modal.dataset.pcTrapBound === 'true') {
+            return;
+        }
+        modal.dataset.pcTrapBound = 'true';
+
+        modal.addEventListener('keydown', function (event) {
+            if (!isModalVisible(modal)) {
+                return;
+            }
+
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                closeModal(modal);
+                return;
+            }
+
+            if (event.key !== 'Tab') {
+                return;
+            }
+
+            var focusables = getFocusableElements(modal);
+            if (!focusables.length) {
+                return;
+            }
+
+            var first = focusables[0];
+            var last = focusables[focusables.length - 1];
+            var active = document.activeElement;
+
+            if (event.shiftKey && active === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && active === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        });
+    }
+
+    function setupPracticeModals() {
+        var gate = byId('gate-modal');
+        var paymentGate = byId('payment-gate');
+        var gateClose = byId('gate-close-btn');
+        var gateDismiss = byId('gate-dismiss-btn');
+
+        if (gate) {
+            closeModal(gate);
+            bindModalFocusTrap(gate);
+        }
+
+        if (paymentGate) {
+            closeModal(paymentGate);
+            bindModalFocusTrap(paymentGate);
+        }
+
+        if (gateClose) {
+            gateClose.addEventListener('click', function () {
+                closeModal(gate);
+            });
+        }
+
+        if (gateDismiss) {
+            gateDismiss.addEventListener('click', function () {
+                closeModal(gate);
+            });
+        }
+
+        if (gate) {
+            gate.addEventListener('click', function (event) {
+                if (event.target === gate) {
+                    closeModal(gate);
+                }
+            });
+        }
+
+        if (paymentGate) {
+            paymentGate.addEventListener('click', function (event) {
+                if (event.target === paymentGate) {
+                    closeModal(paymentGate);
+                }
+            });
+        }
+
+        window.pcPracticeModals = {
+            openGate: function () {
+                openModal(gate, 'free_limit_gate');
+            },
+            openPaymentGate: function () {
+                openModal(paymentGate, 'payment_gate');
+            },
+            closeAll: function () {
+                closeModal(gate);
+                closeModal(paymentGate);
+            }
+        };
     }
 
     function parseQuestions(data) {
@@ -237,6 +445,13 @@
             }
 
             showQuestion(resumeIndex);
+            if (!practiceStartedTracked) {
+                practiceStartedTracked = true;
+                trackEvent('practice_started', {
+                    topic: 'mixed_emergency',
+                    question_count: questions.length
+                });
+            }
         } catch (error) {
             console.error('Failed to load questions:', error);
             if (container) {
@@ -307,6 +522,12 @@
         }
 
         var isCorrect = option === currentQuestion.correct;
+        trackEvent('practice_question_answered', {
+            question_id: currentQuestion.id || 'unknown',
+            topic: currentQuestion.topic || 'general',
+            is_correct: isCorrect ? 'true' : 'false'
+        });
+
         feedback.style.display = 'block';
         feedback.className = 'pc-question-feedback ' + (isCorrect ? 'pc-feedback--correct' : 'pc-feedback--incorrect');
         feedback.innerHTML = '' +
@@ -349,7 +570,8 @@
         }
 
         try {
-            if (window.pcSync && typeof window.pcSync.sendMagicLink === 'function') {
+            var authReady = await ensureAuthStackLoaded();
+            if (authReady && window.pcSync && typeof window.pcSync.sendMagicLink === 'function') {
                 var result = await window.pcSync.sendMagicLink(email, {
                     redirectTo: window.location.origin + getCurrentPath()
                 });
@@ -391,7 +613,12 @@
     }
 
     async function hydrateFromServerIfLoggedIn() {
-        if (!window.pcSync) {
+        if (!shouldHydrateAuthOnLoad()) {
+            return;
+        }
+
+        var authReady = await ensureAuthStackLoaded();
+        if (!authReady || !window.pcSync) {
             return;
         }
 
@@ -426,7 +653,10 @@
 
             Promise.resolve()
                 .then(function () {
-                    if (window.pcSync && typeof window.pcSync.syncFromServer === 'function') {
+                    return ensureAuthStackLoaded();
+                })
+                .then(function (ready) {
+                    if (ready && window.pcSync && typeof window.pcSync.syncFromServer === 'function') {
                         return window.pcSync.syncFromServer();
                     }
                     return null;
@@ -445,6 +675,7 @@
             return;
         }
 
+        setupPracticeModals();
         bindGateEvents();
         bindAuthResume();
         rememberLearningLocation();

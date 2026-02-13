@@ -584,6 +584,13 @@
     padding: 1rem;
 }
 
+@supports (content-visibility: auto) {
+    .pc-bridge-section {
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 560px;
+    }
+}
+
 .pc-bridge-title {
     margin: 0 0 0.8rem;
     color: var(--pc-primary);
@@ -2679,6 +2686,13 @@
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--pc-teal) 20%, transparent);
 }
 
+.pc-input[aria-invalid='true'],
+.pc-textarea[aria-invalid='true'],
+.pc-account-input[aria-invalid='true'] {
+    border-color: var(--pc-error);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--pc-error) 20%, transparent);
+}
+
 .pc-radio-label,
 .pc-diagnose-form .pc-radio-label {
     display: flex;
@@ -4141,6 +4155,11 @@
     border-radius: 12px;
     padding: 1.2rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    min-height: 380px;
+}
+
+.pc-question-container {
+    min-height: 430px;
 }
 
 .pc-question-header {
@@ -4184,6 +4203,12 @@
 .pc-option-btn:hover:not(:disabled) {
     border-color: var(--pc-teal);
     background: var(--pc-bg-secondary);
+}
+
+.pc-option-btn:focus-visible {
+    outline: 3px solid var(--pc-focus);
+    outline-offset: 2px;
+    border-color: var(--pc-teal);
 }
 
 .pc-option-btn:disabled {
@@ -4390,6 +4415,8 @@
     background: var(--pc-bg-secondary);
     box-shadow: var(--pc-shadow-xl);
     padding: 1rem;
+    max-height: min(86vh, 760px);
+    overflow: auto;
 }
 
 .pc-modal__surface--practice {
@@ -4458,6 +4485,15 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.8rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pc-option-btn,
+    .pc-practice-option,
+    .pc-tool-launch,
+    .pc-btn {
+        transition: none !important;
+    }
 }
 
 .pc-pricing-card {

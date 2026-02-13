@@ -42,6 +42,8 @@ function wrapPage({ title, description, canonicalPath, bodyClass, mainClass, jso
     <meta property="og:description" content="${description}">
     <meta property="og:url" content="${canonical}">
     <link rel="canonical" href="${canonical}">${ld}
+    <link rel="preload" href="/assets/css/tokens.css" as="style">
+    <link rel="preload" href="/assets/css/portal.css" as="style">
     <link rel="stylesheet" href="/assets/css/tokens.css">
     <link rel="stylesheet" href="/assets/css/portal.css">
     <script src="/assets/js/theme-toggle.js" defer></script>

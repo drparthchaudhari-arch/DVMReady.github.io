@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "sitemap": "node scripts/generate-sitemap.mjs"
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "programmatic": "node scripts/generate-programmatic-pages.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
