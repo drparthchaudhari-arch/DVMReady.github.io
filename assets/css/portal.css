@@ -2262,6 +2262,17 @@
     background: color-mix(in srgb, var(--pc-teal) 10%, var(--pc-bg-secondary));
 }
 
+/* Keep header layout stable when toggle labels change text length. */
+.pc-nav-toggle[data-pc-mode-toggle] {
+    min-inline-size: 11.75rem;
+    justify-content: center;
+}
+
+.pc-nav-toggle[data-pc-theme-toggle] {
+    min-inline-size: 8.75rem;
+    justify-content: center;
+}
+
 [data-theme='dark'] .pc-nav,
 [data-theme='dark'] .pc-portal-nav__inner {
     background: color-mix(in srgb, var(--pc-bg-primary) 94%, transparent);
