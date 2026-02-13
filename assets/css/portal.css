@@ -384,6 +384,24 @@
     margin-top: 0.25rem;
 }
 
+.pc-home-window-section + .pc-home-window-section {
+    margin-top: 0.9rem;
+}
+
+.pc-home-window-subtitle {
+    margin: 0 0 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--pc-text-muted);
+}
+
+.pc-home-window-links--dense {
+    margin-top: 0;
+    gap: 0.24rem;
+}
+
 .pc-home-window-links li {
     margin: 0.02rem 0;
 }
@@ -394,6 +412,27 @@
     gap: 0.28rem;
     text-decoration: none;
     font-weight: 750;
+}
+
+.pc-home-window-links--dense a {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.pc-home-window-badge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.34rem;
+    padding: 0.06rem 0.42rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--pc-border) 82%, transparent);
+    background: color-mix(in srgb, var(--pc-surface-strong) 86%, transparent);
+    color: var(--pc-text-muted);
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    vertical-align: middle;
 }
 
 .pc-home-window-links a::after {
