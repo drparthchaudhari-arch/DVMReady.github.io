@@ -32,6 +32,7 @@
             ]
         }
     ];
+    var PLAY_ICON = '\u25b6';
 
     var TOOL_LANDING_PATHS = [
         '/veterinary-calculators-guide',
@@ -249,6 +250,19 @@
         return anchor;
     }
 
+    function createPlayNavAction(pathname) {
+        var anchor = document.createElement('a');
+        var isActive = isPathMatch(pathname, '/play/');
+        anchor.className = 'pc-nav-action pc-nav-action--play' + (isActive ? ' pc-is-active' : '');
+        anchor.href = '/play/';
+        anchor.setAttribute('title', 'Open games');
+        anchor.setAttribute('aria-label', 'Open games');
+        anchor.innerHTML =
+            '<span class="pc-nav-action__icon" aria-hidden="true">' + PLAY_ICON + '</span>' +
+            '<span class="pc-nav-action__label">Play</span>';
+        return anchor;
+    }
+
     function normalizePortalNav() {
         var groups = document.querySelectorAll('.pc-portal-nav .pc-nav-group');
         if (!groups.length) {
@@ -264,7 +278,7 @@
             var themeToggle = group.querySelector('[data-pc-theme-toggle]');
             var insertBefore = modeToggle || themeToggle || null;
 
-            var existingItems = group.querySelectorAll('.pc-nav-link, .pc-nav-item');
+            var existingItems = group.querySelectorAll('.pc-nav-link, .pc-nav-item, .pc-nav-action');
             for (var j = 0; j < existingItems.length; j += 1) {
                 existingItems[j].remove();
             }
@@ -276,6 +290,13 @@
                 } else {
                     group.appendChild(navItem);
                 }
+            }
+
+            var playAction = createPlayNavAction(pathname);
+            if (insertBefore) {
+                group.insertBefore(playAction, insertBefore);
+            } else {
+                group.appendChild(playAction);
             }
         }
     }
