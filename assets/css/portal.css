@@ -2676,6 +2676,112 @@
     border: 0;
 }
 
+.pc-diagnose-container {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--pc-bg-tertiary);
+    border-radius: 12px;
+}
+
+.pc-diagnose-question {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.pc-diagnose-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.pc-diagnose-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #FFFFFF;
+    border: 2px solid var(--pc-border);
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    color: var(--pc-text-primary);
+}
+
+.pc-diagnose-option:hover:not(:disabled) {
+    border-color: var(--pc-teal);
+    background: var(--pc-bg-primary);
+}
+
+.pc-diagnose-option:disabled {
+    cursor: default;
+}
+
+.pc-diagnose-option--correct {
+    border-color: var(--pc-success) !important;
+    background: rgba(72, 187, 120, 0.1) !important;
+}
+
+.pc-diagnose-option--incorrect {
+    border-color: var(--pc-error) !important;
+    background: rgba(229, 62, 62, 0.1) !important;
+}
+
+.pc-option-letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--pc-teal);
+    color: #FFFFFF;
+    border-radius: 50%;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.pc-diagnose-option--correct .pc-option-letter {
+    background: var(--pc-success);
+}
+
+.pc-diagnose-option--incorrect .pc-option-letter {
+    background: var(--pc-error);
+}
+
+.pc-diagnose-feedback {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background: var(--pc-bg-secondary);
+    border-radius: 8px;
+    border-left: 4px solid var(--pc-teal);
+}
+
+.pc-feedback-title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+}
+
+.pc-feedback-title--correct {
+    color: var(--pc-success);
+}
+
+.pc-feedback-title--incorrect {
+    color: var(--pc-error);
+}
+
+.pc-completion-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--pc-success);
+    color: #FFFFFF;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
 /* Account */
 .pc-account-page {
     max-width: 800px;
@@ -3355,3 +3461,28 @@
         width: 100%;
     }
 }
+
+.pc-today-page { max-width: 800px; margin: 0 auto; padding: 2rem 1rem; }
+.pc-today-header { text-align: center; margin-bottom: 2rem; }
+.pc-streak-display { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: linear-gradient(135deg, #FF6B35 0%, #FF8F6B 100%); color: white; border-radius: 20px; font-weight: 700; margin-bottom: 1rem; }
+.pc-streak-icon { font-size: 1.5rem; }
+.pc-streak-count { font-size: 1.5rem; }
+.pc-today-date { color: var(--pc-text-muted); margin-top: 0.5rem; }
+.pc-today-progress { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; }
+.pc-progress-card { background: var(--pc-bg-secondary); border: 1px solid var(--pc-border); border-radius: 12px; padding: 1rem 2rem; text-align: center; min-width: 120px; }
+.pc-progress-number { display: block; font-size: 2rem; font-weight: 800; color: var(--pc-teal); }
+.pc-progress-label { font-size: 0.875rem; color: var(--pc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.pc-today-tasks { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+.pc-task-card { background: var(--pc-bg-secondary); border: 2px solid var(--pc-border); border-radius: 12px; padding: 1.5rem; transition: all 0.2s; }
+.pc-task-card:hover { border-color: var(--pc-teal); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.pc-task-card--completed { opacity: 0.7; border-color: var(--pc-success); background: rgba(72, 187, 120, 0.05); }
+.pc-task-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; font-size: 0.875rem; color: var(--pc-text-muted); }
+.pc-task-number { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--pc-teal); color: white; border-radius: 50%; font-weight: 700; font-size: 0.875rem; }
+.pc-task-card--completed .pc-task-number { background: var(--pc-success); }
+.pc-task-category { text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+.pc-task-time { margin-left: auto; }
+.pc-task-title { font-size: 1.25rem; font-weight: 700; margin: 0 0 0.25rem 0; color: var(--pc-text-primary); }
+.pc-task-type { color: var(--pc-text-muted); margin: 0 0 1rem 0; font-size: 0.875rem; }
+.pc-task-complete-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--pc-success); color: white; border-radius: 20px; font-weight: 600; }
+.pc-study-break { background: linear-gradient(135deg, var(--pc-bg-tertiary) 0%, var(--pc-bg-secondary) 100%); border: 2px dashed var(--pc-coral); border-radius: 12px; padding: 2rem; text-align: center; margin-bottom: 2rem; }
+.pc-completion-celebration { background: linear-gradient(135deg, rgba(0, 245, 212, 0.1) 0%, var(--pc-bg-secondary) 100%); border: 2px solid var(--pc-mint); border-radius: 12px; padding: 2rem; text-align: center; }

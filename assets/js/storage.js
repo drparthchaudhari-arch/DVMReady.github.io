@@ -1,394 +1,208 @@
-(function () {
-    var CASE_PREFIX = 'pc_case_';
-    var STUDY_PLAN_KEY = 'pc_study_plan';
-    var GAME_ACTIVITY_KEY = 'pc_game_activity';
-    var SYNC_META_KEY = 'pc_sync_meta';
-    var EXPORT_VERSION = 1;
-    var KNOWN_GAME_KEYS = [
-        'totalScore',
-        'highestStreak',
-        'gameProgress',
-        'playerName',
-        'lobbies',
-        'sudoku-stats',
-        'sudoku-theme',
-        'neuralArchitectData',
-        'tictactoe-nexus-stats'
-    ];
-    var KNOWN_GAME_PREFIXES = ['2048ultimate_'];
+const PC_STORAGE_PREFIX = 'pc_';
+const PC_SCHEMA_VERSION = 1;
 
-    function safeParse(value, fallback) {
-        if (!value) {
-            return fallback;
-        }
-        try {
-            var parsed = JSON.parse(value);
-            return parsed !== undefined ? parsed : fallback;
-        } catch (error) {
-            return fallback;
-        }
+const PCStorage = {
+  // Core methods
+  get(key, defaultValue = null) {
+    try {
+      const item = localStorage.getItem(PC_STORAGE_PREFIX + key);
+      return item ? JSON.parse(item) : defaultValue;
+    } catch (e) {
+      console.error('Storage get error:', e);
+      return defaultValue;
     }
+  },
 
-    function isObject(value) {
-        return value && typeof value === 'object' && !Array.isArray(value);
+  set(key, value) {
+    try {
+      localStorage.setItem(PC_STORAGE_PREFIX + key, JSON.stringify(value));
+      return true;
+    } catch (e) {
+      console.error('Storage set error:', e);
+      return false;
     }
+  },
 
-    function cloneValue(value, fallback) {
-        try {
-            return JSON.parse(JSON.stringify(value));
-        } catch (error) {
-            return fallback;
-        }
+  merge(key, partialValue) {
+    const existing = this.get(key, {});
+    const merged = { ...existing, ...partialValue };
+    return this.set(key, merged);
+  },
+
+  remove(key) {
+    localStorage.removeItem(PC_STORAGE_PREFIX + key);
+  },
+
+  // Date handling (Toronto timezone without external libs)
+  getTodayKey() {
+    const now = new Date();
+    // Create date string in Toronto timezone
+    const torontoOffset = -300; // EST offset in minutes (simplified)
+    const localOffset = now.getTimezoneOffset();
+    const diff = (torontoOffset - localOffset) * 60 * 1000;
+    const torontoTime = new Date(now.getTime() + diff);
+
+    return torontoTime.toISOString().split('T')[0]; // YYYY-MM-DD
+  },
+
+  // Schema management
+  checkSchema() {
+    const currentVersion = this.get('schema_version', 0);
+    if (currentVersion < PC_SCHEMA_VERSION) {
+      this.migrate(currentVersion, PC_SCHEMA_VERSION);
+      this.set('schema_version', PC_SCHEMA_VERSION);
     }
+  },
 
-    function safeGetItem(key) {
-        try {
-            return localStorage.getItem(key);
-        } catch (error) {
-            return null;
-        }
-    }
+  migrate(fromVersion, toVersion) {
+    console.log(`Migrating storage from v${fromVersion} to v${toVersion}`);
+    // Migration logic here if needed in future
+  },
 
-    function safeSetItem(key, value) {
-        try {
-            localStorage.setItem(key, value);
-            return true;
-        } catch (error) {
-            return false;
-        }
-    }
+  // Specific data getters/setters
+  getPrefs() {
+    return this.get('prefs', { mode: 'pro', theme: 'light' });
+  },
 
-    function safeRemoveItem(key) {
-        try {
-            localStorage.removeItem(key);
-            return true;
-        } catch (error) {
-            return false;
-        }
-    }
+  setPrefs(prefs) {
+    return this.set('prefs', prefs);
+  },
 
-    function getAllLocalStorageKeys() {
-        var keys = [];
-        try {
-            for (var i = 0; i < localStorage.length; i += 1) {
-                keys.push(localStorage.key(i));
-            }
-        } catch (error) {
-            return [];
-        }
-        return keys;
-    }
+  getCaseCompletion(caseId) {
+    const completions = this.get('case_completion', {});
+    return completions[caseId] || null;
+  },
 
-    function getIsoNow() {
-        return new Date().toISOString();
-    }
-
-    function toTimestamp(value) {
-        var time = Date.parse(value || '');
-        return Number.isFinite(time) ? time : 0;
-    }
-
-    function pickLatestIso(a, b) {
-        return toTimestamp(a) >= toTimestamp(b) ? (a || '') : (b || '');
-    }
-
-    function getSyncMeta() {
-        var parsed = safeParse(safeGetItem(SYNC_META_KEY), {});
-        return isObject(parsed) ? parsed : {};
-    }
-
-    function saveSyncMeta(meta) {
-        if (!isObject(meta)) {
-            return false;
-        }
-        return safeSetItem(SYNC_META_KEY, JSON.stringify(meta));
-    }
-
-    function touchField(fieldName, timestamp) {
-        if (!fieldName) {
-            return false;
-        }
-
-        var value = timestamp || getIsoNow();
-        var meta = getSyncMeta();
-        meta[fieldName] = value;
-        meta.updated_at = pickLatestIso(meta.updated_at, value);
-        return saveSyncMeta(meta);
-    }
-
-    function setLastSyncedAt(timestamp) {
-        var value = timestamp || getIsoNow();
-        var meta = getSyncMeta();
-        meta.last_synced_at = value;
-        meta.updated_at = pickLatestIso(meta.updated_at, value);
-        return saveSyncMeta(meta);
-    }
-
-    function getLastSyncedAt() {
-        var meta = getSyncMeta();
-        return meta.last_synced_at || '';
-    }
-
-    function normalizeSyncField(fieldValue, fallbackData) {
-        var defaultData = fallbackData !== undefined ? fallbackData : {};
-        if (isObject(fieldValue) && isObject(fieldValue.data)) {
-            return {
-                data: cloneValue(fieldValue.data, defaultData),
-                updatedAt: fieldValue.updatedAt || fieldValue.updated_at || ''
-            };
-        }
-
-        if (isObject(fieldValue)) {
-            return {
-                data: cloneValue(fieldValue, defaultData),
-                updatedAt: fieldValue.updatedAt || fieldValue.updated_at || ''
-            };
-        }
-
-        return {
-            data: cloneValue(defaultData, {}),
-            updatedAt: ''
-        };
-    }
-
-    function getCaseCompletions() {
-        var keys = getAllLocalStorageKeys();
-        var output = {};
-
-        for (var i = 0; i < keys.length; i += 1) {
-            var key = keys[i];
-            if (!key || key.indexOf(CASE_PREFIX) !== 0) {
-                continue;
-            }
-            if (safeGetItem(key) === 'completed') {
-                output[key] = 'completed';
-            }
-        }
-
-        return output;
-    }
-
-    function countCaseCompletions() {
-        return Object.keys(getCaseCompletions()).length;
-    }
-
-    function markCaseCompleted(caseKey, timestamp) {
-        if (!caseKey) {
-            return false;
-        }
-        safeSetItem(caseKey, 'completed');
-        touchField('case_completions', timestamp);
-        return true;
-    }
-
-    function getStudyPlan() {
-        var parsed = safeParse(safeGetItem(STUDY_PLAN_KEY), null);
-        return isObject(parsed) ? parsed : null;
-    }
-
-    function setStudyPlan(plan, timestamp) {
-        if (!isObject(plan)) {
-            return false;
-        }
-        var stored = safeSetItem(STUDY_PLAN_KEY, JSON.stringify(plan));
-        if (stored) {
-            touchField('study_plan', timestamp);
-        }
-        return stored;
-    }
-
-    function getCurrentStreak() {
-        var studyPlan = getStudyPlan();
-        var streakValue = studyPlan ? Number(studyPlan.currentStreak) : 0;
-        return Number.isFinite(streakValue) && streakValue > 0 ? streakValue : 0;
-    }
-
-    function getGameActivity() {
-        var parsed = safeParse(safeGetItem(GAME_ACTIVITY_KEY), {});
-        return isObject(parsed) ? parsed : {};
-    }
-
-    function setGameActivity(activity, timestamp) {
-        if (!isObject(activity)) {
-            return false;
-        }
-        var stored = safeSetItem(GAME_ACTIVITY_KEY, JSON.stringify(activity));
-        if (stored) {
-            touchField('game_activity', timestamp);
-        }
-        return stored;
-    }
-
-    function buildLocalSyncPayload() {
-        var meta = getSyncMeta();
-        return {
-            case_completions: {
-                data: getCaseCompletions(),
-                updatedAt: meta.case_completions || ''
-            },
-            study_plan: {
-                data: getStudyPlan() || {},
-                updatedAt: meta.study_plan || ''
-            },
-            game_activity: {
-                data: getGameActivity(),
-                updatedAt: meta.game_activity || ''
-            },
-            updated_at: meta.updated_at || ''
-        };
-    }
-
-    function applyCaseCompletionData(field) {
-        var normalized = normalizeSyncField(field, {});
-        var data = normalized.data;
-
-        if (isObject(data)) {
-            var keys = Object.keys(data);
-            for (var i = 0; i < keys.length; i += 1) {
-                var key = keys[i];
-                if (!key || key.indexOf(CASE_PREFIX) !== 0) {
-                    continue;
-                }
-
-                var value = data[key];
-                var completed = value === 'completed' || value === true || (isObject(value) && value.status === 'completed');
-                if (completed) {
-                    safeSetItem(key, 'completed');
-                }
-            }
-        }
-
-        if (normalized.updatedAt) {
-            touchField('case_completions', normalized.updatedAt);
-        }
-    }
-
-    function applyStudyPlanData(field) {
-        var normalized = normalizeSyncField(field, {});
-        if (isObject(normalized.data) && Object.keys(normalized.data).length) {
-            safeSetItem(STUDY_PLAN_KEY, JSON.stringify(normalized.data));
-            touchField('study_plan', normalized.updatedAt || getIsoNow());
-        }
-    }
-
-    function applyGameActivityData(field) {
-        var normalized = normalizeSyncField(field, {});
-        if (isObject(normalized.data) && Object.keys(normalized.data).length) {
-            safeSetItem(GAME_ACTIVITY_KEY, JSON.stringify(normalized.data));
-            touchField('game_activity', normalized.updatedAt || getIsoNow());
-        }
-    }
-
-    function applySyncData(payload) {
-        if (!isObject(payload)) {
-            return false;
-        }
-
-        applyCaseCompletionData(payload.case_completions);
-        applyStudyPlanData(payload.study_plan);
-        applyGameActivityData(payload.game_activity);
-
-        if (payload.updated_at) {
-            var meta = getSyncMeta();
-            meta.updated_at = pickLatestIso(meta.updated_at, payload.updated_at);
-            saveSyncMeta(meta);
-        }
-
-        return true;
-    }
-
-    function startsWithAnyPrefix(value, prefixes) {
-        for (var i = 0; i < prefixes.length; i += 1) {
-            if (value.indexOf(prefixes[i]) === 0) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function shouldIncludeInExport(key) {
-        if (!key) {
-            return false;
-        }
-
-        if (key.indexOf('pc_') === 0) {
-            return true;
-        }
-
-        if (KNOWN_GAME_KEYS.indexOf(key) !== -1) {
-            return true;
-        }
-
-        return startsWithAnyPrefix(key, KNOWN_GAME_PREFIXES);
-    }
-
-    function exportDataBundle() {
-        var keys = getAllLocalStorageKeys();
-        var records = {};
-
-        for (var i = 0; i < keys.length; i += 1) {
-            var key = keys[i];
-            if (!shouldIncludeInExport(key)) {
-                continue;
-            }
-            records[key] = safeGetItem(key);
-        }
-
-        return {
-            version: EXPORT_VERSION,
-            exportedAt: getIsoNow(),
-            keys: records
-        };
-    }
-
-    function importDataBundle(bundle) {
-        if (!isObject(bundle)) {
-            return {
-                imported: 0,
-                success: false
-            };
-        }
-
-        var records = isObject(bundle.keys) ? bundle.keys : bundle;
-        var keys = Object.keys(records);
-        var imported = 0;
-
-        for (var i = 0; i < keys.length; i += 1) {
-            var key = keys[i];
-            var value = records[key];
-            if (typeof value !== 'string') {
-                value = JSON.stringify(value);
-            }
-            if (safeSetItem(key, value)) {
-                imported += 1;
-            }
-        }
-
-        return {
-            imported: imported,
-            success: imported > 0
-        };
-    }
-
-    window.pcStorage = {
-        safeGetItem: safeGetItem,
-        safeSetItem: safeSetItem,
-        safeRemoveItem: safeRemoveItem,
-        getSyncMeta: getSyncMeta,
-        touchField: touchField,
-        setLastSyncedAt: setLastSyncedAt,
-        getLastSyncedAt: getLastSyncedAt,
-        getCaseCompletions: getCaseCompletions,
-        countCaseCompletions: countCaseCompletions,
-        markCaseCompleted: markCaseCompleted,
-        getStudyPlan: getStudyPlan,
-        setStudyPlan: setStudyPlan,
-        getCurrentStreak: getCurrentStreak,
-        getGameActivity: getGameActivity,
-        setGameActivity: setGameActivity,
-        buildLocalSyncPayload: buildLocalSyncPayload,
-        applySyncData: applySyncData,
-        exportDataBundle: exportDataBundle,
-        importDataBundle: importDataBundle
+  setCaseCompletion(caseId, data) {
+    const completions = this.get('case_completion', {});
+    completions[caseId] = {
+      completedAt: new Date().toISOString(),
+      ...data
     };
-})();
+    return this.set('case_completion', completions);
+  },
+
+  getStudyProgress() {
+    return this.get('study_progress', {
+      currentStreak: 0,
+      lastActiveDate: null,
+      topics: {}
+    });
+  },
+
+  updateStudyProgress(topicId, status) {
+    const progress = this.getStudyProgress();
+    progress.topics[topicId] = {
+      status,
+      updatedAt: new Date().toISOString()
+    };
+    return this.set('study_progress', progress);
+  },
+
+  getDaily(dateKey) {
+    return this.get('daily_' + dateKey, {
+      dateKey,
+      tasks: [],
+      completedCount: 0,
+      lastActivityAt: null
+    });
+  },
+
+  setDaily(dateKey, data) {
+    return this.set('daily_' + dateKey, data);
+  },
+
+  getStreak() {
+    return this.get('streak', { current: 0, lastActiveDateKey: null });
+  },
+
+  updateStreak(dateKey) {
+    const streak = this.getStreak();
+    const lastDate = streak.lastActiveDateKey;
+
+    if (!lastDate) {
+      // First activity ever
+      streak.current = 1;
+    } else if (lastDate === dateKey) {
+      // Already active today, no change
+      return streak;
+    } else {
+      // Check if consecutive
+      const last = new Date(lastDate);
+      const today = new Date(dateKey);
+      const diffDays = Math.floor((today - last) / (1000 * 60 * 60 * 24));
+
+      if (diffDays === 1) {
+        streak.current += 1; // Consecutive day
+      } else if (diffDays > 1) {
+        streak.current = 1; // Streak broken, start new
+      }
+    }
+
+    streak.lastActiveDateKey = dateKey;
+    this.set('streak', streak);
+    return streak;
+  },
+
+  recordGameLaunch(gameId) {
+    const launches = this.get('game_launches', {});
+    launches[gameId] = {
+      lastLaunchedAt: new Date().toISOString(),
+      launchCount: (launches[gameId]?.launchCount || 0) + 1
+    };
+    return this.set('game_launches', launches);
+  },
+
+  wasGamePlayedToday(gameId) {
+    const launches = this.get('game_launches', {});
+    const launch = launches[gameId];
+    if (!launch) return false;
+
+    const todayKey = this.getTodayKey();
+    const launchDate = launch.lastLaunchedAt.split('T')[0];
+    return launchDate === todayKey;
+  },
+
+  // Export/Import
+  exportAll() {
+    const data = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith(PC_STORAGE_PREFIX)) {
+        const shortKey = key.replace(PC_STORAGE_PREFIX, '');
+        data[shortKey] = this.get(shortKey);
+      }
+    }
+    return {
+      schema_version: PC_SCHEMA_VERSION,
+      exportedAt: new Date().toISOString(),
+      data
+    };
+  },
+
+  importAll(exportData) {
+    if (!exportData || !exportData.data) {
+      throw new Error('Invalid export data');
+    }
+
+    // Merge rather than replace
+    Object.keys(exportData.data).forEach(key => {
+      const existing = this.get(key);
+      const incoming = exportData.data[key];
+
+      if (existing && typeof existing === 'object' && typeof incoming === 'object') {
+        this.set(key, { ...existing, ...incoming });
+      } else {
+        this.set(key, incoming);
+      }
+    });
+
+    return true;
+  }
+};
+
+// Initialize on load
+PCStorage.checkSchema();
+
+// Make globally available
+window.PCStorage = PCStorage;

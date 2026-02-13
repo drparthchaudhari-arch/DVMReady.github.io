@@ -24,7 +24,7 @@
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
         <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">ParthChaudhari</a>
+            <a class="pc-logo" href="/">VetLudics Portal</a>
             <div class="pc-nav-group">
                 <a class="pc-nav-link" href="/info.html">About Me</a>
                 <a class="pc-nav-link" href="/play/">Play</a>
@@ -105,41 +105,94 @@
                 </ol>
             </section>
 
-            <section class="pc-diagnose-box pc-card" data-pc-diagnose>
+            <section class="pc-diagnose-box pc-card">
                 <h3>Diagnose This</h3>
-                <p><strong>Question:</strong> Best confirmatory test?</p>
 
-                <form class="pc-diagnose-form pc-form" data-pc-diagnose-form
-                      data-case-key="pc_case_hyperthyroid"
-                      data-correct="A"
-                      data-correct-label="Total T4 concentration"
-                      data-explanation="Total T4 is elevated in 90% of hyperthyroid cats and serves as both screening and confirmatory test in typical presentations."
-                      data-teaching="Start with the screening test that confirms the diagnosis in most cases before pursuing advanced diagnostics."
-                      data-study-link="/play/wordvet/"
-                      data-study-label="Study Endocrine Terms in WordVet">
+                <div class="pc-diagnose-container">
+                    <p class="pc-diagnose-question"><strong>Question:</strong> What is the most appropriate confirmatory test?</p>
 
-                    <label class="pc-radio-label">
-                        <input type="radio" name="pc_diagnosis" value="A" required>
-                        <span>A) Total T4 concentration</span>
-                    </label>
+                    <div class="pc-diagnose-options">
+                        <button class="pc-diagnose-option" data-answer="A" data-correct="true">
+                            <span class="pc-option-letter">A</span>
+                            <span class="pc-option-text">Total T4 concentration</span>
+                        </button>
 
-                    <label class="pc-radio-label">
-                        <input type="radio" name="pc_diagnosis" value="B">
-                        <span>B) T3 suppression test</span>
-                    </label>
+                        <button class="pc-diagnose-option" data-answer="B" data-correct="false">
+                            <span class="pc-option-letter">B</span>
+                            <span class="pc-option-text">T3 suppression test</span>
+                        </button>
 
-                    <label class="pc-radio-label">
-                        <input type="radio" name="pc_diagnosis" value="C">
-                        <span>C) Thyroid scintigraphy</span>
-                    </label>
-
-                    <div class="pc-diagnose-actions">
-                        <button type="button" class="pc-btn pc-btn--primary" data-pc-check-answer>Check Answer</button>
-                        <span class="pc-completed-badge" data-pc-completed hidden>✓ Completed</span>
+                        <button class="pc-diagnose-option" data-answer="C" data-correct="false">
+                            <span class="pc-option-letter">C</span>
+                            <span class="pc-option-text">Thyroid scintigraphy</span>
+                        </button>
                     </div>
-                </form>
 
-                <div class="pc-answer" data-pc-feedback hidden aria-live="polite"></div>
+                    <div class="pc-diagnose-feedback" hidden>
+                        <div class="pc-feedback-content">
+                            <h4 class="pc-feedback-title"></h4>
+                            <p class="pc-feedback-explanation"></p>
+                            <p class="pc-feedback-teaching"></p>
+                            <a href="/play/wordvet/" class="pc-btn pc-btn--primary">Study Endocrine Terms</a>
+                        </div>
+                    </div>
+
+                    <div class="pc-completion-badge" hidden>
+                        ✓ Completed
+                    </div>
+                </div>
+
+                <script>
+                (function() {
+                    var container = document.querySelector('.pc-diagnose-container');
+                    if (!container) return;
+
+                    var options = container.querySelectorAll('.pc-diagnose-option');
+                    var feedback = container.querySelector('.pc-diagnose-feedback');
+                    var badge = container.querySelector('.pc-completion-badge');
+
+                    if (localStorage.getItem('pc_case_hyperthyroid') === 'completed') {
+                        badge.hidden = false;
+                        options.forEach(function(opt) {
+                            opt.disabled = true;
+                        });
+                    }
+
+                    options.forEach(function(option) {
+                        option.addEventListener('click', function() {
+                            var isCorrect = this.dataset.correct === 'true';
+
+                            options.forEach(function(opt) {
+                                opt.disabled = true;
+                                if (opt.dataset.correct === 'true') {
+                                    opt.classList.add('pc-diagnose-option--correct');
+                                } else if (opt === option && !isCorrect) {
+                                    opt.classList.add('pc-diagnose-option--incorrect');
+                                }
+                            });
+
+                            feedback.hidden = false;
+                            var title = feedback.querySelector('.pc-feedback-title');
+                            var explanation = feedback.querySelector('.pc-feedback-explanation');
+                            var teaching = feedback.querySelector('.pc-feedback-teaching');
+
+                            if (isCorrect) {
+                                title.textContent = '✓ Correct!';
+                                title.className = 'pc-feedback-title pc-feedback-title--correct';
+                                localStorage.setItem('pc_case_hyperthyroid', 'completed');
+                                localStorage.setItem('pc_case_hyperthyroid_completedAt', new Date().toISOString());
+                                badge.hidden = false;
+                            } else {
+                                title.textContent = '✗ Not the best choice';
+                                title.className = 'pc-feedback-title pc-feedback-title--incorrect';
+                            }
+
+                            explanation.textContent = 'Total T4 is elevated in most hyperthyroid cats and serves as both a screening and confirmatory test in typical presentations.';
+                            teaching.textContent = 'NAVLE prioritizes the highest-yield confirmatory test before advanced endocrine diagnostics.';
+                        });
+                    });
+                })();
+                </script>
             </section>
 
             <section class="pc-case-section pc-card">

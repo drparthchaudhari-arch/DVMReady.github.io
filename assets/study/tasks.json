@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "topics": [
+    {
+      "id": "cardio_chf",
+      "title": "Canine Congestive Heart Failure",
+      "category": "cardiology",
+      "type": "case",
+      "url": "/bridge/case-studies/chf-dog.html",
+      "estimatedTime": 15,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "endocrine_dka",
+      "title": "Canine Diabetic Ketoacidosis",
+      "category": "endocrine",
+      "type": "case",
+      "url": "/bridge/case-studies/dka-dog.html",
+      "estimatedTime": 20,
+      "difficulty": "advanced"
+    },
+    {
+      "id": "endocrine_hyperthyroid",
+      "title": "Feline Hyperthyroidism",
+      "category": "endocrine",
+      "type": "case",
+      "url": "/bridge/case-studies/feline-hyperthyroid.html",
+      "estimatedTime": 15,
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "production_mastitis",
+      "title": "Bovine Mastitis",
+      "category": "production",
+      "type": "case",
+      "url": "/bridge/case-studies/bovine-mastitis.html",
+      "estimatedTime": 15,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "wordvet_cardio",
+      "title": "WordVet: Cardiology Terms",
+      "category": "vocabulary",
+      "type": "game",
+      "url": "/play/wordvet/",
+      "estimatedTime": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "wordvet_endocrine",
+      "title": "WordVet: Endocrine Terms",
+      "category": "vocabulary",
+      "type": "game",
+      "url": "/play/wordvet/",
+      "estimatedTime": 10,
+      "difficulty": "beginner"
+    },
+    {
+      "id": "sudoku_logic",
+      "title": "Sudoku: Clinical Reasoning",
+      "category": "logic",
+      "type": "game",
+      "url": "/play/sudoku/",
+      "estimatedTime": 15,
+      "difficulty": "intermediate"
+    }
+  ],
+  "daily_plan_presets": {
+    "quick": { "taskCount": 2, "maxDifficulty": "intermediate" },
+    "standard": { "taskCount": 3, "maxDifficulty": "advanced" },
+    "intensive": { "taskCount": 5, "maxDifficulty": "advanced" }
+  }
+}

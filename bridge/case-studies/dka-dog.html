@@ -24,7 +24,7 @@
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
         <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">ParthChaudhari</a>
+            <a class="pc-logo" href="/">VetLudics Portal</a>
             <div class="pc-nav-group">
                 <a class="pc-nav-link" href="/info.html">About Me</a>
                 <a class="pc-nav-link" href="/play/">Play</a>
@@ -105,41 +105,94 @@
                 </ol>
             </section>
 
-            <section class="pc-diagnose-box pc-card" data-pc-diagnose>
+            <section class="pc-diagnose-box pc-card">
                 <h3>Diagnose This</h3>
-                <p><strong>Question:</strong> What is the most critical immediate intervention?</p>
 
-                <form class="pc-diagnose-form pc-form" data-pc-diagnose-form
-                      data-case-key="pc_case_dka"
-                      data-correct="A"
-                      data-correct-label="IV fluids"
-                      data-explanation="Fluid resuscitation restores perfusion and begins correcting electrolyte derangements before insulin therapy. Insulin without fluids risks osmotic shifts and cerebral edema."
-                      data-teaching="NAVLE emphasizes that DKA management prioritizes perfusion restoration over immediate insulin administration."
-                      data-study-link="/play/wordvet/"
-                      data-study-label="Study Emergency Terms in WordVet">
+                <div class="pc-diagnose-container">
+                    <p class="pc-diagnose-question"><strong>Question:</strong> What is the most critical immediate intervention?</p>
 
-                    <label class="pc-radio-label">
-                        <input type="radio" name="pc_diagnosis" value="A" required>
-                        <span>A) Aggressive IV isotonic fluid therapy</span>
-                    </label>
+                    <div class="pc-diagnose-options">
+                        <button class="pc-diagnose-option" data-answer="A" data-correct="true">
+                            <span class="pc-option-letter">A</span>
+                            <span class="pc-option-text">Aggressive IV isotonic fluid therapy</span>
+                        </button>
 
-                    <label class="pc-radio-label">
-                        <input type="radio" name="pc_diagnosis" value="B">
-                        <span>B) Intravenous insulin bolus</span>
-                    </label>
+                        <button class="pc-diagnose-option" data-answer="B" data-correct="false">
+                            <span class="pc-option-letter">B</span>
+                            <span class="pc-option-text">Intravenous insulin bolus</span>
+                        </button>
 
-                    <label class="pc-radio-label">
-                        <input type="radio" name="pc_diagnosis" value="C">
-                        <span>C) Oral glucose supplementation</span>
-                    </label>
-
-                    <div class="pc-diagnose-actions">
-                        <button type="button" class="pc-btn pc-btn--primary" data-pc-check-answer>Check Answer</button>
-                        <span class="pc-completed-badge" data-pc-completed hidden>✓ Completed</span>
+                        <button class="pc-diagnose-option" data-answer="C" data-correct="false">
+                            <span class="pc-option-letter">C</span>
+                            <span class="pc-option-text">Oral glucose supplementation</span>
+                        </button>
                     </div>
-                </form>
 
-                <div class="pc-answer" data-pc-feedback hidden aria-live="polite"></div>
+                    <div class="pc-diagnose-feedback" hidden>
+                        <div class="pc-feedback-content">
+                            <h4 class="pc-feedback-title"></h4>
+                            <p class="pc-feedback-explanation"></p>
+                            <p class="pc-feedback-teaching"></p>
+                            <a href="/play/wordvet/" class="pc-btn pc-btn--primary">Study Emergency Terms</a>
+                        </div>
+                    </div>
+
+                    <div class="pc-completion-badge" hidden>
+                        ✓ Completed
+                    </div>
+                </div>
+
+                <script>
+                (function() {
+                    var container = document.querySelector('.pc-diagnose-container');
+                    if (!container) return;
+
+                    var options = container.querySelectorAll('.pc-diagnose-option');
+                    var feedback = container.querySelector('.pc-diagnose-feedback');
+                    var badge = container.querySelector('.pc-completion-badge');
+
+                    if (localStorage.getItem('pc_case_dka') === 'completed') {
+                        badge.hidden = false;
+                        options.forEach(function(opt) {
+                            opt.disabled = true;
+                        });
+                    }
+
+                    options.forEach(function(option) {
+                        option.addEventListener('click', function() {
+                            var isCorrect = this.dataset.correct === 'true';
+
+                            options.forEach(function(opt) {
+                                opt.disabled = true;
+                                if (opt.dataset.correct === 'true') {
+                                    opt.classList.add('pc-diagnose-option--correct');
+                                } else if (opt === option && !isCorrect) {
+                                    opt.classList.add('pc-diagnose-option--incorrect');
+                                }
+                            });
+
+                            feedback.hidden = false;
+                            var title = feedback.querySelector('.pc-feedback-title');
+                            var explanation = feedback.querySelector('.pc-feedback-explanation');
+                            var teaching = feedback.querySelector('.pc-feedback-teaching');
+
+                            if (isCorrect) {
+                                title.textContent = '✓ Correct!';
+                                title.className = 'pc-feedback-title pc-feedback-title--correct';
+                                localStorage.setItem('pc_case_dka', 'completed');
+                                localStorage.setItem('pc_case_dka_completedAt', new Date().toISOString());
+                                badge.hidden = false;
+                            } else {
+                                title.textContent = '✗ Not the best choice';
+                                title.className = 'pc-feedback-title pc-feedback-title--incorrect';
+                            }
+
+                            explanation.textContent = 'Fluid resuscitation restores perfusion and begins correcting electrolyte derangements before insulin therapy. Insulin without fluids risks osmotic shifts and cerebral edema.';
+                            teaching.textContent = 'NAVLE emphasizes that DKA management prioritizes perfusion restoration before immediate insulin administration.';
+                        });
+                    });
+                })();
+                </script>
             </section>
 
             <section class="pc-case-section pc-card">
