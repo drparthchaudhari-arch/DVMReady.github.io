@@ -69,6 +69,18 @@ This file tracks the Merck Veterinary Manual source baseline used by the tool pa
 - `tools/sepsis-bundle-planner.html` (draft)
   - https://www.merckvetmanual.com/multimedia/table/the-rule-of-20
 
+- `tools/toxin-decontamination-planner.html` (draft)
+  - https://www.merckvetmanual.com/emergency-medicine-and-critical-care/toxicoses/toxicoses-in-small-animals
+
+- `tools/chf-staging-planner.html` (draft)
+  - https://www.merckvetmanual.com/circulatory-system/heart-failure/heart-failure-in-small-animals
+
+- `tools/nutrition-rer-mer-calculator.html` (draft)
+  - https://www.merckvetmanual.com/management-and-nutrition/nutrition-small-animals/feeding-practices-for-dogs-and-cats
+
+- `tools/electrolyte-replacement-planner.html` (draft)
+  - https://www.merckvetmanual.com/emergency-medicine-and-critical-care/fluid-and-electrolyte-therapy/fluid-therapy-in-small-animals
+
 ## Formula/data updates from this audit
 
 - `assets/js/acid-base-electrolyte.js`

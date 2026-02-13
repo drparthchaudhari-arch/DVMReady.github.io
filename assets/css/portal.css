@@ -3726,6 +3726,135 @@
     line-height: 1.6;
 }
 
+.pc-navle-guide-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    counter-reset: navle-guide;
+}
+
+.pc-navle-guide-item {
+    counter-increment: navle-guide;
+    position: relative;
+    border: 1px solid var(--pc-border);
+    border-radius: 14px;
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(in srgb, var(--pc-surface) 92%, var(--pc-primary)),
+            color-mix(in srgb, var(--pc-surface) 97%, transparent)
+        );
+    padding: 0.85rem 0.95rem 0.85rem 3.5rem;
+    box-shadow: 0 12px 26px color-mix(in srgb, var(--pc-primary) 12%, transparent);
+    transition: transform 180ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.pc-navle-guide-item::before {
+    content: counter(navle-guide);
+    position: absolute;
+    left: 0.9rem;
+    top: 0.85rem;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--pc-cta-text);
+    background: var(--pc-cta-bg);
+    box-shadow: 0 8px 16px color-mix(in srgb, var(--pc-cta-bg) 35%, transparent);
+}
+
+.pc-navle-guide-item:hover,
+.pc-navle-guide-item:focus-within {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--pc-primary) 58%, var(--pc-border));
+    box-shadow: 0 16px 28px color-mix(in srgb, var(--pc-primary) 20%, transparent);
+}
+
+.pc-navle-guide-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    text-decoration: none;
+    color: var(--pc-primary);
+    font-weight: 800;
+    line-height: 1.35;
+    font-size: 1.03rem;
+}
+
+.pc-navle-guide-link::after {
+    content: '→';
+    font-size: 0.9rem;
+    opacity: 0.72;
+    transform: translateX(0);
+    transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.pc-navle-guide-item:hover .pc-navle-guide-link::after,
+.pc-navle-guide-item:focus-within .pc-navle-guide-link::after {
+    transform: translateX(3px);
+    opacity: 1;
+}
+
+.pc-navle-guide-summary {
+    margin: 0.35rem 0 0;
+    color: var(--pc-text-muted);
+    line-height: 1.6;
+}
+
+.pc-navle-guide-status {
+    margin: 0.45rem 0 0;
+    width: fit-content;
+    min-height: 26px;
+    border-radius: 999px;
+    padding: 0.15rem 0.58rem;
+    border: 1px solid color-mix(in srgb, var(--pc-border) 80%, transparent);
+    background: color-mix(in srgb, var(--pc-surface-strong) 82%, transparent);
+    color: var(--pc-text-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.pc-navle-topic-pill {
+    display: inline-flex;
+    width: fit-content;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--pc-primary) 52%, var(--pc-border));
+    background: color-mix(in srgb, var(--pc-primary) 12%, var(--pc-surface));
+    color: var(--pc-primary);
+    min-height: 28px;
+    align-items: center;
+    padding: 0.2rem 0.62rem;
+    font-size: 0.74rem;
+    font-weight: 750;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.pc-navle-topic-list {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: grid;
+    gap: 0.45rem;
+    color: var(--pc-text);
+    line-height: 1.6;
+}
+
+.pc-navle-plan-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.5rem;
+    color: var(--pc-text);
+    line-height: 1.6;
+}
+
 .pc-practice-stats {
     display: flex;
     justify-content: space-between;
@@ -3912,6 +4041,10 @@
     .pc-pricing-grid {
         grid-template-columns: 1fr;
     }
+
+    .pc-navle-guide-item {
+        padding-left: 3.2rem;
+    }
 }
 
 @media (max-width: 640px) {
@@ -3921,6 +4054,18 @@
 
     .pc-practice-option {
         font-size: 0.92rem;
+    }
+
+    .pc-navle-guide-item {
+        padding: 0.78rem 0.78rem 0.78rem 2.95rem;
+    }
+
+    .pc-navle-guide-item::before {
+        left: 0.7rem;
+        top: 0.75rem;
+        width: 1.75rem;
+        height: 1.75rem;
+        font-size: 0.76rem;
     }
 }
 
