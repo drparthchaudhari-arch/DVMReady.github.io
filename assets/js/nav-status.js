@@ -3,10 +3,11 @@
     var GLOBAL_NAV_LINKS = [
         { id: 'home', label: 'Home', href: '/' },
         { id: 'today', label: 'Today', href: '/today/' },
-        { id: 'play', label: 'Play', href: '/play/' },
         { id: 'bridge', label: 'Bridge', href: '/bridge/' },
         { id: 'study', label: 'Study', href: '/study/' },
-        { id: 'profile', label: 'Profile', href: '/account/' }
+        { id: 'profile', label: 'Profile', href: '/account/' },
+        { id: 'leaderboard', label: 'Leaderboard', href: '/leaderboard/' },
+        { id: 'play', label: 'Play', href: '/play/' }
     ];
 
     function isLoggedInFromCache() {
@@ -39,6 +40,10 @@
 
         if (pathname === '/play' || pathname.indexOf('/play/') === 0) {
             return 'play';
+        }
+
+        if (pathname === '/leaderboard' || pathname.indexOf('/leaderboard/') === 0) {
+            return 'leaderboard';
         }
 
         if (pathname === '/bridge' || pathname.indexOf('/bridge/') === 0) {
