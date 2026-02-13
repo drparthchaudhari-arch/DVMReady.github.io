@@ -625,18 +625,34 @@
             '@graph': [
                 {
                     '@type': 'Organization',
+                    '@id': 'https://parthchaudhari.com/#organization',
                     name: SITE_BRAND,
                     url: 'https://parthchaudhari.com/',
                     logo: 'https://parthchaudhari.com/assets/img/vet-favicon.svg',
+                    description: 'Veterinary calculator and study platform for dog and cat clinical workflows, drug dosing math, emergency tools, and NAVLE preparation.',
+                    knowsAbout: [
+                        'Veterinary calculators',
+                        'Dog and cat dose calculation',
+                        'Veterinary drug calculator',
+                        'Emergency and critical care workflows',
+                        'NAVLE preparation'
+                    ],
                     sameAs: ['https://parthchaudhari.com/about.html']
                 },
                 {
                     '@type': 'WebSite',
+                    '@id': 'https://parthchaudhari.com/#website',
                     name: SITE_BRAND,
                     url: 'https://parthchaudhari.com/',
+                    inLanguage: 'en',
+                    description: 'Professional veterinary calculators and clinical reference workflows for clinic teams and students.',
+                    potentialAction: {
+                        '@type': 'SearchAction',
+                        target: 'https://parthchaudhari.com/search.html?q={search_term_string}',
+                        'query-input': 'required name=search_term_string'
+                    },
                     publisher: {
-                        '@type': 'Organization',
-                        name: SITE_BRAND
+                        '@id': 'https://parthchaudhari.com/#organization'
                     }
                 }
             ]

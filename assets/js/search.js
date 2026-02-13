@@ -25,6 +25,37 @@
         initialized: false
     };
 
+    function getInitialQueryFromUrl() {
+        try {
+            var params = new URLSearchParams(window.location.search || '');
+            return String(params.get('q') || '').trim();
+        } catch (error) {
+            return '';
+        }
+    }
+
+    function syncQueryToUrl(query) {
+        if (!window.history || typeof window.history.replaceState !== 'function') {
+            return;
+        }
+
+        try {
+            var nextQuery = String(query || '').trim();
+            var current = new URL(window.location.href);
+
+            if (nextQuery) {
+                current.searchParams.set('q', nextQuery);
+            } else {
+                current.searchParams.delete('q');
+            }
+
+            var nextUrl = current.pathname + (current.search || '') + (current.hash || '');
+            window.history.replaceState({}, '', nextUrl);
+        } catch (error) {
+            // URL sync is best effort.
+        }
+    }
+
     function escapeHtml(value) {
         return String(value)
             .replace(/&/g, '&amp;')
@@ -427,6 +458,7 @@
         clearTimeout(state.debounceTimer);
         state.debounceTimer = setTimeout(function () {
             renderResults(inputValue);
+            syncQueryToUrl(inputValue);
         }, 300);
     }
 
@@ -486,6 +518,11 @@
         state.initialized = true;
 
         bindSearchUi();
+
+        var initialQuery = getInitialQueryFromUrl();
+        if (initialQuery) {
+            elements.input.value = initialQuery;
+        }
 
         loadIndex().then(function (entries) {
             state.index = entries;

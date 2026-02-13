@@ -63,6 +63,7 @@ const CANONICAL_PATHS = [
   '/tools/cri-calculator.html',
   '/tools/acid-base-electrolyte.html',
   '/tools/transfusion-helper.html',
+  '/tools/glucose-curve-generator.html',
   '/tools/discharge-generator.html',
   '/tools/parasite-control-reference.html',
   '/tools/insulin-cri-planner.html',
@@ -92,7 +93,8 @@ const CANONICAL_PATHS = [
   '/play/2048/',
   '/play/tictactoe/',
   '/play/iq-challenge/',
-  '/play/wordvet/'
+  '/play/wordvet/',
+  '/search.html'
 ];
 
 function loadProgrammaticRoutes() {
