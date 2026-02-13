@@ -940,6 +940,23 @@
     padding-bottom: 2rem;
 }
 
+.pc-streak-summary {
+    margin-bottom: 1rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid var(--pc-border);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--pc-surface) 92%, transparent);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.pc-streak-flame {
+    font-size: 1.15rem;
+    line-height: 1;
+}
+
 .pc-study-layout {
     margin-top: 1rem;
     display: grid;
@@ -2374,6 +2391,13 @@
 .pc-btn--ghost:hover {
     background: var(--pc-bg-tertiary);
     color: var(--pc-text-primary);
+}
+
+.pc-btn--small {
+    min-height: 36px;
+    padding: 0.35rem 0.7rem;
+    font-size: var(--pc-text-sm);
+    border-width: 1px;
 }
 
 .pc-btn:disabled,

@@ -163,6 +163,30 @@ const PCStorage = {
     return launchDate === todayKey;
   },
 
+  markTaskComplete(taskId) {
+    if (!taskId) return false;
+
+    const todayKey = this.getTodayKey();
+    const daily = this.getDaily(todayKey);
+
+    if (!daily.tasks || !Array.isArray(daily.tasks)) {
+      return false;
+    }
+
+    const task = daily.tasks.find(t => t.taskId === taskId);
+    if (!task || task.completed) {
+      return false;
+    }
+
+    task.completed = true;
+    daily.completedCount = (daily.completedCount || 0) + 1;
+    daily.lastActivityAt = new Date().toISOString();
+
+    this.setDaily(todayKey, daily);
+    this.updateStreak(todayKey);
+    return true;
+  },
+
   // Export/Import
   exportAll() {
     const data = {};

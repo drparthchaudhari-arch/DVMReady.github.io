@@ -72,72 +72,72 @@
         </section>
 
         <section class="pc-game-grid" aria-label="Game list">
-            <article class="pc-game-card" data-pc-game-card data-pc-game-id="sudoku">
+            <article class="pc-game-card" data-pc-game-card data-pc-game-id="sudoku" data-game-id="sudoku">
                 <div class="pc-game-thumb pc-game-thumb--sudoku">Sudoku</div>
                 <div class="pc-game-body">
                     <span class="pc-badge">Logic</span>
                     <a class="pc-study-link-badge" href="/bridge/case-studies/dka-dog.html">Logic for Diagnostics</a>
-                    <span class="pc-played-badge" data-pc-played-badge hidden>Played Today</span>
+                    <span class="pc-played-badge" data-pc-played-badge id="badge-sudoku" hidden>Played Today</span>
                     <h2>Sudoku</h2>
                     <p class="pc-difficulty">Difficulty: ●●●●○</p>
                     <div class="pc-panel-actions">
-                        <a class="pc-btn" href="/play/sudoku/">Launch Game</a>
+                        <a class="pc-btn pc-game-launch-btn" href="/play/sudoku/">Launch Game</a>
                         <a class="pc-link-chip" href="/bridge/case-studies/dka-dog.html">Study First</a>
                     </div>
                 </div>
             </article>
 
-            <article class="pc-game-card" data-pc-game-card data-pc-game-id="memory-match">
+            <article class="pc-game-card" data-pc-game-card data-pc-game-id="memory-match" data-game-id="memory-match">
                 <div class="pc-game-thumb pc-game-thumb--memory">Memory Match</div>
                 <div class="pc-game-body">
                     <span class="pc-badge">Anatomy</span>
-                    <span class="pc-played-badge" data-pc-played-badge hidden>Played Today</span>
+                    <span class="pc-played-badge" data-pc-played-badge id="badge-memory-match" hidden>Played Today</span>
                     <h2>Memory Match</h2>
                     <p class="pc-difficulty">Difficulty: ●●○○○</p>
                     <div class="pc-panel-actions">
-                        <a class="pc-btn" href="/play/memory-match/">Launch Game</a>
+                        <a class="pc-btn pc-game-launch-btn" href="/play/memory-match/">Launch Game</a>
                         <a class="pc-link-chip" href="/bridge/case-studies/bovine-mastitis.html">Study First</a>
                     </div>
                 </div>
             </article>
 
-            <article class="pc-game-card" data-pc-game-card data-pc-game-id="2048">
+            <article class="pc-game-card" data-pc-game-card data-pc-game-id="2048" data-game-id="2048">
                 <div class="pc-game-thumb pc-game-thumb--2048">2048</div>
                 <div class="pc-game-body">
                     <span class="pc-badge">Pharm</span>
-                    <span class="pc-played-badge" data-pc-played-badge hidden>Played Today</span>
+                    <span class="pc-played-badge" data-pc-played-badge id="badge-2048" hidden>Played Today</span>
                     <h2>2048</h2>
                     <p class="pc-difficulty">Difficulty: ●●●○○</p>
                     <div class="pc-panel-actions">
-                        <a class="pc-btn" href="/play/2048/">Launch Game</a>
+                        <a class="pc-btn pc-game-launch-btn" href="/play/2048/">Launch Game</a>
                         <a class="pc-link-chip" href="/bridge/case-studies/dka-dog.html">Study First</a>
                     </div>
                 </div>
             </article>
 
-            <article class="pc-game-card" data-pc-game-card data-pc-game-id="tictactoe">
+            <article class="pc-game-card" data-pc-game-card data-pc-game-id="tictactoe" data-game-id="tictactoe">
                 <div class="pc-game-thumb pc-game-thumb--ttt">TicTacToe</div>
                 <div class="pc-game-body">
                     <span class="pc-badge">Surgery</span>
-                    <span class="pc-played-badge" data-pc-played-badge hidden>Played Today</span>
+                    <span class="pc-played-badge" data-pc-played-badge id="badge-tictactoe" hidden>Played Today</span>
                     <h2>Tic-Tac-Toe</h2>
                     <p class="pc-difficulty">Difficulty: ●●○○○</p>
                     <div class="pc-panel-actions">
-                        <a class="pc-btn" href="/play/tictactoe/">Launch Game</a>
+                        <a class="pc-btn pc-game-launch-btn" href="/play/tictactoe/">Launch Game</a>
                         <a class="pc-link-chip" href="/bridge/case-studies/bovine-mastitis.html">Study First</a>
                     </div>
                 </div>
             </article>
 
-            <article class="pc-game-card" data-pc-game-card data-pc-game-id="iq-challenge">
+            <article class="pc-game-card" data-pc-game-card data-pc-game-id="iq-challenge" data-game-id="iq-challenge">
                 <div class="pc-game-thumb pc-game-thumb--iq">IQ Challenge</div>
                 <div class="pc-game-body">
                     <span class="pc-badge">Emergency</span>
-                    <span class="pc-played-badge" data-pc-played-badge hidden>Played Today</span>
+                    <span class="pc-played-badge" data-pc-played-badge id="badge-iq-challenge" hidden>Played Today</span>
                     <h2>IQ Challenge</h2>
                     <p class="pc-difficulty">Difficulty: ●●●●○</p>
                     <div class="pc-panel-actions">
-                        <a class="pc-btn" href="/play/iq-challenge/">Launch Game</a>
+                        <a class="pc-btn pc-game-launch-btn" href="/play/iq-challenge/">Launch Game</a>
                         <a class="pc-link-chip" href="/bridge/case-studies/chf-dog.html">Study First</a>
                     </div>
                 </div>
@@ -145,5 +145,35 @@
         </section>
     </main>
     <script src="/assets/js/portal.js"></script>
+    <script>
+    (function() {
+        function initPlayBadges() {
+            if (!window.PCStorage) return;
+
+            var games = ['wordvet', 'sudoku', 'memory-match', '2048', 'tictactoe', 'iq-challenge'];
+            games.forEach(function(gameId) {
+                var badge = document.getElementById('badge-' + gameId);
+                if (!badge) return;
+                badge.hidden = !PCStorage.wasGamePlayedToday(gameId);
+            });
+
+            var launchButtons = document.querySelectorAll('.pc-game-launch-btn');
+            for (var i = 0; i < launchButtons.length; i += 1) {
+                launchButtons[i].addEventListener('click', function() {
+                    var card = this.closest('.pc-game-card');
+                    var gameId = card && card.dataset ? card.dataset.gameId : '';
+                    if (!gameId) return;
+                    PCStorage.recordGameLaunch(gameId);
+                });
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPlayBadges, { once: true });
+        } else {
+            initPlayBadges();
+        }
+    })();
+    </script>
 </body>
 </html>

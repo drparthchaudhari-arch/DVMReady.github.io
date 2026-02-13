@@ -45,6 +45,12 @@
     </nav>
 
     <main id="pc-main" class="pc-study-shell pc-study-page" role="main">
+        <div class="pc-streak-summary">
+            <span class="pc-streak-flame">🔥</span>
+            <span id="study-streak-count">0</span> day streak
+            <a href="/today/" class="pc-btn pc-btn--small">View Today's Plan</a>
+        </div>
+
         <section class="pc-bridge-hero pc-study-header pc-study-plan-card pc-study-plan-card--active">
             <p class="pc-kicker">Study Planner</p>
             <h1 class="pc-study-title">NAVLE Study Planner</h1>
@@ -93,5 +99,23 @@
             </aside>
         </section>
     </main>
+    <script>
+    (function() {
+        function initStudyStreakSummary() {
+            if (!window.PCStorage) return;
+            var streak = PCStorage.getStreak();
+            var streakCount = document.getElementById('study-streak-count');
+            if (streakCount) {
+                streakCount.textContent = streak.current;
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initStudyStreakSummary, { once: true });
+        } else {
+            initStudyStreakSummary();
+        }
+    })();
+    </script>
 </body>
 </html>

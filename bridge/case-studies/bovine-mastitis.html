@@ -180,6 +180,19 @@
                                 title.className = 'pc-feedback-title pc-feedback-title--correct';
                                 localStorage.setItem('pc_case_mastitis', 'completed');
                                 localStorage.setItem('pc_case_mastitis_completedAt', new Date().toISOString());
+
+                                // Also mark today's task complete if applicable.
+                                if (window.PCStorage && typeof PCStorage.markTaskComplete === 'function') {
+                                    var todayKey = PCStorage.getTodayKey();
+                                    var daily = PCStorage.getDaily(todayKey);
+                                    var task = daily && daily.tasks ? daily.tasks.find(function(t) {
+                                        return t.url && t.url.indexOf('bovine-mastitis') !== -1;
+                                    }) : null;
+                                    if (task && !task.completed) {
+                                        PCStorage.markTaskComplete(task.taskId);
+                                    }
+                                }
+
                                 badge.hidden = false;
                             } else {
                                 title.textContent = '✗ Not the best choice';
