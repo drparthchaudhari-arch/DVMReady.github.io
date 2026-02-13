@@ -14,6 +14,7 @@ const searchIndex = [
   { title: "Clinical Tools Hub", url: "/tools/", type: "resource", keywords: "tools calculators dose fluid veterinary" },
   { title: "Dose Calculator", url: "/tools/dose-calculator.html", type: "resource", keywords: "dose calculator mg ml drug concentration dog cat" },
   { title: "Fluid Calculator", url: "/tools/fluid-calculator.html", type: "resource", keywords: "fluid calculator dehydration maintenance hourly rate" },
+  { title: "CKD/AKI + Proteinuria Planner", url: "/tools/ckd-aki-proteinuria-planner.html", type: "resource", keywords: "ckd aki iris stage upc proteinuria blood pressure renal dog cat" },
   { title: "Clinical Reference Hub", url: "/reference/", type: "resource", keywords: "reference lookup normal values toxicities" },
   { title: "Normal Values Reference", url: "/reference/normal-values.html", type: "resource", keywords: "dog cat cbc chemistry critical values" },
   { title: "Toxicity Triage Reference", url: "/reference/toxicities.html", type: "resource", keywords: "chocolate xylitol lilies grapes nsaids emergency" },

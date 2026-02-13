@@ -119,6 +119,13 @@
     "date": "2026-02-13"
   },
   {
+    "title": "CKD/AKI + Proteinuria Planner",
+    "url": "/tools/ckd-aki-proteinuria-planner.html",
+    "type": "resource",
+    "tags": ["ckd", "aki", "iris", "proteinuria", "upc", "blood pressure", "renal", "dog", "cat"],
+    "date": "2026-02-13"
+  },
+  {
     "title": "Unit Converter",
     "url": "/tools/unit-converter.html",
     "type": "resource",

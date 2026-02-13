@@ -11,6 +11,7 @@ const PRECACHE_URLS = [
     '/tools/',
     '/tools/fluid-calculator.html',
     '/tools/insulin-cri-planner.html',
+    '/tools/ckd-aki-proteinuria-planner.html',
     '/tools/chf-staging-planner.html',
     '/bridge/case-studies/dka-dog.html',
     '/bridge/case-studies/chf-dog.html',
@@ -20,6 +21,7 @@ const PRECACHE_URLS = [
     '/assets/css/portal.css',
     '/assets/js/theme-toggle.js',
     '/assets/js/nav-status.js',
+    '/assets/js/ckd-aki-proteinuria-planner.js',
     '/assets/js/integration-core.js',
     '/assets/js/case-integration.js',
     '/assets/img/vet-favicon.svg'
