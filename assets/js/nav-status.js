@@ -19,48 +19,65 @@
     var ANALYTICS_BUFFER_LIMIT = 80;
     var NAV_ITEMS = [
         {
-            id: 'tools',
-            label: 'Tools',
+            id: 'tools-reference',
+            label: 'Tools & References',
             href: '/tools/',
             children: [
-                { label: 'All Veterinary Tools', href: '/tools/' },
-                { label: 'Veterinary Calculators', href: '/veterinary-calculators/' },
-                { label: 'Calculators Guide', href: '/veterinary-calculators-guide/' },
-                { label: 'Emergency Triage Algorithms', href: '/emergency-triage-algorithms/' },
-                { label: 'Dose Calculator', href: '/tools/dose-calculator.html' }
+                {
+                    label: 'Tools',
+                    href: '/tools/',
+                    children: [
+                        { label: 'All Veterinary Tools', href: '/tools/' },
+                        { label: 'Veterinary Calculators', href: '/veterinary-calculators/' },
+                        { label: 'Calculators Guide', href: '/veterinary-calculators-guide/' },
+                        { label: 'Emergency Triage Algorithms', href: '/emergency-triage-algorithms/' },
+                        { label: 'Dose Calculator', href: '/tools/dose-calculator.html' }
+                    ]
+                },
+                {
+                    label: 'References',
+                    href: '/reference/',
+                    children: [
+                        { label: 'Reference Library', href: '/reference/' },
+                        { label: 'Normal Values', href: '/reference/normal-values.html' },
+                        { label: 'Dog and Cat Normal Values', href: '/dog-cat-normal-values/' },
+                        { label: 'Toxicity Reference', href: '/reference/toxicities.html' },
+                        { label: 'Sources and Limitations', href: '/sources-and-limitations/' }
+                    ]
+                }
             ]
         },
         {
-            id: 'navle-study',
-            label: 'NAVLE Study',
+            id: 'navle-hub',
+            label: 'NAVLE Hub',
             href: '/study/navle/',
             children: [
-                { label: 'NAVLE Study Hub', href: '/study/navle/' },
-                { label: 'Practice Questions', href: '/study/navle/practice/' },
-                { label: 'Emergency and Critical Care', href: '/navle-emergency-critical-care/' },
-                { label: 'Canine and Feline CHF', href: '/canine-feline-chf/' },
-                { label: 'Topic Guides', href: '/study/navle/topics/' },
-                { label: 'Comprehensive Guide', href: '/study/navle/comprehensive/' }
-            ]
-        },
-        {
-            id: 'reference',
-            label: 'Reference',
-            href: '/reference/',
-            children: [
-                { label: 'Reference Library', href: '/reference/' },
-                { label: 'Dog and Cat Normal Values', href: '/dog-cat-normal-values/' },
-                { label: 'Toxicity Reference', href: '/reference/toxicities.html' }
-            ]
-        },
-        {
-            id: 'case-studies',
-            label: 'Case Studies',
-            href: '/bridge/case-studies/',
-            children: [
-                { label: 'Case Studies Hub', href: '/clinical-case-studies/' },
-                { label: 'Clinical Case Directory', href: '/bridge/case-studies/' },
-                { label: 'Cardiology CHF Algorithm', href: '/cardiology-chf-algorithm/' }
+                {
+                    label: 'NAVLE Study',
+                    href: '/study/navle/',
+                    children: [
+                        { label: 'Study Hub', href: '/study/navle/' },
+                        {
+                            label: 'Case Studies',
+                            href: '/clinical-case-studies/',
+                            children: [
+                                { label: 'Practice Questions', href: '/study/navle/practice/' },
+                                { label: 'Emergency and Critical Care', href: '/navle-emergency-critical-care/' },
+                                { label: 'Case Studies Hub', href: '/clinical-case-studies/' },
+                                { label: 'Clinical Case Directory', href: '/bridge/case-studies/' },
+                                { label: 'Cardiology CHF Algorithm', href: '/cardiology-chf-algorithm/' }
+                            ]
+                        },
+                        {
+                            label: 'Topics',
+                            href: '/study/navle/topics/',
+                            children: [
+                                { label: 'Canine and Feline CHF', href: '/canine-feline-chf/' },
+                                { label: 'Topic + Comprehensive Guides', href: '/study/navle/comprehensive/' }
+                            ]
+                        }
+                    ]
+                }
             ]
         },
         { id: 'pricing', label: 'Pricing', href: '/pricing/' },
@@ -71,7 +88,6 @@
             children: [
                 { label: 'About and Credentials', href: '/about.html' },
                 { label: 'Editorial Policy', href: '/editorial-policy/' },
-                { label: 'Sources and Limitations', href: '/sources-and-limitations/' },
                 { label: 'Contact', href: '/contact.html' }
             ]
         }
@@ -203,17 +219,25 @@
             path.indexOf('/veterinary-calculators/') === 0 ||
             path === '/emergency-triage-algorithms' ||
             path.indexOf('/emergency-triage-algorithms/') === 0 ||
+            path === '/sources-and-limitations' ||
+            path.indexOf('/sources-and-limitations/') === 0 ||
             startsWithAny(path, TOOL_LANDING_PATHS)
         ) {
-            return 'tools';
+            return 'tools-reference';
         }
 
         if (
             path === '/study' ||
             path.indexOf('/study/') === 0 ||
+            path === '/bridge' ||
+            path.indexOf('/bridge/') === 0 ||
+            path === '/clinical-case-studies' ||
+            path.indexOf('/clinical-case-studies/') === 0 ||
+            path === '/cardiology-chf-algorithm' ||
+            path.indexOf('/cardiology-chf-algorithm/') === 0 ||
             startsWithAny(path, STUDY_LANDING_PATHS)
         ) {
-            return 'navle-study';
+            return 'navle-hub';
         }
 
         if (
@@ -222,18 +246,7 @@
             path === '/dog-cat-normal-values' ||
             path.indexOf('/dog-cat-normal-values/') === 0
         ) {
-            return 'reference';
-        }
-
-        if (
-            path === '/bridge' ||
-            path.indexOf('/bridge/') === 0 ||
-            path === '/clinical-case-studies' ||
-            path.indexOf('/clinical-case-studies/') === 0 ||
-            path === '/cardiology-chf-algorithm' ||
-            path.indexOf('/cardiology-chf-algorithm/') === 0
-        ) {
-            return 'case-studies';
+            return 'tools-reference';
         }
 
         if (path === '/pricing' || path.indexOf('/pricing/') === 0) {
@@ -249,9 +262,7 @@
             path === '/contact' ||
             path === '/contact.html' ||
             path === '/editorial-policy' ||
-            path.indexOf('/editorial-policy/') === 0 ||
-            path === '/sources-and-limitations' ||
-            path.indexOf('/sources-and-limitations/') === 0
+            path.indexOf('/editorial-policy/') === 0
         ) {
             return 'about';
         }
@@ -259,44 +270,64 @@
         return '';
     }
 
-    function createPortalNavItem(item, activeId, pathname) {
+    function createPortalNavItem(item, activeId, pathname, depth) {
+        var navDepth = typeof depth === 'number' ? depth : 0;
         var wrapper = document.createElement('div');
-        wrapper.className = 'pc-nav-item';
+        wrapper.className = 'pc-nav-item pc-nav-item--depth-' + navDepth;
+        var hasChildren = item.children && item.children.length;
 
-        if (item.children && item.children.length) {
+        if (hasChildren) {
             wrapper.className += ' pc-nav-item--has-menu';
         }
 
         var anchor = document.createElement('a');
-        anchor.className = 'pc-nav-link' + (item.id === activeId ? ' pc-is-active' : '');
+        if (navDepth === 0) {
+            anchor.className = 'pc-nav-link' + (item.id === activeId ? ' pc-is-active' : '');
+        } else {
+            anchor.className = 'pc-nav-submenu__link';
+            if (isPathMatch(pathname, item.href)) {
+                anchor.className += ' pc-nav-submenu__link--active';
+            }
+            anchor.setAttribute('role', 'menuitem');
+        }
+        if (hasChildren) {
+            anchor.className += ' pc-nav-menu-trigger';
+            if (navDepth > 0) {
+                anchor.className += ' pc-nav-submenu__trigger';
+            }
+        }
         anchor.href = item.href;
 
         anchor.appendChild(document.createTextNode(item.label));
         wrapper.appendChild(anchor);
 
-        if (item.children && item.children.length) {
+        if (hasChildren) {
             var submenu = document.createElement('div');
-            submenu.className = 'pc-nav-submenu';
+            submenu.className = 'pc-nav-submenu' + (navDepth > 0 ? ' pc-nav-submenu--nested' : '');
             submenu.setAttribute('role', 'menu');
             submenu.setAttribute('aria-label', item.label + ' links');
 
             for (var i = 0; i < item.children.length; i += 1) {
-                var child = item.children[i];
-                var childLink = document.createElement('a');
-                childLink.className = 'pc-nav-submenu__link';
-                if (isPathMatch(pathname, child.href)) {
-                    childLink.className += ' pc-nav-submenu__link--active';
-                }
-                childLink.href = child.href;
-                childLink.textContent = child.label;
-                childLink.setAttribute('role', 'menuitem');
-                submenu.appendChild(childLink);
+                submenu.appendChild(createPortalNavItem(item.children[i], activeId, pathname, navDepth + 1));
             }
 
             wrapper.appendChild(submenu);
         }
 
         return wrapper;
+    }
+
+    function getDirectChildByClass(node, className) {
+        if (!node || !node.children) {
+            return null;
+        }
+        for (var i = 0; i < node.children.length; i += 1) {
+            var child = node.children[i];
+            if (child.classList && child.classList.contains(className)) {
+                return child;
+            }
+        }
+        return null;
     }
 
     function createLegacyNavLink(item, activeId) {
@@ -328,7 +359,7 @@
             }
 
             for (var k = 0; k < NAV_ITEMS.length; k += 1) {
-                var navItem = createPortalNavItem(NAV_ITEMS[k], activeId, pathname);
+                var navItem = createPortalNavItem(NAV_ITEMS[k], activeId, pathname, 0);
                 if (insertBefore) {
                     group.insertBefore(navItem, insertBefore);
                 } else {
@@ -342,8 +373,8 @@
         var menuItems = document.querySelectorAll('.pc-nav-item--has-menu');
         for (var i = 0; i < menuItems.length; i += 1) {
             (function (item) {
-                var trigger = item.querySelector('.pc-nav-link');
-                var submenu = item.querySelector('.pc-nav-submenu');
+                var trigger = getDirectChildByClass(item, 'pc-nav-menu-trigger');
+                var submenu = getDirectChildByClass(item, 'pc-nav-submenu');
                 if (!trigger || !submenu) {
                     return;
                 }
@@ -364,7 +395,7 @@
 
                 trigger.addEventListener('keydown', function (event) {
                     if (event.key === 'ArrowDown') {
-                        var firstLink = submenu.querySelector('.pc-nav-submenu__link');
+                        var firstLink = submenu.querySelector('.pc-nav-submenu__link, .pc-nav-link');
                         if (firstLink) {
                             event.preventDefault();
                             firstLink.focus();
@@ -480,10 +511,8 @@
         strip.setAttribute('aria-label', 'Quick references');
 
         var quickLinks = [
-            { label: 'Tools', href: '/tools/' },
-            { label: 'NAVLE Study', href: '/study/navle/' },
-            { label: 'Reference', href: '/reference/' },
-            { label: 'Case Studies', href: '/bridge/case-studies/' },
+            { label: 'Tools & References', href: '/tools/' },
+            { label: 'NAVLE Hub', href: '/study/navle/' },
             { label: 'Pricing', href: '/pricing/' },
             { label: 'About', href: '/about.html' }
         ];
@@ -550,17 +579,25 @@
             path.indexOf('/veterinary-calculators/') === 0 ||
             path === '/emergency-triage-algorithms' ||
             path.indexOf('/emergency-triage-algorithms/') === 0 ||
+            path === '/sources-and-limitations' ||
+            path.indexOf('/sources-and-limitations/') === 0 ||
             startsWithAny(path, TOOL_LANDING_PATHS)
         ) {
-            return { label: 'Tools', href: '/tools/' };
+            return { label: 'Tools & References', href: '/tools/' };
         }
 
         if (
             path === '/study' ||
             path.indexOf('/study/') === 0 ||
+            path === '/bridge' ||
+            path.indexOf('/bridge/') === 0 ||
+            path === '/clinical-case-studies' ||
+            path.indexOf('/clinical-case-studies/') === 0 ||
+            path === '/cardiology-chf-algorithm' ||
+            path.indexOf('/cardiology-chf-algorithm/') === 0 ||
             startsWithAny(path, STUDY_LANDING_PATHS)
         ) {
-            return { label: 'NAVLE Study', href: '/study/navle/' };
+            return { label: 'NAVLE Hub', href: '/study/navle/' };
         }
 
         if (
@@ -569,18 +606,7 @@
             path === '/dog-cat-normal-values' ||
             path.indexOf('/dog-cat-normal-values/') === 0
         ) {
-            return { label: 'Reference', href: '/reference/' };
-        }
-
-        if (
-            path === '/bridge' ||
-            path.indexOf('/bridge/') === 0 ||
-            path === '/clinical-case-studies' ||
-            path.indexOf('/clinical-case-studies/') === 0 ||
-            path === '/cardiology-chf-algorithm' ||
-            path.indexOf('/cardiology-chf-algorithm/') === 0
-        ) {
-            return { label: 'Case Studies', href: '/bridge/case-studies/' };
+            return { label: 'Tools & References', href: '/tools/' };
         }
 
         if (
@@ -592,9 +618,7 @@
             path === '/contact' ||
             path === '/contact.html' ||
             path === '/editorial-policy' ||
-            path.indexOf('/editorial-policy/') === 0 ||
-            path === '/sources-and-limitations' ||
-            path.indexOf('/sources-and-limitations/') === 0
+            path.indexOf('/editorial-policy/') === 0
         ) {
             return { label: 'About', href: '/about.html' };
         }
@@ -1121,6 +1145,32 @@
         }
     }
 
+    function readDesktopViewRequestFromQuery() {
+        var search = window.location.search || '';
+        if (!search) {
+            return null;
+        }
+
+        try {
+            var params = new URLSearchParams(search);
+            var value = params.get('desktop_view') || params.get('desktop') || params.get('view_mode');
+            if (!value) {
+                return null;
+            }
+
+            var normalized = String(value).toLowerCase();
+            if (normalized === '1' || normalized === 'true' || normalized === 'on' || normalized === 'desktop') {
+                return true;
+            }
+            if (normalized === '0' || normalized === 'false' || normalized === 'off' || normalized === 'mobile') {
+                return false;
+            }
+            return null;
+        } catch (error) {
+            return null;
+        }
+    }
+
     function ensureViewportMeta() {
         var viewport = document.querySelector('meta[name="viewport"]');
         if (viewport) {
@@ -1209,19 +1259,19 @@
     }
 
     function injectViewControls() {
-        if (document.getElementById('pc-view-controls')) {
+        if (document.getElementById('pc-view-controls-text') || document.getElementById('pc-view-controls-desktop')) {
             return;
         }
 
-        var wrapper = document.createElement('div');
-        wrapper.id = 'pc-view-controls';
-        wrapper.className = 'pc-view-controls';
+        var textWrapper = document.createElement('div');
+        textWrapper.id = 'pc-view-controls-text';
+        textWrapper.className = 'pc-view-controls pc-view-controls--left';
 
         var trigger = document.createElement('button');
         trigger.type = 'button';
         trigger.id = 'pc-view-trigger';
         trigger.className = 'pc-view-trigger';
-        trigger.setAttribute('aria-label', 'Open text and view controls');
+        trigger.setAttribute('aria-label', 'Open text size controls');
         trigger.setAttribute('aria-expanded', 'false');
         trigger.textContent = 'Aa';
 
@@ -1230,20 +1280,31 @@
         panel.className = 'pc-view-panel';
         panel.hidden = true;
         panel.innerHTML =
-            '<p class="pc-view-panel__title">Text & View</p>' +
+            '<p class="pc-view-panel__title">Text Size</p>' +
             '<div class="pc-view-scale-row" role="group" aria-label="Text size controls">' +
             '<button type="button" class="pc-view-mini-btn" id="pc-view-text-down" aria-label="Decrease text size">A-</button>' +
             '<span id="pc-view-text-scale-value" class="pc-view-scale-value">100%</span>' +
             '<button type="button" class="pc-view-mini-btn" id="pc-view-text-up" aria-label="Increase text size">A+</button>' +
             '<button type="button" class="pc-view-mini-btn" id="pc-view-text-reset" aria-label="Reset text size">Reset</button>' +
-            '</div>' +
-            '<button type="button" class="pc-view-desktop-toggle" id="pc-view-desktop-toggle">' +
-            '<span id="pc-view-desktop-label">Desktop view: Off</span>' +
-            '</button>';
+            '</div>';
 
-        wrapper.appendChild(trigger);
-        wrapper.appendChild(panel);
-        document.body.appendChild(wrapper);
+        textWrapper.appendChild(trigger);
+        textWrapper.appendChild(panel);
+        document.body.appendChild(textWrapper);
+
+        var desktopWrapper = document.createElement('div');
+        desktopWrapper.id = 'pc-view-controls-desktop';
+        desktopWrapper.className = 'pc-view-controls pc-view-controls--right';
+
+        var desktopButton = document.createElement('button');
+        desktopButton.type = 'button';
+        desktopButton.className = 'pc-view-desktop-toggle pc-view-desktop-toggle--floating';
+        desktopButton.id = 'pc-view-desktop-toggle';
+        desktopButton.setAttribute('aria-label', 'Toggle desktop view');
+        desktopButton.innerHTML = '<span id="pc-view-desktop-label">Desktop view: Off</span>';
+
+        desktopWrapper.appendChild(desktopButton);
+        document.body.appendChild(desktopWrapper);
 
         trigger.addEventListener('click', function () {
             toggleViewPanel();
@@ -1268,14 +1329,14 @@
             updateTextScaleLabel(DEFAULT_TEXT_SCALE);
         });
 
-        document.getElementById('pc-view-desktop-toggle').addEventListener('click', function () {
+        desktopButton.addEventListener('click', function () {
             var enabled = !readDesktopViewPreference();
             applyDesktopView(enabled);
             updateDesktopLabel(enabled);
         });
 
         document.addEventListener('click', function (event) {
-            if (!wrapper.contains(event.target)) {
+            if (!textWrapper.contains(event.target)) {
                 toggleViewPanel(false);
             }
         });
@@ -1290,9 +1351,16 @@
         applyTextScale(initialScale);
         updateTextScaleLabel(initialScale);
 
-        var desktopEnabled = readDesktopViewPreference();
+        var desktopRequested = readDesktopViewRequestFromQuery();
+        var desktopEnabled = desktopRequested === null ? readDesktopViewPreference() : desktopRequested;
         applyDesktopView(desktopEnabled);
         updateDesktopLabel(desktopEnabled);
+
+        window.addEventListener('pc-request-desktop-view', function (event) {
+            var requested = !!(event && event.detail && event.detail.enabled !== false);
+            applyDesktopView(requested);
+            updateDesktopLabel(requested);
+        });
 
         var resizeTimer = null;
         window.addEventListener('resize', function () {
@@ -1323,7 +1391,6 @@
 
         scheduleNonCritical(function () {
             appendSectionBreadcrumbIfMissing();
-            appendGlobalQuickLinksIfMissing();
             appendGlobalFooterIfMissing();
             appendSiteStructuredDataIfMissing();
             recordLastLearningLocation();
