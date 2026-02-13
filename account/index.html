@@ -99,17 +99,26 @@
 
             <article id="pc-sync-section" class="pc-account-card pc-account-card--sync pc-account-section" aria-labelledby="pc-sync-title">
                 <h2 id="pc-sync-title" class="pc-account-section__title">Cross-Device Sync</h2>
-                <p class="pc-account-note">Email login is optional. Use magic-link access only when you want sync across devices.</p>
+                <p class="pc-account-note">Use real account credentials to sync across devices. You can also use a magic link if preferred.</p>
 
                 <div id="pc-logged-out-section" class="pc-auth-form">
                     <div class="pc-account-field">
                         <label for="pc-email-input">Email</label>
                         <input id="pc-email-input" class="pc-account-input pc-input" type="email" autocomplete="email" placeholder="your@email.com">
                     </div>
+                    <div class="pc-account-field">
+                        <label for="pc-password-input">Password</label>
+                        <input id="pc-password-input" class="pc-account-input pc-input" type="password" autocomplete="current-password" minlength="8" placeholder="At least 8 characters">
+                    </div>
+                    <div class="pc-account-actions">
+                        <button id="pc-login-btn" type="button" class="pc-btn pc-btn--primary">Log In</button>
+                        <button id="pc-signup-btn" type="button" class="pc-btn pc-btn--secondary">Create Account</button>
+                        <button id="pc-reset-password-btn" type="button" class="pc-btn pc-btn--ghost">Forgot Password</button>
+                    </div>
                     <div class="pc-account-actions">
                         <button id="pc-send-link-btn" type="button" class="pc-btn pc-btn--primary">Send Magic Link</button>
                     </div>
-                    <p class="pc-account-note">We'll email you a login link. No password needed.</p>
+                    <p class="pc-account-note">Password login is primary. Magic link remains available as fallback.</p>
                 </div>
 
                 <div id="pc-logged-in-section" hidden>
@@ -119,6 +128,17 @@
                         <button id="pc-sync-btn" type="button" class="pc-btn pc-btn--primary">Sync Now</button>
                         <button id="pc-logout-btn" type="button" class="pc-btn pc-btn--secondary">Log Out</button>
                     </div>
+                </div>
+
+                <div id="pc-password-recovery-section" hidden>
+                    <div class="pc-account-field">
+                        <label for="pc-new-password-input">New Password</label>
+                        <input id="pc-new-password-input" class="pc-account-input pc-input" type="password" autocomplete="new-password" minlength="8" placeholder="Enter new password">
+                    </div>
+                    <div class="pc-account-actions">
+                        <button id="pc-set-new-password-btn" type="button" class="pc-btn pc-btn--secondary">Set New Password</button>
+                    </div>
+                    <p class="pc-account-note">Use this after opening a password-reset link from your email.</p>
                 </div>
 
                 <div id="pc-account-status" class="pc-account-message" aria-live="polite"></div>

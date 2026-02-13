@@ -18,6 +18,11 @@
         var importBtn = document.getElementById('pc-import-btn');
         var importFile = document.getElementById('pc-import-file');
         var emailInput = document.getElementById('pc-email-input');
+        var passwordInput = document.getElementById('pc-password-input');
+        var loginBtn = document.getElementById('pc-login-btn');
+        var signupBtn = document.getElementById('pc-signup-btn');
+        var resetPasswordBtn = document.getElementById('pc-reset-password-btn');
+        var setNewPasswordBtn = document.getElementById('pc-set-new-password-btn');
         var sendLinkBtn = document.getElementById('pc-send-link-btn');
         var syncBtn = document.getElementById('pc-sync-btn');
         var logoutBtn = document.getElementById('pc-logout-btn');
@@ -26,6 +31,7 @@
         updateLocalDataDisplay();
         hydrateDisplayNameInput();
         updateAuthUI();
+        updateRecoveryUi();
 
         if (exportBtn) {
             exportBtn.addEventListener('click', handleExport);
@@ -40,6 +46,22 @@
 
         if (sendLinkBtn && emailInput) {
             sendLinkBtn.addEventListener('click', handleSendLink);
+        }
+
+        if (loginBtn && emailInput && passwordInput) {
+            loginBtn.addEventListener('click', handlePasswordLogin);
+        }
+
+        if (signupBtn && emailInput && passwordInput) {
+            signupBtn.addEventListener('click', handlePasswordSignup);
+        }
+
+        if (resetPasswordBtn && emailInput) {
+            resetPasswordBtn.addEventListener('click', handlePasswordReset);
+        }
+
+        if (setNewPasswordBtn) {
+            setNewPasswordBtn.addEventListener('click', handleSetNewPassword);
         }
 
         if (syncBtn) {
@@ -221,6 +243,7 @@
             if (syncTimeDiv && lastSync) {
                 syncTimeDiv.textContent = 'Last synced: ' + new Date(lastSync).toLocaleString();
             }
+            updateRecoveryUi();
             return;
         }
 
@@ -231,8 +254,55 @@
             loggedOutSection.hidden = false;
         }
         if (statusDiv) {
-            statusDiv.innerHTML = '<p class="pc-status-info">Working in local mode. Email login is optional for sync.</p>';
+            statusDiv.innerHTML = '<p class="pc-status-info">Working in local mode. Log in with email/password (or magic link) to sync.</p>';
         }
+
+        updateRecoveryUi();
+    }
+
+    function hasRecoveryTypeInHash() {
+        var hash = String(window.location.hash || '');
+        if (!hash) {
+            return false;
+        }
+        return hash.toLowerCase().indexOf('type=recovery') !== -1;
+    }
+
+    function hasRecoveryTypeInQuery() {
+        try {
+            var params = new URLSearchParams(window.location.search || '');
+            return String(params.get('type') || '').toLowerCase() === 'recovery';
+        } catch (error) {
+            return false;
+        }
+    }
+
+    function isRecoveryFlow() {
+        return hasRecoveryTypeInHash() || hasRecoveryTypeInQuery();
+    }
+
+    function clearRecoveryFromUrl() {
+        try {
+            var url = new URL(window.location.href);
+            url.hash = '';
+            if (String(url.searchParams.get('type') || '').toLowerCase() === 'recovery') {
+                url.searchParams.delete('type');
+            }
+
+            var next = url.pathname + (url.search ? url.search : '');
+            window.history.replaceState({}, document.title, next);
+        } catch (error) {
+            // URL cleanup is best effort.
+        }
+    }
+
+    function updateRecoveryUi() {
+        var recoverySection = document.getElementById('pc-password-recovery-section');
+        if (!recoverySection) {
+            return;
+        }
+
+        recoverySection.hidden = !isRecoveryFlow();
     }
 
     function getLastSyncTimestamp() {
@@ -451,6 +521,151 @@
             }
         } catch (error) {
             showError('Error: ' + getErrorMessage(error));
+        }
+    }
+
+    async function handlePasswordLogin() {
+        var emailInput = document.getElementById('pc-email-input');
+        var passwordInput = document.getElementById('pc-password-input');
+        var email = emailInput ? String(emailInput.value || '').trim() : '';
+        var password = passwordInput ? String(passwordInput.value || '') : '';
+
+        if (!email || email.indexOf('@') === -1) {
+            showError('Please enter a valid email address');
+            return;
+        }
+
+        if (!password) {
+            showError('Please enter your password');
+            return;
+        }
+
+        if (!window.pcSync || typeof window.pcSync.signInWithPassword !== 'function') {
+            showError('Password login is unavailable right now');
+            return;
+        }
+
+        try {
+            var result = await window.pcSync.signInWithPassword(email, password);
+            if (isSuccessResult(result)) {
+                showSuccess('Logged in successfully');
+                if (passwordInput) {
+                    passwordInput.value = '';
+                }
+                updateAuthUI();
+                return;
+            }
+            showError('Login failed: ' + getErrorMessage(result && result.error));
+        } catch (error) {
+            showError('Login failed: ' + getErrorMessage(error));
+        }
+    }
+
+    async function handlePasswordSignup() {
+        var emailInput = document.getElementById('pc-email-input');
+        var passwordInput = document.getElementById('pc-password-input');
+        var email = emailInput ? String(emailInput.value || '').trim() : '';
+        var password = passwordInput ? String(passwordInput.value || '') : '';
+        var preferredName = readStoredDisplayName();
+
+        if (!email || email.indexOf('@') === -1) {
+            showError('Please enter a valid email address');
+            return;
+        }
+
+        if (password.length < 8) {
+            showError('Password must be at least 8 characters');
+            return;
+        }
+
+        if (!window.pcSync || typeof window.pcSync.signUpWithPassword !== 'function') {
+            showError('Account creation is unavailable right now');
+            return;
+        }
+
+        try {
+            var options = {};
+            if (preferredName) {
+                options.displayName = preferredName;
+            }
+
+            var result = await window.pcSync.signUpWithPassword(email, password, options);
+            if (!isSuccessResult(result)) {
+                showError('Account creation failed: ' + getErrorMessage(result && result.error));
+                return;
+            }
+
+            if (result.requiresEmailConfirmation) {
+                showSuccess('Account created. Check your email to confirm before first login.');
+            } else {
+                showSuccess('Account created and logged in.');
+            }
+
+            if (passwordInput) {
+                passwordInput.value = '';
+            }
+            updateAuthUI();
+        } catch (error) {
+            showError('Account creation failed: ' + getErrorMessage(error));
+        }
+    }
+
+    async function handlePasswordReset() {
+        var emailInput = document.getElementById('pc-email-input');
+        var email = emailInput ? String(emailInput.value || '').trim() : '';
+
+        if (!email || email.indexOf('@') === -1) {
+            showError('Enter your account email first');
+            return;
+        }
+
+        if (!window.pcSync || typeof window.pcSync.sendPasswordReset !== 'function') {
+            showError('Password reset is unavailable right now');
+            return;
+        }
+
+        try {
+            var result = await window.pcSync.sendPasswordReset(email);
+            if (isSuccessResult(result)) {
+                showSuccess('Password reset email sent. Check your inbox.');
+            } else {
+                showError('Password reset failed: ' + getErrorMessage(result && result.error));
+            }
+        } catch (error) {
+            showError('Password reset failed: ' + getErrorMessage(error));
+        }
+    }
+
+    async function handleSetNewPassword() {
+        var passwordInput = document.getElementById('pc-new-password-input');
+        var password = passwordInput ? String(passwordInput.value || '') : '';
+
+        if (password.length < 8) {
+            showError('New password must be at least 8 characters');
+            return;
+        }
+
+        if (!window.pcSync || typeof window.pcSync.updatePassword !== 'function') {
+            showError('Password update is unavailable right now');
+            return;
+        }
+
+        try {
+            var result = await window.pcSync.updatePassword(password);
+            if (!isSuccessResult(result)) {
+                showError('Password update failed: ' + getErrorMessage(result && result.error));
+                return;
+            }
+
+            if (passwordInput) {
+                passwordInput.value = '';
+            }
+            clearRecoveryFromUrl();
+            updateRecoveryUi();
+            showSuccess('Password updated successfully. You can continue with this account.');
+            updateAuthUI();
+        } catch (error) {
+            showError('Password update failed: ' + getErrorMessage(error));
         }
     }
 

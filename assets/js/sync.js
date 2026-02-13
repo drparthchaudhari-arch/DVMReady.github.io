@@ -761,6 +761,282 @@
         });
     }
 
+    function resolveAuthRedirect(options, fallbackPath) {
+        var redirectTo = window.location.origin + String(fallbackPath || '/account/');
+        if (options && typeof options === 'object' && options.redirectTo) {
+            var customRedirect = String(options.redirectTo).trim();
+            if (customRedirect) {
+                redirectTo = customRedirect;
+            }
+        }
+        return redirectTo;
+    }
+
+    function resolveAuthMetadata(options) {
+        var metadata = null;
+
+        if (options && typeof options === 'object' && options.metadata && typeof options.metadata === 'object') {
+            metadata = options.metadata;
+        }
+
+        if (!metadata && options && typeof options === 'object' && options.displayName) {
+            var displayName = String(options.displayName).trim();
+            if (displayName) {
+                metadata = {
+                    display_name: displayName,
+                    name: displayName
+                };
+            }
+        }
+
+        return metadata;
+    }
+
+    async function signUpWithPassword(email, password, options) {
+        var trimmedEmail = String(email || '').trim();
+        var rawPassword = String(password || '');
+
+        if (!trimmedEmail) {
+            return {
+                ok: false,
+                error: new Error('Email is required')
+            };
+        }
+
+        if (rawPassword.length < 8) {
+            return {
+                ok: false,
+                error: new Error('Password must be at least 8 characters')
+            };
+        }
+
+        if (!isSupabaseConfigured()) {
+            return {
+                ok: false,
+                error: new Error('Sync not configured')
+            };
+        }
+
+        var client = getSupabaseClient();
+        if (!client || !client.auth || typeof client.auth.signUp !== 'function') {
+            return {
+                ok: false,
+                error: new Error('Supabase auth is unavailable')
+            };
+        }
+
+        try {
+            var redirectTo = resolveAuthRedirect(options, '/account/');
+            var metadata = resolveAuthMetadata(options);
+            var signUpPayload = {
+                email: trimmedEmail,
+                password: rawPassword,
+                options: {
+                    emailRedirectTo: redirectTo
+                }
+            };
+
+            if (metadata) {
+                signUpPayload.options.data = metadata;
+            }
+
+            var response = await client.auth.signUp(signUpPayload);
+            if (response.error) {
+                throw response.error;
+            }
+
+            var user = response.data && response.data.user ? response.data.user : null;
+            var session = response.data && response.data.session ? response.data.session : null;
+            state.currentUser = user;
+            setCachedAuthState(!!user);
+            dispatchStatusChange();
+
+            if (user && session) {
+                syncFromServer()
+                    .then(function () {
+                        return syncToServer({ trigger: 'password_signup' });
+                    })
+                    .catch(function () {
+                        // Keep sign-up UX resilient even if sync fails.
+                    });
+            }
+
+            return {
+                ok: true,
+                user: user,
+                requiresEmailConfirmation: !!(user && !session)
+            };
+        } catch (error) {
+            return {
+                ok: false,
+                error: error
+            };
+        }
+    }
+
+    async function signInWithPassword(email, password) {
+        var trimmedEmail = String(email || '').trim();
+        var rawPassword = String(password || '');
+
+        if (!trimmedEmail) {
+            return {
+                ok: false,
+                error: new Error('Email is required')
+            };
+        }
+
+        if (!rawPassword) {
+            return {
+                ok: false,
+                error: new Error('Password is required')
+            };
+        }
+
+        if (!isSupabaseConfigured()) {
+            return {
+                ok: false,
+                error: new Error('Sync not configured')
+            };
+        }
+
+        var client = getSupabaseClient();
+        if (!client || !client.auth || typeof client.auth.signInWithPassword !== 'function') {
+            return {
+                ok: false,
+                error: new Error('Supabase auth is unavailable')
+            };
+        }
+
+        try {
+            var response = await client.auth.signInWithPassword({
+                email: trimmedEmail,
+                password: rawPassword
+            });
+
+            if (response.error) {
+                throw response.error;
+            }
+
+            state.currentUser = response.data && response.data.user ? response.data.user : null;
+            setCachedAuthState(!!state.currentUser);
+            dispatchStatusChange();
+
+            if (state.currentUser) {
+                syncFromServer()
+                    .then(function () {
+                        return syncToServer({ trigger: 'password_signin' });
+                    })
+                    .catch(function () {
+                        // Keep sign-in UX resilient even if sync fails.
+                    });
+            }
+
+            return {
+                ok: true,
+                user: state.currentUser
+            };
+        } catch (error) {
+            return {
+                ok: false,
+                error: error
+            };
+        }
+    }
+
+    async function sendPasswordReset(email, options) {
+        var trimmedEmail = String(email || '').trim();
+        if (!trimmedEmail) {
+            return {
+                ok: false,
+                error: new Error('Email is required')
+            };
+        }
+
+        if (!isSupabaseConfigured()) {
+            return {
+                ok: false,
+                error: new Error('Sync not configured')
+            };
+        }
+
+        var client = getSupabaseClient();
+        if (!client || !client.auth || typeof client.auth.resetPasswordForEmail !== 'function') {
+            return {
+                ok: false,
+                error: new Error('Supabase auth is unavailable')
+            };
+        }
+
+        try {
+            var redirectTo = resolveAuthRedirect(options, '/account/');
+            var response = await client.auth.resetPasswordForEmail(trimmedEmail, {
+                redirectTo: redirectTo
+            });
+            if (response.error) {
+                throw response.error;
+            }
+
+            return {
+                ok: true
+            };
+        } catch (error) {
+            return {
+                ok: false,
+                error: error
+            };
+        }
+    }
+
+    async function updatePassword(nextPassword) {
+        var rawPassword = String(nextPassword || '');
+        if (rawPassword.length < 8) {
+            return {
+                ok: false,
+                error: new Error('Password must be at least 8 characters')
+            };
+        }
+
+        if (!isSupabaseConfigured()) {
+            return {
+                ok: false,
+                error: new Error('Sync not configured')
+            };
+        }
+
+        var client = getSupabaseClient();
+        if (!client || !client.auth || typeof client.auth.updateUser !== 'function') {
+            return {
+                ok: false,
+                error: new Error('Supabase auth is unavailable')
+            };
+        }
+
+        try {
+            var response = await client.auth.updateUser({
+                password: rawPassword
+            });
+
+            if (response.error) {
+                throw response.error;
+            }
+
+            var user = response.data && response.data.user ? response.data.user : state.currentUser;
+            state.currentUser = user || null;
+            setCachedAuthState(!!state.currentUser);
+            dispatchStatusChange();
+
+            return {
+                ok: true,
+                user: state.currentUser
+            };
+        } catch (error) {
+            return {
+                ok: false,
+                error: error
+            };
+        }
+    }
+
     async function sendMagicLink(email, options) {
         var trimmedEmail = String(email || '').trim();
         if (!trimmedEmail) {
@@ -786,28 +1062,8 @@
         }
 
         try {
-            var redirectTo = window.location.origin + '/account/';
-            var metadata = null;
-            if (options && typeof options === 'object' && options.redirectTo) {
-                var customRedirect = String(options.redirectTo).trim();
-                if (customRedirect) {
-                    redirectTo = customRedirect;
-                }
-            }
-
-            if (options && typeof options === 'object' && options.metadata && typeof options.metadata === 'object') {
-                metadata = options.metadata;
-            }
-
-            if (!metadata && options && typeof options === 'object' && options.displayName) {
-                var displayName = String(options.displayName).trim();
-                if (displayName) {
-                    metadata = {
-                        display_name: displayName,
-                        name: displayName
-                    };
-                }
-            }
+            var redirectTo = resolveAuthRedirect(options, '/account/');
+            var metadata = resolveAuthMetadata(options);
 
             var otpOptions = {
                 emailRedirectTo: redirectTo
@@ -1048,6 +1304,10 @@
         getCurrentUser: getCurrentUser,
         refreshCurrentUser: refreshCurrentUser,
         flushRetryQueue: flushRetryQueue,
+        signUpWithPassword: signUpWithPassword,
+        signInWithPassword: signInWithPassword,
+        sendPasswordReset: sendPasswordReset,
+        updatePassword: updatePassword,
         sendMagicLink: sendMagicLink,
         signOut: signOut
     };

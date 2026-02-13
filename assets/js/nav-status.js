@@ -21,6 +21,7 @@
     var NAV_ITEMS = [
         { id: 'home', label: 'Home', href: '/' },
         { id: 'pricing', label: 'Pricing', href: '/pricing/' },
+        { id: 'account', label: 'Account', href: '/account/' },
         {
             id: 'about',
             label: 'About',
@@ -157,6 +158,10 @@
 
         if (path === '/pricing' || path.indexOf('/pricing/') === 0) {
             return 'pricing';
+        }
+
+        if (path === '/account' || path.indexOf('/account/') === 0) {
+            return 'account';
         }
 
         if (
