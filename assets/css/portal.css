@@ -1780,7 +1780,7 @@
 }
 
 .pc-photo-frame.pc-photo-placeholder::before {
-    content: 'Photo coming soon';
+    content: 'Photo unavailable';
     color: var(--pc-text-muted);
     font-weight: 600;
     font-size: 0.94rem;
