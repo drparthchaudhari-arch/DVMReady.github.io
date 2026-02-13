@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
     <title>Snake | Parth Chaudhari</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -189,9 +190,40 @@
             margin-top: 0.55rem;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
+            .top-links {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 0.45rem;
+            }
+
+            .panel {
+                padding: 0.85rem;
+            }
+
             #snakeCanvas {
-                max-width: 360px;
+                max-width: min(100%, 380px);
+            }
+        }
+
+        @media (max-width: 520px) {
+            body {
+                padding: 0.75rem;
+            }
+
+            #snakeCanvas {
+                max-width: min(100%, 320px);
+            }
+
+            .snake-dpad {
+                grid-template-columns: repeat(3, 44px);
+                gap: 4px;
+            }
+
+            .snake-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 1rem;
             }
         }
     </style>

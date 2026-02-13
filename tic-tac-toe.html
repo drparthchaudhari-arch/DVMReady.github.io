@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
     <title>Tic Tac Toe Levels | Parth Chaudhari</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -174,6 +175,32 @@
 
         .ttt-cell.o {
             color: var(--accent);
+        }
+
+        @media (max-width: 700px) {
+            .top-links {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 0.45rem;
+            }
+
+            .panel {
+                padding: 0.85rem;
+            }
+
+            .ttt-status {
+                font-size: 0.92rem;
+            }
+        }
+
+        @media (max-width: 520px) {
+            body {
+                padding: 0.75rem;
+            }
+
+            .ttt-grid {
+                gap: 6px;
+            }
         }
     </style>
 </head>

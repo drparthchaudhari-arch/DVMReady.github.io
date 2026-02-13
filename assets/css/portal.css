@@ -1507,6 +1507,7 @@
 }
 
 .pc-page--gameframe {
+    --pc-game-nav-height: calc(60px + env(safe-area-inset-top));
     padding: 0;
     height: 100dvh;
     overflow: hidden;
@@ -1567,15 +1568,15 @@
 }
 
 .pc-game-stage {
-    margin-top: 60px;
-    height: calc(100dvh - 60px);
+    margin-top: var(--pc-game-nav-height);
+    height: calc(100dvh - var(--pc-game-nav-height));
     width: 100%;
     background: color-mix(in srgb, var(--pc-bg) 90%, #000 10%);
 }
 
 .pc-game-iframe {
     width: 100%;
-    height: calc(100dvh - 60px);
+    height: calc(100dvh - var(--pc-game-nav-height));
     border: 0;
     display: block;
     touch-action: none;
@@ -3116,5 +3117,241 @@
     .pc-study-title,
     .pc-case-title {
         line-height: 1.15;
+    }
+}
+
+/* Mobile hardening overrides */
+@media (max-width: 900px) {
+    .pc-section,
+    .pc-bridge-section,
+    .pc-search-panel,
+    .pc-account-card,
+    .pc-study-panel,
+    .pc-case-article,
+    .pc-bridge-hero {
+        padding: clamp(0.9rem, 2.4vw, 1.15rem);
+    }
+
+    .pc-study-subtitle,
+    .pc-fork-copy {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .pc-page--home,
+    .pc-page--info,
+    .pc-page--bridge,
+    .pc-page--search,
+    .pc-page--play,
+    .pc-page--study {
+        padding-top: calc(6.4rem + env(safe-area-inset-top));
+    }
+
+    .pc-portal-nav__inner {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+    }
+
+    .pc-logo {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .pc-nav-group,
+    .pc-nav__links {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        padding-bottom: 0.25rem;
+    }
+
+    .pc-nav-group > *,
+    .pc-nav__links > * {
+        flex: 0 0 auto;
+    }
+
+    .pc-nav-link,
+    .pc-nav-toggle {
+        white-space: nowrap;
+    }
+
+    .pc-panel-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: stretch;
+    }
+
+    .pc-panel-actions .pc-btn,
+    .pc-panel-actions .pc-link-chip {
+        width: 100%;
+    }
+
+    .pc-search-filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0.2rem;
+    }
+
+    .pc-search-filters .pc-filter-chip {
+        flex: 0 0 auto;
+    }
+
+    .pc-plan-presets {
+        grid-template-columns: 1fr;
+    }
+
+    .pc-topic-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pc-account-hero__surface::after,
+    .pc-page--account .pc-account-shell::before {
+        display: none;
+    }
+
+    .pc-page--gameframe {
+        --pc-game-nav-height: calc(168px + env(safe-area-inset-top));
+    }
+
+    .pc-game-nav {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
+
+    .pc-game-nav__back {
+        justify-content: center;
+    }
+
+    .pc-game-nav__center {
+        justify-content: flex-start;
+    }
+
+    .pc-game-title {
+        white-space: normal;
+        font-size: var(--pc-text-lg);
+        line-height: 1.2;
+    }
+
+    .pc-game-nav__right {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0.2rem;
+    }
+
+    .pc-game-nav__right .pc-nav-toggle {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    .pc-leaderboard-table td::before {
+        min-width: 9rem;
+    }
+
+    .pc-games-quickbar {
+        max-width: calc(100vw - 1rem);
+    }
+}
+
+@media (max-width: 620px) {
+    .pc-topic-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pc-leaderboard-table td {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 0.2rem;
+    }
+
+    .pc-leaderboard-table td::before {
+        min-width: 0;
+    }
+
+    .pc-page--gameframe {
+        --pc-game-nav-height: calc(182px + env(safe-area-inset-top));
+    }
+}
+
+@media (max-width: 480px) {
+    .pc-nav-link,
+    .pc-nav-toggle {
+        font-size: var(--pc-text-sm);
+        padding: var(--pc-space-xs) var(--pc-space-sm);
+    }
+
+    .pc-filter-chip {
+        min-height: 34px;
+        font-size: 0.76rem;
+    }
+
+    .pc-page--gameframe {
+        --pc-game-nav-height: calc(196px + env(safe-area-inset-top));
+    }
+}
+
+/* Account page final layout fix */
+.pc-page--account .pc-account-page {
+    width: min(1080px, 100%);
+    max-width: none;
+    margin: 0 auto;
+    padding-bottom: var(--pc-space-2xl);
+}
+
+.pc-page--account .pc-account-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+    gap: clamp(0.85rem, 2.2vw, 1.15rem);
+    align-items: start;
+}
+
+.pc-page--account .pc-account-card {
+    padding: clamp(1rem, 1.8vw, 1.35rem);
+}
+
+.pc-page--account .pc-account-card--privacy {
+    grid-column: 1 / -1;
+}
+
+.pc-page--account .pc-account-section__title {
+    font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+    line-height: 1.2;
+    margin-bottom: var(--pc-space-sm);
+}
+
+.pc-page--account .pc-account-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pc-space-sm);
+}
+
+.pc-page--account .pc-account-actions .pc-btn {
+    flex: 1 1 220px;
+    width: auto;
+}
+
+@media (max-width: 900px) {
+    .pc-page--account .pc-account-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pc-page--account .pc-account-card--privacy {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .pc-page--account .pc-account-actions .pc-btn {
+        flex: 1 1 100%;
+        width: 100%;
     }
 }
