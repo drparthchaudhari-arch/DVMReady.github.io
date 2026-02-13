@@ -1719,6 +1719,10 @@
     align-items: center;
 }
 
+.pc-hero-profile--no-photo {
+    grid-template-columns: 1fr;
+}
+
 .pc-photo-frame {
     border: 1px solid var(--pc-border);
     border-radius: 18px;
