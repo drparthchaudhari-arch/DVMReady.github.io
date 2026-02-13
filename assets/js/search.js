@@ -101,13 +101,6 @@
         return normalized;
     }
 
-    function getLegacyIndex() {
-        if (typeof searchIndex === 'undefined') {
-            return [];
-        }
-        return normalizeIndex(searchIndex);
-    }
-
     function getElements() {
         return {
             input: document.getElementById('search-input'),
@@ -473,8 +466,9 @@
                 }
                 return normalized;
             })
-            .catch(function () {
-                return getLegacyIndex();
+            .catch(function (error) {
+                console.error('Failed to load search index JSON:', error);
+                return [];
             });
     }
 
