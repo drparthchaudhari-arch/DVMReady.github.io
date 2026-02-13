@@ -41,7 +41,7 @@
             <p class="pc-fork-copy">No login required. Use these calculators during study blocks, case reviews, and on-call simulation drills.</p>
         </section>
 
-        <section class="pc-bridge-section" aria-label="All clinical tools">
+        <section id="planned-tools" class="pc-bridge-section" aria-label="All clinical tools">
             <h2 class="pc-bridge-title">All Tools (Most Used First)</h2>
             <p class="pc-tool-subtitle">Top entries are most used, followed by the full clinical support suite.</p>
             <div class="pc-tools-launch-grid">
@@ -79,9 +79,47 @@
             </div>
         </section>
 
+        <section class="pc-bridge-section" aria-label="Tools and references architecture">
+            <h2 class="pc-bridge-title">Tools and References (Same Menu)</h2>
+            <p class="pc-tool-subtitle">Primary path stays in <code>/tools/*</code>, with references routed in <code>/reference/*</code>. This prevents overlap with NAVLE-only routes.</p>
+            <div class="pc-bridge-card-grid">
+                <article class="pc-bridge-card">
+                    <h3>Available Tools</h3>
+                    <p>Fast-access calculators and emergency support tools.</p>
+                    <a class="pc-btn pc-btn--secondary" href="/tools/">Open Tools Menu</a>
+                </article>
+                <article class="pc-bridge-card">
+                    <h3>Coming Soon Tools</h3>
+                    <p>Planned clinical modules are listed and routed with planned status only.</p>
+                    <a class="pc-btn pc-btn--secondary" href="/tools/#planned-tools">View Planned Tools</a>
+                </article>
+                <article class="pc-bridge-card">
+                    <h3>References Submenu</h3>
+                    <p>Citation and guideline references are centralized in one reference library.</p>
+                    <a class="pc-btn pc-btn--secondary" href="/reference/">Open References</a>
+                </article>
+            </div>
+            <ul class="pc-link-list">
+                <li><a href="/reference/#drug-label-search-dailymed">Drug Label Search (DailyMed)</a></li>
+                <li><a href="/reference/#iris-stages">IRIS Stages</a></li>
+                <li><a href="/reference/#normal-lab-values">Normal Lab Values</a></li>
+                <li><a href="/reference/#heartworm-treatment-protocol">Heartworm Treatment Protocol</a></li>
+                <li><a href="/reference/#lab-test-protocols">Lab Test Protocols</a></li>
+                <li><a href="/reference/#microchip-lookup">Microchip Lookup</a></li>
+                <li><a href="/reference/#vertebral-heart-score">Vertebral Heart Score</a></li>
+                <li><a href="/reference/#bcs-charts">BCS Charts</a></li>
+                <li><a href="/reference/#acvim-cardiology-consensus-guideline-references">ACVIM Cardiology Consensus Guideline References</a></li>
+                <li><a href="/reference/#dental-charts">Dental Charts</a></li>
+                <li><a href="/reference/#aaha-vaccination-guidelines">AAHA Vaccination Guidelines</a></li>
+                <li><a href="/reference/#flea-tick-product-info">Flea/Tick Product Info</a></li>
+                <li><a href="/reference/#dog-cat-breed-search">Dog/Cat Breed Search</a></li>
+                <li><a href="/reference/#recover-cpr-guidelines">RECOVER CPR Guidelines</a></li>
+            </ul>
+        </section>
+
         <p class="pc-disclaimer">
                 Approved reference baseline (reviewed February 13, 2026):
-                Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
+                <a href="/reference/">open full citation map in Reference Library</a> for Drug label search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score, BCS charts, ACVIM cardiology consensus guideline references, Dental charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat breed search, and RECOVER CPR guidelines.
             </p>
 
     </main>
