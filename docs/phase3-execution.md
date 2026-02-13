@@ -4,23 +4,22 @@
 1. /
 2. /pricing/
 3. /study/navle/practice/
-4. /navle-practice-questions/
-5. /tools/
-6. /veterinary-calculators/
-7. /veterinary-calculators-guide/
-8. /navle-emergency-critical-care/
-9. /canine-feline-chf/
-10. /dog-cat-normal-values/
-11. /emergency-triage-algorithms/
-12. /clinical-case-studies/
-13. /tools/dose-calculator.html
-14. /tools/fluid-calculator.html
-15. /tools/cri-calculator.html
-16. /tools/acid-base-electrolyte.html
-17. /chf-staging-overview/
-18. /dka-approach-veterinary/
-19. /murmur-approach-dog-cat/
-20. /reference/programmatic/chocolate-toxicity-dose-thresholds-dogs/
+4. /tools/
+5. /veterinary-calculators/
+6. /veterinary-calculators-guide/
+7. /navle-emergency-critical-care/
+8. /canine-feline-chf/
+9. /dog-cat-normal-values/
+10. /emergency-triage-algorithms/
+11. /clinical-case-studies/
+12. /tools/dose-calculator.html
+13. /tools/fluid-calculator.html
+14. /tools/cri-calculator.html
+15. /tools/acid-base-electrolyte.html
+16. /chf-staging-overview/
+17. /dka-approach-veterinary/
+18. /murmur-approach-dog-cat/
+19. /reference/programmatic/chocolate-toxicity-dose-thresholds-dogs/
 
 ## Performance and CWV Targets
 - LCP <= 2.5s (mobile p75)

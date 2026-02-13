@@ -37,7 +37,6 @@
             children: [
                 { label: 'NAVLE Study Hub', href: '/study/navle/' },
                 { label: 'Practice Questions', href: '/study/navle/practice/' },
-                { label: 'NAVLE Practice Questions', href: '/navle-practice-questions/' },
                 { label: 'Emergency and Critical Care', href: '/navle-emergency-critical-care/' },
                 { label: 'Canine and Feline CHF', href: '/canine-feline-chf/' },
                 { label: 'Topic Guides', href: '/study/navle/topics/' },
@@ -212,8 +211,6 @@
         if (
             path === '/study' ||
             path.indexOf('/study/') === 0 ||
-            path === '/navle-practice-questions' ||
-            path.indexOf('/navle-practice-questions/') === 0 ||
             startsWithAny(path, STUDY_LANDING_PATHS)
         ) {
             return 'navle-study';
@@ -561,8 +558,6 @@
         if (
             path === '/study' ||
             path.indexOf('/study/') === 0 ||
-            path === '/navle-practice-questions' ||
-            path.indexOf('/navle-practice-questions/') === 0 ||
             startsWithAny(path, STUDY_LANDING_PATHS)
         ) {
             return { label: 'NAVLE Study', href: '/study/navle/' };
@@ -811,7 +806,7 @@
         if (path === '/tools/' || path.indexOf('/veterinary-calculators') === 0 || startsWithAny(normalizePath(path), TOOL_LANDING_PATHS)) {
             return 'tools_hub';
         }
-        if (path.indexOf('/study/navle/practice') === 0 || path.indexOf('/navle-practice-questions') === 0) {
+        if (path.indexOf('/study/navle/practice') === 0) {
             return 'practice';
         }
         if (path.indexOf('/study/') === 0 || startsWithAny(normalizePath(path), STUDY_LANDING_PATHS)) {

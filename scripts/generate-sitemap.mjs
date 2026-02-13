@@ -21,7 +21,6 @@ const CANONICAL_PATHS = [
   '/study/wordweb/',
   '/study/wordvet/',
   '/today/',
-  '/navle-practice-questions/',
   '/navle-emergency-critical-care/',
   '/gdv-approach/',
   '/shock-types-veterinary/',
