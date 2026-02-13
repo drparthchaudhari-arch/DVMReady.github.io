@@ -55,7 +55,7 @@
             href: '/account/',
             children: [
                 { label: 'Account & Sync', href: '/account/' },
-                { label: 'About Me', href: '/info.html' }
+                { label: 'Subscription', href: '/account/subscription/' }
             ]
         },
         { id: 'search', label: 'Search', href: '/search.html' }

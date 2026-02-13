@@ -1025,7 +1025,7 @@
         if (upgradeButton) {
             upgradeButton.addEventListener('click', function () {
                 closeModal('payment-gate');
-                window.location.href = '/account/?plan=premium';
+                window.location.href = '/account/subscription/?plan=premium';
             });
         }
 

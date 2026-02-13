@@ -2,7 +2,7 @@
   {
     "id": "main1_001_mmvd_b2",
     "topic": "cardiology",
-    "stem": "A 9-year-old Cavalier King Charles Spaniel has a grade III/VI left apical systolic murmur. Thoracic radiographs and echo show left atrial and mild left ventricular enlargement, but no pulmonary edema and no crackles. What is the most appropriate next management step?",
+    "stem": "A 9-year-old male neutered Cavalier King Charles Spaniel is presented for an annual exam. The owner reports the dog is still active and eating normally, with only occasional soft nighttime cough and no exercise collapse. On exam you find a grade III/VI left apical systolic murmur, normal perfusion, and no pulmonary crackles. Thoracic radiographs show left atrial and mild left ventricular enlargement without pulmonary venous congestion or edema. Echocardiography confirms myxomatous mitral valve disease with mitral regurgitation and moderate left atrial dilation. What is the most appropriate next management step now?",
     "options": {
       "A": "Start furosemide and oxygen therapy immediately",
       "B": "Start pimobendan to delay progression to CHF",
@@ -29,7 +29,7 @@
   {
     "id": "main1_002_acute_chf",
     "topic": "cardiology",
-    "stem": "A small-breed dog with chronic murmur develops acute dyspnea, tachypnea, crackles, and radiographic pulmonary edema. What is the best immediate next step?",
+    "stem": "A 10-year-old small-breed dog with known chronic mitral valve disease presents for acute respiratory distress that began overnight. The patient is anxious, orthopneic, tachypneic, and has diffuse inspiratory crackles on thoracic auscultation. Pulse oximetry is low, and thoracic radiographs confirm cardiomegaly with cardiogenic pulmonary edema. The owner asks whether to wait for complete echocardiography before treatment. In this immediate setting, what is the best priority action?",
     "options": {
       "A": "Wait for complete echocardiography before treatment",
       "B": "Start oxygen and furosemide immediately",
@@ -56,7 +56,7 @@
   {
     "id": "main1_003_dcm_occult",
     "topic": "cardiology",
-    "stem": "A Doberman Pinscher has echo-confirmed dilated cardiomyopathy with chamber dilation but no pulmonary edema and no respiratory distress. Which next step is most appropriate?",
+    "stem": "A 6-year-old Doberman Pinscher is referred after screening echocardiography showed left ventricular systolic dysfunction and chamber dilation consistent with dilated cardiomyopathy. The dog has occasional fatigue but no resting dyspnea, no crackles, and thoracic radiographs show no pulmonary edema. Intermittent ventricular ectopy is noted on rhythm monitoring. You need to choose the most appropriate immediate pathway for an occult, non-congestive stage. Which next step is best?",
     "options": {
       "A": "Start furosemide as first-line therapy",
       "B": "Start pimobendan and arrange rhythm monitoring",
@@ -83,7 +83,7 @@
   {
     "id": "main1_004_vt_assume",
     "topic": "cardiology",
-    "stem": "A dog presents weak with a wide-complex tachycardia at 230 bpm and poor perfusion. What is the most appropriate immediate treatment approach?",
+    "stem": "A middle-aged dog presents collapsed and weak with pale mucous membranes, prolonged capillary refill time, and poor peripheral pulses. ECG shows a very rapid wide-complex tachycardia around 230 bpm, and Doppler blood pressure is low. The team is debating whether this might be supraventricular tachycardia with aberrancy versus ventricular tachycardia. In an unstable patient where perfusion is compromised, what is the most appropriate immediate treatment approach?",
     "options": {
       "A": "Assume SVT and give diltiazem first",
       "B": "Assume ventricular tachycardia and treat promptly (lidocaine if appropriate)",
@@ -110,7 +110,7 @@
   {
     "id": "main1_005_aki_ckd",
     "topic": "nephrology",
-    "stem": "A dog has azotemia, non-regenerative anemia, small irregular kidneys on ultrasound, and chronic weight loss. Which interpretation is most appropriate?",
+    "stem": "An older mixed-breed dog has a several-month history of weight loss, intermittent vomiting, reduced appetite, and increased drinking and urination. Laboratory testing shows persistent azotemia and hyperphosphatemia, and CBC reveals non-regenerative anemia. Abdominal ultrasound demonstrates bilaterally small, irregular kidneys with reduced corticomedullary definition. The clinician must decide whether this pattern is most consistent with acute kidney injury or chronic kidney disease. What is the best interpretation?",
     "options": {
       "A": "Acute kidney injury is most likely",
       "B": "Chronic kidney disease is most likely",
@@ -137,7 +137,7 @@
   {
     "id": "main1_006_struvite_dog",
     "topic": "urology",
-    "stem": "A dog has a struvite cystolith and positive urine culture for urease-producing bacteria. Best initial management strategy?",
+    "stem": "A female Miniature Schnauzer has recurrent dysuria, pollakiuria, and intermittent hematuria despite previous short antibiotic courses. Urinalysis shows alkaline urine with struvite crystals, urine culture is positive for a urease-producing organism, and abdominal imaging identifies radiopaque cystoliths in the bladder. There is no urethral obstruction or emergency indication for immediate surgery. Based on common canine struvite pathophysiology, what is the most appropriate initial management strategy?",
     "options": {
       "A": "Medical dissolution diet with culture-directed antibiotics",
       "B": "Immediate nephrectomy",
@@ -164,7 +164,7 @@
   {
     "id": "main1_007_lepto_treat_now",
     "topic": "infectious-disease",
-    "stem": "A febrile dog with AKI risk and icterus has strong suspicion for leptospirosis. What is the most appropriate immediate approach?",
+    "stem": "A young adult working dog presents with fever, vomiting, lethargy, and rapidly worsening azotemia. The patient also has mild icterus, thrombocytopenia, and recent exposure history to standing water and wildlife-contaminated environments. Leptospirosis is high on the differential list, but confirmatory testing is still pending. Because both clinical outcome and zoonotic exposure are concerns, what is the most appropriate immediate clinical approach?",
     "options": {
       "A": "Delay treatment until convalescent titers are back",
       "B": "Start appropriate antimicrobials and zoonotic precautions immediately",
@@ -191,7 +191,7 @@
   {
     "id": "main1_008_hepatic_encephalopathy",
     "topic": "hepatology",
-    "stem": "A dog with known hepatic dysfunction develops episodic neurologic signs and elevated ammonia. What is the best immediate medical management priority?",
+    "stem": "A small-breed dog with chronic hepatic disease develops episodic disorientation, aimless pacing, and intermittent ptyalism that worsens after high-protein meals. Blood work suggests hepatic dysfunction, fasting ammonia is elevated, and no primary intracranial lesion is currently suspected. The team wants to choose first-line medical therapy targeting the likely mechanism of neurologic signs. What is the most appropriate immediate management priority?",
     "options": {
       "A": "Lactulose-centered ammonia-lowering strategy",
       "B": "High-protein unrestricted diet without adjuncts",
@@ -218,7 +218,7 @@
   {
     "id": "main1_009_pancreatitis_severity",
     "topic": "gastroenterology",
-    "stem": "A dog with pancreatitis is tachycardic, hypotensive, and shows poor perfusion with systemic inflammatory signs. What is the best immediate management priority?",
+    "stem": "An overweight middle-aged dog presents with acute vomiting, severe cranial abdominal pain, tachycardia, and depression. During triage, perfusion parameters worsen: mucous membranes are tacky, blood pressure is low, and lactate is elevated. Point-of-care findings support severe pancreatitis with systemic inflammatory response and possible shock physiology. Before advanced diagnostics are expanded, what is the most appropriate immediate treatment priority?",
     "options": {
       "A": "Aggressive stabilization with fluids, analgesia, and monitoring",
       "B": "Discharge with oral antacid only",
@@ -245,7 +245,7 @@
   {
     "id": "main1_010_imtp",
     "topic": "hematology",
-    "stem": "A dog has petechiae, epistaxis, and severe thrombocytopenia with no evidence of consumptive coagulopathy. Most appropriate next treatment direction?",
+    "stem": "A dog is admitted for spontaneous petechiae, ecchymoses, intermittent epistaxis, and blood-tinged stool. Platelet count is profoundly decreased, while coagulation screening does not indicate classic disseminated consumptive coagulopathy as the primary process. The patient is at high hemorrhage risk and needs urgent direction. In this context, what is the most appropriate next therapeutic pathway?",
     "options": {
       "A": "Begin immunosuppressive treatment for IMTP framework",
       "B": "Start aspirin for platelet support",
@@ -272,7 +272,7 @@
   {
     "id": "main1_011_megaesophagus",
     "topic": "internal-medicine",
-    "stem": "A dog with generalized megaesophagus has chronic regurgitation and recurrent aspiration risk. Which baseline management action is most important?",
+    "stem": "A large-breed dog with chronic regurgitation and progressive weight loss has repeated episodes of coughing after meals. Thoracic imaging supports generalized megaesophagus, and history suggests previous aspiration events. The owner asks for the most important baseline management action to reduce immediate respiratory complications while further etiologic workup continues. Which step is most appropriate now?",
     "options": {
       "A": "Upright feeding strategy with aspiration-risk prevention",
       "B": "High-volume bolus feeding in lateral recumbency",
@@ -299,7 +299,7 @@
   {
     "id": "main1_012_mct_preop",
     "topic": "oncology",
-    "stem": "A dog with a cutaneous mast cell tumor is scheduled for surgery. Which perioperative medication concept is most appropriate?",
+    "stem": "A Boxer has a cutaneous mass diagnosed as mast cell tumor by cytology and is scheduled for surgical excision. The team notes prior local swelling and erythema after manipulation of the lesion, consistent with mediator release risk. You want to reduce perioperative complications from histamine-related effects while planning definitive tumor control. Which medication concept is most appropriate in the perioperative plan?",
     "options": {
       "A": "Use histamine-blockade strategy perioperatively",
       "B": "Use morphine to maximize histamine release",
@@ -326,7 +326,7 @@
   {
     "id": "main1_013_pericardial_tamponade",
     "topic": "emergency",
-    "stem": "A dog has muffled heart sounds, weak pulses, jugular distension, and ultrasound evidence of pericardial effusion with tamponade physiology. Immediate best step?",
+    "stem": "A large-breed dog presents weak and intermittently collapsing with tachycardia, muffled heart sounds, weak pulses, and jugular distension. Focused ultrasound confirms significant pericardial effusion with cardiac tamponade physiology and right-sided filling compromise. The team discusses whether to stabilize medically first or directly relieve the mechanical problem. What is the most appropriate immediate intervention?",
     "options": {
       "A": "Pericardiocentesis",
       "B": "High-dose furosemide only",
@@ -353,7 +353,7 @@
   {
     "id": "main1_014_tension_pneumothorax",
     "topic": "emergency",
-    "stem": "A dog after trauma is acutely dyspneic with hyperresonant thorax and worsening respiratory effort. Tension pneumothorax is suspected. What is most appropriate now?",
+    "stem": "After blunt thoracic trauma, a dog is severely dyspneic with increased respiratory effort, hyperresonant thorax, and rapidly worsening oxygenation. The clinician strongly suspects tension pneumothorax based on examination, but complete radiographs are not yet obtained. Because ventilation is failing, the next step must prioritize life-saving physiology over full imaging confirmation. What should be done immediately?",
     "options": {
       "A": "Immediate thoracocentesis before waiting for radiographs",
       "B": "Wait for complete CT before intervention",
@@ -380,7 +380,7 @@
   {
     "id": "main1_015_aspiration_pneumonia",
     "topic": "respiratory",
-    "stem": "A regurgitating dog develops fever, crackles, and increased respiratory effort. What is the most appropriate next diagnostic step?",
+    "stem": "A dog with chronic regurgitation develops fever, productive cough, tachypnea, and increased respiratory effort over 24 hours. Thoracic auscultation reveals crackles in dependent lung fields, and aspiration pneumonia is strongly suspected. The team needs the best next diagnostic step to confirm pulmonary involvement and severity before tailoring full therapy. Which option is most appropriate?",
     "options": {
       "A": "Thoracic radiographs",
       "B": "Only abdominal ultrasound",
@@ -407,7 +407,7 @@
   {
     "id": "main1_016_parvo_first12h",
     "topic": "infectious-disease",
-    "stem": "An unvaccinated puppy has vomiting, hemorrhagic diarrhea, depression, and leukopenia. What is the best first-hours management sequence?",
+    "stem": "An unvaccinated puppy presents with acute vomiting, hemorrhagic diarrhea, severe lethargy, dehydration, and marked leukopenia. The patient is weak and at risk for septic complications, and parvoviral enteritis is high on the differential. In the first treatment hours, the team must prioritize both contagion control and hemodynamic stabilization. What is the most appropriate initial sequence?",
     "options": {
       "A": "Immediate isolation with aggressive fluid/supportive protocol",
       "B": "Wait for complete viral panel before precautions",
@@ -429,6 +429,222 @@
     },
     "speed_training": "Parvo pattern means isolate first and resuscitate early.",
     "navle_rule": "In contagious critical GI disease, biosecurity and stabilization are immediate priorities.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_017_dmvd_b2_cough_trap",
+    "topic": "cardiology",
+    "stem": "A small-breed senior dog with chronic cough is referred after cardiac workup shows degenerative mitral valve disease with left atrial and ventricular enlargement consistent with Stage B2. Thoracic radiographs do not show pulmonary edema, and resting respiratory effort is acceptable. The owner focuses on cough relief, but the question asks for most appropriate disease-stage management now. Which option best fits this B2 pattern?",
+    "options": {
+      "A": "Start hydrocodone only and reassess in 6 months",
+      "B": "Start pimobendan for Stage B2 progression delay",
+      "C": "Start furosemide immediately for presumed CHF",
+      "D": "No cardiac medication because the dog is not dyspneic"
+    },
+    "correct": "B",
+    "explanation": "In DMVD Stage B2 (cardiac enlargement without edema), pimobendan is the tested progression-delay move, even when cough has mixed causes.",
+    "decision_framework": "Do not confuse cough symptom management with stage-based cardiac management.",
+    "key_triggers": [
+      "DMVD confirmed by exam and echo",
+      "Cardiomegaly present (B2)",
+      "No pulmonary edema, so this is not decompensated CHF"
+    ],
+    "eliminate_wrong": {
+      "A": "Supportive antitussive-only care does not address Stage B2 progression risk.",
+      "C": "Diuretic-first therapy is for active congestion/edema, not pre-CHF B2 cases.",
+      "D": "No-med logic fits B1, not B2 with documented remodeling."
+    },
+    "speed_training": "If enlargement is present but edema is absent, think B2 and choose pimobendan.",
+    "navle_rule": "Treat DMVD B2; reserve CHF protocol for edema/distress.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_018_acute_cardiogenic_edema_priority",
+    "topic": "cardiology",
+    "stem": "A known cardiac dog suddenly develops open-mouth breathing, severe tachypnea, and anxiety at rest. Auscultation reveals crackles, and emergency thoracic radiographs demonstrate diffuse pulmonary edema compatible with acute left-sided congestive failure. Several medications are discussed, including chronic remodeling drugs and cough suppressants. In this emergency moment, what is the most appropriate immediate priority?",
+    "options": {
+      "A": "Wait for complete echo report before treatment",
+      "B": "Provide oxygen and loop diuretic stabilization first",
+      "C": "Start ACE inhibitor monotherapy and discharge",
+      "D": "Treat only with bronchodilator and cough suppressant"
+    },
+    "correct": "B",
+    "explanation": "Acute cardiogenic pulmonary edema is a stabilize-first emergency requiring immediate oxygen and diuresis.",
+    "decision_framework": "In respiratory failure from edema, stabilization precedes full chronic-plan optimization.",
+    "key_triggers": [
+      "Severe dyspnea/tachypnea",
+      "Pulmonary edema on thoracic imaging",
+      "Immediate oxygenation/perfusion threat"
+    ],
+    "eliminate_wrong": {
+      "A": "Deferring treatment until complete imaging can worsen hypoxemia.",
+      "C": "ACE inhibitor-only strategy does not treat urgent pulmonary edema.",
+      "D": "Airway symptom drugs do not resolve cardiogenic alveolar fluid burden."
+    },
+    "speed_training": "Pulmonary edema pattern equals oxygen plus loop diuretic first.",
+    "navle_rule": "Acute CHF management is immediate stabilization, then refinement.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_019_heartworm_diagnosis_algorithm",
+    "topic": "parasitology",
+    "stem": "During annual screening, a clinically stable dog tests antigen-positive for heartworm after imperfect prevention compliance. The patient has no severe respiratory compromise yet, and the team wants to proceed with the safest evidence-based sequence. Before selecting final adulticide timing, you need the algorithmic next step that confirms infection status and helps staging. What should be done next?",
+    "options": {
+      "A": "Start melarsomine immediately without further confirmation",
+      "B": "Perform microfilaria assessment and stage disease before adulticide planning",
+      "C": "Ignore result if the dog is asymptomatic",
+      "D": "Repeat antigen in 12 months without interim action"
+    },
+    "correct": "B",
+    "explanation": "After antigen positivity, microfilaria evaluation and clinical staging guide safe treatment sequencing.",
+    "decision_framework": "Positive screen triggers confirmation/staging workflow, not immediate final-step therapy.",
+    "key_triggers": [
+      "Antigen test is positive",
+      "Need to characterize infection burden and cardiopulmonary impact",
+      "Adulticide planning depends on staging data"
+    ],
+    "eliminate_wrong": {
+      "A": "Skipping confirmation/staging can create avoidable treatment risk.",
+      "C": "Asymptomatic status does not rule out clinically important disease.",
+      "D": "Delaying follow-up ignores an active positive screening result."
+    },
+    "speed_training": "Antigen-positive means confirm and stage before adulticide sequence.",
+    "navle_rule": "Follow algorithm steps in order for heartworm safety.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_020_heartworm_safe_sequence",
+    "topic": "parasitology",
+    "stem": "A dog with confirmed heartworm infection is being counseled for treatment planning. The owner asks why therapy cannot start with immediate adulticide injection today. You need to choose the protocol sequence that minimizes complications and follows standard risk-reduction workflow, including preparatory treatment and activity restrictions. Which overall sequence is most appropriate?",
+    "options": {
+      "A": "Melarsomine first-day injection then decide the rest later",
+      "B": "Doxycycline and macrocyclic-lactone phase with exercise restriction, then staged 3-dose melarsomine protocol",
+      "C": "Only monthly prevention with no other therapy",
+      "D": "High-intensity exercise to improve pulmonary flow before treatment"
+    },
+    "correct": "B",
+    "explanation": "Safe sequencing emphasizes preparatory phase and exercise restriction before adulticide protocol execution.",
+    "decision_framework": "NAVLE tests treatment order and risk reduction, not just drug name recall.",
+    "key_triggers": [
+      "Confirmed heartworm infection",
+      "Need to lower thromboembolic and inflammatory risk",
+      "Adulticide phase should follow preparation"
+    ],
+    "eliminate_wrong": {
+      "A": "Skipping preparatory phase increases complication risk.",
+      "C": "Prevention-only approach is not definitive treatment for established disease.",
+      "D": "Exercise increases risk during active heartworm disease management."
+    },
+    "speed_training": "Think prep phase first, then staged adulticide.",
+    "navle_rule": "Sequence matters in heartworm treatment safety.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_021_dcm_occult_vs_chf_fork",
+    "topic": "cardiology",
+    "stem": "A Doberman with known DCM has chamber dilation and ventricular ectopy on monitoring, but current thoracic imaging shows no pulmonary edema and exam does not indicate active congestive failure. The case question focuses on choosing the correct branch between occult disease management and decompensated CHF treatment. What is the most appropriate immediate direction?",
+    "options": {
+      "A": "Treat as CHF now with high-dose diuretic protocol",
+      "B": "Occult DCM pathway: stage-appropriate cardiac therapy plus rhythm follow-up",
+      "C": "No treatment until overt collapse occurs",
+      "D": "Thoracocentesis as routine first step"
+    },
+    "correct": "B",
+    "explanation": "Occult DCM (no edema) follows a different pathway from congestive DCM and requires proactive management/monitoring.",
+    "decision_framework": "Differentiate structural disease with no congestion from true CHF decompensation.",
+    "key_triggers": [
+      "Chamber dilation present",
+      "Arrhythmia risk present",
+      "No radiographic/clinical edema signs"
+    ],
+    "eliminate_wrong": {
+      "A": "Diuretic-heavy CHF protocol is for congestion, not occult non-congestive stage.",
+      "C": "Delay misses stage-based interventions and rhythm risk control.",
+      "D": "Thoracocentesis is for pleural space disease, not this presentation."
+    },
+    "speed_training": "No edema means occult fork, not CHF fork.",
+    "navle_rule": "Apply DCM stage logic before selecting acute therapies.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_022_wide_complex_vt_unstable",
+    "topic": "cardiology",
+    "stem": "An emergency patient arrives with wide-complex tachyarrhythmia, hypotension, weak pulses, and poor mentation. Team members suggest waiting for extended ECG interpretation before intervention. Because hemodynamic instability is already present, the decision must favor life-saving rhythm logic first. What is the most appropriate immediate approach?",
+    "options": {
+      "A": "Treat as benign supraventricular rhythm and observe",
+      "B": "Assume unstable VT pattern and begin emergency rhythm control",
+      "C": "Delay treatment pending outpatient Holter interpretation",
+      "D": "Start oral maintenance therapy only and discharge"
+    },
+    "correct": "B",
+    "explanation": "Unstable wide-complex tachycardia in dogs is managed as VT emergency until proven otherwise.",
+    "decision_framework": "Hemodynamic stability drives urgency in arrhythmia decisions.",
+    "key_triggers": [
+      "Wide-complex rapid rhythm",
+      "Perfusion compromise/hypotension",
+      "Emergency rhythm control needed now"
+    ],
+    "eliminate_wrong": {
+      "A": "Observation-first approach is unsafe in unstable tachyarrhythmia.",
+      "C": "Holter is diagnostic follow-up, not immediate stabilization.",
+      "D": "Oral outpatient-only strategy is inappropriate in unstable presentation."
+    },
+    "speed_training": "Wide-complex plus instability equals emergency VT logic.",
+    "navle_rule": "Stabilize dangerous rhythm first, refine diagnosis second.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_023_upper_airway_crisis_brachy",
+    "topic": "emergency",
+    "stem": "A brachycephalic dog presents in hot weather with stridor, cyanosis, severe inspiratory effort, and hyperthermia. The patient is rapidly fatiguing and cannot maintain adequate airflow. The question asks for immediate priority management before any elective or definitive airway surgery planning. Which action is most appropriate right now?",
+    "options": {
+      "A": "Immediate airway support and active cooling/stabilization",
+      "B": "Delay intervention until full laryngeal imaging under sedation",
+      "C": "Give cough suppressant and observe response",
+      "D": "Focus first on long-term surgical planning only"
+    },
+    "correct": "A",
+    "explanation": "Upper-airway crisis requires rapid airway stabilization and cooling before definitive procedure planning.",
+    "decision_framework": "Treat life-threatening airway compromise before elective diagnostics.",
+    "key_triggers": [
+      "Brachycephalic signalment with inspiratory crisis",
+      "Cyanosis and heat-stress physiology",
+      "Immediate airway threat"
+    ],
+    "eliminate_wrong": {
+      "B": "Delayed imaging-first strategy is unsafe during active airway failure.",
+      "C": "Symptom suppression does not correct critical upper airway obstruction.",
+      "D": "Definitive surgery is later; immediate stabilization is first."
+    },
+    "speed_training": "Airway and cooling first in brachy emergency presentations.",
+    "navle_rule": "Stabilization comes before definitive airway correction planning.",
+    "source_doc": "main1 for navle.ini"
+  },
+  {
+    "id": "main1_024_ahds_vs_parvo_triage",
+    "topic": "infectious-disease",
+    "stem": "A 5-month-old puppy is presented with acute bloody diarrhea, vomiting, depression, and leukopenia. A parvo test is pending, but the patient appears clinically high risk and potentially contagious. The team is deciding whether to treat as non-contagious hemorrhagic diarrhea syndrome versus presumptive parvovirus during triage. What is the safest and most appropriate immediate approach?",
+    "options": {
+      "A": "Treat as non-contagious AHDS and skip isolation",
+      "B": "Treat as presumptive parvovirus with isolation and aggressive supportive care",
+      "C": "Send home for oral hydration only until test confirmation",
+      "D": "Delay treatment until repeat CBC tomorrow"
+    },
+    "correct": "B",
+    "explanation": "In high-risk puppy patterns, biosecurity and parvo-level supportive care should begin immediately while confirmation continues.",
+    "decision_framework": "When consequences of missed contagion are high, triage should favor containment and stabilization.",
+    "key_triggers": [
+      "High-risk age/signalment",
+      "Hemorrhagic GI signs with leukopenia",
+      "Pending test should not delay critical early care"
+    ],
+    "eliminate_wrong": {
+      "A": "Assuming non-contagious disease early risks outbreaks and delayed critical treatment.",
+      "C": "Outpatient-only care is inappropriate for severe high-risk presentation.",
+      "D": "Deferring care can worsen shock, sepsis risk, and viral spread."
+    },
+    "speed_training": "Puppy plus leukopenia plus hemorrhagic diarrhea means isolate and treat as parvo until proven otherwise.",
+    "navle_rule": "Use worst-case-safe triage when contagious critical disease is plausible.",
     "source_doc": "main1 for navle.ini"
   }
 ]

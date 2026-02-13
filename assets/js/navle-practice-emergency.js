@@ -2,23 +2,13 @@
     'use strict';
 
     var SESSION_KEY = 'pc_navle_practice_emergency_session_v1';
-    var USAGE_KEY = 'pc_navle_free_usage_v1';
-    var LEGACY_FREE_PREFIX = 'pc_free_questions_';
-    var PAID_FLAG_KEY = 'pc_navle_paid';
     var FREE_BANK_URL = '/content/navle/questions.json';
-    var PAID_STOCK_BANK_URL = '/content/navle/questions-paid-stock.json';
-    var PAYMENT_PAGE_URL = '/account/?plan=premium';
-    var PREMIUM_STATUSES = ['premium', 'active', 'paid', 'pro'];
-    var FREE_DAILY_LIMIT = 5;
-    var FREE_BANK_MAX = 50;
 
     var currentQuestion = null;
     var questionIndex = 0;
     var questions = [];
-    var freeUsed = 0;
     var wasLoggedIn = false;
     var authHydrationInFlight = false;
-    var isPaidUser = false;
 
     function byId(id) {
         return document.getElementById(id);
@@ -59,10 +49,6 @@
             .replace(/'/g, '&#39;');
     }
 
-    function getTodayKey() {
-        return new Date().toISOString().split('T')[0];
-    }
-
     function getCurrentPath() {
         return window.location.pathname + window.location.search;
     }
@@ -72,33 +58,9 @@
         safeSet('pc_last_learning_seen_at_v1', new Date().toISOString());
     }
 
-    function readUsage() {
-        var today = getTodayKey();
-        var usage = safeParse(safeGet(USAGE_KEY) || '{}', {});
-
-        if (usage && String(usage.date || '') === today && Number.isFinite(Number(usage.used))) {
-            return Math.max(0, Number(usage.used));
-        }
-
-        var legacy = parseInt(safeGet(LEGACY_FREE_PREFIX + today) || '0', 10);
-        if (Number.isFinite(legacy) && legacy >= 0) {
-            return legacy;
-        }
-
-        return 0;
-    }
-
-    function writeUsage(used) {
-        var normalized = Math.max(0, Number(used) || 0);
-        var today = getTodayKey();
-        safeSet(USAGE_KEY, JSON.stringify({ date: today, used: normalized }));
-        safeSet(LEGACY_FREE_PREFIX + today, String(normalized));
-    }
-
     function readSessionIndex() {
-        var today = getTodayKey();
         var session = safeParse(safeGet(SESSION_KEY) || '{}', {});
-        if (session && String(session.date || '') === today && Number.isFinite(Number(session.index))) {
+        if (session && Number.isFinite(Number(session.index))) {
             return Math.max(0, Number(session.index));
         }
         return 0;
@@ -106,7 +68,7 @@
 
     function writeSessionIndex(index) {
         var normalized = Math.max(0, Number(index) || 0);
-        safeSet(SESSION_KEY, JSON.stringify({ date: getTodayKey(), index: normalized }));
+        safeSet(SESSION_KEY, JSON.stringify({ index: normalized }));
     }
 
     function queueProgressSync() {
@@ -147,24 +109,12 @@
     function setProgress(index) {
         var progress = byId('question-progress');
         var fill = byId('practice-progress-fill');
-
-        if (isPaidUser) {
-            var paidCounter = getQuestionCounter(index);
-            if (progress) {
-                progress.textContent = 'Question ' + paidCounter.current + ' of ' + paidCounter.total + ' (Paid Stock)';
-            }
-            if (fill) {
-                fill.style.width = String((paidCounter.current / paidCounter.total) * 100) + '%';
-            }
-            return;
-        }
-
-        var current = Math.min(index + 1, FREE_DAILY_LIMIT);
+        var counter = getQuestionCounter(index);
         if (progress) {
-            progress.textContent = 'Question ' + current + ' of ' + FREE_DAILY_LIMIT + ' (Free)';
+            progress.textContent = 'Question ' + counter.current + ' of ' + counter.total;
         }
         if (fill) {
-            fill.style.width = String((current / FREE_DAILY_LIMIT) * 100) + '%';
+            fill.style.width = String((counter.current / counter.total) * 100) + '%';
         }
     }
 
@@ -183,57 +133,6 @@
         });
     }
 
-    function readUrlPlanHint() {
-        try {
-            var params = new URLSearchParams(window.location.search || '');
-            var bank = String(params.get('bank') || '').toLowerCase();
-            var plan = String(params.get('plan') || '').toLowerCase();
-            return bank || plan;
-        } catch (error) {
-            return '';
-        }
-    }
-
-    function hasPaidOverride() {
-        var localFlag = String(safeGet(PAID_FLAG_KEY) || '').toLowerCase().trim();
-        if (localFlag === 'true' || localFlag === '1' || localFlag === 'paid') {
-            return true;
-        }
-
-        var planHint = readUrlPlanHint();
-        return PREMIUM_STATUSES.indexOf(planHint) !== -1;
-    }
-
-    function hasPaidMetadata() {
-        if (!window.pcSync || typeof window.pcSync.getCurrentUser !== 'function') {
-            return false;
-        }
-
-        var user = window.pcSync.getCurrentUser();
-        if (!user) {
-            return false;
-        }
-
-        var userMeta = user.user_metadata && typeof user.user_metadata === 'object' ? user.user_metadata : {};
-        var appMeta = user.app_metadata && typeof user.app_metadata === 'object' ? user.app_metadata : {};
-        var status = String(userMeta.subscription_status || appMeta.subscription_status || '').toLowerCase().trim();
-        if (PREMIUM_STATUSES.indexOf(status) !== -1) {
-            return true;
-        }
-
-        var plan = String(userMeta.plan || appMeta.plan || '').toLowerCase().trim();
-        if (PREMIUM_STATUSES.indexOf(plan) !== -1) {
-            return true;
-        }
-
-        var subscription = String(userMeta.subscription || appMeta.subscription || '').toLowerCase().trim();
-        return PREMIUM_STATUSES.indexOf(subscription) !== -1;
-    }
-
-    function detectPaidAccess() {
-        return hasPaidOverride() || hasPaidMetadata();
-    }
-
     async function fetchQuestionBank(url) {
         var response = await fetch(url, { cache: 'no-store' });
         if (!response.ok) {
@@ -244,34 +143,7 @@
     }
 
     async function loadQuestionBankData() {
-        var banks = isPaidUser
-            ? [PAID_STOCK_BANK_URL, FREE_BANK_URL]
-            : [FREE_BANK_URL];
-
-        var lastError = null;
-
-        for (var i = 0; i < banks.length; i += 1) {
-            try {
-                return await fetchQuestionBank(banks[i]);
-            } catch (error) {
-                lastError = error;
-            }
-        }
-
-        throw lastError || new Error('No question bank available');
-    }
-
-    function renderLimitReached() {
-        if (isPaidUser) {
-            return;
-        }
-
-        var container = byId('question-container');
-        if (container) {
-            container.innerHTML = '<p class="pc-calculator-note">Daily free limit reached. Buy Full Version for unlimited question access.</p>';
-        }
-        setProgress(FREE_DAILY_LIMIT - 1);
-        showGateModal();
+        return fetchQuestionBank(FREE_BANK_URL);
     }
 
     function renderList(items) {
@@ -352,22 +224,11 @@
         var container = byId('question-container');
 
         try {
-            isPaidUser = detectPaidAccess();
             var data = await loadQuestionBankData();
             questions = parseQuestions(data);
 
-            if (!isPaidUser) {
-                questions = questions.slice(0, FREE_BANK_MAX);
-            }
-
             if (!questions.length) {
                 throw new Error('No questions available');
-            }
-
-            freeUsed = readUsage();
-            if (!isPaidUser && freeUsed >= FREE_DAILY_LIMIT) {
-                renderLimitReached();
-                return;
             }
 
             var resumeIndex = readSessionIndex();
@@ -393,11 +254,6 @@
         if (index >= questions.length) {
             container.innerHTML = '<h3>You\'ve completed all available questions!</h3>';
             writeSessionIndex(0);
-            return;
-        }
-
-        if (!isPaidUser && freeUsed >= FREE_DAILY_LIMIT) {
-            renderLimitReached();
             return;
         }
 
@@ -458,63 +314,14 @@
             renderExplanationHtml(currentQuestion, option) +
             '<button class="pc-btn pc-btn--primary" type="button" onclick="nextQuestion()">Next Question</button>';
 
-        if (!isPaidUser) {
-            freeUsed += 1;
-            writeUsage(freeUsed);
-            if (freeUsed >= FREE_DAILY_LIMIT) {
-                window.setTimeout(showGateModal, 1200);
-            }
-        }
-
         writeSessionIndex(questionIndex + 1);
         queueProgressSync();
     }
 
     function nextQuestion() {
-        if (!isPaidUser && freeUsed >= FREE_DAILY_LIMIT) {
-            renderLimitReached();
-            return;
-        }
-
         var nextIndex = questionIndex + 1;
         writeSessionIndex(nextIndex);
         showQuestion(nextIndex);
-    }
-
-    function showGateModal() {
-        if (isPaidUser) {
-            return;
-        }
-
-        var modal = byId('gate-modal');
-        if (modal) {
-            modal.style.display = 'grid';
-        }
-
-        var message = byId('gate-message');
-        if (message) {
-            message.classList.remove('pc-is-error');
-            message.classList.remove('pc-is-success');
-        }
-
-        var buyButton = byId('gate-buy-btn');
-        if (buyButton && typeof buyButton.focus === 'function') {
-            buyButton.focus();
-        }
-    }
-
-    function hideGateModal() {
-        var modal = byId('gate-modal');
-        if (modal) {
-            modal.style.display = 'none';
-        }
-    }
-
-    function goToPaymentPage(event) {
-        if (event) {
-            event.preventDefault();
-        }
-        window.location.href = PAYMENT_PAGE_URL;
     }
 
     async function sendMagicLinkFromGate() {
@@ -573,11 +380,7 @@
     }
 
     function bindGateEvents() {
-        var modal = byId('gate-modal');
         var submit = byId('gate-submit');
-        var closeButton = byId('gate-close-btn');
-        var dismissButton = byId('gate-dismiss-btn');
-        var buyButton = byId('gate-buy-btn');
 
         if (submit) {
             submit.addEventListener('click', function (event) {
@@ -585,36 +388,6 @@
                 sendMagicLinkFromGate();
             });
         }
-
-        if (closeButton) {
-            closeButton.addEventListener('click', function () {
-                hideGateModal();
-            });
-        }
-
-        if (dismissButton) {
-            dismissButton.addEventListener('click', function () {
-                hideGateModal();
-            });
-        }
-
-        if (buyButton) {
-            buyButton.addEventListener('click', goToPaymentPage);
-        }
-
-        if (modal) {
-            modal.addEventListener('click', function (event) {
-                if (event.target === modal) {
-                    hideGateModal();
-                }
-            });
-        }
-
-        document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') {
-                hideGateModal();
-            }
-        });
     }
 
     async function hydrateFromServerIfLoggedIn() {
