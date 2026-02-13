@@ -447,7 +447,7 @@
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
-    align-items: stretch;
+    align-items: start;
 }
 
 .pc-home-tier-card {
@@ -476,7 +476,6 @@
     box-shadow:
         0 24px 52px rgba(2, 12, 27, 0.2),
         inset 0 1px 0 color-mix(in srgb, #fff 60%, transparent);
-    min-height: 760px;
     z-index: 2;
 }
 
@@ -559,24 +558,45 @@
     background:
         linear-gradient(160deg, color-mix(in srgb, var(--pc-surface) 92%, transparent), color-mix(in srgb, var(--pc-surface-strong) 88%, transparent));
     padding: 0.8rem;
-    max-height: 0;
-    opacity: 0;
-    overflow: auto;
-    transform: translateY(8px);
-    pointer-events: none;
+    max-height: 188px;
+    opacity: 1;
+    overflow: hidden;
+    transform: translateY(0);
+    pointer-events: auto;
+    position: relative;
     transition:
         max-height var(--pc-transition-base),
         opacity var(--pc-transition-base),
         transform var(--pc-transition-base);
 }
 
+.pc-home-tier-inside::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 54px;
+    background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--pc-surface) 96%, transparent));
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity var(--pc-transition-base);
+}
+
 .pc-home-tier-card:hover .pc-home-tier-inside,
 .pc-home-tier-card:focus .pc-home-tier-inside,
 .pc-home-tier-card:focus-within .pc-home-tier-inside {
-    max-height: 920px;
+    max-height: 760px;
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
+    overflow: auto;
+}
+
+.pc-home-tier-card:hover .pc-home-tier-inside::after,
+.pc-home-tier-card:focus .pc-home-tier-inside::after,
+.pc-home-tier-card:focus-within .pc-home-tier-inside::after {
+    opacity: 0;
 }
 
 .pc-home-tier-inside-label {
@@ -592,6 +612,14 @@
     margin: 0.5rem 0 0.75rem;
     display: grid;
     gap: 0.35rem;
+    transform: translateY(0);
+    transition: transform var(--pc-transition-base);
+}
+
+.pc-home-tier-card:hover .pc-home-tier-links,
+.pc-home-tier-card:focus .pc-home-tier-links,
+.pc-home-tier-card:focus-within .pc-home-tier-links {
+    transform: translateY(-4px);
 }
 
 .pc-home-tier-links--two-col {
@@ -2553,11 +2581,6 @@
     .pc-home-tier-grid {
         grid-template-columns: 1fr 1fr;
     }
-
-    .pc-home-tier-card:hover,
-    .pc-home-tier-card:focus-within {
-        min-height: 700px;
-    }
 }
 
 @media (hover: none), (max-width: 900px) {
@@ -2588,6 +2611,15 @@
         opacity: 1;
         transform: none;
         pointer-events: auto;
+        overflow: auto;
+    }
+
+    .pc-home-tier-inside::after {
+        opacity: 0;
+    }
+
+    .pc-home-tier-links {
+        transform: none;
     }
 }
 
