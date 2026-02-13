@@ -308,6 +308,107 @@
     line-height: 1.6;
 }
 
+.pc-home-destination-wrap {
+    margin-top: 1rem;
+}
+
+.pc-home-destination-layout {
+    align-items: stretch;
+}
+
+.pc-home-window {
+    min-height: min(66dvh, 620px);
+}
+
+.pc-home-window-title {
+    margin: 0.8rem 0 0.5rem;
+    font-family: var(--pc-font-display);
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
+    line-height: 1.2;
+    color: var(--pc-text);
+}
+
+.pc-home-pellets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0.4rem 0 0.9rem;
+}
+
+.pc-home-pellet {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    border: 1px solid var(--pc-border);
+    border-radius: 999px;
+    padding: 0.18rem 0.62rem;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--pc-text);
+    background: color-mix(in srgb, var(--pc-surface) 78%, transparent);
+}
+
+.pc-home-pellet--teal {
+    border-color: color-mix(in srgb, #0f8f7a 50%, var(--pc-border));
+    background: color-mix(in srgb, #0f8f7a 16%, var(--pc-surface));
+}
+
+.pc-home-pellet--amber {
+    border-color: color-mix(in srgb, #ad7a18 55%, var(--pc-border));
+    background: color-mix(in srgb, #f5b742 26%, var(--pc-surface));
+}
+
+.pc-home-pellet--mint {
+    border-color: color-mix(in srgb, #1f9d8b 50%, var(--pc-border));
+    background: color-mix(in srgb, #1f9d8b 17%, var(--pc-surface));
+}
+
+.pc-home-pellet--coral {
+    border-color: color-mix(in srgb, #ca5e3b 55%, var(--pc-border));
+    background: color-mix(in srgb, #ca5e3b 18%, var(--pc-surface));
+}
+
+.pc-home-pellet--sky {
+    border-color: color-mix(in srgb, #247ac0 52%, var(--pc-border));
+    background: color-mix(in srgb, #247ac0 16%, var(--pc-surface));
+}
+
+.pc-home-pellet--violet {
+    border-color: color-mix(in srgb, #6a5acd 52%, var(--pc-border));
+    background: color-mix(in srgb, #6a5acd 16%, var(--pc-surface));
+}
+
+.pc-home-window-links {
+    margin-top: 0.25rem;
+}
+
+.pc-home-window-links li {
+    margin: 0.02rem 0;
+}
+
+.pc-home-window-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.28rem;
+    text-decoration: none;
+    font-weight: 750;
+}
+
+.pc-home-window-links a::after {
+    content: '→';
+    font-size: 0.82rem;
+    opacity: 0.58;
+    transition: transform 0.16s ease, opacity 0.16s ease;
+}
+
+.pc-home-window-links a:hover::after,
+.pc-home-window-links a:focus-visible::after {
+    transform: translateX(2px);
+    opacity: 0.95;
+}
+
 .pc-intersection {
     position: absolute;
     left: 50%;
