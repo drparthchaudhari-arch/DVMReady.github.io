@@ -396,11 +396,32 @@
             return;
         }
 
+        document.body.classList.add('pc-motion-ready');
+
+        function addVariant(selector, variantClass) {
+            var nodes = document.querySelectorAll(selector);
+            for (var index = 0; index < nodes.length; index += 1) {
+                nodes[index].classList.add(variantClass);
+            }
+        }
+
+        addVariant('.pc-bridge-hero, .pc-bridge-title, .pc-fork-title, .pc-kicker', 'pc-motion-item--hero');
+        addVariant('.pc-fork-copy, .pc-panel-actions, .pc-link-list, .pc-last-reviewed, .pc-disclaimer, .pc-findings, .pc-table', 'pc-motion-item--soft');
+        addVariant(
+            '.pc-home-tier-card, .pc-bridge-card, .pc-tool-module, .pc-topic-card, .pc-study-panel, .pc-search-panel, ' +
+            '.pc-navle-clean-card, .pc-pricing-card, .pc-account-card, .pc-case-article, .pc-stat-card, .pc-note-box, ' +
+            '.pc-competency-card, .pc-game-card, .pc-experience-card, .pc-faq-item, .pc-navle-priority-row',
+            'pc-motion-item--float'
+        );
+
         var targets = document.querySelectorAll(
             '.pc-bridge-hero, .pc-bridge-section, .pc-home-tier-card, .pc-bridge-card, ' +
             '.pc-tool-module, .pc-topic-card, .pc-study-panel, .pc-search-panel, ' +
             '.pc-navle-clean-card, .pc-pricing-card, .pc-account-card, .pc-case-article, ' +
-            '.pc-stat-card, .pc-table-wrap, .pc-note-box, .pc-competency-card'
+            '.pc-stat-card, .pc-table-wrap, .pc-note-box, .pc-competency-card, ' +
+            '.pc-kicker, .pc-bridge-title, .pc-fork-title, .pc-fork-copy, .pc-panel-actions, ' +
+            '.pc-link-list, .pc-cta-banner, .pc-findings, .pc-table, .pc-last-reviewed, ' +
+            '.pc-disclaimer, .pc-game-card, .pc-experience-card, .pc-navle-priority-row, .pc-faq-item'
         );
 
         if (!targets.length) {
@@ -411,7 +432,12 @@
         for (var i = 0; i < targets.length; i += 1) {
             var element = targets[i];
             element.classList.add('pc-motion-item');
-            element.style.setProperty('--pc-motion-delay', ((i % 8) * 60) + 'ms');
+            element.style.setProperty('--pc-motion-delay', ((i % 10) * 52) + 'ms');
+
+            if (element.classList.contains('pc-motion-item--float')) {
+                element.style.setProperty('--pc-float-delay', ((i % 6) * 350) + 'ms');
+                element.style.setProperty('--pc-float-amplitude', ((i % 3) + 2) + 'px');
+            }
             items.push(element);
         }
 
