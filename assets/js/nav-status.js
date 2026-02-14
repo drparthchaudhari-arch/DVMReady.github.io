@@ -523,8 +523,6 @@
             path.indexOf('/study/') === 0 ||
             path === '/bridge' ||
             path.indexOf('/bridge/') === 0 ||
-            path === '/clinical-case-studies' ||
-            path.indexOf('/clinical-case-studies/') === 0 ||
             path === '/cardiology-chf-algorithm' ||
             path.indexOf('/cardiology-chf-algorithm/') === 0 ||
             startsWithAny(path, STUDY_LANDING_PATHS)
@@ -778,8 +776,8 @@
         if (path === '/tools/' || path.indexOf('/veterinary-calculators') === 0 || startsWithAny(normalizePath(path), TOOL_LANDING_PATHS)) {
             return 'tools_hub';
         }
-        if (path.indexOf('/study/navle/practice/case-studies/') === 0) {
-            return 'case';
+        if (path.indexOf('/study/navle/practice/') === 0) {
+            return 'practice';
         }
         if (path.indexOf('/study/navle/practice') === 0) {
             return 'practice';
@@ -790,8 +788,8 @@
         if (path.indexOf('/reference/') === 0 || path.indexOf('/dog-cat-normal-values') === 0 || path.indexOf('/sources-and-limitations') === 0) {
             return 'reference';
         }
-        if (path.indexOf('/bridge/case-studies/') === 0 || path.indexOf('/clinical-case-studies/') === 0) {
-            return 'case';
+        if (path.indexOf('/bridge/') === 0) {
+            return 'bridge';
         }
         if (path.indexOf('/pricing/') === 0 || path === '/pricing') {
             return 'pricing';
@@ -898,19 +896,6 @@
             trackAnalyticsEvent('pricing_viewed', {
                 plan_primary: 'premium_9_usd_month'
             });
-        }
-
-        var isLegacyCaseDetail = path.indexOf('/bridge/case-studies/') === 0
-            && path !== '/bridge/case-studies/'
-            && path.indexOf('/index.html') === -1;
-        var isNavleCaseDetail = path.indexOf('/study/navle/practice/case-studies/') === 0
-            && path !== '/study/navle/practice/case-studies/'
-            && path.indexOf('/index.html') === -1;
-
-        if (isLegacyCaseDetail || isNavleCaseDetail) {
-            var caseId = path.split('/').pop() || '';
-            caseId = caseId.replace('.html', '') || 'unknown_case';
-            trackAnalyticsEvent('case_opened', { case_id: caseId });
         }
 
     }

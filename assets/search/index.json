@@ -1,33 +1,5 @@
 [
   {
-    "title": "Canine CHF Case",
-    "url": "/bridge/case-studies/chf-dog.html",
-    "type": "case",
-    "tags": ["cardiology", "dog", "heart failure", "cough", "radiographs"],
-    "date": "2024-01-15"
-  },
-  {
-    "title": "Canine DKA Case",
-    "url": "/bridge/case-studies/dka-dog.html",
-    "type": "case",
-    "tags": ["endocrine", "emergency", "dog", "dka", "stabilization"],
-    "date": "2024-01-16"
-  },
-  {
-    "title": "Feline Hyperthyroidism Case",
-    "url": "/bridge/case-studies/feline-hyperthyroid.html",
-    "type": "case",
-    "tags": ["endocrine", "cat", "thyroid", "weight loss", "t4"],
-    "date": "2024-01-17"
-  },
-  {
-    "title": "Bovine Mastitis Case",
-    "url": "/bridge/case-studies/bovine-mastitis.html",
-    "type": "case",
-    "tags": ["production", "dairy", "mastitis", "culture", "cow"],
-    "date": "2024-01-18"
-  },
-  {
     "title": "WordWeb NAVLE Study Tool",
     "url": "/study/wordweb/",
     "type": "resource",
@@ -61,13 +33,6 @@
     "type": "game",
     "tags": ["challenge", "critical thinking", "problem solving"],
     "date": "2024-01-14"
-  },
-  {
-    "title": "Clinical Case Directory",
-    "url": "/bridge/case-studies/",
-    "type": "resource",
-    "tags": ["cases", "clinical reasoning", "navle", "study"],
-    "date": "2024-01-19"
   },
   {
     "title": "NAVLE Study Planner",

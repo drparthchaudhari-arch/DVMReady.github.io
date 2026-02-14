@@ -23,8 +23,7 @@
             description: 'Cardio, GI, neuro, respiratory, repro, and herd-level bovine disease patterns.',
             items: [
                 { id: 'bovine_master_list', title: 'Review Bovine Master Bullet List', type: 'resource', url: '/study/wordweb/#species-bovine', estimatedTime: '35min' },
-                { id: 'bovine_key_differentials', title: 'Memorize Bovine High-Yield Differentials', type: 'resource', url: '/study/wordweb/#species-bovine', estimatedTime: '20min' },
-                { id: 'bovine_case_mastitis', title: 'Apply to Bovine Mastitis Case', type: 'case', url: '/bridge/case-studies/bovine-mastitis.html', estimatedTime: '25min' }
+                { id: 'bovine_key_differentials', title: 'Memorize Bovine High-Yield Differentials', type: 'resource', url: '/study/wordweb/#species-bovine', estimatedTime: '20min' }
             ]
         },
         {
@@ -43,8 +42,6 @@
             description: 'Core canine cardiology, endocrine, GI, neuro, respiratory, and skin disease clusters.',
             items: [
                 { id: 'canine_master_list', title: 'Review Canine Master Bullet List', type: 'resource', url: '/study/wordweb/#species-canine', estimatedTime: '35min' },
-                { id: 'canine_case_chf', title: 'Apply to Canine CHF Case', type: 'case', url: '/bridge/case-studies/chf-dog.html', estimatedTime: '30min' },
-                { id: 'canine_case_dka', title: 'Apply to Canine DKA Case', type: 'case', url: '/bridge/case-studies/dka-dog.html', estimatedTime: '30min' },
                 { id: 'canine_top20_recall', title: 'Run Canine Top-20 Rapid Recall', type: 'resource', url: '/study/wordweb/#top-checklists', estimatedTime: '15min' }
             ]
         },
@@ -54,7 +51,6 @@
             description: 'CKD, hyperthyroid, diabetes, FLUTD, HCM, and feline inflammatory disease integration.',
             items: [
                 { id: 'feline_master_list', title: 'Review Feline Master Bullet List', type: 'resource', url: '/study/wordweb/#species-feline', estimatedTime: '30min' },
-                { id: 'feline_case_hyperthyroid', title: 'Apply to Feline Hyperthyroid Case', type: 'case', url: '/bridge/case-studies/feline-hyperthyroid.html', estimatedTime: '30min' },
                 { id: 'feline_obstruction_protocol', title: 'Drill Feline Urethral Obstruction Protocol', type: 'resource', url: '/study/wordweb/#treatment-algorithms', estimatedTime: '20min' }
             ]
         },

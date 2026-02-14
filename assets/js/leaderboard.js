@@ -38,7 +38,7 @@
         }
 
         if (!rows || !rows.length) {
-            body.innerHTML = '<tr><td colspan="5">No scores yet. Complete a case study to appear here.</td></tr>';
+            body.innerHTML = '<tr><td colspan="5">No scores yet. Complete a practice module to appear here.</td></tr>';
             return;
         }
 
@@ -64,7 +64,7 @@
         }
 
         if (!rank) {
-            node.textContent = 'Complete more case studies to get ranked.';
+            node.textContent = 'Complete more practice modules to get ranked.';
             return;
         }
 
@@ -134,7 +134,7 @@
             if (!rows.length) {
                 setStatus('No scores posted yet.', false);
             } else {
-                setStatus('Scores update when you complete case studies.', false);
+                setStatus('Scores update when you complete practice modules.', false);
             }
 
             var sync = getSync();

@@ -116,7 +116,7 @@
           <span class="pc-task-time">${task.estimatedTime} min</span>
         </div>
         <h3 class="pc-task-title">${task.title}</h3>
-        <p class="pc-task-type">${task.type === 'case' ? 'Case Study' : 'Learning Game'}</p>
+        <p class="pc-task-type">${task.type === 'case' ? 'Practice Module' : 'Learning Game'}</p>
         <div class="pc-task-actions">
           ${task.completed
             ? '<span class="pc-task-complete-badge">✓ Completed</span>'

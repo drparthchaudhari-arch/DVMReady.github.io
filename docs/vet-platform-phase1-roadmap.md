@@ -14,11 +14,7 @@ Last updated: February 13, 2026
   - NAVLE links routed through NAVLE paths
 - NAVLE hierarchy implemented:
   - Main: `study/navle/`
-  - Submenu: `study/navle/topics/`, `study/navle/practice/`, `study/navle/comprehensive/`
-  - Sub-submenu: `study/navle/practice/case-studies/`
-  - Topic-specific nested routes:
-    - `study/navle/topics/emergency-critical-care/`
-    - `study/navle/topics/cardiology-chf-algorithm/`
+  - Submenu: `study/navle/topics/`, `study/navle/practice/`, `study/navle/exam-simulator/`
 - Citation mapping centralized in `reference/index.html` with status tags and links.
 
 ## Planned next

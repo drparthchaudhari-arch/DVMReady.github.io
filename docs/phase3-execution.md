@@ -11,7 +11,7 @@
 8. /cardiology-chf-algorithm/
 9. /dog-cat-normal-values/
 10. /emergency-triage-algorithms/
-11. /clinical-case-studies/
+11. /bridge/
 12. /tools/dose-calculator.html
 13. /tools/fluid-calculator.html
 14. /tools/cri-calculator.html
