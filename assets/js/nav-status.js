@@ -778,6 +778,9 @@
         if (path === '/tools/' || path.indexOf('/veterinary-calculators') === 0 || startsWithAny(normalizePath(path), TOOL_LANDING_PATHS)) {
             return 'tools_hub';
         }
+        if (path.indexOf('/study/navle/practice/case-studies/') === 0) {
+            return 'case';
+        }
         if (path.indexOf('/study/navle/practice') === 0) {
             return 'practice';
         }
@@ -897,7 +900,14 @@
             });
         }
 
-        if (path.indexOf('/bridge/case-studies/') === 0 && path.indexOf('/index.html') === -1) {
+        var isLegacyCaseDetail = path.indexOf('/bridge/case-studies/') === 0
+            && path !== '/bridge/case-studies/'
+            && path.indexOf('/index.html') === -1;
+        var isNavleCaseDetail = path.indexOf('/study/navle/practice/case-studies/') === 0
+            && path !== '/study/navle/practice/case-studies/'
+            && path.indexOf('/index.html') === -1;
+
+        if (isLegacyCaseDetail || isNavleCaseDetail) {
             var caseId = path.split('/').pop() || '';
             caseId = caseId.replace('.html', '') || 'unknown_case';
             trackAnalyticsEvent('case_opened', { case_id: caseId });
