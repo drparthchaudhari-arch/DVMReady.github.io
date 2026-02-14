@@ -376,20 +376,115 @@
             logos[i].innerHTML =
                 '<span class="pc-logo-wordmark">' + SITE_BRAND + '</span>' +
                 '<span class="pc-logo-emblem" aria-hidden="true">' +
-                    '<span class="pc-logo-rail pc-logo-rail--left"></span>' +
                     '<svg class="pc-logo-icon" viewBox="0 0 52 52" focusable="false" aria-hidden="true">' +
                         '<circle class="pc-logo-aura" cx="26" cy="26" r="22"></circle>' +
                         '<path class="pc-logo-staff-line" d="M26 6V46"></path>' +
                         '<path class="pc-logo-serpent-base" d="M27 10 C16 12 16 21 27 23 C38 25 38 34 27 36 C19 37 19 43 27 44"></path>' +
                         '<path class="pc-logo-serpent-highlight" d="M27 10 C16 12 16 21 27 23 C38 25 38 34 27 36 C19 37 19 43 27 44"></path>' +
                     '</svg>' +
-                    '<span class="pc-logo-rail pc-logo-rail--right"></span>' +
-                    '<span class="pc-logo-runner"></span>' +
-                '</span>' +
-                '<span class="pc-logo-home-tag">Home</span>';
+                '</span>';
             logos[i].setAttribute('aria-label', SITE_BRAND + ' home');
             logos[i].setAttribute('title', SITE_BRAND + ' Home');
             logos[i].setAttribute('data-pc-logo-enhanced', 'true');
+        }
+    }
+
+    function getHomeNavLink(inner) {
+        if (!inner) {
+            return null;
+        }
+
+        var directHome = inner.querySelector('.pc-nav-group .pc-nav-item:first-child .pc-nav-link');
+        if (directHome) {
+            return directHome;
+        }
+
+        return inner.querySelector('.pc-nav-group .pc-nav-link[href="/"], .pc-nav-group .pc-nav-link[href="/index.html"]');
+    }
+
+    function ensureSerpentBridge(inner) {
+        var bridge = inner.querySelector('.pc-nav-serpent-bridge');
+        if (bridge) {
+            return bridge;
+        }
+
+        bridge = document.createElement('span');
+        bridge.className = 'pc-nav-serpent-bridge';
+        bridge.setAttribute('aria-hidden', 'true');
+        bridge.innerHTML =
+            '<span class="pc-nav-serpent-stick"></span>' +
+            '<span class="pc-nav-serpent-body"></span>';
+        inner.appendChild(bridge);
+        return bridge;
+    }
+
+    function positionSerpentBridge(inner) {
+        var bridge = ensureSerpentBridge(inner);
+        var logo = inner.querySelector('.pc-logo');
+        var homeLink = getHomeNavLink(inner);
+
+        if (!bridge || !logo || !homeLink || window.matchMedia('(max-width: 980px)').matches) {
+            if (bridge) {
+                bridge.hidden = true;
+            }
+            return;
+        }
+
+        var innerRect = inner.getBoundingClientRect();
+        var logoRect = logo.getBoundingClientRect();
+        var homeRect = homeLink.getBoundingClientRect();
+
+        var centerY = logoRect.top - innerRect.top + (logoRect.height / 2);
+        var homeCenterY = homeRect.top - innerRect.top + (homeRect.height / 2);
+        var startX = logoRect.right - innerRect.left + 10;
+        var endX = homeRect.left - innerRect.left - 10;
+        var width = endX - startX;
+
+        if (width < 56 || Math.abs(homeCenterY - centerY) > 26) {
+            bridge.hidden = true;
+            return;
+        }
+
+        bridge.hidden = false;
+        bridge.style.left = startX + 'px';
+        bridge.style.top = centerY + 'px';
+        bridge.style.width = width + 'px';
+        bridge.style.setProperty('--pc-serpent-track', width + 'px');
+    }
+
+    function initSerpentBridge() {
+        var navInners = document.querySelectorAll('.pc-portal-nav__inner');
+        if (!navInners.length) {
+            return;
+        }
+
+        var scheduled = false;
+        function updateBridgePositions() {
+            scheduled = false;
+            for (var i = 0; i < navInners.length; i += 1) {
+                positionSerpentBridge(navInners[i]);
+            }
+        }
+
+        function scheduleUpdate() {
+            if (scheduled) {
+                return;
+            }
+            scheduled = true;
+            window.requestAnimationFrame(updateBridgePositions);
+        }
+
+        scheduleUpdate();
+        window.addEventListener('resize', scheduleUpdate, { passive: true });
+        window.addEventListener('orientationchange', scheduleUpdate, { passive: true });
+        window.addEventListener('load', scheduleUpdate, { passive: true });
+
+        if (document.fonts && document.fonts.ready && typeof document.fonts.ready.then === 'function') {
+            document.fonts.ready.then(function () {
+                scheduleUpdate();
+            }).catch(function () {
+                // No-op; bridge positions are best effort.
+            });
         }
     }
 
@@ -1393,6 +1488,7 @@
         applyBrandLabel();
         ensureCanonicalLink();
         normalizePortalNav();
+        initSerpentBridge();
         bindPortalMenuKeyboardSupport();
         normalizeLegacyNav();
         applyIndicator(isLoggedInFromCache());
