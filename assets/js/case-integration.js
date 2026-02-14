@@ -1783,14 +1783,63 @@
         }
     }
 
-    function init() {
-        if (!window.pcIntegration || typeof window.pcIntegration.ensureEncounter !== 'function') {
-            return;
-        }
+    function createOfflinePhaseCard(config, activate) {
+        var panel = document.createElement('section');
+        panel.className = 'pc-case-section pc-card pc-case-intel';
+        panel.setAttribute('aria-labelledby', 'pc-case-phase4-offline-title');
 
-        var config = getConfig();
-        if (!config) {
-            return;
+        var header = document.createElement('header');
+        header.className = 'pc-case-intel__header';
+        header.innerHTML =
+            '<p class="pc-kicker">Phase 4 Offline</p>' +
+            '<h2 id="pc-case-phase4-offline-title">Case-Linked Calculator Workspace</h2>' +
+            '<p class="pc-case-intel__summary">For case studies, Phase 4 stays offline until the client clicks More.</p>';
+
+        var body = document.createElement('article');
+        body.className = 'pc-tool-module';
+        body.innerHTML =
+            '<h3>' + config.title + '</h3>' +
+            '<p>Click <strong>More</strong> to load Phase 4 workspace tools, encounter logging, and exports for this case.</p>';
+
+        var actions = document.createElement('div');
+        actions.className = 'pc-panel-actions';
+
+        var moreButton = document.createElement('button');
+        moreButton.type = 'button';
+        moreButton.className = 'pc-btn';
+        moreButton.textContent = 'More';
+
+        var status = document.createElement('p');
+        status.className = 'pc-calculator-note pc-is-warning';
+        status.textContent = 'Status: offline';
+
+        moreButton.addEventListener('click', function () {
+            moreButton.disabled = true;
+            status.textContent = 'Loading Phase 4 workspace...';
+
+            var activated = false;
+            if (typeof activate === 'function') {
+                activated = !!activate();
+            }
+
+            if (!activated) {
+                moreButton.disabled = false;
+                status.textContent = 'Phase 4 unavailable right now. Please try again.';
+            }
+        });
+
+        actions.appendChild(moreButton);
+        panel.appendChild(header);
+        panel.appendChild(body);
+        panel.appendChild(actions);
+        panel.appendChild(status);
+
+        return panel;
+    }
+
+    function activatePhase4(config, offlinePanel) {
+        if (!window.pcIntegration || typeof window.pcIntegration.ensureEncounter !== 'function') {
+            return false;
         }
 
         var encounter = window.pcIntegration.ensureEncounter({
@@ -1801,7 +1850,7 @@
         });
 
         if (!encounter) {
-            return;
+            return false;
         }
 
         window.pcIntegration.logCaseOpen({
@@ -1812,8 +1861,26 @@
         });
 
         var panel = createPanel(config, encounter);
-        insertPanel(panel);
+        if (offlinePanel && offlinePanel.parentNode) {
+            offlinePanel.parentNode.replaceChild(panel, offlinePanel);
+        } else {
+            insertPanel(panel);
+        }
+
         bindDiagnoseTracking(config, encounter);
+        return true;
+    }
+
+    function init() {
+        var config = getConfig();
+        if (!config) {
+            return;
+        }
+
+        var offlinePanel = createOfflinePhaseCard(config, function () {
+            return activatePhase4(config, offlinePanel);
+        });
+        insertPanel(offlinePanel);
     }
 
     if (document.readyState === 'loading') {
