@@ -6949,6 +6949,8 @@ body.pc-page {
 
 .pc-page--home .pc-home-tier-inside {
     margin-top: auto;
+    height: 320px;
+    min-height: 320px;
     max-height: 320px;
     overflow: auto;
     transform: none;
@@ -6966,6 +6968,8 @@ body.pc-page {
 .pc-page--home .pc-home-tier-card:hover .pc-home-tier-inside,
 .pc-page--home .pc-home-tier-card:focus .pc-home-tier-inside,
 .pc-page--home .pc-home-tier-card:focus-within .pc-home-tier-inside {
+    height: 320px;
+    min-height: 320px;
     max-height: 320px;
     overflow: auto;
     transform: none;
@@ -7001,6 +7005,8 @@ body.pc-page {
     .pc-page--home .pc-home-tier-card:hover .pc-home-tier-inside,
     .pc-page--home .pc-home-tier-card:focus .pc-home-tier-inside,
     .pc-page--home .pc-home-tier-card:focus-within .pc-home-tier-inside {
+        height: auto;
+        min-height: 0;
         max-height: 1400px;
     }
 }
