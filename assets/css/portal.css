@@ -3439,7 +3439,7 @@
     background: color-mix(in srgb, var(--pc-bg-tertiary) 85%, var(--pc-bg-secondary));
 }
 
-/* Practice Module */
+/* Practice Question */
 .pc-case-header {
     margin-bottom: var(--pc-space-2xl);
 }

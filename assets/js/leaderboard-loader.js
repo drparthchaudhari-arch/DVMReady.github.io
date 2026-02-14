@@ -33,7 +33,7 @@
 
             var data = Array.isArray(response.data) ? response.data : [];
             if (!data.length) {
-                showEmptyState('No scores yet. Be the first to complete a practice module!');
+                showEmptyState('No scores yet. Be the first to complete a practice question!');
                 return;
             }
 

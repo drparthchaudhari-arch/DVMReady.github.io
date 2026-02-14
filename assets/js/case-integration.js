@@ -1793,7 +1793,7 @@
         header.innerHTML =
             '<p class="pc-kicker">Phase 4 Offline</p>' +
             '<h2 id="pc-case-phase4-offline-title">Case-Linked Calculator Workspace</h2>' +
-            '<p class="pc-case-intel__summary">For practice modules, Phase 4 stays offline until the client clicks More.</p>';
+            '<p class="pc-case-intel__summary">For practice questions, Phase 4 stays offline until the client clicks More.</p>';
 
         var body = document.createElement('article');
         body.className = 'pc-tool-module';
