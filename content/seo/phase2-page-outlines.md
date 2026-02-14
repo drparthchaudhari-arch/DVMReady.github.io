@@ -2,7 +2,7 @@
 
 ## Cluster 1: NAVLE Emergency & Critical Care
 
-### /navle-emergency-critical-care/
+### /emergency-triage-algorithms/
 - H1: NAVLE Emergency and Critical Care: Triage, Stabilize, Treat
 - Draft lead copy: This pillar page is built for veterinary learners who need a practical emergency framework that is both exam-ready and clinically useful. Start with triage logic, move to stabilization priorities, and then apply treatment sequencing using the linked support pages.
 - Outline: Core Workflow | How to Use This Pillar Efficiently | Support Guides in This Cluster | Recommended Next Steps | Sources and Review Notes
@@ -49,7 +49,7 @@
 
 ## Cluster 2: Cardiology (Dog/Cat)
 
-### /canine-feline-chf/
+### /cardiology-chf-algorithm/
 - H1: Canine and Feline CHF: Recognition, Workup, Staging, and Monitoring
 - Draft lead copy: This cardiology pillar organizes CHF reasoning into a practical path: recognize likely failure patterns, perform focused workup, stage severity, and monitor response over time. Use linked support pages for rhythm, murmurs, hypertension, and medication logic.
 - Outline: Core Workflow | How to Use This Pillar Efficiently | Support Guides in This Cluster | Recommended Next Steps | Sources and Review Notes

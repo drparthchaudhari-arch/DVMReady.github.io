@@ -19,8 +19,6 @@ const searchIndex = [
   { title: "Normal Values Reference", url: "/reference/normal-values.html", type: "resource", keywords: "dog cat cbc chemistry critical values" },
   { title: "Toxicity Triage Reference", url: "/reference/toxicities.html", type: "resource", keywords: "chocolate xylitol lilies grapes nsaids emergency" },
   { title: "NAVLE Topic Guides", url: "/study/navle/topics/", type: "resource", keywords: "navle topics algorithms cardiology emergency free" },
-  { title: "Cardiology Topic Guide", url: "/study/navle/topics/cardiology.html", type: "resource", keywords: "chf cardiology murmur dog cough furosemide pimobendan" },
-  { title: "Emergency Topic Guide", url: "/study/navle/topics/emergency.html", type: "resource", keywords: "gdv dka emergency toxicity triage" },
   { title: "NAVLE Practice Questions", url: "/study/navle/practice/", type: "resource", keywords: "question bank practice freemium magic link navle" },
   { title: "NAVLE Exam Simulator", url: "/study/navle/exam-simulator/", type: "resource", keywords: "full exam simulator paid premium navle" },
   { title: "About Me", url: "/info.html", type: "about", keywords: "veterinarian experience navle BVSc&AH" }

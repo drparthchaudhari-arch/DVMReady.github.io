@@ -18,7 +18,7 @@ Last updated: February 13, 2026
   - Sub-submenu: `study/navle/practice/case-studies/`
   - Topic-specific nested routes:
     - `study/navle/topics/emergency-critical-care/`
-    - `study/navle/topics/canine-feline-chf/`
+    - `study/navle/topics/cardiology-chf-algorithm/`
 - Citation mapping centralized in `reference/index.html` with status tags and links.
 
 ## Planned next

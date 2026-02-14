@@ -238,20 +238,6 @@
     "date": "2026-02-13"
   },
   {
-    "title": "Cardiology Topic Guide",
-    "url": "/study/navle/topics/cardiology.html",
-    "type": "resource",
-    "tags": ["chf", "cardiology", "murmur", "pimobendan", "furosemide"],
-    "date": "2026-02-13"
-  },
-  {
-    "title": "Emergency Topic Guide",
-    "url": "/study/navle/topics/emergency.html",
-    "type": "resource",
-    "tags": ["gdv", "dka", "triage", "stabilization", "toxicity"],
-    "date": "2026-02-13"
-  },
-  {
     "title": "NAVLE Practice Questions",
     "url": "/study/navle/practice/",
     "type": "resource",

@@ -7,8 +7,8 @@
 4. /tools/
 5. /veterinary-calculators/
 6. /veterinary-calculators-guide/
-7. /navle-emergency-critical-care/
-8. /canine-feline-chf/
+7. /emergency-triage-algorithms/
+8. /cardiology-chf-algorithm/
 9. /dog-cat-normal-values/
 10. /emergency-triage-algorithms/
 11. /clinical-case-studies/

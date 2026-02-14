@@ -1358,7 +1358,7 @@ const calculatorSupports = [
     ],
     tool: { href: '/tools/dose-calculator.html', label: 'Use the Dose Calculator' },
     topicLinks: [
-      { href: '/navle-emergency-critical-care/', label: 'Apply dosing logic in emergency care workflows' },
+      { href: '/emergency-triage-algorithms/', label: 'Apply dosing logic in emergency care workflows' },
       { href: '/dka-approach-veterinary/', label: 'See dose sequencing in DKA approach decisions' },
       { href: '/pimobendan-diuretics-overview/', label: 'Review medication monitoring context in CHF' }
     ],
@@ -1687,7 +1687,7 @@ const calculatorSupports = [
     ],
     tool: { href: '/tools/nutrition-rer-mer-calculator.html', label: 'Use the Nutrition RER/MER Calculator' },
     topicLinks: [
-      { href: '/canine-feline-chf/', label: 'Apply BCS context in chronic cardiology follow-up' },
+      { href: '/cardiology-chf-algorithm/', label: 'Apply BCS context in chronic cardiology follow-up' },
       { href: '/dcm-basics-dog-cat/', label: 'Integrate nutrition status in DCM monitoring plans' },
       { href: '/systemic-hypertension-target-organ-damage/', label: 'Use weight trends in hypertension management context' }
     ],
