@@ -373,9 +373,23 @@
     function applyBrandLabel() {
         var logos = document.querySelectorAll('.pc-logo');
         for (var i = 0; i < logos.length; i += 1) {
-            logos[i].textContent = SITE_BRAND;
+            logos[i].innerHTML =
+                '<span class="pc-logo-wordmark">' + SITE_BRAND + '</span>' +
+                '<span class="pc-logo-emblem" aria-hidden="true">' +
+                    '<span class="pc-logo-rail pc-logo-rail--left"></span>' +
+                    '<svg class="pc-logo-icon" viewBox="0 0 52 52" focusable="false" aria-hidden="true">' +
+                        '<circle class="pc-logo-aura" cx="26" cy="26" r="22"></circle>' +
+                        '<path class="pc-logo-staff-line" d="M26 6V46"></path>' +
+                        '<path class="pc-logo-serpent-base" d="M27 10 C16 12 16 21 27 23 C38 25 38 34 27 36 C19 37 19 43 27 44"></path>' +
+                        '<path class="pc-logo-serpent-highlight" d="M27 10 C16 12 16 21 27 23 C38 25 38 34 27 36 C19 37 19 43 27 44"></path>' +
+                    '</svg>' +
+                    '<span class="pc-logo-rail pc-logo-rail--right"></span>' +
+                    '<span class="pc-logo-runner"></span>' +
+                '</span>' +
+                '<span class="pc-logo-home-tag">Home</span>';
             logos[i].setAttribute('aria-label', SITE_BRAND + ' home');
-            logos[i].setAttribute('title', SITE_BRAND);
+            logos[i].setAttribute('title', SITE_BRAND + ' Home');
+            logos[i].setAttribute('data-pc-logo-enhanced', 'true');
         }
     }
 
