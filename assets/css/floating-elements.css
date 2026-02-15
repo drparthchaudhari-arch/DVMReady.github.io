@@ -1,0 +1,195 @@
+/* ============================================
+   MODERN FLOATING BACKGROUND ELEMENTS
+   Purely decorative - pointer-events: none
+   ============================================ */
+
+/* Container for all floating elements */
+.pc-ambient-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Gradient Orb - Top Right */
+.pc-ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.pc-ambient-orb--1 {
+  width: 600px;
+  height: 600px;
+  top: -200px;
+  right: -200px;
+  background: radial-gradient(circle, var(--pc-teal) 0%, transparent 70%);
+  animation: pc-orb-float-1 25s ease-in-out infinite;
+}
+
+.pc-ambient-orb--2 {
+  width: 400px;
+  height: 400px;
+  bottom: 10%;
+  left: -150px;
+  background: radial-gradient(circle, var(--pc-coral) 0%, transparent 70%);
+  animation: pc-orb-float-2 30s ease-in-out infinite;
+}
+
+.pc-ambient-orb--3 {
+  width: 300px;
+  height: 300px;
+  top: 40%;
+  right: 10%;
+  background: radial-gradient(circle, var(--pc-mint) 0%, transparent 70%);
+  animation: pc-orb-float-3 20s ease-in-out infinite;
+}
+
+/* Floating Geometric Shapes */
+.pc-ambient-shape {
+  position: absolute;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.pc-ambient-shape--circle {
+  width: 100px;
+  height: 100px;
+  border: 2px solid var(--pc-teal);
+  border-radius: 50%;
+  top: 20%;
+  left: 10%;
+  animation: pc-shape-rotate 40s linear infinite;
+}
+
+.pc-ambient-shape--square {
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--pc-coral);
+  bottom: 30%;
+  right: 15%;
+  animation: pc-shape-rotate 35s linear infinite reverse;
+}
+
+.pc-ambient-shape--triangle {
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 70px solid color-mix(in srgb, var(--pc-mint) 30%, transparent);
+  top: 60%;
+  left: 5%;
+  animation: pc-shape-float 15s ease-in-out infinite;
+}
+
+/* Particle Dots */
+.pc-ambient-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pc-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--pc-teal);
+  border-radius: 50%;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.pc-particle:nth-child(1) { top: 10%; left: 20%; animation: pc-particle-rise 15s linear infinite; }
+.pc-particle:nth-child(2) { top: 70%; left: 80%; animation: pc-particle-rise 18s linear infinite 2s; }
+.pc-particle:nth-child(3) { top: 40%; left: 60%; animation: pc-particle-rise 12s linear infinite 4s; }
+.pc-particle:nth-child(4) { top: 80%; left: 30%; animation: pc-particle-rise 20s linear infinite 1s; }
+.pc-particle:nth-child(5) { top: 25%; left: 90%; animation: pc-particle-rise 16s linear infinite 3s; }
+
+/* Grid Lines Animation */
+.pc-ambient-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, color-mix(in srgb, var(--pc-teal) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--pc-teal) 5%, transparent) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.3;
+  animation: pc-grid-drift 60s linear infinite;
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes pc-orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, 50px) scale(1.05); }
+  50% { transform: translate(-20px, 30px) scale(0.95); }
+  75% { transform: translate(40px, -20px) scale(1.02); }
+}
+
+@keyframes pc-orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(50px, -30px) scale(1.08); }
+  66% { transform: translate(-30px, 40px) scale(0.92); }
+}
+
+@keyframes pc-orb-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-40px, 60px) scale(1.1); }
+}
+
+@keyframes pc-shape-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pc-shape-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-30px) rotate(10deg); }
+}
+
+@keyframes pc-particle-rise {
+  0% { 
+    transform: translateY(100vh) scale(0); 
+    opacity: 0;
+  }
+  10% { 
+    opacity: 0.3;
+  }
+  90% { 
+    opacity: 0.3;
+  }
+  100% { 
+    transform: translateY(-100px) scale(1); 
+    opacity: 0;
+  }
+}
+
+@keyframes pc-grid-drift {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(60px, 60px); }
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .pc-ambient-orb {
+  opacity: 0.3;
+}
+
+[data-theme='dark'] .pc-ambient-shape {
+  opacity: 0.05;
+}
+
+[data-theme='dark'] .pc-particle {
+  opacity: 0.2;
+}
+
+/* Ensure all floating elements don't interfere with content */
+.pc-ambient-orb,
+.pc-ambient-shape,
+.pc-particle,
+.pc-ambient-grid {
+  pointer-events: none !important;
+  user-select: none;
+}

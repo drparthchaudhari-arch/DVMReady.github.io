@@ -356,7 +356,7 @@ html {
   border-radius: var(--pc-radius-lg);
   padding: 1.25rem;
   box-shadow: var(--pc-shadow-lg);
-  /* animation disabled - was: pc-hero-card-float 6s ease-in-out infinite; */
+  animation: pc-hero-card-float 6s ease-in-out infinite;
   backdrop-filter: blur(10px);
   background: color-mix(in srgb, var(--pc-surface) 90%, transparent);
 }
@@ -1207,7 +1207,7 @@ html {
   border-radius: 999px;
   box-shadow: 0 10px 25px color-mix(in srgb, var(--pc-teal) 40%, transparent);
   transition: all 0.3s ease;
-  /* animation disabled - was: pc-sticky-cta-bounce 2s ease-in-out infinite; */
+  animation: pc-sticky-cta-bounce 2s ease-in-out infinite;
 }
 
 .pc-sticky-cta__btn:hover {
