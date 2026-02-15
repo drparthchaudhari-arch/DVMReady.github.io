@@ -9,9 +9,9 @@
   --calc-bg-gradient: linear-gradient(135deg, 
     var(--pc-surface, #ffffff) 0%, 
     var(--pc-muted, #f8fafc) 100%);
-  --calc-card-bg: rgba(255, 255, 255, 0.85);
-  --calc-glass-bg: rgba(255, 255, 255, 0.7);
-  --calc-glass-border: rgba(255, 255, 255, 0.4);
+  --calc-card-bg: var(--pc-surface, #ffffff);
+  --calc-glass-bg: var(--pc-surface, #ffffff);
+  --calc-glass-border: var(--pc-border, #e2e8f0);
   --calc-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --calc-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --calc-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -39,9 +39,9 @@
   --calc-bg-gradient: linear-gradient(135deg, 
     var(--pc-surface, #0f172a) 0%, 
     #1e293b 100%);
-  --calc-card-bg: rgba(30, 41, 59, 0.85);
-  --calc-glass-bg: rgba(30, 41, 59, 0.7);
-  --calc-glass-border: rgba(255, 255, 255, 0.08);
+  --calc-card-bg: var(--pc-surface, #1e293b);
+  --calc-glass-bg: var(--pc-surface, #1e293b);
+  --calc-glass-border: var(--pc-border, #334155);
   --calc-shadow-glow: 0 0 30px rgba(99, 102, 241, 0.25);
 }
 

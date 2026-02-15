@@ -7,8 +7,8 @@
 .pc-ambient-container {
   position: fixed;
   inset: 0;
-  pointer-events: none;
-  z-index: -1;
+  pointer-events: none !important;
+  z-index: -9999;
   overflow: hidden;
 }
 
@@ -17,8 +17,8 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
-  opacity: 0.5;
-  pointer-events: none;
+  opacity: 0.15;
+  pointer-events: none !important;
 }
 
 .pc-ambient-orb--1 {
@@ -174,11 +174,11 @@
 
 /* Dark mode adjustments */
 [data-theme='dark'] .pc-ambient-orb {
-  opacity: 0.3;
+  opacity: 0.1;
 }
 
 [data-theme='dark'] .pc-ambient-shape {
-  opacity: 0.05;
+  opacity: 0.03;
 }
 
 [data-theme='dark'] .pc-particle {

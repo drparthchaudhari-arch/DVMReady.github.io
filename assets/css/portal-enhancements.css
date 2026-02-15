@@ -618,10 +618,13 @@ html {
 .pc-search-icon {
   position: absolute;
   left: 0.75rem;
-  width: 18px;
-  height: 18px;
+  width: 18px !important;
+  height: 18px !important;
+  max-width: 18px !important;
+  max-height: 18px !important;
   color: var(--pc-text-muted);
   pointer-events: none;
+  flex-shrink: 0;
 }
 
 .pc-search-input--nav {
