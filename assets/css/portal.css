@@ -8195,3 +8195,89 @@ body.pc-page {
     display: none;
   }
 }
+
+/* ==========================================
+   THEME TOGGLE BUTTON
+   ========================================== */
+
+.pc-theme-toggle {
+  border-radius: 12px;
+  border: 1px solid var(--pc-border);
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.55rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--pc-surface);
+  background: color-mix(in srgb, var(--pc-surface) 95%, transparent);
+  color: var(--pc-text);
+  transition:
+    border-color var(--pc-transition-fast),
+    transform var(--pc-transition-fast),
+    background var(--pc-transition-fast);
+}
+
+.pc-theme-toggle:hover {
+  border-color: color-mix(in srgb, var(--pc-primary) 60%, var(--pc-border));
+  background: color-mix(in srgb, var(--pc-primary) 14%, var(--pc-surface));
+  transform: translateY(-1px);
+}
+
+.pc-theme-toggle:active {
+  transform: translateY(0);
+}
+
+.pc-theme-toggle:focus-visible {
+  outline: 3px solid var(--pc-focus);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--pc-focus) 30%, transparent);
+}
+
+.pc-theme-toggle__icon {
+  display: inline;
+}
+
+/* Mobile: hide theme toggle in nav, show in mobile menu */
+@media (max-width: 768px) {
+  .pc-nav-group > .pc-theme-toggle {
+    display: none;
+  }
+}
+
+/* Theme-specific adjustments */
+[data-theme='light'] .pc-theme-toggle {
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, #ffffff 86%, var(--pc-surface)),
+    color-mix(in srgb, var(--pc-surface) 90%, transparent)
+  );
+}
+
+/* ==========================================
+   DARK MODE DEFAULTS
+   ========================================== */
+
+/* Ensure dark mode is default */
+:root {
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+}
+
+/* Smooth theme transitions */
+.pc-page,
+.pc-portal-nav__inner,
+.pc-nav-link,
+.pc-theme-toggle,
+.pc-account-card,
+.pc-calc-panel,
+.pc-tool-launch,
+.pc-home-tier-card {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
