@@ -168,7 +168,8 @@ html {
   border-radius: 50%;
   filter: blur(60px);
   opacity: 0.4;
-  animation: pc-float 20s ease-in-out infinite;
+  /* Animation disabled - was causing distraction */
+  /* animation: pc-float 20s ease-in-out infinite; */
 }
 
 .pc-float-shape--1 {
