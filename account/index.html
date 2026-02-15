@@ -285,7 +285,7 @@
     
     /* Auth Section Styles */
     .pc-auth-section {
-      max-width: 900px;
+      max-width: 1200px;
       margin: 0 auto 3rem;
       padding: 2rem;
       background: var(--pc-surface);
@@ -310,9 +310,19 @@
     
     .pc-auth-options {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5rem;
       text-align: left;
+    }
+    
+    .pc-auth-options--3col {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @media (max-width: 992px) {
+      .pc-auth-options--3col {
+        grid-template-columns: 1fr;
+      }
     }
     
     .pc-auth-card {
@@ -320,6 +330,28 @@
       border: 1px solid var(--pc-border);
       border-radius: var(--pc-radius-md);
       padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .pc-auth-card--login {
+      border-color: var(--pc-primary);
+      border-width: 2px;
+      background: linear-gradient(135deg, var(--pc-bg) 0%, color-mix(in srgb, var(--pc-primary) 5%, var(--pc-bg)) 100%);
+    }
+    
+    .pc-auth-card--signup {
+      background: linear-gradient(135deg, var(--pc-bg) 0%, color-mix(in srgb, var(--pc-mint) 5%, var(--pc-bg)) 100%);
+    }
+    
+    .pc-btn--full {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .pc-btn--mint {
+      color: var(--pc-cta-alt-text);
+      background: var(--pc-mint);
     }
     
     .pc-auth-card__icon {
@@ -380,38 +412,6 @@
     
     .pc-consent-checkbox input {
       margin-top: 0.2rem;
-    }
-    
-    .pc-auth-divider {
-      text-align: center;
-      margin: 1rem 0;
-      color: var(--pc-text-muted);
-      font-size: 0.9rem;
-      position: relative;
-    }
-    
-    .pc-auth-divider::before,
-    .pc-auth-divider::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 30%;
-      height: 1px;
-      background: var(--pc-border);
-    }
-    
-    .pc-auth-divider::before { left: 0; }
-    .pc-auth-divider::after { right: 0; }
-    
-    .pc-form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.5rem;
-    }
-    
-    .pc-auth-form--compact .pc-input {
-      padding: 0.5rem;
-      font-size: 0.9rem;
     }
     
     .pc-logged-in-content {
@@ -634,7 +634,7 @@
           <h2 id="auth-title" class="pc-auth-title">Sign In or Create Account</h2>
           <p class="pc-auth-subtitle">Choose how you want to access VetLudics</p>
           
-          <div class="pc-auth-options">
+          <div class="pc-auth-options pc-auth-options--3col">
             <!-- Guest Login -->
             <div class="pc-auth-card pc-auth-card--guest">
               <div class="pc-auth-card__icon">👤</div>
@@ -649,15 +649,33 @@
                   <input type="checkbox" id="guest-consent" checked>
                   <span>I agree to analytics collection and <a href="/terms/">Terms</a></span>
                 </label>
-                <button type="submit" class="pc-btn pc-btn--secondary pc-btn--large">Continue as Guest</button>
+                <button type="submit" class="pc-btn pc-btn--secondary pc-btn--large pc-btn--full">Continue as Guest</button>
               </form>
             </div>
             
-            <!-- Full Account -->
-            <div class="pc-auth-card pc-auth-card--account">
-              <div class="pc-auth-card__icon">⭐</div>
-              <h3>Create Full Account</h3>
-              <p>Get personalized features and cross-device sync.</p>
+            <!-- Log In (Existing Account) -->
+            <div class="pc-auth-card pc-auth-card--login">
+              <div class="pc-auth-card__icon">🔐</div>
+              <h3>Log In</h3>
+              <p>Already have an account? Sign in here.</p>
+              <form id="account-login-form" class="pc-auth-form">
+                <div class="pc-form-field">
+                  <label for="login-email">Email Address</label>
+                  <input type="email" id="login-email" class="pc-input" placeholder="your@email.com" required>
+                </div>
+                <div class="pc-form-field">
+                  <label for="login-password">Password</label>
+                  <input type="password" id="login-password" class="pc-input" placeholder="Your password" required>
+                </div>
+                <button type="submit" class="pc-btn pc-btn--primary pc-btn--large pc-btn--full">Log In</button>
+              </form>
+            </div>
+            
+            <!-- Create Account (New User) -->
+            <div class="pc-auth-card pc-auth-card--signup">
+              <div class="pc-auth-card__icon">✨</div>
+              <h3>Create Account</h3>
+              <p>New to VetLudics? Create a full account.</p>
               <form id="account-signup-form" class="pc-auth-form">
                 <div class="pc-form-field">
                   <label for="signup-email">Email Address</label>
@@ -675,15 +693,7 @@
                   <input type="checkbox" id="signup-tos" required>
                   <span>I agree to <a href="/terms/">Terms of Service</a></span>
                 </label>
-                <button type="submit" class="pc-btn pc-btn--primary pc-btn--large">Create Account</button>
-              </form>
-              <p class="pc-auth-divider">Already have an account?</p>
-              <form id="account-login-form" class="pc-auth-form pc-auth-form--compact">
-                <div class="pc-form-row">
-                  <input type="email" id="login-email" class="pc-input" placeholder="Email" required>
-                  <input type="password" id="login-password" class="pc-input" placeholder="Password" required>
-                </div>
-                <button type="submit" class="pc-btn pc-btn--secondary">Log In</button>
+                <button type="submit" class="pc-btn pc-btn--mint pc-btn--large pc-btn--full">Create Account</button>
               </form>
             </div>
           </div>
