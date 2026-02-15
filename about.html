@@ -5,8 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author-status" content="NAVLE-candidate-unlicensed" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
+    
+    <!-- Performance: Resource Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Veterinary Educator Credentials – VetLudics</title>
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta
       name="description"
       content="Meet Parth Chaudhari, BVSc&AH, and review the clinical background, educational focus, and credential context behind VetLudics veterinary learning content."
@@ -21,6 +29,11 @@
       content="Background and credentials behind VetLudics veterinary educational resources."
     />
     <meta property="og:url" content="https://parthchaudhari.com/about.html" />
+    <meta property="og:image" content="https://parthchaudhari.com/assets/img/vetludics-og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Veterinary Educator Credentials – VetLudics" />
+    <meta name="twitter:description" content="Background and credentials behind VetLudics veterinary educational resources." />
+    <meta name="twitter:image" content="https://parthchaudhari.com/assets/img/vetludics-og.jpg" />
     <link rel="canonical" href="https://parthchaudhari.com/about.html" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
@@ -203,7 +216,7 @@
           </div>
           
           <!-- Stats Cards -->
-          <div class="pc-profile-stats" aria-label="Key statistics">
+          <div class="pc-profile-stats" aria-label="Key statistics" role="region">
             <div class="pc-stat-card pc-stat-card--featured" data-animate="fade-up" data-delay="100">
               <div class="pc-stat-card__icon">🎓</div>
               <div class="pc-stat-card__number">4+</div>
@@ -224,8 +237,8 @@
       </section>
 
       <!-- Timeline Section -->
-      <section class="pc-section" data-animate="fade-up">
-        <h2 class="pc-section-title">
+      <section class="pc-section" data-animate="fade-up" aria-labelledby="timeline-title">
+        <h2 id="timeline-title" class="pc-section-title">
           <span class="pc-gradient-text">Licensure</span> Pathway Timeline
         </h2>
         <div class="pc-timeline">
@@ -267,8 +280,8 @@
       </section>
 
       <!-- Clinical Focus Section -->
-      <section class="pc-section" data-animate="fade-up">
-        <h2 class="pc-section-title">
+      <section class="pc-section" data-animate="fade-up" aria-labelledby="clinical-focus-title">
+        <h2 id="clinical-focus-title" class="pc-section-title">
           <span class="pc-gradient-text">Clinical</span> & Educational Focus
         </h2>
         <div class="pc-experience-grid pc-experience-grid--enhanced">
@@ -303,8 +316,8 @@
       </section>
 
       <!-- Trust Links Section -->
-      <section class="pc-section pc-section--compact" data-animate="fade-up">
-        <h2 class="pc-section-title pc-section-title--small">Editorial & Trust</h2>
+      <section class="pc-section pc-section--compact" data-animate="fade-up" aria-labelledby="trust-links-title">
+        <h2 id="trust-links-title" class="pc-section-title pc-section-title--small">Editorial & Trust</h2>
         <div class="pc-trust-links">
           <a href="/editorial-policy/" class="pc-trust-link">
             <span class="pc-trust-link__icon">📋</span>

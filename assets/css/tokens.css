@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
+/* Performance: Apply font-display: swap for all font families */
+@font-face {
+  font-family: 'Manrope';
+  font-display: swap;
+  src: local('Manrope');
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-display: swap;
+  src: local('Plus Jakarta Sans');
+}
+
 :root {
   /* Light Mode (Default) */
   --pc-bg-primary: #edf4fb;

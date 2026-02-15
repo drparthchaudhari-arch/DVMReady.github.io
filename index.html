@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author-status" content="NAVLE-candidate-unlicensed">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+    
+    <!-- Performance: Resource Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
     <title>Veterinary Calculators for Dogs, Cats, and Clinic Workflows | VetLudics</title>
     <meta name="description" content="VetLudics is a veterinary calculator platform for drug dosing, CRI, fluid therapy, blood gas, transfusion, toxicity, and dog/cat clinical workflows.">
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
@@ -15,12 +22,19 @@
     <meta property="og:site_name" content="VetLudics">
     <meta property="og:url" content="https://parthchaudhari.com/">
     <link rel="canonical" href="https://parthchaudhari.com/">
+    <!-- Preload Critical Resources -->
     <link rel="preload" href="/assets/css/tokens.css" as="style">
     <link rel="preload" href="/assets/css/portal.css" as="style">
+    <link rel="preload" href="/assets/js/theme-toggle.js" as="script">
+    <link rel="preload" href="/assets/js/nav-status.js" as="script">
+    
+    <!-- Critical CSS -->
     <link rel="stylesheet" href="/assets/css/tokens.css">
     <link rel="stylesheet" href="/assets/css/portal.css">
     <link rel="stylesheet" href="/assets/css/portal-enhancements.css">
     <link rel="stylesheet" href="/assets/css/floating-elements.css">
+    
+    <!-- Deferred JavaScript -->
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/animations.js" defer></script>
@@ -253,7 +267,7 @@
                 <h2 id="quick-access-title" class="pc-quick-access__title">
                     <span class="pc-gradient-text">Quick Access</span> Tools
                 </h2>
-                <p class="pc-quick-access__subtitle">Most used calculators, ready when you are</p>
+                <p class="pc-quick-access__subtitle" id="quick-access-desc">Most used calculators, ready when you are</p>
             </div>
             <div class="pc-quick-access__grid">
                 <a href="/tools/dose-calculator.html" class="pc-quick-card">
@@ -496,6 +510,7 @@
                 <a href="/terms/">Terms</a>
                 <a href="/editorial-policy/">Editorial Policy</a>
                 <a href="/sources-and-limitations/">Sources</a>
+                <a href="/accessibility-plan/">Accessibility</a>
             </div>
             <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
         </div>
