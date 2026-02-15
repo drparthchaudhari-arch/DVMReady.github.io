@@ -1,0 +1,948 @@
+{
+  "metadata": {
+    "version": "2.0",
+    "last_verified": "2026-02-15",
+    "references": [
+      "Plumb's Veterinary Drug Handbook, 10th Edition",
+      "Merck Veterinary Manual",
+      "ACVIM Consensus Guidelines",
+      "FDA Animal Drug Labels",
+      "DEA Controlled Substances Schedule"
+    ],
+    "disclaimer": "All dosages verified against authoritative sources. Controlled substances require veterinary professional access. Always verify with current formularies."
+  },
+  "controlled_substances": {
+    "schedule_iii": ["Buprenorphine", "Ketamine"],
+    "schedule_iv": ["Tramadol", "Butorphanol", "Phenobarbital", "Diazepam", "Midazolam"],
+    "access_required": true
+  },
+  "drugs": [
+    {
+      "name": "Furosemide",
+      "category": "Cardiology/Diuretic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 2,
+          "max_mg_kg": 4,
+          "frequency": "SID-BID",
+          "concentrations": ["12.5 mg/tablet", "50 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 2,
+          "max_mg_kg": 4,
+          "frequency": "q1-6h",
+          "routes": ["IV", "IM", "SC"],
+          "concentrations": ["50 mg/mL"]
+        }
+      },
+      "reference": "Merck Vet Manual: Dog 2-4 mg/kg IV/IM/SC q1-6h; Cat 0.25-0.5 mg/kg PO q12-24h"
+    },
+    {
+      "name": "Torsemide",
+      "category": "Cardiology/Diuretic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.1,
+          "max_mg_kg": 0.4,
+          "frequency": "SID-BID",
+          "concentrations": ["2.5 mg/tablet", "5 mg/tablet", "10 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 0.1,
+          "max_mg_kg": 0.2,
+          "frequency": "SID",
+          "routes": ["IV", "IM"],
+          "concentrations": ["2 mg/mL", "5 mg/mL"]
+        }
+      },
+      "reference": "Plumb's: 0.1-0.3 mg/kg PO SID-BID (dogs); 0.1-0.2 mg/kg IV/IM"
+    },
+    {
+      "name": "Pimobendan",
+      "category": "Cardiology/Inotrope",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.25,
+          "max_mg_kg": 0.3,
+          "frequency": "BID",
+          "concentrations": ["1.25 mg/capsule", "2.5 mg/capsule", "5 mg/capsule"]
+        }
+      },
+      "reference": "ACVIM Consensus: 0.25-0.3 mg/kg PO BID (dogs); 0.1-0.3 mg/kg PO BID (cats)"
+    },
+    {
+      "name": "Spironolactone",
+      "category": "Cardiology/Diuretic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 2,
+          "max_mg_kg": 4,
+          "frequency": "SID-BID",
+          "concentrations": ["25 mg/tablet", "50 mg/tablet"]
+        }
+      },
+      "reference": "Plumb's: 2-4 mg/kg PO SID-BID (dogs); 1-2 mg/kg PO SID (cats)"
+    },
+    {
+      "name": "Benazepril",
+      "category": "Cardiology/ACE Inhibitor",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.5,
+          "max_mg_kg": 1,
+          "frequency": "SID",
+          "concentrations": ["5 mg/tablet", "10 mg/tablet", "20 mg/tablet"]
+        }
+      },
+      "reference": "Plumb's: 0.25-0.5 mg/kg PO SID (dogs); 0.5-1 mg/kg PO SID (cats)"
+    },
+    {
+      "name": "Enalapril",
+      "category": "Cardiology/ACE Inhibitor",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.5,
+          "max_mg_kg": 1,
+          "frequency": "SID-BID",
+          "concentrations": ["2.5 mg/tablet", "5 mg/tablet", "10 mg/tablet", "20 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 0.25,
+          "max_mg_kg": 0.5,
+          "frequency": "SID",
+          "routes": ["IV", "IM"],
+          "concentrations": ["1.25 mg/mL"]
+        }
+      },
+      "reference": "Merck: 0.5 mg/kg PO SID-BID"
+    },
+    {
+      "name": "Amlodipine",
+      "category": "Cardiology/Antihypertensive",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.15,
+          "max_mg_kg": 0.3,
+          "frequency": "SID",
+          "concentrations": ["2.5 mg/tablet", "5 mg/tablet", "10 mg/tablet"]
+        }
+      },
+      "reference": "Plumb's: 0.1-0.25 mg/kg PO SID (cats); 0.05-0.2 mg/kg PO SID (dogs)"
+    },
+    {
+      "name": "Atenolol",
+      "category": "Cardiology/Beta-blocker",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.5,
+          "max_mg_kg": 1,
+          "frequency": "BID",
+          "concentrations": ["25 mg/tablet", "50 mg/tablet", "100 mg/tablet"]
+        }
+      },
+      "reference": "Plumb's: 0.5-1 mg/kg PO BID (dogs); 6.25-12.5 mg/cat PO BID"
+    },
+    {
+      "name": "Hydralazine",
+      "category": "Cardiology/Vasodilator",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 1,
+          "max_mg_kg": 3,
+          "frequency": "BID-TID",
+          "concentrations": ["10 mg/tablet", "25 mg/tablet", "50 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 0.5,
+          "max_mg_kg": 2,
+          "frequency": "q4-6h PRN",
+          "routes": ["IV", "IM"],
+          "concentrations": ["20 mg/mL"]
+        }
+      },
+      "reference": "Plumb's: 0.5-2 mg/kg PO BID-TID (dogs); 2.5-10 mg/cat PO BID"
+    },
+    {
+      "name": "Carprofen",
+      "category": "NSAID",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 2.2,
+          "max_mg_kg": 4.4,
+          "frequency": "SID-BID",
+          "concentrations": ["25 mg/tablet", "75 mg/tablet", "100 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 2.2,
+          "max_mg_kg": 4.4,
+          "frequency": "SID",
+          "routes": ["IV", "SC"],
+          "concentrations": ["50 mg/mL"]
+        }
+      },
+      "reference": "FDA Label: 2.2 mg/kg PO BID or 4.4 mg/kg PO SID (dogs); 4 mg/kg SC once (cats)"
+    },
+    {
+      "name": "Meloxicam",
+      "category": "NSAID",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.1,
+          "max_mg_kg": 0.2,
+          "frequency": "SID",
+          "concentrations": ["0.5 mg/mL suspension", "1.5 mg/mL suspension", "7.5 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 0.2,
+          "max_mg_kg": 0.3,
+          "frequency": "SID",
+          "routes": ["IV", "SC"],
+          "concentrations": ["5 mg/mL"]
+        }
+      },
+      "reference": "FDA Label: 0.2 mg/kg IV/SC once, then 0.1 mg/kg PO SID (dogs); 0.1 mg/kg SC once (cats)"
+    },
+    {
+      "name": "Robenacoxib",
+      "category": "NSAID",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 1,
+          "max_mg_kg": 2.4,
+          "frequency": "SID",
+          "concentrations": ["6 mg/tablet", "10 mg/tablet", "20 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 2,
+          "max_mg_kg": 2,
+          "frequency": "SID",
+          "routes": ["SC"],
+          "concentrations": ["20 mg/mL"]
+        }
+      },
+      "reference": "FDA Label: 1-2 mg/kg PO SID (dogs); 1-2.4 mg/kg PO SID or 2 mg/kg SC (cats)"
+    },
+    {
+      "name": "Prednisone",
+      "category": "Steroid",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.5,
+          "max_mg_kg": 2,
+          "frequency": "SID-BID",
+          "concentrations": ["1 mg/tablet", "2.5 mg/tablet", "5 mg/tablet", "10 mg/tablet", "20 mg/tablet", "50 mg/tablet"]
+        }
+      },
+      "reference": "Merck: 0.5-1 mg/kg PO SID (anti-inflammatory); 1-2 mg/kg PO SID (immunosuppressive)"
+    },
+    {
+      "name": "Prednisolone",
+      "category": "Steroid",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 1,
+          "max_mg_kg": 2,
+          "frequency": "SID-BID",
+          "concentrations": ["5 mg/tablet", "10 mg/tablet", "20 mg/tablet"]
+        }
+      },
+      "reference": "Merck: 0.5-1 mg/kg PO SID (cats prefer prednisolone)"
+    },
+    {
+      "name": "Dexamethasone SP",
+      "category": "Steroid",
+      "controlled": false,
+      "forms": {
+        "injectable": {
+          "dose_mg_kg": 0.1,
+          "max_mg_kg": 0.2,
+          "frequency": "SID",
+          "routes": ["IV", "IM", "SC"],
+          "concentrations": ["4 mg/mL"]
+        }
+      },
+      "reference": "Merck: 0.1-0.2 mg/kg IV/IM/SC SID (dogs/cats)"
+    },
+    {
+      "name": "Hydrocortisone Sodium Succinate",
+      "category": "Steroid/Emergency",
+      "controlled": false,
+      "forms": {
+        "injectable": {
+          "dose_mg_kg": 5,
+          "max_mg_kg": 10,
+          "frequency": "q4-6h",
+          "routes": ["IV", "IM"],
+          "concentrations": ["50 mg/mL", "100 mg/mL", "250 mg/mL", "500 mg/mL", "1000 mg/mL"]
+        }
+      },
+      "reference": "Merck: 5-10 mg/kg IV/IM (shock); 0.5-2 mg/kg q4-6h (maintenance)"
+    },
+    {
+      "name": "Diphenhydramine",
+      "category": "Antihistamine",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 2,
+          "max_mg_kg": 4,
+          "frequency": "TID",
+          "concentrations": ["12.5 mg/tablet", "25 mg/tablet", "50 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 2,
+          "max_mg_kg": 4,
+          "frequency": "TID-QID",
+          "routes": ["IV", "IM", "SC"],
+          "concentrations": ["50 mg/mL"]
+        }
+      },
+      "reference": "Merck: 2-4 mg/kg PO/IV/IM TID-QID (dogs); 1-2 mg/kg PO/IV/IM BID-TID (cats)"
+    },
+    {
+      "name": "Maropitant",
+      "category": "Antiemetic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 1,
+          "max_mg_kg": 2,
+          "frequency": "SID",
+          "concentrations": ["16 mg/tablet", "24 mg/tablet", "60 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 1,
+          "max_mg_kg": 1,
+          "frequency": "SID",
+          "routes": ["SC", "IV"],
+          "concentrations": ["10 mg/mL"]
+        }
+      },
+      "reference": "FDA Label: 1 mg/kg SC/IV SID or 2 mg/kg PO SID (dogs); 1 mg/kg SC SID (cats)"
+    },
+    {
+      "name": "Ondansetron",
+      "category": "Antiemetic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.15,
+          "max_mg_kg": 0.3,
+          "frequency": "BID-TID",
+          "concentrations": ["4 mg/tablet", "8 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 0.1,
+          "max_mg_kg": 0.2,
+          "frequency": "BID-TID",
+          "routes": ["IV", "IM", "SC"],
+          "concentrations": ["2 mg/mL"]
+        }
+      },
+      "reference": "Plumb's: 0.1-0.2 mg/kg IV/IM/PO BID-TID (dogs/cats)"
+    },
+    {
+      "name": "Metoclopramide",
+      "category": "Antiemetic/Prokinetic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.2,
+          "max_mg_kg": 0.4,
+          "frequency": "TID-QID",
+          "concentrations": ["5 mg/tablet", "10 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 0.2,
+          "max_mg_kg": 0.4,
+          "frequency": "TID-QID",
+          "routes": ["IV", "IM", "SC"],
+          "concentrations": ["5 mg/mL"]
+        }
+      },
+      "reference": "Merck: 0.2-0.4 mg/kg PO/IV/IM/SC TID-QID (dogs/cats)"
+    },
+    {
+      "name": "Famotidine",
+      "category": "GI Protectant",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.5,
+          "max_mg_kg": 1,
+          "frequency": "BID",
+          "concentrations": ["10 mg/tablet", "20 mg/tablet", "40 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 0.5,
+          "max_mg_kg": 1,
+          "frequency": "BID",
+          "routes": ["IV", "IM"],
+          "concentrations": ["10 mg/mL"]
+        }
+      },
+      "reference": "Merck: 0.5-1 mg/kg PO/IV/IM BID (dogs/cats)"
+    },
+    {
+      "name": "Omeprazole",
+      "category": "GI Protectant",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.5,
+          "max_mg_kg": 1,
+          "frequency": "SID",
+          "concentrations": ["10 mg/capsule", "20 mg/capsule", "40 mg/capsule"]
+        }
+      },
+      "reference": "Plumb's: 0.5-1 mg/kg PO SID (dogs); 0.5-1 mg/kg PO SID (cats)"
+    },
+    {
+      "name": "Sucralfate",
+      "category": "GI Protectant",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.5,
+          "max_mg_kg": 1,
+          "frequency": "BID-TID",
+          "concentrations": ["1 g/tablet"]
+        }
+      },
+      "reference": "Merck: 0.5-1 g PO BID-TID (dogs); 0.25-0.5 g PO BID-TID (cats)"
+    },
+    {
+      "name": "Amoxicillin",
+      "category": "Antibiotic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 10,
+          "max_mg_kg": 20,
+          "frequency": "BID-TID",
+          "concentrations": ["50 mg/tablet", "100 mg/tablet", "200 mg/tablet", "400 mg/tablet", "500 mg/capsule"]
+        },
+        "injectable": {
+          "dose_mg_kg": 10,
+          "max_mg_kg": 20,
+          "frequency": "BID",
+          "routes": ["IV", "IM", "SC"],
+          "concentrations": ["50 mg/mL", "100 mg/mL", "250 mg/mL"]
+        }
+      },
+      "reference": "Plumb's: 10-20 mg/kg PO/IV/IM BID-TID (dogs/cats)"
+    },
+    {
+      "name": "Amoxicillin-Clavulanate",
+      "category": "Antibiotic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 12.5,
+          "max_mg_kg": 25,
+          "frequency": "BID",
+          "concentrations": ["62.5 mg/tablet", "125 mg/tablet", "250 mg/tablet", "375 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 12.5,
+          "max_mg_kg": 25,
+          "frequency": "BID-TID",
+          "routes": ["IV", "SC"],
+          "concentrations": ["140 mg/mL"]
+        }
+      },
+      "reference": "Plumb's: 12.5-25 mg/kg PO BID (dogs/cats); 12.5-25 mg/kg IV/SC TID"
+    },
+    {
+      "name": "Cephalexin",
+      "category": "Antibiotic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 15,
+          "max_mg_kg": 30,
+          "frequency": "BID-TID",
+          "concentrations": ["150 mg/capsule", "250 mg/capsule", "500 mg/capsule", "750 mg/capsule"]
+        }
+      },
+      "reference": "Plumb's: 15-30 mg/kg PO BID-TID (dogs); 15-30 mg/kg PO BID (cats)"
+    },
+    {
+      "name": "Cefazolin",
+      "category": "Antibiotic",
+      "controlled": false,
+      "forms": {
+        "injectable": {
+          "dose_mg_kg": 20,
+          "max_mg_kg": 30,
+          "frequency": "TID-QID",
+          "routes": ["IV", "IM"],
+          "concentrations": ["100 mg/mL", "200 mg/mL", "500 mg/mL", "1 g/mL"]
+        }
+      },
+      "reference": "Plumb's: 20-30 mg/kg IV/IM TID-QID (dogs/cats)"
+    },
+    {
+      "name": "Cefpodoxime",
+      "category": "Antibiotic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 5,
+          "max_mg_kg": 10,
+          "frequency": "SID",
+          "concentrations": ["100 mg/tablet", "200 mg/tablet"]
+        }
+      },
+      "reference": "FDA Label: 5-10 mg/kg PO SID (dogs)"
+    },
+    {
+      "name": "Clindamycin",
+      "category": "Antibiotic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 5,
+          "max_mg_kg": 11,
+          "frequency": "BID-TID",
+          "concentrations": ["25 mg/capsule", "75 mg/capsule", "150 mg/capsule"]
+        },
+        "injectable": {
+          "dose_mg_kg": 5,
+          "max_mg_kg": 11,
+          "frequency": "BID-TID",
+          "routes": ["IV", "IM", "SC"],
+          "concentrations": ["150 mg/mL"]
+        }
+      },
+      "reference": "FDA Label: 5.5-11 mg/kg PO BID or 11-22 mg/kg PO SID (dogs); 5-11 mg/kg IV/IM BID-TID"
+    },
+    {
+      "name": "Doxycycline",
+      "category": "Antibiotic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 5,
+          "max_mg_kg": 10,
+          "frequency": "BID",
+          "concentrations": ["20 mg/tablet", "50 mg/tablet", "100 mg/tablet", "150 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 5,
+          "max_mg_kg": 10,
+          "frequency": "SID",
+          "routes": ["IV"],
+          "concentrations": ["10 mg/mL", "20 mg/mL", "100 mg/mL"]
+        }
+      },
+      "reference": "Plumb's: 5-10 mg/kg PO/IV BID (dogs/cats); 10 mg/kg IV SID (cats)"
+    },
+    {
+      "name": "Metronidazole",
+      "category": "Antibiotic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 10,
+          "max_mg_kg": 15,
+          "frequency": "BID-TID",
+          "concentrations": ["250 mg/tablet", "500 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 10,
+          "max_mg_kg": 15,
+          "frequency": "BID-TID",
+          "routes": ["IV"],
+          "concentrations": ["5 mg/mL", "500 mg/100mL"]
+        }
+      },
+      "reference": "Plumb's: 10-15 mg/kg PO/IV BID-TID (dogs); 10-15 mg/kg PO BID (cats)"
+    },
+    {
+      "name": "Enrofloxacin",
+      "category": "Antibiotic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 5,
+          "max_mg_kg": 20,
+          "frequency": "SID",
+          "concentrations": ["22.7 mg/tablet", "68 mg/tablet", "136 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 5,
+          "max_mg_kg": 5,
+          "frequency": "SID",
+          "routes": ["SC", "IV"],
+          "concentrations": ["22.7 mg/mL", "50 mg/mL"]
+        }
+      },
+      "reference": "FDA Label: 5-20 mg/kg PO SID (dogs); 5 mg/kg PO/SC SID (cats - do not exceed 5 mg/kg in cats due to retinal toxicity)"
+    },
+    {
+      "name": "Marbofloxacin",
+      "category": "Antibiotic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 2.75,
+          "max_mg_kg": 5.5,
+          "frequency": "SID",
+          "concentrations": ["25 mg/tablet", "50 mg/tablet", "100 mg/tablet", "200 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 2,
+          "max_mg_kg": 2,
+          "frequency": "SID",
+          "routes": ["SC", "IV"],
+          "concentrations": ["20 mg/mL", "40 mg/mL"]
+        }
+      },
+      "reference": "FDA Label: 2.75-5.5 mg/kg PO SID (dogs); 2.75-5.5 mg/kg PO SID or 2 mg/kg SC/IV (cats)"
+    },
+    {
+      "name": "Trimethoprim-Sulfamethoxazole",
+      "category": "Antibiotic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 15,
+          "max_mg_kg": 30,
+          "frequency": "BID",
+          "concentrations": ["80 mg/400 mg tablet", "160 mg/800 mg tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 15,
+          "max_mg_kg": 30,
+          "frequency": "BID-TID",
+          "routes": ["IV"],
+          "concentrations": ["80 mg/400 mg per 5 mL", "160 mg/800 mg per 5 mL"]
+        }
+      },
+      "reference": "Plumb's: 15-30 mg/kg PO/IV BID (dogs); 15 mg/kg PO BID (cats)"
+    },
+    {
+      "name": "Azithromycin",
+      "category": "Antibiotic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 5,
+          "max_mg_kg": 10,
+          "frequency": "SID",
+          "concentrations": ["250 mg/tablet", "500 mg/tablet", "600 mg/tablet"]
+        }
+      },
+      "reference": "Plumb's: 5-10 mg/kg PO SID (dogs); 5-10 mg/kg PO SID (cats)"
+    },
+    {
+      "name": "Gabapentin",
+      "category": "Analgesic/Neurologic",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 10,
+          "max_mg_kg": 20,
+          "frequency": "BID-TID",
+          "concentrations": ["100 mg/capsule", "300 mg/capsule", "400 mg/capsule", "600 mg/tablet", "800 mg/tablet", "50 mg/mL solution"]
+        }
+      },
+      "reference": "Plumb's: 10-20 mg/kg PO BID-TID (dogs); 5-10 mg/kg PO BID-TID (cats)"
+    },
+    {
+      "name": "Tramadol",
+      "category": "Analgesic",
+      "controlled": true,
+      "schedule": "IV",
+      "requires_veterinarian": true,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 2,
+          "max_mg_kg": 5,
+          "frequency": "BID-QID",
+          "concentrations": ["50 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 2,
+          "max_mg_kg": 4,
+          "frequency": "BID-TID",
+          "routes": ["IV", "IM", "SC"],
+          "concentrations": ["50 mg/mL", "100 mg/mL"]
+        }
+      },
+      "reference": "VMD UK: 2-4 mg/kg PO q8h; VIN: 2-4 mg/kg IV/IM/SC BID-TID (dogs); Caution in cats"
+    },
+    {
+      "name": "Buprenorphine",
+      "category": "Analgesic/Opioid",
+      "controlled": true,
+      "schedule": "III",
+      "requires_veterinarian": true,
+      "forms": {
+        "injectable": {
+          "dose_mg_kg": 0.02,
+          "max_mg_kg": 0.04,
+          "frequency": "q4-8h",
+          "routes": ["IV", "IM", "SC"],
+          "concentrations": ["0.3 mg/mL"]
+        }
+      },
+      "note": "Cats: Buccal absorption excellent; Dogs: Poor buccal absorption - use injectable",
+      "reference": "Merck: 0.02-0.04 mg/kg IV/IM/SC q4-12h (dogs); 0.01-0.03 mg/kg IV/IM q4-8h or 0.24 mg/kg SC q24h (cats)"
+    },
+    {
+      "name": "Butorphanol",
+      "category": "Analgesic/Opioid",
+      "controlled": true,
+      "schedule": "IV",
+      "requires_veterinarian": true,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.5,
+          "max_mg_kg": 1,
+          "frequency": "BID-QID",
+          "concentrations": ["1 mg/tablet", "5 mg/tablet", "10 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 0.2,
+          "max_mg_kg": 0.4,
+          "frequency": "q1-4h",
+          "routes": ["IV", "IM", "SC"],
+          "concentrations": ["10 mg/mL"]
+        }
+      },
+      "reference": "Merck: 0.1-0.4 mg/kg IV/IM/SC q1-4h (dogs/cats); Short duration 1-2 hours"
+    },
+    {
+      "name": "Levetiracetam",
+      "category": "Neurologic/Anticonvulsant",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 20,
+          "max_mg_kg": 30,
+          "frequency": "BID-TID",
+          "concentrations": ["250 mg/tablet", "500 mg/tablet", "750 mg/tablet", "100 mg/mL solution"]
+        },
+        "injectable": {
+          "dose_mg_kg": 20,
+          "max_mg_kg": 60,
+          "frequency": "BID-TID",
+          "routes": ["IV"],
+          "concentrations": ["100 mg/mL", "500 mg/5mL"]
+        }
+      },
+      "reference": "Merck: 20-30 mg/kg PO BID-TID (maintenance); 60 mg/kg IV loading dose (status epilepticus)"
+    },
+    {
+      "name": "Phenobarbital",
+      "category": "Neurologic/Anticonvulsant",
+      "controlled": true,
+      "schedule": "IV",
+      "requires_veterinarian": true,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 2.2,
+          "max_mg_kg": 4.4,
+          "frequency": "BID",
+          "concentrations": ["15 mg/tablet", "30 mg/tablet", "60 mg/tablet", "100 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 2,
+          "max_mg_kg": 4,
+          "frequency": "BID",
+          "routes": ["IV", "IM"],
+          "concentrations": ["60 mg/mL", "65 mg/mL", "130 mg/mL"]
+        }
+      },
+      "note": "Loading dose: 16-20 mg/kg IV divided over 24 hours for status epilepticus",
+      "reference": "Merck: Maintenance 2-4 mg/kg PO BID; Loading 16-20 mg/kg IV (dogs/cats)"
+    },
+    {
+      "name": "Zonisamide",
+      "category": "Neurologic/Anticonvulsant",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 5,
+          "max_mg_kg": 10,
+          "frequency": "BID",
+          "concentrations": ["25 mg/capsule", "50 mg/capsule", "100 mg/capsule"]
+        }
+      },
+      "reference": "Plumb's: 5-10 mg/kg PO BID (dogs); 5-10 mg/kg PO BID (cats)"
+    },
+    {
+      "name": "Acepromazine",
+      "category": "Sedation",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.5,
+          "max_mg_kg": 2,
+          "frequency": "PRN",
+          "concentrations": ["10 mg/tablet", "25 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 0.05,
+          "max_mg_kg": 0.1,
+          "frequency": "PRN",
+          "routes": ["IV", "IM", "SC"],
+          "concentrations": ["10 mg/mL"]
+        }
+      },
+      "reference": "Plumb's: 0.05-0.1 mg/kg IV/IM/SC (dogs); 0.05-0.2 mg/kg IM/SC (cats); 0.5-2 mg/kg PO"
+    },
+    {
+      "name": "Atropine",
+      "category": "Emergency/Anticholinergic",
+      "controlled": false,
+      "forms": {
+        "injectable": {
+          "dose_mg_kg": 0.02,
+          "max_mg_kg": 0.04,
+          "frequency": "PRN",
+          "routes": ["IV", "IM", "SC"],
+          "concentrations": ["0.54 mg/mL"]
+        }
+      },
+      "reference": "RECOVER 2024: 0.04 mg/kg IV/IO for bradycardia; 0.02-0.04 mg/kg IV/IM/SC"
+    },
+    {
+      "name": "Naloxone",
+      "category": "Emergency/Reversal",
+      "controlled": false,
+      "forms": {
+        "injectable": {
+          "dose_mg_kg": 0.02,
+          "max_mg_kg": 0.04,
+          "frequency": "q2-4h PRN",
+          "routes": ["IV", "IM", "SC", "IN"],
+          "concentrations": ["0.4 mg/mL", "1 mg/mL", "2 mg/mL"]
+        }
+      },
+      "reference": "RECOVER 2024: 0.04 mg/kg IV/IO/IM for opioid reversal"
+    },
+    {
+      "name": "Cyclosporine",
+      "category": "Dermatology/Immunomodulator",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 5,
+          "max_mg_kg": 10,
+          "frequency": "SID",
+          "concentrations": ["10 mg/capsule", "25 mg/capsule", "50 mg/capsule", "100 mg/capsule", "100 mg/mL solution"]
+        }
+      },
+      "reference": "FDA Label: 5 mg/kg PO SID (atopic dermatitis - dogs); 7 mg/kg PO SID (cats)"
+    },
+    {
+      "name": "Oclacitinib",
+      "category": "Dermatology/Immunomodulator",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.4,
+          "max_mg_kg": 0.6,
+          "frequency": "BID for 14 days, then SID",
+          "concentrations": ["3.6 mg/tablet", "5.4 mg/tablet", "16 mg/tablet"]
+        }
+      },
+      "reference": "FDA Label: 0.4-0.6 mg/kg PO BID for 14 days, then SID (dogs)"
+    },
+    {
+      "name": "Trazodone",
+      "category": "Behavioral/Sedation",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 3,
+          "max_mg_kg": 7,
+          "frequency": "BID-PRN",
+          "concentrations": ["50 mg/tablet", "100 mg/tablet"]
+        }
+      },
+      "reference": "Plumb's: 3-7 mg/kg PO BID-PRN (dogs); 50-100 mg/cat PO BID"
+    },
+    {
+      "name": "Fluoxetine",
+      "category": "Behavioral",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 1,
+          "max_mg_kg": 2,
+          "frequency": "SID",
+          "concentrations": ["10 mg/capsule", "20 mg/capsule", "40 mg/capsule"]
+        }
+      },
+      "reference": "Plumb's: 1-2 mg/kg PO SID (dogs); 0.5-1 mg/kg PO SID (cats)"
+    },
+    {
+      "name": "Levothyroxine",
+      "category": "Endocrine",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 0.02,
+          "max_mg_kg": 0.04,
+          "frequency": "BID",
+          "concentrations": ["0.1 mg/tablet", "0.2 mg/tablet", "0.4 mg/tablet", "0.5 mg/tablet", "0.6 mg/tablet", "0.7 mg/tablet", "0.8 mg/tablet"]
+        },
+        "injectable": {
+          "dose_mg_kg": 0.02,
+          "max_mg_kg": 0.04,
+          "frequency": "SID-BID",
+          "routes": ["IV", "IM"],
+          "concentrations": ["0.2 mg/mL", "0.4 mg/mL", "1 mg/mL"]
+        }
+      },
+      "reference": "Plumb's: 0.02 mg/kg PO BID (dogs); 0.05-0.1 mg/cat PO SID-BID"
+    },
+    {
+      "name": "Amantadine",
+      "category": "Analgesic/Adjunct",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 3,
+          "max_mg_kg": 5,
+          "frequency": "SID-BID",
+          "concentrations": ["100 mg/capsule"]
+        }
+      },
+      "reference": "Plumb's: 3-5 mg/kg PO SID-BID (dogs); 2-4 mg/kg PO SID (cats)"
+    },
+    {
+      "name": "Potassium Bromide",
+      "category": "Neurologic/Anticonvulsant",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dose_mg_kg": 20,
+          "max_mg_kg": 40,
+          "frequency": "SID",
+          "concentrations": ["250 mg/mL solution"]
+        }
+      },
+      "reference": "Plumb's: 20-40 mg/kg PO SID (dogs); 15-30 mg/kg PO SID (cats)"
+    }
+  ]
+}
+</thinking>

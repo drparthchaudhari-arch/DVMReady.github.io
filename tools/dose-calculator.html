@@ -19,6 +19,7 @@
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
+    <script src="/assets/js/controlled-substance-access.js" defer></script>
     <script src="/assets/js/dose-calculator.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
@@ -116,9 +117,38 @@
               <div class="pc-calc-field">
                 <div class="pc-calc-field__label">
                   <span>Drug</span>
+                  <span class="pc-calc-field__hint" id="drug-schedule-hint" style="display: none; color: #dc2626;">🔒 Controlled</span>
                 </div>
                 <select id="drug-select" class="pc-calc-input" onchange="onDrugChange()">
                   <option value="">Select drug...</option>
+                </select>
+                <div id="controlled-warning" style="display: none; margin-top: 0.5rem; padding: 0.5rem; background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; font-size: 0.75rem; color: #991b1b;">
+                  <strong>⚠️ DEA Controlled Substance</strong><br>
+                  Veterinarian verification required. <a href="#" onclick="ControlledSubstanceAccess.showAccessModal(document.getElementById('drug-select').value); return false;" style="color: #dc2626; text-decoration: underline;">Request access</a>
+                </div>
+              </div>
+
+              <!-- Dosage Form -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Dosage Form</span>
+                </div>
+                <select id="dosage-form" class="pc-calc-input" onchange="onDosageFormChange()">
+                  <option value="">Select form...</option>
+                  <option value="oral">💊 Oral (Tablet/Capsule)</option>
+                  <option value="injectable">💉 Injectable (IV/IM/SC)</option>
+                </select>
+              </div>
+
+              <!-- Route (for injectable) -->
+              <div class="pc-calc-field" id="route-field" style="display: none;">
+                <div class="pc-calc-field__label">
+                  <span>Route</span>
+                </div>
+                <select id="route-select" class="pc-calc-input" onchange="onInputChange()">
+                  <option value="IV">IV (Intravenous)</option>
+                  <option value="IM">IM (Intramuscular)</option>
+                  <option value="SC">SC (Subcutaneous)</option>
                 </select>
               </div>
 
@@ -126,7 +156,7 @@
               <div class="pc-calc-field">
                 <div class="pc-calc-field__label">
                   <span>Concentration</span>
-                  <span class="pc-calc-field__hint">mg/mL</span>
+                  <span class="pc-calc-field__hint" id="conc-unit-hint">mg/mL</span>
                 </div>
                 <input id="concentration" class="pc-calc-input pc-calc-input--number" type="number" min="0.1" step="0.1" placeholder="e.g. 50" list="dose-concentration-list" required oninput="onInputChange()" />
                 <datalist id="dose-concentration-list"></datalist>
