@@ -362,6 +362,16 @@
         Please submit your credentials for verification.
       </p>
       
+      <!-- Demo Mode Button (for testing) -->
+      <div style="margin-bottom: 1.5rem; padding: 1rem; background: var(--pc-surface); border: 1px dashed var(--pc-border); border-radius: var(--pc-radius-sm);">
+        <p style="margin: 0 0 0.5rem; font-size: 0.85rem; color: var(--pc-text-muted);">
+          <strong>Demo Mode:</strong> Click below to preview calculators (no credentials required for testing)
+        </p>
+        <button type="button" class="pc-btn pc-btn--secondary" onclick="enableDemoMode()">
+          🔓 Unlock Demo Mode
+        </button>
+      </div>
+      
       <form class="pc-request-form" id="access-request-form">
         <h3>Request Access</h3>
         
@@ -790,6 +800,15 @@
       document.getElementById('access-denied').style.display = 'none';
       document.getElementById('drug-calculators').style.display = 'grid';
     }
+    
+    // Demo mode - bypass access control (for testing only)
+    window.enableDemoMode = function() {
+      localStorage.setItem(ACCESS_KEY, 'approved');
+      showCalculators();
+      if (window.showToast) {
+        window.showToast('Demo mode enabled - calculators unlocked', 'success');
+      }
+    };
     
     // Handle form submission
     document.getElementById('access-request-form')?.addEventListener('submit', function(e) {
