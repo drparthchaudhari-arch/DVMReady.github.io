@@ -1,0 +1,20 @@
+# Cloudflare Pages Redirects
+# Format: source destination [code]
+
+# Search redirect
+/search/ /search.html 301
+
+# Games redirects
+/games/2048/ /games/2048.html 301
+/games/memory-match/ /memory-match.html 301
+/games/tictactoe/ /games/tic-tac-toe.html 301
+/games/vetlex/ /study/wordweb/ 301
+/games/sudoku/ /games/sudoku.html 301
+/games/iq-challenge/ /games/iq.html 301
+
+# Study redirects
+/study/vetlex/ /study/wordweb/ 301
+/bridge/case-studies/ /study/ 301
+
+# Play redirects
+/play/vetlex/ /study/wordweb/ 301
