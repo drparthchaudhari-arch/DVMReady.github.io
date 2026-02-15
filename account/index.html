@@ -1044,8 +1044,8 @@
         setTimeout(updateUI, 100);
       });
       
-      // Account signup
-      document.getElementById('account-signup-form')?.addEventListener('submit', function(e) {
+      // Account signup with Supabase
+      document.getElementById('account-signup-form')?.addEventListener('submit', async function(e) {
         e.preventDefault();
         const email = document.getElementById('signup-email').value.trim();
         const password = document.getElementById('signup-password').value;
@@ -1077,28 +1077,58 @@
           return;
         }
         
-        const userData = {
-          email: email,
-          type: 'member',
-          displayName: email.split('@')[0],
-          dob: dob,
-          createdAt: new Date().toISOString(),
-          lastVisit: new Date().toISOString()
-        };
-        
-        console.log('Saving user data:', userData);
-        localStorage.setItem(AUTH_KEY, JSON.stringify(userData));
-        // Remove guest key if exists
-        localStorage.removeItem(GUEST_KEY);
-        
-        showToast('Account created successfully! Welcome to VetLudics!', 'success');
-        
-        // Force UI update after a short delay
-        setTimeout(updateUI, 100);
+        // Use Supabase for signup if available
+        if (window.pcSync && typeof window.pcSync.signUpWithPassword === 'function') {
+          showToast('Creating account...', 'info');
+          const result = await window.pcSync.signUpWithPassword(email, password, {
+            metadata: { dob: dob, displayName: email.split('@')[0] }
+          });
+          
+          if (result.ok) {
+            const userData = {
+              email: email,
+              type: 'member',
+              displayName: email.split('@')[0],
+              dob: dob,
+              createdAt: new Date().toISOString(),
+              lastVisit: new Date().toISOString(),
+              supabaseUid: result.user?.id
+            };
+            
+            localStorage.setItem(AUTH_KEY, JSON.stringify(userData));
+            localStorage.removeItem(GUEST_KEY);
+            
+            if (result.requiresEmailConfirmation) {
+              showToast('Account created! Please check your email to confirm.', 'success');
+            } else {
+              showToast('Account created successfully! Welcome to VetLudics!', 'success');
+            }
+            setTimeout(updateUI, 100);
+          } else {
+            showToast('Signup failed: ' + (result.error?.message || 'Unknown error'), 'error');
+          }
+        } else {
+          // Fallback to localStorage only
+          const userData = {
+            email: email,
+            type: 'member',
+            displayName: email.split('@')[0],
+            dob: dob,
+            createdAt: new Date().toISOString(),
+            lastVisit: new Date().toISOString()
+          };
+          
+          console.log('Saving user data (local only):', userData);
+          localStorage.setItem(AUTH_KEY, JSON.stringify(userData));
+          localStorage.removeItem(GUEST_KEY);
+          
+          showToast('Account created successfully! Welcome to VetLudics!', 'success');
+          setTimeout(updateUI, 100);
+        }
       });
       
-      // Account login
-      document.getElementById('account-login-form')?.addEventListener('submit', function(e) {
+      // Account login with Supabase
+      document.getElementById('account-login-form')?.addEventListener('submit', async function(e) {
         e.preventDefault();
         const email = document.getElementById('login-email').value.trim();
         const password = document.getElementById('login-password').value;
@@ -1108,20 +1138,43 @@
           return;
         }
         
-        // For demo, we'll just check if there's an account with this email in localStorage
-        const stored = localStorage.getItem(AUTH_KEY);
-        if (stored) {
-          const user = JSON.parse(stored);
-          if (user.email === email) {
-            user.lastVisit = new Date().toISOString();
-            localStorage.setItem(AUTH_KEY, JSON.stringify(user));
+        // Use Supabase for login if available
+        if (window.pcSync && typeof window.pcSync.signInWithPassword === 'function') {
+          showToast('Signing in...', 'info');
+          const result = await window.pcSync.signInWithPassword(email, password);
+          
+          if (result.ok) {
+            const userData = {
+              email: email,
+              type: 'member',
+              displayName: email.split('@')[0],
+              lastVisit: new Date().toISOString(),
+              supabaseUid: result.user?.id
+            };
+            
+            localStorage.setItem(AUTH_KEY, JSON.stringify(userData));
+            localStorage.removeItem(GUEST_KEY);
+            
             showToast('Welcome back!', 'success');
             setTimeout(updateUI, 100);
-            return;
+          } else {
+            showToast('Login failed: ' + (result.error?.message || 'Invalid email or password'), 'error');
           }
+        } else {
+          // Fallback to localStorage check
+          const stored = localStorage.getItem(AUTH_KEY);
+          if (stored) {
+            const user = JSON.parse(stored);
+            if (user.email === email) {
+              user.lastVisit = new Date().toISOString();
+              localStorage.setItem(AUTH_KEY, JSON.stringify(user));
+              showToast('Welcome back!', 'success');
+              setTimeout(updateUI, 100);
+              return;
+            }
+          }
+          showToast('Invalid email or password', 'error');
         }
-        
-        showToast('Invalid email or password', 'error');
       });
       
       // Logout
