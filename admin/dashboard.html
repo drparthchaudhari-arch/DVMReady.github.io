@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <title>Admin Dashboard | VetLudics</title>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/portal.css">
+  <style>
+  .pc-admin-shell {
+    padding: 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .pc-admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--pc-surface);
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-lg);
+    margin-bottom: 1.5rem;
+  }
+  
+  .pc-admin-header h1 {
+    margin: 0;
+    font-family: var(--pc-font-display);
+    font-size: 1.5rem;
+  }
+  
+  .pc-admin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .pc-stat-card {
+    background: var(--pc-surface);
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-md);
+    padding: 1.25rem;
+    text-align: center;
+  }
+  
+  .pc-stat-card__value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--pc-primary);
+  }
+  
+  .pc-stat-card__label {
+    color: var(--pc-text-muted);
+    font-size: 0.9rem;
+  }
+  
+  .pc-admin-section {
+    background: var(--pc-surface);
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .pc-admin-section h2 {
+    margin: 0 0 1rem;
+    font-family: var(--pc-font-display);
+    font-size: 1.25rem;
+  }
+  
+  .pc-requests-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .pc-requests-table th,
+  .pc-requests-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--pc-border);
+  }
+  
+  .pc-requests-table th {
+    font-weight: 600;
+    color: var(--pc-text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+  }
+  
+  .pc-requests-table tr:hover {
+    background: color-mix(in srgb, var(--pc-primary) 5%, transparent);
+  }
+  
+  .pc-status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  .pc-status-badge--pending {
+    background: #f59e0b;
+    color: white;
+  }
+  
+  .pc-status-badge--approved {
+    background: #10b981;
+    color: white;
+  }
+  
+  .pc-status-badge--rejected {
+    background: #ef4444;
+    color: white;
+  }
+  
+  .pc-btn--small {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+  }
+  
+  .pc-btn--success {
+    background: #10b981;
+    color: white;
+  }
+  
+  .pc-btn--danger {
+    background: #ef4444;
+    color: white;
+  }
+  
+  .pc-empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--pc-text-muted);
+  }
+  
+  .pc-request-detail {
+    background: var(--pc-bg);
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-md);
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .pc-request-detail h4 {
+    margin: 0 0 0.5rem;
+  }
+  
+  .pc-request-detail p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+  }
+  
+  .pc-detail-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .pc-approved-emails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .pc-approved-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    background: color-mix(in srgb, var(--pc-mint) 20%, var(--pc-surface));
+    border: 1px solid var(--pc-mint);
+    border-radius: 999px;
+    font-size: 0.85rem;
+  }
+  
+  .pc-remove-email {
+    cursor: pointer;
+    color: #ef4444;
+    font-weight: 700;
+  }
+  </style>
+</head>
+<body class="pc-page">
+  <div class="pc-admin-shell">
+    <!-- Header -->
+    <header class="pc-admin-header">
+      <h1>🔐 VetLudics Admin</h1>
+      <div>
+        <span id="admin-email-display"></span>
+        <button class="pc-btn pc-btn--secondary pc-btn--small" id="logout-btn">Logout</button>
+      </div>
+    </header>
+    
+    <!-- Stats -->
+    <div class="pc-admin-stats">
+      <div class="pc-stat-card">
+        <div class="pc-stat-card__value" id="stat-pending">0</div>
+        <div class="pc-stat-card__label">Pending Requests</div>
+      </div>
+      <div class="pc-stat-card">
+        <div class="pc-stat-card__value" id="stat-approved">0</div>
+        <div class="pc-stat-card__label">Approved</div>
+      </div>
+      <div class="pc-stat-card">
+        <div class="pc-stat-card__value" id="stat-rejected">0</div>
+        <div class="pc-stat-card__label">Rejected</div>
+      </div>
+      <div class="pc-stat-card">
+        <div class="pc-stat-card__value" id="stat-total">0</div>
+        <div class="pc-stat-card__label">Total Requests</div>
+      </div>
+    </div>
+    
+    <!-- Pending Requests -->
+    <section class="pc-admin-section">
+      <h2>⏳ Pending Access Requests</h2>
+      <div id="pending-requests">
+        <p class="pc-empty-state">No pending requests</p>
+      </div>
+    </section>
+    
+    <!-- Approved Users -->
+    <section class="pc-admin-section">
+      <h2>✅ Approved Users</h2>
+      <div id="approved-users">
+        <p class="pc-empty-state">No approved users yet</p>
+      </div>
+    </section>
+    
+    <!-- All Requests History -->
+    <section class="pc-admin-section">
+      <h2>📋 All Requests History</h2>
+      <div id="all-requests">
+        <p class="pc-empty-state">No requests found</p>
+      </div>
+    </section>
+  </div>
+  
+  <script src="/assets/js/admin-dashboard.js"></script>
+</body>
+</html>

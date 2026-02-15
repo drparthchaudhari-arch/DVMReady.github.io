@@ -17,7 +17,7 @@
   }
 
   var currentMode = readSetting(MODE_KEY, 'pro', VALID_MODES)
-  var currentTheme = readSetting(THEME_KEY, 'light', VALID_THEMES)
+  var currentTheme = readSetting(THEME_KEY, 'dark', VALID_THEMES)
 
   function writeSetting(key, value) {
     try {

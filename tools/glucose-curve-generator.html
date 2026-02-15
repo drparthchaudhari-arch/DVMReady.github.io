@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-mode="pro" data-theme="light">
+<html lang="en" data-mode="pro" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,9 +22,41 @@
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/glucose-curve-generator.js" defer></script>
+    <script src="/assets/js/preferences.js" defer></script>
+    <script src="/assets/js/auth-system.js" defer></script>
+    <script src="/assets/js/animations.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
+    <!-- Floating Background Elements -->
+    <div class="pc-floating-elements" aria-hidden="true">
+      <div class="pc-float-shape pc-float-shape--1"></div>
+      <div class="pc-float-shape pc-float-shape--2"></div>
+    </div>
+
+    <!-- Modern Ambient Floating Elements -->
+    <div class="pc-ambient-container" aria-hidden="true">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+      <div class="pc-ambient-particles">
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+        <div class="pc-particle"></div>
+      </div>
+      <div class="pc-ambient-grid"></div>
+    </div>
+    
+
     <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <!-- Mobile Menu Overlay -->
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+    
+
     
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     
@@ -34,6 +66,24 @@
           <span class="pc-logo__icon">🐾</span>
           <span class="pc-logo__text">VetLudics</span>
         </a>
+
+        <!-- Search Bar (Desktop) -->
+        <form class="pc-nav-search" action="/search.html" method="get" role="search">
+          <div class="pc-search-wrapper">
+            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+            <input 
+              type="search" 
+              name="q" 
+              class="pc-search-input pc-search-input--nav" 
+              placeholder="Search calculators, topics..."
+              aria-label="Search veterinary calculators"
+              autocomplete="off"
+            >
+            <kbd class="pc-search-shortcut">⌘K</kbd>
+          </div>
+        </form>
         <div class="pc-nav-group">
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
@@ -46,7 +96,14 @@
           <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle theme">
             <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
             <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
+            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span></button>
+          <!-- Mobile Menu Toggle -->
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
           </button>
+
         </div>
       </div>
     </nav>

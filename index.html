@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-mode="pro" data-theme="light">
+<html lang="en" data-mode="pro" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +33,137 @@
     <link rel="stylesheet" href="/assets/css/portal.css">
     <link rel="stylesheet" href="/assets/css/portal-enhancements.css">
     <link rel="stylesheet" href="/assets/css/floating-elements.css">
+    
+    <!-- Auth Section Styles -->
+    <style>
+    /* Auth Section Styles */
+    .pc-auth-section {
+      margin: 2rem 0;
+      padding: 2rem;
+      background: linear-gradient(135deg, 
+        color-mix(in srgb, var(--pc-surface) 95%, transparent),
+        color-mix(in srgb, var(--pc-primary) 5%, var(--pc-surface))
+      );
+      border-radius: var(--pc-radius-lg);
+      border: 1px solid var(--pc-border);
+    }
+    
+    .pc-auth-container {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .pc-auth-title {
+      font-family: var(--pc-font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: 0.5rem;
+    }
+    
+    .pc-auth-subtitle {
+      color: var(--pc-text-muted);
+      margin-bottom: 1.5rem;
+    }
+    
+    .pc-auth-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .pc-auth-card {
+      padding: 1.5rem;
+      background: var(--pc-surface);
+      border-radius: var(--pc-radius-md);
+      border: 1px solid var(--pc-border);
+      text-align: left;
+    }
+    
+    .pc-auth-card__icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .pc-auth-card h3 {
+      margin: 0 0 0.5rem;
+      font-family: var(--pc-font-display);
+    }
+    
+    .pc-auth-card p {
+      color: var(--pc-text-muted);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .pc-auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .pc-auth-input {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--pc-border);
+      border-radius: var(--pc-radius-sm);
+      background: var(--pc-bg);
+      color: var(--pc-text);
+      font-size: 1rem;
+    }
+    
+    .pc-auth-input:focus {
+      outline: 2px solid var(--pc-primary);
+      outline-offset: 2px;
+    }
+    
+    .pc-consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--pc-text-muted);
+    }
+    
+    .pc-consent-label input {
+      margin-top: 0.2rem;
+    }
+    
+    .pc-auth-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .pc-auth-feature {
+      padding: 0.35rem 0.75rem;
+      background: color-mix(in srgb, var(--pc-primary) 15%, var(--pc-surface));
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .pc-auth-card--account {
+      background: linear-gradient(135deg,
+        color-mix(in srgb, var(--pc-primary) 10%, var(--pc-surface)),
+        var(--pc-surface)
+      );
+      border-color: color-mix(in srgb, var(--pc-primary) 40%, var(--pc-border));
+    }
+
+    /* 2-column tier grid layout */
+    .pc-home-tier-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .pc-home-tier-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    </style>
     
     <!-- Deferred JavaScript -->
     <script src="/assets/js/theme-toggle.js" defer></script>
@@ -68,6 +199,8 @@
     }
     </script>
     <script src="/assets/js/legal-compliance.js" defer></script>
+    <script src="/assets/js/auth-system.js" defer></script>
+    <script src="/assets/js/preferences.js" defer></script>
 </head>
 <body class="pc-page pc-page--home no-js">
     <!-- Page Transition Overlay -->
@@ -239,6 +372,57 @@
             </div>
         </section>
         
+        <!-- Authentication Section -->
+        <section class="pc-auth-section" aria-labelledby="auth-title">
+          <div class="pc-auth-container">
+            <h2 id="auth-title" class="pc-auth-title">Get Started</h2>
+            <p class="pc-auth-subtitle">Access all veterinary calculators and study tools</p>
+            
+            <div class="pc-auth-options">
+              <!-- Guest Option -->
+              <div class="pc-auth-card pc-auth-card--guest">
+                <div class="pc-auth-card__icon">👤</div>
+                <h3>Continue as Guest</h3>
+                <p>Quick access with just your email. No account required.</p>
+                <div class="pc-auth-form">
+                  <input 
+                    type="email" 
+                    class="pc-auth-input" 
+                    placeholder="your@email.com"
+                    data-pc-guest-email
+                    aria-label="Email address"
+                  >
+                  <label class="pc-consent-label">
+                    <input type="checkbox" id="guest-consent" checked>
+                    <span>I agree to analytics collection and <a href="/terms/">Terms</a></span>
+                  </label>
+                  <button class="pc-btn pc-btn--secondary pc-btn--large" data-pc-guest-login>
+                    Continue as Guest →
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Account Option -->
+              <div class="pc-auth-card pc-auth-card--account">
+                <div class="pc-auth-card__icon">⭐</div>
+                <h3>Create Account</h3>
+                <p>Personalized experience with saved preferences, favorites, and progress tracking.</p>
+                <div class="pc-auth-features">
+                  <span class="pc-auth-feature">⭐ Favorite Tools</span>
+                  <span class="pc-auth-feature">📊 Recent History</span>
+                  <span class="pc-auth-feature">⚙️ Custom Layout</span>
+                  <span class="pc-auth-feature">💾 Saved Patients</span>
+                  <span class="pc-auth-feature">📈 Study Progress</span>
+                  <span class="pc-auth-feature">📝 Personal Notes</span>
+                </div>
+                <a href="/account/" class="pc-btn pc-btn--primary pc-btn--large">
+                  Sign Up / Login →
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+        
         <!-- Trust Indicators Bar -->
         <section class="pc-trust-bar" aria-label="Trust indicators">
             <div class="pc-trust-bar__inner">
@@ -336,29 +520,41 @@
         <!-- Main Destination Cards -->
         <section class="pc-home-tier-wrap" aria-label="Primary destination windows">
             <div class="pc-home-tier-grid">
+                <!-- Card 1: Clinical Tools -->
                 <article class="pc-home-tier-card pc-home-tier-card--clinic" tabindex="0" data-animate="fade-up" data-delay="0">
                     <div>
-                        <span class="pc-kicker">Clinic</span>
-                        <h2 class="pc-home-tier-title pc-gradient-text--clinic">Clinic</h2>
+                        <span class="pc-kicker">Clinical</span>
+                        <h2 class="pc-home-tier-title pc-gradient-text--clinic">Clinical Tools</h2>
                         <p class="pc-home-tier-copy">Point-of-care calculators and emergency workflow tools for rapid bedside decisions.</p>
-                        <div class="pc-home-tier-pellets" aria-label="Clinic highlights">
+                        <div class="pc-home-tier-pellets" aria-label="Clinical highlights">
                             <span class="pc-home-tier-pellet pc-home-tier-pellet--clinic">Emergency</span>
                             <span class="pc-home-tier-pellet pc-home-tier-pellet--clinic">Dosing</span>
                             <span class="pc-home-tier-pellet pc-home-tier-pellet--clinic">ICU Math</span>
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--clinic">Toxicity</span>
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--clinic">Fluids</span>
                         </div>
                     </div>
                     <div class="pc-home-tier-inside">
-                        <p class="pc-home-tier-inside-label">Clinic essentials (most used first)</p>
+                        <p class="pc-home-tier-inside-label">Clinical essentials (most used first)</p>
                         <ul class="pc-link-list pc-home-tier-links pc-home-tier-links--two-col">
                             <li><a href="/tools/dose-calculator.html">Dose Calculator</a></li>
                             <li><a href="/tools/emergency-drug-chart.html">Emergency Drug Chart</a></li>
                             <li><a href="/tools/fluid-calculator.html">Fluid Calculator</a></li>
+                            <li><a href="/cri-setup-guide/">CRI Calculator</a></li>
+                            <li><a href="/tools/transfusion-helper.html">Transfusion Helper</a></li>
+                            <li><a href="/tools/toxin-decontamination-planner.html">Toxicity Calculator Suite</a></li>
                             <li><a href="/tools/unit-converter.html">Unit Converter</a></li>
                             <li><a href="/tools/er-algorithms.html">ER Algorithms</a></li>
                             <li><a href="/tools/phone-triage.html">Phone Triage</a></li>
+                            <li><a href="/emergency-triage-algorithms/">Emergency Triage Algorithms</a></li>
+                            <li><a href="/dextrose-correction-guide/">Dextrose Correction</a></li>
+                            <li><a href="/fluid-deficit-guide/">Fluid Deficit Guide</a></li>
+                            <li><a href="/maintenance-fluids-guide/">Maintenance Fluids</a></li>
+                            <li><a href="/mgkg-dosing-guide/">mg/kg Dosing Guide</a></li>
+                            <li><a href="/transfusion-basics-veterinary/">Transfusion Basics</a></li>
+                            <li><a href="/toxic-dose-calculations-guide/">Toxic Dose Calculations</a></li>
                             <li><a href="/tools/dose-label-generator.html">Dose Label Generator</a></li>
                             <li><a href="/tools/discharge-generator.html">Discharge Generator</a></li>
-                            <li><a href="/tools/toxin-decontamination-planner.html">Toxicity Calculator Suite</a></li>
                             <li><a href="/tools/parasite-control-reference.html">Parasite Control Reference</a></li>
                             <li><a href="/tools/glucose-curve-generator.html">Glucose Curve Generator</a></li>
                             <li><a href="/reference/normal-values.html">Normal Lab Values</a></li>
@@ -368,67 +564,44 @@
                             <li><a href="/reference/#dog-cat-breed-search">Dog/Cat Breed Search</a></li>
                         </ul>
                     </div>
-                    <a class="pc-btn pc-btn--primary pc-home-tier-cta" href="/tools/">Open Clinic Tools</a>
+                    <a class="pc-btn pc-btn--primary pc-home-tier-cta" href="/tools/">Open Clinical Tools →</a>
                 </article>
 
+                <!-- Card 2: Study & Reference -->
                 <article class="pc-home-tier-card pc-home-tier-card--student" tabindex="0" data-animate="fade-up" data-delay="100">
                     <div>
-                        <span class="pc-kicker">Student</span>
-                        <h2 class="pc-home-tier-title pc-gradient-text--student">Student</h2>
-                        <p class="pc-home-tier-copy">NAVLE-first study flow with structured topics, practice, and case-based reinforcement.</p>
-                        <div class="pc-home-tier-pellets" aria-label="Student highlights">
-                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">High Yield</span>
+                        <span class="pc-kicker">Learning</span>
+                        <h2 class="pc-home-tier-title pc-gradient-text--student">Study & Reference</h2>
+                        <p class="pc-home-tier-copy">NAVLE preparation, clinical references, case studies, and evidence-based guidelines.</p>
+                        <div class="pc-home-tier-pellets" aria-label="Study highlights">
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">NAVLE Prep</span>
                             <span class="pc-home-tier-pellet pc-home-tier-pellet--student">Practice</span>
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">References</span>
                             <span class="pc-home-tier-pellet pc-home-tier-pellet--student">Cases</span>
                         </div>
                     </div>
                     <div class="pc-home-tier-inside">
-                        <p class="pc-home-tier-inside-label">Priority navigation</p>
-                        <ul class="pc-link-list pc-home-tier-links">
-                            <li><a href="/study/navle/practice/">Practice Questions</a></li>
-                            <li><a href="/study/navle/exam-simulator/">Exam Simulator <span class="pc-home-window-badge">Partial Available</span></a></li>
+                        <p class="pc-home-tier-inside-label">Study resources & references</p>
+                        <ul class="pc-link-list pc-home-tier-links pc-home-tier-links--two-col">
                             <li><a href="/study/navle/">NAVLE Study Hub</a></li>
+                            <li><a href="/study/navle/practice/">Practice Questions</a></li>
+                            <li><a href="/study/navle/exam-simulator/">Exam Simulator</a></li>
                             <li><a href="/study/navle/topics/">Topic Guides</a></li>
                             <li><a href="/study/">Study Planner</a></li>
-                        </ul>
-                    </div>
-                    <a class="pc-btn pc-btn--mint pc-home-tier-cta" href="/study/navle/">Open Student Hub</a>
-                </article>
-
-                <article class="pc-home-tier-card pc-home-tier-card--professional" tabindex="0" data-animate="fade-up" data-delay="200">
-                    <div>
-                        <span class="pc-kicker">Professional</span>
-                        <h2 class="pc-home-tier-title pc-gradient-text--pro">Professional</h2>
-                        <p class="pc-home-tier-copy">Citation-backed reference stack, policy pages, and source transparency for safe use.</p>
-                        <div class="pc-home-tier-pellets" aria-label="Professional highlights">
-                            <span class="pc-home-tier-pellet pc-home-tier-pellet--professional">Guidelines</span>
-                            <span class="pc-home-tier-pellet pc-home-tier-pellet--professional">Policy</span>
-                            <span class="pc-home-tier-pellet pc-home-tier-pellet--professional">References</span>
-                        </div>
-                    </div>
-                    <div class="pc-home-tier-inside">
-                        <p class="pc-home-tier-inside-label">Professional specialization only</p>
-                        <ul class="pc-link-list pc-home-tier-links pc-home-tier-links--two-col">
                             <li><a href="/reference/">Reference Library</a></li>
-                            <li><a href="/tools/cri-calculator.html">Advanced CRI Calculator</a></li>
-                            <li><a href="/tools/acid-base-electrolyte.html">Blood Gas + Acid-Base Analyzer</a></li>
-                            <li><a href="/tools/transfusion-helper.html">Transfusion + Component Planner</a></li>
-                            <li><a href="/tools/insulin-cri-planner.html">Insulin CRI Planner</a></li>
-                            <li><a href="/tools/sepsis-bundle-planner.html">Sepsis Bundle Planner</a></li>
-                            <li><a href="/tools/renal-dose-adjuster.html">Renal Dose Adjuster</a></li>
-                            <li><a href="/tools/anesthesia-risk-checklist.html">Anesthesia Risk Checklist</a></li>
+                            <li><a href="/bridge/">Clinical Cases</a></li>
+                            <li><a href="/cardiology-chf-algorithm/">Cardiology & CHF Guide</a></li>
+                            <li><a href="/emergency-triage-algorithms/">Emergency Algorithms</a></li>
                             <li><a href="https://www.acvim.org/research/consensus-statements" target="_blank" rel="noopener noreferrer">ACVIM Cardiology Consensus</a></li>
                             <li><a href="https://recoverinitiative.org/" target="_blank" rel="noopener noreferrer">RECOVER CPR Guidelines</a></li>
                             <li><a href="https://www.iris-kidney.com/iris-guidelines-1" target="_blank" rel="noopener noreferrer">IRIS Stages</a></li>
-                            <li><a href="/cardiology-chf-algorithm/">Vertebral Heart Score</a></li>
                             <li><a href="https://wsava.org/global-guidelines/global-nutrition-guidelines/" target="_blank" rel="noopener noreferrer">BCS Charts</a></li>
-                            <li><a href="/sources-and-limitations/">Lab Test Protocols</a></li>
                             <li><a href="https://avdc.org/" target="_blank" rel="noopener noreferrer">Dental Charts</a></li>
                             <li><a href="https://www.aaha.org/resources/2022-aaha-canine-vaccination-guidelines/" target="_blank" rel="noopener noreferrer">AAHA Vaccination Guidelines</a></li>
                             <li><a href="/sources-and-limitations/">Sources and Limitations</a></li>
                         </ul>
                     </div>
-                    <a class="pc-btn pc-btn--secondary pc-home-tier-cta" href="/reference/">Open Professional References</a>
+                    <a class="pc-btn pc-btn--mint pc-home-tier-cta" href="/study/navle/">Open Study Hub →</a>
                 </article>
             </div>
         </section>

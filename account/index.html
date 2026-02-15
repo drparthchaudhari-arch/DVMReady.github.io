@@ -1,386 +1,703 @@
 <!doctype html>
-<html lang="en" data-mode="pro" data-theme="light">
+<html lang="en" data-mode="pro" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author-status" content="NAVLE-candidate-unlicensed" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
+    
+    <!-- Performance: Resource Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Account | VetLudics</title>
     <meta
       name="description"
-      content="Manage local study data, optional cross-device sync, and privacy settings."
+      content="Manage your preferences, saved data, and customize your veterinary tool experience."
     />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Account | VetLudics" />
     <meta
       property="og:description"
-      content="Export/import your local progress and optionally enable Supabase sync."
+      content="Manage your preferences, saved data, and customize your veterinary tool experience."
     />
     <meta property="og:url" content="https://parthchaudhari.com/account/" />
     <link rel="canonical" href="https://parthchaudhari.com/account/" />
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/assets/css/tokens.css" as="style">
+    <link rel="preload" href="/assets/css/portal.css" as="style">
+    <link rel="preload" href="/assets/js/theme-toggle.js" as="script">
+    <link rel="preload" href="/assets/js/nav-status.js" as="script">
+    
+    <!-- Critical CSS -->
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    
+    <!-- Account Page Styles -->
+    <style>
+    .pc-account-hero {
+      padding: 3rem 0 2rem;
+      text-align: center;
+    }
+    
+    .pc-account-hero__content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .pc-account-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+      padding-bottom: 3rem;
+    }
+    
+    .pc-account-card {
+      background: var(--pc-surface);
+      border: 1px solid var(--pc-border);
+      border-radius: var(--pc-radius-lg);
+      padding: 1.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .pc-account-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    
+    .pc-account-card__header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    
+    .pc-account-card__icon {
+      font-size: 1.5rem;
+    }
+    
+    .pc-account-card h2 {
+      margin: 0;
+      font-family: var(--pc-font-display);
+      font-size: 1.25rem;
+    }
+    
+    .pc-account-field {
+      margin-bottom: 1rem;
+    }
+    
+    .pc-account-field label {
+      display: block;
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .pc-input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--pc-border);
+      border-radius: var(--pc-radius-sm);
+      background: var(--pc-bg);
+      color: var(--pc-text);
+      font-size: 1rem;
+    }
+    
+    .pc-input:focus {
+      outline: 2px solid var(--pc-primary);
+      outline-offset: 2px;
+    }
+    
+    .pc-input[readonly] {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    .pc-account-status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .pc-account-badge {
+      padding: 0.35rem 0.75rem;
+      background: var(--pc-primary);
+      color: white;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    
+    .pc-account-email {
+      color: var(--pc-text-muted);
+    }
+    
+    .pc-favorites-list, .pc-history-list, .pc-patients-list, .pc-calculations-list {
+      min-height: 100px;
+      margin: 1rem 0;
+    }
+    
+    .pc-empty-state {
+      color: var(--pc-text-muted);
+      font-style: italic;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .pc-progress-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      text-align: center;
+      margin: 1rem 0;
+    }
+    
+    .pc-progress-value {
+      display: block;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--pc-primary);
+    }
+    
+    .pc-progress-label {
+      font-size: 0.8rem;
+      color: var(--pc-text-muted);
+    }
+    
+    .pc-preference-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .pc-preference-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    
+    .pc-preference-option input[type="checkbox"] {
+      width: 1.25rem;
+      height: 1.25rem;
+      accent-color: var(--pc-primary);
+    }
+    
+    .pc-data-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .pc-upgrade-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    
+    .pc-upgrade-benefits span {
+      color: var(--pc-text-muted);
+    }
+    
+    .pc-btn--danger {
+      color: #ef4444;
+      border-color: #ef4444;
+    }
+    
+    .pc-btn--danger:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+    
+    .pc-account-note {
+      color: var(--pc-text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* Card specific styles */
+    .pc-account-card--upgrade {
+      background: linear-gradient(135deg, var(--pc-surface) 0%, rgba(99, 102, 241, 0.1) 100%);
+      border-color: var(--pc-primary);
+    }
+    
+    .pc-account-card--upgrade .pc-account-card__icon {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    
+    /* History/Patients list items */
+    .pc-history-item, .pc-patient-item, .pc-calculation-item, .pc-favorite-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem;
+      background: var(--pc-bg);
+      border-radius: var(--pc-radius-sm);
+      margin-bottom: 0.5rem;
+    }
+    
+    .pc-history-item:last-child, .pc-patient-item:last-child, 
+    .pc-calculation-item:last-child, .pc-favorite-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .pc-item-info {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .pc-item-title {
+      font-weight: 600;
+    }
+    
+    .pc-item-meta {
+      font-size: 0.8rem;
+      color: var(--pc-text-muted);
+    }
+    
+    .pc-item-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .pc-btn--icon {
+      padding: 0.35rem;
+      min-height: auto;
+      font-size: 1rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 640px) {
+      .pc-account-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .pc-progress-stats {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+      
+      .pc-account-hero {
+        padding: 2rem 1rem 1rem;
+      }
+    }
+    </style>
+    
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/animations.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/storage.js?v=20260213d" defer></script>
+    <script src="/assets/js/auth-system.js" defer></script>
+    <script src="/assets/js/preferences.js" defer></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"
       defer
     ></script>
   </head>
-  <body class="pc-page pc-page--study pc-page--account">
-    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
-    <nav class="pc-portal-nav" aria-label="Global portal navigation">
-      <div class="pc-portal-nav__inner">
-        <a class="pc-logo" href="/">VetLudics</a>
-        <div class="pc-nav-group">
-          <a class="pc-nav-link" href="/about.html">About Me</a>
-          <a class="pc-nav-link" href="/play/">Play</a>
-          <a class="pc-nav-link" href="/bridge/">Bridge</a>
-          <a class="pc-nav-link" href="/search.html">Search</a>
-          <a class="pc-nav-link" href="/study/">Study Plan</a>
-          <a class="pc-nav-link pc-is-active" href="/account/"
-            ><span
-              class="pc-auth-indicator"
-              data-pc-auth-indicator
-              aria-hidden="true"
-              >○</span
-            >Account</a
-          >
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-mode-toggle
-            aria-label="Toggle professional or play mode"
-          >
-            <span class="pc-nav-toggle__label" data-pc-mode-label
-              >Mode: Professional</span
-            >
-          </button>
-          <button
-            type="button"
-            class="pc-nav-toggle"
-            data-pc-theme-toggle
-            aria-label="Toggle day or night theme"
-          >
-            <span class="pc-nav-toggle__label" data-pc-theme-label
-              >Theme: Day</span
-            >
-          </button>
+  <body class="pc-page pc-page--account no-js">
+    <!-- Page Transition Overlay -->
+    <div class="pc-page-transition" aria-hidden="true"></div>
+    
+    <!-- Toast Container -->
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    
+    <!-- Floating Background Elements -->
+    <div class="pc-floating-elements" aria-hidden="true">
+        <div class="pc-float-shape pc-float-shape--1"></div>
+        <div class="pc-float-shape pc-float-shape--2"></div>
+        <div class="pc-float-shape pc-float-shape--3"></div>
+        <div class="pc-float-shape pc-float-shape--4"></div>
+    </div>
+    
+    <!-- Modern Ambient Floating Elements -->
+    <div class="pc-ambient-container" aria-hidden="true">
+        <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+        <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+        <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+        <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+        <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+        <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+        <div class="pc-ambient-particles">
+            <div class="pc-particle"></div>
+            <div class="pc-particle"></div>
+            <div class="pc-particle"></div>
+            <div class="pc-particle"></div>
+            <div class="pc-particle"></div>
         </div>
-      </div>
+        <div class="pc-ambient-grid"></div>
+    </div>
+    
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+    
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">
+                <span class="pc-logo__icon">🐾</span>
+                <span class="pc-logo__text">VetLudics</span>
+            </a>
+            
+            <!-- Search Bar (Desktop) -->
+            <form class="pc-nav-search" action="/search.html" method="get" role="search">
+                <div class="pc-search-wrapper">
+                    <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                    </svg>
+                    <input 
+                        type="search" 
+                        name="q" 
+                        class="pc-search-input pc-search-input--nav" 
+                        placeholder="Search calculators, topics..."
+                        aria-label="Search veterinary calculators"
+                        autocomplete="off"
+                    >
+                    <kbd class="pc-search-shortcut">⌘K</kbd>
+                </div>
+            </form>
+            
+            <div class="pc-nav-group">
+                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
+                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
+                <a class="pc-nav-link" href="/search.html">Search</a>
+                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+                <a class="pc-nav-link pc-is-active" href="/account/">
+                    <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+                    <span class="pc-nav-link__text">Account</span>
+                </a>
+                <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+                    <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
+                    <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
+                    <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
+                </button>
+                
+                <!-- Mobile Menu Toggle -->
+                <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+                    <span class="pc-mobile-toggle__bar"></span>
+                    <span class="pc-mobile-toggle__bar"></span>
+                    <span class="pc-mobile-toggle__bar"></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+            <div class="pc-mobile-menu__header">
+                <span class="pc-mobile-menu__title">Menu</span>
+                <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+            </div>
+            <nav class="pc-mobile-menu__nav">
+                <a class="pc-mobile-nav-link" href="/play/">
+                    <span class="pc-mobile-nav-link__icon">🎮</span>
+                    <span class="pc-mobile-nav-link__text">Play</span>
+                </a>
+                <a class="pc-mobile-nav-link" href="/bridge/">
+                    <span class="pc-mobile-nav-link__icon">🌉</span>
+                    <span class="pc-mobile-nav-link__text">Bridge</span>
+                </a>
+                <a class="pc-mobile-nav-link" href="/search.html">
+                    <span class="pc-mobile-nav-link__icon">🔍</span>
+                    <span class="pc-mobile-nav-link__text">Search</span>
+                </a>
+                <a class="pc-mobile-nav-link" href="/study/">
+                    <span class="pc-mobile-nav-link__icon">📚</span>
+                    <span class="pc-mobile-nav-link__text">Study Plan</span>
+                </a>
+                <a class="pc-mobile-nav-link pc-is-active" href="/account/">
+                    <span class="pc-mobile-nav-link__icon">👤</span>
+                    <span class="pc-mobile-nav-link__text">Account</span>
+                </a>
+            </nav>
+            <div class="pc-mobile-menu__footer">
+                <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
+                    <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
+                    <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
+                    <span>Switch to <span data-pc-theme-label>dark</span> mode</span>
+                </button>
+            </div>
+        </div>
     </nav>
 
-    <main
-      id="pc-main"
-      class="pc-account-shell pc-account-page"
-      role="main"
-      data-page="account"
-    >
-      <section class="pc-account-hero pc-account-section" id="pc-account-root">
-        <div class="pc-account-hero__surface pc-card">
-          <p class="pc-kicker">Account</p>
-          <h1 class="pc-fork-title">Your Learning Data</h1>
+    <main id="pc-main" class="pc-account-shell pc-account-page" role="main" data-page="account">
+      
+      <!-- Account Hero -->
+      <section class="pc-account-hero" aria-labelledby="account-title">
+        <div class="pc-account-hero__content">
+          <p class="pc-kicker">Your Account</p>
+          <h1 id="account-title" class="pc-fork-title pc-gradient-text">Personalized Experience</h1>
           <p class="pc-fork-copy">
-            Anonymous mode is always available. Save your name locally, export
-            backups, and optionally use email login for sync.
+            Manage your preferences, saved data, and customize your veterinary tool experience.
           </p>
-          <div class="pc-account-hero__chips" aria-label="Account highlights">
-            <span class="pc-chip">Anonymous First</span>
-            <span class="pc-chip">Optional Sync</span>
-            <span class="pc-chip">Export Anytime</span>
+          <div class="pc-account-status-bar">
+            <span class="pc-account-badge" id="account-type-badge">Guest</span>
+            <span class="pc-account-email" id="account-email-display"></span>
           </div>
         </div>
       </section>
 
-      <section
-        class="pc-account-grid pc-account-section"
-        aria-label="Account settings"
-      >
-        <article
-          class="pc-account-card pc-account-card--profile pc-account-section"
-          aria-labelledby="pc-profile-identity-title"
-        >
-          <h2 id="pc-profile-identity-title" class="pc-account-section__title">
-            Profile Identity
-          </h2>
-          <p class="pc-account-note">
-            Keep your display name even in guest mode. Add email login only when
-            you want cross-device sync.
-          </p>
+      <!-- Preferences Grid -->
+      <section class="pc-account-grid" aria-label="Account preferences">
+        
+        <!-- Profile Card -->
+        <article class="pc-account-card pc-account-card--profile">
+          <div class="pc-account-card__header">
+            <span class="pc-account-card__icon">👤</span>
+            <h2>Profile</h2>
+          </div>
           <div class="pc-account-field">
-            <label for="pc-display-name-input">Display Name</label>
-            <input
-              id="pc-display-name-input"
-              class="pc-account-input pc-input"
-              type="text"
-              maxlength="40"
-              placeholder="Your name"
-            />
+            <label for="display-name">Display Name</label>
+            <input type="text" id="display-name" class="pc-input" placeholder="Your name">
           </div>
-          <div class="pc-account-actions">
-            <button
-              type="button"
-              id="pc-save-name-btn"
-              class="pc-btn pc-btn--primary"
-            >
-              Save Name
+          <div class="pc-account-field">
+            <label for="user-email">Email</label>
+            <input type="email" id="user-email" class="pc-input" readonly>
+          </div>
+          <button class="pc-btn pc-btn--primary" id="save-profile">Save Profile</button>
+        </article>
+
+        <!-- Favorite Tools Card -->
+        <article class="pc-account-card pc-account-card--favorites">
+          <div class="pc-account-card__header">
+            <span class="pc-account-card__icon">⭐</span>
+            <h2>Favorite Tools</h2>
+          </div>
+          <p class="pc-account-note">Quick access to your most-used calculators</p>
+          <div class="pc-favorites-list" id="favorites-list">
+            <p class="pc-empty-state">No favorites yet. Star tools to add them here.</p>
+          </div>
+          <a href="/tools/" class="pc-btn pc-btn--secondary">Browse Tools</a>
+        </article>
+
+        <!-- Recent History Card -->
+        <article class="pc-account-card pc-account-card--history">
+          <div class="pc-account-card__header">
+            <span class="pc-account-card__icon">🕐</span>
+            <h2>Recent History</h2>
+          </div>
+          <div class="pc-history-list" id="history-list">
+            <p class="pc-empty-state">No recent activity.</p>
+          </div>
+          <button class="pc-btn pc-btn--ghost" id="clear-history">Clear History</button>
+        </article>
+
+        <!-- Saved Patients Card -->
+        <article class="pc-account-card pc-account-card--patients">
+          <div class="pc-account-card__header">
+            <span class="pc-account-card__icon">🐾</span>
+            <h2>Saved Patients</h2>
+          </div>
+          <div class="pc-patients-list" id="patients-list">
+            <p class="pc-empty-state">No saved patients yet.</p>
+          </div>
+          <button class="pc-btn pc-btn--secondary" id="add-patient-btn">+ Add Patient</button>
+        </article>
+
+        <!-- Saved Calculations Card -->
+        <article class="pc-account-card pc-account-card--calculations">
+          <div class="pc-account-card__header">
+            <span class="pc-account-card__icon">💾</span>
+            <h2>Saved Calculations</h2>
+          </div>
+          <div class="pc-calculations-list" id="calculations-list">
+            <p class="pc-empty-state">No saved calculations yet.</p>
+          </div>
+        </article>
+
+        <!-- Study Progress Card -->
+        <article class="pc-account-card pc-account-card--progress">
+          <div class="pc-account-card__header">
+            <span class="pc-account-card__icon">📈</span>
+            <h2>Study Progress</h2>
+          </div>
+          <div class="pc-progress-stats" id="progress-stats">
+            <div class="pc-progress-item">
+              <span class="pc-progress-value" id="stat-cases">0</span>
+              <span class="pc-progress-label">Cases Completed</span>
+            </div>
+            <div class="pc-progress-item">
+              <span class="pc-progress-value" id="stat-streak">0</span>
+              <span class="pc-progress-label">Day Streak</span>
+            </div>
+            <div class="pc-progress-item">
+              <span class="pc-progress-value" id="stat-questions">0</span>
+              <span class="pc-progress-label">Questions Answered</span>
+            </div>
+          </div>
+          <a href="/study/navle/" class="pc-btn pc-btn--secondary">Continue Studying</a>
+        </article>
+
+        <!-- Tool Preferences Card -->
+        <article class="pc-account-card pc-account-card--preferences">
+          <div class="pc-account-card__header">
+            <span class="pc-account-card__icon">⚙️</span>
+            <h2>Tool Preferences</h2>
+          </div>
+          <div class="pc-preference-options">
+            <label class="pc-preference-option">
+              <input type="checkbox" id="pref-default-dog">
+              <span>Default to Dog calculations</span>
+            </label>
+            <label class="pc-preference-option">
+              <input type="checkbox" id="pref-si-units">
+              <span>Use SI units by default</span>
+            </label>
+            <label class="pc-preference-option">
+              <input type="checkbox" id="pref-show-tips">
+              <span>Show helpful tips</span>
+            </label>
+          </div>
+        </article>
+
+        <!-- Data Management Card -->
+        <article class="pc-account-card pc-account-card--data">
+          <div class="pc-account-card__header">
+            <span class="pc-account-card__icon">💾</span>
+            <h2>Data Management</h2>
+          </div>
+          <div class="pc-data-actions">
+            <button class="pc-btn pc-btn--secondary" id="export-data">
+              📥 Export My Data
+            </button>
+            <button class="pc-btn pc-btn--secondary" id="import-data">
+              📤 Import Data
+            </button>
+            <input type="file" id="import-file" accept=".json" hidden>
+            <button class="pc-btn pc-btn--ghost pc-btn--danger" id="clear-all-data">
+              🗑️ Clear All Data
             </button>
           </div>
-          <p id="pc-display-name-note" class="pc-account-note">
-            Saved locally on this device.
-          </p>
         </article>
 
-        <article
-          class="pc-account-card pc-account-card--local pc-account-section"
-          aria-labelledby="pc-local-data-title"
-        >
-          <h2 id="pc-local-data-title" class="pc-account-section__title">
-            Local Data Status
-          </h2>
-          <div
-            id="pc-local-data"
-            class="pc-account-metric-grid"
-            role="list"
-          ></div>
-          <div class="pc-account-actions">
-            <button
-              type="button"
-              id="pc-export-btn"
-              class="pc-btn pc-btn--primary"
-            >
-              Export My Data
-            </button>
-            <input type="file" id="pc-import-file" accept=".json" hidden />
-            <button
-              type="button"
-              id="pc-import-btn"
-              class="pc-btn pc-btn--secondary"
-            >
-              Import Data
-            </button>
+        <!-- Upgrade Card (for guests) -->
+        <article class="pc-account-card pc-account-card--upgrade" id="upgrade-card">
+          <div class="pc-account-card__header">
+            <span class="pc-account-card__icon">⭐</span>
+            <h2>Upgrade to Full Account</h2>
           </div>
+          <p>Create a full account for cross-device sync and enhanced features.</p>
+          <div class="pc-upgrade-benefits">
+            <span>✓ Sync across devices</span>
+            <span>✓ Enhanced security</span>
+            <span>✓ Priority support</span>
+          </div>
+          <a href="/account/?upgrade=true" class="pc-btn pc-btn--primary">Create Account</a>
         </article>
 
-        <article
-          class="pc-account-card pc-account-section"
-          aria-labelledby="pc-quick-stats-title"
-        >
-          <h2 id="pc-quick-stats-title" class="pc-account-section__title">
-            Quick Study Stats
-          </h2>
-          <div class="pc-account-metric-grid" role="list">
-            <div class="pc-account-metric" role="listitem">
-              <p class="pc-account-metric__label">Cases Completed</p>
-              <p class="pc-account-metric__value" id="stat-cases">0</p>
-            </div>
-            <div class="pc-account-metric" role="listitem">
-              <p class="pc-account-metric__label">Current Streak</p>
-              <p class="pc-account-metric__value" id="stat-streak">0</p>
-            </div>
-            <div class="pc-account-metric" role="listitem">
-              <p class="pc-account-metric__label">Today Completed</p>
-              <p class="pc-account-metric__value" id="stat-today">0</p>
-            </div>
-          </div>
-          <ul id="completed-cases-list" class="pc-navle-topic-list"></ul>
-        </article>
-
-        <article
-          id="pc-sync-section"
-          class="pc-account-card pc-account-card--sync pc-account-section"
-          aria-labelledby="pc-sync-title"
-        >
-          <h2 id="pc-sync-title" class="pc-account-section__title">
-            Cross-Device Sync
-          </h2>
-          <p class="pc-account-note">
-            Use real account credentials to sync across devices. You can also
-            use a magic link if preferred.
-          </p>
-
-          <div id="pc-logged-out-section" class="pc-auth-form">
-            <div class="pc-account-field">
-              <label for="pc-email-input">Email</label>
-              <input
-                id="pc-email-input"
-                class="pc-account-input pc-input"
-                type="email"
-                autocomplete="email"
-                placeholder="your@email.com"
-              />
-            </div>
-            <div class="pc-account-field">
-              <label for="pc-dob-input">Date of Birth (18+ required)</label>
-              <input
-                id="pc-dob-input"
-                class="pc-account-input pc-input"
-                type="date"
-                autocomplete="bday"
-              />
-            </div>
-            <div class="pc-account-field">
-              <label for="pc-password-input">Password</label>
-              <input
-                id="pc-password-input"
-                class="pc-account-input pc-input"
-                type="password"
-                autocomplete="current-password"
-                minlength="8"
-                placeholder="At least 8 characters"
-              />
-            </div>
-            <div
-              class="pc-account-consent"
-              aria-label="Required account and marketing consents"
-            >
-              <label for="pc-consent-tos">
-                <input type="checkbox" id="pc-consent-tos" />
-                <span
-                  >I agree to the <a href="/terms/">Terms of Service</a>.</span
-                >
-              </label>
-              <label for="pc-consent-marketing">
-                <input type="checkbox" id="pc-consent-marketing" />
-                <span>Yes, send me study tips and NAVLE updates.</span>
-              </label>
-              <p class="pc-account-consent__note">
-                Marketing consent is optional and can be withdrawn at any time.
-              </p>
-            </div>
-            <div class="pc-account-actions">
-              <button
-                id="pc-login-btn"
-                type="button"
-                class="pc-btn pc-btn--primary"
-              >
-                Log In
-              </button>
-              <button
-                id="pc-signup-btn"
-                type="button"
-                class="pc-btn pc-btn--secondary"
-              >
-                Create Account
-              </button>
-              <button
-                id="pc-reset-password-btn"
-                type="button"
-                class="pc-btn pc-btn--ghost"
-              >
-                Forgot Password
-              </button>
-            </div>
-            <div class="pc-account-actions">
-              <button
-                id="pc-send-link-btn"
-                type="button"
-                class="pc-btn pc-btn--primary"
-              >
-                Send Magic Link
-              </button>
-            </div>
-            <p class="pc-account-note">
-              Password login is primary. Magic link remains available as
-              fallback.
-            </p>
-          </div>
-
-          <div id="pc-logged-in-section" hidden>
-            <p class="pc-account-status">Sync is active for your account.</p>
-            <p id="pc-last-sync" class="pc-account-status">
-              Last synced: Never
-            </p>
-            <div class="pc-account-actions">
-              <button
-                id="pc-sync-btn"
-                type="button"
-                class="pc-btn pc-btn--primary"
-              >
-                Sync Now
-              </button>
-              <button
-                id="pc-download-data-btn"
-                type="button"
-                class="pc-btn pc-btn--secondary"
-              >
-                Download My Data
-              </button>
-              <button
-                id="pc-delete-account-btn"
-                type="button"
-                class="pc-btn pc-btn--ghost"
-              >
-                Delete Account
-              </button>
-              <button
-                id="pc-logout-btn"
-                type="button"
-                class="pc-btn pc-btn--secondary"
-              >
-                Log Out
-              </button>
-            </div>
-            <p class="pc-account-note">
-              Delete Account permanently removes synced profile, progress, and
-              account access.
-            </p>
-          </div>
-
-          <div id="pc-password-recovery-section" hidden>
-            <div class="pc-account-field">
-              <label for="pc-new-password-input">New Password</label>
-              <input
-                id="pc-new-password-input"
-                class="pc-account-input pc-input"
-                type="password"
-                autocomplete="new-password"
-                minlength="8"
-                placeholder="Enter new password"
-              />
-            </div>
-            <div class="pc-account-actions">
-              <button
-                id="pc-set-new-password-btn"
-                type="button"
-                class="pc-btn pc-btn--secondary"
-              >
-                Set New Password
-              </button>
-            </div>
-            <p class="pc-account-note">
-              Use this after opening a password-reset link from your email.
-            </p>
-          </div>
-
-          <div
-            id="pc-account-status"
-            class="pc-account-message"
-            aria-live="polite"
-          ></div>
-        </article>
-
-        <article
-          class="pc-account-card pc-account-card--privacy pc-account-section"
-          aria-labelledby="pc-privacy-title"
-        >
-          <h2 id="pc-privacy-title" class="pc-account-section__title">
-            Data Privacy
-          </h2>
-          <p class="pc-account-note">
-            Your data is stored securely. You can export or delete it anytime.
-          </p>
-          <div class="pc-account-actions">
-            <a class="pc-btn pc-btn--ghost" href="/privacy/"
-              >Open Privacy Policy</a
-            >
-          </div>
-        </article>
       </section>
     </main>
+    
+    <!-- Enhanced Footer -->
+    <footer class="pc-footer pc-footer--enhanced">
+        <div class="pc-footer__grid">
+            <div class="pc-footer__brand">
+                <a class="pc-footer__logo" href="/">
+                    <span class="pc-footer__logo-icon">🐾</span>
+                    <span>VetLudics</span>
+                </a>
+                <p class="pc-footer__tagline">Smart tools for veterinary excellence. Trusted by students and professionals worldwide.</p>
+                <div class="pc-footer__social">
+                    <a href="#" class="pc-footer__social-link" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" class="pc-footer__social-link" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="#" class="pc-footer__social-link" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="pc-footer__links-group">
+                <h4 class="pc-footer__heading">Tools</h4>
+                <ul class="pc-footer__links">
+                    <li><a href="/tools/dose-calculator.html">Dose Calculator</a></li>
+                    <li><a href="/tools/fluid-calculator.html">Fluid Calculator</a></li>
+                    <li><a href="/tools/emergency-drug-chart.html">Emergency Drugs</a></li>
+                    <li><a href="/tools/unit-converter.html">Unit Converter</a></li>
+                    <li><a href="/veterinary-calculators/">All Calculators</a></li>
+                </ul>
+            </div>
+            
+            <div class="pc-footer__links-group">
+                <h4 class="pc-footer__heading">Study</h4>
+                <ul class="pc-footer__links">
+                    <li><a href="/study/navle/">NAVLE Hub</a></li>
+                    <li><a href="/study/navle/practice/">Practice Questions</a></li>
+                    <li><a href="/study/navle/exam-simulator/">Exam Simulator</a></li>
+                    <li><a href="/study/">Study Planner</a></li>
+                </ul>
+            </div>
+            
+            <div class="pc-footer__links-group">
+                <h4 class="pc-footer__heading">Resources</h4>
+                <ul class="pc-footer__links">
+                    <li><a href="/reference/">Reference Library</a></li>
+                    <li><a href="/bridge/">Clinical Cases</a></li>
+                    <li><a href="/play/">Games</a></li>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="pc-footer__newsletter">
+                <h4 class="pc-footer__heading">Stay Updated</h4>
+                <p class="pc-footer__newsletter-text">Get new calculators and study resources delivered to your inbox.</p>
+                <form class="pc-newsletter-form" action="#" method="post" onsubmit="event.preventDefault(); showToast('Thanks for subscribing!', 'success');">
+                    <div class="pc-newsletter__field">
+                        <input type="email" class="pc-newsletter__input" placeholder="your@email.com" required aria-label="Email address">
+                        <button type="submit" class="pc-newsletter__btn">
+                            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="pc-footer__bottom">
+            <div class="pc-footer__legal">
+                <a href="/privacy/">Privacy</a>
+                <a href="/terms/">Terms</a>
+                <a href="/editorial-policy/">Editorial Policy</a>
+                <a href="/sources-and-limitations/">Sources</a>
+                <a href="/accessibility-plan/">Accessibility</a>
+            </div>
+            <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
+        </div>
+    </footer>
+    
+    <!-- Sticky Mobile CTA -->
+    <div class="pc-sticky-cta" aria-hidden="true">
+        <a href="/tools/" class="pc-sticky-cta__btn">
+            <svg class="pc-sticky-cta__icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 10-2 0v3a1 1 0 102 0v-3zm2-3a1 1 0 011 1v5a1 1 0 11-2 0v-5a1 1 0 011-1zm4-1a1 1 0 10-2 0v7a1 1 0 102 0V8z" clip-rule="evenodd" />
+            </svg>
+            <span>Quick Calc</span>
+        </a>
+    </div>
+    
     <script src="/assets/js/supabase-config.js"></script>
     <script src="/assets/js/sync.js?v=20260213d"></script>
     <script src="/assets/js/account-ui.js?v=20260213d"></script>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <title>Admin Login | VetLudics</title>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/portal.css">
+  <style>
+  .pc-admin-login {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .pc-login-card {
+    background: var(--pc-surface);
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-lg);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+  }
+  
+  .pc-login-card__logo {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .pc-login-card h1 {
+    font-family: var(--pc-font-display);
+    margin-bottom: 0.5rem;
+  }
+  
+  .pc-login-card p {
+    color: var(--pc-text-muted);
+    margin-bottom: 1.5rem;
+  }
+  
+  .pc-login-field {
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+  
+  .pc-login-field label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  
+  .pc-login-field input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-sm);
+    background: var(--pc-bg);
+    color: var(--pc-text);
+    font-size: 1rem;
+  }
+  
+  .pc-login-field input:focus {
+    outline: 2px solid var(--pc-primary);
+    outline-offset: 2px;
+  }
+  
+  .pc-login-error {
+    color: #ef4444;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    display: none;
+  }
+  
+  .pc-login-error.pc-is-visible {
+    display: block;
+  }
+  
+  .pc-btn--full {
+    width: 100%;
+  }
+  </style>
+</head>
+<body class="pc-page">
+  <div class="pc-admin-login">
+    <div class="pc-login-card">
+      <div class="pc-login-card__logo">🔐</div>
+      <h1>Admin Access</h1>
+      <p>VetLudics Administration Portal</p>
+      
+      <form id="admin-login-form">
+        <div class="pc-login-field">
+          <label for="admin-email">Email</label>
+          <input type="email" id="admin-email" required placeholder="admin@vetludics.com">
+        </div>
+        
+        <div class="pc-login-field">
+          <label for="admin-password">Password</label>
+          <input type="password" id="admin-password" required placeholder="••••••••">
+        </div>
+        
+        <button type="submit" class="pc-btn pc-btn--primary pc-btn--large pc-btn--full">
+          Sign In
+        </button>
+        
+        <p class="pc-login-error" id="login-error">
+          Invalid credentials. Please try again.
+        </p>
+      </form>
+      
+      <p style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--pc-text-muted);">
+        <a href="/">← Back to VetLudics</a>
+      </p>
+    </div>
+  </div>
+  
+  <script>
+  (function() {
+    const ADMIN_EMAIL = 'drparthchaudhari@gmail.com';
+    const ADMIN_PASSWORD = 'Popatlalachau@1431';
+    const SESSION_KEY = 'vetludics_admin_session';
+    
+    // Check if already logged in
+    if (localStorage.getItem(SESSION_KEY) === 'active') {
+      window.location.href = 'dashboard.html';
+      return;
+    }
+    
+    document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('admin-email').value;
+      const password = document.getElementById('admin-password').value;
+      
+      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        localStorage.setItem(SESSION_KEY, 'active');
+        localStorage.setItem(SESSION_KEY + '_time', Date.now());
+        window.location.href = 'dashboard.html';
+      } else {
+        document.getElementById('login-error').classList.add('pc-is-visible');
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

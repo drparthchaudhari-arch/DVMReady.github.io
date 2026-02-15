@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-mode="pro" data-theme="light">
+<html lang="en" data-mode="pro" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -39,6 +39,8 @@
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/animations.js" defer></script>
+    <script src="/assets/js/auth-system.js" defer></script>
+    <script src="/assets/js/preferences.js" defer></script>
   </head>
   <body class="pc-page pc-page--search no-js">
     <!-- Page Transition Overlay -->
@@ -84,6 +86,24 @@
           <span class="pc-logo__icon">🐾</span>
           <span class="pc-logo__text">VetLudics</span>
         </a>
+        
+        <!-- Search Bar (Desktop) -->
+        <form class="pc-nav-search" action="/search.html" method="get" role="search">
+          <div class="pc-search-wrapper">
+            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+            <input 
+              type="search" 
+              name="q" 
+              class="pc-search-input pc-search-input--nav" 
+              placeholder="Search..."
+              aria-label="Search veterinary calculators"
+              autocomplete="off"
+            >
+            <kbd class="pc-search-shortcut">⌘K</kbd>
+          </div>
+        </form>
         
         <div class="pc-nav-group">
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>

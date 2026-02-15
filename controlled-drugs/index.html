@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author-status" content="NAVLE-candidate-unlicensed">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
+  <title>Controlled Drug Calculators | VetLudics</title>
+  <meta name="description" content="Veterinary controlled substance dosing calculators for hydromorphone, butorphanol, buprenorphine, ketamine, and more. Licensed veterinary professionals only.">
+  <link rel="canonical" href="https://parthchaudhari.com/controlled-drugs/">
+  
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/portal.css">
+  <link rel="stylesheet" href="/assets/css/portal-enhancements.css">
+  <link rel="stylesheet" href="/assets/css/floating-elements.css">
+  <link rel="stylesheet" href="/assets/css/page-enhancements.css">
+  
+  <style>
+  /* Controlled Drugs Specific Styles */
+  .pc-access-denied {
+    text-align: center;
+    padding: 3rem 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .pc-access-denied__icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+  
+  .pc-access-denied h2 {
+    font-family: var(--pc-font-display);
+    margin-bottom: 1rem;
+  }
+  
+  .pc-access-denied p {
+    color: var(--pc-text-muted);
+    margin-bottom: 2rem;
+  }
+  
+  .pc-request-form {
+    background: var(--pc-surface);
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-lg);
+    padding: 2rem;
+    text-align: left;
+  }
+  
+  .pc-request-form h3 {
+    margin-top: 0;
+    font-family: var(--pc-font-display);
+  }
+  
+  .pc-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 600px) {
+    .pc-form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .pc-form-field {
+    margin-bottom: 1rem;
+  }
+  
+  .pc-form-field label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  
+  .pc-form-field input,
+  .pc-form-field select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-sm);
+    background: var(--pc-bg);
+    color: var(--pc-text);
+    font-size: 1rem;
+  }
+  
+  .pc-form-field input:focus,
+  .pc-form-field select:focus {
+    outline: 2px solid var(--pc-primary);
+    outline-offset: 2px;
+  }
+  
+  .pc-file-upload {
+    border: 2px dashed var(--pc-border);
+    border-radius: var(--pc-radius-md);
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .pc-file-upload:hover {
+    border-color: var(--pc-primary);
+    background: color-mix(in srgb, var(--pc-primary) 5%, var(--pc-surface));
+  }
+  
+  .pc-file-upload input {
+    display: none;
+  }
+  
+  .pc-drugs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .pc-drug-card {
+    background: var(--pc-surface);
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-lg);
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .pc-drug-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .pc-drug-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .pc-drug-card__schedule {
+    padding: 0.2rem 0.5rem;
+    background: #dc2626;
+    color: white;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+  
+  .pc-drug-card h3 {
+    margin: 0;
+    font-family: var(--pc-font-display);
+    font-size: 1.1rem;
+  }
+  
+  .pc-drug-card p {
+    color: var(--pc-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  
+  .pc-drug-calculator {
+    border-top: 1px solid var(--pc-border);
+    padding-top: 1rem;
+  }
+  
+  .pc-drug-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .pc-drug-inputs input,
+  .pc-drug-inputs select {
+    padding: 0.5rem;
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-sm);
+    background: var(--pc-bg);
+    color: var(--pc-text);
+  }
+  
+  .pc-drug-result {
+    background: color-mix(in srgb, var(--pc-primary) 10%, var(--pc-surface));
+    border: 1px solid color-mix(in srgb, var(--pc-primary) 30%, var(--pc-border));
+    border-radius: var(--pc-radius-sm);
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: 700;
+  }
+  
+  .pc-drug-result__label {
+    font-size: 0.75rem;
+    color: var(--pc-text-muted);
+    text-transform: uppercase;
+  }
+  
+  .pc-drug-result__value {
+    font-size: 1.25rem;
+    color: var(--pc-primary);
+  }
+  
+  .pc-warning-box {
+    background: color-mix(in srgb, #dc2626 10%, var(--pc-surface));
+    border: 1px solid #dc2626;
+    border-radius: var(--pc-radius-md);
+    padding: 1rem;
+    margin: 1rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .pc-warning-box__icon {
+    font-size: 1.25rem;
+  }
+  
+  .pc-warning-box p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  </style>
+</head>
+<body class="pc-page pc-page--study no-js">
+  <!-- Floating Background Elements -->
+  <div class="pc-floating-elements" aria-hidden="true">
+    <div class="pc-float-shape pc-float-shape--1"></div>
+    <div class="pc-float-shape pc-float-shape--2"></div>
+  </div>
+
+  <div class="pc-ambient-container" aria-hidden="true">
+    <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+    <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+    <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+    <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+    <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+    <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    <div class="pc-ambient-particles">
+      <div class="pc-particle"></div>
+      <div class="pc-particle"></div>
+      <div class="pc-particle"></div>
+      <div class="pc-particle"></div>
+      <div class="pc-particle"></div>
+    </div>
+    <div class="pc-ambient-grid"></div>
+  </div>
+  
+  <!-- Toast Container -->
+  <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+  
+  <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+  
+  <!-- Navigation (copy from homepage) -->
+  <nav class="pc-portal-nav" aria-label="Global portal navigation">
+    <div class="pc-portal-nav__inner">
+      <a class="pc-logo" href="/">
+        <span class="pc-logo__icon">🐾</span>
+        <span class="pc-logo__text">VetLudics</span>
+      </a>
+      
+      <div class="pc-nav-group">
+        <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
+        <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
+        <a class="pc-nav-link" href="/search.html">Search</a>
+        <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+        <a class="pc-nav-link" href="/account/">
+          <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+          <span class="pc-nav-link__text">Account</span>
+        </a>
+        <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle day or night theme">
+          <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
+          <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
+          <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
+        </button>
+        
+        <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+          <span class="pc-mobile-toggle__bar"></span>
+          <span class="pc-mobile-toggle__bar"></span>
+          <span class="pc-mobile-toggle__bar"></span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+      <div class="pc-mobile-menu__header">
+        <span class="pc-mobile-menu__title">Menu</span>
+        <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+      </div>
+      <nav class="pc-mobile-menu__nav">
+        <a class="pc-mobile-nav-link" href="/play/">
+          <span class="pc-mobile-nav-link__icon">🎮</span>
+          <span class="pc-mobile-nav-link__text">Play</span>
+        </a>
+        <a class="pc-mobile-nav-link" href="/bridge/">
+          <span class="pc-mobile-nav-link__icon">🌉</span>
+          <span class="pc-mobile-nav-link__text">Bridge</span>
+        </a>
+        <a class="pc-mobile-nav-link" href="/search.html">
+          <span class="pc-mobile-nav-link__icon">🔍</span>
+          <span class="pc-mobile-nav-link__text">Search</span>
+        </a>
+        <a class="pc-mobile-nav-link" href="/study/">
+          <span class="pc-mobile-nav-link__icon">📚</span>
+          <span class="pc-mobile-nav-link__text">Study Plan</span>
+        </a>
+        <a class="pc-mobile-nav-link" href="/account/">
+          <span class="pc-mobile-nav-link__icon">👤</span>
+          <span class="pc-mobile-nav-link__text">Account</span>
+        </a>
+      </nav>
+      <div class="pc-mobile-menu__footer">
+        <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
+          <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
+          <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
+          <span>Switch to <span data-pc-theme-label>dark</span> mode</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="pc-main" class="pc-bridge-shell" role="main">
+    <!-- Breadcrumb -->
+    <nav class="pc-breadcrumbs" aria-label="Breadcrumb">
+      <ol class="pc-breadcrumbs__list">
+        <li class="pc-breadcrumbs__item"><a href="/">Home</a></li>
+        <li class="pc-breadcrumbs__item" aria-current="page">Controlled Drugs</li>
+      </ol>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pc-bridge-hero pc-bridge-hero--centered" data-animate="fade-up">
+      <div class="pc-bridge-hero__badge">🔒</div>
+      <p class="pc-kicker">Licensed Professionals Only</p>
+      <h1 class="pc-fork-title pc-gradient-text">Controlled Drug Calculators</h1>
+      <p class="pc-fork-copy pc-fork-copy--large">
+        Accurate dosing calculations for controlled substances. 
+        Restricted to licensed veterinary professionals with verified credentials.
+      </p>
+    </section>
+
+    <!-- Warning Box -->
+    <div class="pc-warning-box" data-animate="fade-up" data-delay="100">
+      <span class="pc-warning-box__icon">⚠️</span>
+      <p>
+        <strong>Important:</strong> These calculators are for educational and reference purposes only. 
+        Always verify doses against current formularies and local regulations. 
+        Controlled substances require proper DEA registration and record-keeping.
+      </p>
+    </div>
+
+    <!-- Access Denied / Request Form (shown by default, hidden if has access) -->
+    <section id="access-denied" class="pc-access-denied" data-animate="fade-up" data-delay="200">
+      <div class="pc-access-denied__icon">🔐</div>
+      <h2>Access Restricted</h2>
+      <p>
+        Controlled drug calculators are available to licensed veterinary professionals only. 
+        Please submit your credentials for verification.
+      </p>
+      
+      <form class="pc-request-form" id="access-request-form">
+        <h3>Request Access</h3>
+        
+        <div class="pc-form-row">
+          <div class="pc-form-field">
+            <label for="vet-name">Full Name *</label>
+            <input type="text" id="vet-name" name="vetName" required placeholder="Dr. Jane Smith">
+          </div>
+          <div class="pc-form-field">
+            <label for="license-number">License Number *</label>
+            <input type="text" id="license-number" name="licenseNumber" required placeholder="VET-12345">
+          </div>
+        </div>
+        
+        <div class="pc-form-row">
+          <div class="pc-form-field">
+            <label for="license-state">License State/Province *</label>
+            <select id="license-state" name="licenseState" required>
+              <option value="">Select...</option>
+              <option value="AL">Alabama</option>
+              <option value="AK">Alaska</option>
+              <option value="AZ">Arizona</option>
+              <option value="AR">Arkansas</option>
+              <option value="CA">California</option>
+              <option value="CO">Colorado</option>
+              <option value="CT">Connecticut</option>
+              <option value="other">Other/International</option>
+            </select>
+          </div>
+          <div class="pc-form-field">
+            <label for="clinic-name">Clinic/Hospital *</label>
+            <input type="text" id="clinic-name" name="clinicName" required placeholder="ABC Animal Hospital">
+          </div>
+        </div>
+        
+        <div class="pc-form-field">
+          <label for="vet-email">Email Address *</label>
+          <input type="email" id="vet-email" name="email" required placeholder="dr.smith@clinic.com">
+        </div>
+        
+        <div class="pc-form-field">
+          <label>License Verification Document *</label>
+          <label class="pc-file-upload">
+            <input type="file" id="credentials-file" name="credentials" accept=".pdf,.jpg,.jpeg,.png" required>
+            <span class="pc-file-upload__text">📎 Click to upload license/credentials (PDF, JPG, PNG)</span>
+            <span class="pc-file-upload__name" id="file-name"></span>
+          </label>
+        </div>
+        
+        <div class="pc-form-field">
+          <label>
+            <input type="checkbox" id="attestation" required>
+            <span>I attest that I am a licensed veterinary professional and the information provided is accurate.</span>
+          </label>
+        </div>
+        
+        <button type="submit" class="pc-btn pc-btn--primary pc-btn--large">
+          Submit Request for Approval
+        </button>
+        
+        <p class="pc-pricing-note" style="margin-top: 1rem;">
+          Requests are typically reviewed within 24-48 hours. You will receive an email notification.
+        </p>
+      </form>
+    </section>
+
+    <!-- Drug Calculators (hidden by default, shown if has access) -->
+    <section id="drug-calculators" class="pc-drugs-grid" style="display: none;" data-animate="fade-up">
+      
+      <!-- Drug 1: Hydromorphone -->
+      <article class="pc-drug-card">
+        <div class="pc-drug-card__header">
+          <span class="pc-drug-card__schedule">CII</span>
+          <h3>Hydromorphone</h3>
+        </div>
+        <p>Potent opioid analgesic for moderate to severe pain. Common premedication.</p>
+        <div class="pc-drug-calculator">
+          <div class="pc-drug-inputs">
+            <input type="number" id="hydro-weight" placeholder="Weight (kg)" min="0" step="0.1">
+            <select id="hydro-species">
+              <option value="">Species</option>
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </div>
+          <div class="pc-drug-inputs">
+            <select id="hydro-dose">
+              <option value="0.05">0.05 mg/kg (low)</option>
+              <option value="0.1" selected>0.1 mg/kg (standard)</option>
+              <option value="0.2">0.2 mg/kg (high)</option>
+            </select>
+            <select id="hydro-conc">
+              <option value="2">2 mg/mL</option>
+              <option value="10">10 mg/mL</option>
+            </select>
+          </div>
+          <div class="pc-drug-result">
+            <div class="pc-drug-result__label">Dose</div>
+            <div class="pc-drug-result__value" id="hydro-result">—</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Drug 2: Butorphanol -->
+      <article class="pc-drug-card">
+        <div class="pc-drug-card__header">
+          <span class="pc-drug-card__schedule">CIV</span>
+          <h3>Butorphanol</h3>
+        </div>
+        <p>Mixed agonist-antagonist opioid for mild pain and sedation.</p>
+        <div class="pc-drug-calculator">
+          <div class="pc-drug-inputs">
+            <input type="number" id="butor-weight" placeholder="Weight (kg)" min="0" step="0.1">
+            <select id="butor-species">
+              <option value="">Species</option>
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </div>
+          <div class="pc-drug-inputs">
+            <select id="butor-dose">
+              <option value="0.2">0.2 mg/kg (sedation)</option>
+              <option value="0.4" selected>0.4 mg/kg (analgesia)</option>
+            </select>
+            <select id="butor-conc">
+              <option value="10">10 mg/mL</option>
+            </select>
+          </div>
+          <div class="pc-drug-result">
+            <div class="pc-drug-result__label">Dose</div>
+            <div class="pc-drug-result__value" id="butor-result">—</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Drug 3: Buprenorphine -->
+      <article class="pc-drug-card">
+        <div class="pc-drug-card__header">
+          <span class="pc-drug-card__schedule">CIII</span>
+          <h3>Buprenorphine</h3>
+        </div>
+        <p>Partial agonist for moderate pain. Longer duration than pure agonists.</p>
+        <div class="pc-drug-calculator">
+          <div class="pc-drug-inputs">
+            <input type="number" id="bupre-weight" placeholder="Weight (kg)" min="0" step="0.1">
+            <select id="bupre-species">
+              <option value="">Species</option>
+              <option value="dog">Dog</option>
+              <option value="cat" selected>Cat (common)</option>
+            </select>
+          </div>
+          <div class="pc-drug-inputs">
+            <select id="bupre-dose">
+              <option value="0.02">0.02 mg/kg</option>
+              <option value="0.024" selected>0.024 mg/kg (high)</option>
+            </select>
+            <select id="bupre-conc">
+              <option value="0.3">0.3 mg/mL</option>
+            </select>
+          </div>
+          <div class="pc-drug-result">
+            <div class="pc-drug-result__label">Dose</div>
+            <div class="pc-drug-result__value" id="bupre-result">—</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Drug 4: Ketamine -->
+      <article class="pc-drug-card">
+        <div class="pc-drug-card__header">
+          <span class="pc-drug-card__schedule">CIII</span>
+          <h3>Ketamine</h3>
+        </div>
+        <p>Dissociative anesthetic. Often used in combination protocols.</p>
+        <div class="pc-drug-calculator">
+          <div class="pc-drug-inputs">
+            <input type="number" id="keta-weight" placeholder="Weight (kg)" min="0" step="0.1">
+            <select id="keta-species">
+              <option value="">Species</option>
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </div>
+          <div class="pc-drug-inputs">
+            <select id="keta-dose">
+              <option value="0.5">0.5 mg/kg (CRI)</option>
+              <option value="5" selected>5 mg/kg (induction)</option>
+              <option value="10">10 mg/kg (sole agent)</option>
+            </select>
+            <select id="keta-conc">
+              <option value="100">100 mg/mL</option>
+            </select>
+          </div>
+          <div class="pc-drug-result">
+            <div class="pc-drug-result__label">Dose</div>
+            <div class="pc-drug-result__value" id="keta-result">—</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Drug 5: Telazol (Tiletamine/Zolazepam) -->
+      <article class="pc-drug-card">
+        <div class="pc-drug-card__header">
+          <span class="pc-drug-card__schedule">CIII</span>
+          <h3>Telazol</h3>
+        </div>
+        <p>Combination dissociative/benzodiazepine for anesthesia induction.</p>
+        <div class="pc-drug-calculator">
+          <div class="pc-drug-inputs">
+            <input type="number" id="tela-weight" placeholder="Weight (kg)" min="0" step="0.1">
+            <select id="tela-species">
+              <option value="">Species</option>
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </div>
+          <div class="pc-drug-inputs">
+            <select id="tela-dose">
+              <option value="2">2 mg/kg (low)</option>
+              <option value="4" selected>4-6 mg/kg (standard)</option>
+              <option value="7">7 mg/kg (high)</option>
+            </select>
+            <select id="tela-conc">
+              <option value="100">100 mg/mL</option>
+            </select>
+          </div>
+          <div class="pc-drug-result">
+            <div class="pc-drug-result__label">Dose</div>
+            <div class="pc-drug-result__value" id="tela-result">—</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Drug 6: Pentobarbital -->
+      <article class="pc-drug-card">
+        <div class="pc-drug-card__header">
+          <span class="pc-drug-card__schedule">CII</span>
+          <h3>Pentobarbital</h3>
+        </div>
+        <p>Barbiturate for humane euthanasia. Strict record-keeping required.</p>
+        <div class="pc-drug-calculator">
+          <div class="pc-drug-inputs">
+            <input type="number" id="pent-weight" placeholder="Weight (kg)" min="0" step="0.1">
+            <select id="pent-species">
+              <option value="">Species</option>
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </div>
+          <div class="pc-drug-inputs">
+            <select id="pent-dose">
+              <option value="86" selected>86 mg/kg (euthanasia)</option>
+            </select>
+            <select id="pent-conc">
+              <option value="390">390 mg/mL (euthanasia solution)</option>
+            </select>
+          </div>
+          <div class="pc-drug-result">
+            <div class="pc-drug-result__label">Volume</div>
+            <div class="pc-drug-result__value" id="pent-result">—</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Drug 7: Fentanyl -->
+      <article class="pc-drug-card">
+        <div class="pc-drug-card__header">
+          <span class="pc-drug-card__schedule">CII</span>
+          <h3>Fentanyl Patch</h3>
+        </div>
+        <p>Transdermal opioid for severe pain management.</p>
+        <div class="pc-drug-calculator">
+          <div class="pc-drug-inputs">
+            <input type="number" id="fent-weight" placeholder="Weight (kg)" min="0" step="0.1">
+            <select id="fent-species">
+              <option value="">Species</option>
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </div>
+          <div class="pc-drug-result">
+            <div class="pc-drug-result__label">Recommended Patch</div>
+            <div class="pc-drug-result__value" id="fent-result">—</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Drug 8: Morphine -->
+      <article class="pc-drug-card">
+        <div class="pc-drug-card__header">
+          <span class="pc-drug-card__schedule">CII</span>
+          <h3>Morphine</h3>
+        </div>
+        <p>Gold standard opioid analgesic. Use with caution in cats.</p>
+        <div class="pc-drug-calculator">
+          <div class="pc-drug-inputs">
+            <input type="number" id="morph-weight" placeholder="Weight (kg)" min="0" step="0.1">
+            <select id="morph-species">
+              <option value="">Species</option>
+              <option value="dog">Dog</option>
+              <option value="cat">Cat (low dose)</option>
+            </select>
+          </div>
+          <div class="pc-drug-inputs">
+            <select id="morph-dose">
+              <option value="0.5">0.5 mg/kg</option>
+              <option value="1" selected>1 mg/kg</option>
+            </select>
+            <select id="morph-conc">
+              <option value="15">15 mg/mL</option>
+            </select>
+          </div>
+          <div class="pc-drug-result">
+            <div class="pc-drug-result__label">Dose</div>
+            <div class="pc-drug-result__value" id="morph-result">—</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Drug 9: Acepromazine -->
+      <article class="pc-drug-card">
+        <div class="pc-drug-card__header">
+          <span class="pc-drug-card__schedule">Rx</span>
+          <h3>Acepromazine</h3>
+        </div>
+        <p>Phenothiazine tranquilizer for sedation and premedication.</p>
+        <div class="pc-drug-calculator">
+          <div class="pc-drug-inputs">
+            <input type="number" id="ace-weight" placeholder="Weight (kg)" min="0" step="0.1">
+            <select id="ace-species">
+              <option value="">Species</option>
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </div>
+          <div class="pc-drug-inputs">
+            <select id="ace-dose">
+              <option value="0.01">0.01 mg/kg (low)</option>
+              <option value="0.03" selected>0.025-0.05 mg/kg</option>
+              <option value="0.1">0.1 mg/kg (high)</option>
+            </select>
+            <select id="ace-conc">
+              <option value="10">10 mg/mL</option>
+            </select>
+          </div>
+          <div class="pc-drug-result">
+            <div class="pc-drug-result__label">Dose</div>
+            <div class="pc-drug-result__value" id="ace-result">—</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Drug 10: Midazolam -->
+      <article class="pc-drug-card">
+        <div class="pc-drug-card__header">
+          <span class="pc-drug-card__schedule">CIV</span>
+          <h3>Midazolam</h3>
+        </div>
+        <p>Benzodiazepine for sedation, anxiolysis, and seizure control.</p>
+        <div class="pc-drug-calculator">
+          <div class="pc-drug-inputs">
+            <input type="number" id="mida-weight" placeholder="Weight (kg)" min="0" step="0.1">
+            <select id="mida-species">
+              <option value="">Species</option>
+              <option value="dog">Dog</option>
+              <option value="cat">Cat</option>
+            </select>
+          </div>
+          <div class="pc-drug-inputs">
+            <select id="mida-dose">
+              <option value="0.1">0.1 mg/kg</option>
+              <option value="0.2" selected>0.2 mg/kg</option>
+              <option value="0.3">0.3 mg/kg (seizure)</option>
+            </select>
+            <select id="mida-conc">
+              <option value="5">5 mg/mL</option>
+            </select>
+          </div>
+          <div class="pc-drug-result">
+            <div class="pc-drug-result__label">Dose</div>
+            <div class="pc-drug-result__value" id="mida-result">—</div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+    <div class="pc-footer__bottom">
+      <div class="pc-footer__legal">
+        <a href="/">Home</a>
+        <a href="/tools/">Tools</a>
+        <a href="/reference/">References</a>
+        <a href="/about.html">About</a>
+      </div>
+      <p class="pc-footer__copyright">© 2025 VetLudics. For licensed professionals only.</p>
+    </div>
+  </footer>
+
+  <script src="/assets/js/theme-toggle.js" defer></script>
+  <script src="/assets/js/nav-status.js" defer></script>
+  <script src="/assets/js/animations.js" defer></script>
+  <script src="/assets/js/auth-system.js" defer></script>
+  
+  <script>
+  // Controlled Drugs Access Control
+  (function() {
+    'use strict';
+    
+    const ACCESS_KEY = 'vetludics_controlled_access';
+    
+    function checkAccess() {
+      try {
+        const access = localStorage.getItem(ACCESS_KEY);
+        if (access === 'approved') {
+          showCalculators();
+        }
+      } catch (e) {
+        console.error('Access check error:', e);
+      }
+    }
+    
+    function showCalculators() {
+      document.getElementById('access-denied').style.display = 'none';
+      document.getElementById('drug-calculators').style.display = 'grid';
+    }
+    
+    // Handle form submission
+    document.getElementById('access-request-form')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('vet-name').value,
+        license: document.getElementById('license-number').value,
+        state: document.getElementById('license-state').value,
+        clinic: document.getElementById('clinic-name').value,
+        email: document.getElementById('vet-email').value,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Store request for admin review
+      const requests = JSON.parse(localStorage.getItem('vetludics_access_requests') || '[]');
+      requests.push(formData);
+      localStorage.setItem('vetludics_access_requests', JSON.stringify(requests));
+      
+      // Show confirmation
+      if (window.showToast) {
+        window.showToast('Request submitted! You will receive an email when approved.', 'success');
+      }
+      
+      // Reset form
+      this.reset();
+      document.getElementById('file-name').textContent = '';
+    });
+    
+    // File upload display
+    document.getElementById('credentials-file')?.addEventListener('change', function() {
+      const fileName = this.files[0]?.name || '';
+      document.getElementById('file-name').textContent = fileName ? 'Selected: ' + fileName : '';
+    });
+    
+    // Calculator logic
+    function calculateDose(weight, dose, concentration) {
+      if (!weight || !dose || !concentration) return '—';
+      const mg = (parseFloat(weight) * parseFloat(dose)).toFixed(2);
+      const ml = (mg / parseFloat(concentration)).toFixed(2);
+      return `${mg} mg = ${ml} mL`;
+    }
+    
+    function setupCalculator(weightId, doseId, concId, resultId) {
+      const inputs = [document.getElementById(weightId), document.getElementById(doseId), document.getElementById(concId)];
+      inputs.forEach(input => {
+        input?.addEventListener('input', () => {
+          const result = calculateDose(inputs[0]?.value, inputs[1]?.value, inputs[2]?.value);
+          document.getElementById(resultId).textContent = result;
+        });
+      });
+    }
+    
+    // Setup all calculators
+    setupCalculator('hydro-weight', 'hydro-dose', 'hydro-conc', 'hydro-result');
+    setupCalculator('butor-weight', 'butor-dose', 'butor-conc', 'butor-result');
+    setupCalculator('bupre-weight', 'bupre-dose', 'bupre-conc', 'bupre-result');
+    setupCalculator('keta-weight', 'keta-dose', 'keta-conc', 'keta-result');
+    setupCalculator('tela-weight', 'tela-dose', 'tela-conc', 'tela-result');
+    setupCalculator('pent-weight', 'pent-dose', 'pent-conc', 'pent-result');
+    setupCalculator('morph-weight', 'morph-dose', 'morph-conc', 'morph-result');
+    setupCalculator('ace-weight', 'ace-dose', 'ace-conc', 'ace-result');
+    setupCalculator('mida-weight', 'mida-dose', 'mida-conc', 'mida-result');
+    
+    // Fentanyl patch calculator
+    document.getElementById('fent-weight')?.addEventListener('input', function() {
+      const weight = parseFloat(this.value);
+      const species = document.getElementById('fent-species').value;
+      if (!weight || !species) {
+        document.getElementById('fent-result').textContent = '—';
+        return;
+      }
+      
+      let patchSize = '—';
+      if (species === 'dog') {
+        if (weight < 5) patchSize = '12.5 mcg/hr';
+        else if (weight < 10) patchSize = '25 mcg/hr';
+        else if (weight < 20) patchSize = '50 mcg/hr';
+        else if (weight < 40) patchSize = '75 mcg/hr';
+        else patchSize = '100 mcg/hr';
+      } else if (species === 'cat') {
+        if (weight < 4) patchSize = '12.5 mcg/hr (1/4 of 25)';
+        else patchSize = '25 mcg/hr';
+      }
+      
+      document.getElementById('fent-result').textContent = patchSize;
+    });
+    
+    document.getElementById('fent-species')?.addEventListener('change', function() {
+      document.getElementById('fent-weight')?.dispatchEvent(new Event('input'));
+    });
+    
+    // Check access on load
+    checkAccess();
+  })();
+  </script>
+</body>
+</html>
