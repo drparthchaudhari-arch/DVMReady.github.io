@@ -104,7 +104,7 @@
                 <div class="pc-calc-field__label">
                   <span>Conversion Type</span>
                 </div>
-                <select id="converter-type" class="pc-calc-input" onchange="onInputChange()"></select>
+                <select id="converter-type" class="pc-calc-input"></select>
               </div>
 
               <!-- Input Value -->
@@ -119,12 +119,11 @@
                   step="any"
                   placeholder="Enter value"
                   required
-                  oninput="onInputChange()"
                 />
               </div>
 
-              <!-- Swap Direction Button -->
-              <button type="button" class="pc-calc-submit" id="converter-swap" onclick="swapDirection()">
+              <!-- Swap Direction Button (handled by unit-converter.js) -->
+              <button type="button" class="pc-calc-submit" id="converter-swap">
                 <span>⇄</span> Swap Direction
               </button>
 
@@ -341,58 +340,62 @@
         }
       }
 
-      // Input change handler
+      // Track auto-calc state (synced with unit-converter.js behavior)
       function onInputChange() {
         updateProgress();
-        if (autoCalcEnabled) {
-          triggerConversion();
-        }
       }
 
       // Update progress bar
       function updateProgress() {
-        const input = document.getElementById('converter-input').value;
-        const type = document.getElementById('converter-type').value;
+        const input = document.getElementById('converter-input')?.value;
+        const type = document.getElementById('converter-type')?.value;
         
         let progress = 0;
         if (type) progress += 50;
         if (input) progress += 50;
         
-        document.getElementById('calc-progress').style.width = progress + '%';
+        const progressBar = document.getElementById('calc-progress');
+        if (progressBar) {
+          progressBar.style.width = progress + '%';
+        }
       }
 
-      // Trigger conversion (dispatches form submit event)
+      // Trigger conversion - now just updates progress since unit-converter.js handles rendering
       function triggerConversion() {
-        const form = document.getElementById('converter-form');
-        if (form) {
-          const event = new Event('submit', { cancelable: true });
-          form.dispatchEvent(event);
-        }
+        updateProgress();
       }
 
-      // Swap direction
+      // Swap direction - handled by unit-converter.js, this is just a wrapper
       function swapDirection() {
-        const swapBtn = document.getElementById('converter-swap');
-        if (swapBtn) {
-          swapBtn.click();
-        }
+        // unit-converter.js adds the actual click handler
+        // This function is kept for any legacy calls
       }
 
       // Reset calculator
       function resetCalculator() {
-        document.getElementById('converter-input').value = '';
-        document.getElementById('converter-type').selectedIndex = 0;
+        const input = document.getElementById('converter-input');
+        if (input) input.value = '';
         
         // Reset results display
-        document.getElementById('converter-output').textContent = '--';
-        document.getElementById('converter-direction').textContent = '-';
-        document.getElementById('converter-formula').textContent = 'Select a conversion type';
-        document.getElementById('converter-note').textContent = 'Choose a conversion and type a value';
-        document.getElementById('result-context').textContent = 'Enter a value to convert';
-        document.getElementById('calc-progress').style.width = '0%';
-        document.getElementById('converter-input-label').textContent = 'Input Value';
+        const output = document.getElementById('converter-output');
+        const direction = document.getElementById('converter-direction');
+        const formula = document.getElementById('converter-formula');
+        const note = document.getElementById('converter-note');
+        const context = document.getElementById('result-context');
+        const progress = document.getElementById('calc-progress');
+        const label = document.getElementById('converter-input-label');
         
-        showToast('Converter reset', 'info');
+        if (output) output.textContent = '--';
+        if (direction) direction.textContent = '-';
+        if (formula) formula.textContent = 'Select a conversion type';
+        if (note) note.textContent = 'Choose a conversion and type a value';
+        if (context) context.textContent = 'Enter a value to convert';
+        if (progress) progress.style.width = '0%';
+        if (label) label.textContent = 'Input Value';
+        
+        if (typeof showToast === 'function') {
+          showToast('Converter reset', 'info');
+        }
       }
 
       // Copy results
@@ -457,9 +460,10 @@
         }
       };
 
-      // Initial progress update
+      // Initial progress update (after unit-converter.js populates the select)
       document.addEventListener('DOMContentLoaded', function() {
-        updateProgress();
+        // Wait for unit-converter.js to populate the select
+        setTimeout(updateProgress, 100);
       });
     </script>
   </body>
