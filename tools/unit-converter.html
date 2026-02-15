@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
     <link rel="stylesheet" href="/assets/css/calculator-print.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
-    <script src="/assets/js/print-calculator.js" defer></script>
+    <script src="/assets/js/calculator-print.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/unit-converter.js" defer></script>
@@ -72,7 +72,7 @@
         </div>
         <div class="pc-calc-header__actions">
           <div class="pc-calc-quick-actions">
-            <button type="button" class="pc-calc-action-btn" onclick="CalculatorPrint.printCalculator('unit-converter')" title="Print results">
+            <button type="button" class="pc-calc-action-btn" onclick="window.print()" title="Print results">
               <span>🖨️</span> Print
             </button>
             <button type="button" class="pc-calc-action-btn" onclick="resetCalculator()" title="Reset all fields">
@@ -126,6 +126,11 @@
               <!-- Swap Direction Button -->
               <button type="button" class="pc-calc-submit" id="converter-swap" onclick="swapDirection()">
                 <span>⇄</span> Swap Direction
+              </button>
+
+              <!-- Clear Button (required by unit-converter.js) -->
+              <button type="button" class="pc-calc-submit" id="converter-clear" onclick="resetCalculator()" style="margin-top: 0.75rem; background: #64748b;">
+                <span>✕</span> Clear
               </button>
 
               <button type="submit" class="pc-calc-submit" id="calc-btn" style="margin-top: 0.75rem;">
