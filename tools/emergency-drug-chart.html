@@ -79,7 +79,7 @@
             <button type="button" class="pc-calc-action-btn" onclick="toggleAutoCalc()" id="auto-calc-btn" title="Toggle auto-calculation">
               <span>⚡</span> <span id="auto-calc-text">Auto: On</span>
             </button>
-            <button type="button" class="pc-calc-action-btn" onclick="printChart()" title="Print chart">
+            <button type="button" id="er-print" class="pc-calc-action-btn" onclick="printChart()" title="Print chart">
               <span>🖨️</span> Print
             </button>
             <a href="/tools/" class="pc-calc-action-btn">
@@ -155,7 +155,7 @@
             <p style="font-size: 0.8125rem; color: var(--calc-text-muted); margin-bottom: 1rem;">
               Adjust concentration values for your stocked formulations. These values are used for volume calculations.
             </p>
-            <button type="button" class="pc-calc-action-btn" onclick="resetConcentrations()" style="width: 100%; justify-content: center;">
+            <button type="button" id="er-reset-concentration" class="pc-calc-action-btn" onclick="resetConcentrations()" style="width: 100%; justify-content: center;">
               <span>↺</span> Reset Concentrations
             </button>
           </div>
