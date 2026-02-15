@@ -28,7 +28,9 @@
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
     <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-print.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/calculator-print.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/transfusion-helper.js" defer></script>
@@ -73,6 +75,9 @@
         </div>
         <div class="pc-calc-header__actions">
           <div class="pc-calc-quick-actions">
+            <button type="button" class="pc-calc-action-btn" onclick="CalculatorPrint.printCalculator('transfusion')" title="Print results">
+              <span>🖨️</span> Print
+            </button>
             <button type="button" class="pc-calc-action-btn" onclick="resetCalculator()" title="Reset all fields">
               <span>↺</span> Reset
             </button>

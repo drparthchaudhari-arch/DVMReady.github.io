@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
     <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-print.css" media="print" />
+    <script src="/assets/js/calculator-print.js" defer></script>
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
@@ -70,6 +72,9 @@
             <a href="/tools/" class="pc-calc-action-btn">
               <span>←</span> Back
             </a>
+            <button type="button" class="pc-calc-action-btn" onclick="CalculatorPrint.printCalculator('glucose')" title="Print results">
+              <span>🖨️</span> Print
+            </button>
           </div>
         </div>
       </header>

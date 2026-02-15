@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
     <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-print.css" />
+    <script src="/assets/js/calculator-print.js" defer></script>
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
@@ -79,7 +81,7 @@
             <button type="button" class="pc-calc-action-btn" onclick="toggleAutoCalc()" id="auto-calc-btn" title="Toggle auto-calculation">
               <span>⚡</span> <span id="auto-calc-text">Auto: On</span>
             </button>
-            <button type="button" id="er-print" class="pc-calc-action-btn" onclick="printChart()" title="Print chart">
+            <button type="button" id="er-print" class="pc-calc-action-btn" onclick="CalculatorPrint.printEmergencyChart()" title="Print chart">
               <span>🖨️</span> Print
             </button>
             <a href="/tools/" class="pc-calc-action-btn">

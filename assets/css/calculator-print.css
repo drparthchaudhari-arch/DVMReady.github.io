@@ -1,0 +1,445 @@
+/**
+ * Calculator Print Styles - Professional Print Output
+ * Legal-compliant print formatting for all veterinary calculators
+ * 
+ * Legal Notice: All print outputs include required disclaimers for
+ * educational use only. Not a substitute for professional veterinary judgment.
+ */
+
+@media print {
+  /* Hide non-essential elements */
+  .pc-portal-nav,
+  .pc-mobile-toggle,
+  .pc-mobile-menu,
+  .pc-theme-toggle,
+  .pc-calc-header__actions,
+  .pc-calc-quick-actions,
+  .pc-calc-chips,
+  .pc-calc-submit,
+  .pc-calc-action-btn,
+  .pc-calc-copy,
+  .pc-toast-container,
+  .pc-footer,
+  .pc-calc-progress,
+  .pc-calc-toggle,
+  #controlled-warning,
+  input[type="checkbox"],
+  select,
+  .pc-calc-related,
+  .pc-calc-related__grid,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Page setup */
+  @page {
+    size: A4 portrait;
+    margin: 15mm 12mm 20mm 12mm;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    line-height: 1.4;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Main container */
+  .pc-calc-dashboard {
+    display: block !important;
+    padding: 0 !important;
+    background: white !important;
+    min-height: auto !important;
+  }
+
+  /* Header - Print version */
+  .pc-calc-header {
+    background: white !important;
+    border: 2px solid #1e293b !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 12mm !important;
+    margin-bottom: 8mm !important;
+    page-break-inside: avoid;
+  }
+
+  .pc-calc-header__icon {
+    background: #1e293b !important;
+    color: white !important;
+    box-shadow: none !important;
+  }
+
+  .pc-calc-header__text h1 {
+    font-size: 18pt !important;
+    color: #1e293b !important;
+    margin-bottom: 2mm !important;
+  }
+
+  .pc-calc-header__text p {
+    font-size: 10pt !important;
+    color: #475569 !important;
+  }
+
+  /* Hide input panels, show only results */
+  .pc-calc-inputs {
+    display: none !important;
+  }
+
+  /* Main results area */
+  .pc-calc-main {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .pc-calc-viz {
+    background: white !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    padding: 8mm !important;
+    page-break-inside: avoid;
+  }
+
+  .pc-calc-viz__header {
+    border-bottom: 2px solid #1e293b !important;
+    padding-bottom: 4mm !important;
+    margin-bottom: 6mm !important;
+  }
+
+  .pc-calc-viz__title {
+    font-size: 14pt !important;
+    color: #1e293b !important;
+    font-weight: 700 !important;
+  }
+
+  /* Results panel */
+  .pc-calc-results {
+    display: block !important;
+    width: 100% !important;
+    margin-top: 8mm !important;
+  }
+
+  .pc-calc-panel {
+    background: white !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    margin-bottom: 6mm !important;
+    page-break-inside: avoid;
+  }
+
+  .pc-calc-panel__header {
+    background: #f1f5f9 !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    padding: 4mm 6mm !important;
+  }
+
+  .pc-calc-panel__title {
+    font-size: 11pt !important;
+    color: #1e293b !important;
+    font-weight: 600 !important;
+  }
+
+  .pc-calc-panel__content {
+    padding: 6mm !important;
+  }
+
+  /* Result cards */
+  .pc-calc-result-card {
+    border: 1px solid #cbd5e1 !important;
+    background: #f8fafc !important;
+    padding: 4mm !important;
+    margin-bottom: 4mm !important;
+    page-break-inside: avoid;
+  }
+
+  .pc-calc-result-card--primary {
+    background: #1e293b !important;
+    color: white !important;
+    border: 2px solid #1e293b !important;
+  }
+
+  .pc-calc-result-card--primary .pc-calc-result__label,
+  .pc-calc-result-card--primary .pc-calc-result__value,
+  .pc-calc-result-card--primary .pc-calc-result__unit,
+  .pc-calc-result-card--primary .pc-calc-result__context {
+    color: white !important;
+  }
+
+  .pc-calc-result-card--success {
+    background: #f0fdf4 !important;
+    border-color: #22c55e !important;
+  }
+
+  .pc-calc-result-card--warning {
+    background: #fffbeb !important;
+    border-color: #f59e0b !important;
+  }
+
+  .pc-calc-result__label {
+    font-size: 9pt !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    margin-bottom: 1mm !important;
+  }
+
+  .pc-calc-result__value {
+    font-size: 16pt !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+  }
+
+  .pc-calc-result__unit {
+    font-size: 10pt !important;
+    color: #64748b !important;
+  }
+
+  .pc-calc-result__context {
+    font-size: 8pt !important;
+    color: #64748b !important;
+    margin-top: 1mm !important;
+  }
+
+  /* Formulas and notes */
+  .pc-calc-formula {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 4mm !important;
+    margin: 4mm 0 !important;
+  }
+
+  .pc-calc-formula__label {
+    font-size: 9pt !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
+  }
+
+  .pc-calc-formula__math {
+    font-family: 'Courier New', monospace !important;
+    font-size: 9pt !important;
+    color: #1e293b !important;
+  }
+
+  .pc-calc-formula__highlight {
+    color: #1e293b !important;
+    font-weight: 700 !important;
+  }
+
+  /* Drug info cards */
+  .pc-calc-drug-info {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 4mm !important;
+  }
+
+  .pc-calc-drug-info__item {
+    background: white !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 2mm !important;
+  }
+
+  /* Tables */
+  .pc-table-wrap {
+    overflow: visible !important;
+  }
+
+  .pc-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 9pt !important;
+  }
+
+  .pc-table thead {
+    display: table-header-group !important;
+  }
+
+  .pc-table th {
+    background: #f1f5f9 !important;
+    color: #1e293b !important;
+    font-weight: 700 !important;
+    border: 1px solid #cbd5e1 !important;
+    padding: 2mm !important;
+    text-align: left !important;
+  }
+
+  .pc-table td {
+    border: 1px solid #e2e8f0 !important;
+    padding: 2mm !important;
+    vertical-align: top !important;
+  }
+
+  .pc-table tbody tr:nth-child(even) {
+    background: #f8fafc !important;
+  }
+
+  /* Alerts */
+  .pc-calc-alert {
+    border: 1px solid !important;
+    padding: 4mm !important;
+    margin: 4mm 0 !important;
+    page-break-inside: avoid;
+  }
+
+  .pc-calc-alert--warning {
+    background: #fffbeb !important;
+    border-color: #f59e0b !important;
+    color: #92400e !important;
+  }
+
+  .pc-calc-alert--error {
+    background: #fef2f2 !important;
+    border-color: #dc2626 !important;
+    color: #991b1b !important;
+  }
+
+  .pc-calc-alert--success {
+    background: #f0fdf4 !important;
+    border-color: #22c55e !important;
+    color: #166534 !important;
+  }
+
+  .pc-calc-alert__icon {
+    font-size: 12pt !important;
+  }
+
+  .pc-calc-alert__title {
+    font-size: 10pt !important;
+    font-weight: 700 !important;
+  }
+
+  .pc-calc-alert__text {
+    font-size: 9pt !important;
+  }
+
+  /* Legal footer - CRITICAL FOR LEGAL PROTECTION */
+  .print-legal-footer {
+    display: block !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: #fef2f2 !important;
+    border-top: 3px double #dc2626 !important;
+    padding: 8mm 12mm !important;
+    font-size: 8pt !important;
+    color: #7f1d1d !important;
+    text-align: center !important;
+    line-height: 1.5 !important;
+  }
+
+  .print-legal-footer strong {
+    color: #dc2626 !important;
+    font-size: 9pt !important;
+  }
+
+  /* Print header with timestamp */
+  .print-header-meta {
+    display: flex !important;
+    justify-content: space-between !important;
+    font-size: 8pt !important;
+    color: #64748b !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding-bottom: 2mm !important;
+    margin-bottom: 4mm !important;
+  }
+
+  /* Patient info section */
+  .print-patient-info {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 4mm !important;
+    margin-bottom: 4mm !important;
+    page-break-inside: avoid;
+  }
+
+  .print-patient-info h3 {
+    font-size: 10pt !important;
+    color: #1e293b !important;
+    margin: 0 0 2mm 0 !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding-bottom: 1mm !important;
+  }
+
+  .print-patient-info p {
+    margin: 1mm 0 !important;
+    font-size: 9pt !important;
+  }
+
+  /* Grid layouts for print */
+  .print-results-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 3mm !important;
+  }
+
+  .print-results-grid-2 {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 3mm !important;
+  }
+
+  /* Emergency drug chart specific */
+  .print-emergency-category {
+    background: #f1f5f9 !important;
+    padding: 1mm 2mm !important;
+    font-weight: 700 !important;
+    font-size: 8pt !important;
+    color: #1e293b !important;
+    border-left: 3px solid #1e293b !important;
+  }
+
+  /* Signature line */
+  .print-signature-section {
+    margin-top: 10mm !important;
+    padding-top: 6mm !important;
+    border-top: 1px solid #cbd5e1 !important;
+  }
+
+  .print-signature-line {
+    border-bottom: 1px solid #1e293b !important;
+    width: 60mm !important;
+    margin-top: 8mm !important;
+  }
+
+  .print-signature-label {
+    font-size: 8pt !important;
+    color: #64748b !important;
+    margin-top: 1mm !important;
+  }
+
+  /* Page break control */
+  .page-break {
+    page-break-before: always !important;
+  }
+
+  .page-break-avoid {
+    page-break-inside: avoid !important;
+  }
+
+  /* QR code placeholder for verification */
+  .print-verification-qr {
+    width: 20mm !important;
+    height: 20mm !important;
+    border: 1px solid #cbd5e1 !important;
+    background: white !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 6pt !important;
+    color: #94a3b8 !important;
+  }
+}
+
+/* Screen-only elements */
+@media screen {
+  .print-legal-footer,
+  .print-header-meta,
+  .print-patient-info,
+  .print-signature-section {
+    display: none !important;
+  }
+}

@@ -20,6 +20,8 @@
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/cri-calculator.js" defer></script>
+    <link rel="stylesheet" href="/assets/css/calculator-print.css">
+    <script src="/assets/js/calculator-print.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
     <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
@@ -70,6 +72,9 @@
             <a href="/tools/" class="pc-calc-action-btn">
               <span>←</span> Back
             </a>
+            <button type="button" class="pc-calc-action-btn" onclick="CalculatorPrint.printCRICalculator()" title="Print calculation">
+              <span>🖨️</span> Print
+            </button>
           </div>
         </div>
       </header>
