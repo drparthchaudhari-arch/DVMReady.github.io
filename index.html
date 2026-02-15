@@ -379,6 +379,86 @@
         }
       });
     })();
+    
+    // Check login status and show appropriate content
+    (function() {
+      const AUTH_KEY = 'vetludics_auth';
+      const GUEST_KEY = 'vetludics_guest';
+      
+      function isLoggedIn() {
+        return localStorage.getItem(AUTH_KEY) !== null || localStorage.getItem(GUEST_KEY) !== null;
+      }
+      
+      function getUser() {
+        try {
+          const auth = localStorage.getItem(AUTH_KEY);
+          if (auth) return JSON.parse(auth);
+          const guest = localStorage.getItem(GUEST_KEY);
+          if (guest) return JSON.parse(guest);
+        } catch (e) {}
+        return null;
+      }
+      
+      function updateHomepage() {
+        const authSection = document.getElementById('homepage-auth-section');
+        const loggedInSection = document.getElementById('homepage-logged-in');
+        const user = getUser();
+        
+        if (isLoggedIn() && user) {
+          // User is logged in - show personalized content
+          if (authSection) authSection.style.display = 'none';
+          if (loggedInSection) {
+            loggedInSection.style.display = 'block';
+            // Update user name
+            const nameEl = document.getElementById('homepage-user-name');
+            if (nameEl) {
+              nameEl.textContent = user.displayName || user.email.split('@')[0] || 'User';
+            }
+          }
+        } else {
+          // User is not logged in - show auth forms
+          if (authSection) authSection.style.display = 'block';
+          if (loggedInSection) loggedInSection.style.display = 'none';
+        }
+      }
+      
+      // Guest login from homepage
+      document.getElementById('homepage-guest-form')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('homepage-guest-email').value.trim();
+        const consent = document.getElementById('homepage-guest-consent').checked;
+        
+        if (!email || !email.includes('@')) {
+          alert('Please enter a valid email');
+          return;
+        }
+        if (!consent) {
+          alert('Please agree to the terms');
+          return;
+        }
+        
+        const guestData = {
+          email: email,
+          type: 'guest',
+          displayName: email.split('@')[0],
+          createdAt: new Date().toISOString(),
+          lastVisit: new Date().toISOString()
+        };
+        
+        localStorage.setItem(GUEST_KEY, JSON.stringify(guestData));
+        updateHomepage();
+      });
+      
+      // Initialize on load
+      updateHomepage();
+      
+      // Listen for storage changes (cross-tab sync)
+      window.addEventListener('storage', function(e) {
+        if (e.key === AUTH_KEY || e.key === GUEST_KEY) {
+          updateHomepage();
+        }
+      });
+    })();
     </script>
     <!-- Page Transition Overlay -->
     <div class="pc-page-transition" aria-hidden="true"></div>
@@ -513,8 +593,8 @@
             </div>
         </section>
         
-        <!-- Authentication Section -->
-        <section class="pc-auth-section" aria-labelledby="auth-title">
+        <!-- Authentication Section (hidden when logged in) -->
+        <section id="homepage-auth-section" class="pc-auth-section" aria-labelledby="auth-title">
           <div class="pc-auth-container">
             <h2 id="auth-title" class="pc-auth-title">Get Started</h2>
             <p class="pc-auth-subtitle">Access all veterinary calculators and study tools</p>
@@ -525,22 +605,23 @@
                 <div class="pc-auth-card__icon">👤</div>
                 <h3>Continue as Guest</h3>
                 <p>Quick access with just your email. No account required.</p>
-                <div class="pc-auth-form">
+                <form id="homepage-guest-form" class="pc-auth-form">
                   <input 
                     type="email" 
+                    id="homepage-guest-email"
                     class="pc-auth-input" 
                     placeholder="your@email.com"
-                    data-pc-guest-email
                     aria-label="Email address"
+                    required
                   >
                   <label class="pc-consent-label">
-                    <input type="checkbox" id="guest-consent" checked>
+                    <input type="checkbox" id="homepage-guest-consent" checked>
                     <span>I agree to analytics collection and <a href="/terms/">Terms</a></span>
                   </label>
-                  <button class="pc-btn pc-btn--secondary pc-btn--large" data-pc-guest-login>
+                  <button type="submit" class="pc-btn pc-btn--secondary pc-btn--large">
                     Continue as Guest →
                   </button>
-                </div>
+                </form>
               </div>
               
               <!-- Account Option -->
@@ -559,6 +640,52 @@
                 <a href="/account/" class="pc-btn pc-btn--primary pc-btn--large">
                   Sign Up / Login →
                 </a>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- LOGGED-IN WELCOME SECTION (shown when logged in) -->
+        <section id="homepage-logged-in" class="pc-auth-section" style="display: none;" aria-labelledby="welcome-title">
+          <div class="pc-auth-container">
+            <h2 id="welcome-title" class="pc-auth-title">Welcome back, <span id="homepage-user-name">User</span>!</h2>
+            <p class="pc-auth-subtitle">Your personalized veterinary tool experience</p>
+            
+            <div class="pc-auth-options">
+              <!-- Quick Access -->
+              <div class="pc-auth-card">
+                <div class="pc-auth-card__icon">⭐</div>
+                <h3>Your Favorites</h3>
+                <p>Quick access to your most-used tools.</p>
+                <div id="homepage-favorites" class="pc-home-favorites">
+                  <p style="color: var(--pc-text-muted); font-size: 0.9rem;">No favorites yet. Visit tools and star them!</p>
+                </div>
+                <a href="/tools/" class="pc-btn pc-btn--secondary pc-btn--large">Browse Tools</a>
+              </div>
+              
+              <!-- Continue Studying -->
+              <div class="pc-auth-card">
+                <div class="pc-auth-card__icon">📚</div>
+                <h3>Continue Learning</h3>
+                <p>Pick up where you left off.</p>
+                <div class="pc-auth-features">
+                  <span class="pc-auth-feature">📊 Study Progress</span>
+                  <span class="pc-auth-feature">📝 Saved Notes</span>
+                </div>
+                <a href="/study/navle/" class="pc-btn pc-btn--primary pc-btn--large">Continue Studying →</a>
+              </div>
+              
+              <!-- Go to Account -->
+              <div class="pc-auth-card pc-auth-card--account">
+                <div class="pc-auth-card__icon">⚙️</div>
+                <h3>Your Account</h3>
+                <p>Manage your preferences, saved data, and settings.</p>
+                <div class="pc-auth-features">
+                  <span class="pc-auth-feature">👤 Profile Settings</span>
+                  <span class="pc-auth-feature">🐾 Saved Patients</span>
+                  <span class="pc-auth-feature">💾 Saved Calculations</span>
+                </div>
+                <a href="/account/" class="pc-btn pc-btn--primary pc-btn--large">Go to Account →</a>
               </div>
             </div>
           </div>
