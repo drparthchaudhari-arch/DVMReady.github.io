@@ -965,27 +965,42 @@
       const AUTH_KEY = 'vetludics_auth';
       const GUEST_KEY = 'vetludics_guest';
       
+      console.log('Account page auth script loaded');
+      
       // Check if user is logged in
       function isLoggedIn() {
-        return localStorage.getItem(AUTH_KEY) !== null || localStorage.getItem(GUEST_KEY) !== null;
+        const auth = localStorage.getItem(AUTH_KEY);
+        const guest = localStorage.getItem(GUEST_KEY);
+        console.log('Checking login:', { auth: !!auth, guest: !!guest });
+        return auth !== null || guest !== null;
       }
       
       // Get current user
       function getCurrentUser() {
-        const auth = localStorage.getItem(AUTH_KEY);
-        if (auth) return JSON.parse(auth);
-        const guest = localStorage.getItem(GUEST_KEY);
-        if (guest) return JSON.parse(guest);
+        try {
+          const auth = localStorage.getItem(AUTH_KEY);
+          if (auth) return JSON.parse(auth);
+          const guest = localStorage.getItem(GUEST_KEY);
+          if (guest) return JSON.parse(guest);
+        } catch (e) {
+          console.error('Error parsing user data:', e);
+        }
         return null;
       }
       
       // Show/hide auth vs logged-in content
       function updateUI() {
+        console.log('Updating UI...');
         const authSection = document.getElementById('auth-section');
         const loggedInContent = document.getElementById('logged-in-content');
         const user = getCurrentUser();
         
+        console.log('User:', user);
+        console.log('Auth section:', authSection);
+        console.log('Logged in content:', loggedInContent);
+        
         if (isLoggedIn() && user) {
+          console.log('User is logged in - showing dashboard');
           // User is logged in - show logged-in content
           if (authSection) authSection.style.display = 'none';
           if (loggedInContent) {
@@ -1005,6 +1020,7 @@
           const userEmailInput = document.getElementById('user-email');
           if (userEmailInput) userEmailInput.value = user.email;
         } else {
+          console.log('User is not logged in - showing auth forms');
           // User is not logged in - show auth section
           if (authSection) authSection.style.display = 'block';
           if (loggedInContent) loggedInContent.style.display = 'none';
@@ -1022,6 +1038,7 @@
       // Guest login
       document.getElementById('guest-login-form')?.addEventListener('submit', function(e) {
         e.preventDefault();
+        console.log('Guest login submitted');
         const email = document.getElementById('guest-email').value.trim();
         const consent = document.getElementById('guest-consent').checked;
         
@@ -1042,9 +1059,12 @@
           lastVisit: new Date().toISOString()
         };
         
+        console.log('Saving guest data:', guestData);
         localStorage.setItem(GUEST_KEY, JSON.stringify(guestData));
         showToast('Welcome! You are now logged in as a guest.', 'success');
-        updateUI();
+        
+        // Force UI update after a short delay
+        setTimeout(updateUI, 100);
       });
       
       // Account signup
@@ -1089,12 +1109,15 @@
           lastVisit: new Date().toISOString()
         };
         
+        console.log('Saving user data:', userData);
         localStorage.setItem(AUTH_KEY, JSON.stringify(userData));
         // Remove guest key if exists
         localStorage.removeItem(GUEST_KEY);
         
         showToast('Account created successfully! Welcome to VetLudics!', 'success');
-        updateUI();
+        
+        // Force UI update after a short delay
+        setTimeout(updateUI, 100);
       });
       
       // Account login
@@ -1116,7 +1139,7 @@
             user.lastVisit = new Date().toISOString();
             localStorage.setItem(AUTH_KEY, JSON.stringify(user));
             showToast('Welcome back!', 'success');
-            updateUI();
+            setTimeout(updateUI, 100);
             return;
           }
         }
@@ -1170,7 +1193,19 @@
       };
       
       // Initialize
-      document.addEventListener('DOMContentLoaded', updateUI);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateUI);
+      } else {
+        // DOM already loaded
+        updateUI();
+      }
+      
+      // Also update on storage changes (for cross-tab sync)
+      window.addEventListener('storage', function(e) {
+        if (e.key === AUTH_KEY || e.key === GUEST_KEY) {
+          updateUI();
+        }
+      });
     })();
     </script>
   </body>
