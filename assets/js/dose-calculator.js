@@ -104,10 +104,16 @@
     return firstInvalid
   }
 
+  function getSelectedSpecies() {
+    var speciesSelect = byId('species')
+    return speciesSelect ? speciesSelect.value : 'dog'
+  }
+
   function renderConcentrationOptions(drug, form) {
     var list = byId('dose-concentration-list')
     var hint = byId('concentration-hint')
     var chipsContainer = byId('concentration-chips')
+    var species = getSelectedSpecies()
 
     if (!list) return
 
@@ -121,7 +127,9 @@
       return
     }
 
-    var formData = drug.forms[form]
+    // Get species-specific form data
+    var formDataAll = drug.forms[form]
+    var formData = formDataAll[species] || formDataAll
     var concentrations = formData.concentrations || []
 
     // Update concentration unit hint
@@ -173,11 +181,12 @@
       var formLabel = form === 'oral' ? 'Oral' : 'Injectable'
       var routesLabel = formData.routes ? 'Routes: ' + formData.routes.join(', ') + '. ' : ''
       var doseLabel = Number.isFinite(Number(formData.dose_mg_kg))
-        ? 'Dose: ' + formData.dose_mg_kg + ' mg/kg'
+        ? 'Dose: ' + formData.dose_mg_kg + ' mg/kg (' + species + ')'
         : 'Dose unavailable'
       var frequencyLabel = formData.frequency ? ' (' + formData.frequency + ')' : ''
+      var speciesNote = formData.notes ? ' [' + formData.notes + ']' : ''
       hint.textContent =
-        categoryLabel + formLabel + '. ' + routesLabel + doseLabel + frequencyLabel + '.'
+        categoryLabel + formLabel + '. ' + routesLabel + doseLabel + frequencyLabel + speciesNote + '.'
     }
 
     // Auto-select first concentration if available
@@ -279,6 +288,7 @@
     currentDrug = drugsData.find(function (item) {
       return item.name === drugName
     })
+    currentForm = form
 
     // Check for controlled substance
     if (currentDrug && currentDrug.controlled) {
@@ -344,13 +354,20 @@
   function onDosageFormChange() {
     var formSelect = byId('dosage-form')
     var routeField = byId('route-field')
+    var species = getSelectedSpecies()
+    
+    if (formSelect) {
+      currentForm = formSelect.value
+    }
     
     if (formSelect && routeField) {
       if (formSelect.value === 'injectable') {
         routeField.style.display = 'block'
-        // Populate available routes
+        // Populate available routes (species-specific)
         if (currentDrug && currentDrug.forms && currentDrug.forms.injectable) {
-          var routes = currentDrug.forms.injectable.routes
+          var injectData = currentDrug.forms.injectable
+          var speciesData = injectData[species]
+          var routes = speciesData ? speciesData.routes : injectData.routes
           var routeSelect = byId('route-select')
           if (routeSelect && routes) {
             routeSelect.innerHTML = ''
@@ -424,16 +441,24 @@
       }
     }
 
-    // Get form-specific dosing
-    var formData = drug.forms && drug.forms[form]
-    if (!formData) {
+    // Get form-specific dosing (with species-specific overrides)
+    var formDataAll = drug.forms && drug.forms[form]
+    if (!formDataAll) {
       setFormMessage('Selected dosage form not available for this drug.', true)
       return
     }
-
+    
+    // Get species-specific data
+    var formData = formDataAll[species] || formDataAll
+    
     var dosePerKg = Number(formData.dose_mg_kg || 0)
     var maxDosePerKg = Number(formData.max_mg_kg || 0)
     var frequency = formData.frequency || 'SID'
+    
+    if (!dosePerKg) {
+      setFormMessage('Dose information unavailable for ' + species + '.', true)
+      return
+    }
 
     var mgPerDose = weight * dosePerKg
     var mlPerDose = mgPerDose / concentration
@@ -469,6 +494,7 @@
   function init() {
     var form = byId('dose-form')
     var drugSelect = byId('drug-select')
+    var speciesSelect = byId('species')
 
     if (!form || !drugSelect) {
       return
@@ -483,6 +509,16 @@
     var dosageFormSelect = byId('dosage-form')
     if (dosageFormSelect) {
       dosageFormSelect.addEventListener('change', onDosageFormChange)
+    }
+    
+    // Re-render concentrations when species changes
+    if (speciesSelect) {
+      speciesSelect.addEventListener('change', function() {
+        if (currentDrug && currentForm) {
+          renderConcentrationOptions(currentDrug, currentForm)
+          onInputChange()
+        }
+      })
     }
   }
 

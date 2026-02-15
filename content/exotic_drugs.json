@@ -1,0 +1,430 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2026-02-15",
+    "verified_by": "Exotic DVM References",
+    "sources": [
+      "Carpenter's Exotic Animal Formulary",
+      "Fowler's Zoo and Wild Animal Medicine",
+      "Merck Veterinary Manual - Exotic Sections",
+      "BSAVA Manual of Exotic Pets",
+      "Ferrets, Rabbits, and Rodents: Clinical Medicine and Surgery"
+    ],
+    "disclaimer": "Doses verified from standard exotic animal references. Always verify with species-specific formularies and consider patient-specific factors."
+  },
+  "species": {
+    "rabbit": {
+      "name": "Rabbit",
+      "weight_range_kg": { "min": 0.5, "max": 6 },
+      "default_weight_kg": 2.0,
+      "drugs": ["Enrofloxacin", "Trimethoprim-Sulfamethoxazole", "Metronidazole", "Meloxicam", "Butorphanol", "Midazolam", "Ketamine", "Medetomidine", "Atropine", "Doxycycline", "Penicillin G Procaine", "Ivermectin", "Selamectin", "Enalapril", "Furosemide"]
+    },
+    "ferret": {
+      "name": "Ferret",
+      "weight_range_kg": { "min": 0.3, "max": 2 },
+      "default_weight_kg": 1.0,
+      "drugs": ["Prednisone", "Dexamethasone", "Meloxicam", "Enrofloxacin", "Amoxicillin-Clavulanate", "Doxycycline", "Ondansetron", "Cisapride", "Sucralfate", "Carprofen", "Butorphanol", "Midazolam", "Ketamine", "Isoflurane", "Deslorelin"]
+    },
+    "guinea_pig": {
+      "name": "Guinea Pig",
+      "weight_range_kg": { "min": 0.3, "max": 1.5 },
+      "default_weight_kg": 0.8,
+      "drugs": ["Enrofloxacin", "Trimethoprim-Sulfamethoxazole", "Doxycycline", "Meloxicam", "Butorphanol", "Midazolam", "Atropine", "Buprenorphine", "Ivermectin", "Penicillin G Procaine", "Chloramphenicol", "Metronidazole", "Fenbendazole"]
+    },
+    "rat": {
+      "name": "Rat",
+      "weight_range_kg": { "min": 0.1, "max": 0.8 },
+      "default_weight_kg": 0.35,
+      "drugs": ["Enrofloxacin", "Doxycycline", "Trimethoprim-Sulfamethoxazole", "Meloxicam", "Carprofen", "Butorphanol", "Buprenorphine", "Midazolam", "Ketamine", "Medetomidine", "Atropine", "Doxorubicin", "Carboplatin"]
+    },
+    "mouse": {
+      "name": "Mouse",
+      "weight_range_kg": { "min": 0.015, "max": 0.05 },
+      "default_weight_kg": 0.03,
+      "drugs": ["Enrofloxacin", "Doxycycline", "Trimethoprim-Sulfamethoxazole", "Meloxicam", "Carprofen", "Buprenorphine", "Butorphanol", "Midazolam", "Ketamine", "Medetomidine", "Atropine"]
+    },
+    "hamster": {
+      "name": "Hamster",
+      "weight_range_kg": { "min": 0.02, "max": 0.15 },
+      "default_weight_kg": 0.08,
+      "drugs": ["Enrofloxacin", "Trimethoprim-Sulfamethoxazole", "Doxycycline", "Meloxicam", "Butorphanol", "Midazolam", "Ketamine", "Ivermectin", "Penicillin G Procaine"]
+    },
+    "chinchilla": {
+      "name": "Chinchilla",
+      "weight_range_kg": { "min": 0.4, "max": 0.8 },
+      "default_weight_kg": 0.6,
+      "drugs": ["Enrofloxacin", "Trimethoprim-Sulfamethoxazole", "Doxycycline", "Meloxicam", "Butorphanol", "Midazolam", "Ketamine", "Ivermectin", "Fenbendazole"]
+    },
+    "hedgehog": {
+      "name": "Hedgehog",
+      "weight_range_kg": { "min": 0.2, "max": 0.6 },
+      "default_weight_kg": 0.4,
+      "drugs": ["Enrofloxacin", "Trimethoprim-Sulfamethoxazole", "Amoxicillin-Clavulanate", "Doxycycline", "Meloxicam", "Butorphanol", "Midazolam", "Ketamine", "Isoflurane", "Itraconazole", "Ivermectin"]
+    },
+    "sugar_glider": {
+      "name": "Sugar Glider",
+      "weight_range_kg": { "min": 0.08, "max": 0.17 },
+      "default_weight_kg": 0.12,
+      "drugs": ["Enrofloxacin", "Trimethoprim-Sulfamethoxazole", "Doxycycline", "Meloxicam", "Carprofen", "Butorphanol", "Midazolam", "Ketamine", "Medetomidine", "Cefovecin"]
+    },
+    "bird_small": {
+      "name": "Bird (Small: Canary, Finch)",
+      "weight_range_kg": { "min": 0.01, "max": 0.05 },
+      "default_weight_kg": 0.025,
+      "drugs": ["Enrofloxacin", "Doxycycline", "Itraconazole", "Meloxicam", "Butorphanol", "Midazolam", "Ketamine", "Diazepam", "Atropine", "Calcium Gluconate", "Oxytocin"]
+    },
+    "bird_medium": {
+      "name": "Bird (Medium: Cockatiel, Lovebird)",
+      "weight_range_kg": { "min": 0.05, "max": 0.2 },
+      "default_weight_kg": 0.1,
+      "drugs": ["Enrofloxacin", "Doxycycline", "Itraconazole", "Meloxicam", "Carprofen", "Butorphanol", "Midazolam", "Ketamine", "Diazepam", "Atropine", "Calcium Gluconate", "Oxytocin"]
+    },
+    "bird_large": {
+      "name": "Bird (Large: Parrot, Cockatoo)",
+      "weight_range_kg": { "min": 0.2, "max": 1.5 },
+      "default_weight_kg": 0.5,
+      "drugs": ["Enrofloxacin", "Doxycycline", "Itraconazole", "Meloxicam", "Carprofen", "Butorphanol", "Midazolam", "Ketamine", "Diazepam", "Atropine", "Calcium Gluconate", "Oxytocin"]
+    },
+    "reptile_snake": {
+      "name": "Reptile (Snake)",
+      "weight_range_kg": { "min": 0.1, "max": 50 },
+      "default_weight_kg": 1.0,
+      "drugs": ["Enrofloxacin", "Ceftazidime", "Amikacin", "Metronidazole", "Meloxicam", "Carprofen", "Morphine", "Ketamine", "Midazolam", "Atropine", "Glycopyrrolate", "Ivermectin", "Fenbendazole"]
+    },
+    "reptile_lizard": {
+      "name": "Reptile (Lizard)",
+      "weight_range_kg": { "min": 0.02, "max": 5 },
+      "default_weight_kg": 0.3,
+      "drugs": ["Enrofloxacin", "Ceftazidime", "Amikacin", "Metronidazole", "Meloxicam", "Carprofen", "Morphine", "Butorphanol", "Ketamine", "Midazolam", "Atropine", "Glycopyrrolate", "Ivermectin", "Fenbendazole", "Oxytocin", "Calcium Gluconate"]
+    },
+    "reptile_chelonian": {
+      "name": "Reptile (Turtle/Tortoise)",
+      "weight_range_kg": { "min": 0.1, "max": 200 },
+      "default_weight_kg": 1.5,
+      "drugs": ["Enrofloxacin", "Ceftazidime", "Amikacin", "Metronidazole", "Meloxicam", "Morphine", "Ketamine", "Medetomidine", "Atropine", "Glycopyrrolate", "Ivermectin", "Fenbendazole", "Oxytocin"]
+    }
+  },
+  "drugs": {
+    "Enrofloxacin": {
+      "category": "Antibiotic (Fluoroquinolone)",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "rabbit": { "dose_mg_kg": 5, "frequency": "SID", "notes": "Avoid in young rabbits", "concentrations": ["22.7 mg/mL", "68 mg/mL"] },
+          "ferret": { "dose_mg_kg": 5, "frequency": "SID-BID", "notes": "", "concentrations": ["22.7 mg/mL", "68 mg/mL"] },
+          "guinea_pig": { "dose_mg_kg": 5, "frequency": "SID", "notes": "Use cautiously", "concentrations": ["22.7 mg/mL", "68 mg/mL"] },
+          "rat": { "dose_mg_kg": 10, "frequency": "BID", "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "mouse": { "dose_mg_kg": 10, "frequency": "BID", "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "hamster": { "dose_mg_kg": 10, "frequency": "BID", "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "chinchilla": { "dose_mg_kg": 5, "frequency": "SID", "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "hedgehog": { "dose_mg_kg": 5, "frequency": "SID", "notes": "", "concentrations": ["22.7 mg/mL", "68 mg/mL"] },
+          "sugar_glider": { "dose_mg_kg": 5, "frequency": "SID", "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "bird_small": { "dose_mg_kg": 15, "frequency": "BID", "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "bird_medium": { "dose_mg_kg": 15, "frequency": "BID", "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "bird_large": { "dose_mg_kg": 15, "frequency": "BID", "notes": "", "concentrations": ["22.7 mg/mL", "68 mg/mL"] },
+          "reptile_snake": { "dose_mg_kg": 5, "frequency": "SID", "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "reptile_lizard": { "dose_mg_kg": 5, "frequency": "SID", "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "reptile_chelonian": { "dose_mg_kg": 5, "frequency": "SID", "notes": "", "concentrations": ["22.7 mg/mL"] }
+        },
+        "injectable": {
+          "rabbit": { "dose_mg_kg": 5, "frequency": "SID", "routes": ["SC", "IM"], "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "ferret": { "dose_mg_kg": 5, "frequency": "SID", "routes": ["SC", "IM"], "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "guinea_pig": { "dose_mg_kg": 5, "frequency": "SID", "routes": ["SC"], "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "rat": { "dose_mg_kg": 10, "frequency": "BID", "routes": ["SC", "IM"], "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "mouse": { "dose_mg_kg": 10, "frequency": "BID", "routes": ["SC"], "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "hamster": { "dose_mg_kg": 10, "frequency": "BID", "routes": ["SC"], "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "hedgehog": { "dose_mg_kg": 5, "frequency": "SID", "routes": ["SC"], "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "bird_small": { "dose_mg_kg": 15, "frequency": "BID", "routes": ["IM"], "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "bird_medium": { "dose_mg_kg": 15, "frequency": "BID", "routes": ["IM"], "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "bird_large": { "dose_mg_kg": 15, "frequency": "BID", "routes": ["IM"], "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "reptile_snake": { "dose_mg_kg": 5, "frequency": "SID", "routes": ["SC", "IM"], "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "reptile_lizard": { "dose_mg_kg": 5, "frequency": "SID", "routes": ["SC", "IM"], "notes": "", "concentrations": ["22.7 mg/mL"] },
+          "reptile_chelonian": { "dose_mg_kg": 5, "frequency": "SID", "routes": ["IM"], "notes": "", "concentrations": ["22.7 mg/mL"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Meloxicam": {
+      "category": "NSAID",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "rabbit": { "dose_mg_kg": 0.3, "frequency": "SID-BID", "notes": "Start at lower dose", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] },
+          "ferret": { "dose_mg_kg": 0.2, "frequency": "SID", "notes": "", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] },
+          "guinea_pig": { "dose_mg_kg": 0.3, "frequency": "SID", "notes": "", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] },
+          "rat": { "dose_mg_kg": 1, "frequency": "SID-BID", "notes": "", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] },
+          "mouse": { "dose_mg_kg": 5, "frequency": "SID", "notes": "", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] },
+          "hamster": { "dose_mg_kg": 1, "frequency": "SID", "notes": "", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] },
+          "chinchilla": { "dose_mg_kg": 0.3, "frequency": "SID", "notes": "", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] },
+          "hedgehog": { "dose_mg_kg": 0.2, "frequency": "SID", "notes": "", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] },
+          "sugar_glider": { "dose_mg_kg": 0.1, "frequency": "SID", "notes": "", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] },
+          "bird_small": { "dose_mg_kg": 0.5, "frequency": "BID", "notes": "", "concentrations": ["0.5 mg/mL"] },
+          "bird_medium": { "dose_mg_kg": 0.5, "frequency": "BID", "notes": "", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] },
+          "bird_large": { "dose_mg_kg": 0.5, "frequency": "BID", "notes": "", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] },
+          "reptile_snake": { "dose_mg_kg": 0.2, "frequency": "SID", "notes": "", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] },
+          "reptile_lizard": { "dose_mg_kg": 0.2, "frequency": "SID", "notes": "", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] },
+          "reptile_chelonian": { "dose_mg_kg": 0.5, "frequency": "SID", "notes": "", "concentrations": ["0.5 mg/mL", "1.5 mg/mL"] }
+        },
+        "injectable": {
+          "rabbit": { "dose_mg_kg": 0.2, "frequency": "SID", "routes": ["SC"], "notes": "", "concentrations": ["5 mg/mL"] },
+          "ferret": { "dose_mg_kg": 0.2, "frequency": "SID", "routes": ["SC"], "notes": "", "concentrations": ["5 mg/mL"] },
+          "guinea_pig": { "dose_mg_kg": 0.2, "frequency": "SID", "routes": ["SC"], "notes": "", "concentrations": ["5 mg/mL"] },
+          "hedgehog": { "dose_mg_kg": 0.2, "frequency": "SID", "routes": ["SC"], "notes": "", "concentrations": ["5 mg/mL"] },
+          "bird_small": { "dose_mg_kg": 1, "frequency": "BID", "routes": ["IM"], "notes": "", "concentrations": ["5 mg/mL"] },
+          "bird_medium": { "dose_mg_kg": 1, "frequency": "BID", "routes": ["IM"], "notes": "", "concentrations": ["5 mg/mL"] },
+          "bird_large": { "dose_mg_kg": 1, "frequency": "BID", "routes": ["IM"], "notes": "", "concentrations": ["5 mg/mL"] },
+          "reptile_snake": { "dose_mg_kg": 0.2, "frequency": "SID", "routes": ["SC"], "notes": "", "concentrations": ["5 mg/mL"] },
+          "reptile_lizard": { "dose_mg_kg": 0.2, "frequency": "SID", "routes": ["SC"], "notes": "", "concentrations": ["5 mg/mL"] },
+          "reptile_chelonian": { "dose_mg_kg": 0.5, "frequency": "SID", "routes": ["SC"], "notes": "", "concentrations": ["5 mg/mL"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Butorphanol": {
+      "category": "Opioid Agonist-Antagonist",
+      "controlled": true,
+      "schedule": "IV",
+      "forms": {
+        "injectable": {
+          "rabbit": { "dose_mg_kg": 0.5, "frequency": "TID-QID", "routes": ["SC", "IM", "IV"], "notes": "", "concentrations": ["10 mg/mL"] },
+          "ferret": { "dose_mg_kg": 0.25, "frequency": "BID-QID", "routes": ["SC", "IM", "IV"], "notes": "", "concentrations": ["10 mg/mL"] },
+          "guinea_pig": { "dose_mg_kg": 0.4, "frequency": "BID-QID", "routes": ["SC"], "notes": "", "concentrations": ["10 mg/mL"] },
+          "rat": { "dose_mg_kg": 2, "frequency": "BID-QID", "routes": ["SC", "IP"], "notes": "", "concentrations": ["10 mg/mL"] },
+          "hedgehog": { "dose_mg_kg": 0.4, "frequency": "BID-QID", "routes": ["SC", "IM"], "notes": "", "concentrations": ["10 mg/mL"] },
+          "sugar_glider": { "dose_mg_kg": 0.5, "frequency": "BID-QID", "routes": ["SC"], "notes": "", "concentrations": ["10 mg/mL"] },
+          "bird_small": { "dose_mg_kg": 1, "frequency": "BID-QID", "routes": ["IM"], "notes": "", "concentrations": ["10 mg/mL"] },
+          "bird_medium": { "dose_mg_kg": 1, "frequency": "BID-QID", "routes": ["IM", "IV"], "notes": "", "concentrations": ["10 mg/mL"] },
+          "bird_large": { "dose_mg_kg": 1, "frequency": "BID-QID", "routes": ["IM", "IV"], "notes": "", "concentrations": ["10 mg/mL"] },
+          "reptile_snake": { "dose_mg_kg": 1, "frequency": "BID", "routes": ["SC", "IM"], "notes": "Limited efficacy in reptiles", "concentrations": ["10 mg/mL"] },
+          "reptile_lizard": { "dose_mg_kg": 1, "frequency": "BID", "routes": ["SC", "IM"], "notes": "Limited efficacy in reptiles", "concentrations": ["10 mg/mL"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Midazolam": {
+      "category": "Benzodiazepine",
+      "controlled": true,
+      "schedule": "IV",
+      "forms": {
+        "injectable": {
+          "rabbit": { "dose_mg_kg": 0.5, "frequency": "Once", "routes": ["IM", "IV"], "notes": "Premedicant/sedation", "concentrations": ["5 mg/mL"] },
+          "ferret": { "dose_mg_kg": 0.25, "frequency": "Once", "routes": ["IM", "IV"], "notes": "Premedicant/sedation", "concentrations": ["5 mg/mL"] },
+          "guinea_pig": { "dose_mg_kg": 0.5, "frequency": "Once", "routes": ["IM", "IP"], "notes": "Premedicant", "concentrations": ["5 mg/mL"] },
+          "rat": { "dose_mg_kg": 5, "frequency": "Once", "routes": ["IP", "IM"], "notes": "Sedation", "concentrations": ["5 mg/mL"] },
+          "mouse": { "dose_mg_kg": 5, "frequency": "Once", "routes": ["IP"], "notes": "Sedation", "concentrations": ["5 mg/mL"] },
+          "hamster": { "dose_mg_kg": 5, "frequency": "Once", "routes": ["IP"], "notes": "Sedation", "concentrations": ["5 mg/mL"] },
+          "chinchilla": { "dose_mg_kg": 0.5, "frequency": "Once", "routes": ["IM"], "notes": "Premedicant", "concentrations": ["5 mg/mL"] },
+          "hedgehog": { "dose_mg_kg": 0.5, "frequency": "Once", "routes": ["IM"], "notes": "Premedicant", "concentrations": ["5 mg/mL"] },
+          "sugar_glider": { "dose_mg_kg": 0.5, "frequency": "Once", "routes": ["IM"], "notes": "Premedicant", "concentrations": ["5 mg/mL"] },
+          "bird_small": { "dose_mg_kg": 0.5, "frequency": "Once", "routes": ["IM"], "notes": "Premedicant", "concentrations": ["5 mg/mL"] },
+          "bird_medium": { "dose_mg_kg": 0.5, "frequency": "Once", "routes": ["IM"], "notes": "Premedicant", "concentrations": ["5 mg/mL"] },
+          "bird_large": { "dose_mg_kg": 0.5, "frequency": "Once", "routes": ["IM"], "notes": "Premedicant", "concentrations": ["5 mg/mL"] },
+          "reptile_snake": { "dose_mg_kg": 2, "frequency": "Once", "routes": ["IM", "IV"], "notes": "Sedation", "concentrations": ["5 mg/mL"] },
+          "reptile_lizard": { "dose_mg_kg": 2, "frequency": "Once", "routes": ["IM"], "notes": "Sedation", "concentrations": ["5 mg/mL"] },
+          "reptile_chelonian": { "dose_mg_kg": 1, "frequency": "Once", "routes": ["IM", "IV"], "notes": "Sedation", "concentrations": ["5 mg/mL"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Ketamine": {
+      "category": "Dissociative Anesthetic",
+      "controlled": true,
+      "schedule": "III",
+      "forms": {
+        "injectable": {
+          "rabbit": { "dose_mg_kg": 35, "frequency": "Once", "routes": ["IM"], "notes": "Combine with midazolam or dexmedetomidine", "concentrations": ["100 mg/mL"] },
+          "ferret": { "dose_mg_kg": 10, "frequency": "Once", "routes": ["IM"], "notes": "Combine with midazolam", "concentrations": ["100 mg/mL"] },
+          "guinea_pig": { "dose_mg_kg": 40, "frequency": "Once", "routes": ["IM"], "notes": "Combine with xylazine", "concentrations": ["100 mg/mL"] },
+          "rat": { "dose_mg_kg": 75, "frequency": "Once", "routes": ["IP", "IM"], "notes": "Higher doses for anesthesia", "concentrations": ["100 mg/mL"] },
+          "mouse": { "dose_mg_kg": 100, "frequency": "Once", "routes": ["IP"], "notes": "Combine with xylazine", "concentrations": ["100 mg/mL"] },
+          "hamster": { "dose_mg_kg": 100, "frequency": "Once", "routes": ["IP"], "notes": "Combine with xylazine", "concentrations": ["100 mg/mL"] },
+          "chinchilla": { "dose_mg_kg": 10, "frequency": "Once", "routes": ["IM"], "notes": "Combine with xylazine", "concentrations": ["100 mg/mL"] },
+          "hedgehog": { "dose_mg_kg": 10, "frequency": "Once", "routes": ["IM"], "notes": "Combine with midazolam", "concentrations": ["100 mg/mL"] },
+          "sugar_glider": { "dose_mg_kg": 20, "frequency": "Once", "routes": ["IM"], "notes": "Combine with midazolam", "concentrations": ["100 mg/mL"] },
+          "bird_small": { "dose_mg_kg": 10, "frequency": "Once", "routes": ["IM"], "notes": "Combine with midazolam", "concentrations": ["100 mg/mL"] },
+          "bird_medium": { "dose_mg_kg": 15, "frequency": "Once", "routes": ["IM"], "notes": "Combine with midazolam", "concentrations": ["100 mg/mL"] },
+          "bird_large": { "dose_mg_kg": 20, "frequency": "Once", "routes": ["IM"], "notes": "Combine with midazolam", "concentrations": ["100 mg/mL"] },
+          "reptile_snake": { "dose_mg_kg": 40, "frequency": "Once", "routes": ["IM", "SC"], "notes": "Higher doses needed", "concentrations": ["100 mg/mL"] },
+          "reptile_lizard": { "dose_mg_kg": 20, "frequency": "Once", "routes": ["IM"], "notes": "Combine with medetomidine", "concentrations": ["100 mg/mL"] },
+          "reptile_chelonian": { "dose_mg_kg": 20, "frequency": "Once", "routes": ["IM"], "notes": "Higher doses often needed", "concentrations": ["100 mg/mL"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Buprenorphine": {
+      "category": "Opioid Partial Agonist",
+      "controlled": true,
+      "schedule": "III",
+      "forms": {
+        "injectable": {
+          "guinea_pig": { "dose_mg_kg": 0.05, "frequency": "BID-TID", "routes": ["SC"], "notes": "", "concentrations": ["0.3 mg/mL", "0.6 mg/mL"] },
+          "rat": { "dose_mg_kg": 0.05, "frequency": "BID-TID", "routes": ["SC", "IP"], "notes": "", "concentrations": ["0.3 mg/mL", "0.6 mg/mL"] },
+          "mouse": { "dose_mg_kg": 0.1, "frequency": "BID", "routes": ["SC"], "notes": "", "concentrations": ["0.3 mg/mL", "0.6 mg/mL"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Trimethoprim-Sulfamethoxazole": {
+      "category": "Antibiotic (Potentiated Sulfonamide)",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "rabbit": { "dose_mg_kg": 30, "frequency": "BID", "notes": "Of combined product", "concentrations": ["48 mg/mL (suspension)", "480 mg/tablet"] },
+          "ferret": { "dose_mg_kg": 30, "frequency": "BID", "notes": "", "concentrations": ["48 mg/mL (suspension)", "480 mg/tablet"] },
+          "guinea_pig": { "dose_mg_kg": 30, "frequency": "BID", "notes": "Safe in GP", "concentrations": ["48 mg/mL (suspension)", "480 mg/tablet"] },
+          "rat": { "dose_mg_kg": 30, "frequency": "BID", "notes": "", "concentrations": ["48 mg/mL (suspension)", "480 mg/tablet"] },
+          "mouse": { "dose_mg_kg": 30, "frequency": "BID", "notes": "", "concentrations": ["48 mg/mL (suspension)", "480 mg/tablet"] },
+          "hamster": { "dose_mg_kg": 30, "frequency": "BID", "notes": "", "concentrations": ["48 mg/mL (suspension)", "480 mg/tablet"] },
+          "chinchilla": { "dose_mg_kg": 30, "frequency": "BID", "notes": "", "concentrations": ["48 mg/mL (suspension)", "480 mg/tablet"] },
+          "hedgehog": { "dose_mg_kg": 30, "frequency": "BID", "notes": "", "concentrations": ["48 mg/mL (suspension)", "480 mg/tablet"] },
+          "sugar_glider": { "dose_mg_kg": 30, "frequency": "BID", "notes": "", "concentrations": ["48 mg/mL (suspension)", "480 mg/tablet"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Doxycycline": {
+      "category": "Antibiotic (Tetracycline)",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "rabbit": { "dose_mg_kg": 5, "frequency": "BID", "notes": "", "concentrations": ["25 mg/mL", "100 mg/tablet", "50 mg/tablet"] },
+          "ferret": { "dose_mg_kg": 5, "frequency": "BID", "notes": "Use liquid, avoid tablets", "concentrations": ["25 mg/mL"] },
+          "guinea_pig": { "dose_mg_kg": 5, "frequency": "BID", "notes": "", "concentrations": ["25 mg/mL", "50 mg/tablet"] },
+          "rat": { "dose_mg_kg": 5, "frequency": "BID", "notes": "", "concentrations": ["25 mg/mL", "50 mg/tablet"] },
+          "mouse": { "dose_mg_kg": 5, "frequency": "BID", "notes": "", "concentrations": ["25 mg/mL"] },
+          "chinchilla": { "dose_mg_kg": 5, "frequency": "BID", "notes": "", "concentrations": ["25 mg/mL", "50 mg/tablet"] },
+          "hedgehog": { "dose_mg_kg": 5, "frequency": "BID", "notes": "", "concentrations": ["25 mg/mL", "50 mg/tablet"] },
+          "sugar_glider": { "dose_mg_kg": 5, "frequency": "BID", "notes": "", "concentrations": ["25 mg/mL"] },
+          "bird_small": { "dose_mg_kg": 25, "frequency": "BID", "notes": "Use liquid only", "concentrations": ["25 mg/mL"] },
+          "bird_medium": { "dose_mg_kg": 25, "frequency": "BID", "notes": "Use liquid only", "concentrations": ["25 mg/mL"] },
+          "bird_large": { "dose_mg_kg": 25, "frequency": "BID", "notes": "Use liquid only", "concentrations": ["25 mg/mL"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Itraconazole": {
+      "category": "Antifungal (Azole)",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "rabbit": { "dose_mg_kg": 5, "frequency": "BID", "notes": "", "concentrations": ["10 mg/mL (compounded)", "100 mg/capsule"] },
+          "ferret": { "dose_mg_kg": 10, "frequency": "SID", "notes": "For adrenal disease", "concentrations": ["10 mg/mL (compounded)"] },
+          "hedgehog": { "dose_mg_kg": 10, "frequency": "SID", "notes": "For systemic mycoses", "concentrations": ["10 mg/mL (compounded)", "100 mg/capsule"] },
+          "bird_small": { "dose_mg_kg": 10, "frequency": "BID", "notes": "For aspergillosis", "concentrations": ["10 mg/mL (compounded)"] },
+          "bird_medium": { "dose_mg_kg": 10, "frequency": "BID", "notes": "For aspergillosis", "concentrations": ["10 mg/mL (compounded)"] },
+          "bird_large": { "dose_mg_kg": 10, "frequency": "BID", "notes": "For aspergillosis", "concentrations": ["10 mg/mL (compounded)"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Ivermectin": {
+      "category": "Antiparasitic (Avermectin)",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "rabbit": { "dose_mg_kg": 0.4, "frequency": "Repeat in 14 days", "notes": "For mites, use with caution", "concentrations": ["10 mg/mL (cattle pour-on diluted)", "1% injectable (use 1:9 dilution)", "0.27 mg/tablet"] },
+          "guinea_pig": { "dose_mg_kg": 0.5, "frequency": "Repeat in 14 days", "notes": "For mites", "concentrations": ["10 mg/mL (cattle pour-on diluted)", "1% injectable (use 1:9 dilution)", "0.18 mg/tablet"] },
+          "hedgehog": { "dose_mg_kg": 0.3, "frequency": "Repeat in 14 days", "notes": "SC preferred route", "concentrations": ["10 mg/mL"] }
+        },
+        "injectable": {
+          "rabbit": { "dose_mg_kg": 0.4, "frequency": "Repeat in 14 days", "routes": ["SC"], "notes": "Dilute for accurate dosing", "concentrations": ["10 mg/mL (cattle)", "1% (10 mg/mL)"] },
+          "guinea_pig": { "dose_mg_kg": 0.5, "frequency": "Repeat in 14 days", "routes": ["SC"], "notes": "", "concentrations": ["10 mg/mL (cattle)", "1% (10 mg/mL)"] },
+          "hedgehog": { "dose_mg_kg": 0.3, "frequency": "Repeat in 14 days", "routes": ["SC", "PO"], "notes": "", "concentrations": ["10 mg/mL (cattle)", "1% (10 mg/mL)"] },
+          "reptile_snake": { "dose_mg_kg": 0.2, "frequency": "Once, repeat in 14 days", "routes": ["SC", "PO"], "notes": "For mites", "concentrations": ["10 mg/mL (cattle)", "1% (10 mg/mL)"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Fenbendazole": {
+      "category": "Antiparasitic (Benzimidazole)",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "rabbit": { "dose_mg_kg": 20, "frequency": "SID x 5 days", "notes": "For giardia, use 50 mg/kg", "concentrations": ["100 mg/mL", "222 mg/mL", "222 mg/g (paste)", "22.2% granules"] },
+          "ferret": { "dose_mg_kg": 20, "frequency": "SID x 3 days", "notes": "Repeat in 2-3 weeks", "concentrations": ["100 mg/mL", "222 mg/mL", "222 mg/g (paste)"] },
+          "guinea_pig": { "dose_mg_kg": 20, "frequency": "SID x 5 days", "notes": "", "concentrations": ["100 mg/mL", "222 mg/mL", "222 mg/g (paste)"] },
+          "chinchilla": { "dose_mg_kg": 50, "frequency": "SID x 3 days", "notes": "For giardia", "concentrations": ["100 mg/mL", "222 mg/mL", "222 mg/g (paste)"] },
+          "hedgehog": { "dose_mg_kg": 20, "frequency": "SID x 3 days", "notes": "", "concentrations": ["100 mg/mL", "222 mg/mL", "222 mg/g (paste)"] },
+          "reptile_snake": { "dose_mg_kg": 50, "frequency": "Once, repeat in 14 days", "notes": "For nematodes", "concentrations": ["100 mg/mL", "222 mg/mL", "222 mg/g (paste)"] },
+          "reptile_lizard": { "dose_mg_kg": 50, "frequency": "Once, repeat in 14 days", "notes": "For nematodes", "concentrations": ["100 mg/mL", "222 mg/mL", "222 mg/g (paste)"] },
+          "reptile_chelonian": { "dose_mg_kg": 50, "frequency": "Once, repeat in 14 days", "notes": "For nematodes", "concentrations": ["100 mg/mL", "222 mg/mL", "222 mg/g (paste)"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Atropine": {
+      "category": "Anticholinergic",
+      "controlled": false,
+      "forms": {
+        "injectable": {
+          "rabbit": { "dose_mg_kg": 0.1, "frequency": "Once", "routes": ["SC", "IM", "IV"], "notes": "For bradycardia, organophosphate toxicity", "concentrations": ["0.54 mg/mL", "0.4 mg/mL", "1 mg/mL"] },
+          "guinea_pig": { "dose_mg_kg": 0.05, "frequency": "Once", "routes": ["SC", "IM"], "notes": "", "concentrations": ["0.54 mg/mL", "0.4 mg/mL"] },
+          "rat": { "dose_mg_kg": 0.05, "frequency": "Once", "routes": ["SC", "IP"], "notes": "", "concentrations": ["0.54 mg/mL", "0.4 mg/mL"] },
+          "mouse": { "dose_mg_kg": 0.05, "frequency": "Once", "routes": ["SC"], "notes": "", "concentrations": ["0.54 mg/mL", "0.4 mg/mL"] },
+          "bird_small": { "dose_mg_kg": 0.02, "frequency": "Once", "routes": ["IM", "IV"], "notes": "For organophosphate toxicity", "concentrations": ["0.54 mg/mL", "0.4 mg/mL"] },
+          "bird_medium": { "dose_mg_kg": 0.02, "frequency": "Once", "routes": ["IM", "IV"], "notes": "For organophosphate toxicity", "concentrations": ["0.54 mg/mL", "0.4 mg/mL"] },
+          "bird_large": { "dose_mg_kg": 0.02, "frequency": "Once", "routes": ["IM", "IV"], "notes": "For organophosphate toxicity", "concentrations": ["0.54 mg/mL", "0.4 mg/mL"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Calcium Gluconate": {
+      "category": "Electrolyte/Mineral",
+      "controlled": false,
+      "forms": {
+        "injectable": {
+          "bird_small": { "dose_mg_kg": 100, "frequency": "Slow IV", "routes": ["IV", "IM"], "notes": "For hypocalcemia, egg binding", "concentrations": ["100 mg/mL (10%)", "230 mg/mL (23%)"] },
+          "bird_medium": { "dose_mg_kg": 100, "frequency": "Slow IV", "routes": ["IV", "IM"], "notes": "For hypocalcemia, egg binding", "concentrations": ["100 mg/mL (10%)", "230 mg/mL (23%)"] },
+          "bird_large": { "dose_mg_kg": 100, "frequency": "Slow IV", "routes": ["IV", "IM"], "notes": "For hypocalcemia, egg binding", "concentrations": ["100 mg/mL (10%)", "230 mg/mL (23%)"] },
+          "reptile_lizard": { "dose_mg_kg": 100, "frequency": "SID", "routes": ["SC", "IM", "IV"], "notes": "For hypocalcemia, MBD", "concentrations": ["100 mg/mL (10%)", "230 mg/mL (23%)"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Metronidazole": {
+      "category": "Antibiotic/Antiprotozoal",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "rabbit": { "dose_mg_kg": 20, "frequency": "BID", "notes": "For anaerobes, giardia", "concentrations": ["50 mg/mL", "250 mg/tablet", "500 mg/tablet"] },
+          "guinea_pig": { "dose_mg_kg": 25, "frequency": "BID", "notes": "", "concentrations": ["50 mg/mL", "250 mg/tablet", "500 mg/tablet"] },
+          "hedgehog": { "dose_mg_kg": 20, "frequency": "SID", "notes": "", "concentrations": ["50 mg/mL", "250 mg/tablet"] },
+          "reptile_snake": { "dose_mg_kg": 20, "frequency": "SID", "notes": "For amoebiasis", "concentrations": ["50 mg/mL", "250 mg/tablet", "500 mg/tablet"] },
+          "reptile_lizard": { "dose_mg_kg": 20, "frequency": "SID", "notes": "For amoebiasis", "concentrations": ["50 mg/mL", "250 mg/tablet", "500 mg/tablet"] },
+          "reptile_chelonian": { "dose_mg_kg": 20, "frequency": "SID", "notes": "For amoebiasis", "concentrations": ["50 mg/mL", "250 mg/tablet", "500 mg/tablet"] }
+        },
+        "injectable": {
+          "rabbit": { "dose_mg_kg": 10, "frequency": "BID", "routes": ["IV", "IM"], "notes": "", "concentrations": ["5 mg/mL"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Ceftazidime": {
+      "category": "Antibiotic (3rd Gen Cephalosporin)",
+      "controlled": false,
+      "forms": {
+        "injectable": {
+          "reptile_snake": { "dose_mg_kg": 20, "frequency": "SID", "routes": ["IM", "SC"], "notes": "Excellent for gram-negatives", "concentrations": ["1 g vial (reconstitute to 100 mg/mL)", "2 g vial", "6 g vial"] },
+          "reptile_lizard": { "dose_mg_kg": 20, "frequency": "SID", "routes": ["IM", "SC"], "notes": "Excellent for gram-negatives", "concentrations": ["1 g vial (reconstitute to 100 mg/mL)", "2 g vial", "6 g vial"] },
+          "reptile_chelonian": { "dose_mg_kg": 20, "frequency": "SID", "routes": ["IM"], "notes": "Excellent for gram-negatives", "concentrations": ["1 g vial (reconstitute to 100 mg/mL)", "2 g vial", "6 g vial"] },
+          "bird_small": { "dose_mg_kg": 75, "frequency": "BID-TID", "routes": ["IM"], "notes": "Severe infections only", "concentrations": ["1 g vial (reconstitute to 100 mg/mL)", "2 g vial", "6 g vial"] },
+          "bird_medium": { "dose_mg_kg": 75, "frequency": "BID-TID", "routes": ["IM"], "notes": "Severe infections only", "concentrations": ["1 g vial (reconstitute to 100 mg/mL)", "2 g vial", "6 g vial"] },
+          "bird_large": { "dose_mg_kg": 75, "frequency": "BID-TID", "routes": ["IM"], "notes": "Severe infections only", "concentrations": ["1 g vial (reconstitute to 100 mg/mL)", "2 g vial", "6 g vial"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    },
+    "Amoxicillin-Clavulanate": {
+      "category": "Antibiotic (Potentiated Penicillin)",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "ferret": { "dose_mg_kg": 12.5, "frequency": "BID", "notes": "Of amoxicillin component", "concentrations": ["62.5 mg/mL", "400 mg/57 mg per 5 mL", "875 mg/125 mg tablet"] },
+          "hedgehog": { "dose_mg_kg": 12.5, "frequency": "BID", "notes": "", "concentrations": ["62.5 mg/mL", "400 mg/57 mg per 5 mL", "875 mg/125 mg tablet"] },
+          "sugar_glider": { "dose_mg_kg": 12.5, "frequency": "BID", "notes": "", "concentrations": ["62.5 mg/mL"] }
+        }
+      },
+      "reference": "Carpenter's Exotic Animal Formulary"
+    }
+  }
+}

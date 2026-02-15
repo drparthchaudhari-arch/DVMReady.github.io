@@ -258,6 +258,10 @@
                 <span class="pc-calc-related__icon">📅</span>
                 <span>Chronic Medication</span>
               </button>
+              <a href="/tools/exotic-dose-calculator.html" class="pc-calc-related__item" style="justify-content: flex-start; background: rgba(99, 102, 241, 0.1);">
+                <span class="pc-calc-related__icon">🦜</span>
+                <span>Exotic Pet Label →</span>
+              </a>
             </div>
           </div>
         </div>
@@ -710,9 +714,83 @@
         showToast('Label generated', 'success');
       });
 
+      // Load exotic template from URL parameters
+      function loadFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        const template = params.get('template');
+        
+        if (template === 'exotic') {
+          // Load exotic calculator data
+          const drug = params.get('drug');
+          const mg = params.get('mg');
+          const ml = params.get('ml');
+          const freq = params.get('freq');
+          const route = params.get('route');
+          const species = params.get('species');
+          
+          if (drug) document.getElementById('label-med').value = drug;
+          if (mg && ml) {
+            document.getElementById('label-dose').value = `${mg} mg (${ml} mL)`;
+            document.getElementById('label-total-amount').value = `${ml} mL`;
+          }
+          if (freq) document.getElementById('label-frequency').value = freq;
+          if (species) {
+            const speciesDisplay = species.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            document.getElementById('label-instructions').value = `Route: ${route || 'As directed'}. For ${speciesDisplay}. Verify dose with exotic formulary.`;
+          }
+          
+          document.getElementById('label-form-type').value = 'Liquid';
+          document.getElementById('label-duration').value = '7';
+          
+          generateLabel();
+          updateProgress();
+          showToast('Exotic dose loaded from calculator', 'success');
+        }
+      }
+
+      // Exotic drug templates
+      function loadExoticTemplate(species, drug) {
+        const exoticTemplates = {
+          'rabbit': {
+            'Enrofloxacin': { dose: '5 mg/kg (0.22 mL)', freq: 'Once daily', form: 'Liquid', instr: 'Give oral. Avoid in young rabbits.' },
+            'Meloxicam': { dose: '0.3 mg/kg (0.6 mL)', freq: 'Once daily', form: 'Liquid', instr: 'Give with food. Start at lower dose.' },
+            'Metronidazole': { dose: '20 mg/kg', freq: 'Twice daily', form: 'Liquid', instr: 'For anaerobic infections.' }
+          },
+          'ferret': {
+            'Prednisone': { dose: '0.5 mg/kg', freq: 'Once daily', form: 'Tablets', instr: 'For insulinoma. Monitor blood glucose.' },
+            'Meloxicam': { dose: '0.2 mg/kg (0.4 mL)', freq: 'Once daily', form: 'Liquid', instr: 'Give with food.' },
+            'Enrofloxacin': { dose: '5 mg/kg (0.22 mL)', freq: 'Once-Twice daily', form: 'Liquid', instr: 'Give oral.' }
+          },
+          'guinea_pig': {
+            'Enrofloxacin': { dose: '5 mg/kg (0.22 mL)', freq: 'Once daily', form: 'Liquid', instr: 'Safe in guinea pigs. Use cautiously.' },
+            'Meloxicam': { dose: '0.3 mg/kg (0.6 mL)', freq: 'Once daily', form: 'Liquid', instr: 'Give with food.' },
+            'Buprenorphine': { dose: '0.05 mg/kg', freq: 'Twice daily', form: 'Injection', instr: 'SC injection for pain.' }
+          },
+          'bird': {
+            'Enrofloxacin': { dose: '15 mg/kg (0.66 mL)', freq: 'Twice daily', form: 'Liquid', instr: 'Give oral. Mix with fruit juice if needed.' },
+            'Meloxicam': { dose: '0.5 mg/kg', freq: 'Twice daily', form: 'Liquid', instr: 'For pain and inflammation.' },
+            'Itraconazole': { dose: '10 mg/kg', freq: 'Twice daily', form: 'Liquid', instr: 'For aspergillosis. Use compounded liquid.' }
+          },
+          'reptile': {
+            'Enrofloxacin': { dose: '5 mg/kg (0.22 mL)', freq: 'Once daily', form: 'Injectable', instr: 'IM or SC injection.' },
+            'Ceftazidime': { dose: '20 mg/kg', freq: 'Once daily', form: 'Injectable', instr: 'IM injection. Reconstitute fresh.' },
+            'Meloxicam': { dose: '0.2 mg/kg', freq: 'Once daily', form: 'Injectable', instr: 'SC injection for pain.' }
+          }
+        };
+        
+        // Find matching template
+        for (const [sp, drugs] of Object.entries(exoticTemplates)) {
+          if (species.includes(sp) && drugs[drug]) {
+            return drugs[drug];
+          }
+        }
+        return null;
+      }
+
       // Initial setup
       document.addEventListener('DOMContentLoaded', function() {
         updateProgress();
+        loadFromURL(); // Load data from URL if present
       });
     </script>
   </body>

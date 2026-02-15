@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author-status" content="NAVLE-candidate-unlicensed" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
+    <title>Exotic Drug Calculator | VetLudics Tools</title>
+    <meta name="description" content="Species-specific dose calculator for exotic pets - rabbits, ferrets, rodents, birds, and reptiles." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Exotic Drug Calculator | VetLudics Tools" />
+    <meta property="og:description" content="Calculate drug doses for exotic animals with verified formulary data." />
+    <meta property="og:url" content="https://parthchaudhari.com/tools/exotic-dose-calculator.html" />
+    <link rel="canonical" href="https://parthchaudhari.com/tools/exotic-dose-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-print.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/legal-compliance.js" defer></script>
+    <script src="/assets/js/calculator-print.js" defer></script>
+    <script src="/assets/js/preferences.js" defer></script>
+    <script src="/assets/js/auth-system.js" defer></script>
+    <script src="/assets/js/animations.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-float-shape pc-float-shape--1"></div>
+    <div class="pc-float-shape pc-float-shape--2"></div>
+    <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+    <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+    <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+    <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+    <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+    <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+    
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <span class="pc-logo__icon">🐾</span>
+          <span class="pc-logo__text">VetLudics</span>
+        </a>
+        <form class="pc-nav-search" action="/search.html" method="get" role="search">
+          <div class="pc-search-wrapper">
+            <svg class="pc-search-icon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+            <input type="search" name="q" class="pc-search-input pc-search-input--nav" placeholder="Search calculators, topics..." aria-label="Search veterinary calculators" autocomplete="off">
+            <kbd class="pc-search-shortcut">⌘K</kbd>
+          </div>
+        </form>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+      
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/play/">
+            <span class="pc-mobile-nav-link__icon">🎮</span>
+            <span class="pc-mobile-nav-link__text">Play</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/bridge/">
+            <span class="pc-mobile-nav-link__icon">🌉</span>
+            <span class="pc-mobile-nav-link__text">Bridge</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/search.html">
+            <span class="pc-mobile-nav-link__icon">🔍</span>
+            <span class="pc-mobile-nav-link__text">Search</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/study/">
+            <span class="pc-mobile-nav-link__icon">📚</span>
+            <span class="pc-mobile-nav-link__text">Study Plan</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/account/">
+            <span class="pc-mobile-nav-link__icon">👤</span>
+            <span class="pc-mobile-nav-link__text">Account</span>
+          </a>
+        </nav>
+        <div class="pc-mobile-menu__footer">
+          <p style="color: var(--pc-text-muted); font-size: 0.85rem;">© 2025 VetLudics</p>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="pc-calc-dashboard" role="main" style="padding-top: calc(5rem + env(safe-area-inset-top));">
+      <!-- Header -->
+      <header class="pc-calc-header pc-calc-animate">
+        <div class="pc-calc-header__title">
+          <div class="pc-calc-header__icon">🦜</div>
+          <div class="pc-calc-header__text">
+            <h1>Exotic Drug Calculator</h1>
+            <p>Species-specific dosing for exotic pets</p>
+          </div>
+        </div>
+        <div class="pc-calc-header__actions">
+          <div class="pc-calc-quick-actions">
+            <button type="button" class="pc-calc-action-btn" onclick="generateLabel()" title="Generate drug label">
+              <span>🏷️</span> Label
+            </button>
+            <button type="button" class="pc-calc-action-btn" onclick="CalculatorPrint.printDoseCalculator()" title="Print calculation">
+              <span>🖨️</span> Print
+            </button>
+            <button type="button" class="pc-calc-action-btn" onclick="resetCalculator()" title="Reset all fields">
+              <span>↺</span> Reset
+            </button>
+            <a href="/tools/" class="pc-calc-action-btn">
+              <span>←</span> Back
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Input Panel -->
+      <aside class="pc-calc-inputs pc-calc-animate pc-calc-animate--1" aria-label="Calculator inputs">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📝</span>
+              Patient & Drug
+            </span>
+          </div>
+          <div class="pc-calc-panel__content">
+            <form id="exotic-dose-form" novalidate>
+              <!-- Species (First Selection) -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Species</span>
+                  <span class="pc-calc-field__hint">Required</span>
+                </div>
+                <select id="species-select" class="pc-calc-input" onchange="onSpeciesSelect()">
+                  <option value="">Select species...</option>
+                  <optgroup label="Mammals">
+                    <option value="rabbit">🐰 Rabbit</option>
+                    <option value="ferret">🦨 Ferret</option>
+                    <option value="guinea_pig">🐹 Guinea Pig</option>
+                    <option value="rat">🐀 Rat</option>
+                    <option value="mouse">🐁 Mouse</option>
+                    <option value="hamster">🐹 Hamster</option>
+                    <option value="chinchilla">🐭 Chinchilla</option>
+                    <option value="hedgehog">🦔 Hedgehog</option>
+                    <option value="sugar_glider">🐿️ Sugar Glider</option>
+                  </optgroup>
+                  <optgroup label="Birds">
+                    <option value="bird_small">🐦 Small Bird (Canary/Finch)</option>
+                    <option value="bird_medium">🦜 Medium Bird (Cockatiel/Lovebird)</option>
+                    <option value="bird_large">🦅 Large Bird (Parrot/Cockatoo)</option>
+                  </optgroup>
+                  <optgroup label="Reptiles">
+                    <option value="reptile_snake">🐍 Snake</option>
+                    <option value="reptile_lizard">🦎 Lizard</option>
+                    <option value="reptile_chelonian">🐢 Turtle/Tortoise</option>
+                  </optgroup>
+                </select>
+                <div id="species-info" style="margin-top: 0.5rem; padding: 0.5rem; background: rgba(99, 102, 241, 0.1); border-radius: 6px; font-size: 0.75rem; display: none;">
+                  <span id="species-weight-range"></span>
+                </div>
+              </div>
+
+              <!-- Weight -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Weight</span>
+                  <span class="pc-calc-field__hint">kg</span>
+                </div>
+                <input id="weight" class="pc-calc-input pc-calc-input--number" type="number" min="0.001" step="0.001" value="" placeholder="Enter weight" required oninput="onInputChange()" />
+                <div class="pc-calc-chips" id="weight-presets">
+                  <!-- Dynamic weight chips based on species -->
+                </div>
+              </div>
+
+              <!-- Drug -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Drug</span>
+                  <span class="pc-calc-field__hint" id="drug-controlled-hint" style="display: none; color: #dc2626;">🔒 Controlled</span>
+                </div>
+                <select id="drug-select" class="pc-calc-input" onchange="onDrugSelect()" disabled>
+                  <option value="">Select species first...</option>
+                </select>
+                <div id="controlled-warning" style="display: none; margin-top: 0.5rem; padding: 0.5rem; background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; font-size: 0.75rem; color: #991b1b;">
+                  <strong>⚠️ DEA Controlled Substance</strong><br>
+                  Use requires proper documentation.
+                </div>
+              </div>
+
+              <!-- Dosage Form -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Dosage Form</span>
+                </div>
+                <select id="dosage-form" class="pc-calc-input" onchange="onDosageFormChange()" disabled>
+                  <option value="">Select drug first...</option>
+                </select>
+              </div>
+
+              <!-- Route (for injectable) -->
+              <div class="pc-calc-field" id="route-field" style="display: none;">
+                <div class="pc-calc-field__label">
+                  <span>Route</span>
+                </div>
+                <select id="route-select" class="pc-calc-input" onchange="onInputChange()">
+                  <option value="IV">IV (Intravenous)</option>
+                  <option value="IM">IM (Intramuscular)</option>
+                  <option value="SC">SC (Subcutaneous)</option>
+                  <option value="IP">IP (Intraperitoneal)</option>
+                  <option value="PO">PO (Per Os/Oral)</option>
+                </select>
+              </div>
+
+              <!-- Concentration -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Concentration</span>
+                  <span class="pc-calc-field__hint" id="conc-unit-hint">mg/mL</span>
+                </div>
+                <input id="concentration" class="pc-calc-input pc-calc-input--number" type="number" min="0.0001" step="0.0001" placeholder="Select from chips or enter" list="dose-concentration-list" required oninput="onInputChange()" />
+                <datalist id="dose-concentration-list"></datalist>
+                <div class="pc-calc-chips" id="concentration-chips">
+                  <!-- Dynamic concentration chips -->
+                </div>
+              </div>
+
+              <button type="submit" class="pc-calc-submit" id="calc-btn">
+                <span>🧮</span> Calculate Dose
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Related Tools -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--2">
+          <div class="pc-calc-related">
+            <div class="pc-calc-related__title">Related Tools</div>
+            <div class="pc-calc-related__grid">
+              <a href="/tools/dose-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💊</span>
+                <span>Dog/Cat Calc</span>
+              </a>
+              <a href="/tools/cri-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💉</span>
+                <span>CRI Calc</span>
+              </a>
+              <a href="/tools/fluid-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💧</span>
+                <span>Fluids</span>
+              </a>
+              <a href="/tools/dose-label-generator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">🏷️</span>
+                <span>Labels</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <section class="pc-calc-main pc-calc-animate pc-calc-animate--2" aria-label="Drug information and context">
+        <div class="pc-calc-viz">
+          <div class="pc-calc-viz__header">
+            <span class="pc-calc-viz__title">Drug Reference</span>
+          </div>
+          
+          <div id="drug-info-container">
+            <div class="pc-calc-drug-info" id="drug-info-card">
+              <div class="pc-calc-drug-info__header">
+                <div class="pc-calc-drug-info__icon">🦜</div>
+                <div>
+                  <div class="pc-calc-drug-info__name" id="drug-name">Select species and drug</div>
+                  <div class="pc-calc-drug-info__category" id="drug-category">Choose from the dropdowns to see exotic-specific details</div>
+                </div>
+              </div>
+              <div class="pc-calc-drug-info__grid" id="drug-details" style="opacity: 0.5;">
+                <div class="pc-calc-drug-info__item">
+                  <div class="pc-calc-drug-info__label">Dose Range</div>
+                  <div class="pc-calc-drug-info__value" id="drug-dose">-</div>
+                </div>
+                <div class="pc-calc-drug-info__item">
+                  <div class="pc-calc-drug-info__label">Frequency</div>
+                  <div class="pc-calc-drug-info__value" id="drug-frequency">-</div>
+                </div>
+                <div class="pc-calc-drug-info__item">
+                  <div class="pc-calc-drug-info__label">Route</div>
+                  <div class="pc-calc-drug-info__value" id="drug-route">-</div>
+                </div>
+                <div class="pc-calc-drug-info__item">
+                  <div class="pc-calc-drug-info__label">Category</div>
+                  <div class="pc-calc-drug-info__value" id="drug-class">-</div>
+                </div>
+              </div>
+              <div id="drug-notes" style="margin-top: 1rem; padding: 0.75rem; background: rgba(234, 179, 8, 0.1); border-radius: 6px; font-size: 0.8125rem; display: none;">
+                <strong>⚠️ Species Notes:</strong> <span id="drug-notes-text"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formula Display -->
+          <div class="pc-calc-formula">
+            <div class="pc-calc-formula__label">Calculation Formula</div>
+            <div class="pc-calc-formula__math" id="formula-display">
+              <span class="pc-calc-formula__highlight">Dose (mg)</span> = Weight (kg) × Dose (mg/kg)<br>
+              <span class="pc-calc-formula__highlight">Volume (mL)</span> = Dose (mg) ÷ Concentration (mg/mL)
+            </div>
+          </div>
+
+          <!-- Safety Alert -->
+          <div id="safety-alert" class="pc-calc-alert pc-calc-alert--warning" style="display: none;">
+            <div class="pc-calc-alert__icon">⚠️</div>
+            <div class="pc-calc-alert__content">
+              <div class="pc-calc-alert__title" id="alert-title">Safety Check</div>
+              <div class="pc-calc-alert__text" id="alert-text">Always verify exotic doses with Carpenter's Formulary.</div>
+            </div>
+          </div>
+
+          <!-- Quick Tips -->
+          <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--calc-glass-border);">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              💡 Exotic Tips
+            </div>
+            <ul style="font-size: 0.8125rem; color: var(--calc-text-muted); line-height: 1.8; margin: 0; padding-left: 1.25rem;">
+              <li>Weigh small patients in grams for accuracy</li>
+              <li>Dilute concentrated drugs for precise dosing</li>
+              <li>Many exotic drugs are off-label - document consent</li>
+              <li>Therapeutic windows vary widely between species</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results Panel -->
+      <aside class="pc-calc-results pc-calc-animate pc-calc-animate--3" aria-label="Calculation results" aria-live="polite">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📊</span>
+              Results
+            </span>
+            <button type="button" class="pc-calc-copy" onclick="copyResults()" title="Copy results">
+              📋
+            </button>
+          </div>
+          <div class="pc-calc-panel__content">
+            <!-- Primary Result -->
+            <div class="pc-calc-result-card pc-calc-result-card--primary" id="result-primary">
+              <div class="pc-calc-result__label">
+                <span>💉</span> Dose Volume
+              </div>
+              <div class="pc-calc-result__value">
+                <span id="result-ml">--</span>
+                <span class="pc-calc-result__unit">mL</span>
+              </div>
+              <div class="pc-calc-result__context" id="result-dose-context">Enter values to calculate</div>
+            </div>
+
+            <!-- Secondary Results -->
+            <div class="pc-calc-result-card" id="result-mg-card">
+              <div class="pc-calc-result__label">
+                <span>⚗️</span> Dose Amount
+              </div>
+              <div class="pc-calc-result__value">
+                <span id="result-mg">--</span>
+                <span class="pc-calc-result__unit">mg</span>
+              </div>
+              <div class="pc-calc-result__context" id="result-mg-context">Total drug amount</div>
+            </div>
+
+            <div class="pc-calc-result-card" id="result-daily-card">
+              <div class="pc-calc-result__label">
+                <span>📅</span> Frequency
+              </div>
+              <div class="pc-calc-result__value">
+                <span id="result-frequency">--</span>
+              </div>
+              <div class="pc-calc-result__context" id="result-frequency-context">Dosing interval</div>
+            </div>
+
+            <div class="pc-calc-result-card" id="result-route-card">
+              <div class="pc-calc-result__label">
+                <span>🎯</span> Route
+              </div>
+              <div class="pc-calc-result__value">
+                <span id="result-route">--</span>
+              </div>
+              <div class="pc-calc-result__context" id="result-route-context">Administration route</div>
+            </div>
+
+            <!-- Progress indicator -->
+            <div class="pc-calc-progress" style="margin-top: 1rem;">
+              <div class="pc-calc-progress__bar" id="calc-progress" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Label Preview -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--4" id="label-preview-panel" style="display: none;">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">🏷️</span>
+              Label Preview
+            </span>
+          </div>
+          <div class="pc-calc-panel__content" style="padding: 1rem;">
+            <div id="label-preview" style="background: white; color: black; padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 0.75rem; border: 1px solid #ccc;">
+              <!-- Label content will be generated here -->
+            </div>
+            <button type="button" class="pc-calc-submit" style="margin-top: 1rem;" onclick="window.location.href='/tools/dose-label-generator.html' + getLabelParams()">
+              <span>🏷️</span> Open in Label Maker
+            </button>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div style="padding: 0.75rem; font-size: 0.6875rem; color: var(--calc-text-muted); text-align: center; line-height: 1.5;">
+          Based on Carpenter's Exotic Animal Formulary. Always verify with current references.
+        </div>
+      </aside>
+    </main>
+
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal" style="margin-top: 0;">
+      <div class="pc-footer__bottom">
+        <div class="pc-footer__legal">
+          <a href="/">Home</a>
+          <a href="/tools/">Tools</a>
+          <a href="/reference/">References</a>
+          <a href="/privacy/">Privacy</a>
+        </div>
+        <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
+      </div>
+    </footer>
+
+    <script>
+      // Global variables
+      let exoticData = null;
+      let currentSpecies = null;
+      let currentDrug = null;
+      let currentForm = null;
+      let autoCalcEnabled = true;
+
+      // Load exotic drug data on init
+      async function loadExoticData() {
+        try {
+          const response = await fetch('/content/exotic_drugs.json', { cache: 'no-store' });
+          if (!response.ok) throw new Error('Failed to load');
+          exoticData = await response.json();
+          console.log('Exotic drug data loaded:', Object.keys(exoticData.species).length, 'species');
+        } catch (error) {
+          console.error('Failed to load exotic drugs:', error);
+          showToast('Error loading drug database', 'error');
+        }
+      }
+
+      // Species selection handler
+      function onSpeciesSelect() {
+        const speciesSelect = document.getElementById('species-select');
+        const drugSelect = document.getElementById('drug-select');
+        const speciesInfo = document.getElementById('species-info');
+        const weightRange = document.getElementById('species-weight-range');
+        
+        currentSpecies = speciesSelect.value;
+        
+        if (!currentSpecies || !exoticData) {
+          drugSelect.innerHTML = '<option value="">Select species first...</option>';
+          drugSelect.disabled = true;
+          speciesInfo.style.display = 'none';
+          return;
+        }
+        
+        const speciesData = exoticData.species[currentSpecies];
+        if (!speciesData) return;
+        
+        // Show species info
+        weightRange.textContent = `Typical weight: ${speciesData.weight_range_kg.min}-${speciesData.weight_range_kg.max} kg (default: ${speciesData.default_weight_kg} kg)`;
+        speciesInfo.style.display = 'block';
+        
+        // Set default weight
+        document.getElementById('weight').value = speciesData.default_weight_kg;
+        
+        // Populate weight presets
+        const presetContainer = document.getElementById('weight-presets');
+        const min = speciesData.weight_range_kg.min;
+        const max = speciesData.weight_range_kg.max;
+        const mid = (min + max) / 2;
+        presetContainer.innerHTML = `
+          <button type="button" class="pc-calc-chip" onclick="setWeight(${min.toFixed(3)})">${min.toFixed(2)} kg</button>
+          <button type="button" class="pc-calc-chip" onclick="setWeight(${speciesData.default_weight_kg})">${speciesData.default_weight_kg} kg</button>
+          ${max > speciesData.default_weight_kg ? `<button type="button" class="pc-calc-chip" onclick="setWeight(${mid.toFixed(3)})">${mid.toFixed(2)} kg</button>` : ''}
+          ${max > min * 2 ? `<button type="button" class="pc-calc-chip" onclick="setWeight(${max.toFixed(3)})">${max.toFixed(2)} kg</button>` : ''}
+        `;
+        
+        // Populate drugs for this species
+        drugSelect.innerHTML = '<option value="">Select drug...</option>';
+        speciesData.drugs.forEach(drugName => {
+          const drug = exoticData.drugs[drugName];
+          if (drug) {
+            const option = document.createElement('option');
+            option.value = drugName;
+            option.textContent = `${drug.controlled ? '🔒 ' : ''}${drugName}`;
+            drugSelect.appendChild(option);
+          }
+        });
+        drugSelect.disabled = false;
+        
+        // Reset downstream fields
+        document.getElementById('dosage-form').innerHTML = '<option value="">Select drug first...</option>';
+        document.getElementById('dosage-form').disabled = true;
+        document.getElementById('concentration').value = '';
+        document.getElementById('concentration-chips').innerHTML = '';
+        
+        updateProgress();
+      }
+
+      // Drug selection handler
+      function onDrugSelect() {
+        const drugSelect = document.getElementById('drug-select');
+        const formSelect = document.getElementById('dosage-form');
+        const controlledHint = document.getElementById('drug-controlled-hint');
+        const controlledWarning = document.getElementById('controlled-warning');
+        
+        const drugName = drugSelect.value;
+        currentDrug = drugName ? exoticData.drugs[drugName] : null;
+        
+        // Update drug info display
+        if (currentDrug) {
+          document.getElementById('drug-name').textContent = drugName;
+          document.getElementById('drug-category').textContent = currentDrug.category;
+          document.getElementById('drug-class').textContent = currentDrug.category;
+          document.getElementById('drug-details').style.opacity = '1';
+          
+          // Show controlled warning
+          if (currentDrug.controlled) {
+            controlledHint.style.display = 'inline';
+            controlledHint.textContent = `🔒 Schedule ${currentDrug.schedule || 'II-V'}`;
+            controlledWarning.style.display = 'block';
+          } else {
+            controlledHint.style.display = 'none';
+            controlledWarning.style.display = 'none';
+          }
+          
+          // Populate form options
+          formSelect.innerHTML = '<option value="">Select form...</option>';
+          const forms = Object.keys(currentDrug.forms);
+          
+          // Check if this drug has data for current species
+          const hasOral = forms.includes('oral') && currentDrug.forms.oral[currentSpecies];
+          const hasInjectable = forms.includes('injectable') && currentDrug.forms.injectable[currentSpecies];
+          
+          if (hasOral) {
+            const opt = document.createElement('option');
+            opt.value = 'oral';
+            opt.textContent = '💊 Oral';
+            formSelect.appendChild(opt);
+          }
+          if (hasInjectable) {
+            const opt = document.createElement('option');
+            opt.value = 'injectable';
+            opt.textContent = '💉 Injectable';
+            formSelect.appendChild(opt);
+          }
+          
+          if (!hasOral && !hasInjectable) {
+            formSelect.innerHTML = '<option value="">Not available for this species</option>';
+          }
+          
+          formSelect.disabled = false;
+        } else {
+          document.getElementById('drug-name').textContent = 'Select species and drug';
+          document.getElementById('drug-category').textContent = 'Choose from the dropdowns to see exotic-specific details';
+          document.getElementById('drug-details').style.opacity = '0.5';
+          controlledHint.style.display = 'none';
+          controlledWarning.style.display = 'none';
+          formSelect.innerHTML = '<option value="">Select drug first...</option>';
+          formSelect.disabled = true;
+        }
+        
+        updateProgress();
+      }
+
+      // Dosage form change handler
+      function onDosageFormChange() {
+        const formSelect = document.getElementById('dosage-form');
+        const routeField = document.getElementById('route-field');
+        const routeSelect = document.getElementById('route-select');
+        
+        currentForm = formSelect.value;
+        
+        if (!currentForm || !currentDrug || !currentSpecies) return;
+        
+        const formData = currentDrug.forms[currentForm];
+        const speciesData = formData[currentSpecies];
+        
+        if (!speciesData) return;
+        
+        // Show/hide route field
+        if (currentForm === 'injectable' && speciesData.routes) {
+          routeField.style.display = 'block';
+          routeSelect.innerHTML = '';
+          speciesData.routes.forEach(route => {
+            const opt = document.createElement('option');
+            opt.value = route;
+            opt.textContent = route;
+            routeSelect.appendChild(opt);
+          });
+        } else {
+          routeField.style.display = 'none';
+        }
+        
+        // Update concentration chips
+        updateConcentrationChips(speciesData.concentrations || []);
+        
+        // Update drug info
+        document.getElementById('drug-dose').textContent = `${speciesData.dose_mg_kg} mg/kg`;
+        document.getElementById('drug-frequency').textContent = speciesData.frequency;
+        document.getElementById('drug-route').textContent = speciesData.routes ? speciesData.routes.join(', ') : (currentForm === 'oral' ? 'PO' : 'Various');
+        
+        // Show notes if present
+        const notesDiv = document.getElementById('drug-notes');
+        if (speciesData.notes) {
+          document.getElementById('drug-notes-text').textContent = speciesData.notes;
+          notesDiv.style.display = 'block';
+        } else {
+          notesDiv.style.display = 'none';
+        }
+        
+        onInputChange();
+      }
+
+      // Update concentration chips
+      function updateConcentrationChips(concentrations) {
+        const container = document.getElementById('concentration-chips');
+        const unitHint = document.getElementById('conc-unit-hint');
+        
+        container.innerHTML = '';
+        
+        if (concentrations.length === 0) return;
+        
+        concentrations.forEach(conc => {
+          const chip = document.createElement('button');
+          chip.type = 'button';
+          chip.className = 'pc-calc-chip';
+          chip.textContent = conc;
+          
+          // Extract numeric value
+          const match = conc.match(/([0-9]*\.?[0-9]+)/);
+          if (match) {
+            chip.onclick = () => {
+              document.getElementById('concentration').value = match[1];
+              onInputChange();
+              // Highlight selected
+              container.querySelectorAll('.pc-calc-chip').forEach(c => c.classList.remove('pc-calc-chip--active'));
+              chip.classList.add('pc-calc-chip--active');
+            };
+          }
+          
+          container.appendChild(chip);
+        });
+        
+        // Auto-select first concentration
+        if (concentrations.length > 0) {
+          const firstMatch = concentrations[0].match(/([0-9]*\.?[0-9]+)/);
+          if (firstMatch) {
+            document.getElementById('concentration').value = firstMatch[1];
+          }
+        }
+      }
+
+      // Calculate dose
+      function calculateDose(event) {
+        if (event) event.preventDefault();
+        
+        const weight = parseFloat(document.getElementById('weight').value);
+        const concentration = parseFloat(document.getElementById('concentration').value);
+        
+        if (!currentSpecies || !currentDrug || !currentForm || !weight || !concentration) {
+          return;
+        }
+        
+        const formData = currentDrug.forms[currentForm];
+        const speciesData = formData[currentSpecies];
+        
+        if (!speciesData) return;
+        
+        const dosePerKg = speciesData.dose_mg_kg;
+        const mg = weight * dosePerKg;
+        const ml = mg / concentration;
+        
+        document.getElementById('result-mg').textContent = mg.toFixed(4);
+        document.getElementById('result-ml').textContent = ml.toFixed(4);
+        document.getElementById('result-frequency').textContent = speciesData.frequency;
+        document.getElementById('result-route').textContent = document.getElementById('route-select').value || (currentForm === 'oral' ? 'PO' : 'Injectable');
+        
+        document.getElementById('result-dose-context').textContent = `${weight} kg × ${dosePerKg} mg/kg = ${mg.toFixed(2)} mg`;
+        document.getElementById('result-mg-context').textContent = `÷ ${concentration} mg/mL = ${ml.toFixed(3)} mL`;
+        document.getElementById('result-frequency-context').textContent = speciesData.notes || 'Standard dosing';
+        document.getElementById('result-route-context').textContent = 'Verify route with reference';
+        
+        // Show label preview
+        document.getElementById('label-preview-panel').style.display = 'block';
+        updateLabelPreview();
+        
+        updateProgress();
+      }
+
+      // Update label preview
+      function updateLabelPreview() {
+        const drugName = document.getElementById('drug-select').value;
+        const species = document.getElementById('species-select').selectedOptions[0]?.text?.split(' ')[1] || '';
+        const mg = document.getElementById('result-mg').textContent;
+        const ml = document.getElementById('result-ml').textContent;
+        const freq = document.getElementById('result-frequency').textContent;
+        const route = document.getElementById('result-route').textContent;
+        
+        const labelHtml = `
+<div style="text-align: center; border-bottom: 2px solid black; padding-bottom: 4px; margin-bottom: 4px;">
+  <strong>${drugName}</strong>
+</div>
+<div>Species: ${species}</div>
+<div>Dose: ${mg} mg</div>
+<div>Give: ${ml} mL</div>
+<div>Route: ${route}</div>
+<div>Freq: ${freq}</div>
+<div style="margin-top: 4px; font-size: 0.6rem; text-align: center;">
+  VetLudics Exotic Calc
+</div>`;
+        
+        document.getElementById('label-preview').innerHTML = labelHtml;
+      }
+
+      // Generate label parameters for URL
+      function getLabelParams() {
+        const drug = document.getElementById('drug-select').value;
+        const mg = document.getElementById('result-mg').textContent;
+        const ml = document.getElementById('result-ml').textContent;
+        const freq = document.getElementById('result-frequency').textContent;
+        const route = document.getElementById('result-route').textContent;
+        const species = document.getElementById('species-select').value;
+        
+        const params = new URLSearchParams({
+          drug: drug,
+          mg: mg,
+          ml: ml,
+          freq: freq,
+          route: route,
+          species: species,
+          template: 'exotic'
+        });
+        
+        return '?' + params.toString();
+      }
+
+      // Input change handler
+      function onInputChange() {
+        if (autoCalcEnabled) {
+          calculateDose();
+        }
+        updateProgress();
+      }
+
+      // Update progress bar
+      function updateProgress() {
+        let progress = 0;
+        if (document.getElementById('species-select').value) progress += 25;
+        if (document.getElementById('weight').value) progress += 25;
+        if (document.getElementById('drug-select').value) progress += 25;
+        if (document.getElementById('concentration').value) progress += 25;
+        document.getElementById('calc-progress').style.width = progress + '%';
+      }
+
+      // Set weight from chip
+      function setWeight(weight) {
+        document.getElementById('weight').value = weight;
+        onInputChange();
+      }
+
+      // Reset calculator
+      function resetCalculator() {
+        document.getElementById('species-select').value = '';
+        document.getElementById('weight').value = '';
+        document.getElementById('drug-select').innerHTML = '<option value="">Select species first...</option>';
+        document.getElementById('drug-select').disabled = true;
+        document.getElementById('dosage-form').innerHTML = '<option value="">Select drug first...</option>';
+        document.getElementById('dosage-form').disabled = true;
+        document.getElementById('concentration').value = '';
+        document.getElementById('concentration-chips').innerHTML = '';
+        document.getElementById('weight-presets').innerHTML = '';
+        document.getElementById('species-info').style.display = 'none';
+        document.getElementById('route-field').style.display = 'none';
+        document.getElementById('drug-notes').style.display = 'none';
+        document.getElementById('label-preview-panel').style.display = 'none';
+        
+        // Reset results
+        document.getElementById('result-ml').textContent = '--';
+        document.getElementById('result-mg').textContent = '--';
+        document.getElementById('result-frequency').textContent = '--';
+        document.getElementById('result-route').textContent = '--';
+        document.getElementById('calc-progress').style.width = '0%';
+        
+        currentSpecies = null;
+        currentDrug = null;
+        currentForm = null;
+        
+        showToast('Calculator reset', 'info');
+      }
+
+      // Copy results
+      function copyResults() {
+        const drug = document.getElementById('drug-select').value;
+        const species = document.getElementById('species-select').value;
+        const mg = document.getElementById('result-mg').textContent;
+        const ml = document.getElementById('result-ml').textContent;
+        const freq = document.getElementById('result-frequency').textContent;
+        
+        const text = `Exotic Dose - ${drug} (${species}): ${mg} mg = ${ml} mL, ${freq}`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('Results copied to clipboard', 'success');
+        });
+      }
+
+      // Generate label
+      function generateLabel() {
+        if (!document.getElementById('drug-select').value) {
+          showToast('Please calculate a dose first', 'error');
+          return;
+        }
+        window.location.href = '/tools/dose-label-generator.html' + getLabelParams();
+      }
+
+      // Toast notification
+      function showToast(message, type = 'info') {
+        const container = document.querySelector('.pc-toast-container');
+        const toast = document.createElement('div');
+        toast.className = `pc-toast pc-toast--${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => toast.classList.add('pc-toast--show'), 10);
+        setTimeout(() => {
+          toast.classList.remove('pc-toast--show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', () => {
+        loadExoticData();
+        
+        // Form submission
+        document.getElementById('exotic-dose-form').addEventListener('submit', calculateDose);
+      });
+    </script>
+  </body>
+</html>
