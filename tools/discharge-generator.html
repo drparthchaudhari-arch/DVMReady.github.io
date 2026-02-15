@@ -24,70 +24,26 @@
       property="og:url"
       content="https://parthchaudhari.com/tools/discharge-generator.html"
     />
-    <link
-      rel="canonical"
-      href="https://parthchaudhari.com/tools/discharge-generator.html"
-    />
+    <link rel="canonical" href="https://parthchaudhari.com/tools/discharge-generator.html" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
-    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
-    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
-    <link rel="stylesheet" href="/assets/css/calculator-modern.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
-    <script src="/assets/js/animations.js" defer></script>
-    <script src="/assets/js/discharge-generator.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
+    <script src="/assets/js/discharge-generator.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
-        <!-- Toast Container -->
     <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
-
-    <!-- Floating Background Elements -->
-    <div class="pc-floating-elements" aria-hidden="true">
-      <div class="pc-float-shape pc-float-shape--1"></div>
-      <div class="pc-float-shape pc-float-shape--2"></div>
-    </div>
-
-    <!-- Modern Ambient Floating Elements -->
-    <div class="pc-ambient-container" aria-hidden="true">
-      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
-      <div class="pc-ambient-particles">
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-      </div>
-      <div class="pc-ambient-grid"></div>
-    </div>
-
-    <!-- Mobile Menu Overlay -->
-    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
-
+    
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
         <a class="pc-logo" href="/">
           <span class="pc-logo__icon">🐾</span>
           <span class="pc-logo__text">VetLudics</span>
         </a>
-        
-        <form class="pc-nav-search" action="/search.html" method="get" role="search">
-          <div class="pc-search-wrapper">
-            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-            </svg>
-            <input type="search" name="q" class="pc-search-input pc-search-input--nav" placeholder="Search..." aria-label="Search" autocomplete="off">
-            <kbd class="pc-search-shortcut">⌘K</kbd>
-          </div>
-        </form>
-        
         <div class="pc-nav-group">
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
@@ -100,137 +56,276 @@
           <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle theme">
             <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
             <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
-            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
-          </button>
-          
-          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-          </button>
-        </div>
-      </div>
-      
-      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
-        <div class="pc-mobile-menu__header">
-          <span class="pc-mobile-menu__title">Menu</span>
-          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
-        </div>
-        <nav class="pc-mobile-menu__nav">
-          <a class="pc-mobile-nav-link" href="/play/">🎮 Play</a>
-          <a class="pc-mobile-nav-link" href="/bridge/">🌉 Bridge</a>
-          <a class="pc-mobile-nav-link" href="/search.html">🔍 Search</a>
-          <a class="pc-mobile-nav-link" href="/study/">📚 Study Plan</a>
-          <a class="pc-mobile-nav-link" href="/account/">👤 Account</a>
-        </nav>
-        <div class="pc-mobile-menu__footer">
-          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
-            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
-            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
-            <span>Switch theme</span>
           </button>
         </div>
       </div>
     </nav>
 
-    <main id="pc-main" class="pc-bridge-shell" role="main">
-      <section class="pc-bridge-hero">
-        <p class="pc-kicker">Live Module</p>
-        <h1 class="pc-fork-title">Discharge Instruction Generator</h1>
-        <p class="pc-fork-copy">
-          Build clear client instructions quickly using common discharge
-          templates and red-flag reminders.
-        </p>
-        <div class="pc-panel-actions">
-          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+    <main id="pc-main" class="pc-calc-dashboard" role="main">
+      <!-- Header -->
+      <header class="pc-calc-header pc-calc-animate">
+        <div class="pc-calc-header__title">
+          <div class="pc-calc-header__icon">📋</div>
+          <div class="pc-calc-header__text">
+            <h1>Discharge Generator</h1>
+            <p>Client instructions with red-flag reminders</p>
+          </div>
+        </div>
+        <div class="pc-calc-header__actions">
+          <div class="pc-calc-quick-actions">
+            <button type="button" class="pc-calc-action-btn" onclick="resetGenerator()" title="Reset all fields">
+              <span>↺</span> Reset
+            </button>
+            <button type="button" class="pc-calc-action-btn" onclick="printDischarge()" title="Print discharge">
+              <span>🖨️</span> Print
+            </button>
+            <a href="/tools/" class="pc-calc-action-btn">
+              <span>←</span> Back
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Input Panel -->
+      <aside class="pc-calc-inputs pc-calc-animate pc-calc-animate--1" aria-label="Generator inputs">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📝</span>
+              Patient Details
+            </span>
+          </div>
+          <div class="pc-calc-panel__content">
+            <form id="discharge-form" novalidate>
+              <!-- Template -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Template</span>
+                </div>
+                <select id="dc-template" class="pc-calc-input" onchange="onTemplateChange()">
+                  <option value="">Select template...</option>
+                </select>
+              </div>
+
+              <!-- Template Quick Select Chips -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Quick Select</span>
+                </div>
+                <div class="pc-calc-chips" id="template-chips">
+                  <button type="button" class="pc-calc-chip" onclick="selectTemplate('spay-neuter')">Spay/Neuter</button>
+                  <button type="button" class="pc-calc-chip" onclick="selectTemplate('dental')">Dental</button>
+                  <button type="button" class="pc-calc-chip" onclick="selectTemplate('gi')">GI</button>
+                  <button type="button" class="pc-calc-chip" onclick="selectTemplate('wound')">Wound</button>
+                  <button type="button" class="pc-calc-chip" onclick="selectTemplate('uti')">UTI</button>
+                  <button type="button" class="pc-calc-chip" onclick="selectTemplate('otitis')">Otitis</button>
+                  <button type="button" class="pc-calc-chip" onclick="selectTemplate('pancreatitis')">Pancreatitis</button>
+                </div>
+              </div>
+
+              <!-- Patient Name -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Patient Name</span>
+                </div>
+                <input id="dc-name" class="pc-calc-input" type="text" placeholder="e.g. Bella" oninput="updateProgress()" />
+              </div>
+
+              <!-- Species -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Species</span>
+                </div>
+                <input id="dc-species" class="pc-calc-input" type="text" placeholder="e.g. Dog, Cat" oninput="updateProgress()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setSpecies('Dog')">🐕 Dog</button>
+                  <button type="button" class="pc-calc-chip" onclick="setSpecies('Cat')">🐈 Cat</button>
+                </div>
+              </div>
+
+              <!-- Follow-up -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Follow-up (days)</span>
+                </div>
+                <input id="dc-followup" class="pc-calc-input pc-calc-input--number" type="number" min="1" step="1" value="7" oninput="updateProgress()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setFollowup(3)">3 days</button>
+                  <button type="button" class="pc-calc-chip pc-calc-chip--active" onclick="setFollowup(7)">7 days</button>
+                  <button type="button" class="pc-calc-chip" onclick="setFollowup(14)">14 days</button>
+                </div>
+              </div>
+
+              <!-- Medications -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Medications</span>
+                  <span class="pc-calc-field__hint">Optional</span>
+                </div>
+                <textarea id="dc-meds" class="pc-calc-input" rows="3" placeholder="List medications and doses" oninput="updateProgress()"></textarea>
+              </div>
+
+              <!-- Extra Notes -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Extra Notes</span>
+                  <span class="pc-calc-field__hint">Optional</span>
+                </div>
+                <textarea id="dc-notes" class="pc-calc-input" rows="3" placeholder="Diet/activity/specific instructions" oninput="updateProgress()"></textarea>
+              </div>
+
+              <button type="submit" class="pc-calc-submit" id="generate-btn">
+                <span>📋</span> Generate Discharge
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Related Tools -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--2">
+          <div class="pc-calc-related">
+            <div class="pc-calc-related__title">Related Tools</div>
+            <div class="pc-calc-related__grid">
+              <a href="/tools/dose-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💊</span>
+                <span>Dosing</span>
+              </a>
+              <a href="/tools/dose-label-generator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">🏷️</span>
+                <span>Labels</span>
+              </a>
+              <a href="/tools/cri-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💉</span>
+                <span>CRI Calc</span>
+              </a>
+              <a href="/tools/fluid-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💧</span>
+                <span>Fluids</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content - Discharge Preview -->
+      <section class="pc-calc-main pc-calc-animate pc-calc-animate--2" aria-label="Discharge preview">
+        <div class="pc-calc-viz">
+          <div class="pc-calc-viz__header">
+            <span class="pc-calc-viz__title">Template Preview</span>
+          </div>
+
+          <!-- Template Info Card -->
+          <div id="template-info-container">
+            <div class="pc-calc-drug-info" id="template-info-card">
+              <div class="pc-calc-drug-info__header">
+                <div class="pc-calc-drug-info__icon" id="template-icon">📋</div>
+                <div>
+                  <div class="pc-calc-drug-info__name" id="template-name">Select a template</div>
+                  <div class="pc-calc-drug-info__category" id="template-category">Choose from dropdown or quick select chips</div>
+                </div>
+              </div>
+              <div class="pc-calc-drug-info__grid" id="template-details" style="opacity: 0.5;">
+                <div class="pc-calc-drug-info__item">
+                  <div class="pc-calc-drug-info__label">Home Care</div>
+                  <div class="pc-calc-drug-info__value" id="template-care">-</div>
+                </div>
+                <div class="pc-calc-drug-info__item">
+                  <div class="pc-calc-drug-info__label">Red Flags</div>
+                  <div class="pc-calc-drug-info__value" id="template-redflags">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Progress indicator -->
+          <div class="pc-calc-progress" style="margin: 1.5rem 0;">
+            <div class="pc-calc-progress__bar" id="dc-progress" style="width: 0%"></div>
+          </div>
+          <div style="text-align: center; font-size: 0.75rem; color: var(--calc-text-muted); margin-top: -1rem; margin-bottom: 1rem;">
+            <span id="progress-text">Select a template to begin</span>
+          </div>
+
+          <!-- Quick Tips -->
+          <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--calc-glass-border);">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              💡 Documentation Tips
+            </div>
+            <ul style="font-size: 0.8125rem; color: var(--calc-text-muted); line-height: 1.8; margin: 0; padding-left: 1.25rem;">
+              <li>Always include specific medication names, doses, and frequencies</li>
+              <li>Document feeding instructions and activity restrictions</li>
+              <li>Clearly list red flags that warrant immediate recheck</li>
+              <li>Provide a specific follow-up date or timeframe</li>
+              <li>Include after-hours emergency contact information</li>
+            </ul>
+          </div>
         </div>
       </section>
 
-      <section class="pc-bridge-section" aria-labelledby="discharge-title">
-        <h2 id="discharge-title" class="pc-bridge-title">Template Inputs</h2>
-        <form id="discharge-form" class="pc-calculator-grid" novalidate>
-          <label class="pc-calculator-field" for="dc-template"
-            ><span>Template</span
-            ><select id="dc-template" class="pc-input"></select
-          ></label>
-          <label class="pc-calculator-field" for="dc-name"
-            ><span>Patient Name</span
-            ><input
-              id="dc-name"
-              class="pc-input"
-              type="text"
-              placeholder="Patient"
-          /></label>
-          <label class="pc-calculator-field" for="dc-species"
-            ><span>Species</span
-            ><input
-              id="dc-species"
-              class="pc-input"
-              type="text"
-              placeholder="Dog/Cat"
-          /></label>
-          <label class="pc-calculator-field" for="dc-followup"
-            ><span>Follow-up (days)</span
-            ><input
-              id="dc-followup"
-              class="pc-input"
-              type="number"
-              min="1"
-              step="1"
-              value="7"
-          /></label>
-          <label class="pc-calculator-field" for="dc-meds"
-            ><span>Medications</span
-            ><textarea
-              id="dc-meds"
-              class="pc-input"
-              rows="3"
-              placeholder="List medications and doses"
-            ></textarea>
-          </label>
-          <label class="pc-calculator-field" for="dc-notes"
-            ><span>Extra Notes</span
-            ><textarea
-              id="dc-notes"
-              class="pc-input"
-              rows="3"
-              placeholder="Diet/activity/specific instructions"
-            ></textarea>
-          </label>
-          <div class="pc-calculator-actions">
-            <button type="submit" class="pc-btn pc-btn--primary">
-              Generate
-            </button>
-            <button id="dc-copy" type="button" class="pc-btn pc-btn--secondary">
-              Copy
-            </button>
+      <!-- Results Panel -->
+      <aside class="pc-calc-results pc-calc-animate pc-calc-animate--3" aria-label="Generated discharge" aria-live="polite">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📄</span>
+              Generated Instructions
+            </span>
+            <div style="display: flex; gap: 0.5rem;">
+              <button type="button" class="pc-calc-copy" onclick="copyDischarge()" title="Copy to clipboard">
+                📋
+              </button>
+              <button type="button" class="pc-calc-copy" onclick="printDischarge()" title="Print" style="font-size: 0.875rem;">
+                🖨️
+              </button>
+            </div>
           </div>
-        </form>
-      </section>
+          <div class="pc-calc-panel__content">
+            <!-- Output Area -->
+            <textarea id="dc-output" class="pc-calc-input" rows="18" readonly style="font-family: var(--font-mono, monospace); font-size: 0.875rem; line-height: 1.6; resize: vertical;"></textarea>
+            
+            <!-- Status Note -->
+            <div id="dc-note" style="margin-top: 0.75rem; font-size: 0.8125rem; color: var(--calc-text-muted); text-align: center;">
+              Select a template and generate instructions.
+            </div>
 
-      <section
-        class="pc-bridge-section"
-        aria-labelledby="discharge-output-title"
-        aria-live="polite"
-      >
-        <h2 id="discharge-output-title" class="pc-bridge-title">
-          Generated Instructions
-        </h2>
-        <textarea id="dc-output" class="pc-input" rows="14" readonly></textarea>
-        <p id="dc-note" class="pc-calculator-note">
-          Select a template and generate instructions.
-        </p>
-        <p class="pc-disclaimer">
-          Approved reference baseline (reviewed February 13, 2026): Drug label
-          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
-          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
-          BCS charts, ACVIM cardiology consensus guideline references, Dental
-          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
-          breed search, and RECOVER CPR guidelines.
-        </p>
-      </section>
+            <!-- Action Buttons -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem;">
+              <button type="button" class="pc-calc-submit" onclick="copyDischarge()" style="background: linear-gradient(135deg, var(--calc-success, #10b981), var(--calc-success-dark, #059669));">
+                <span>📋</span> Copy Text
+              </button>
+              <button type="button" class="pc-calc-submit" onclick="printDischarge()" style="background: linear-gradient(135deg, var(--calc-info, #3b82f6), var(--calc-info-dark, #2563eb));">
+                <span>🖨️</span> Print
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--4">
+          <div class="pc-calc-panel__content" style="padding: 1rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              📊 Template Stats
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; padding: 0.5rem; background: rgba(99, 102, 241, 0.05); border-radius: var(--calc-radius-sm);">
+                <span style="color: var(--calc-text-muted);">Available templates</span>
+                <span style="font-weight: 600;">7</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; padding: 0.5rem; background: rgba(16, 185, 129, 0.05); border-radius: var(--calc-radius-sm);">
+                <span style="color: var(--calc-text-muted);">Last updated</span>
+                <span style="font-weight: 600;">Feb 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div style="padding: 0.75rem; font-size: 0.6875rem; color: var(--calc-text-muted); text-align: center; line-height: 1.5;">
+          Educational tool only. Review all discharge instructions before providing to clients. Customize as needed for each patient.
+        </div>
+      </aside>
     </main>
-    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal" style="margin-top: 0;">
       <div class="pc-footer__bottom">
         <div class="pc-footer__legal">
           <a href="/">Home</a>
@@ -241,5 +336,256 @@
         <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
       </div>
     </footer>
+
+    <script>
+      // Template data (mirrors the data in discharge-generator.js)
+      const TEMPLATES = [
+        { id: 'spay-neuter', label: 'Spay/Neuter', icon: '✂️', care: 'Restrict activity for 10-14 days. Keep incision clean and dry. Use e-collar continuously.', redFlags: 'Incision swelling, discharge, opening, vomiting, lethargy, no appetite >24h.' },
+        { id: 'dental', label: 'Dental Procedure', icon: '🦷', care: 'Feed soft food for 24-48 hours. Avoid hard chews. Continue oral meds as prescribed.', redFlags: 'Persistent oral bleeding, facial swelling, refusal to eat, severe halitosis with pain.' },
+        { id: 'gi', label: 'GI Upset', icon: '🤢', care: 'Offer small, frequent bland meals and water access. Transition diet gradually over 3-5 days.', redFlags: 'Repeated vomiting, bloody stool, collapse, inability to keep water down.' },
+        { id: 'otitis', label: 'Otitis', icon: '👂', care: 'Apply ear medication exactly as instructed after gentle cleaning. Prevent scratching/shaking.', redFlags: 'Head tilt, loss of balance, severe pain, worsening odor/discharge.' },
+        { id: 'wound', label: 'Wound Care', icon: '🩹', care: 'Keep bandage/incision clean and dry. Prevent licking. Recheck as scheduled.', redFlags: 'Bandage slippage, foul odor, increased redness/swelling, bleeding through bandage.' },
+        { id: 'uti', label: 'UTI', icon: '🚽', care: 'Give antibiotics for full course. Encourage water intake and frequent urination opportunities.', redFlags: 'Straining with no urine, blood worsening, vomiting, lethargy.' },
+        { id: 'pancreatitis', label: 'Pancreatitis', icon: '⚠️', care: 'Feed low-fat diet only. Give antiemetics/analgesics as prescribed. Keep activity calm.', redFlags: 'Persistent vomiting, abdominal pain, weakness, no appetite >24h.' },
+      ];
+
+      // Get template by ID
+      function getTemplateById(id) {
+        return TEMPLATES.find(t => t.id === id) || TEMPLATES[0];
+      }
+
+      // Quick select template from chips
+      function selectTemplate(templateId) {
+        const select = document.getElementById('dc-template');
+        if (select) {
+          select.value = templateId;
+          onTemplateChange();
+        }
+        
+        // Update chip visual state
+        const chips = document.querySelectorAll('#template-chips .pc-calc-chip');
+        chips.forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+          if (chip.getAttribute('onclick').includes(templateId)) {
+            chip.classList.add('pc-calc-chip--active');
+          }
+        });
+        
+        updateProgress();
+      }
+
+      // Set species from chip
+      function setSpecies(species) {
+        document.getElementById('dc-species').value = species;
+        updateProgress();
+        
+        // Update chip state
+        const chips = document.getElementById('dc-species').nextElementSibling.querySelectorAll('.pc-calc-chip');
+        chips.forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+          if (chip.textContent.includes(species)) {
+            chip.classList.add('pc-calc-chip--active');
+          }
+        });
+      }
+
+      // Set followup from chip
+      function setFollowup(days) {
+        document.getElementById('dc-followup').value = days;
+        updateProgress();
+        
+        // Update chip state
+        const chips = document.getElementById('dc-followup').nextElementSibling.querySelectorAll('.pc-calc-chip');
+        chips.forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+          if (chip.textContent.includes(days)) {
+            chip.classList.add('pc-calc-chip--active');
+          }
+        });
+      }
+
+      // Template change handler
+      function onTemplateChange() {
+        const templateId = document.getElementById('dc-template').value;
+        if (!templateId) {
+          document.getElementById('template-info-card').style.opacity = '0.5';
+          return;
+        }
+        
+        const template = getTemplateById(templateId);
+        
+        // Update template info card
+        document.getElementById('template-icon').textContent = template.icon;
+        document.getElementById('template-name').textContent = template.label;
+        document.getElementById('template-category').textContent = 'Template selected';
+        document.getElementById('template-care').textContent = template.care;
+        document.getElementById('template-redflags').textContent = template.redFlags;
+        document.getElementById('template-info-card').style.opacity = '1';
+        document.getElementById('template-details').style.opacity = '1';
+        
+        // Update chip states
+        const chips = document.querySelectorAll('#template-chips .pc-calc-chip');
+        chips.forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+          if (chip.getAttribute('onclick').includes(templateId)) {
+            chip.classList.add('pc-calc-chip--active');
+          }
+        });
+        
+        updateProgress();
+      }
+
+      // Update progress bar
+      function updateProgress() {
+        const template = document.getElementById('dc-template').value;
+        const name = document.getElementById('dc-name').value;
+        const species = document.getElementById('dc-species').value;
+        
+        let progress = 0;
+        let completed = 0;
+        let total = 3; // template, name, species
+        
+        if (template) { progress += 33; completed++; }
+        if (name) { progress += 33; completed++; }
+        if (species) { progress += 34; completed++; }
+        
+        document.getElementById('dc-progress').style.width = progress + '%';
+        
+        const progressText = document.getElementById('progress-text');
+        if (completed === 0) {
+          progressText.textContent = 'Select a template to begin';
+        } else if (completed === total) {
+          progressText.textContent = 'Ready to generate discharge instructions!';
+        } else {
+          progressText.textContent = `${completed} of ${total} required fields completed`;
+        }
+      }
+
+      // Reset generator
+      function resetGenerator() {
+        document.getElementById('dc-template').value = '';
+        document.getElementById('dc-name').value = '';
+        document.getElementById('dc-species').value = '';
+        document.getElementById('dc-followup').value = '7';
+        document.getElementById('dc-meds').value = '';
+        document.getElementById('dc-notes').value = '';
+        document.getElementById('dc-output').value = '';
+        
+        // Reset template info
+        document.getElementById('template-icon').textContent = '📋';
+        document.getElementById('template-name').textContent = 'Select a template';
+        document.getElementById('template-category').textContent = 'Choose from dropdown or quick select chips';
+        document.getElementById('template-care').textContent = '-';
+        document.getElementById('template-redflags').textContent = '-';
+        document.getElementById('template-details').style.opacity = '0.5';
+        
+        // Reset chips
+        document.querySelectorAll('.pc-calc-chip').forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+        });
+        
+        // Reset progress
+        updateProgress();
+        
+        document.getElementById('dc-note').textContent = 'Select a template and generate instructions.';
+        
+        showToast('Generator reset', 'info');
+      }
+
+      // Copy discharge to clipboard
+      function copyDischarge() {
+        const output = document.getElementById('dc-output');
+        if (!output || !output.value.trim()) {
+          showToast('Generate instructions first', 'warning');
+          return;
+        }
+        
+        navigator.clipboard.writeText(output.value).then(() => {
+          const btn = document.querySelector('.pc-calc-copy');
+          if (btn) {
+            btn.classList.add('pc-calc-copy--copied');
+            btn.textContent = '✓';
+            setTimeout(() => {
+              btn.classList.remove('pc-calc-copy--copied');
+              btn.textContent = '📋';
+            }, 2000);
+          }
+          showToast('Discharge copied to clipboard', 'success');
+          document.getElementById('dc-note').textContent = 'Instructions copied to clipboard.';
+        });
+      }
+
+      // Print discharge
+      function printDischarge() {
+        const output = document.getElementById('dc-output');
+        if (!output || !output.value.trim()) {
+          showToast('Generate instructions first', 'warning');
+          return;
+        }
+        
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Discharge Instructions</title>
+            <style>
+              body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; max-width: 600px; margin: 2rem auto; padding: 1rem; }
+              h1 { font-size: 1.5rem; border-bottom: 2px solid #6366f1; padding-bottom: 0.5rem; }
+              pre { white-space: pre-wrap; font-family: inherit; }
+              .footer { margin-top: 2rem; font-size: 0.75rem; color: #666; border-top: 1px solid #ddd; padding-top: 1rem; }
+            </style>
+          </head>
+          <body>
+            <h1>🏥 Discharge Instructions</h1>
+            <pre>${output.value.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+            <div class="footer">
+              Generated by VetLudics Discharge Generator<br>
+              ${new Date().toLocaleDateString()}
+            </div>
+          </body>
+          </html>
+        `);
+        printWindow.document.close();
+        printWindow.print();
+      }
+
+      // Toast notification
+      function showToast(message, type = 'info') {
+        const container = document.querySelector('.pc-toast-container');
+        const toast = document.createElement('div');
+        toast.className = `pc-toast pc-toast--${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.add('pc-toast--show');
+        }, 10);
+        
+        setTimeout(() => {
+          toast.classList.remove('pc-toast--show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      // Populate template dropdown
+      function populateTemplates() {
+        const select = document.getElementById('dc-template');
+        if (!select) return;
+        
+        TEMPLATES.forEach(template => {
+          const option = document.createElement('option');
+          option.value = template.id;
+          option.textContent = `${template.icon} ${template.label}`;
+          select.appendChild(option);
+        });
+      }
+
+      // Initialize on load
+      document.addEventListener('DOMContentLoaded', () => {
+        populateTemplates();
+        updateProgress();
+      });
+    </script>
   </body>
 </html>

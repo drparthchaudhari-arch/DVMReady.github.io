@@ -24,70 +24,26 @@
       property="og:url"
       content="https://parthchaudhari.com/tools/dose-label-generator.html"
     />
-    <link
-      rel="canonical"
-      href="https://parthchaudhari.com/tools/dose-label-generator.html"
-    />
+    <link rel="canonical" href="https://parthchaudhari.com/tools/dose-label-generator.html" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
-    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
-    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
-    <link rel="stylesheet" href="/assets/css/calculator-modern.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
-    <script src="/assets/js/animations.js" defer></script>
-    <script src="/assets/js/dose-label-generator.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
+    <script src="/assets/js/dose-label-generator.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
-        <!-- Toast Container -->
     <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
-
-    <!-- Floating Background Elements -->
-    <div class="pc-floating-elements" aria-hidden="true">
-      <div class="pc-float-shape pc-float-shape--1"></div>
-      <div class="pc-float-shape pc-float-shape--2"></div>
-    </div>
-
-    <!-- Modern Ambient Floating Elements -->
-    <div class="pc-ambient-container" aria-hidden="true">
-      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
-      <div class="pc-ambient-particles">
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-      </div>
-      <div class="pc-ambient-grid"></div>
-    </div>
-
-    <!-- Mobile Menu Overlay -->
-    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
-
+    
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
         <a class="pc-logo" href="/">
           <span class="pc-logo__icon">🐾</span>
           <span class="pc-logo__text">VetLudics</span>
         </a>
-        
-        <form class="pc-nav-search" action="/search.html" method="get" role="search">
-          <div class="pc-search-wrapper">
-            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-            </svg>
-            <input type="search" name="q" class="pc-search-input pc-search-input--nav" placeholder="Search..." aria-label="Search" autocomplete="off">
-            <kbd class="pc-search-shortcut">⌘K</kbd>
-          </div>
-        </form>
-        
         <div class="pc-nav-group">
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
@@ -100,178 +56,354 @@
           <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle theme">
             <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
             <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
-            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
-          </button>
-          
-          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-          </button>
-        </div>
-      </div>
-      
-      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
-        <div class="pc-mobile-menu__header">
-          <span class="pc-mobile-menu__title">Menu</span>
-          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
-        </div>
-        <nav class="pc-mobile-menu__nav">
-          <a class="pc-mobile-nav-link" href="/play/">🎮 Play</a>
-          <a class="pc-mobile-nav-link" href="/bridge/">🌉 Bridge</a>
-          <a class="pc-mobile-nav-link" href="/search.html">🔍 Search</a>
-          <a class="pc-mobile-nav-link" href="/study/">📚 Study Plan</a>
-          <a class="pc-mobile-nav-link" href="/account/">👤 Account</a>
-        </nav>
-        <div class="pc-mobile-menu__footer">
-          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
-            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
-            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
-            <span>Switch theme</span>
           </button>
         </div>
       </div>
     </nav>
 
-    <main id="pc-main" class="pc-bridge-shell" role="main">
-      <section class="pc-bridge-hero">
-        <p class="pc-kicker">Live Module</p>
-        <h1 class="pc-fork-title">Dose Label Generator</h1>
-        <p class="pc-fork-copy">
-          Create printable client-ready medication labels with dosage,
-          frequency, duration, and key cautions.
-        </p>
-        <div class="pc-panel-actions">
-          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+    <main id="pc-main" class="pc-calc-dashboard" role="main">
+      <!-- Header -->
+      <header class="pc-calc-header pc-calc-animate">
+        <div class="pc-calc-header__title">
+          <div class="pc-calc-header__icon">🏷️</div>
+          <div class="pc-calc-header__text">
+            <h1>Dose Label Generator</h1>
+            <p>Create printable client-ready medication labels</p>
+          </div>
+        </div>
+        <div class="pc-calc-header__actions">
+          <div class="pc-calc-quick-actions">
+            <button type="button" class="pc-calc-action-btn" onclick="resetLabelGenerator()" title="Reset all fields">
+              <span>↺</span> Reset
+            </button>
+            <button type="button" class="pc-calc-action-btn" onclick="toggleAutoUpdate()" id="auto-update-btn" title="Toggle auto-update">
+              <span>⚡</span> <span id="auto-update-text">Auto: On</span>
+            </button>
+            <a href="/tools/" class="pc-calc-action-btn">
+              <span>←</span> Back
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Input Panel -->
+      <aside class="pc-calc-inputs pc-calc-animate pc-calc-animate--1" aria-label="Label inputs">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📝</span>
+              Label Information
+            </span>
+          </div>
+          <div class="pc-calc-panel__content">
+            <form id="label-form" novalidate>
+              <!-- Clinic Name -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Clinic Name</span>
+                </div>
+                <input id="label-clinic" class="pc-calc-input" type="text" placeholder="Your Clinic Name" oninput="onInputChange()" />
+              </div>
+
+              <!-- Patient Name -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Patient Name</span>
+                </div>
+                <input id="label-patient" class="pc-calc-input" type="text" placeholder="Patient Name" oninput="onInputChange()" />
+              </div>
+
+              <!-- Medication -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Medication</span>
+                </div>
+                <input id="label-med" class="pc-calc-input" type="text" placeholder="e.g. Carprofen, Amoxicillin" oninput="onInputChange()" />
+              </div>
+
+              <!-- Dosage Form -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Dosage Form</span>
+                </div>
+                <select id="label-form-type" class="pc-calc-input" onchange="onInputChange()">
+                  <option value="Liquid">Liquid</option>
+                  <option value="Tablets">Tablets</option>
+                  <option value="Capsules">Capsules</option>
+                  <option value="Injection">Injection</option>
+                </select>
+              </div>
+
+              <!-- Dose per administration -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Dose per Administration</span>
+                </div>
+                <input id="label-dose" class="pc-calc-input" type="text" placeholder="e.g. 2.5 mg (0.5 mL)" oninput="onInputChange()" />
+              </div>
+
+              <!-- Frequency -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Frequency</span>
+                </div>
+                <input id="label-frequency" class="pc-calc-input" type="text" placeholder="e.g. Every 12 hours" oninput="onInputChange()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setFrequency('Once daily')">SID</button>
+                  <button type="button" class="pc-calc-chip" onclick="setFrequency('Every 12 hours')">BID</button>
+                  <button type="button" class="pc-calc-chip" onclick="setFrequency('Every 8 hours')">TID</button>
+                </div>
+              </div>
+
+              <!-- Duration -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Duration (days)</span>
+                </div>
+                <input id="label-duration" class="pc-calc-input pc-calc-input--number" type="number" min="1" step="1" value="7" oninput="onInputChange()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setDuration(7)">7 days</button>
+                  <button type="button" class="pc-calc-chip" onclick="setDuration(14)">14 days</button>
+                  <button type="button" class="pc-calc-chip" onclick="setDuration(30)">30 days</button>
+                </div>
+              </div>
+
+              <!-- Total Amount -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Total Amount Dispensed</span>
+                </div>
+                <input id="label-total-amount" class="pc-calc-input" type="text" placeholder="e.g. 30 mL / 14 tablets" oninput="onInputChange()" />
+              </div>
+
+              <!-- Special Instructions -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Special Instructions</span>
+                </div>
+                <textarea id="label-instructions" class="pc-calc-input" rows="3" placeholder="With food / shake well / complete full course" oninput="onInputChange()"></textarea>
+              </div>
+
+              <button type="submit" class="pc-calc-submit" id="generate-btn">
+                <span>🏷️</span> Generate Label
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Quick Templates -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--2">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">⚡</span>
+              Quick Templates
+            </span>
+          </div>
+          <div class="pc-calc-panel__content" style="padding: 1rem;">
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <button type="button" class="pc-calc-related__item" onclick="loadTemplate('antibiotic')" style="justify-content: flex-start;">
+                <span class="pc-calc-related__icon">💊</span>
+                <span>Antibiotic Course</span>
+              </button>
+              <button type="button" class="pc-calc-related__item" onclick="loadTemplate('pain')" style="justify-content: flex-start;">
+                <span class="pc-calc-related__icon">🩹</span>
+                <span>Pain Management</span>
+              </button>
+              <button type="button" class="pc-calc-related__item" onclick="loadTemplate('liquid')" style="justify-content: flex-start;">
+                <span class="pc-calc-related__icon">🧪</span>
+                <span>Liquid Suspension</span>
+              </button>
+              <button type="button" class="pc-calc-related__item" onclick="loadTemplate('chronic')" style="justify-content: flex-start;">
+                <span class="pc-calc-related__icon">📅</span>
+                <span>Chronic Medication</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Related Tools -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--3">
+          <div class="pc-calc-related">
+            <div class="pc-calc-related__title">Related Tools</div>
+            <div class="pc-calc-related__grid">
+              <a href="/tools/dose-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💊</span>
+                <span>Dose Calc</span>
+              </a>
+              <a href="/tools/cri-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💉</span>
+                <span>CRI Calc</span>
+              </a>
+              <a href="/tools/fluid-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💧</span>
+                <span>Fluids</span>
+              </a>
+              <a href="/mgkg-dosing-guide/" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">📚</span>
+                <span>Guide</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content - Label Preview -->
+      <section class="pc-calc-main pc-calc-animate pc-calc-animate--2" aria-label="Label preview">
+        <div class="pc-calc-viz">
+          <div class="pc-calc-viz__header">
+            <span class="pc-calc-viz__title">Label Preview</span>
+          </div>
+
+          <!-- Label Preview Card -->
+          <div id="label-preview-card" style="background: white; border: 2px solid var(--calc-glass-border); border-radius: var(--calc-radius-lg); padding: 1.5rem; margin-bottom: 1rem; box-shadow: var(--calc-shadow-sm); font-family: 'Courier New', monospace;">
+            <div style="text-align: center; border-bottom: 2px dashed var(--calc-glass-border); padding-bottom: 0.75rem; margin-bottom: 0.75rem;">
+              <div id="preview-clinic" style="font-weight: 700; font-size: 1rem; color: var(--calc-text);">--</div>
+              <div id="preview-patient" style="font-size: 0.875rem; color: var(--calc-text-muted); margin-top: 0.25rem;">--</div>
+            </div>
+            <div style="margin-bottom: 0.75rem;">
+              <div id="preview-med" style="font-weight: 700; font-size: 1.125rem; color: var(--calc-primary); margin-bottom: 0.5rem;">--</div>
+              <div id="preview-dose" style="font-size: 0.9375rem; color: var(--calc-text); margin-bottom: 0.25rem;">--</div>
+              <div id="preview-freq" style="font-size: 0.875rem; color: var(--calc-text); margin-bottom: 0.25rem;">--</div>
+              <div id="preview-duration" style="font-size: 0.875rem; color: var(--calc-text); margin-bottom: 0.25rem;">--</div>
+            </div>
+            <div id="preview-total" style="background: rgba(99, 102, 241, 0.08); padding: 0.5rem; border-radius: var(--calc-radius-sm); margin-bottom: 0.75rem; font-size: 0.875rem;">
+              --
+            </div>
+            <div id="preview-instructions" style="font-style: italic; color: var(--calc-text-muted); font-size: 0.8125rem; padding-top: 0.5rem; border-top: 1px solid var(--calc-glass-border);">
+              --
+            </div>
+          </div>
+
+          <!-- Formula Display -->
+          <div class="pc-calc-formula">
+            <div class="pc-calc-formula__label">Label Format</div>
+            <div class="pc-calc-formula__math">
+              <span class="pc-calc-formula__highlight">Clinic</span> + Patient + Medication<br>
+              <span class="pc-calc-formula__highlight">Dose</span> + Frequency + Duration<br>
+              <span class="pc-calc-formula__highlight">Instructions</span> + Dispensed Amount
+            </div>
+          </div>
+
+          <!-- Print Tips -->
+          <div style="margin-bottom: 1rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              🖨️ Printing Tips
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
+              <div class="pc-calc-drug-info__item">
+                <div class="pc-calc-drug-info__label">Label Paper</div>
+                <div class="pc-calc-drug-info__value">Avery 5160/8160 compatible</div>
+              </div>
+              <div class="pc-calc-drug-info__item">
+                <div class="pc-calc-drug-info__label">Scaling</div>
+                <div class="pc-calc-drug-info__value">Set to 100%, no fit-to-page</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Safety Alert -->
+          <div class="pc-calc-alert pc-calc-alert--warning">
+            <div class="pc-calc-alert__icon">⚠️</div>
+            <div class="pc-calc-alert__content">
+              <div class="pc-calc-alert__title">Label Verification</div>
+              <div class="pc-calc-alert__text">
+                Always double-check doses and instructions before applying labels. Include veterinarian initials and date.
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Tips -->
+          <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--calc-glass-border);">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              💡 Best Practices
+            </div>
+            <ul style="font-size: 0.8125rem; color: var(--calc-text-muted); line-height: 1.8; margin: 0; padding-left: 1.25rem;">
+              <li>Use generic drug names to avoid trademark issues</li>
+              <li>Include both metric and household measurements when applicable</li>
+              <li>Note refill restrictions on controlled substances</li>
+              <li>Store labels away from heat and moisture</li>
+            </ul>
+          </div>
         </div>
       </section>
 
-      <section class="pc-bridge-section" aria-labelledby="label-title">
-        <h2 id="label-title" class="pc-bridge-title">Label Inputs</h2>
-        <form id="label-form" class="pc-calculator-grid" novalidate>
-          <label class="pc-calculator-field" for="label-clinic"
-            ><span>Clinic Name</span
-            ><input
-              id="label-clinic"
-              class="pc-input"
-              type="text"
-              placeholder="Clinic Name"
-          /></label>
-          <label class="pc-calculator-field" for="label-patient"
-            ><span>Patient Name</span
-            ><input
-              id="label-patient"
-              class="pc-input"
-              type="text"
-              placeholder="Patient"
-          /></label>
-          <label class="pc-calculator-field" for="label-med"
-            ><span>Medication</span
-            ><input
-              id="label-med"
-              class="pc-input"
-              type="text"
-              placeholder="Medication name"
-          /></label>
-          <label class="pc-calculator-field" for="label-form-type">
-            <span>Dosage Form</span>
-            <select id="label-form-type" class="pc-input">
-              <option value="Liquid">Liquid</option>
-              <option value="Tablets">Tablets</option>
-              <option value="Injection">Injection</option>
-            </select>
-          </label>
-          <label class="pc-calculator-field" for="label-dose"
-            ><span>Dose per administration</span
-            ><input
-              id="label-dose"
-              class="pc-input"
-              type="text"
-              placeholder="e.g. 2.5 mg (0.5 mL)"
-          /></label>
-          <label class="pc-calculator-field" for="label-frequency"
-            ><span>Frequency</span
-            ><input
-              id="label-frequency"
-              class="pc-input"
-              type="text"
-              placeholder="e.g. Every 12 hours"
-          /></label>
-          <label class="pc-calculator-field" for="label-duration"
-            ><span>Duration (days)</span
-            ><input
-              id="label-duration"
-              class="pc-input"
-              type="number"
-              min="1"
-              step="1"
-              value="7"
-          /></label>
-          <label class="pc-calculator-field" for="label-total-amount"
-            ><span>Total Amount Dispensed</span
-            ><input
-              id="label-total-amount"
-              class="pc-input"
-              type="text"
-              placeholder="e.g. 30 mL / 14 tablets / 1 vial"
-          /></label>
-          <label class="pc-calculator-field" for="label-instructions"
-            ><span>Special Instructions</span
-            ><textarea
-              id="label-instructions"
-              class="pc-input"
-              rows="3"
-              placeholder="With food / shake well / complete full course"
-            ></textarea>
-          </label>
-          <div class="pc-calculator-actions">
-            <button type="submit" class="pc-btn pc-btn--primary">
-              Generate Label
-            </button>
-            <button
-              id="label-copy"
-              type="button"
-              class="pc-btn pc-btn--secondary"
-            >
-              Copy
-            </button>
-            <button
-              id="label-print"
-              type="button"
-              class="pc-btn pc-btn--secondary"
-            >
-              Print
+      <!-- Results Panel -->
+      <aside class="pc-calc-results pc-calc-animate pc-calc-animate--3" aria-label="Label output" aria-live="polite">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📋</span>
+              Generated Label
+            </span>
+            <button type="button" class="pc-calc-copy" onclick="copyLabelText()" title="Copy label text">
+              📋
             </button>
           </div>
-        </form>
-      </section>
+          <div class="pc-calc-panel__content">
+            <!-- Label Output -->
+            <div class="pc-calc-result-card pc-calc-result-card--primary">
+              <div class="pc-calc-result__label">
+                <span>🏷️</span> Label Text
+              </div>
+              <textarea id="label-output" class="pc-calc-input" rows="12" readonly style="font-family: 'Courier New', monospace; font-size: 0.8125rem; resize: vertical; margin-top: 0.5rem;"></textarea>
+            </div>
 
-      <section
-        class="pc-bridge-section"
-        aria-live="polite"
-        aria-labelledby="label-output-title"
-      >
-        <h2 id="label-output-title" class="pc-bridge-title">Printable Label</h2>
-        <textarea
-          id="label-output"
-          class="pc-input"
-          rows="10"
-          readonly
-        ></textarea>
-        <p id="label-note" class="pc-calculator-note">
-          Generate a label, then copy or print.
-        </p>
-        <p class="pc-disclaimer">
-          Approved reference baseline (reviewed February 13, 2026): Drug label
-          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
-          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
-          BCS charts, ACVIM cardiology consensus guideline references, Dental
-          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
-          breed search, and RECOVER CPR guidelines.
-        </p>
-      </section>
+            <!-- Quick Actions -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem;">
+              <button type="button" class="pc-calc-submit" onclick="printLabel()" style="background: linear-gradient(135deg, var(--calc-primary) 0%, var(--calc-secondary) 100%);">
+                <span>🖨️</span> Print
+              </button>
+              <button type="button" class="pc-calc-submit" onclick="copyLabelText()" style="background: var(--calc-surface); color: var(--calc-text); border: 1px solid var(--calc-glass-border);">
+                <span>📋</span> Copy
+              </button>
+            </div>
+
+            <!-- Progress indicator -->
+            <div class="pc-calc-progress" style="margin-top: 1rem;">
+              <div class="pc-calc-progress__bar" id="label-progress" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Template Info -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--4">
+          <div class="pc-calc-panel__content" style="padding: 1rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              📋 Common Abbreviations
+            </div>
+            <div style="font-size: 0.75rem; line-height: 1.6;">
+              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--calc-glass-border);">
+                <span>SID / q24h</span>
+                <span style="font-weight: 500;">Once daily</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--calc-glass-border);">
+                <span>BID / q12h</span>
+                <span style="font-weight: 500;">Twice daily</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--calc-glass-border);">
+                <span>TID / q8h</span>
+                <span style="font-weight: 500;">Three times daily</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--calc-glass-border);">
+                <span>QID / q6h</span>
+                <span style="font-weight: 500;">Four times daily</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0;">
+                <span>PRN</span>
+                <span style="font-weight: 500;">As needed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div style="padding: 0.75rem; font-size: 0.6875rem; color: var(--calc-text-muted); text-align: center; line-height: 1.5;">
+          Educational tool only. Always verify label accuracy before use. Follow clinic labeling protocols.
+        </div>
+      </aside>
     </main>
-    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal" style="margin-top: 0;">
       <div class="pc-footer__bottom">
         <div class="pc-footer__legal">
           <a href="/">Home</a>
@@ -282,5 +414,265 @@
         <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
       </div>
     </footer>
+
+    <script>
+      // Auto-update toggle
+      let autoUpdateEnabled = true;
+      
+      function toggleAutoUpdate() {
+        autoUpdateEnabled = !autoUpdateEnabled;
+        document.getElementById('auto-update-text').textContent = autoUpdateEnabled ? 'Auto: On' : 'Auto: Off';
+        document.getElementById('auto-update-btn').classList.toggle('pc-calc-chip--active', autoUpdateEnabled);
+        if (autoUpdateEnabled) {
+          generateLabel();
+        }
+      }
+
+      // Input change handler
+      function onInputChange() {
+        updateProgress();
+        if (autoUpdateEnabled) {
+          generateLabel();
+        }
+      }
+
+      // Set frequency from chip
+      function setFrequency(freq) {
+        document.getElementById('label-frequency').value = freq;
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      // Set duration from chip
+      function setDuration(days) {
+        document.getElementById('label-duration').value = days;
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      // Update chip visual state
+      function updateChipState(clickedChip) {
+        const parent = clickedChip.parentElement;
+        parent.querySelectorAll('.pc-calc-chip').forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+        });
+        clickedChip.classList.add('pc-calc-chip--active');
+      }
+
+      // Update progress bar
+      function updateProgress() {
+        const fields = ['label-clinic', 'label-patient', 'label-med', 'label-dose', 'label-frequency'];
+        let filled = 0;
+        fields.forEach(id => {
+          if (document.getElementById(id).value.trim()) filled++;
+        });
+        const progress = (filled / fields.length) * 100;
+        document.getElementById('label-progress').style.width = progress + '%';
+      }
+
+      // Generate label
+      function generateLabel() {
+        const clinic = document.getElementById('label-clinic').value.trim();
+        const patient = document.getElementById('label-patient').value.trim();
+        const med = document.getElementById('label-med').value.trim();
+        const formType = document.getElementById('label-form-type').value;
+        const dose = document.getElementById('label-dose').value.trim();
+        const frequency = document.getElementById('label-frequency').value.trim();
+        const duration = document.getElementById('label-duration').value;
+        const totalAmount = document.getElementById('label-total-amount').value.trim();
+        const instructions = document.getElementById('label-instructions').value.trim();
+
+        // Update preview
+        document.getElementById('preview-clinic').textContent = clinic || 'CLINIC NAME';
+        document.getElementById('preview-patient').textContent = patient || 'Patient: _____________';
+        document.getElementById('preview-med').textContent = med || 'Medication';
+        document.getElementById('preview-dose').textContent = dose ? `Dose: ${dose}` : 'Dose: _____________';
+        document.getElementById('preview-freq').textContent = frequency ? `Frequency: ${frequency}` : 'Frequency: _____________';
+        document.getElementById('preview-duration').textContent = duration ? `Duration: ${duration} days` : 'Duration: _____________';
+        document.getElementById('preview-total').textContent = totalAmount ? `Dispensed: ${totalAmount}` : 'Dispensed: _____________';
+        document.getElementById('preview-instructions').textContent = instructions || 'Instructions: _____________';
+
+        // Generate text output
+        let labelText = '';
+        if (clinic) labelText += `${clinic}\n`;
+        if (patient) labelText += `Patient: ${patient}\n`;
+        labelText += '─────────────────\n';
+        if (med) labelText += `${med}\n`;
+        if (formType) labelText += `Form: ${formType}\n`;
+        if (dose) labelText += `Dose: ${dose}\n`;
+        if (frequency) labelText += `Give: ${frequency}\n`;
+        if (duration) labelText += `For: ${duration} days\n`;
+        if (totalAmount) labelText += `Dispensed: ${totalAmount}\n`;
+        labelText += '─────────────────\n';
+        if (instructions) labelText += `${instructions}\n`;
+        
+        document.getElementById('label-output').value = labelText;
+      }
+
+      // Load template
+      function loadTemplate(type) {
+        const templates = {
+          antibiotic: {
+            med: 'Amoxicillin',
+            formType: 'Tablets',
+            dose: '10 mg/kg',
+            frequency: 'Every 12 hours',
+            duration: 14,
+            instructions: 'Give with food. Complete full course.'
+          },
+          pain: {
+            med: 'Carprofen',
+            formType: 'Tablets',
+            dose: '2.2 mg/kg',
+            frequency: 'Once daily',
+            duration: 7,
+            instructions: 'Give with food. Do not exceed prescribed duration.'
+          },
+          liquid: {
+            med: 'Metronidazole',
+            formType: 'Liquid',
+            dose: '10 mg/kg (0.5 mL)',
+            frequency: 'Every 12 hours',
+            duration: 7,
+            instructions: 'Shake well before use. Refrigerate.'
+          },
+          chronic: {
+            med: 'Enalapril',
+            formType: 'Tablets',
+            dose: '0.5 mg/kg',
+            frequency: 'Once daily',
+            duration: 30,
+            instructions: 'Give on empty stomach. Monitor for lethargy.'
+          }
+        };
+
+        const template = templates[type];
+        if (template) {
+          document.getElementById('label-med').value = template.med;
+          document.getElementById('label-form-type').value = template.formType;
+          document.getElementById('label-dose').value = template.dose;
+          document.getElementById('label-frequency').value = template.frequency;
+          document.getElementById('label-duration').value = template.duration;
+          document.getElementById('label-instructions').value = template.instructions;
+          
+          generateLabel();
+          updateProgress();
+          showToast(`${template.med} template loaded`, 'success');
+        }
+      }
+
+      // Copy label text
+      function copyLabelText() {
+        const text = document.getElementById('label-output').value;
+        if (!text.trim()) {
+          showToast('Generate a label first', 'warning');
+          return;
+        }
+        
+        navigator.clipboard.writeText(text).then(() => {
+          const btn = document.querySelector('.pc-calc-copy');
+          btn.classList.add('pc-calc-copy--copied');
+          btn.textContent = '✓';
+          showToast('Label copied to clipboard', 'success');
+          setTimeout(() => {
+            btn.classList.remove('pc-calc-copy--copied');
+            btn.textContent = '📋';
+          }, 2000);
+        });
+      }
+
+      // Print label
+      function printLabel() {
+        const text = document.getElementById('label-output').value;
+        if (!text.trim()) {
+          showToast('Generate a label first', 'warning');
+          return;
+        }
+
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Medication Label</title>
+            <style>
+              body { font-family: 'Courier New', monospace; padding: 20px; }
+              .label { border: 2px dashed #333; padding: 15px; max-width: 300px; margin: 0 auto; }
+              pre { white-space: pre-wrap; margin: 0; }
+            </style>
+          </head>
+          <body>
+            <div class="label"><pre>${text}</pre></div>
+            <script>window.onload = () => { window.print(); window.close(); }<\/script>
+          </body>
+          </html>
+        `);
+        printWindow.document.close();
+      }
+
+      // Reset label generator
+      function resetLabelGenerator() {
+        document.getElementById('label-clinic').value = '';
+        document.getElementById('label-patient').value = '';
+        document.getElementById('label-med').value = '';
+        document.getElementById('label-form-type').value = 'Liquid';
+        document.getElementById('label-dose').value = '';
+        document.getElementById('label-frequency').value = '';
+        document.getElementById('label-duration').value = '7';
+        document.getElementById('label-total-amount').value = '';
+        document.getElementById('label-instructions').value = '';
+        
+        // Reset output
+        document.getElementById('label-output').value = '';
+        document.getElementById('label-progress').style.width = '0%';
+        
+        // Reset preview
+        document.getElementById('preview-clinic').textContent = '--';
+        document.getElementById('preview-patient').textContent = '--';
+        document.getElementById('preview-med').textContent = '--';
+        document.getElementById('preview-dose').textContent = '--';
+        document.getElementById('preview-freq').textContent = '--';
+        document.getElementById('preview-duration').textContent = '--';
+        document.getElementById('preview-total').textContent = '--';
+        document.getElementById('preview-instructions').textContent = '--';
+        
+        // Remove active chip states
+        document.querySelectorAll('.pc-calc-chip').forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+        });
+        
+        showToast('Label generator reset', 'info');
+      }
+
+      // Toast notification
+      function showToast(message, type = 'info') {
+        const container = document.querySelector('.pc-toast-container');
+        const toast = document.createElement('div');
+        toast.className = `pc-toast pc-toast--${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.add('pc-toast--show');
+        }, 10);
+        
+        setTimeout(() => {
+          toast.classList.remove('pc-toast--show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      // Form submission
+      document.getElementById('label-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        generateLabel();
+        showToast('Label generated', 'success');
+      });
+
+      // Initial setup
+      document.addEventListener('DOMContentLoaded', function() {
+        updateProgress();
+      });
+    </script>
   </body>
 </html>

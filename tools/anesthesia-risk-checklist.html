@@ -7,87 +7,30 @@
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Anesthesia Risk Checklist | VetLudics Tools</title>
-    <meta
-      name="description"
-      content="Pre-op anesthesia risk checklist with weighted factors and checklist output for monitoring intensity planning."
-    />
+    <meta name="description" content="Pre-op anesthesia risk checklist with weighted factors and checklist output for monitoring intensity planning." />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Anesthesia Risk Checklist | VetLudics Tools"
-    />
-    <meta
-      property="og:description"
-      content="Generate a peri-anesthetic risk tier and practical monitoring checklist."
-    />
-    <meta
-      property="og:url"
-      content="https://parthchaudhari.com/tools/anesthesia-risk-checklist.html"
-    />
-    <link
-      rel="canonical"
-      href="https://parthchaudhari.com/tools/anesthesia-risk-checklist.html"
-    />
+    <meta property="og:title" content="Anesthesia Risk Checklist | VetLudics Tools" />
+    <meta property="og:description" content="Generate a peri-anesthetic risk tier and practical monitoring checklist." />
+    <meta property="og:url" content="https://parthchaudhari.com/tools/anesthesia-risk-checklist.html" />
+    <link rel="canonical" href="https://parthchaudhari.com/tools/anesthesia-risk-checklist.html" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
-    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
-    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
-    <link rel="stylesheet" href="/assets/css/calculator-modern.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
-    <script src="/assets/js/animations.js" defer></script>
-    <script src="/assets/js/anesthesia-risk-checklist.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
-        <!-- Toast Container -->
     <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
-
-    <!-- Floating Background Elements -->
-    <div class="pc-floating-elements" aria-hidden="true">
-      <div class="pc-float-shape pc-float-shape--1"></div>
-      <div class="pc-float-shape pc-float-shape--2"></div>
-    </div>
-
-    <!-- Modern Ambient Floating Elements -->
-    <div class="pc-ambient-container" aria-hidden="true">
-      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
-      <div class="pc-ambient-particles">
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-      </div>
-      <div class="pc-ambient-grid"></div>
-    </div>
-
-    <!-- Mobile Menu Overlay -->
-    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
-
+    
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
         <a class="pc-logo" href="/">
           <span class="pc-logo__icon">🐾</span>
           <span class="pc-logo__text">VetLudics</span>
         </a>
-        
-        <form class="pc-nav-search" action="/search.html" method="get" role="search">
-          <div class="pc-search-wrapper">
-            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-            </svg>
-            <input type="search" name="q" class="pc-search-input pc-search-input--nav" placeholder="Search..." aria-label="Search" autocomplete="off">
-            <kbd class="pc-search-shortcut">⌘K</kbd>
-          </div>
-        </form>
-        
         <div class="pc-nav-group">
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
@@ -100,144 +43,398 @@
           <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle theme">
             <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
             <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
-            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
-          </button>
-          
-          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-          </button>
-        </div>
-      </div>
-      
-      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
-        <div class="pc-mobile-menu__header">
-          <span class="pc-mobile-menu__title">Menu</span>
-          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
-        </div>
-        <nav class="pc-mobile-menu__nav">
-          <a class="pc-mobile-nav-link" href="/play/">🎮 Play</a>
-          <a class="pc-mobile-nav-link" href="/bridge/">🌉 Bridge</a>
-          <a class="pc-mobile-nav-link" href="/search.html">🔍 Search</a>
-          <a class="pc-mobile-nav-link" href="/study/">📚 Study Plan</a>
-          <a class="pc-mobile-nav-link" href="/account/">👤 Account</a>
-        </nav>
-        <div class="pc-mobile-menu__footer">
-          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
-            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
-            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
-            <span>Switch theme</span>
           </button>
         </div>
       </div>
     </nav>
 
-    <main id="pc-main" class="pc-bridge-shell" role="main">
-      <section class="pc-bridge-hero">
-        <p class="pc-kicker">Live Module</p>
-        <h1 class="pc-fork-title">Anesthesia Risk Checklist</h1>
-        <p class="pc-fork-copy">
-          Combine ASA baseline and major risk factors to stage peri-anesthetic
-          risk and prep monitoring intensity before induction.
-        </p>
-        <div class="pc-panel-actions">
-          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+    <main id="pc-main" class="pc-calc-dashboard" role="main">
+      <!-- Header -->
+      <header class="pc-calc-header pc-calc-animate">
+        <div class="pc-calc-header__title">
+          <div class="pc-calc-header__icon">😷</div>
+          <div class="pc-calc-header__text">
+            <h1>Anesthesia Risk Checklist</h1>
+            <p>ASA classification & peri-anesthetic risk assessment</p>
+          </div>
+        </div>
+        <div class="pc-calc-header__actions">
+          <div class="pc-calc-quick-actions">
+            <button type="button" class="pc-calc-action-btn" onclick="resetCalculator()" title="Reset all fields">
+              <span>↺</span> Reset
+            </button>
+            <button type="button" class="pc-calc-action-btn" onclick="copyResults()" title="Copy results">
+              <span>📋</span> Copy
+            </button>
+            <button type="button" class="pc-calc-action-btn" onclick="window.print()" title="Print checklist">
+              <span>🖨️</span> Print
+            </button>
+            <a href="/tools/" class="pc-calc-action-btn">
+              <span>←</span> Back
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Input Panel -->
+      <aside class="pc-calc-inputs pc-calc-animate pc-calc-animate--1" aria-label="Risk assessment inputs">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📝</span>
+              Risk Factors
+            </span>
+          </div>
+          <div class="pc-calc-panel__content">
+            <form id="ars-form" novalidate>
+              <!-- ASA Classification -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>ASA Classification</span>
+                  <span class="pc-calc-field__hint">Base score</span>
+                </div>
+                <select id="ars-asa" class="pc-calc-input" onchange="onInputChange()">
+                  <option value="1">ASA I - Normal healthy</option>
+                  <option value="2">ASA II - Mild systemic disease</option>
+                  <option value="3" selected>ASA III - Severe systemic disease</option>
+                  <option value="4">ASA IV - Life-threatening disease</option>
+                  <option value="5">ASA V - Moribund patient</option>
+                </select>
+                <div class="pc-calc-chips" id="asa-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setAsa(1)">I</button>
+                  <button type="button" class="pc-calc-chip" onclick="setAsa(2)">II</button>
+                  <button type="button" class="pc-calc-chip pc-calc-chip--active" onclick="setAsa(3)">III</button>
+                  <button type="button" class="pc-calc-chip" onclick="setAsa(4)">IV</button>
+                  <button type="button" class="pc-calc-chip" onclick="setAsa(5)">V</button>
+                </div>
+              </div>
+
+              <!-- Risk Factors -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Weighted Risk Factors</span>
+                  <span class="pc-calc-field__hint">Check all that apply</span>
+                </div>
+                
+                <div class="pc-calc-checklist">
+                  <label class="pc-calc-checklist__item">
+                    <input id="ars-age" type="checkbox" onchange="onInputChange()" />
+                    <span class="pc-calc-checklist__box"></span>
+                    <span class="pc-calc-checklist__text">
+                      <strong>Advanced age / frailty</strong>
+                      <span class="pc-calc-checklist__points">+1 point</span>
+                    </span>
+                  </label>
+
+                  <label class="pc-calc-checklist__item">
+                    <input id="ars-cardiac" type="checkbox" onchange="onInputChange()" />
+                    <span class="pc-calc-checklist__box"></span>
+                    <span class="pc-calc-checklist__text">
+                      <strong>Significant cardiac disease</strong>
+                      <span class="pc-calc-checklist__points">+3 points</span>
+                    </span>
+                  </label>
+
+                  <label class="pc-calc-checklist__item">
+                    <input id="ars-respiratory" type="checkbox" onchange="onInputChange()" />
+                    <span class="pc-calc-checklist__box"></span>
+                    <span class="pc-calc-checklist__text">
+                      <strong>Respiratory compromise</strong>
+                      <span class="pc-calc-checklist__points">+3 points</span>
+                    </span>
+                  </label>
+
+                  <label class="pc-calc-checklist__item">
+                    <input id="ars-renal-hepatic" type="checkbox" onchange="onInputChange()" />
+                    <span class="pc-calc-checklist__box"></span>
+                    <span class="pc-calc-checklist__text">
+                      <strong>Renal or hepatic compromise</strong>
+                      <span class="pc-calc-checklist__points">+3 points</span>
+                    </span>
+                  </label>
+
+                  <label class="pc-calc-checklist__item">
+                    <input id="ars-anemia" type="checkbox" onchange="onInputChange()" />
+                    <span class="pc-calc-checklist__box"></span>
+                    <span class="pc-calc-checklist__text">
+                      <strong>Moderate-severe anemia</strong>
+                      <span class="pc-calc-checklist__points">+2 points</span>
+                    </span>
+                  </label>
+
+                  <label class="pc-calc-checklist__item">
+                    <input id="ars-hypotension-history" type="checkbox" onchange="onInputChange()" />
+                    <span class="pc-calc-checklist__box"></span>
+                    <span class="pc-calc-checklist__text">
+                      <strong>Prior hypotension under anesthesia</strong>
+                      <span class="pc-calc-checklist__points">+2 points</span>
+                    </span>
+                  </label>
+
+                  <label class="pc-calc-checklist__item">
+                    <input id="ars-emergency-procedure" type="checkbox" onchange="onInputChange()" />
+                    <span class="pc-calc-checklist__box"></span>
+                    <span class="pc-calc-checklist__text">
+                      <strong>Emergency procedure context</strong>
+                      <span class="pc-calc-checklist__points">+2 points</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <button type="submit" class="pc-calc-submit" id="calc-btn">
+                <span>🧮</span> Update Assessment
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Related Tools -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--2">
+          <div class="pc-calc-related">
+            <div class="pc-calc-related__title">Related Tools</div>
+            <div class="pc-calc-related__grid">
+              <a href="/tools/dose-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💊</span>
+                <span>Dosing</span>
+              </a>
+              <a href="/tools/cri-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💉</span>
+                <span>CRI Calc</span>
+              </a>
+              <a href="/tools/fluid-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💧</span>
+                <span>Fluids</span>
+              </a>
+              <a href="/tools/emergency-drug-chart.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">🚨</span>
+                <span>Emergency</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <section class="pc-calc-main pc-calc-animate pc-calc-animate--2" aria-label="Risk tier visualization">
+        <div class="pc-calc-viz">
+          <div class="pc-calc-viz__header">
+            <span class="pc-calc-viz__title">Peri-Anesthetic Assessment</span>
+          </div>
+
+          <!-- Risk Tier Card -->
+          <div class="pc-calc-result-card pc-calc-result-card--primary" id="risk-tier-card">
+            <div class="pc-calc-result__label">
+              <span>⚠️</span> Risk Tier
+            </div>
+            <div class="pc-calc-result__value" id="ars-tier">
+              Moderate peri-anesthetic risk
+            </div>
+            <div class="pc-calc-result__context" id="risk-context">
+              Based on ASA III + selected risk factors
+            </div>
+          </div>
+
+          <!-- Scoring Breakdown -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem;">
+            <div class="pc-calc-result-card">
+              <div class="pc-calc-result__label">ASA Base</div>
+              <div class="pc-calc-result__value" style="font-size: 1.5rem;">
+                <span id="ars-asa-display">3</span>
+                <span class="pc-calc-result__unit">pts</span>
+              </div>
+              <div class="pc-calc-result__context">Classification</div>
+            </div>
+            <div class="pc-calc-result-card">
+              <div class="pc-calc-result__label">Risk Factors</div>
+              <div class="pc-calc-result__value" style="font-size: 1.5rem;">
+                <span id="ars-risk-score">0</span>
+                <span class="pc-calc-result__unit">pts</span>
+              </div>
+              <div class="pc-calc-result__context">Weighted total</div>
+            </div>
+            <div class="pc-calc-result-card pc-calc-result-card--success">
+              <div class="pc-calc-result__label">Composite</div>
+              <div class="pc-calc-result__value" style="font-size: 1.5rem;">
+                <span id="ars-score">3</span>
+                <span class="pc-calc-result__unit">pts</span>
+              </div>
+              <div class="pc-calc-result__context">Total score</div>
+            </div>
+          </div>
+
+          <!-- Monitoring Checklist -->
+          <div class="pc-calc-drug-info" style="margin-bottom: 1rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              ✅ Monitoring Checklist
+            </div>
+            <div id="ars-checklist" style="font-size: 0.9375rem; color: var(--calc-text); line-height: 1.7;">
+              Pre-oxygenate, secure warming plan, repeat BP trends, and assign dedicated recovery supervision.
+            </div>
+          </div>
+
+          <!-- Formula Display -->
+          <div class="pc-calc-formula">
+            <div class="pc-calc-formula__label">Scoring System</div>
+            <div class="pc-calc-formula__math" id="formula-display">
+              <span class="pc-calc-formula__highlight">Composite</span> = ASA Base + Risk Factor Points<br>
+              <span class="pc-calc-formula__highlight">Low Risk</span> ≤ 3 | <span class="pc-calc-formula__highlight">Moderate</span> 4-7 | <span class="pc-calc-formula__highlight">High</span> ≥ 8
+            </div>
+          </div>
+
+          <!-- Safety Alert -->
+          <div id="high-risk-alert" class="pc-calc-alert pc-calc-alert--error" style="display: none;">
+            <div class="pc-calc-alert__icon">🚨</div>
+            <div class="pc-calc-alert__content">
+              <div class="pc-calc-alert__title">High Risk Alert</div>
+              <div class="pc-calc-alert__text">
+                Strongly consider delaying non-emergency anesthesia until stabilization targets are met.
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Tips -->
+          <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--calc-glass-border);">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              💡 Pre-Anesthetic Considerations
+            </div>
+            <ul style="font-size: 0.8125rem; color: var(--calc-text-muted); line-height: 1.8; margin: 0; padding-left: 1.25rem;">
+              <li>Verify NPO status and premedication protocol</li>
+              <li>Ensure IV access appropriate for patient size</li>
+              <li>Prepare emergency drugs and reversal agents</li>
+              <li>Confirm monitoring equipment is functional</li>
+            </ul>
+          </div>
         </div>
       </section>
 
-      <section class="pc-bridge-section" aria-labelledby="ars-form-title">
-        <h2 id="ars-form-title" class="pc-bridge-title">Pre-op Inputs</h2>
-        <form id="ars-form" class="pc-calculator-grid" novalidate>
-          <label class="pc-calculator-field" for="ars-asa">
-            <span>ASA Baseline</span>
-            <select id="ars-asa" class="pc-input">
-              <option value="1">ASA I</option>
-              <option value="2">ASA II</option>
-              <option value="3">ASA III</option>
-              <option value="4">ASA IV</option>
-              <option value="5">ASA V</option>
-            </select>
-          </label>
-
-          <div class="pc-calculator-field">
-            <span>Weighted Risk Factors</span>
-            <label
-              ><input id="ars-age" type="checkbox" /> Advanced age /
-              frailty</label
-            ><br />
-            <label
-              ><input id="ars-cardiac" type="checkbox" /> Significant cardiac
-              disease</label
-            ><br />
-            <label
-              ><input id="ars-respiratory" type="checkbox" /> Respiratory
-              compromise</label
-            ><br />
-            <label
-              ><input id="ars-renal-hepatic" type="checkbox" /> Renal or hepatic
-              compromise</label
-            ><br />
-            <label
-              ><input id="ars-anemia" type="checkbox" /> Moderate-severe
-              anemia</label
-            ><br />
-            <label
-              ><input id="ars-hypotension-history" type="checkbox" /> Prior
-              hypotension under anesthesia</label
-            ><br />
-            <label
-              ><input id="ars-emergency-procedure" type="checkbox" /> Emergency
-              procedure context</label
-            >
-          </div>
-
-          <div class="pc-calculator-actions">
-            <button type="submit" class="pc-btn pc-btn--primary">
-              Update Risk Tier
+      <!-- Results Panel -->
+      <aside class="pc-calc-results pc-calc-animate pc-calc-animate--3" aria-label="Assessment results" aria-live="polite">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📊</span>
+              Risk Summary
+            </span>
+            <button type="button" class="pc-calc-copy" onclick="copyResults()" title="Copy results">
+              📋
             </button>
           </div>
-        </form>
-      </section>
+          <div class="pc-calc-panel__content">
+            <!-- Primary Result -->
+            <div class="pc-calc-result-card pc-calc-result-card--primary" id="result-primary">
+              <div class="pc-calc-result__label">
+                <span>📋</span> Risk Score
+              </div>
+              <div class="pc-calc-result__value">
+                <span id="result-score">3</span>
+                <span class="pc-calc-result__unit">/ 15+</span>
+              </div>
+              <div class="pc-calc-result__context" id="result-tier-text">Moderate Risk</div>
+            </div>
 
-      <section
-        class="pc-bridge-section"
-        aria-live="polite"
-        aria-labelledby="ars-output-title"
-      >
-        <h2 id="ars-output-title" class="pc-bridge-title">Checklist Output</h2>
-        <div class="pc-stat-grid pc-stat-grid--results">
-          <article class="pc-stat-card">
-            <p class="pc-stat-label">Composite Score</p>
-            <p id="ars-score" class="pc-stat-number">-</p>
-          </article>
-          <article class="pc-stat-card">
-            <p class="pc-stat-label">Risk Tier</p>
-            <p id="ars-tier" class="pc-stat-number">-</p>
-          </article>
+            <!-- Completion Progress -->
+            <div class="pc-calc-result-card">
+              <div class="pc-calc-result__label">
+                <span>📈</span> Assessment Completion
+              </div>
+              <div class="pc-calc-progress" style="margin: 0.75rem 0;">
+                <div class="pc-calc-progress__bar" id="calc-progress" style="width: 20%"></div>
+              </div>
+              <div class="pc-calc-result__context" id="progress-text">
+                1 of 7 risk factors assessed
+              </div>
+            </div>
+
+            <!-- Risk Level Indicator -->
+            <div class="pc-calc-result-card" id="risk-level-card">
+              <div class="pc-calc-result__label">
+                <span>🎯</span> Recommended Monitoring
+              </div>
+              <div style="margin-top: 0.5rem;">
+                <div id="monitoring-basic" style="display: none;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0; font-size: 0.8125rem;">
+                    <span>✓</span> BP + SpO2 + ETCO2
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0; font-size: 0.8125rem;">
+                    <span>✓</span> Routine recovery checks
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0; font-size: 0.8125rem;">
+                    <span>✓</span> Standard IV access
+                  </div>
+                </div>
+                <div id="monitoring-moderate">
+                  <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0; font-size: 0.8125rem;">
+                    <span>✓</span> Pre-oxygenation
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0; font-size: 0.8125rem;">
+                    <span>✓</span> Warming plan secured
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0; font-size: 0.8125rem;">
+                    <span>✓</span> BP trends q5min
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0; font-size: 0.8125rem;">
+                    <span>✓</span> Dedicated recovery supervision
+                  </div>
+                </div>
+                <div id="monitoring-high" style="display: none;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0; font-size: 0.8125rem;">
+                    <span>⚡</span> Stabilize before induction
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0; font-size: 0.8125rem;">
+                    <span>⚡</span> Vasopressor/fluids plan ready
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0; font-size: 0.8125rem;">
+                    <span>⚡</span> Intensive post-op monitoring
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.375rem 0; font-size: 0.8125rem;">
+                    <span>⚡</span> Consider delay if elective
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ASA Reference -->
+            <div class="pc-calc-result-card pc-calc-result-card--warning" id="asa-ref-card">
+              <div class="pc-calc-result__label">
+                <span>📖</span> ASA Reference
+              </div>
+              <div style="margin-top: 0.5rem; font-size: 0.75rem; line-height: 1.6; color: var(--calc-text-muted);">
+                <div style="padding: 0.25rem 0;"><strong>I:</strong> Normal healthy</div>
+                <div style="padding: 0.25rem 0;"><strong>II:</strong> Mild systemic disease</div>
+                <div style="padding: 0.25rem 0;"><strong>III:</strong> Severe systemic disease</div>
+                <div style="padding: 0.25rem 0;"><strong>IV:</strong> Life-threatening disease</div>
+                <div style="padding: 0.25rem 0;"><strong>V:</strong> Moribund, may not survive</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <article class="pc-tool-module">
-          <h3>Monitoring Checklist</h3>
-          <p id="ars-checklist">Select risk factors to generate a checklist.</p>
-        </article>
-        <p id="ars-note" class="pc-calculator-note">
-          Checklist output will update automatically after selections.
-        </p>
-        <p class="pc-disclaimer">
-          Educational triage support only. This does not replace full anesthetic
-          planning, diagnostics, or patient-specific protocol decisions.
-        </p>
-        <p class="pc-disclaimer">
-          Approved reference baseline (reviewed February 13, 2026): Drug label
-          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
-          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
-          BCS charts, ACVIM cardiology consensus guideline references, Dental
-          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
-          breed search, and RECOVER CPR guidelines.
-        </p>
-      </section>
+
+        <!-- Action Items -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--4">
+          <div class="pc-calc-panel__content" style="padding: 1rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              ⚡ Quick Actions
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <a href="/tools/dose-calculator.html" class="pc-calc-related__item" style="justify-content: center; background: rgba(99, 102, 241, 0.1);">
+                <span>💊 Calculate drug doses</span>
+              </a>
+              <a href="/tools/fluid-calculator.html" class="pc-calc-related__item" style="justify-content: center;">
+                <span>💧 Plan fluid therapy</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div style="padding: 0.75rem; font-size: 0.6875rem; color: var(--calc-text-muted); text-align: center; line-height: 1.5;">
+          Educational triage support only. Does not replace full anesthetic planning or patient-specific protocols.
+        </div>
+      </aside>
     </main>
-    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal" style="margin-top: 0;">
       <div class="pc-footer__bottom">
         <div class="pc-footer__legal">
           <a href="/">Home</a>
@@ -248,5 +445,276 @@
         <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
       </div>
     </footer>
+
+    <style>
+      /* Custom checklist styles for anesthesia risk */
+      .pc-calc-checklist {
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
+      }
+
+      .pc-calc-checklist__item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.625rem;
+        background: var(--calc-glass-bg);
+        border: 1px solid var(--calc-glass-border);
+        border-radius: var(--calc-radius);
+        cursor: pointer;
+        transition: var(--calc-transition);
+      }
+
+      .pc-calc-checklist__item:hover {
+        border-color: var(--calc-primary-light);
+        background: rgba(99, 102, 241, 0.05);
+      }
+
+      .pc-calc-checklist__item input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .pc-calc-checklist__box {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        border: 2px solid var(--calc-border);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--calc-transition);
+        margin-top: 2px;
+      }
+
+      .pc-calc-checklist__item input:checked + .pc-calc-checklist__box {
+        background: var(--calc-primary);
+        border-color: var(--calc-primary);
+      }
+
+      .pc-calc-checklist__item input:checked + .pc-calc-checklist__box::after {
+        content: '✓';
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .pc-calc-checklist__text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+        font-size: 0.8125rem;
+        color: var(--calc-text);
+      }
+
+      .pc-calc-checklist__points {
+        font-size: 0.6875rem;
+        color: var(--calc-text-muted);
+        font-weight: 500;
+      }
+
+      .pc-calc-checklist__item input:checked ~ .pc-calc-checklist__text {
+        color: var(--calc-primary);
+      }
+
+      .pc-calc-checklist__item input:checked ~ .pc-calc-checklist__text .pc-calc-checklist__points {
+        color: var(--calc-primary);
+        font-weight: 600;
+      }
+
+      /* Risk tier color coding */
+      .pc-calc-result-card--low {
+        background: linear-gradient(135deg, 
+          rgba(16, 185, 129, 0.1) 0%, 
+          rgba(16, 185, 129, 0.05) 100%);
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+
+      .pc-calc-result-card--moderate {
+        background: linear-gradient(135deg, 
+          rgba(245, 158, 11, 0.1) 0%, 
+          rgba(245, 158, 11, 0.05) 100%);
+        border-color: rgba(245, 158, 11, 0.3);
+      }
+
+      .pc-calc-result-card--high {
+        background: linear-gradient(135deg, 
+          rgba(239, 68, 68, 0.1) 0%, 
+          rgba(239, 68, 68, 0.05) 100%);
+        border-color: rgba(239, 68, 68, 0.3);
+      }
+    </style>
+
+    <script>
+      // Risk factor weights
+      const FACTORS = [
+        { id: 'ars-age', weight: 1 },
+        { id: 'ars-cardiac', weight: 3 },
+        { id: 'ars-respiratory', weight: 3 },
+        { id: 'ars-renal-hepatic', weight: 3 },
+        { id: 'ars-anemia', weight: 2 },
+        { id: 'ars-hypotension-history', weight: 2 },
+        { id: 'ars-emergency-procedure', weight: 2 },
+      ];
+
+      // Input change handler
+      function onInputChange() {
+        renderChecklist();
+        updateProgress();
+      }
+
+      // Set ASA from chip
+      function setAsa(value) {
+        document.getElementById('ars-asa').value = value;
+        
+        // Update chip styling
+        document.querySelectorAll('#asa-chips .pc-calc-chip').forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+        });
+        event.target.classList.add('pc-calc-chip--active');
+        
+        onInputChange();
+      }
+
+      // Update progress bar
+      function updateProgress() {
+        const checkedCount = FACTORS.filter(f => document.getElementById(f.id).checked).length;
+        const progress = Math.max(14, (checkedCount / FACTORS.length) * 100);
+        document.getElementById('calc-progress').style.width = progress + '%';
+        document.getElementById('progress-text').textContent = 
+          `${checkedCount + 1} of ${FACTORS.length + 1} factors assessed`;
+      }
+
+      // Calculate and render
+      function renderChecklist() {
+        const asa = parseInt(document.getElementById('ars-asa').value) || 1;
+        
+        // Calculate risk factor score
+        let riskScore = 0;
+        FACTORS.forEach(factor => {
+          if (document.getElementById(factor.id).checked) {
+            riskScore += factor.weight;
+          }
+        });
+        
+        const total = asa + riskScore;
+        
+        // Determine tier
+        let tier, checklist, tierClass, monitoringDiv;
+        
+        if (total <= 3) {
+          tier = 'Low peri-anesthetic risk';
+          checklist = 'Standard monitoring, IV access, BP + SpO2 + ETCO2, and routine recovery checks.';
+          tierClass = 'pc-calc-result-card--low';
+          monitoringDiv = 'monitoring-basic';
+        } else if (total <= 7) {
+          tier = 'Moderate peri-anesthetic risk';
+          checklist = 'Pre-oxygenate, secure warming plan, repeat BP trends, and assign dedicated recovery supervision.';
+          tierClass = 'pc-calc-result-card--moderate';
+          monitoringDiv = 'monitoring-moderate';
+        } else {
+          tier = 'High peri-anesthetic risk';
+          checklist = 'Stabilize before induction when possible, prepare vasopressor/fluids plan, and perform intensive post-op monitoring.';
+          tierClass = 'pc-calc-result-card--high';
+          monitoringDiv = 'monitoring-high';
+        }
+        
+        // Update displays
+        document.getElementById('ars-score').textContent = total;
+        document.getElementById('result-score').textContent = total;
+        document.getElementById('ars-asa-display').textContent = asa;
+        document.getElementById('ars-risk-score').textContent = riskScore;
+        document.getElementById('ars-tier').textContent = tier;
+        document.getElementById('ars-checklist').textContent = checklist;
+        document.getElementById('result-tier-text').textContent = tier.replace(' peri-anesthetic risk', '');
+        document.getElementById('risk-context').textContent = `Based on ASA ${['I', 'II', 'III', 'IV', 'V'][asa-1]} + ${riskScore} risk points`;
+        
+        // Update risk tier card styling
+        const tierCard = document.getElementById('risk-tier-card');
+        tierCard.className = `pc-calc-result-card pc-calc-result-card--primary ${tierClass}`;
+        
+        // Update monitoring display
+        document.getElementById('monitoring-basic').style.display = 'none';
+        document.getElementById('monitoring-moderate').style.display = 'none';
+        document.getElementById('monitoring-high').style.display = 'none';
+        document.getElementById(monitoringDiv).style.display = 'block';
+        
+        // Show/hide high risk alert
+        document.getElementById('high-risk-alert').style.display = total >= 8 ? 'flex' : 'none';
+      }
+
+      // Reset calculator
+      function resetCalculator() {
+        document.getElementById('ars-asa').value = '3';
+        
+        FACTORS.forEach(factor => {
+          document.getElementById(factor.id).checked = false;
+        });
+        
+        // Reset chip styling
+        document.querySelectorAll('#asa-chips .pc-calc-chip').forEach((chip, i) => {
+          chip.classList.toggle('pc-calc-chip--active', i === 2);
+        });
+        
+        renderChecklist();
+        updateProgress();
+        showToast('Assessment reset', 'info');
+      }
+
+      // Copy results
+      function copyResults() {
+        const score = document.getElementById('ars-score').textContent;
+        const tier = document.getElementById('ars-tier').textContent;
+        const asa = document.getElementById('ars-asa').value;
+        
+        const text = `Anesthesia Risk Assessment\nASA: ${asa} | Score: ${score}/15+\nTier: ${tier}`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+          const btn = document.querySelector('.pc-calc-copy');
+          btn.classList.add('pc-calc-copy--copied');
+          btn.textContent = '✓';
+          showToast('Results copied to clipboard', 'success');
+          setTimeout(() => {
+            btn.classList.remove('pc-calc-copy--copied');
+            btn.textContent = '📋';
+          }, 2000);
+        });
+      }
+
+      // Toast notification
+      function showToast(message, type = 'info') {
+        const container = document.querySelector('.pc-toast-container');
+        const toast = document.createElement('div');
+        toast.className = `pc-toast pc-toast--${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.add('pc-toast--show');
+        }, 10);
+        
+        setTimeout(() => {
+          toast.classList.remove('pc-toast--show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      // Form submission
+      document.getElementById('ars-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        renderChecklist();
+        showToast('Assessment updated', 'success');
+      });
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', function() {
+        renderChecklist();
+        updateProgress();
+      });
+    </script>
   </body>
 </html>

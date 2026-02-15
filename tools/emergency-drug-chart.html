@@ -24,70 +24,26 @@
       property="og:url"
       content="https://parthchaudhari.com/tools/emergency-drug-chart.html"
     />
-    <link
-      rel="canonical"
-      href="https://parthchaudhari.com/tools/emergency-drug-chart.html"
-    />
+    <link rel="canonical" href="https://parthchaudhari.com/tools/emergency-drug-chart.html" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
-    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
-    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
-    <link rel="stylesheet" href="/assets/css/calculator-modern.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
-    <script src="/assets/js/animations.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/emergency-drug-chart.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
-    <!-- Toast Container -->
     <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
-
-    <!-- Floating Background Elements -->
-    <div class="pc-floating-elements" aria-hidden="true">
-      <div class="pc-float-shape pc-float-shape--1"></div>
-      <div class="pc-float-shape pc-float-shape--2"></div>
-    </div>
-
-    <!-- Modern Ambient Floating Elements -->
-    <div class="pc-ambient-container" aria-hidden="true">
-      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
-      <div class="pc-ambient-particles">
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-      </div>
-      <div class="pc-ambient-grid"></div>
-    </div>
-
-    <!-- Mobile Menu Overlay -->
-    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
-
+    
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
         <a class="pc-logo" href="/">
           <span class="pc-logo__icon">🐾</span>
           <span class="pc-logo__text">VetLudics</span>
         </a>
-        
-        <form class="pc-nav-search" action="/search.html" method="get" role="search">
-          <div class="pc-search-wrapper">
-            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-            </svg>
-            <input type="search" name="q" class="pc-search-input pc-search-input--nav" placeholder="Search..." aria-label="Search" autocomplete="off">
-            <kbd class="pc-search-shortcut">⌘K</kbd>
-          </div>
-        </form>
-        
         <div class="pc-nav-group">
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
@@ -100,140 +56,285 @@
           <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle theme">
             <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
             <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
-            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
-          </button>
-          
-          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-          </button>
-        </div>
-      </div>
-      
-      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
-        <div class="pc-mobile-menu__header">
-          <span class="pc-mobile-menu__title">Menu</span>
-          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
-        </div>
-        <nav class="pc-mobile-menu__nav">
-          <a class="pc-mobile-nav-link" href="/play/">🎮 Play</a>
-          <a class="pc-mobile-nav-link" href="/bridge/">🌉 Bridge</a>
-          <a class="pc-mobile-nav-link" href="/search.html">🔍 Search</a>
-          <a class="pc-mobile-nav-link" href="/study/">📚 Study Plan</a>
-          <a class="pc-mobile-nav-link" href="/account/">👤 Account</a>
-        </nav>
-        <div class="pc-mobile-menu__footer">
-          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
-            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
-            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
-            <span>Switch theme</span>
           </button>
         </div>
       </div>
     </nav>
 
-    <main id="pc-main" class="pc-bridge-shell" role="main">
-      <section class="pc-bridge-hero">
-        <p class="pc-kicker">Live Module</p>
-        <h1 class="pc-fork-title">Emergency Drug Dose Chart</h1>
-        <p class="pc-fork-copy">
-          Fast dosing aid for critical emergencies. Enter weight once and get
-          immediate per-dose estimates.
-        </p>
-        <div class="pc-panel-actions">
-          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+    <main id="pc-main" class="pc-calc-dashboard" role="main">
+      <!-- Header -->
+      <header class="pc-calc-header pc-calc-animate">
+        <div class="pc-calc-header__title">
+          <div class="pc-calc-header__icon">🚨</div>
+          <div class="pc-calc-header__text">
+            <h1>Emergency Drug Chart</h1>
+            <p>Fast dosing aid for critical emergencies</p>
+          </div>
         </div>
-      </section>
+        <div class="pc-calc-header__actions">
+          <div class="pc-calc-quick-actions">
+            <button type="button" class="pc-calc-action-btn" onclick="resetChart()" title="Reset all fields">
+              <span>↺</span> Reset
+            </button>
+            <button type="button" class="pc-calc-action-btn" onclick="toggleAutoCalc()" id="auto-calc-btn" title="Toggle auto-calculation">
+              <span>⚡</span> <span id="auto-calc-text">Auto: On</span>
+            </button>
+            <button type="button" class="pc-calc-action-btn" onclick="printChart()" title="Print chart">
+              <span>🖨️</span> Print
+            </button>
+            <a href="/tools/" class="pc-calc-action-btn">
+              <span>←</span> Back
+            </a>
+          </div>
+        </div>
+      </header>
 
-      <section class="pc-bridge-section" aria-labelledby="er-dose-title">
-        <h2 id="er-dose-title" class="pc-bridge-title">Patient Inputs</h2>
-        <form id="er-dose-form" class="pc-calculator-grid" novalidate>
-          <label class="pc-calculator-field" for="er-weight">
-            <span>Weight (kg)</span>
-            <input
-              id="er-weight"
-              class="pc-input"
-              type="number"
-              min="0.2"
-              step="0.1"
-              placeholder="e.g. 22"
-              required
-            />
-          </label>
-          <label class="pc-calculator-field" for="er-species">
-            <span>Species</span>
-            <select id="er-species" class="pc-input">
-              <option value="dog">Dog</option>
-              <option value="cat">Cat</option>
-            </select>
-          </label>
-          <div class="pc-calculator-actions">
-            <button type="submit" class="pc-btn pc-btn--primary">
-              Update Doses
-            </button>
-            <button
-              id="er-print"
-              type="button"
-              class="pc-btn pc-btn--secondary"
-            >
-              Print Chart
-            </button>
-            <button
-              id="er-reset-concentration"
-              type="button"
-              class="pc-btn pc-btn--secondary"
-            >
-              Reset Concentrations
+      <!-- Input Panel -->
+      <aside class="pc-calc-inputs pc-calc-animate pc-calc-animate--1" aria-label="Chart inputs">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📝</span>
+              Patient Inputs
+            </span>
+          </div>
+          <div class="pc-calc-panel__content">
+            <form id="er-dose-form" novalidate>
+              <!-- Weight -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Weight</span>
+                  <span class="pc-calc-field__hint">kg</span>
+                </div>
+                <input 
+                  id="er-weight" 
+                  class="pc-calc-input pc-calc-input--number" 
+                  type="number" 
+                  min="0.2" 
+                  step="0.1" 
+                  placeholder="e.g. 22" 
+                  required 
+                  oninput="onInputChange()" 
+                />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(2.5)">2.5 kg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(5)">5 kg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(10)">10 kg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(20)">20 kg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(30)">30 kg</button>
+                </div>
+              </div>
+
+              <!-- Species -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Species</span>
+                </div>
+                <select id="er-species" class="pc-calc-input" onchange="onInputChange()">
+                  <option value="dog">🐕 Dog</option>
+                  <option value="cat">🐈 Cat</option>
+                </select>
+              </div>
+
+              <button type="submit" class="pc-calc-submit" id="calc-btn">
+                <span>🧮</span> Update Doses
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Concentration Settings -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--2">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">⚗️</span>
+              Concentrations
+            </span>
+          </div>
+          <div class="pc-calc-panel__content" style="padding: 1rem;">
+            <p style="font-size: 0.8125rem; color: var(--calc-text-muted); margin-bottom: 1rem;">
+              Adjust concentration values for your stocked formulations. These values are used for volume calculations.
+            </p>
+            <button type="button" class="pc-calc-action-btn" onclick="resetConcentrations()" style="width: 100%; justify-content: center;">
+              <span>↺</span> Reset Concentrations
             </button>
           </div>
-        </form>
-        <p class="pc-calculator-note">
-          Doses are educational estimates. Chart auto-filters by dog/cat
-          selection and you can adjust concentration values for your stocked
-          formulations.
-        </p>
+        </div>
+
+        <!-- Related Tools -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--3">
+          <div class="pc-calc-related">
+            <div class="pc-calc-related__title">Related Tools</div>
+            <div class="pc-calc-related__grid">
+              <a href="/tools/dose-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💊</span>
+                <span>Dosing</span>
+              </a>
+              <a href="/tools/cri-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💉</span>
+                <span>CRI Calc</span>
+              </a>
+              <a href="/tools/fluid-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💧</span>
+                <span>Fluids</span>
+              </a>
+              <a href="/navle-emergency-critical-care/" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">📚</span>
+                <span>Guide</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <section class="pc-calc-main pc-calc-animate pc-calc-animate--2" aria-label="Emergency drug chart display" aria-live="polite">
+        <div class="pc-calc-viz">
+          <div class="pc-calc-viz__header">
+            <span class="pc-calc-viz__title">Grab-and-Go Dose Chart</span>
+          </div>
+
+          <!-- Emergency Categories Legend -->
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+            <span style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; background: rgba(239, 68, 68, 0.1); color: #dc2626; border-radius: var(--calc-radius-sm); font-size: 0.75rem; font-weight: 500;">
+              <span style="width: 8px; height: 8px; background: #dc2626; border-radius: 50%;"></span>
+              CPR/Arrest
+            </span>
+            <span style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; background: rgba(245, 158, 11, 0.1); color: #d97706; border-radius: var(--calc-radius-sm); font-size: 0.75rem; font-weight: 500;">
+              <span style="width: 8px; height: 8px; background: #d97706; border-radius: 50%;"></span>
+              Anaphylaxis
+            </span>
+            <span style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; background: rgba(99, 102, 241, 0.1); color: #4f46e5; border-radius: var(--calc-radius-sm); font-size: 0.75rem; font-weight: 500;">
+              <span style="width: 8px; height: 8px; background: #4f46e5; border-radius: 50%;"></span>
+              Hyperkalemia
+            </span>
+            <span style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; background: rgba(16, 185, 129, 0.1); color: #059669; border-radius: var(--calc-radius-sm); font-size: 0.75rem; font-weight: 500;">
+              <span style="width: 8px; height: 8px; background: #059669; border-radius: 50%;"></span>
+              Hypoglycemia
+            </span>
+            <span style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; background: rgba(139, 92, 246, 0.1); color: #7c3aed; border-radius: var(--calc-radius-sm); font-size: 0.75rem; font-weight: 500;">
+              <span style="width: 8px; height: 8px; background: #7c3aed; border-radius: 50%;"></span>
+              Seizures
+            </span>
+          </div>
+
+          <!-- Drug Chart Table -->
+          <div class="pc-table-wrap" style="margin-bottom: 1rem;">
+            <table class="pc-table" id="er-drug-table">
+              <thead>
+                <tr>
+                  <th>Use Case</th>
+                  <th>Drug</th>
+                  <th>Standard Dose</th>
+                  <th>Concentration</th>
+                  <th>Calculated Dose</th>
+                  <th>Approx Volume</th>
+                  <th>Route</th>
+                </tr>
+              </thead>
+              <tbody id="er-drug-rows"></tbody>
+            </table>
+          </div>
+
+          <!-- Note when no weight entered -->
+          <p id="er-drug-note" class="pc-calculator-note" style="text-align: center; padding: 2rem;">
+            Enter patient weight to render calculated doses.
+          </p>
+
+          <!-- Quick Tips -->
+          <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--calc-glass-border);">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              💡 Emergency Tips
+            </div>
+            <ul style="font-size: 0.8125rem; color: var(--calc-text-muted); line-height: 1.8; margin: 0; padding-left: 1.25rem;">
+              <li>Always verify drug concentrations on vial labels before administration</li>
+              <li>Have emergency reversal agents readily available (e.g., naloxone for opioids)</li>
+              <li>CPR drugs can be given via endotracheal route if IV access is delayed</li>
+              <li>Double-check calculations in high-stress situations - use the copy button to share results</li>
+            </ul>
+          </div>
+        </div>
       </section>
 
-      <section
-        class="pc-bridge-section"
-        aria-labelledby="er-chart-title"
-        aria-live="polite"
-      >
-        <h2 id="er-chart-title" class="pc-bridge-title">
-          Grab-and-Go Dose Chart
-        </h2>
-        <div class="pc-table-wrap">
-          <table class="pc-table">
-            <thead>
-              <tr>
-                <th>Use Case</th>
-                <th>Drug</th>
-                <th>Standard Dose</th>
-                <th>Concentration</th>
-                <th>Calculated Dose</th>
-                <th>Approx Volume</th>
-                <th>Route</th>
-              </tr>
-            </thead>
-            <tbody id="er-drug-rows"></tbody>
-          </table>
+      <!-- Results Panel -->
+      <aside class="pc-calc-results pc-calc-animate pc-calc-animate--3" aria-label="Chart summary" aria-live="polite">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📋</span>
+              Chart Summary
+            </span>
+            <button type="button" class="pc-calc-copy" onclick="copyResults()" title="Copy results">
+              📋
+            </button>
+          </div>
+          <div class="pc-calc-panel__content">
+            <!-- Patient Info -->
+            <div class="pc-calc-result-card pc-calc-result-card--primary" id="patient-info-card">
+              <div class="pc-calc-result__label">
+                <span>🐾</span> Patient
+              </div>
+              <div class="pc-calc-result__value" style="font-size: 1.25rem;">
+                <span id="summary-weight">--</span>
+                <span class="pc-calc-result__unit">kg</span>
+                <span id="summary-species" style="font-size: 0.875rem; color: var(--calc-text-muted);">--</span>
+              </div>
+              <div class="pc-calc-result__context" id="summary-status">Enter weight to see chart</div>
+            </div>
+
+            <!-- Drug Count -->
+            <div class="pc-calc-result-card">
+              <div class="pc-calc-result__label">
+                <span>💊</span> Active Drugs
+              </div>
+              <div class="pc-calc-result__value">
+                <span id="summary-drug-count">--</span>
+              </div>
+              <div class="pc-calc-result__context">For selected species</div>
+            </div>
+
+            <!-- Progress indicator -->
+            <div class="pc-calc-progress" style="margin-top: 1rem;">
+              <div class="pc-calc-progress__bar" id="calc-progress" style="width: 0%"></div>
+            </div>
+          </div>
         </div>
-        <p id="er-drug-note" class="pc-calculator-note">
-          Enter weight and update to render doses.
-        </p>
-        <p class="pc-disclaimer">
-          Approved reference baseline (reviewed February 13, 2026): Drug label
-          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
-          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
-          BCS charts, ACVIM cardiology consensus guideline references, Dental
-          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
-          breed search, and RECOVER CPR guidelines.
-        </p>
-      </section>
+
+        <!-- Emergency Reference -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--4">
+          <div class="pc-calc-panel__content" style="padding: 1rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              ⚡ Quick Reference
+            </div>
+            <div style="font-size: 0.75rem; line-height: 1.6;">
+              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--calc-glass-border);">
+                <span>Epinephrine (CPR)</span>
+                <span style="font-weight: 500;">0.01-0.1 mg/kg</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--calc-glass-border);">
+                <span>Atropine</span>
+                <span style="font-weight: 500;">0.02-0.04 mg/kg</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--calc-glass-border);">
+                <span>Diphenhydramine</span>
+                <span style="font-weight: 500;">1-2 mg/kg</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0;">
+                <span>Diazepam</span>
+                <span style="font-weight: 500;">0.5-2 mg/kg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div style="padding: 0.75rem; font-size: 0.6875rem; color: var(--calc-text-muted); text-align: center; line-height: 1.5;">
+          Educational tool only. Doses are estimates - always verify with current formularies.
+        </div>
+      </aside>
     </main>
 
-    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal" style="margin-top: 0;">
       <div class="pc-footer__bottom">
         <div class="pc-footer__legal">
           <a href="/">Home</a>
@@ -244,5 +345,159 @@
         <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
       </div>
     </footer>
+
+    <script>
+      // Auto-calculation toggle
+      let autoCalcEnabled = true;
+      
+      function toggleAutoCalc() {
+        autoCalcEnabled = !autoCalcEnabled;
+        document.getElementById('auto-calc-text').textContent = autoCalcEnabled ? 'Auto: On' : 'Auto: Off';
+        document.getElementById('auto-calc-btn').classList.toggle('pc-calc-chip--active', autoCalcEnabled);
+        if (autoCalcEnabled) {
+          updateDoses();
+        }
+      }
+
+      // Input change handler
+      function onInputChange() {
+        updateProgress();
+        if (autoCalcEnabled) {
+          updateDoses();
+        }
+      }
+
+      // Update progress bar
+      function updateProgress() {
+        const weight = document.getElementById('er-weight').value;
+        const progress = weight ? 100 : 0;
+        document.getElementById('calc-progress').style.width = progress + '%';
+      }
+
+      // Set weight from chip
+      function setWeight(weight) {
+        document.getElementById('er-weight').value = weight;
+        onInputChange();
+        
+        // Visual feedback
+        const chips = event.target.parentElement.querySelectorAll('.pc-calc-chip');
+        chips.forEach(chip => chip.classList.remove('pc-calc-chip--active'));
+        event.target.classList.add('pc-calc-chip--active');
+      }
+
+      // Reset chart
+      function resetChart() {
+        document.getElementById('er-weight').value = '';
+        document.getElementById('er-species').value = 'dog';
+        document.getElementById('er-drug-rows').innerHTML = '';
+        document.getElementById('er-drug-note').style.display = 'block';
+        
+        // Reset summary
+        document.getElementById('summary-weight').textContent = '--';
+        document.getElementById('summary-species').textContent = '--';
+        document.getElementById('summary-status').textContent = 'Enter weight to see chart';
+        document.getElementById('summary-drug-count').textContent = '--';
+        
+        // Reset chips
+        document.querySelectorAll('.pc-calc-chip').forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+        });
+        
+        updateProgress();
+        showToast('Chart reset', 'info');
+      }
+
+      // Reset concentrations
+      function resetConcentrations() {
+        // This will be handled by emergency-drug-chart.js
+        if (typeof resetConcentrationValues === 'function') {
+          resetConcentrationValues();
+        }
+        showToast('Concentrations reset to defaults', 'info');
+      }
+
+      // Print chart
+      function printChart() {
+        window.print();
+      }
+
+      // Copy results
+      function copyResults() {
+        const weight = document.getElementById('er-weight').value;
+        const species = document.getElementById('er-species').value;
+        
+        if (!weight) {
+          showToast('Enter weight first', 'warning');
+          return;
+        }
+        
+        const text = `Emergency Drug Chart - ${weight}kg ${species}`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+          const btn = document.querySelector('.pc-calc-copy');
+          btn.classList.add('pc-calc-copy--copied');
+          btn.textContent = '✓';
+          showToast('Chart info copied to clipboard', 'success');
+          setTimeout(() => {
+            btn.classList.remove('pc-calc-copy--copied');
+            btn.textContent = '📋';
+          }, 2000);
+        });
+      }
+
+      // Update doses (placeholder - actual logic in emergency-drug-chart.js)
+      function updateDoses() {
+        const weight = document.getElementById('er-weight').value;
+        const species = document.getElementById('er-species').value;
+        
+        if (weight) {
+          document.getElementById('er-drug-note').style.display = 'none';
+          document.getElementById('summary-weight').textContent = weight;
+          document.getElementById('summary-species').textContent = species === 'dog' ? '🐕 Dog' : '🐈 Cat';
+          document.getElementById('summary-status').textContent = 'Chart active';
+          
+          // The actual table rendering is done by emergency-drug-chart.js
+          // This triggers the form submission for that script
+          const form = document.getElementById('er-dose-form');
+          if (form && typeof form.dispatchEvent === 'function') {
+            form.dispatchEvent(new Event('submit'));
+          }
+        } else {
+          document.getElementById('er-drug-note').style.display = 'block';
+          document.getElementById('summary-weight').textContent = '--';
+          document.getElementById('summary-species').textContent = '--';
+          document.getElementById('summary-status').textContent = 'Enter weight to see chart';
+          document.getElementById('summary-drug-count').textContent = '--';
+        }
+      }
+
+      // Toast notification
+      function showToast(message, type = 'info') {
+        const container = document.querySelector('.pc-toast-container');
+        const toast = document.createElement('div');
+        toast.className = `pc-toast pc-toast--${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.add('pc-toast--show');
+        }, 10);
+        
+        setTimeout(() => {
+          toast.classList.remove('pc-toast--show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      // Form submission handler
+      document.getElementById('er-dose-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // The emergency-drug-chart.js handles the actual rendering
+        // This just ensures the form doesn't actually submit
+      });
+
+      // Initial progress update
+      document.addEventListener('DOMContentLoaded', updateProgress);
+    </script>
   </body>
 </html>

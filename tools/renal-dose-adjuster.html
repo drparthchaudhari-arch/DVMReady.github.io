@@ -21,70 +21,25 @@
       property="og:url"
       content="https://parthchaudhari.com/tools/renal-dose-adjuster.html"
     />
-    <link
-      rel="canonical"
-      href="https://parthchaudhari.com/tools/renal-dose-adjuster.html"
-    />
+    <link rel="canonical" href="https://parthchaudhari.com/tools/renal-dose-adjuster.html" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
-    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
-    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
-    <link rel="stylesheet" href="/assets/css/calculator-modern.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
-    <script src="/assets/js/animations.js" defer></script>
-    <script src="/assets/js/renal-dose-adjuster.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
-        <!-- Toast Container -->
     <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
-
-    <!-- Floating Background Elements -->
-    <div class="pc-floating-elements" aria-hidden="true">
-      <div class="pc-float-shape pc-float-shape--1"></div>
-      <div class="pc-float-shape pc-float-shape--2"></div>
-    </div>
-
-    <!-- Modern Ambient Floating Elements -->
-    <div class="pc-ambient-container" aria-hidden="true">
-      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
-      <div class="pc-ambient-particles">
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-      </div>
-      <div class="pc-ambient-grid"></div>
-    </div>
-
-    <!-- Mobile Menu Overlay -->
-    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
-
+    
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
         <a class="pc-logo" href="/">
           <span class="pc-logo__icon">🐾</span>
           <span class="pc-logo__text">VetLudics</span>
         </a>
-        
-        <form class="pc-nav-search" action="/search.html" method="get" role="search">
-          <div class="pc-search-wrapper">
-            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-            </svg>
-            <input type="search" name="q" class="pc-search-input pc-search-input--nav" placeholder="Search..." aria-label="Search" autocomplete="off">
-            <kbd class="pc-search-shortcut">⌘K</kbd>
-          </div>
-        </form>
-        
         <div class="pc-nav-group">
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
@@ -97,126 +52,346 @@
           <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle theme">
             <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
             <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
-            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
-          </button>
-          
-          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-          </button>
-        </div>
-      </div>
-      
-      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
-        <div class="pc-mobile-menu__header">
-          <span class="pc-mobile-menu__title">Menu</span>
-          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
-        </div>
-        <nav class="pc-mobile-menu__nav">
-          <a class="pc-mobile-nav-link" href="/play/">🎮 Play</a>
-          <a class="pc-mobile-nav-link" href="/bridge/">🌉 Bridge</a>
-          <a class="pc-mobile-nav-link" href="/search.html">🔍 Search</a>
-          <a class="pc-mobile-nav-link" href="/study/">📚 Study Plan</a>
-          <a class="pc-mobile-nav-link" href="/account/">👤 Account</a>
-        </nav>
-        <div class="pc-mobile-menu__footer">
-          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
-            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
-            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
-            <span>Switch theme</span>
           </button>
         </div>
       </div>
     </nav>
 
-    <main id="pc-main" class="pc-bridge-shell" role="main">
-      <section class="pc-bridge-hero">
-        <p class="pc-kicker">Live Module</p>
-        <h1 class="pc-fork-title">Renal Dose Adjuster</h1>
-        <p class="pc-fork-copy">
-          Select drug and renal stage to compare baseline versus
-          interval-adjusted dosing cadence with key caution reminders.
-        </p>
-        <div class="pc-panel-actions">
-          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+    <main id="pc-main" class="pc-calc-dashboard" role="main">
+      <!-- Header -->
+      <header class="pc-calc-header pc-calc-animate">
+        <div class="pc-calc-header__title">
+          <div class="pc-calc-header__icon">🫘</div>
+          <div class="pc-calc-header__text">
+            <h1>Renal Dose Adjuster</h1>
+            <p>Interval adjustments for renal-eliminated drugs</p>
+          </div>
+        </div>
+        <div class="pc-calc-header__actions">
+          <div class="pc-calc-quick-actions">
+            <button type="button" class="pc-calc-action-btn" onclick="resetCalculator()" title="Reset all fields">
+              <span>↺</span> Reset
+            </button>
+            <button type="button" class="pc-calc-action-btn" onclick="toggleAutoCalc()" id="auto-calc-btn" title="Toggle auto-calculation">
+              <span>⚡</span> <span id="auto-calc-text">Auto: On</span>
+            </button>
+            <a href="/tools/" class="pc-calc-action-btn">
+              <span>←</span> Back
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Input Panel -->
+      <aside class="pc-calc-inputs pc-calc-animate pc-calc-animate--1" aria-label="Calculator inputs">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📝</span>
+              Patient & Drug
+            </span>
+          </div>
+          <div class="pc-calc-panel__content">
+            <form id="rda-form" novalidate>
+              <!-- Species -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Species</span>
+                </div>
+                <select id="rda-species" class="pc-calc-input" onchange="onInputChange()">
+                  <option value="dog">🐕 Dog</option>
+                  <option value="cat">🐈 Cat</option>
+                </select>
+              </div>
+
+              <!-- Creatinine -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Creatinine</span>
+                  <span class="pc-calc-field__hint">mg/dL</span>
+                </div>
+                <input id="rda-crea" class="pc-calc-input pc-calc-input--number" type="number" min="0.5" max="20" step="0.1" value="1.5" required oninput="onCreaChange()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setCreatinine(1.0)">1.0</button>
+                  <button type="button" class="pc-calc-chip" onclick="setCreatinine(1.8)">1.8</button>
+                  <button type="button" class="pc-calc-chip pc-calc-chip--active" onclick="setCreatinine(2.5)">2.5</button>
+                  <button type="button" class="pc-calc-chip" onclick="setCreatinine(4.0)">4.0</button>
+                  <button type="button" class="pc-calc-chip" onclick="setCreatinine(6.0)">6.0</button>
+                </div>
+              </div>
+
+              <!-- Renal Stage -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>IRIS Stage</span>
+                </div>
+                <select id="rda-stage" class="pc-calc-input" onchange="onInputChange()">
+                  <option value="normal">Normal / Baseline</option>
+                  <option value="mild" selected>Mild Compromise (IRIS 2)</option>
+                  <option value="moderate">Moderate (IRIS 3)</option>
+                  <option value="severe">Severe (IRIS 4)</option>
+                </select>
+                <div class="pc-calc-chips" id="stage-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setStage('normal')">Normal</button>
+                  <button type="button" class="pc-calc-chip pc-calc-chip--active" onclick="setStage('mild')">Mild</button>
+                  <button type="button" class="pc-calc-chip" onclick="setStage('moderate')">Mod</button>
+                  <button type="button" class="pc-calc-chip" onclick="setStage('severe')">Severe</button>
+                </div>
+              </div>
+
+              <!-- Drug Category Filter -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Drug Category</span>
+                </div>
+                <div class="pc-calc-chips" id="category-chips">
+                  <button type="button" class="pc-calc-chip pc-calc-chip--active" onclick="filterCategory('all')">All</button>
+                  <button type="button" class="pc-calc-chip" onclick="filterCategory('antibiotic')">Antibiotics</button>
+                  <button type="button" class="pc-calc-chip" onclick="filterCategory('cardiac')">Cardiac</button>
+                  <button type="button" class="pc-calc-chip" onclick="filterCategory('neuro')">Neuro</button>
+                </div>
+              </div>
+
+              <!-- Drug Selection -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Drug</span>
+                </div>
+                <select id="rda-drug" class="pc-calc-input" onchange="onDrugChange()">
+                  <option value="">Loading drug list...</option>
+                </select>
+              </div>
+
+              <button type="submit" class="pc-calc-submit" id="calc-btn">
+                <span>🧮</span> Generate Adjustment
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Related Tools -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--2">
+          <div class="pc-calc-related">
+            <div class="pc-calc-related__title">Related Tools</div>
+            <div class="pc-calc-related__grid">
+              <a href="/tools/dose-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💊</span>
+                <span>Dosing</span>
+              </a>
+              <a href="/tools/fluid-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💧</span>
+                <span>Fluids</span>
+              </a>
+              <a href="/anion-gap-interpretation/" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">🧪</span>
+                <span>Anion Gap</span>
+              </a>
+              <a href="/reference/" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">📚</span>
+                <span>References</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <section class="pc-calc-main pc-calc-animate pc-calc-animate--2" aria-label="Adjustment rationale and guidelines">
+        <div class="pc-calc-viz">
+          <div class="pc-calc-viz__header">
+            <span class="pc-calc-viz__title">Adjustment Rationale</span>
+          </div>
+
+          <!-- Drug Info Card -->
+          <div class="pc-calc-drug-info" id="drug-info-card">
+            <div class="pc-calc-drug-info__header">
+              <div class="pc-calc-drug-info__icon">💊</div>
+              <div>
+                <div class="pc-calc-drug-info__name" id="drug-name">Select a drug</div>
+                <div class="pc-calc-drug-info__category" id="drug-category">Choose from the dropdown to see details</div>
+              </div>
+            </div>
+            <div class="pc-calc-drug-info__grid" id="drug-details" style="opacity: 0.5;">
+              <div class="pc-calc-drug-info__item">
+                <div class="pc-calc-drug-info__label">Elimination</div>
+                <div class="pc-calc-drug-info__value" id="drug-elimination">-</div>
+              </div>
+              <div class="pc-calc-drug-info__item">
+                <div class="pc-calc-drug-info__label">Protein Binding</div>
+                <div class="pc-calc-drug-info__value" id="drug-binding">-</div>
+              </div>
+              <div class="pc-calc-drug-info__item">
+                <div class="pc-calc-drug-info__label">Half-life (normal)</div>
+                <div class="pc-calc-drug-info__value" id="drug-halflife">-</div>
+              </div>
+              <div class="pc-calc-drug-info__item">
+                <div class="pc-calc-drug-info__label">Adjust Strategy</div>
+                <div class="pc-calc-drug-info__value" id="drug-strategy">Interval</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparison Display -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+            <div class="pc-calc-result-card">
+              <div class="pc-calc-result__label">Baseline Interval</div>
+              <div class="pc-calc-result__value" style="font-size: 1.5rem;">
+                <span id="viz-baseline">-</span>
+              </div>
+              <div class="pc-calc-result__context">Normal renal function</div>
+            </div>
+            <div class="pc-calc-result-card pc-calc-result-card--warning">
+              <div class="pc-calc-result__label">Adjusted Interval</div>
+              <div class="pc-calc-result__value" style="font-size: 1.5rem;">
+                <span id="viz-adjusted">-</span>
+              </div>
+              <div class="pc-calc-result__context" id="stage-context">Current stage</div>
+            </div>
+          </div>
+
+          <!-- Formula Display -->
+          <div class="pc-calc-formula">
+            <div class="pc-calc-formula__label">Adjustment Principle</div>
+            <div class="pc-calc-formula__math" id="formula-display">
+              <span class="pc-calc-formula__highlight">Interval Extension</span> = Accumulation Prevention<br>
+              <span class="pc-calc-formula__highlight">Key Rule</span> = Maintain dose, extend time between doses<br>
+              <span class="pc-calc-formula__highlight">Monitor</span> = Drug levels (if available), clinical response
+            </div>
+          </div>
+
+          <!-- Caution Alert -->
+          <div id="caution-alert" class="pc-calc-alert pc-calc-alert--warning" style="display: none;">
+            <div class="pc-calc-alert__icon">⚠️</div>
+            <div class="pc-calc-alert__content">
+              <div class="pc-calc-alert__title">Caution Reminder</div>
+              <div class="pc-calc-alert__text" id="caution-text">
+                Select a drug to view specific caution guidance.
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage Notes -->
+          <div class="pc-calc-drug-info" style="margin-bottom: 1rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              📋 Stage Guidance
+            </div>
+            <div style="font-size: 0.8125rem; color: var(--calc-text); line-height: 1.6;" id="stage-note">
+              Select a renal stage to view specific guidance for dose adjustments.
+            </div>
+          </div>
+
+          <!-- Quick Tips -->
+          <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--calc-glass-border);">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              💡 Clinical Pearls
+            </div>
+            <ul style="font-size: 0.8125rem; color: var(--calc-text-muted); line-height: 1.8; margin: 0; padding-left: 1.25rem;">
+              <li>Extend interval rather than reduce dose for most antibiotics</li>
+              <li>Monitor for signs of toxicity (neuro signs with fluoroquinolones)</li>
+              <li>Reassess dosing as renal function changes with therapy</li>
+              <li>Consider therapeutic drug monitoring when available</li>
+            </ul>
+          </div>
         </div>
       </section>
 
-      <section class="pc-bridge-section" aria-labelledby="rda-form-title">
-        <h2 id="rda-form-title" class="pc-bridge-title">Dose Context</h2>
-        <form id="rda-form" class="pc-calculator-grid" novalidate>
-          <label class="pc-calculator-field" for="rda-drug">
-            <span>Drug</span>
-            <select id="rda-drug" class="pc-input">
-              <option value="">Loading drug list...</option>
-            </select>
-          </label>
-
-          <label class="pc-calculator-field" for="rda-stage">
-            <span>Renal Stage</span>
-            <select id="rda-stage" class="pc-input">
-              <option value="normal">Baseline / Normal Renal Function</option>
-              <option value="mild">Mild Compromise</option>
-              <option value="moderate">Moderate Compromise</option>
-              <option value="severe">Severe Compromise</option>
-            </select>
-          </label>
-
-          <div class="pc-calculator-actions">
-            <button type="submit" class="pc-btn pc-btn--primary">
-              Generate Interval Support
+      <!-- Results Panel -->
+      <aside class="pc-calc-results pc-calc-animate pc-calc-animate--3" aria-label="Calculation results" aria-live="polite">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📊</span>
+              Results
+            </span>
+            <button type="button" class="pc-calc-copy" onclick="copyResults()" title="Copy results">
+              📋
             </button>
           </div>
-        </form>
-      </section>
+          <div class="pc-calc-panel__content">
+            <!-- Primary Result -->
+            <div class="pc-calc-result-card pc-calc-result-card--primary" id="result-primary">
+              <div class="pc-calc-result__label">
+                <span>💊</span> Recommended Interval
+              </div>
+              <div class="pc-calc-result__value">
+                <span id="result-interval">--</span>
+              </div>
+              <div class="pc-calc-result__context" id="result-interval-context">Select drug and stage</div>
+            </div>
 
-      <section
-        class="pc-bridge-section"
-        aria-live="polite"
-        aria-labelledby="rda-output-title"
-      >
-        <h2 id="rda-output-title" class="pc-bridge-title">
-          Adjustment Summary
-        </h2>
-        <div class="pc-stat-grid pc-stat-grid--results">
-          <article class="pc-stat-card">
-            <p class="pc-stat-label">Drug</p>
-            <p id="rda-drug-name" class="pc-stat-number">-</p>
-          </article>
-          <article class="pc-stat-card">
-            <p class="pc-stat-label">Baseline Interval</p>
-            <p id="rda-normal" class="pc-stat-number">-</p>
-          </article>
-          <article class="pc-stat-card">
-            <p class="pc-stat-label">Suggested Adjusted Interval</p>
-            <p id="rda-adjusted" class="pc-stat-number">-</p>
-          </article>
+            <!-- Secondary Results -->
+            <div class="pc-calc-result-card">
+              <div class="pc-calc-result__label">
+                <span>📏</span> Baseline Interval
+              </div>
+              <div class="pc-calc-result__value" style="font-size: 1.25rem;">
+                <span id="result-baseline">--</span>
+              </div>
+              <div class="pc-calc-result__context">Normal renal function</div>
+            </div>
+
+            <div class="pc-calc-result-card pc-calc-result-card--success">
+              <div class="pc-calc-result__label">
+                <span>✓</span> Drug Class
+              </div>
+              <div class="pc-calc-result__value" style="font-size: 1.25rem;">
+                <span id="result-class">--</span>
+              </div>
+              <div class="pc-calc-result__context" id="result-elimination">-</div>
+            </div>
+
+            <div class="pc-calc-result-card pc-calc-result-card--warning">
+              <div class="pc-calc-result__label">
+                <span>🔍</span> Monitoring Priority
+              </div>
+              <div class="pc-calc-result__value" style="font-size: 1.25rem;">
+                <span id="result-monitor">High</span>
+              </div>
+              <div class="pc-calc-result__context" id="result-monitor-context">With renal impairment</div>
+            </div>
+
+            <!-- Progress indicator -->
+            <div class="pc-calc-progress" style="margin-top: 1rem;">
+              <div class="pc-calc-progress__bar" id="calc-progress" style="width: 0%"></div>
+            </div>
+          </div>
         </div>
-        <article class="pc-tool-module">
-          <h3>Caution Reminder</h3>
-          <p id="rda-caution">
-            Select a drug and stage to view caution guidance.
-          </p>
-        </article>
-        <p id="rda-note" class="pc-calculator-note">
-          Educational interval support only.
-        </p>
-        <p class="pc-disclaimer">
-          Always confirm final dose and interval with product label, local
-          formulary, and current renal trend data.
-        </p>
-        <p class="pc-disclaimer">
-          Approved reference baseline (reviewed February 13, 2026): Drug label
-          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
-          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
-          BCS charts, ACVIM cardiology consensus guideline references, Dental
-          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
-          breed search, and RECOVER CPR guidelines.
-        </p>
-      </section>
+
+        <!-- Quick Reference -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--4">
+          <div class="pc-calc-panel__content" style="padding: 1rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              📋 IRIS Staging Reference
+            </div>
+            <div style="font-size: 0.75rem; line-height: 1.6;">
+              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--calc-glass-border);">
+                <span>Normal</span>
+                <span style="font-weight: 500;">Dog &lt;1.4, Cat &lt;1.6</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--calc-glass-border);">
+                <span>IRIS 2 (Mild)</span>
+                <span style="font-weight: 500;">Dog 1.4-2.0, Cat 1.6-2.8</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--calc-glass-border);">
+                <span>IRIS 3 (Moderate)</span>
+                <span style="font-weight: 500;">Dog 2.1-5.0, Cat 2.9-5.0</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0;">
+                <span>IRIS 4 (Severe)</span>
+                <span style="font-weight: 500;">&gt;5.0 mg/dL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div style="padding: 0.75rem; font-size: 0.6875rem; color: var(--calc-text-muted); text-align: center; line-height: 1.5;">
+          Educational interval support only. Always confirm final dose and interval with product label, local formulary, and current renal trend data.
+        </div>
+      </aside>
     </main>
-    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal" style="margin-top: 0;">
       <div class="pc-footer__bottom">
         <div class="pc-footer__legal">
           <a href="/">Home</a>
@@ -227,5 +402,225 @@
         <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
       </div>
     </footer>
+
+    <script src="/assets/js/renal-dose-adjuster.js" defer></script>
+    <script>
+      // Auto-calculation toggle
+      let autoCalcEnabled = true;
+      
+      function toggleAutoCalc() {
+        autoCalcEnabled = !autoCalcEnabled;
+        document.getElementById('auto-calc-text').textContent = autoCalcEnabled ? 'Auto: On' : 'Auto: Off';
+        document.getElementById('auto-calc-btn').classList.toggle('pc-calc-chip--active', autoCalcEnabled);
+        if (autoCalcEnabled) {
+          document.getElementById('rda-form').dispatchEvent(new Event('submit'));
+        }
+      }
+
+      // Input change handler
+      function onInputChange() {
+        updateProgress();
+        if (autoCalcEnabled) {
+          document.getElementById('rda-form').dispatchEvent(new Event('submit'));
+        }
+      }
+
+      // Creatinine change - auto-suggest stage
+      function onCreaChange() {
+        const crea = parseFloat(document.getElementById('rda-crea').value);
+        const species = document.getElementById('rda-species').value;
+        
+        if (!crea) return;
+        
+        let suggestedStage = 'normal';
+        
+        if (species === 'dog') {
+          if (crea < 1.4) suggestedStage = 'normal';
+          else if (crea <= 2.0) suggestedStage = 'mild';
+          else if (crea <= 5.0) suggestedStage = 'moderate';
+          else suggestedStage = 'severe';
+        } else {
+          if (crea < 1.6) suggestedStage = 'normal';
+          else if (crea <= 2.8) suggestedStage = 'mild';
+          else if (crea <= 5.0) suggestedStage = 'moderate';
+          else suggestedStage = 'severe';
+        }
+        
+        document.getElementById('rda-stage').value = suggestedStage;
+        updateStageChips(suggestedStage);
+        onInputChange();
+      }
+
+      // Set creatinine from chip
+      function setCreatinine(value) {
+        document.getElementById('rda-crea').value = value;
+        onCreaChange();
+        updateChipState(event.target);
+      }
+
+      // Set stage from chip
+      function setStage(stage) {
+        document.getElementById('rda-stage').value = stage;
+        updateStageChips(stage);
+        onInputChange();
+      }
+
+      // Update stage chip visual state
+      function updateStageChips(activeStage) {
+        const container = document.getElementById('stage-chips');
+        const stageMap = { 'normal': 0, 'mild': 1, 'moderate': 2, 'severe': 3 };
+        const chips = container.querySelectorAll('.pc-calc-chip');
+        chips.forEach((chip, index) => {
+          chip.classList.toggle('pc-calc-chip--active', index === stageMap[activeStage]);
+        });
+      }
+
+      // Update chip visual state
+      function updateChipState(clickedChip) {
+        const parent = clickedChip.parentElement;
+        parent.querySelectorAll('.pc-calc-chip').forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+        });
+        clickedChip.classList.add('pc-calc-chip--active');
+      }
+
+      // Filter category
+      function filterCategory(category) {
+        // Update category chips
+        const container = document.getElementById('category-chips');
+        container.querySelectorAll('.pc-calc-chip').forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+        });
+        event.target.classList.add('pc-calc-chip--active');
+        
+        // Filter drug dropdown
+        const drugSelect = document.getElementById('rda-drug');
+        const currentDrug = drugSelect.value;
+        
+        // Get all drugs from the original options
+        if (typeof window.allDrugs !== 'undefined') {
+          const filtered = category === 'all' 
+            ? window.allDrugs 
+            : window.allDrugs.filter(d => {
+                const classLower = d.className.toLowerCase();
+                if (category === 'antibiotic') return classLower.includes('antibiotic') || classLower.includes('antimicrobial') || classLower.includes('antifungal');
+                if (category === 'cardiac') return classLower.includes('diuretic') || classLower.includes('cardiac') || classLower.includes('antagonist');
+                if (category === 'neuro') return classLower.includes('analgesic') || classLower.includes('anticonvulsant');
+                return true;
+              });
+          
+          drugSelect.innerHTML = filtered.map(d => 
+            `<option value="${d.id}">${d.label}</option>`
+          ).join('');
+          
+          // Restore selection if still in list
+          if (filtered.find(d => d.id === currentDrug)) {
+            drugSelect.value = currentDrug;
+          }
+        }
+      }
+
+      // Drug change handler
+      function onDrugChange() {
+        onInputChange();
+      }
+
+      // Update progress bar
+      function updateProgress() {
+        const drug = document.getElementById('rda-drug').value;
+        const stage = document.getElementById('rda-stage').value;
+        const crea = document.getElementById('rda-crea').value;
+        
+        let progress = 0;
+        if (crea) progress += 33;
+        if (drug) progress += 33;
+        if (stage && stage !== 'normal') progress += 34;
+        else if (stage) progress += 20;
+        
+        document.getElementById('calc-progress').style.width = progress + '%';
+      }
+
+      // Reset calculator
+      function resetCalculator() {
+        document.getElementById('rda-species').value = 'dog';
+        document.getElementById('rda-crea').value = '1.5';
+        document.getElementById('rda-stage').value = 'mild';
+        document.getElementById('rda-drug').selectedIndex = 0;
+        
+        // Reset chips
+        updateStageChips('mild');
+        document.querySelectorAll('#category-chips .pc-calc-chip').forEach((chip, i) => {
+          chip.classList.toggle('pc-calc-chip--active', i === 0);
+        });
+        
+        // Reset results
+        document.getElementById('result-interval').textContent = '--';
+        document.getElementById('result-baseline').textContent = '--';
+        document.getElementById('result-class').textContent = '--';
+        document.getElementById('result-monitor').textContent = 'High';
+        document.getElementById('viz-baseline').textContent = '-';
+        document.getElementById('viz-adjusted').textContent = '-';
+        document.getElementById('calc-progress').style.width = '0%';
+        
+        // Reset drug info
+        document.getElementById('drug-name').textContent = 'Select a drug';
+        document.getElementById('drug-category').textContent = 'Choose from the dropdown to see details';
+        document.getElementById('drug-details').style.opacity = '0.5';
+        document.getElementById('caution-alert').style.display = 'none';
+        
+        showToast('Calculator reset', 'info');
+      }
+
+      // Copy results
+      function copyResults() {
+        const interval = document.getElementById('result-interval').textContent;
+        const baseline = document.getElementById('result-baseline').textContent;
+        const drug = document.getElementById('rda-drug').selectedOptions[0]?.text || 'Drug';
+        const stage = document.getElementById('rda-stage').value;
+        
+        const text = `${drug} (${stage}): ${baseline} → ${interval}`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+          const btn = document.querySelector('.pc-calc-copy');
+          btn.classList.add('pc-calc-copy--copied');
+          btn.textContent = '✓';
+          showToast('Results copied to clipboard', 'success');
+          setTimeout(() => {
+            btn.classList.remove('pc-calc-copy--copied');
+            btn.textContent = '📋';
+          }, 2000);
+        });
+      }
+
+      // Toast notification
+      function showToast(message, type = 'info') {
+        const container = document.querySelector('.pc-toast-container');
+        const toast = document.createElement('div');
+        toast.className = `pc-toast pc-toast--${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.add('pc-toast--show');
+        }, 10);
+        
+        setTimeout(() => {
+          toast.classList.remove('pc-toast--show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      // Store all drugs for filtering
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+          const drugSelect = document.getElementById('rda-drug');
+          if (drugSelect && typeof window.allDrugs === 'undefined') {
+            window.allDrugs = Array.from(drugSelect.options)
+              .filter(opt => opt.value)
+              .map(opt => ({ id: opt.value, label: opt.textContent, className: '' }));
+          }
+        }, 500);
+      });
+    </script>
   </body>
 </html>

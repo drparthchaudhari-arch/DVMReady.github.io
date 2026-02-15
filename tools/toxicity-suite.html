@@ -15,45 +15,14 @@
     <link rel="canonical" href="https://parthchaudhari.com/tools/toxicity-suite.html" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
-    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
-    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
-    <link rel="stylesheet" href="/assets/css/calculator-modern.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
-    <script src="/assets/js/toxicity-suite.js" defer></script>
-    <script src="/assets/js/animations.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
+    <script src="/assets/js/toxicity-suite.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
-    <!-- Toast Container -->
     <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
-    
-    <!-- Floating Background Elements -->
-    <div class="pc-floating-elements" aria-hidden="true">
-      <div class="pc-float-shape pc-float-shape--1"></div>
-      <div class="pc-float-shape pc-float-shape--2"></div>
-    </div>
-    
-    <!-- Modern Ambient Floating Elements -->
-    <div class="pc-ambient-container" aria-hidden="true">
-      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
-      <div class="pc-ambient-particles">
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-      </div>
-      <div class="pc-ambient-grid"></div>
-    </div>
-    
-    <!-- Mobile Menu Overlay -->
-    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
     
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     
@@ -63,18 +32,6 @@
           <span class="pc-logo__icon">🐾</span>
           <span class="pc-logo__text">VetLudics</span>
         </a>
-        
-        <!-- Search Bar (Desktop) -->
-        <form class="pc-nav-search" action="/search.html" method="get" role="search">
-          <div class="pc-search-wrapper">
-            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-            </svg>
-            <input type="search" name="q" class="pc-search-input pc-search-input--nav" placeholder="Search..." aria-label="Search" autocomplete="off">
-            <kbd class="pc-search-shortcut">⌘K</kbd>
-          </div>
-        </form>
-        
         <div class="pc-nav-group">
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
@@ -87,137 +44,193 @@
           <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle theme">
             <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
             <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
-            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
-          </button>
-          
-          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-          </button>
-        </div>
-      </div>
-      
-      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
-        <div class="pc-mobile-menu__header">
-          <span class="pc-mobile-menu__title">Menu</span>
-          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
-        </div>
-        <nav class="pc-mobile-menu__nav">
-          <a class="pc-mobile-nav-link" href="/play/">🎮 Play</a>
-          <a class="pc-mobile-nav-link" href="/bridge/">🌉 Bridge</a>
-          <a class="pc-mobile-nav-link" href="/search.html">🔍 Search</a>
-          <a class="pc-mobile-nav-link" href="/study/">📚 Study Plan</a>
-          <a class="pc-mobile-nav-link" href="/account/">👤 Account</a>
-        </nav>
-        <div class="pc-mobile-menu__footer">
-          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
-            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
-            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
-            <span>Switch theme</span>
           </button>
         </div>
       </div>
     </nav>
 
-    <main id="pc-main" class="pc-calculator-page" role="main">
-      <!-- Breadcrumb -->
-      <nav class="pc-breadcrumbs" aria-label="Breadcrumb">
-        <ol class="pc-breadcrumbs__list">
-          <li class="pc-breadcrumbs__item"><a href="/">Home</a></li>
-          <li class="pc-breadcrumbs__item"><a href="/tools/">Tools</a></li>
-          <li class="pc-breadcrumbs__item" aria-current="page">Toxicity Suite</li>
-        </ol>
-      </nav>
-      
-      <!-- Hero Section -->
-      <section class="pc-calculator-hero" data-animate="fade-up">
-        <div class="pc-calculator-hero__icon">☠️</div>
-        <h1 class="pc-calculator-hero__title">Veterinary Toxicity Suite</h1>
-        <p class="pc-calculator-hero__desc">
-          Comprehensive toxicity calculator for dogs and cats. Calculate risk for chocolate, xylitol, 
-          rodenticides, grapes/raisins, medications, and more. Get immediate action recommendations.
-        </p>
-        <div class="pc-panel-actions">
-          <a class="pc-btn pc-btn--secondary" href="/tools/">← Back to Tools</a>
-        </div>
-      </section>
-
-      <!-- Toxicity Type Selector -->
-      <section class="pc-calculator-card" data-animate="fade-up" data-delay="100">
-        <div class="pc-calculator-card__header">
-          <div class="pc-calculator-card__icon">🧪</div>
-          <h2 class="pc-calculator-card__title">Select Toxicity Type</h2>
-        </div>
-        
-        <div class="pc-calculator-mode-selector" role="tablist" aria-label="Toxicity type">
-          <button type="button" class="pc-calculator-mode pc-is-active" data-tox-mode="chocolate" role="tab" aria-selected="true">
-            <span class="pc-calculator-mode__icon">🍫</span>
-            <span class="pc-calculator-mode__title">Chocolate</span>
-            <span class="pc-calculator-mode__desc">Methylxanthines</span>
-          </button>
-          <button type="button" class="pc-calculator-mode" data-tox-mode="xylitol" role="tab" aria-selected="false">
-            <span class="pc-calculator-mode__icon">🍬</span>
-            <span class="pc-calculator-mode__title">Xylitol</span>
-            <span class="pc-calculator-mode__desc">Hypoglycemia risk</span>
-          </button>
-          <button type="button" class="pc-calculator-mode" data-tox-mode="rodenticide" role="tab" aria-selected="false">
-            <span class="pc-calculator-mode__icon">🐀</span>
-            <span class="pc-calculator-mode__title">Rodenticide</span>
-            <span class="pc-calculator-mode__desc">Anticoagulants & more</span>
-          </button>
-          <button type="button" class="pc-calculator-mode" data-tox-mode="grapes" role="tab" aria-selected="false">
-            <span class="pc-calculator-mode__icon">🍇</span>
-            <span class="pc-calculator-mode__title">Grapes/Raisins</span>
-            <span class="pc-calculator-mode__desc">Nephrotoxic</span>
-          </button>
-          <button type="button" class="pc-calculator-mode" data-tox-mode="medication" role="tab" aria-selected="false">
-            <span class="pc-calculator-mode__icon">💊</span>
-            <span class="pc-calculator-mode__title">Medications</span>
-            <span class="pc-calculator-mode__desc">Common drugs</span>
-          </button>
-          <button type="button" class="pc-calculator-mode" data-tox-mode="macadamia" role="tab" aria-selected="false">
-            <span class="pc-calculator-mode__icon">🥜</span>
-            <span class="pc-calculator-mode__title">Macadamia</span>
-            <span class="pc-calculator-mode__desc">Neurotoxic</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- Input Form -->
-      <section class="pc-calculator-card" data-animate="fade-up" data-delay="200">
-        <div class="pc-calculator-card__header">
-          <div class="pc-calculator-card__icon">📋</div>
-          <h2 class="pc-calculator-card__title">Patient Information</h2>
-        </div>
-        
-        <form id="tox-form" class="pc-calculator-form" novalidate>
-          <div class="pc-calculator-grid">
-            <label class="pc-calculator-field" for="tox-species">
-              <span>Species</span>
-              <select id="tox-species" class="pc-input">
-                <option value="dog">Dog</option>
-                <option value="cat">Cat</option>
-              </select>
-            </label>
-            
-            <label class="pc-calculator-field" for="tox-weight">
-              <span>Weight (kg)</span>
-              <input id="tox-weight" class="pc-input" type="number" min="0.1" step="0.1" value="10" required />
-            </label>
-            
-            <label class="pc-calculator-field" for="tox-hours">
-              <span>Hours Since Ingestion</span>
-              <input id="tox-hours" class="pc-input" type="number" min="0" step="0.5" value="1" required />
-            </label>
+    <main id="pc-main" class="pc-calc-dashboard" role="main">
+      <!-- Header -->
+      <header class="pc-calc-header pc-calc-animate">
+        <div class="pc-calc-header__title">
+          <div class="pc-calc-header__icon">☠️</div>
+          <div class="pc-calc-header__text">
+            <h1>Veterinary Toxicity Suite</h1>
+            <p>Comprehensive toxicity risk assessment & treatment guidance</p>
           </div>
-          
-          <!-- Dynamic Panels -->
-          <div id="tox-panel-chocolate" class="tox-panel" data-tox-panel="chocolate">
-            <div class="pc-calculator-grid" style="margin-top: 1rem;">
-              <label class="pc-calculator-field" for="tox-chocolate-type">
-                <span>Chocolate Type</span>
-                <select id="tox-chocolate-type" class="pc-input">
+        </div>
+        <div class="pc-calc-header__actions">
+          <div class="pc-calc-quick-actions">
+            <button type="button" class="pc-calc-action-btn" onclick="resetCalculator()" title="Reset all fields">
+              <span>↺</span> Reset
+            </button>
+            <a href="/tools/" class="pc-calc-action-btn">
+              <span>←</span> Back
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Input Panel - Toxin Selector -->
+      <aside class="pc-calc-inputs pc-calc-animate pc-calc-animate--1" aria-label="Toxin selection and patient data">
+        <!-- Toxin Category Selector -->
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">🧪</span>
+              Select Toxin
+            </span>
+          </div>
+          <div class="pc-calc-panel__content" style="padding: 0.75rem;">
+            <div class="toxin-selector" role="tablist" aria-label="Toxicity type">
+              <button type="button" class="toxin-chip toxin-chip--active" data-tox-mode="chocolate" role="tab" aria-selected="true">
+                <span class="toxin-chip__icon">🍫</span>
+                <span class="toxin-chip__text">
+                  <span class="toxin-chip__title">Chocolate</span>
+                  <span class="toxin-chip__desc">Methylxanthines</span>
+                </span>
+              </button>
+              <button type="button" class="toxin-chip" data-tox-mode="xylitol" role="tab" aria-selected="false">
+                <span class="toxin-chip__icon">🍬</span>
+                <span class="toxin-chip__text">
+                  <span class="toxin-chip__title">Xylitol</span>
+                  <span class="toxin-chip__desc">Hypoglycemia risk</span>
+                </span>
+              </button>
+              <button type="button" class="toxin-chip" data-tox-mode="rodenticide" role="tab" aria-selected="false">
+                <span class="toxin-chip__icon">🐀</span>
+                <span class="toxin-chip__text">
+                  <span class="toxin-chip__title">Rodenticide</span>
+                  <span class="toxin-chip__desc">Anticoagulants</span>
+                </span>
+              </button>
+              <button type="button" class="toxin-chip" data-tox-mode="grapes" role="tab" aria-selected="false">
+                <span class="toxin-chip__icon">🍇</span>
+                <span class="toxin-chip__text">
+                  <span class="toxin-chip__title">Grapes/Raisins</span>
+                  <span class="toxin-chip__desc">Nephrotoxic</span>
+                </span>
+              </button>
+              <button type="button" class="toxin-chip" data-tox-mode="medication" role="tab" aria-selected="false">
+                <span class="toxin-chip__icon">💊</span>
+                <span class="toxin-chip__text">
+                  <span class="toxin-chip__title">Medications</span>
+                  <span class="toxin-chip__desc">Common drugs</span>
+                </span>
+              </button>
+              <button type="button" class="toxin-chip" data-tox-mode="macadamia" role="tab" aria-selected="false">
+                <span class="toxin-chip__icon">🥜</span>
+                <span class="toxin-chip__text">
+                  <span class="toxin-chip__title">Macadamia</span>
+                  <span class="toxin-chip__desc">Neurotoxic</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Patient Information -->
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📝</span>
+              Patient Info
+            </span>
+          </div>
+          <div class="pc-calc-panel__content">
+            <form id="tox-form" novalidate>
+              <!-- Species -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Species</span>
+                </div>
+                <select id="tox-species" class="pc-calc-input" onchange="onInputChange()">
+                  <option value="dog">🐕 Dog</option>
+                  <option value="cat">🐈 Cat</option>
+                </select>
+              </div>
+
+              <!-- Weight -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Weight</span>
+                  <span class="pc-calc-field__hint">kg</span>
+                </div>
+                <input id="tox-weight" class="pc-calc-input pc-calc-input--number" type="number" min="0.1" step="0.1" value="10" required oninput="onInputChange()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(2.5)">2.5 kg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(5)">5 kg</button>
+                  <button type="button" class="pc-calc-chip pc-calc-chip--active" onclick="setWeight(10)">10 kg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(20)">20 kg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(30)">30 kg</button>
+                </div>
+              </div>
+
+              <!-- Hours Since Ingestion -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Time Since Ingestion</span>
+                  <span class="pc-calc-field__hint">hours</span>
+                </div>
+                <input id="tox-hours" class="pc-calc-input pc-calc-input--number" type="number" min="0" step="0.5" value="1" required oninput="onInputChange()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setHours(0.5)">30 min</button>
+                  <button type="button" class="pc-calc-chip pc-calc-chip--active" onclick="setHours(1)">1 hr</button>
+                  <button type="button" class="pc-calc-chip" onclick="setHours(2)">2 hr</button>
+                  <button type="button" class="pc-calc-chip" onclick="setHours(4)">4 hr</button>
+                </div>
+              </div>
+
+              <!-- Progress indicator -->
+              <div class="pc-calc-progress" style="margin-top: 1rem;">
+                <div class="pc-calc-progress__bar" id="calc-progress" style="width: 50%"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Related Tools -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--2">
+          <div class="pc-calc-related">
+            <div class="pc-calc-related__title">Related Tools</div>
+            <div class="pc-calc-related__grid">
+              <a href="/tools/dose-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💊</span>
+                <span>Dosing</span>
+              </a>
+              <a href="/tools/fluid-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💧</span>
+                <span>Fluids</span>
+              </a>
+              <a href="/emergency-triage-algorithms/" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">🚨</span>
+                <span>Triage</span>
+              </a>
+              <a href="/rodenticide-bleeding-veterinary/" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">🩸</span>
+                <span>Anticoag</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content - Dynamic Toxin Forms -->
+      <section class="pc-calc-main pc-calc-animate pc-calc-animate--2" aria-label="Toxin-specific inputs and guidance">
+        <div class="pc-calc-viz">
+          <div class="pc-calc-viz__header">
+            <span class="pc-calc-viz__title" id="toxin-form-title">Chocolate Toxicity</span>
+          </div>
+
+          <!-- Dynamic Toxin Forms -->
+          <form id="toxin-details-form" novalidate>
+            <!-- Chocolate Panel -->
+            <div id="tox-panel-chocolate" class="tox-panel" data-tox-panel="chocolate">
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Chocolate Type</span>
+                </div>
+                <select id="tox-chocolate-type" class="pc-calc-input" onchange="onInputChange()">
                   <option value="white">White chocolate (0.5 mg/oz)</option>
                   <option value="milk" selected>Milk chocolate (64 mg/oz)</option>
                   <option value="dark">Dark chocolate (142 mg/oz)</option>
@@ -225,42 +238,68 @@
                   <option value="baking">Baking chocolate (440 mg/oz)</option>
                   <option value="cocoaPowder">Cocoa powder (807 mg/oz)</option>
                 </select>
-              </label>
-              <label class="pc-calculator-field" for="tox-chocolate-amount">
-                <span>Amount (oz)</span>
-                <input id="tox-chocolate-amount" class="pc-input" type="number" min="0" step="0.1" value="1" />
-              </label>
+              </div>
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Amount Ingested</span>
+                  <span class="pc-calc-field__hint">oz or grams</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <input id="tox-chocolate-amount" class="pc-calc-input pc-calc-input--number" type="number" min="0" step="0.1" value="1" required oninput="onInputChange()" style="flex: 1;" />
+                  <select id="tox-chocolate-unit" class="pc-calc-input" onchange="onInputChange()" style="width: 100px;">
+                    <option value="oz">oz</option>
+                    <option value="g">grams</option>
+                  </select>
+                </div>
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setChocolateAmount(0.5)">0.5 oz</button>
+                  <button type="button" class="pc-calc-chip" onclick="setChocolateAmount(1)">1 oz</button>
+                  <button type="button" class="pc-calc-chip" onclick="setChocolateAmount(2)">2 oz</button>
+                  <button type="button" class="pc-calc-chip" onclick="setChocolateAmount(4)">4 oz</button>
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <div id="tox-panel-xylitol" class="tox-panel" data-tox-panel="xylitol" hidden>
-            <div class="pc-calculator-grid" style="margin-top: 1rem;">
-              <label class="pc-calculator-field" for="tox-xylitol-product">
-                <span>Product Type</span>
-                <select id="tox-xylitol-product" class="pc-input">
+
+            <!-- Xylitol Panel -->
+            <div id="tox-panel-xylitol" class="tox-panel" data-tox-panel="xylitol" hidden>
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Product Type</span>
+                </div>
+                <select id="tox-xylitol-product" class="pc-calc-input" onchange="onXylitolProductChange()">
                   <option value="gum">Sugar-free gum (500 mg/piece)</option>
                   <option value="peanutButter">Sugar-free PB (1080 mg/tbsp)</option>
                   <option value="mouthwash">Mouthwash (200 mg/mL)</option>
                   <option value="bakedGoods">Baked goods (variable)</option>
                   <option value="custom">Custom amount</option>
                 </select>
-              </label>
-              <label class="pc-calculator-field" for="tox-xylitol-amount">
-                <span>Amount</span>
-                <input id="tox-xylitol-amount" class="pc-input" type="number" min="0" step="0.1" value="1" />
-              </label>
-              <label class="pc-calculator-field" for="tox-xylitol-custom" id="tox-xylitol-custom-wrap" hidden>
-                <span>Custom mg per unit</span>
-                <input id="tox-xylitol-custom" class="pc-input" type="number" min="0" step="1" value="500" />
-              </label>
+              </div>
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Amount</span>
+                </div>
+                <input id="tox-xylitol-amount" class="pc-calc-input pc-calc-input--number" type="number" min="0" step="0.1" value="1" required oninput="onInputChange()" />
+                <div class="pc-calc-chips" id="xylitol-amount-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setXylitolAmount(1)">1 piece</button>
+                  <button type="button" class="pc-calc-chip" onclick="setXylitolAmount(2)">2 pieces</button>
+                  <button type="button" class="pc-calc-chip" onclick="setXylitolAmount(5)">5 pieces</button>
+                </div>
+              </div>
+              <div class="pc-calc-field" id="tox-xylitol-custom-wrap" hidden>
+                <div class="pc-calc-field__label">
+                  <span>Custom mg per unit</span>
+                </div>
+                <input id="tox-xylitol-custom" class="pc-calc-input pc-calc-input--number" type="number" min="0" step="1" value="500" oninput="onInputChange()" />
+              </div>
             </div>
-          </div>
-          
-          <div id="tox-panel-rodenticide" class="tox-panel" data-tox-panel="rodenticide" hidden>
-            <div class="pc-calculator-grid" style="margin-top: 1rem;">
-              <label class="pc-calculator-field" for="tox-rodenticide-type">
-                <span>Active Ingredient</span>
-                <select id="tox-rodenticide-type" class="pc-input">
+
+            <!-- Rodenticide Panel -->
+            <div id="tox-panel-rodenticide" class="tox-panel" data-tox-panel="rodenticide" hidden>
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Active Ingredient</span>
+                </div>
+                <select id="tox-rodenticide-type" class="pc-calc-input" onchange="onInputChange()">
                   <option value="warfarin">Warfarin (1st-gen)</option>
                   <option value="bromadiolone">Bromadiolone (2nd-gen)</option>
                   <option value="difenacoum">Difenacoum (2nd-gen)</option>
@@ -268,40 +307,68 @@
                   <option value="cholecalciferol">Cholecalciferol (Vit D3)</option>
                   <option value="zincPhosphide">Zinc phosphide</option>
                 </select>
-              </label>
-              <label class="pc-calculator-field" for="tox-rodenticide-amount">
-                <span>Bait Amount (grams)</span>
-                <input id="tox-rodenticide-amount" class="pc-input" type="number" min="0" step="0.1" value="5" />
-              </label>
-              <label class="pc-calculator-field" for="tox-rodenticide-percent">
-                <span>Active Ingredient (%)</span>
-                <input id="tox-rodenticide-percent" class="pc-input" type="number" min="0" step="0.001" value="0.005" />
-              </label>
+              </div>
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Bait Amount</span>
+                  <span class="pc-calc-field__hint">grams</span>
+                </div>
+                <input id="tox-rodenticide-amount" class="pc-calc-input pc-calc-input--number" type="number" min="0" step="0.1" value="5" required oninput="onInputChange()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setRodenticideAmount(1)">1g</button>
+                  <button type="button" class="pc-calc-chip" onclick="setRodenticideAmount(5)">5g</button>
+                  <button type="button" class="pc-calc-chip" onclick="setRodenticideAmount(10)">10g</button>
+                  <button type="button" class="pc-calc-chip" onclick="setRodenticideAmount(28)">1 oz</button>
+                </div>
+              </div>
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Active Ingredient Concentration</span>
+                  <span class="pc-calc-field__hint">%</span>
+                </div>
+                <input id="tox-rodenticide-percent" class="pc-calc-input pc-calc-input--number" type="number" min="0" step="0.001" value="0.005" required oninput="onInputChange()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setRodenticidePercent(0.005)">0.005%</button>
+                  <button type="button" class="pc-calc-chip" onclick="setRodenticidePercent(0.01)">0.01%</button>
+                  <button type="button" class="pc-calc-chip" onclick="setRodenticidePercent(0.025)">0.025%</button>
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <div id="tox-panel-grapes" class="tox-panel" data-tox-panel="grapes" hidden>
-            <div class="pc-calculator-grid" style="margin-top: 1rem;">
-              <label class="pc-calculator-field" for="tox-grape-type">
-                <span>Type</span>
-                <select id="tox-grape-type" class="pc-input">
+
+            <!-- Grapes Panel -->
+            <div id="tox-panel-grapes" class="tox-panel" data-tox-panel="grapes" hidden>
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Type</span>
+                </div>
+                <select id="tox-grape-type" class="pc-calc-input" onchange="onInputChange()">
                   <option value="grapes">Grapes</option>
                   <option value="raisins">Raisins</option>
                   <option value="currants">Currants</option>
                 </select>
-              </label>
-              <label class="pc-calculator-field" for="tox-grape-amount">
-                <span>Amount (pieces/oz)</span>
-                <input id="tox-grape-amount" class="pc-input" type="number" min="0" step="0.1" value="1" />
-              </label>
+              </div>
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Amount</span>
+                  <span class="pc-calc-field__hint">pieces or oz</span>
+                </div>
+                <input id="tox-grape-amount" class="pc-calc-input pc-calc-input--number" type="number" min="0" step="0.1" value="1" required oninput="onInputChange()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setGrapeAmount(1)">1</button>
+                  <button type="button" class="pc-calc-chip" onclick="setGrapeAmount(5)">5</button>
+                  <button type="button" class="pc-calc-chip" onclick="setGrapeAmount(10)">10</button>
+                  <button type="button" class="pc-calc-chip" onclick="setGrapeAmount(20)">20</button>
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <div id="tox-panel-medication" class="tox-panel" data-tox-panel="medication" hidden>
-            <div class="pc-calculator-grid" style="margin-top: 1rem;">
-              <label class="pc-calculator-field" for="tox-medication-type">
-                <span>Medication</span>
-                <select id="tox-medication-type" class="pc-input">
+
+            <!-- Medication Panel -->
+            <div id="tox-panel-medication" class="tox-panel" data-tox-panel="medication" hidden>
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Medication</span>
+                </div>
+                <select id="tox-medication-type" class="pc-calc-input" onchange="onInputChange()">
                   <option value="ibuprofen">Ibuprofen</option>
                   <option value="acetaminophen">Acetaminophen</option>
                   <option value="aspirin">Aspirin</option>
@@ -311,106 +378,179 @@
                   <option value="metformin">Metformin</option>
                   <option value="albuterol">Albuterol</option>
                 </select>
-              </label>
-              <label class="pc-calculator-field" for="tox-medication-mg">
-                <span>Amount Ingested (mg)</span>
-                <input id="tox-medication-mg" class="pc-input" type="number" min="0" step="1" value="100" />
-              </label>
+              </div>
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Amount Ingested</span>
+                  <span class="pc-calc-field__hint">mg</span>
+                </div>
+                <input id="tox-medication-mg" class="pc-calc-input pc-calc-input--number" type="number" min="0" step="1" value="100" required oninput="onInputChange()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setMedicationMg(100)">100 mg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setMedicationMg(200)">200 mg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setMedicationMg(500)">500 mg</button>
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <div id="tox-panel-macadamia" class="tox-panel" data-tox-panel="macadamia" hidden>
-            <div class="pc-calculator-grid" style="margin-top: 1rem;">
-              <label class="pc-calculator-field" for="tox-macadamia-amount">
-                <span>Amount (nuts or grams)</span>
-                <input id="tox-macadamia-amount" class="pc-input" type="number" min="0" step="0.1" value="1" />
-              </label>
-              <label class="pc-calculator-field" for="tox-macadamia-unit">
-                <span>Unit</span>
-                <select id="tox-macadamia-unit" class="pc-input">
+
+            <!-- Macadamia Panel -->
+            <div id="tox-panel-macadamia" class="tox-panel" data-tox-panel="macadamia" hidden>
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Unit Type</span>
+                </div>
+                <select id="tox-macadamia-unit" class="pc-calc-input" onchange="onInputChange()">
                   <option value="nuts">Number of nuts</option>
                   <option value="grams">Grams</option>
                 </select>
-              </label>
+              </div>
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Amount</span>
+                </div>
+                <input id="tox-macadamia-amount" class="pc-calc-input pc-calc-input--number" type="number" min="0" step="0.1" value="1" required oninput="onInputChange()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setMacadamiaAmount(1)">1</button>
+                  <button type="button" class="pc-calc-chip" onclick="setMacadamiaAmount(5)">5</button>
+                  <button type="button" class="pc-calc-chip" onclick="setMacadamiaAmount(10)">10</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Risk Flags -->
+            <div class="pc-calc-field" style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--calc-border);">
+              <div class="pc-calc-field__label">Clinical Flags</div>
+              <div class="risk-flags">
+                <label class="risk-flag">
+                  <input type="checkbox" id="tox-neuro" onchange="onInputChange()" />
+                  <span>Neurologic signs present</span>
+                </label>
+                <label class="risk-flag">
+                  <input type="checkbox" id="tox-asymptomatic" onchange="onInputChange()" />
+                  <span>Currently asymptomatic</span>
+                </label>
+                <label class="risk-flag">
+                  <input type="checkbox" id="tox-corrosive" onchange="onInputChange()" />
+                  <span>Possible corrosive</span>
+                </label>
+                <label class="risk-flag">
+                  <input type="checkbox" id="tox-hydrocarbon" onchange="onInputChange()" />
+                  <span>Hydrocarbon concern</span>
+                </label>
+              </div>
+            </div>
+
+            <button type="submit" class="pc-calc-submit" id="calc-btn" style="margin-top: 1.5rem;">
+              <span>🧮</span> Calculate Risk
+            </button>
+          </form>
+
+          <!-- Formula Display -->
+          <div class="pc-calc-formula" style="margin-top: 1.5rem;">
+            <div class="pc-calc-formula__label">Calculation Method</div>
+            <div class="pc-calc-formula__math" id="formula-display">
+              <span class="pc-calc-formula__highlight">Dose (mg/kg)</span> = Total Toxin ÷ Weight<br>
+              <span class="pc-calc-formula__highlight">Risk Level</span> = Based on published toxic doses
             </div>
           </div>
-          
-          <!-- Risk Flags -->
-          <div class="pc-calculator-field" style="margin-top: 1.5rem;">
-            <span>Risk Factors / Contraindications</span>
-            <label><input type="checkbox" id="tox-neuro" /> Neurologic signs present</label>
-            <label><input type="checkbox" id="tox-corrosive" /> Possible corrosive</label>
-            <label><input type="checkbox" id="tox-hydrocarbon" /> Hydrocarbon concern</label>
-            <label><input type="checkbox" id="tox-asymptomatic" /> Currently asymptomatic</label>
+        </div>
+      </section>
+
+      <!-- Results Panel -->
+      <aside class="pc-calc-results pc-calc-animate pc-calc-animate--3" aria-label="Risk assessment results" aria-live="polite">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📊</span>
+              Risk Assessment
+            </span>
+            <button type="button" class="pc-calc-copy" onclick="copyResults()" title="Copy results">
+              📋
+            </button>
           </div>
-          
-          <div class="pc-calculator-actions">
-            <button type="submit" class="pc-btn pc-btn--primary">Calculate Risk</button>
-            <button type="reset" class="pc-btn pc-btn--secondary">Reset</button>
+          <div class="pc-calc-panel__content">
+            <!-- Risk Level - Primary Result -->
+            <div class="pc-calc-result-card pc-calc-result-card--primary" id="risk-card">
+              <div class="pc-calc-result__label">
+                <span>⚠️</span> Risk Level
+              </div>
+              <div class="pc-calc-result__value" id="tox-result-risk">
+                --
+              </div>
+              <div class="pc-calc-result__context" id="risk-context">Enter patient data to assess</div>
+            </div>
+
+            <!-- Secondary Results Grid -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div class="pc-calc-result-card">
+                <div class="pc-calc-result__label">Dose</div>
+                <div class="pc-calc-result__value" style="font-size: 1.25rem;">
+                  <span id="tox-result-dose">--</span>
+                  <span class="pc-calc-result__unit">mg/kg</span>
+                </div>
+              </div>
+              <div class="pc-calc-result-card">
+                <div class="pc-calc-result__label">Emesis</div>
+                <div class="pc-calc-result__value" style="font-size: 1.25rem;">
+                  <span id="tox-result-emesis">--</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Recommendation -->
+            <div class="pc-calc-result-card pc-calc-result-card--success" id="action-card">
+              <div class="pc-calc-result__label">
+                <span>✓</span> Recommended Action
+              </div>
+              <div style="font-size: 0.875rem; color: var(--calc-text); line-height: 1.5; margin-top: 0.5rem;" id="tox-result-action">
+                Complete the assessment to see recommendations.
+              </div>
+            </div>
+
+            <!-- Monitoring -->
+            <div class="pc-calc-result-card" id="monitoring-card" style="display: none;">
+              <div class="pc-calc-result__label">
+                <span>👁️</span> Monitoring
+              </div>
+              <div style="font-size: 0.8125rem; color: var(--calc-text-muted); line-height: 1.5; margin-top: 0.5rem;" id="tox-result-monitoring">
+                --
+              </div>
+            </div>
+
+            <!-- Progress indicator -->
+            <div class="pc-calc-progress" style="margin-top: 1rem;">
+              <div class="pc-calc-progress__bar" id="result-progress" style="width: 0%"></div>
+            </div>
           </div>
-        </form>
-      </section>
+        </div>
 
-      <!-- Results Section -->
-      <section id="tox-results" class="pc-calculator-results" data-animate="fade-up" data-delay="300" hidden>
-        <div class="pc-calculator-card__header">
-          <div class="pc-calculator-card__icon">📊</div>
-          <h2 class="pc-calculator-card__title">Risk Assessment</h2>
+        <!-- Quick Reference -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--4">
+          <div class="pc-calc-panel__content" style="padding: 1rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              ☎️ Emergency Contacts
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <a href="tel:888-426-4435" class="pc-calc-related__item" style="justify-content: space-between; background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2);">
+                <span>ASPCA Poison Control</span>
+                <span style="font-weight: 600; color: var(--calc-danger);">888-426-4435</span>
+              </a>
+              <a href="tel:855-764-7661" class="pc-calc-related__item" style="justify-content: space-between;">
+                <span>Pet Poison Helpline</span>
+                <span style="font-weight: 600;">855-764-7661</span>
+              </a>
+            </div>
+          </div>
         </div>
-        
-        <div class="pc-results-grid">
-          <article class="pc-result-card">
-            <p class="pc-result-card__label">Estimated Dose</p>
-            <p id="tox-result-dose" class="pc-result-card__value">-</p>
-          </article>
-          <article class="pc-result-card" id="tox-result-risk-card">
-            <p class="pc-result-card__label">Risk Level</p>
-            <p id="tox-result-risk" class="pc-result-card__value">-</p>
-          </article>
-          <article class="pc-result-card">
-            <p class="pc-result-card__label">Emesis Window</p>
-            <p id="tox-result-emesis" class="pc-result-card__value">-</p>
-          </article>
-        </div>
-        
-        <div id="tox-alert" class="pc-calculator-alert" hidden></div>
-        
-        <div class="pc-action-card">
-          <h3 class="pc-action-card__title">Recommended Action</h3>
-          <p id="tox-result-action" class="pc-action-card__text">Complete the form to see recommendations.</p>
-        </div>
-        
-        <div id="tox-monitoring-card" class="pc-action-card" style="margin-top: 1rem;" hidden>
-          <h3 class="pc-action-card__title">Monitoring</h3>
-          <p id="tox-result-monitoring" class="pc-action-card__text">-</p>
-        </div>
-      </section>
 
-      <!-- Emergency Contacts -->
-      <section class="pc-emergency-card" data-animate="fade-up" data-delay="400">
-        <h3 class="pc-emergency-card__title">Emergency Poison Control</h3>
-        <ul class="pc-emergency-card__list">
-          <li>
-            <span>ASPCA Animal Poison Control</span>
-            <span class="pc-emergency-card__number">888-426-4435</span>
-          </li>
-          <li>
-            <span>Pet Poison Helpline</span>
-            <span class="pc-emergency-card__number">855-764-7661</span>
-          </li>
-        </ul>
-      </section>
-
-      <!-- Disclaimer -->
-      <p class="pc-disclaimer" style="margin-top: 1.5rem;">
-        <strong>Educational use only.</strong> This calculator provides estimates based on published toxicology data. 
-        Individual patient factors, co-ingestants, and product variability can significantly affect toxicity risk. 
-        Always consult with a veterinarian or poison control for specific cases.
-      </p>
+        <!-- Disclaimer -->
+        <div style="padding: 0.75rem; font-size: 0.6875rem; color: var(--calc-text-muted); text-align: center; line-height: 1.5;">
+          Educational tool only. Always consult with a veterinarian or poison control for specific cases.
+        </div>
+      </aside>
     </main>
-    
-    <!-- Footer -->
-    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal" style="margin-top: 0;">
       <div class="pc-footer__bottom">
         <div class="pc-footer__legal">
           <a href="/">Home</a>
@@ -421,5 +561,626 @@
         <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
       </div>
     </footer>
+
+    <style>
+      /* Toxin Selector Chips */
+      .toxin-selector {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .toxin-chip {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+        padding: 0.75rem;
+        text-align: left;
+        background: var(--calc-glass-bg);
+        border: 1.5px solid var(--calc-border);
+        border-radius: var(--calc-radius);
+        cursor: pointer;
+        transition: var(--calc-transition);
+      }
+
+      .toxin-chip:hover {
+        border-color: var(--calc-primary-light);
+        background: rgba(99, 102, 241, 0.05);
+      }
+
+      .toxin-chip--active {
+        border-color: var(--calc-primary);
+        background: rgba(99, 102, 241, 0.1);
+      }
+
+      .toxin-chip__icon {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: var(--calc-radius-sm);
+      }
+
+      [data-theme="dark"] .toxin-chip__icon {
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      .toxin-chip--active .toxin-chip__icon {
+        background: var(--calc-primary);
+      }
+
+      .toxin-chip__text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+      }
+
+      .toxin-chip__title {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--calc-text);
+      }
+
+      .toxin-chip__desc {
+        font-size: 0.75rem;
+        color: var(--calc-text-muted);
+      }
+
+      /* Risk Flags */
+      .risk-flags {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .risk-flag {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.8125rem;
+        color: var(--calc-text);
+        cursor: pointer;
+      }
+
+      .risk-flag input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--calc-primary);
+      }
+
+      /* Toxin Panel Transitions */
+      .tox-panel {
+        transition: opacity 0.2s ease;
+      }
+
+      .tox-panel[hidden] {
+        display: none;
+      }
+
+      /* Risk Level Colors */
+      .pc-calc-result-card--danger {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%);
+        border-color: rgba(239, 68, 68, 0.4);
+      }
+
+      .pc-calc-result-card--warning {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
+        border-color: rgba(245, 158, 11, 0.4);
+      }
+
+      .pc-calc-result-card--success {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+    </style>
+
+    <script>
+      // Current toxin mode
+      let currentToxin = 'chocolate';
+      
+      // Toxin data for titles and formulas
+      const toxinData = {
+        chocolate: { title: 'Chocolate Toxicity', formula: 'Theobromine + Caffeine (mg/kg)' },
+        xylitol: { title: 'Xylitol Toxicity', formula: 'Xylitol (mg/kg) - Hypoglycemia risk' },
+        rodenticide: { title: 'Rodenticide Toxicity', formula: 'Active ingredient (mg/kg)' },
+        grapes: { title: 'Grape/Raisin Toxicity', formula: 'Unknown nephrotoxin - ANY amount risky' },
+        medication: { title: 'Medication Toxicity', formula: 'Drug (mg/kg) - Varies by agent' },
+        macadamia: { title: 'Macadamia Toxicity', formula: 'Nuts or grams ingested' }
+      };
+
+      // Initialize toxin selector
+      document.querySelectorAll('[data-tox-mode]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const mode = btn.dataset.toxMode;
+          setToxinMode(mode);
+        });
+      });
+
+      // Form submission
+      document.getElementById('tox-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        calculateToxicity();
+      });
+
+      document.getElementById('toxin-details-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        calculateToxicity();
+      });
+
+      function setToxinMode(mode) {
+        currentToxin = mode;
+        
+        // Update selector UI
+        document.querySelectorAll('[data-tox-mode]').forEach(btn => {
+          const isActive = btn.dataset.toxMode === mode;
+          btn.classList.toggle('toxin-chip--active', isActive);
+          btn.setAttribute('aria-selected', isActive);
+        });
+
+        // Update panel visibility
+        document.querySelectorAll('.tox-panel').forEach(panel => {
+          panel.hidden = panel.dataset.toxPanel !== mode;
+        });
+
+        // Update title and formula
+        document.getElementById('toxin-form-title').textContent = toxinData[mode].title;
+        document.getElementById('formula-display').innerHTML = `
+          <span class="pc-calc-formula__highlight">Dose (mg/kg)</span> = Total Toxin ÷ Weight<br>
+          <span class="pc-calc-formula__highlight">Method</span> = ${toxinData[mode].formula}
+        `;
+
+        // Reset results
+        resetResults();
+        updateProgress();
+        
+        showToast(`Switched to ${toxinData[mode].title}`, 'info');
+      }
+
+      function onInputChange() {
+        updateProgress();
+        // Auto-calculate after a short delay
+        clearTimeout(window.calcTimeout);
+        window.calcTimeout = setTimeout(calculateToxicity, 300);
+      }
+
+      function updateProgress() {
+        const weight = document.getElementById('tox-weight').value;
+        let hasAmount = false;
+        
+        // Check if current toxin has amount entered
+        switch(currentToxin) {
+          case 'chocolate': hasAmount = document.getElementById('tox-chocolate-amount').value; break;
+          case 'xylitol': hasAmount = document.getElementById('tox-xylitol-amount').value; break;
+          case 'rodenticide': hasAmount = document.getElementById('tox-rodenticide-amount').value; break;
+          case 'grapes': hasAmount = document.getElementById('tox-grape-amount').value; break;
+          case 'medication': hasAmount = document.getElementById('tox-medication-mg').value; break;
+          case 'macadamia': hasAmount = document.getElementById('tox-macadamia-amount').value; break;
+        }
+        
+        let progress = 0;
+        if (weight) progress += 50;
+        if (hasAmount) progress += 50;
+        
+        document.getElementById('calc-progress').style.width = progress + '%';
+      }
+
+      // Quick setters
+      function setWeight(weight) {
+        document.getElementById('tox-weight').value = weight;
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      function setHours(hours) {
+        document.getElementById('tox-hours').value = hours;
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      function setChocolateAmount(oz) {
+        document.getElementById('tox-chocolate-amount').value = oz;
+        document.getElementById('tox-chocolate-unit').value = 'oz';
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      function setXylitolAmount(amount) {
+        document.getElementById('tox-xylitol-amount').value = amount;
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      function onXylitolProductChange() {
+        const product = document.getElementById('tox-xylitol-product').value;
+        const customWrap = document.getElementById('tox-xylitol-custom-wrap');
+        const chipsContainer = document.getElementById('xylitol-amount-chips');
+        
+        customWrap.hidden = product !== 'custom';
+        
+        // Update chips based on product
+        const chipLabels = {
+          gum: ['1 piece', '2 pieces', '5 pieces'],
+          peanutButter: ['1 tbsp', '2 tbsp'],
+          mouthwash: ['10 mL', '30 mL'],
+          bakedGoods: ['1 cookie', '1 muffin'],
+          custom: ['1 unit', '5 units', '10 units']
+        };
+        
+        const values = { gum: [1, 2, 5], peanutButter: [1, 2], mouthwash: [10, 30], bakedGoods: [1, 1], custom: [1, 5, 10] };
+        
+        chipsContainer.innerHTML = (chipLabels[product] || chipLabels.custom).map((label, i) => 
+          `<button type="button" class="pc-calc-chip" onclick="setXylitolAmount(${values[product][i]})">${label}</button>`
+        ).join('');
+        
+        onInputChange();
+      }
+
+      function setRodenticideAmount(g) {
+        document.getElementById('tox-rodenticide-amount').value = g;
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      function setRodenticidePercent(pct) {
+        document.getElementById('tox-rodenticide-percent').value = pct;
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      function setGrapeAmount(amount) {
+        document.getElementById('tox-grape-amount').value = amount;
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      function setMedicationMg(mg) {
+        document.getElementById('tox-medication-mg').value = mg;
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      function setMacadamiaAmount(amount) {
+        document.getElementById('tox-macadamia-amount').value = amount;
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      function updateChipState(clickedChip) {
+        const parent = clickedChip.parentElement;
+        parent.querySelectorAll('.pc-calc-chip').forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+        });
+        clickedChip.classList.add('pc-calc-chip--active');
+      }
+
+      function calculateToxicity() {
+        const weight = parseFloat(document.getElementById('tox-weight').value) || 0;
+        const hours = parseFloat(document.getElementById('tox-hours').value) || 0;
+        
+        if (!weight) {
+          showToast('Please enter patient weight', 'warning');
+          return;
+        }
+
+        let dose = 0;
+        let risk = 'Unknown';
+        let emesis = hours <= 2 ? 'Consider' : 'Window closed';
+        let action = '';
+        let monitoring = '';
+        let riskClass = '';
+
+        switch(currentToxin) {
+          case 'chocolate':
+            const chocType = document.getElementById('tox-chocolate-type').value;
+            const chocAmount = parseFloat(document.getElementById('tox-chocolate-amount').value) || 0;
+            const chocUnit = document.getElementById('tox-chocolate-unit').value;
+            const theobromine = { white: 0.5, milk: 64, dark: 142, semiSweet: 160, baking: 440, cocoaPowder: 807 };
+            const amountOz = chocUnit === 'g' ? chocAmount / 28.35 : chocAmount;
+            const totalMethylxanthine = amountOz * (theobromine[chocType] || 64);
+            dose = totalMethylxanthine / weight;
+            
+            if (dose < 20) {
+              risk = 'Minimal';
+              riskClass = 'success';
+              action = 'Monitor at home. GI upset possible. Contact vet if vomiting or hyperactivity develops.';
+            } else if (dose < 40) {
+              risk = 'Mild';
+              riskClass = 'warning';
+              action = 'Contact veterinarian. May require monitoring. Risk of GI upset and mild hyperactivity.';
+            } else if (dose < 100) {
+              risk = 'Moderate';
+              riskClass = 'warning';
+              action = 'Veterinary attention recommended. Risk of cardiotoxicity. Consider decontamination if recent ingestion.';
+              emesis = hours <= 2 ? 'Indicate if <2hr' : 'Window closed';
+            } else {
+              risk = 'Severe';
+              riskClass = 'danger';
+              action = 'URGENT veterinary care. Risk of seizures, arrhythmias. Immediate treatment required.';
+              monitoring = 'Continuous ECG monitoring, seizure precautions, temperature regulation';
+            }
+            break;
+
+          case 'xylitol':
+            const xylProduct = document.getElementById('tox-xylitol-product').value;
+            const xylAmount = parseFloat(document.getElementById('tox-xylitol-amount').value) || 0;
+            const isCustom = xylProduct === 'custom';
+            const xylCustom = parseFloat(document.getElementById('tox-xylitol-custom').value) || 500;
+            const xylContent = { gum: 500, peanutButter: 1080, mouthwash: 200, bakedGoods: 300, custom: xylCustom };
+            const totalXylitol = xylAmount * (xylContent[xylProduct] || 500);
+            dose = totalXylitol / weight;
+            
+            if (dose < 0.1) {
+              risk = 'Minimal';
+              riskClass = 'success';
+              action = 'Generally considered safe. Monitor for any GI signs.';
+            } else if (dose < 0.5) {
+              risk = 'Low';
+              riskClass = 'warning';
+              action = 'Monitor blood glucose. Hypoglycemia risk increases with dose.';
+            } else if (dose < 1) {
+              risk = 'Moderate';
+              riskClass = 'warning';
+              action = 'Hypoglycemia risk. Decontaminate if recent ingestion. Monitor glucose q30-60min for 12hr.';
+              monitoring = 'Blood glucose q30-60min for 12 hours. Watch for weakness, ataxia, seizures.';
+            } else {
+              risk = 'Severe';
+              riskClass = 'danger';
+              action = 'HIGH hypoglycemia risk + possible hepatotoxicity. Aggressive decontamination and IV dextrose.';
+              monitoring = 'Blood glucose q30min, liver enzymes at 24hr and 72hr. Hepatoprotectants indicated.';
+            }
+            emesis = hours <= 0.5 ? 'Indicate immediately' : 'May still benefit';
+            break;
+
+          case 'rodenticide':
+            const rodentType = document.getElementById('tox-rodenticide-type').value;
+            const rodentAmount = parseFloat(document.getElementById('tox-rodenticide-amount').value) || 0;
+            const rodentPercent = parseFloat(document.getElementById('tox-rodenticide-percent').value) || 0.005;
+            const activeMg = rodentAmount * (rodentPercent / 100);
+            dose = activeMg / weight;
+            
+            if (rodentType === 'warfarin' || rodentType === 'bromadiolone' || rodentType === 'difenacoum') {
+              const ld50 = rodentType === 'warfarin' ? 20 : 0.5;
+              const exposure = dose / ld50;
+              
+              if (exposure < 0.1) {
+                risk = 'Minimal';
+                riskClass = 'success';
+                action = 'Low risk. Monitor for bleeding signs. PT check at 48hr if concerned.';
+              } else if (exposure < 0.5) {
+                risk = 'Low-Moderate';
+                riskClass = 'warning';
+                action = 'Decontaminate if recent. Vitamin K1 prophylaxis may be indicated.';
+              } else {
+                risk = 'High';
+                riskClass = 'danger';
+                action = 'Vitamin K1 therapy indicated. Check PT at 48hr post-exposure and before stopping therapy.';
+                monitoring = 'PT at 48hr post-exposure, then every 30 days. Vitamin K1 for 30 days (2nd-gen) or 14-21 days (1st-gen).';
+              }
+            } else if (rodentType === 'bromethalin') {
+              dose = dose * 1000; // Convert to mg/kg
+              if (dose < 0.1) {
+                risk = 'Low';
+                riskClass = 'success';
+                action = 'Monitor for neurologic signs. No antidote available.';
+              } else {
+                risk = 'High';
+                riskClass = 'danger';
+                action = 'Neurotoxic - NO ANTIDOTE. Decontaminate aggressively. Symptomatic/supportive care.';
+                monitoring = 'Neurologic monitoring for 1-2 weeks. Mannitol for cerebral edema if indicated.';
+              }
+            } else {
+              risk = 'Variable';
+              riskClass = 'warning';
+              action = 'Consult poison control immediately. Cholecalciferol causes hypercalcemia; zinc phosphide releases phosphine gas.';
+            }
+            break;
+
+          case 'grapes':
+            const grapeAmount = parseFloat(document.getElementById('tox-grape-amount').value) || 0;
+            // No safe threshold established
+            if (grapeAmount === 0) {
+              risk = 'None';
+              riskClass = 'success';
+              action = 'No exposure reported.';
+            } else if (grapeAmount <= 0.5) {
+              risk = 'Unknown';
+              riskClass = 'warning';
+              action = 'No safe dose established. Risk varies by individual. Consider decontamination and renal monitoring.';
+            } else {
+              risk = 'Risk';
+              riskClass = 'danger';
+              action = 'Renal toxin. Decontaminate if <2hr. Aggressive IV fluids for 48hr. Monitor kidneys.';
+              monitoring = 'Baseline and serial renal values at 24hr, 48hr, 72hr. Minimum 48hr IV fluid diuresis.';
+            }
+            dose = grapeAmount / weight;
+            break;
+
+          case 'medication':
+            const medType = document.getElementById('tox-medication-type').value;
+            const medAmount = parseFloat(document.getElementById('tox-medication-mg').value) || 0;
+            dose = medAmount / weight;
+            
+            const toxicDoses = {
+              ibuprofen: 100, acetaminophen: 100, aspirin: 50, naproxen: 5,
+              pseudoephedrine: 1, diphenhydramine: 4, metformin: 100, albuterol: 0.1
+            };
+            
+            const ld = toxicDoses[medType] || 100;
+            const ratio = dose / ld;
+            
+            if (ratio < 0.5) {
+              risk = 'Low';
+              riskClass = 'success';
+              action = 'Monitor for clinical signs. May cause mild GI upset.';
+            } else if (ratio < 1) {
+              risk = 'Moderate';
+              riskClass = 'warning';
+              action = 'Approaching toxic dose. Decontaminate if recent. Monitor closely.';
+            } else {
+              risk = 'High';
+              riskClass = 'danger';
+              action = 'Toxic dose reached. Immediate veterinary intervention required.';
+            }
+            
+            // Specific guidance
+            const medGuidance = {
+              ibuprofen: 'Risk of GI ulceration and renal damage.',
+              acetaminophen: 'Cats: methemoglobinemia. Dogs: hepatotoxicity.',
+              aspirin: 'GI bleeding, metabolic acidosis.',
+              naproxen: 'Severe GI ulceration risk.',
+              pseudoephedrine: 'Hypertension, hyperactivity, seizures.',
+              diphenhydramine: 'Anticholinergic syndrome.',
+              metformin: 'Hypoglycemia, lactic acidosis.',
+              albuterol: 'Tachycardia, hypokalemia, tremors.'
+            };
+            action += ' ' + (medGuidance[medType] || '');
+            break;
+
+          case 'macadamia':
+            const macAmount = parseFloat(document.getElementById('tox-macadamia-amount').value) || 0;
+            const macUnit = document.getElementById('tox-macadamia-unit').value;
+            dose = macAmount; // Store raw amount
+            const nutsPerKg = macUnit === 'nuts' ? macAmount / weight : (macAmount / 3) / weight; // ~3g per nut
+            
+            if (nutsPerKg < 2) {
+              risk = 'Minimal';
+              riskClass = 'success';
+              action = 'Generally self-limiting. May cause mild GI upset or transient weakness.';
+            } else if (nutsPerKg < 5) {
+              risk = 'Mild';
+              riskClass = 'warning';
+              action = 'Monitor for weakness, tremors, hyperthermia. Usually resolves within 24-48hr.';
+            } else {
+              risk = 'Moderate';
+              riskClass = 'warning';
+              action = 'Weakness, ataxia, tremors likely. Supportive care. Rarely fatal.';
+            }
+            monitoring = 'Monitor temperature, neurologic status. Self-limiting - usually resolves within 48 hours.';
+            break;
+        }
+
+        // Update results
+        document.getElementById('tox-result-dose').textContent = typeof dose === 'number' ? dose.toFixed(2) : dose;
+        document.getElementById('tox-result-risk').textContent = risk;
+        document.getElementById('tox-result-emesis').textContent = emesis;
+        document.getElementById('tox-result-action').textContent = action;
+        
+        // Update risk card styling
+        const riskCard = document.getElementById('risk-card');
+        riskCard.className = 'pc-calc-result-card pc-calc-result-card--primary';
+        if (riskClass) {
+          riskCard.classList.add(`pc-calc-result-card--${riskClass}`);
+        }
+        
+        // Show monitoring if available
+        const monitoringCard = document.getElementById('monitoring-card');
+        if (monitoring) {
+          document.getElementById('tox-result-monitoring').textContent = monitoring;
+          monitoringCard.style.display = 'block';
+        } else {
+          monitoringCard.style.display = 'none';
+        }
+
+        // Update result progress
+        document.getElementById('result-progress').style.width = '100%';
+        
+        showToast('Risk assessment complete', 'success');
+      }
+
+      function resetResults() {
+        document.getElementById('tox-result-dose').textContent = '--';
+        document.getElementById('tox-result-risk').textContent = '--';
+        document.getElementById('tox-result-emesis').textContent = '--';
+        document.getElementById('tox-result-action').textContent = 'Enter values to see recommendations';
+        document.getElementById('tox-result-monitoring').textContent = '--';
+        document.getElementById('monitoring-card').style.display = 'none';
+        document.getElementById('result-progress').style.width = '0%';
+        document.getElementById('risk-card').className = 'pc-calc-result-card pc-calc-result-card--primary';
+      }
+
+      function resetCalculator() {
+        // Reset patient info
+        document.getElementById('tox-species').value = 'dog';
+        document.getElementById('tox-weight').value = '10';
+        document.getElementById('tox-hours').value = '1';
+        
+        // Reset all toxin forms
+        document.getElementById('tox-chocolate-type').value = 'milk';
+        document.getElementById('tox-chocolate-amount').value = '1';
+        document.getElementById('tox-xylitol-product').value = 'gum';
+        document.getElementById('tox-xylitol-amount').value = '1';
+        document.getElementById('tox-xylitol-custom').value = '500';
+        document.getElementById('tox-xylitol-custom-wrap').hidden = true;
+        document.getElementById('tox-rodenticide-type').value = 'warfarin';
+        document.getElementById('tox-rodenticide-amount').value = '5';
+        document.getElementById('tox-rodenticide-percent').value = '0.005';
+        document.getElementById('tox-grape-type').value = 'grapes';
+        document.getElementById('tox-grape-amount').value = '1';
+        document.getElementById('tox-medication-type').value = 'ibuprofen';
+        document.getElementById('tox-medication-mg').value = '100';
+        document.getElementById('tox-macadamia-amount').value = '1';
+        document.getElementById('tox-macadamia-unit').value = 'nuts';
+        
+        // Reset flags
+        document.getElementById('tox-neuro').checked = false;
+        document.getElementById('tox-asymptomatic').checked = false;
+        document.getElementById('tox-corrosive').checked = false;
+        document.getElementById('tox-hydrocarbon').checked = false;
+        
+        // Reset results and progress
+        resetResults();
+        updateProgress();
+        
+        showToast('Calculator reset', 'info');
+      }
+
+      function copyResults() {
+        const toxin = toxinData[currentToxin].title;
+        const risk = document.getElementById('tox-result-risk').textContent;
+        const dose = document.getElementById('tox-result-dose').textContent;
+        const weight = document.getElementById('tox-weight').value;
+        
+        const text = `${toxin} - ${weight}kg: ${risk} risk (${dose} mg/kg)`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+          const btn = document.querySelector('.pc-calc-copy');
+          btn.classList.add('pc-calc-copy--copied');
+          btn.textContent = '✓';
+          showToast('Results copied to clipboard', 'success');
+          setTimeout(() => {
+            btn.classList.remove('pc-calc-copy--copied');
+            btn.textContent = '📋';
+          }, 2000);
+        });
+      }
+
+      // Toast notification
+      function showToast(message, type = 'info') {
+        const container = document.querySelector('.pc-toast-container');
+        const toast = document.createElement('div');
+        toast.className = `pc-toast pc-toast--${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.add('pc-toast--show');
+        }, 10);
+        
+        setTimeout(() => {
+          toast.classList.remove('pc-toast--show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', () => {
+        updateProgress();
+        onXylitolProductChange(); // Initialize xylitol chips
+      });
+    </script>
   </body>
 </html>
