@@ -283,6 +283,164 @@
       font-size: 1rem;
     }
     
+    /* Auth Section Styles */
+    .pc-auth-section {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      padding: 2rem;
+      background: var(--pc-surface);
+      border: 1px solid var(--pc-border);
+      border-radius: var(--pc-radius-lg);
+    }
+    
+    .pc-auth-container {
+      text-align: center;
+    }
+    
+    .pc-auth-title {
+      font-family: var(--pc-font-display);
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .pc-auth-subtitle {
+      color: var(--pc-text-muted);
+      margin-bottom: 2rem;
+    }
+    
+    .pc-auth-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      text-align: left;
+    }
+    
+    .pc-auth-card {
+      background: var(--pc-bg);
+      border: 1px solid var(--pc-border);
+      border-radius: var(--pc-radius-md);
+      padding: 1.5rem;
+    }
+    
+    .pc-auth-card__icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .pc-auth-card h3 {
+      margin: 0 0 0.5rem;
+      font-family: var(--pc-font-display);
+    }
+    
+    .pc-auth-card > p {
+      color: var(--pc-text-muted);
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .pc-auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .pc-form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    
+    .pc-form-field label {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .pc-input {
+      padding: 0.75rem;
+      border: 1px solid var(--pc-border);
+      border-radius: var(--pc-radius-sm);
+      background: var(--pc-surface);
+      color: var(--pc-text);
+      font-size: 1rem;
+    }
+    
+    .pc-input:focus {
+      outline: 2px solid var(--pc-primary);
+      outline-offset: 2px;
+    }
+    
+    .pc-consent-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--pc-text-muted);
+      cursor: pointer;
+    }
+    
+    .pc-consent-checkbox input {
+      margin-top: 0.2rem;
+    }
+    
+    .pc-auth-divider {
+      text-align: center;
+      margin: 1rem 0;
+      color: var(--pc-text-muted);
+      font-size: 0.9rem;
+      position: relative;
+    }
+    
+    .pc-auth-divider::before,
+    .pc-auth-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 30%;
+      height: 1px;
+      background: var(--pc-border);
+    }
+    
+    .pc-auth-divider::before { left: 0; }
+    .pc-auth-divider::after { right: 0; }
+    
+    .pc-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    
+    .pc-auth-form--compact .pc-input {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .pc-logged-in-content {
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .pc-logged-in-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto 2rem;
+      padding: 0 1rem;
+    }
+    
+    .pc-logged-in-header h2 {
+      margin: 0;
+      font-family: var(--pc-font-display);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .pc-auth-section--hidden {
+      display: none !important;
+    }
+    
     /* Responsive */
     @media (max-width: 640px) {
       .pc-account-grid {
@@ -297,6 +455,21 @@
       
       .pc-account-hero {
         padding: 2rem 1rem 1rem;
+      }
+      
+      .pc-auth-section {
+        padding: 1rem;
+        margin: 0 1rem 2rem;
+      }
+      
+      .pc-form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .pc-logged-in-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
       }
     }
     </style>
@@ -455,6 +628,75 @@
         </div>
       </section>
 
+      <!-- AUTHENTICATION SECTION (shown when not logged in) -->
+      <section id="auth-section" class="pc-auth-section" aria-labelledby="auth-title">
+        <div class="pc-auth-container">
+          <h2 id="auth-title" class="pc-auth-title">Sign In or Create Account</h2>
+          <p class="pc-auth-subtitle">Choose how you want to access VetLudics</p>
+          
+          <div class="pc-auth-options">
+            <!-- Guest Login -->
+            <div class="pc-auth-card pc-auth-card--guest">
+              <div class="pc-auth-card__icon">👤</div>
+              <h3>Continue as Guest</h3>
+              <p>Quick access with just your email. No password required.</p>
+              <form id="guest-login-form" class="pc-auth-form">
+                <div class="pc-form-field">
+                  <label for="guest-email">Email Address</label>
+                  <input type="email" id="guest-email" class="pc-input" placeholder="your@email.com" required>
+                </div>
+                <label class="pc-consent-checkbox">
+                  <input type="checkbox" id="guest-consent" checked>
+                  <span>I agree to analytics collection and <a href="/terms/">Terms</a></span>
+                </label>
+                <button type="submit" class="pc-btn pc-btn--secondary pc-btn--large">Continue as Guest</button>
+              </form>
+            </div>
+            
+            <!-- Full Account -->
+            <div class="pc-auth-card pc-auth-card--account">
+              <div class="pc-auth-card__icon">⭐</div>
+              <h3>Create Full Account</h3>
+              <p>Get personalized features and cross-device sync.</p>
+              <form id="account-signup-form" class="pc-auth-form">
+                <div class="pc-form-field">
+                  <label for="signup-email">Email Address</label>
+                  <input type="email" id="signup-email" class="pc-input" placeholder="your@email.com" required>
+                </div>
+                <div class="pc-form-field">
+                  <label for="signup-password">Password</label>
+                  <input type="password" id="signup-password" class="pc-input" placeholder="Min 8 characters" minlength="8" required>
+                </div>
+                <div class="pc-form-field">
+                  <label for="signup-dob">Date of Birth</label>
+                  <input type="date" id="signup-dob" class="pc-input" required>
+                </div>
+                <label class="pc-consent-checkbox">
+                  <input type="checkbox" id="signup-tos" required>
+                  <span>I agree to <a href="/terms/">Terms of Service</a></span>
+                </label>
+                <button type="submit" class="pc-btn pc-btn--primary pc-btn--large">Create Account</button>
+              </form>
+              <p class="pc-auth-divider">Already have an account?</p>
+              <form id="account-login-form" class="pc-auth-form pc-auth-form--compact">
+                <div class="pc-form-row">
+                  <input type="email" id="login-email" class="pc-input" placeholder="Email" required>
+                  <input type="password" id="login-password" class="pc-input" placeholder="Password" required>
+                </div>
+                <button type="submit" class="pc-btn pc-btn--secondary">Log In</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOGGED-IN CONTENT (hidden until logged in) -->
+      <section id="logged-in-content" class="pc-logged-in-content" style="display: none;">
+        <div class="pc-logged-in-header">
+          <h2>Welcome back, <span id="user-name">User</span>!</h2>
+          <button id="logout-btn" class="pc-btn pc-btn--ghost">Log Out</button>
+        </div>
+
       <!-- Preferences Grid -->
       <section class="pc-account-grid" aria-label="Account preferences">
         
@@ -600,10 +842,11 @@
             <span>✓ Enhanced security</span>
             <span>✓ Priority support</span>
           </div>
-          <a href="/account/?upgrade=true" class="pc-btn pc-btn--primary">Create Account</a>
+          <button onclick="showAuthSection()" class="pc-btn pc-btn--primary">Create Account</button>
         </article>
 
       </section>
+      </section><!-- /logged-in-content -->
     </main>
     
     <!-- Enhanced Footer -->
@@ -702,5 +945,222 @@
     <script src="/assets/js/sync.js?v=20260213d"></script>
     <script src="/assets/js/account-ui.js?v=20260213d"></script>
     <script src="/assets/js/account-stats.js?v=20260213d"></script>
+    
+    <!-- Account Page Auth Logic -->
+    <script>
+    (function() {
+      'use strict';
+      
+      const AUTH_KEY = 'vetludics_auth';
+      const GUEST_KEY = 'vetludics_guest';
+      
+      // Check if user is logged in
+      function isLoggedIn() {
+        return localStorage.getItem(AUTH_KEY) !== null || localStorage.getItem(GUEST_KEY) !== null;
+      }
+      
+      // Get current user
+      function getCurrentUser() {
+        const auth = localStorage.getItem(AUTH_KEY);
+        if (auth) return JSON.parse(auth);
+        const guest = localStorage.getItem(GUEST_KEY);
+        if (guest) return JSON.parse(guest);
+        return null;
+      }
+      
+      // Show/hide auth vs logged-in content
+      function updateUI() {
+        const authSection = document.getElementById('auth-section');
+        const loggedInContent = document.getElementById('logged-in-content');
+        const user = getCurrentUser();
+        
+        if (isLoggedIn() && user) {
+          // User is logged in - show logged-in content
+          if (authSection) authSection.style.display = 'none';
+          if (loggedInContent) {
+            loggedInContent.style.display = 'block';
+            // Update user name
+            const userNameEl = document.getElementById('user-name');
+            if (userNameEl) {
+              userNameEl.textContent = user.displayName || user.email.split('@')[0] || 'User';
+            }
+          }
+          // Update status bar
+          const badge = document.getElementById('account-type-badge');
+          const emailDisplay = document.getElementById('account-email-display');
+          if (badge) badge.textContent = user.type === 'guest' ? 'Guest' : 'Member';
+          if (emailDisplay) emailDisplay.textContent = user.email;
+          // Update user email field
+          const userEmailInput = document.getElementById('user-email');
+          if (userEmailInput) userEmailInput.value = user.email;
+        } else {
+          // User is not logged in - show auth section
+          if (authSection) authSection.style.display = 'block';
+          if (loggedInContent) loggedInContent.style.display = 'none';
+          
+          // Check if ?upgrade=true in URL
+          if (window.location.search.includes('upgrade=true')) {
+            // Focus on the account signup form
+            setTimeout(() => {
+              document.getElementById('signup-email')?.focus();
+            }, 100);
+          }
+        }
+      }
+      
+      // Guest login
+      document.getElementById('guest-login-form')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('guest-email').value.trim();
+        const consent = document.getElementById('guest-consent').checked;
+        
+        if (!email || !isValidEmail(email)) {
+          showToast('Please enter a valid email', 'error');
+          return;
+        }
+        if (!consent) {
+          showToast('Please agree to the terms', 'error');
+          return;
+        }
+        
+        const guestData = {
+          email: email,
+          type: 'guest',
+          displayName: email.split('@')[0],
+          createdAt: new Date().toISOString(),
+          lastVisit: new Date().toISOString()
+        };
+        
+        localStorage.setItem(GUEST_KEY, JSON.stringify(guestData));
+        showToast('Welcome! You are now logged in as a guest.', 'success');
+        updateUI();
+      });
+      
+      // Account signup
+      document.getElementById('account-signup-form')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('signup-email').value.trim();
+        const password = document.getElementById('signup-password').value;
+        const dob = document.getElementById('signup-dob').value;
+        const tos = document.getElementById('signup-tos').checked;
+        
+        if (!email || !isValidEmail(email)) {
+          showToast('Please enter a valid email', 'error');
+          return;
+        }
+        if (password.length < 8) {
+          showToast('Password must be at least 8 characters', 'error');
+          return;
+        }
+        if (!dob) {
+          showToast('Please enter your date of birth', 'error');
+          return;
+        }
+        if (!tos) {
+          showToast('Please agree to the Terms of Service', 'error');
+          return;
+        }
+        
+        // Check age (18+)
+        const birthDate = new Date(dob);
+        const age = (new Date() - birthDate) / (365.25 * 24 * 60 * 60 * 1000);
+        if (age < 18) {
+          showToast('You must be 18 or older to create an account', 'error');
+          return;
+        }
+        
+        const userData = {
+          email: email,
+          type: 'member',
+          displayName: email.split('@')[0],
+          dob: dob,
+          createdAt: new Date().toISOString(),
+          lastVisit: new Date().toISOString()
+        };
+        
+        localStorage.setItem(AUTH_KEY, JSON.stringify(userData));
+        // Remove guest key if exists
+        localStorage.removeItem(GUEST_KEY);
+        
+        showToast('Account created successfully! Welcome to VetLudics!', 'success');
+        updateUI();
+      });
+      
+      // Account login
+      document.getElementById('account-login-form')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value.trim();
+        const password = document.getElementById('login-password').value;
+        
+        if (!email || !password) {
+          showToast('Please enter email and password', 'error');
+          return;
+        }
+        
+        // For demo, we'll just check if there's an account with this email in localStorage
+        const stored = localStorage.getItem(AUTH_KEY);
+        if (stored) {
+          const user = JSON.parse(stored);
+          if (user.email === email) {
+            user.lastVisit = new Date().toISOString();
+            localStorage.setItem(AUTH_KEY, JSON.stringify(user));
+            showToast('Welcome back!', 'success');
+            updateUI();
+            return;
+          }
+        }
+        
+        showToast('Invalid email or password', 'error');
+      });
+      
+      // Logout
+      document.getElementById('logout-btn')?.addEventListener('click', function() {
+        localStorage.removeItem(AUTH_KEY);
+        localStorage.removeItem(GUEST_KEY);
+        showToast('You have been logged out', 'info');
+        updateUI();
+      });
+      
+      // Helper functions
+      function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+      
+      function showToast(message, type) {
+        if (window.showToast) {
+          window.showToast(message, type);
+        } else {
+          // Simple fallback toast
+          const toast = document.createElement('div');
+          toast.style.cssText = `
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            background: ${type === 'error' ? '#ef4444' : type === 'success' ? '#10b981' : '#3b82f6'};
+            color: white;
+            border-radius: 8px;
+            z-index: 10000;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+          `;
+          toast.textContent = message;
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 3000);
+        }
+      }
+      
+      // Global function to show auth section
+      window.showAuthSection = function() {
+        document.getElementById('auth-section')?.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          document.getElementById('signup-email')?.focus();
+        }, 300);
+      };
+      
+      // Initialize
+      document.addEventListener('DOMContentLoaded', updateUI);
+    })();
+    </script>
   </body>
 </html>
