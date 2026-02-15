@@ -7,85 +7,31 @@
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
     <title>Fluid Calculator | VetLudics Tools</title>
-    <meta
-      name="description"
-      content="Free veterinary fluid calculator for dehydration deficit, maintenance, 24-hour total, and hourly rates."
-    />
+    <meta name="description" content="Free veterinary fluid calculator for dehydration deficit, maintenance, 24-hour total, and hourly rates." />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Fluid Calculator | VetLudics Tools" />
-    <meta
-      property="og:description"
-      content="Compute deficit and maintenance plans quickly for NAVLE-style emergency scenarios."
-    />
-    <meta
-      property="og:url"
-      content="https://parthchaudhari.com/tools/fluid-calculator.html"
-    />
-    <link
-      rel="canonical"
-      href="https://parthchaudhari.com/tools/fluid-calculator.html"
-    />
+    <meta property="og:description" content="Compute deficit and maintenance plans quickly for NAVLE-style emergency scenarios." />
+    <meta property="og:url" content="https://parthchaudhari.com/tools/fluid-calculator.html" />
+    <link rel="canonical" href="https://parthchaudhari.com/tools/fluid-calculator.html" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
-    <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
-    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
-    <link rel="stylesheet" href="/assets/css/calculator-modern.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
-    <script src="/assets/js/animations.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
-    <script src="/assets/js/integration-core.js" defer></script>
     <script src="/assets/js/fluid-calculator.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
-    <!-- Toast Container -->
     <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
-
-    <!-- Floating Background Elements -->
-    <div class="pc-floating-elements" aria-hidden="true">
-      <div class="pc-float-shape pc-float-shape--1"></div>
-      <div class="pc-float-shape pc-float-shape--2"></div>
-    </div>
-
-    <!-- Modern Ambient Floating Elements -->
-    <div class="pc-ambient-container" aria-hidden="true">
-      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
-      <div class="pc-ambient-particles">
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-        <div class="pc-particle"></div>
-      </div>
-      <div class="pc-ambient-grid"></div>
-    </div>
-
-    <!-- Mobile Menu Overlay -->
-    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
-
+    
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
         <a class="pc-logo" href="/">
           <span class="pc-logo__icon">🐾</span>
           <span class="pc-logo__text">VetLudics</span>
         </a>
-        
-        <form class="pc-nav-search" action="/search.html" method="get" role="search">
-          <div class="pc-search-wrapper">
-            <svg class="pc-search-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-            </svg>
-            <input type="search" name="q" class="pc-search-input pc-search-input--nav" placeholder="Search..." aria-label="Search" autocomplete="off">
-            <kbd class="pc-search-shortcut">⌘K</kbd>
-          </div>
-        </form>
-        
         <div class="pc-nav-group">
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/bridge/">Bridge</a>
@@ -98,169 +44,318 @@
           <button type="button" class="pc-nav-toggle pc-theme-toggle" data-pc-theme-toggle aria-label="Toggle theme">
             <span class="pc-theme-icon pc-theme-icon--sun" aria-hidden="true">☀️</span>
             <span class="pc-theme-icon pc-theme-icon--moon" aria-hidden="true">🌙</span>
-            <span class="pc-nav-toggle__label" data-pc-theme-label>Day</span>
-          </button>
-          
-          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-            <span class="pc-mobile-toggle__bar"></span>
-          </button>
-        </div>
-      </div>
-      
-      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
-        <div class="pc-mobile-menu__header">
-          <span class="pc-mobile-menu__title">Menu</span>
-          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
-        </div>
-        <nav class="pc-mobile-menu__nav">
-          <a class="pc-mobile-nav-link" href="/play/">🎮 Play</a>
-          <a class="pc-mobile-nav-link" href="/bridge/">🌉 Bridge</a>
-          <a class="pc-mobile-nav-link" href="/search.html">🔍 Search</a>
-          <a class="pc-mobile-nav-link" href="/study/">📚 Study Plan</a>
-          <a class="pc-mobile-nav-link" href="/account/">👤 Account</a>
-        </nav>
-        <div class="pc-mobile-menu__footer">
-          <button type="button" class="pc-mobile-theme-toggle" data-pc-theme-toggle>
-            <span class="pc-theme-icon pc-theme-icon--sun">☀️</span>
-            <span class="pc-theme-icon pc-theme-icon--moon">🌙</span>
-            <span>Switch theme</span>
           </button>
         </div>
       </div>
     </nav>
 
-    <main id="pc-main" class="pc-bridge-shell" role="main">
-      <section class="pc-bridge-hero">
-        <p class="pc-kicker">Free Tool</p>
-        <h1 class="pc-fork-title">Fluid Calculator</h1>
-        <p class="pc-fork-copy">
-          Estimate dehydration deficit and maintenance needs, then convert to
-          24-hour and hourly delivery targets.
-        </p>
-        <div class="pc-panel-actions">
-          <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
+    <main id="pc-main" class="pc-calc-dashboard" role="main">
+      <!-- Header -->
+      <header class="pc-calc-header pc-calc-animate">
+        <div class="pc-calc-header__title">
+          <div class="pc-calc-header__icon">💧</div>
+          <div class="pc-calc-header__text">
+            <h1>Fluid Calculator</h1>
+            <p>Deficit, maintenance & hourly rates</p>
+          </div>
+        </div>
+        <div class="pc-calc-header__actions">
+          <div class="pc-calc-quick-actions">
+            <button type="button" class="pc-calc-action-btn" onclick="resetCalculator()" title="Reset all fields">
+              <span>↺</span> Reset
+            </button>
+            <button type="button" class="pc-calc-action-btn" onclick="toggleAutoCalc()" id="auto-calc-btn" title="Toggle auto-calculation">
+              <span>⚡</span> <span id="auto-calc-text">Auto: On</span>
+            </button>
+            <a href="/tools/" class="pc-calc-action-btn">
+              <span>←</span> Back
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Input Panel -->
+      <aside class="pc-calc-inputs pc-calc-animate pc-calc-animate--1" aria-label="Calculator inputs">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📝</span>
+              Patient Data
+            </span>
+          </div>
+          <div class="pc-calc-panel__content">
+            <form id="fluid-form" novalidate>
+              <!-- Weight -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Weight</span>
+                  <span class="pc-calc-field__hint">kg</span>
+                </div>
+                <input id="fluid-weight" class="pc-calc-input pc-calc-input--number" type="number" min="0.2" step="0.1" value="25" required oninput="onInputChange()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(2)">2 kg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(5)">5 kg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(10)">10 kg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(20)">20 kg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(30)">30 kg</button>
+                </div>
+              </div>
+
+              <!-- Dehydration -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Dehydration</span>
+                  <span class="pc-calc-field__hint">%</span>
+                </div>
+                <input id="fluid-dehydration" class="pc-calc-input pc-calc-input--number" type="number" min="0" max="15" step="0.5" value="8" required oninput="onInputChange()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setDehydration(5)">5%</button>
+                  <button type="button" class="pc-calc-chip pc-calc-chip--active" onclick="setDehydration(8)">8%</button>
+                  <button type="button" class="pc-calc-chip" onclick="setDehydration(10)">10%</button>
+                  <button type="button" class="pc-calc-chip" onclick="setDehydration(12)">12%</button>
+                </div>
+              </div>
+
+              <!-- Maintenance Rate -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Maintenance Rate</span>
+                  <span class="pc-calc-field__hint">mL/kg/day</span>
+                </div>
+                <input id="fluid-maintenance" class="pc-calc-input pc-calc-input--number" type="number" min="20" max="120" step="1" value="60" required oninput="onInputChange()" />
+                <div class="pc-calc-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setMaintenance(50)">50</button>
+                  <button type="button" class="pc-calc-chip pc-calc-chip--active" onclick="setMaintenance(60)">60</button>
+                  <button type="button" class="pc-calc-chip" onclick="setMaintenance(66)">66</button>
+                </div>
+              </div>
+
+              <!-- Shock Bolus Toggle -->
+              <div class="pc-calc-field">
+                <label class="pc-calc-toggle">
+                  <input type="checkbox" id="shock-toggle" onchange="toggleShockBolus()">
+                  <span class="pc-calc-toggle__switch"></span>
+                  <span class="pc-calc-toggle__label">Include shock bolus</span>
+                </label>
+              </div>
+
+              <div id="shock-fields" style="display: none;">
+                <div class="pc-calc-field">
+                  <div class="pc-calc-field__label">
+                    <span>Bolus Volume</span>
+                    <span class="pc-calc-field__hint">mL/kg</span>
+                  </div>
+                  <input id="shock-volume" class="pc-calc-input pc-calc-input--number" type="number" min="0" step="1" value="10" oninput="onInputChange()" />
+                </div>
+              </div>
+
+              <button type="submit" class="pc-calc-submit" id="calc-btn">
+                <span>🧮</span> Calculate Fluids
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Related Tools -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--2">
+          <div class="pc-calc-related">
+            <div class="pc-calc-related__title">Related Tools</div>
+            <div class="pc-calc-related__grid">
+              <a href="/tools/cri-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💉</span>
+                <span>CRI Calc</span>
+              </a>
+              <a href="/tools/dose-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💊</span>
+                <span>Dosing</span>
+              </a>
+              <a href="/tools/transfusion-helper.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">🩸</span>
+                <span>Transfusion</span>
+              </a>
+              <a href="/fluid-deficit-guide/" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">📚</span>
+                <span>Guide</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <section class="pc-calc-main pc-calc-animate pc-calc-animate--2" aria-label="Fluid plan visualization">
+        <div class="pc-calc-viz">
+          <div class="pc-calc-viz__header">
+            <span class="pc-calc-viz__title">Fluid Therapy Plan</span>
+          </div>
+
+          <!-- Fluid Breakdown Cards -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem;">
+            <div class="pc-calc-result-card">
+              <div class="pc-calc-result__label">Deficit Replacement</div>
+              <div class="pc-calc-result__value" style="font-size: 1.5rem;">
+                <span id="viz-deficit">--</span>
+                <span class="pc-calc-result__unit">mL</span>
+              </div>
+              <div class="pc-calc-result__context">Over 4-6 hours</div>
+            </div>
+            <div class="pc-calc-result-card">
+              <div class="pc-calc-result__label">Maintenance</div>
+              <div class="pc-calc-result__value" style="font-size: 1.5rem;">
+                <span id="viz-maint">--</span>
+                <span class="pc-calc-result__unit">mL/day</span>
+              </div>
+              <div class="pc-calc-result__context">24-hour period</div>
+            </div>
+            <div class="pc-calc-result-card">
+              <div class="pc-calc-result__label">Shock Bolus</div>
+              <div class="pc-calc-result__value" style="font-size: 1.5rem;">
+                <span id="viz-shock">--</span>
+                <span class="pc-calc-result__unit">mL</span>
+              </div>
+              <div class="pc-calc-result__context">If indicated</div>
+            </div>
+          </div>
+
+          <!-- Formula Display -->
+          <div class="pc-calc-formula">
+            <div class="pc-calc-formula__label">Calculation Method</div>
+            <div class="pc-calc-formula__math" id="formula-display">
+              <span class="pc-calc-formula__highlight">Deficit</span> = Weight × Dehydration % × 10<br>
+              <span class="pc-calc-formula__highlight">Maintenance</span> = Weight × Rate (mL/kg/day)<br>
+              <span class="pc-calc-formula__highlight">Total</span> = Deficit + Maintenance + Bolus
+            </div>
+          </div>
+
+          <!-- Fluid Type Recommendations -->
+          <div style="margin-bottom: 1rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              💉 Fluid Type Recommendations
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
+              <div class="pc-calc-drug-info__item">
+                <div class="pc-calc-drug-info__label">Isotonic Crystalloid</div>
+                <div class="pc-calc-drug-info__value">LRS, Normosol-R, Plasmalyte</div>
+              </div>
+              <div class="pc-calc-drug-info__item">
+                <div class="pc-calc-drug-info__label">Hypotonic Option</div>
+                <div class="pc-calc-drug-info__value">0.45% NaCl + 2.5% dextrose</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Safety Alert -->
+          <div id="safety-alert" class="pc-calc-alert pc-calc-alert--warning" style="display: none;">
+            <div class="pc-calc-alert__icon">⚠️</div>
+            <div class="pc-calc-alert__content">
+              <div class="pc-calc-alert__title">Shock Protocol</div>
+              <div class="pc-calc-alert__text" id="alert-text">
+                Dogs: 10-20 mL/kg aliquots. Cats: 5-10 mL/kg aliquots. Reassess perfusion after each bolus.
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Tips -->
+          <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--calc-glass-border);">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              💡 Clinical Pearls
+            </div>
+            <ul style="font-size: 0.8125rem; color: var(--calc-text-muted); line-height: 1.8; margin: 0; padding-left: 1.25rem;">
+              <li>Replace deficit over 4-6 hours in shock, 12-24 hours if stable</li>
+              <li>Subtract bolus volumes from deficit calculation</li>
+              <li>Add ongoing losses (vomiting, diarrhea) as needed</li>
+              <li>Reassess hydration status q4-6h during therapy</li>
+            </ul>
+          </div>
         </div>
       </section>
 
-      <section class="pc-bridge-section" aria-labelledby="fluid-form-title">
-        <h2 id="fluid-form-title" class="pc-bridge-title">Calculate Fluids</h2>
-        <form id="fluid-form" class="pc-calculator-grid" novalidate>
-          <label class="pc-calculator-field" for="fluid-weight">
-            <span>Weight (kg)</span>
-            <input
-              id="fluid-weight"
-              class="pc-input"
-              type="number"
-              min="0.2"
-              step="0.1"
-              value="25"
-              required
-            />
-          </label>
-
-          <label class="pc-calculator-field" for="fluid-dehydration">
-            <span>Dehydration (%)</span>
-            <input
-              id="fluid-dehydration"
-              class="pc-input"
-              type="number"
-              min="0"
-              max="15"
-              step="0.5"
-              value="8"
-              required
-            />
-          </label>
-
-          <label class="pc-calculator-field" for="fluid-maintenance">
-            <span>Maintenance (mL/kg/day)</span>
-            <input
-              id="fluid-maintenance"
-              class="pc-input"
-              type="number"
-              min="20"
-              max="120"
-              step="1"
-              value="60"
-              required
-            />
-          </label>
-
-          <label class="pc-calculator-field" for="fluid-override">
-            <span>User override applied?</span>
-            <input id="fluid-override" type="checkbox" />
-          </label>
-
-          <label class="pc-calculator-field" for="fluid-override-reason">
-            <span>Override reason (required if checked)</span>
-            <input
-              id="fluid-override-reason"
-              class="pc-input"
-              type="text"
-              placeholder="e.g. concurrent renal compromise"
-            />
-          </label>
-
-          <div class="pc-calculator-actions">
-            <button type="submit" class="pc-btn pc-btn--primary">
-              Calculate
+      <!-- Results Panel -->
+      <aside class="pc-calc-results pc-calc-animate pc-calc-animate--3" aria-label="Calculation results" aria-live="polite">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📊</span>
+              Results
+            </span>
+            <button type="button" class="pc-calc-copy" onclick="copyResults()" title="Copy results">
+              📋
             </button>
           </div>
-        </form>
-      </section>
+          <div class="pc-calc-panel__content">
+            <!-- Primary Result - Hourly Rate -->
+            <div class="pc-calc-result-card pc-calc-result-card--primary" id="result-primary">
+              <div class="pc-calc-result__label">
+                <span>⏱️</span> Hourly Rate
+              </div>
+              <div class="pc-calc-result__value">
+                <span id="result-hourly">--</span>
+                <span class="pc-calc-result__unit">mL/hr</span>
+              </div>
+              <div class="pc-calc-result__context" id="hourly-context">Fluid administration rate</div>
+            </div>
 
-      <section
-        class="pc-bridge-section"
-        aria-live="polite"
-        aria-labelledby="fluid-result-title"
-      >
-        <h2 id="fluid-result-title" class="pc-bridge-title">Result</h2>
-        <p
-          id="fluid-context-note"
-          class="pc-calculator-note pc-context-note"
-          hidden
-        ></p>
-        <div class="pc-stat-grid pc-stat-grid--results">
-          <article class="pc-stat-card">
-            <p class="pc-stat-label">Deficit Volume</p>
-            <p id="fluid-deficit" class="pc-stat-number">-</p>
-          </article>
-          <article class="pc-stat-card">
-            <p class="pc-stat-label">Maintenance / day</p>
-            <p id="fluid-maint" class="pc-stat-number">-</p>
-          </article>
-          <article class="pc-stat-card">
-            <p class="pc-stat-label">Total 24h Volume</p>
-            <p id="fluid-total" class="pc-stat-number">-</p>
-          </article>
+            <!-- Secondary Results -->
+            <div class="pc-calc-result-card">
+              <div class="pc-calc-result__label">
+                <span>📦</span> 24-Hour Total
+              </div>
+              <div class="pc-calc-result__value">
+                <span id="result-total">--</span>
+                <span class="pc-calc-result__unit">mL</span>
+              </div>
+              <div class="pc-calc-result__context">Complete fluid plan</div>
+            </div>
+
+            <div class="pc-calc-result-card">
+              <div class="pc-calc-result__label">
+                <span>💧</span> Drops/Minute
+              </div>
+              <div class="pc-calc-result__value">
+                <span id="result-drops">--</span>
+                <span class="pc-calc-result__unit">gtt/min</span>
+              </div>
+              <div class="pc-calc-result__context">Macro (20 gtt/mL)</div>
+            </div>
+
+            <!-- Progress indicator -->
+            <div class="pc-calc-progress" style="margin-top: 1rem;">
+              <div class="pc-calc-progress__bar" id="calc-progress" style="width: 100%"></div>
+            </div>
+          </div>
         </div>
-        <article class="pc-bridge-card pc-bridge-card--inline">
-          <h3>Hourly Rate</h3>
-          <p id="fluid-hourly" class="pc-calculator-highlight">-</p>
-          <p id="fluid-shock" class="pc-calculator-note">
-            Shock bolus reminder: dogs 10-20 mL/kg aliquots; cats 5-10 mL/kg
-            aliquots, then reassess perfusion.
-          </p>
-        </article>
-        <p id="fluid-override-note" class="pc-calculator-note" hidden></p>
-        <p class="pc-disclaimer">
-          Use this as an educational estimate. Adjust for ongoing losses,
-          comorbidities, and serial reassessment.
-        </p>
-        <p class="pc-disclaimer">
-          Approved reference baseline (reviewed February 13, 2026): Drug label
-          search (DailyMed), IRIS stages, Normal lab values, Heartworm treatment
-          protocol, Lab test protocols, Microchip lookup, Vertebral Heart Score,
-          BCS charts, ACVIM cardiology consensus guideline references, Dental
-          charts, AAHA vaccination guidelines, Flea/tick product info, Dog/cat
-          breed search, and RECOVER CPR guidelines.
-        </p>
-      </section>
+
+        <!-- Rate Breakdown -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--4">
+          <div class="pc-calc-panel__content" style="padding: 1rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              📈 Rate Breakdown
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; padding: 0.5rem; background: rgba(99, 102, 241, 0.05); border-radius: var(--calc-radius-sm);">
+                <span style="color: var(--calc-text-muted);">Deficit replacement</span>
+                <span style="font-weight: 600;" id="breakdown-deficit">-- mL</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; padding: 0.5rem; background: rgba(16, 185, 129, 0.05); border-radius: var(--calc-radius-sm);">
+                <span style="color: var(--calc-text-muted);">Maintenance</span>
+                <span style="font-weight: 600;" id="breakdown-maint">-- mL</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; padding: 0.5rem; background: rgba(245, 158, 11, 0.05); border-radius: var(--calc-radius-sm); display: none;" id="breakdown-shock-row">
+                <span style="color: var(--calc-text-muted);">Shock bolus</span>
+                <span style="font-weight: 600;" id="breakdown-shock">-- mL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div style="padding: 0.75rem; font-size: 0.6875rem; color: var(--calc-text-muted); text-align: center; line-height: 1.5;">
+          Educational tool only. Adjust for ongoing losses, comorbidities, and serial reassessment.
+        </div>
+      </aside>
     </main>
 
-    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal">
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal" style="margin-top: 0;">
       <div class="pc-footer__bottom">
         <div class="pc-footer__legal">
           <a href="/">Home</a>
@@ -271,5 +366,153 @@
         <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
       </div>
     </footer>
+
+    <script>
+      // Auto-calculation toggle
+      let autoCalcEnabled = true;
+      
+      function toggleAutoCalc() {
+        autoCalcEnabled = !autoCalcEnabled;
+        document.getElementById('auto-calc-text').textContent = autoCalcEnabled ? 'Auto: On' : 'Auto: Off';
+        document.getElementById('auto-calc-btn').classList.toggle('pc-calc-chip--active', autoCalcEnabled);
+        if (autoCalcEnabled) {
+          calculateFluids();
+        }
+      }
+
+      // Input change handler
+      function onInputChange() {
+        if (autoCalcEnabled) {
+          calculateFluids();
+        }
+      }
+
+      // Set weight from chip
+      function setWeight(weight) {
+        document.getElementById('fluid-weight').value = weight;
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      // Set dehydration from chip
+      function setDehydration(pct) {
+        document.getElementById('fluid-dehydration').value = pct;
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      // Set maintenance from chip
+      function setMaintenance(rate) {
+        document.getElementById('fluid-maintenance').value = rate;
+        onInputChange();
+        updateChipState(event.target);
+      }
+
+      // Update chip visual state
+      function updateChipState(clickedChip) {
+        const parent = clickedChip.parentElement;
+        parent.querySelectorAll('.pc-calc-chip').forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+        });
+        clickedChip.classList.add('pc-calc-chip--active');
+      }
+
+      // Toggle shock bolus
+      function toggleShockBolus() {
+        const checked = document.getElementById('shock-toggle').checked;
+        document.getElementById('shock-fields').style.display = checked ? 'block' : 'none';
+        document.getElementById('breakdown-shock-row').style.display = checked ? 'flex' : 'none';
+        document.getElementById('safety-alert').style.display = checked ? 'flex' : 'none';
+        if (autoCalcEnabled) calculateFluids();
+      }
+
+      // Reset calculator
+      function resetCalculator() {
+        document.getElementById('fluid-weight').value = '25';
+        document.getElementById('fluid-dehydration').value = '8';
+        document.getElementById('fluid-maintenance').value = '60';
+        document.getElementById('shock-toggle').checked = false;
+        document.getElementById('shock-volume').value = '10';
+        document.getElementById('shock-fields').style.display = 'none';
+        document.getElementById('breakdown-shock-row').style.display = 'none';
+        document.getElementById('safety-alert').style.display = 'none';
+        
+        calculateFluids();
+        showToast('Calculator reset', 'info');
+      }
+
+      // Copy results
+      function copyResults() {
+        const hourly = document.getElementById('result-hourly').textContent;
+        const total = document.getElementById('result-total').textContent;
+        const weight = document.getElementById('fluid-weight').value;
+        
+        const text = `Fluid Plan (${weight}kg): ${hourly} mL/hr | ${total} mL/24hr`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+          const btn = document.querySelector('.pc-calc-copy');
+          btn.classList.add('pc-calc-copy--copied');
+          btn.textContent = '✓';
+          showToast('Results copied to clipboard', 'success');
+          setTimeout(() => {
+            btn.classList.remove('pc-calc-copy--copied');
+            btn.textContent = '📋';
+          }, 2000);
+        });
+      }
+
+      // Calculate fluids
+      function calculateFluids() {
+        const weight = parseFloat(document.getElementById('fluid-weight').value) || 0;
+        const dehydration = parseFloat(document.getElementById('fluid-dehydration').value) || 0;
+        const maintenanceRate = parseFloat(document.getElementById('fluid-maintenance').value) || 0;
+        const shockBolus = document.getElementById('shock-toggle').checked;
+        const shockVolume = parseFloat(document.getElementById('shock-volume').value) || 0;
+
+        // Calculate values
+        const deficit = weight * dehydration * 10;
+        const maintenance = weight * maintenanceRate;
+        const shock = shockBolus ? weight * shockVolume : 0;
+        const total = deficit + maintenance + shock;
+        const hourly = total / 24;
+        const drops = Math.round(hourly * 20 / 60); // Macro drip (20 gtt/mL)
+
+        // Update visualization
+        document.getElementById('viz-deficit').textContent = Math.round(deficit).toLocaleString();
+        document.getElementById('viz-maint').textContent = Math.round(maintenance).toLocaleString();
+        document.getElementById('viz-shock').textContent = shock > 0 ? Math.round(shock).toLocaleString() : 'None';
+
+        // Update results
+        document.getElementById('result-hourly').textContent = hourly.toFixed(1);
+        document.getElementById('result-total').textContent = Math.round(total).toLocaleString();
+        document.getElementById('result-drops').textContent = drops;
+
+        // Update breakdown
+        document.getElementById('breakdown-deficit').textContent = Math.round(deficit) + ' mL';
+        document.getElementById('breakdown-maint').textContent = Math.round(maintenance) + ' mL';
+        document.getElementById('breakdown-shock').textContent = Math.round(shock) + ' mL';
+      }
+
+      // Toast notification
+      function showToast(message, type = 'info') {
+        const container = document.querySelector('.pc-toast-container');
+        const toast = document.createElement('div');
+        toast.className = `pc-toast pc-toast--${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.add('pc-toast--show');
+        }, 10);
+        
+        setTimeout(() => {
+          toast.classList.remove('pc-toast--show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      // Initial calculation
+      document.addEventListener('DOMContentLoaded', calculateFluids);
+    </script>
   </body>
 </html>
