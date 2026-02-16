@@ -11,7 +11,7 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     
-    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/dvmready-logo-pro.svg" />
     <title>Search – DVMReady</title>
     <meta
       name="description"
@@ -41,6 +41,44 @@
     <script src="/assets/js/animations.js" defer></script>
     <script src="/assets/js/auth-system.js" defer></script>
     <script src="/assets/js/preferences.js" defer></script>
+    
+    <!-- Professional Navigation Styles -->
+    <style>
+      .pc-logo--pro {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        padding: 0.5rem 0.75rem;
+        border-radius: var(--pc-radius-md);
+      }
+      
+      .pc-logo--pro .pc-logo__img {
+        width: 36px;
+        height: 36px;
+      }
+      
+      .pc-logo--pro .pc-logo__text {
+        font-family: var(--pc-font-display);
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--pc-text);
+        letter-spacing: -0.02em;
+      }
+      
+      .pc-nav-link--cta {
+        background: var(--pc-primary);
+        color: white !important;
+        padding: 0.5rem 1rem;
+        border-radius: var(--pc-radius-sm);
+        font-weight: 600;
+        font-size: 0.875rem;
+      }
+      
+      .pc-nav-link--cta:hover {
+        background: color-mix(in srgb, var(--pc-primary) 85%, black);
+      }
+    </style>
   </head>
   <body class="pc-page pc-page--search no-js">
     <!-- Page Transition Overlay -->
@@ -71,37 +109,22 @@
     
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
-        <a class="pc-logo" href="/">
-          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+        <a class="pc-logo pc-logo--pro" href="/">
+          <img src="/assets/img/dvmready-logo-pro.svg" alt="" class="pc-logo__img" aria-hidden="true">
           <span class="pc-logo__text">DVMReady</span>
         </a>
         
-        <!-- Search Bar (Desktop) -->
-        <form class="pc-nav-search" action="/search.html" method="get" role="search">
-          <div class="pc-search-wrapper">
-            <svg class="pc-search-icon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-            </svg>
-            <input 
-              type="search" 
-              name="q" 
-              class="pc-search-input pc-search-input--nav" 
-              placeholder="Search..."
-              aria-label="Search veterinary calculators"
-              autocomplete="off"
-            >
-            <kbd class="pc-search-shortcut">⌘K</kbd>
-          </div>
-        </form>
-        
         <div class="pc-nav-group">
-          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/extra/">Extra</a>
-          <a class="pc-nav-link pc-is-active" href="/search.html">Search</a>
-          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
-          <a class="pc-nav-link" href="/account/">
-            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
-            <span class="pc-nav-link__text">Account</span>
+          <a class="pc-nav-link" href="/">Home</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/tools/">Tools</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/navle/">NAVLE Prep</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/about.html">About</a>
+          <a class="pc-nav-link pc-is-active" href="/search.html" title="Search">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
+            </svg>
           </a>
+          <a class="pc-nav-link pc-nav-link--cta" href="/account/">Sign In</a>
           
           <!-- Mobile Menu Toggle -->
           <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
@@ -119,24 +142,33 @@
           <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
         </div>
         <nav class="pc-mobile-menu__nav">
-          <a class="pc-mobile-nav-link" href="/study/extra/">
-            <span class="pc-mobile-nav-link__icon">📚</span>
-            <span class="pc-mobile-nav-link__text">Bridge</span>
+          <a class="pc-mobile-nav-link" href="/">
+            <span class="pc-mobile-nav-link__icon">🏠</span>
+            <span class="pc-mobile-nav-link__text">Home</span>
           </a>
-          <a class="pc-mobile-nav-link pc-is-active" href="/search.html">
+          <a class="pc-mobile-nav-link" href="/tools/">
+            <span class="pc-mobile-nav-link__icon">🧮</span>
+            <span class="pc-mobile-nav-link__text">Tools</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/study/navle/">
+            <span class="pc-mobile-nav-link__icon">🎓</span>
+            <span class="pc-mobile-nav-link__text">NAVLE Prep</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/about.html">
+            <span class="pc-mobile-nav-link__icon">ℹ️</span>
+            <span class="pc-mobile-nav-link__text">About</span>
+          </a>
+          <a class="pc-mobile-nav-link pc-mobile-nav-link--active" href="/search.html">
             <span class="pc-mobile-nav-link__icon">🔍</span>
             <span class="pc-mobile-nav-link__text">Search</span>
           </a>
-          <a class="pc-mobile-nav-link" href="/study/">
-            <span class="pc-mobile-nav-link__icon">📚</span>
-            <span class="pc-mobile-nav-link__text">Study Plan</span>
-          </a>
           <a class="pc-mobile-nav-link" href="/account/">
-            <span class="pc-mobile-nav-link__icon">👤</span>
-            <span class="pc-mobile-nav-link__text">Account</span>
+            <span class="pc-mobile-nav-link__icon">🔐</span>
+            <span class="pc-mobile-nav-link__text">Sign In</span>
           </a>
         </nav>
         <div class="pc-mobile-menu__footer">
+          <p style="color: var(--pc-text-muted); font-size: 0.85rem;">© 2025 DVMReady</p>
         </div>
       </div>
     </nav>
