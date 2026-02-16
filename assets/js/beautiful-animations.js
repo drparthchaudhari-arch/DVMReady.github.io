@@ -188,47 +188,6 @@
   }
 
   // ==========================================
-  // CURSOR FOLLOWER
-  // ==========================================
-  function initCursorFollower() {
-    if (prefersReducedMotion() || isTouchDevice()) return;
-
-    const follower = document.createElement('div');
-    follower.className = 'pc-cursor-follower';
-    document.body.appendChild(follower);
-    
-    let mouseX = 0, mouseY = 0;
-    let followerX = 0, followerY = 0;
-    
-    document.addEventListener('mousemove', throttle((e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    }, CONFIG.throttleDelay));
-    
-    // Smooth follow animation
-    function animateFollower() {
-      const dx = mouseX - followerX;
-      const dy = mouseY - followerY;
-      
-      followerX += dx * 0.15;
-      followerY += dy * 0.15;
-      
-      follower.style.left = followerX + 'px';
-      follower.style.top = followerY + 'px';
-      
-      requestAnimationFrame(animateFollower);
-    }
-    animateFollower();
-    
-    // Expand on interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .pc-btn, input, textarea');
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', () => follower.classList.add('pc-is-hovering'));
-      el.addEventListener('mouseleave', () => follower.classList.remove('pc-is-hovering'));
-    });
-  }
-
-  // ==========================================
   // STAGGERED GRID REVEAL
   // ==========================================
   function initStaggerReveal() {
@@ -455,7 +414,6 @@
     initCardTilt();
     initTextReveal();
     initRippleEffect();
-    initCursorFollower();
     initStaggerReveal();
     initParallaxFloat();
     initCounters();

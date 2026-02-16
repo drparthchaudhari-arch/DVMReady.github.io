@@ -501,29 +501,6 @@
 }
 
 /* ==========================================
-   CURSOR FOLLOWER
-   ========================================== */
-.pc-cursor-follower {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--pc-primary);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: difference;
-}
-
-.pc-cursor-follower.pc-is-hovering {
-  width: 50px;
-  height: 50px;
-  border-color: var(--pc-mint);
-  background: rgba(0, 245, 212, 0.1);
-}
-
-/* ==========================================
    SKELETON LOADING
    ========================================== */
 .pc-skeleton {
