@@ -21,7 +21,7 @@ const PRECACHE_URLS = [
   '/assets/js/ckd-aki-proteinuria-planner.js',
   '/assets/js/integration-core.js',
   '/assets/js/case-integration.js',
-  '/assets/img/vet-favicon.svg',
+  '/assets/img/dvmready-logo.png',
 ]
 
 function isSameOrigin(requestUrl) {
