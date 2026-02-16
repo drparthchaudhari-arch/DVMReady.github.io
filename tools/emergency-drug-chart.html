@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Emergency Drugs" />
     <title>Emergency Drug Dose Chart | DVMReady Tools</title>
     <meta
       name="description"
@@ -34,6 +39,36 @@
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/emergency-drug-chart.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Veterinary Emergency Drug Chart",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Quick reference emergency drug doses for dogs and cats. ACLS drugs, CPR medications, anaphylaxis, and critical care drugs.",
+      "url": "https://dvmready.com/tools/emergency-drug-chart.html",
+      "image": "https://dvmready.com/assets/img/dvmready-og.jpg",
+      "author": {
+        "@type": "Organization",
+        "name": "DVMReady",
+        "url": "https://dvmready.com"
+      },
+      "featureList": [
+        "Emergency drug doses",
+        "ACLS drug reference",
+        "CPR medication guide",
+        "Anaphylaxis protocol",
+        "Weight-based calculations"
+      ],
+      "softwareVersion": "1.0"
+    }
+    </script>
     <script src="/assets/js/preferences.js" defer></script>
     <script src="/assets/js/auth-system.js" defer></script>
     <script src="/assets/js/animations.js" defer></script>

@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="CRI Calculator" />
     <title>Advanced CRI Calculator | DVMReady Tools</title>
     <meta name="description" content="Advanced veterinary CRI preparation calculator with dilution, bag preparation, administration rates, and safety checks." />
     <meta property="og:type" content="website" />
@@ -20,6 +25,36 @@
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/cri-calculator.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Veterinary CRI Calculator",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Constant rate infusion calculator for veterinary use. Calculate drug CRI rates, dilutions, and syringe pump settings.",
+      "url": "https://dvmready.com/tools/cri-calculator.html",
+      "image": "https://dvmready.com/assets/img/dvmready-og.jpg",
+      "author": {
+        "@type": "Organization",
+        "name": "DVMReady",
+        "url": "https://dvmready.com"
+      },
+      "featureList": [
+        "CRI rate calculations",
+        "Drug dilution guidance",
+        "Syringe pump settings",
+        "Common CRI protocols",
+        "Species adjustments"
+      ],
+      "softwareVersion": "1.0"
+    }
+    </script>
     <link rel="stylesheet" href="/assets/css/calculator-print.css">
     <script src="/assets/js/calculator-print.js" defer></script>
     <script src="/assets/js/preferences.js" defer></script>

@@ -1,19 +1,108 @@
+# robots.txt - DVMReady.com
+# https://dvmready.com/robots.txt
+
+# ============================================
+# Global Rules (All Crawlers)
+# ============================================
 User-agent: *
 Allow: /
+Allow: /tools/
+Allow: /study/
+Allow: /reference/
 Allow: /assets/css/
 Allow: /assets/js/
 Allow: /assets/img/
 Allow: /assets/screenshots/
 Allow: /account/
 
-# Disallow system/build directories only
+# Crawl rate limiting (in seconds)
+Crawl-delay: 1
+
+# ============================================
+# Restricted Areas
+# ============================================
+# System/build directories
 Disallow: /admin/
 Disallow: /app/
 Disallow: /dist/
 Disallow: /node_modules/
+Disallow: /src/
 
-# Redirect directories - noindex to prevent duplicate content issues
-User-agent: *
-Disallow: /search/
+# API and data endpoints
+Disallow: /api/
+Disallow: /supabase/
+Disallow: /.git/
 
+# Search results (prevent duplicate content)
+Disallow: /search?
+Disallow: /search.html?
+Disallow: /*?q=
+Disallow: /*?query=
+
+# User-specific pages
+Disallow: /account/settings/
+Disallow: /admin/
+
+# ============================================
+# Optimized Rules for Major Crawlers
+# ============================================
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
+
+# Googlebot-Image
+User-agent: Googlebot-Image
+Allow: /assets/img/
+Allow: /assets/screenshots/
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# DuckDuckBot
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+# ============================================
+# AI/LLM Crawlers (Allow for knowledge graph)
+# ============================================
+User-agent: GPTBot
+Allow: /
+Disallow: /account/
+Disallow: /admin/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /account/
+Disallow: /admin/
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /account/
+Disallow: /admin/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /account/
+Disallow: /admin/
+
+# ============================================
+# Blocked Crawlers (Known bad bots)
+# ============================================
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+# ============================================
+# Sitemap Location
+# ============================================
 Sitemap: https://dvmready.com/sitemap.xml

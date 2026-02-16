@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Fluid Calculator" />
     <title>Fluid Calculator | DVMReady Tools</title>
     <meta name="description" content="Free veterinary fluid calculator for dehydration deficit, maintenance, 24-hour total, and hourly rates." />
     <meta property="og:type" content="website" />
@@ -22,6 +27,36 @@
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/legal-compliance.js" defer></script>
     <script src="/assets/js/fluid-calculator.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Veterinary Fluid Calculator",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Calculate fluid therapy rates for dogs and cats. Maintenance fluids, deficit correction, shock rates, and drip rate calculations.",
+      "url": "https://dvmready.com/tools/fluid-calculator.html",
+      "image": "https://dvmready.com/assets/img/dvmready-og.jpg",
+      "author": {
+        "@type": "Organization",
+        "name": "DVMReady",
+        "url": "https://dvmready.com"
+      },
+      "featureList": [
+        "Maintenance fluid calculations",
+        "Dehydration deficit correction",
+        "Shock fluid rates",
+        "Drip rate calculations",
+        "Species-specific formulas"
+      ],
+      "softwareVersion": "1.0"
+    }
+    </script>
     <script src="/assets/js/preferences.js" defer></script>
     <script src="/assets/js/auth-system.js" defer></script>
     <script src="/assets/js/animations.js" defer></script>

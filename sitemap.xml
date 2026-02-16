@@ -1,323 +1,498 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Core Pages -->
   <url>
     <loc>https://dvmready.com/</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://dvmready.com/about.html</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dvmready.com/contact.html</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
-  <url>
-    <loc>https://dvmready.com/editorial-policy/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/terms/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/pricing/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/privacy/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/unsubscribe/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/licenses/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/accessibility-plan/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/study/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/study/navle/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/study/navle/practice/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/study/navle/exam-simulator/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/study/navle/topics/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/study/wordweb/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/study/vetlex/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/today/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/gdv-approach/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/shock-types-veterinary/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/sepsis-sirs-veterinary/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/dka-approach-veterinary/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/heatstroke-veterinary/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/transfusion-basics-veterinary/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/rodenticide-bleeding-veterinary/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/pleural-effusion-differentials-veterinary/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/chf-staging-overview/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/murmur-approach-dog-cat/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/ecg-rhythm-id-af-svt-vt/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/systemic-hypertension-target-organ-damage/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/dcm-basics-dog-cat/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/pleural-effusion-vs-pulmonary-edema/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/pimobendan-diuretics-overview/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/syncope-differentials-dog-cat/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
+  
+  <!-- Tools Hub -->
   <url>
     <loc>https://dvmready.com/tools/</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
-  <url>
-    <loc>https://dvmready.com/veterinary-calculators/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/veterinary-calculators-guide/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/mgkg-dosing-guide/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/cri-setup-guide/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/fluid-deficit-guide/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/maintenance-fluids-guide/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/anion-gap-interpretation/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/osmolality-basics-veterinary/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/dextrose-correction-guide/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/body-condition-score-guide/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/toxic-dose-calculations-guide/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/lab-interpretation-caveats/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/emergency-triage-algorithms/</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
+  
+  <!-- Calculator Tools -->
   <url>
     <loc>https://dvmready.com/tools/dose-calculator.html</loc>
     <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/tools/dose-label-generator.html</loc>
-    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://dvmready.com/assets/img/dvmready-og.jpg</image:loc>
+      <image:title>Veterinary Dose Calculator</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://dvmready.com/tools/fluid-calculator.html</loc>
     <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/tools/unit-converter.html</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/tools/emergency-drug-chart.html</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/tools/er-algorithms.html</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/tools/phone-triage.html</loc>
-    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://dvmready.com/tools/cri-calculator.html</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/tools/acid-base-electrolyte.html</loc>
+    <loc>https://dvmready.com/tools/emergency-drug-chart.html</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://dvmready.com/tools/transfusion-helper.html</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/tools/glucose-curve-generator.html</loc>
+    <loc>https://dvmready.com/tools/toxicity-suite.html</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/tools/discharge-generator.html</loc>
+    <loc>https://dvmready.com/tools/unit-converter.html</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/tools/parasite-control-reference.html</loc>
+    <loc>https://dvmready.com/tools/acid-base-electrolyte.html</loc>
     <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/tools/insulin-cri-planner.html</loc>
-    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dvmready.com/tools/anesthesia-risk-checklist.html</loc>
     <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/tools/renal-dose-adjuster.html</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/tools/sepsis-bundle-planner.html</loc>
-    <lastmod>2026-02-16</lastmod>
-  </url>
-  <url>
-    <loc>https://dvmready.com/tools/toxin-decontamination-planner.html</loc>
-    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dvmready.com/tools/chf-staging-planner.html</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/tools/nutrition-rer-mer-calculator.html</loc>
+    <loc>https://dvmready.com/tools/ckd-aki-proteinuria-planner.html</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/discharge-generator.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/dose-label-generator.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dvmready.com/tools/electrolyte-replacement-planner.html</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/reference/</loc>
+    <loc>https://dvmready.com/tools/er-algorithms.html</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/dog-cat-normal-values/</loc>
+    <loc>https://dvmready.com/tools/exotic-dose-calculator.html</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/glucose-curve-generator.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/insulin-cri-planner.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/nutrition-rer-mer-calculator.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/parasite-control-reference.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/phone-triage.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/renal-dose-adjuster.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/sepsis-bundle-planner.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/toxin-decontamination-planner.html</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Study Hub -->
+  <url>
+    <loc>https://dvmready.com/study/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/study/navle/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/study/navle/practice/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/study/navle/exam-simulator/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/study/navle/topics/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/study/wordweb/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/study/vetlex/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Legal & Info Pages -->
+  <url>
+    <loc>https://dvmready.com/editorial-policy/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/terms/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/privacy/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/pricing/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/licenses/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/accessibility-plan/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/unsubscribe/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://dvmready.com/sources-and-limitations/</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <!-- Clinical Guides -->
+  <url>
+    <loc>https://dvmready.com/gdv-approach/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/reference/normal-values.html</loc>
+    <loc>https://dvmready.com/shock-types-veterinary/</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/reference/toxicities.html</loc>
+    <loc>https://dvmready.com/sepsis-sirs-veterinary/</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/bridge/</loc>
+    <loc>https://dvmready.com/dka-approach-veterinary/</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/heatstroke-veterinary/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/transfusion-basics-veterinary/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/rodenticide-bleeding-veterinary/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/anions-gap-interpretation/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/canine-feline-chf/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/dcm-basics-dog-cat/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/chf-staging-overview/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://dvmready.com/cardiology-chf-algorithm/</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/search.html</loc>
+    <loc>https://dvmready.com/pimobendan-diuretics-overview/</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/reference/programmatic/canine-cbc-normal-values/</loc>
+    <loc>https://dvmready.com/systemic-hypertension-target-organ-damage/</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/reference/programmatic/feline-chemistry-normal-values/</loc>
+    <loc>https://dvmready.com/syncope-differentials-dog-cat/</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://dvmready.com/reference/programmatic/chocolate-toxicity-dose-thresholds-dogs/</loc>
+    <loc>https://dvmready.com/murmur-approach-dog-cat/</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://dvmready.com/ecg-rhythm-id-af-svt-vt/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/lab-interpretation-caveats/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/clinical-case-studies/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/emergency-triage-algorithms/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/dog-cat-normal-values/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/body-condition-score-guide/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/cri-setup-guide/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/dextrose-correction-guide/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/mgkg-dosing-guide/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/maintenance-fluids-guide/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/fluid-deficit-guide/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/pleural-effusion-differentials-veterinary/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/pleural-effusion-vs-pulmonary-edema/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/navle-emergency-critical-care/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/controlled-drugs/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/toxic-dose-calculations-guide/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/osmolality-basics-veterinary/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/veterinary-calculators/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/veterinary-calculators-guide/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Today Page -->
+  <url>
+    <loc>https://dvmready.com/today/</loc>
+    <lastmod>2026-02-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
 </urlset>

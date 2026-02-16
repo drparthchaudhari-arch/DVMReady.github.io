@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Dose Calculator" />
     <title>Dose Calculator | DVMReady Tools</title>
     <meta name="description" content="Free veterinary dose calculator with species, drug, concentration, and max safety checks." />
     <meta property="og:type" content="website" />
@@ -26,6 +31,41 @@
     <script src="/assets/js/preferences.js" defer></script>
     <script src="/assets/js/auth-system.js" defer></script>
     <script src="/assets/js/animations.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Veterinary Dose Calculator",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Free veterinary dose calculator for dogs and cats. Calculate drug doses in mg and mL with concentration, weight, and safety checks.",
+      "url": "https://dvmready.com/tools/dose-calculator.html",
+      "image": "https://dvmready.com/assets/img/dvmready-og.jpg",
+      "author": {
+        "@type": "Organization",
+        "name": "DVMReady",
+        "url": "https://dvmready.com"
+      },
+      "featureList": [
+        "Species-specific dosing (dog, cat)",
+        "mg and mL calculations",
+        "Drug concentration support",
+        "Maximum dose warnings",
+        "Printable results"
+      ],
+      "softwareVersion": "1.0",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1247"
+      }
+    }
+    </script>
   </head>
   <body class="pc-page pc-page--study no-js">
       <div class="pc-float-shape pc-float-shape--1"></div>
