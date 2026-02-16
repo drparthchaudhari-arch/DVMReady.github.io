@@ -1,0 +1,752 @@
+/**
+ * DVMReady - Beautiful Animations
+ * Premium animation effects for a delightful user experience
+ */
+
+/* ==========================================
+   CSS CUSTOM PROPERTIES
+   ========================================== */
+:root {
+  --anim-magnetic-strength: 0.3;
+  --anim-glow-color: var(--pc-primary);
+  --anim-transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --anim-transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --anim-transition-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ==========================================
+   SCROLL PROGRESS BAR
+   ========================================== */
+.pc-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--pc-primary), var(--pc-mint), var(--pc-coral));
+  background-size: 200% 100%;
+  animation: gradient-flow 2s linear infinite;
+  z-index: 9999;
+  transition: width 0.1s linear;
+}
+
+@keyframes gradient-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* ==========================================
+   MAGNETIC BUTTON EFFECT
+   ========================================== */
+.pc-btn-magnetic {
+  position: relative;
+  transition: transform 0.3s var(--anim-transition-elastic);
+}
+
+.pc-btn-magnetic::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, var(--pc-primary), var(--pc-mint), var(--pc-coral));
+  border-radius: inherit;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+}
+
+.pc-btn-magnetic:hover::before {
+  opacity: 0.6;
+}
+
+.pc-btn-magnetic:hover {
+  transform: scale(1.05);
+}
+
+/* ==========================================
+   TEXT REVEAL ANIMATION
+   ========================================== */
+.pc-text-reveal {
+  overflow: hidden;
+}
+
+.pc-text-reveal__word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%) rotateX(-80deg);
+  transform-origin: center top;
+  animation: text-reveal 0.8s var(--anim-transition-elastic) forwards;
+}
+
+.pc-text-reveal__word:nth-child(1) { animation-delay: 0.1s; }
+.pc-text-reveal__word:nth-child(2) { animation-delay: 0.2s; }
+.pc-text-reveal__word:nth-child(3) { animation-delay: 0.3s; }
+.pc-text-reveal__word:nth-child(4) { animation-delay: 0.4s; }
+.pc-text-reveal__word:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes text-reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+/* ==========================================
+   3D CARD TILT EFFECT
+   ========================================== */
+.pc-card-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.1s ease-out;
+}
+
+.pc-card-3d__inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s var(--anim-transition-smooth);
+}
+
+.pc-card-3d__shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.pc-card-3d:hover .pc-card-3d__shine {
+  opacity: 1;
+}
+
+/* ==========================================
+   FLOATING LABEL ANIMATION
+   ========================================== */
+.pc-input-float {
+  position: relative;
+}
+
+.pc-input-float input,
+.pc-input-float textarea {
+  width: 100%;
+  padding: 1.2rem 1rem 0.8rem;
+  border: 2px solid var(--pc-border);
+  border-radius: var(--pc-radius-md);
+  background: var(--pc-surface);
+  color: var(--pc-text);
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pc-input-float label {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--pc-text-muted);
+  pointer-events: none;
+  transition: all 0.3s var(--anim-transition-smooth);
+  background: var(--pc-surface);
+  padding: 0 0.25rem;
+}
+
+.pc-input-float input:focus,
+.pc-input-float input:not(:placeholder-shown),
+.pc-input-float textarea:focus,
+.pc-input-float textarea:not(:placeholder-shown) {
+  border-color: var(--pc-primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--pc-primary) 15%, transparent);
+}
+
+.pc-input-float input:focus + label,
+.pc-input-float input:not(:placeholder-shown) + label,
+.pc-input-float textarea:focus + label,
+.pc-input-float textarea:not(:placeholder-shown) + label {
+  top: 0;
+  font-size: 0.75rem;
+  color: var(--pc-primary);
+  font-weight: 600;
+}
+
+/* ==========================================
+   NEON GLOW EFFECTS
+   ========================================== */
+.pc-glow {
+  position: relative;
+}
+
+.pc-glow::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, var(--pc-primary), var(--pc-mint));
+  border-radius: inherit;
+  opacity: 0;
+  z-index: -1;
+  filter: blur(15px);
+  transition: opacity 0.3s ease;
+}
+
+.pc-glow:hover::after {
+  opacity: 0.5;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; filter: blur(15px); }
+  50% { opacity: 0.7; filter: blur(20px); }
+}
+
+/* ==========================================
+   MORPHING BACKGROUND BLOB
+   ========================================== */
+.pc-morph-blob {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, var(--pc-primary), var(--pc-mint));
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  filter: blur(80px);
+  opacity: 0.15;
+  animation: morph 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes morph {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: rotate(0deg);
+  }
+  25% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: rotate(90deg);
+  }
+  50% {
+    border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%;
+    transform: rotate(180deg);
+  }
+  75% {
+    border-radius: 60% 40% 60% 30% / 70% 30% 50% 60%;
+    transform: rotate(270deg);
+  }
+}
+
+/* ==========================================
+   STAGGERED GRID REVEAL
+   ========================================== */
+.pc-stagger-grid > * {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+}
+
+.pc-stagger-grid.pc-is-visible > * {
+  animation: stagger-reveal 0.6s var(--anim-transition-elastic) forwards;
+}
+
+.pc-stagger-grid.pc-is-visible > *:nth-child(1) { animation-delay: 0.05s; }
+.pc-stagger-grid.pc-is-visible > *:nth-child(2) { animation-delay: 0.1s; }
+.pc-stagger-grid.pc-is-visible > *:nth-child(3) { animation-delay: 0.15s; }
+.pc-stagger-grid.pc-is-visible > *:nth-child(4) { animation-delay: 0.2s; }
+.pc-stagger-grid.pc-is-visible > *:nth-child(5) { animation-delay: 0.25s; }
+.pc-stagger-grid.pc-is-visible > *:nth-child(6) { animation-delay: 0.3s; }
+.pc-stagger-grid.pc-is-visible > *:nth-child(7) { animation-delay: 0.35s; }
+.pc-stagger-grid.pc-is-visible > *:nth-child(8) { animation-delay: 0.4s; }
+.pc-stagger-grid.pc-is-visible > *:nth-child(9) { animation-delay: 0.45s; }
+.pc-stagger-grid.pc-is-visible > *:nth-child(10) { animation-delay: 0.5s; }
+.pc-stagger-grid.pc-is-visible > *:nth-child(11) { animation-delay: 0.55s; }
+.pc-stagger-grid.pc-is-visible > *:nth-child(12) { animation-delay: 0.6s; }
+
+@keyframes stagger-reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================
+   WAVE TEXT ANIMATION
+   ========================================== */
+.pc-wave-text span {
+  display: inline-block;
+  animation: wave 2s ease-in-out infinite;
+}
+
+.pc-wave-text span:nth-child(1) { animation-delay: 0s; }
+.pc-wave-text span:nth-child(2) { animation-delay: 0.1s; }
+.pc-wave-text span:nth-child(3) { animation-delay: 0.2s; }
+.pc-wave-text span:nth-child(4) { animation-delay: 0.3s; }
+.pc-wave-text span:nth-child(5) { animation-delay: 0.4s; }
+.pc-wave-text span:nth-child(6) { animation-delay: 0.5s; }
+.pc-wave-text span:nth-child(7) { animation-delay: 0.6s; }
+.pc-wave-text span:nth-child(8) { animation-delay: 0.7s; }
+.pc-wave-text span:nth-child(9) { animation-delay: 0.8s; }
+.pc-wave-text span:nth-child(10) { animation-delay: 0.9s; }
+
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ==========================================
+   BREATHING ANIMATION
+   ========================================== */
+.pc-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.02); opacity: 0.9; }
+}
+
+/* ==========================================
+   RIPPLE EFFECT
+   ========================================== */
+.pc-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.pc-ripple__effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: ripple 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ==========================================
+   SHIMMER LOADING EFFECT
+   ========================================== */
+.pc-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--pc-surface) 25%,
+    color-mix(in srgb, var(--pc-surface) 95%, white) 50%,
+    var(--pc-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ==========================================
+   CHECKMARK DRAW ANIMATION
+   ========================================== */
+.pc-checkmark {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: draw-check 0.5s var(--anim-transition-smooth) forwards;
+}
+
+@keyframes draw-check {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ==========================================
+   HEARTBEAT ANIMATION
+   ========================================== */
+.pc-heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  10% { transform: scale(1.1); }
+  20% { transform: scale(1); }
+  30% { transform: scale(1.1); }
+  40% { transform: scale(1); }
+}
+
+/* ==========================================
+   LIQUID FILL BUTTON
+   ========================================== */
+.pc-btn-liquid {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.pc-btn-liquid::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(180deg, var(--pc-mint), var(--pc-primary));
+  transition: height 0.4s var(--anim-transition-smooth);
+  z-index: -1;
+}
+
+.pc-btn-liquid:hover::before {
+  height: 100%;
+}
+
+/* ==========================================
+   FLOATING ICONS
+   ========================================== */
+.pc-float-icon {
+  animation: float-icon 3s ease-in-out infinite;
+}
+
+.pc-float-icon:nth-child(2n) { animation-delay: 0.5s; }
+.pc-float-icon:nth-child(3n) { animation-delay: 1s; }
+.pc-float-icon:nth-child(4n) { animation-delay: 1.5s; }
+
+@keyframes float-icon {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+/* ==========================================
+   BORDER DRAW ANIMATION
+   ========================================== */
+.pc-border-draw {
+  position: relative;
+}
+
+.pc-border-draw::before,
+.pc-border-draw::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 2px solid transparent;
+}
+
+.pc-border-draw::before {
+  top: 0;
+  left: 0;
+  border-top-color: var(--pc-primary);
+  border-right-color: var(--pc-primary);
+  transition: width 0.3s ease, height 0.3s ease 0.3s;
+}
+
+.pc-border-draw::after {
+  bottom: 0;
+  right: 0;
+  border-bottom-color: var(--pc-primary);
+  border-left-color: var(--pc-primary);
+  transition: width 0.3s ease, height 0.3s ease 0.3s;
+}
+
+.pc-border-draw:hover::before,
+.pc-border-draw:hover::after {
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================
+   GLITCH TEXT EFFECT
+   ========================================== */
+.pc-glitch {
+  position: relative;
+}
+
+.pc-glitch::before,
+.pc-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.pc-glitch:hover::before {
+  animation: glitch-1 0.3s ease;
+  color: var(--pc-coral);
+  opacity: 0.8;
+}
+
+.pc-glitch:hover::after {
+  animation: glitch-2 0.3s ease;
+  color: var(--pc-mint);
+  opacity: 0.8;
+}
+
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  20% { clip-path: inset(20% 0 60% 0); transform: translate(-3px, 3px); }
+  40% { clip-path: inset(40% 0 40% 0); transform: translate(3px, -3px); }
+  60% { clip-path: inset(60% 0 20% 0); transform: translate(-3px, 3px); }
+  80% { clip-path: inset(80% 0 0% 0); transform: translate(3px, -3px); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  20% { clip-path: inset(60% 0 20% 0); transform: translate(3px, -3px); }
+  40% { clip-path: inset(40% 0 40% 0); transform: translate(-3px, 3px); }
+  60% { clip-path: inset(20% 0 60% 0); transform: translate(3px, -3px); }
+  80% { clip-path: inset(0% 0 80% 0); transform: translate(-3px, 3px); }
+}
+
+/* ==========================================
+   CURSOR FOLLOWER
+   ========================================== */
+.pc-cursor-follower {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--pc-primary);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+
+.pc-cursor-follower.pc-is-hovering {
+  width: 50px;
+  height: 50px;
+  border-color: var(--pc-mint);
+  background: rgba(0, 245, 212, 0.1);
+}
+
+/* ==========================================
+   SKELETON LOADING
+   ========================================== */
+.pc-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--pc-surface-strong) 25%,
+    color-mix(in srgb, var(--pc-surface-strong) 90%, white) 50%,
+    var(--pc-surface-strong) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-load 1.5s ease-in-out infinite;
+  border-radius: var(--pc-radius-sm);
+}
+
+.pc-skeleton--text {
+  height: 1em;
+  margin-bottom: 0.5em;
+}
+
+.pc-skeleton--title {
+  height: 1.5em;
+  width: 60%;
+  margin-bottom: 0.75em;
+}
+
+.pc-skeleton--avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+@keyframes skeleton-load {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ==========================================
+   NAVIGATION SCROLL EFFECT
+   ========================================== */
+.pc-portal-nav {
+  transition: background-color 0.3s ease, 
+              backdrop-filter 0.3s ease,
+              box-shadow 0.3s ease,
+              padding 0.3s ease;
+}
+
+.pc-portal-nav.pc-is-scrolled {
+  background: color-mix(in srgb, var(--pc-surface) 95%, transparent);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================
+   TOOLTIP ANIMATIONS
+   ========================================== */
+.pc-tooltip {
+  position: relative;
+}
+
+.pc-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  padding: 0.5rem 1rem;
+  background: var(--pc-text);
+  color: var(--pc-surface);
+  font-size: 0.8rem;
+  border-radius: var(--pc-radius-sm);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s var(--anim-transition-smooth);
+}
+
+.pc-tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  border: 6px solid transparent;
+  border-top-color: var(--pc-text);
+  opacity: 0;
+  transition: all 0.3s var(--anim-transition-smooth);
+}
+
+.pc-tooltip:hover::after,
+.pc-tooltip:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+/* ==========================================
+   ACCORDION SMOOTH ANIMATION
+   ========================================== */
+.pc-accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s var(--anim-transition-smooth);
+}
+
+.pc-accordion-content.pc-is-open {
+  grid-template-rows: 1fr;
+}
+
+.pc-accordion-inner {
+  overflow: hidden;
+}
+
+.pc-accordion-icon {
+  transition: transform 0.3s var(--anim-transition-smooth);
+}
+
+.pc-accordion-trigger[aria-expanded="true"] .pc-accordion-icon {
+  transform: rotate(180deg);
+}
+
+/* ==========================================
+   TABS UNDERLINE SLIDE
+   ========================================== */
+.pc-tabs-underline {
+  position: relative;
+}
+
+.pc-tabs-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: var(--tab-left, 0);
+  width: var(--tab-width, 0);
+  height: 3px;
+  background: linear-gradient(90deg, var(--pc-primary), var(--pc-mint));
+  border-radius: 3px 3px 0 0;
+  transition: left 0.3s var(--anim-transition-smooth),
+              width 0.3s var(--anim-transition-smooth);
+}
+
+/* ==========================================
+   IMAGE ZOOM ON HOVER
+   ========================================== */
+.pc-img-zoom {
+  overflow: hidden;
+}
+
+.pc-img-zoom img {
+  transition: transform 0.5s var(--anim-transition-smooth);
+}
+
+.pc-img-zoom:hover img {
+  transform: scale(1.1);
+}
+
+/* ==========================================
+   NOTIFICATION BADGE BOUNCE
+   ========================================== */
+.pc-badge-bounce {
+  animation: badge-bounce 0.5s var(--anim-transition-elastic);
+}
+
+@keyframes badge-bounce {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* ==========================================
+   SPINNER VARIANTS
+   ========================================== */
+.pc-spinner-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.pc-spinner-dots span {
+  width: 8px;
+  height: 8px;
+  background: var(--pc-primary);
+  border-radius: 50%;
+  animation: spinner-dot 1.4s ease-in-out infinite both;
+}
+
+.pc-spinner-dots span:nth-child(1) { animation-delay: -0.32s; }
+.pc-spinner-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes spinner-dot {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+/* ==========================================
+   REDUCED MOTION SUPPORT
+   ========================================== */
+@media (prefers-reduced-motion: reduce) {
+  .pc-scroll-progress,
+  .pc-morph-blob,
+  .pc-wave-text span,
+  .pc-breathe,
+  .pc-float-icon,
+  .pc-shimmer,
+  .pc-skeleton,
+  .pc-heartbeat {
+    animation: none !important;
+  }
+  
+  .pc-card-3d,
+  .pc-card-3d__inner,
+  .pc-btn-magnetic,
+  .pc-img-zoom img {
+    transform: none !important;
+    transition: none !important;
+  }
+  
+  .pc-text-reveal__word {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  
+  .pc-stagger-grid > * {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
