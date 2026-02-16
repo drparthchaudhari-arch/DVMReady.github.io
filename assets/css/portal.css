@@ -27,7 +27,8 @@
 }
 
 .pc-page--home,
-.pc-page--info {
+.pc-page--info,
+.pc-page--about {
   padding-top: calc(4.75rem + env(safe-area-inset-top));
   padding-left: max(1rem, env(safe-area-inset-left));
   padding-right: max(1rem, env(safe-area-inset-right));
@@ -1886,7 +1887,8 @@ textarea:focus-visible,
   gap: 0.55rem;
 }
 
-.pc-info-shell {
+.pc-info-shell,
+.pc-about-shell {
   width: min(1100px, 100%);
   margin: 0 auto;
   padding-bottom: 2rem;
