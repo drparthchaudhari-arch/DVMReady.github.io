@@ -1,8 +1,6 @@
 ;(function () {
   'use strict'
 
-  var AUTHOR_STATUS_CONTENT = 'NAVLE-candidate-unlicensed'
-  var AUTHOR_STATUS_NAME = 'author-status'
   var DISCLAIMER_DISMISS_KEY = 'pc_edu_disclaimer_dismissed_at_v1'
   var DISCLAIMER_HIDE_MS = 7 * 24 * 60 * 60 * 1000
   var CONSENT_COOKIE_NAME = 'pc_consent_v1'
@@ -110,10 +108,6 @@
     node.setAttribute('content', content)
   }
 
-  function ensureAuthorStatusMeta() {
-    ensureMetaTag(AUTHOR_STATUS_NAME, AUTHOR_STATUS_CONTENT)
-  }
-
   function ensureSecurityMetaDefaults() {
     ensureMetaTag('referrer', 'strict-origin-when-cross-origin')
     ensureHttpEquivMeta(
@@ -170,7 +164,7 @@
     banner.setAttribute('role', 'note')
     banner.innerHTML =
       '<p class="pc-legal-banner__text">' +
-      '<strong>&#9888; EDUCATIONAL USE ONLY:</strong> Content created by a NAVLE candidate/veterinary assistant for exam preparation. Not licensed veterinary advice. Not affiliated with NAVLE or ICVA.' +
+      '<strong>&#9888; EDUCATIONAL USE ONLY:</strong> Content for veterinary exam preparation and educational purposes only. Not licensed veterinary advice. Not affiliated with NAVLE or ICVA.' +
       '</p>' +
       '<button type="button" class="pc-legal-banner__dismiss" aria-label="Dismiss educational use notice">Dismiss</button>'
 
@@ -648,7 +642,6 @@
 
   function initCompliance() {
     enforceHttpsRedirect()
-    ensureAuthorStatusMeta()
     ensureSecurityMetaDefaults()
     addGlobalDisclaimerBanner()
     addToolEducationalWarning()

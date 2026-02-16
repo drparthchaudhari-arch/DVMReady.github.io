@@ -594,7 +594,7 @@
       '<a href="/accessibility-plan/">Accessibility Plan</a>' +
       '<a href="/contact.html">Contact</a>' +
       '</div>' +
-      '<p class="pc-footer-note"><strong>Status:</strong> NAVLE candidate and veterinary assistant/technician. Not licensed to practice veterinary medicine in North America.</p>' +
+      '<p class="pc-footer-note"><strong>Notice:</strong> Content for educational purposes only. Not licensed veterinary advice.</p>' +
       '<p class="pc-footer-note">Educational use only. ' +
       SITE_BRAND +
       ' content is for exam preparation and does not create a veterinary-client-patient relationship (VCPR).</p>' +

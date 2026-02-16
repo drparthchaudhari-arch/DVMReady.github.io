@@ -265,7 +265,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     if (!checkSession()) return;
     
-    document.getElementById('admin-email-display').textContent = 'drparthchaudhari@gmail.com';
+    document.getElementById('admin-email-display').textContent = 'admin@dvmready.com';
     document.getElementById('logout-btn').addEventListener('click', logout);
     
     renderDashboard();
