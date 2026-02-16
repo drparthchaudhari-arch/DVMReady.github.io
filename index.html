@@ -11,7 +11,7 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     
-    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/dvmready-logo-pro.svg">
     <title>Veterinary Calculators for Dogs, Cats, and Clinic Workflows | DVMReady</title>
     <meta name="description" content="DVMReady is a veterinary calculator platform for drug dosing, CRI, fluid therapy, blood gas, transfusion, toxicity, and dog/cat clinical workflows.">
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
@@ -161,6 +161,151 @@
     @media (max-width: 768px) {
       .pc-home-tier-grid {
         grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== PROFESSIONAL STYLES ===== */
+    
+    /* Logo Pro */
+    .pc-logo--pro {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--pc-radius-md);
+    }
+    
+    .pc-logo--pro .pc-logo__img {
+      width: 36px;
+      height: 36px;
+    }
+    
+    .pc-logo--pro .pc-logo__text {
+      font-family: var(--pc-font-display);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--pc-text);
+      letter-spacing: -0.02em;
+    }
+    
+    /* Nav CTA */
+    .pc-nav-link--cta {
+      background: var(--pc-primary);
+      color: white !important;
+      padding: 0.5rem 1rem;
+      border-radius: var(--pc-radius-sm);
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+    
+    .pc-nav-link--cta:hover {
+      background: color-mix(in srgb, var(--pc-primary) 85%, black);
+    }
+    
+    /* Professional Hero */
+    .pc-hero-pro {
+      padding: 4rem 2rem;
+      margin: -1rem -1rem 2rem;
+      background: linear-gradient(180deg, 
+        var(--pc-surface) 0%,
+        color-mix(in srgb, var(--pc-primary) 5%, var(--pc-bg)) 100%
+      );
+      border-bottom: 1px solid var(--pc-border);
+    }
+    
+    .pc-hero-pro__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4rem;
+      align-items: center;
+    }
+    
+    .pc-hero-pro__eyebrow {
+      display: inline-block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--pc-primary);
+      margin-bottom: 1rem;
+    }
+    
+    .pc-hero-pro__title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--pc-text);
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    
+    .pc-hero-pro__subtitle {
+      font-size: 1.125rem;
+      color: var(--pc-text-muted);
+      max-width: 540px;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    
+    .pc-hero-pro__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .pc-hero-pro__stats {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 2rem;
+      background: var(--pc-surface);
+      border: 1px solid var(--pc-border);
+      border-radius: var(--pc-radius-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    
+    .pc-hero-stat {
+      text-align: center;
+    }
+    
+    .pc-hero-stat__number {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--pc-primary);
+      line-height: 1;
+    }
+    
+    .pc-hero-stat__label {
+      font-size: 0.875rem;
+      color: var(--pc-text-muted);
+      margin-top: 0.25rem;
+    }
+    
+    /* Mobile responsive */
+    @media (max-width: 900px) {
+      .pc-hero-pro__container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .pc-hero-pro__stats {
+        flex-direction: row;
+        justify-content: center;
+        padding: 1.5rem;
+      }
+      
+      .pc-hero-pro {
+        padding: 3rem 1.5rem;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .pc-hero-pro__stats {
+        flex-direction: column;
       }
     }
     </style>
@@ -475,8 +620,8 @@
     
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
         <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">
-                <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+            <a class="pc-logo pc-logo--pro" href="/">
+                <img src="/assets/img/dvmready-logo-pro.svg" alt="" class="pc-logo__img" aria-hidden="true">
                 <span class="pc-logo__text">DVMReady</span>
             </a>
             
@@ -499,14 +644,16 @@
             </form>
             
             <div class="pc-nav-group">
-                
-                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/extra/">Extra</a>
-                <a class="pc-nav-link" href="/search.html">Search</a>
-                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
-                <a class="pc-nav-link" href="/account/">
-                    <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
-                    <span class="pc-nav-link__text">Account</span>
+                <a class="pc-nav-link" href="/">Home</a>
+                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/tools/">Tools</a>
+                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/navle/">NAVLE Prep</a>
+                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/about.html">About</a>
+                <a class="pc-nav-link" href="/search.html" title="Search">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
+                    </svg>
                 </a>
+                <a class="pc-nav-link pc-nav-link--cta" href="/account/">Sign In</a>
                 <!-- Mobile Menu Toggle -->
                 <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
                     <span class="pc-mobile-toggle__bar"></span>
@@ -551,46 +698,38 @@
     </nav>
 
     <main id="pc-main" class="pc-home-shell" role="main">
-        <!-- Hero Section -->
-        <section class="pc-hero" aria-label="Welcome">
-            <div class="pc-hero__content">
-                <div class="pc-hero__badge">
-                    <span class="pc-hero__badge-dot"></span>
-                    Trusted by 10,000+ veterinary professionals
+        <!-- Hero Section - Professional -->
+        <section class="pc-hero-pro" aria-label="Welcome">
+            <div class="pc-hero-pro__container">
+                <div class="pc-hero-pro__content">
+                    <div class="pc-hero-pro__eyebrow">Professional Clinical Tools</div>
+                    <h1 class="pc-hero-pro__title">
+                        Veterinary Calculators<br>& NAVLE Prep
+                    </h1>
+                    <p class="pc-hero-pro__subtitle">
+                        Trusted by 10,000+ veterinary professionals. Free, accurate clinical calculators 
+                        and study resources for veterinarians, technicians, and students.
+                    </p>
+                    <div class="pc-hero-pro__actions">
+                        <a class="pc-btn pc-btn--primary pc-btn--large" href="/tools/">Explore Calculators</a>
+                        <a class="pc-btn pc-btn--secondary pc-btn--large" href="/study/navle/">NAVLE Study Hub</a>
+                    </div>
                 </div>
-                <h1 class="pc-hero__title">
-                    <span class="pc-gradient-text">Smart Tools</span> for<br>
-                    Veterinary Excellence
-                </h1>
-                <p class="pc-hero__subtitle">
-                    Drug dosing, fluid therapy, emergency protocols, and NAVLE prep — 
-                    all in one trusted platform designed for veterinarians and students.
-                </p>
-                <div class="pc-hero__actions">
-                    <a class="pc-btn pc-btn--primary pc-btn--large" href="/tools/">
-                        <span>Explore Calculators</span>
-                        <svg class="pc-btn__arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                    <a class="pc-btn pc-btn--secondary pc-btn--large" href="/study/navle/">Start NAVLE Prep</a>
-                </div>
-            </div>
-            <div class="pc-hero__visual" aria-hidden="true">
-                <div class="pc-hero__card pc-hero__card--1">
-                    <div class="pc-hero__card-icon">💊</div>
-                    <div class="pc-hero__card-label">Dose Calc</div>
-                    <div class="pc-hero__card-value">2.5 mg/kg</div>
-                </div>
-                <div class="pc-hero__card pc-hero__card--2">
-                    <div class="pc-hero__card-icon">💧</div>
-                    <div class="pc-hero__card-label">Fluids</div>
-                    <div class="pc-hero__card-value">125 mL/hr</div>
-                </div>
-                <div class="pc-hero__card pc-hero__card--3">
-                    <div class="pc-hero__card-icon">⚡</div>
-                    <div class="pc-hero__card-label">Emergency</div>
-                    <div class="pc-hero__card-value">Ready</div>
+                <div class="pc-hero-pro__visual">
+                    <div class="pc-hero-pro__stats">
+                        <div class="pc-hero-stat">
+                            <span class="pc-hero-stat__number">50+</span>
+                            <span class="pc-hero-stat__label">Clinical Tools</span>
+                        </div>
+                        <div class="pc-hero-stat">
+                            <span class="pc-hero-stat__number">10K+</span>
+                            <span class="pc-hero-stat__label">Monthly Users</span>
+                        </div>
+                        <div class="pc-hero-stat">
+                            <span class="pc-hero-stat__number">100%</span>
+                            <span class="pc-hero-stat__label">Free Access</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -883,7 +1022,7 @@
         <div class="pc-footer__grid">
             <div class="pc-footer__brand">
                 <a class="pc-footer__logo pc-logo" href="/">
-                <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+                <img src="/assets/img/dvmready-logo-pro.svg" alt="" class="pc-logo__img" aria-hidden="true">
                 <span class="pc-logo__text">DVMReady</span>
             </a>
                 <p class="pc-footer__tagline">Smart tools for veterinary excellence. Trusted by students and professionals worldwide.</p>
