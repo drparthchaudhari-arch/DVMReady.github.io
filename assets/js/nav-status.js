@@ -23,8 +23,8 @@
     { id: 'home', label: 'Home', href: '/' },
     { id: 'tools', label: 'Tools', href: '/tools/' },
     { id: 'study', label: 'Study', href: '/study/' },
+    { id: 'about', label: 'About', href: '/about.html' },
     { id: 'account', label: 'Account', href: '/account/' },
-    { id: 'contact', label: 'Contact', href: '/contact.html' },
   ]
   var PLAY_ICON = '\u25b6'
 
