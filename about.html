@@ -11,7 +11,7 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     
-    <link rel="icon" type="image/svg+xml" href="/assets/img/dvmready-logo-new.svg" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
     <title>About Us – DVMReady</title>
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta
@@ -28,282 +28,7 @@
     <meta name="twitter:description" content="Free veterinary calculators and study resources for professionals and students." />
     <meta name="twitter:image" content="https://dvmready.com/assets/img/dvmready-og.jpg" />
     <link rel="canonical" href="https://dvmready.com/about.html" />
-    
-    <!-- Navigation & Logo Styles -->
-    <style>
-      /* Logo with subtitle */
-      .pc-logo--with-subtitle {
-        gap: 0.5rem;
-        padding: 0.4rem 0.75rem;
-      }
-      
-      .pc-logo__text-wrap {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.1;
-      }
-      
-      .pc-logo__text {
-        font-size: 1.15rem;
-        letter-spacing: 0.03em;
-      }
-      
-      .pc-logo__subtitle {
-        font-size: 0.65rem;
-        font-weight: 500;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        opacity: 0.8;
-        color: var(--pc-text-muted);
-      }
-      
-      /* Nav layout adjustments */
-      .pc-nav-group--main {
-        gap: 0.75rem;
-      }
-      
-      .pc-nav-link {
-        font-weight: 500;
-        padding: 0.5rem 0.75rem;
-      }
-      
-      /* Login button in nav */
-      .pc-btn--nav-login {
-        background: color-mix(in srgb, var(--pc-primary) 20%, var(--pc-surface)) !important;
-        border: 1px solid var(--pc-border) !important;
-        color: var(--pc-text) !important;
-        font-weight: 600;
-        padding: 0.5rem 1rem;
-        border-radius: var(--pc-radius-sm);
-        font-size: 0.9rem;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-      }
-      
-      .pc-btn--nav-login:hover {
-        background: color-mix(in srgb, var(--pc-primary) 30%, var(--pc-surface)) !important;
-        border-color: var(--pc-primary) !important;
-      }
-    </style>
-    
     <link rel="stylesheet" href="/assets/css/tokens.css" />
-    
-    <!-- About Page Enhancement Styles -->
-    <style>
-      /* Enhanced About Hero */
-      .pc-about-hero {
-        position: relative;
-        padding: 4rem 2rem;
-        margin: -1rem -1rem 2rem;
-        background: linear-gradient(135deg, 
-          color-mix(in srgb, var(--pc-primary) 8%, var(--pc-surface)) 0%, 
-          color-mix(in srgb, var(--pc-primary) 15%, var(--pc-bg)) 50%,
-          var(--pc-surface) 100%
-        );
-        border-bottom: 1px solid var(--pc-border);
-      }
-      
-      .pc-about-hero__logo {
-        filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
-        margin-bottom: 1.5rem;
-      }
-      
-      .pc-about-hero__badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        background: color-mix(in srgb, var(--pc-primary) 10%, var(--pc-surface));
-        border: 1px solid color-mix(in srgb, var(--pc-primary) 20%, var(--pc-border));
-        border-radius: 999px;
-        font-size: 0.875rem;
-        color: var(--pc-text);
-        margin-bottom: 1.5rem;
-      }
-      
-      .pc-about-hero__badge-dot {
-        width: 8px;
-        height: 8px;
-        background: var(--pc-primary);
-        border-radius: 50%;
-        animation: pulse 2s infinite;
-      }
-      
-      @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
-      }
-      
-      .pc-about-hero__title {
-        font-size: clamp(2rem, 5vw, 3rem);
-        line-height: 1.2;
-        margin-bottom: 1rem;
-      }
-      
-      .pc-about-hero__subtitle {
-        font-size: 1.125rem;
-        color: var(--pc-text-muted);
-        max-width: 600px;
-        line-height: 1.6;
-      }
-      
-      /* Enhanced stat items */
-      .pc-stat-item {
-        text-align: center;
-        padding: 1.5rem;
-        background: var(--pc-surface);
-        border: 1px solid var(--pc-border);
-        border-radius: var(--pc-radius-lg);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-      
-      .pc-stat-item:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      }
-      
-      .pc-stat-item__number {
-        display: block;
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: var(--pc-primary);
-        line-height: 1;
-        margin-bottom: 0.5rem;
-      }
-      
-      .pc-stat-item__label {
-        font-size: 0.875rem;
-        color: var(--pc-text-muted);
-      }
-      
-      /* Offering cards enhancement */
-      .pc-offering-card {
-        background: var(--pc-surface);
-        border: 1px solid var(--pc-border);
-        border-radius: var(--pc-radius-lg);
-        padding: 2rem;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-      
-      .pc-offering-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-      }
-      
-      .pc-offering-card__icon {
-        width: 56px;
-        height: 56px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: color-mix(in srgb, var(--pc-primary) 12%, var(--pc-surface));
-        border-radius: var(--pc-radius-md);
-        font-size: 1.75rem;
-        margin-bottom: 1rem;
-      }
-      
-      .pc-offering-card__title {
-        font-size: 1.25rem;
-        margin-bottom: 0.75rem;
-      }
-      
-      .pc-offering-card__desc {
-        color: var(--pc-text-muted);
-        margin-bottom: 1rem;
-        line-height: 1.6;
-      }
-      
-      .pc-offering-card__link {
-        color: var(--pc-primary);
-        text-decoration: none;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.25rem;
-      }
-      
-      .pc-offering-card__link:hover {
-        text-decoration: underline;
-      }
-      
-      /* Value items enhancement */
-      .pc-value-item {
-        display: flex;
-        gap: 1rem;
-        padding: 1.5rem;
-        background: var(--pc-surface);
-        border: 1px solid var(--pc-border);
-        border-radius: var(--pc-radius-lg);
-      }
-      
-      .pc-value-item__icon {
-        width: 48px;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: color-mix(in srgb, var(--pc-primary) 10%, var(--pc-surface));
-        border-radius: var(--pc-radius-md);
-        font-size: 1.5rem;
-        flex-shrink: 0;
-      }
-      
-      .pc-value-item__title {
-        font-size: 1.125rem;
-        margin-bottom: 0.5rem;
-      }
-      
-      .pc-value-item__desc {
-        color: var(--pc-text-muted);
-        font-size: 0.95rem;
-        line-height: 1.5;
-        margin: 0;
-      }
-      
-      /* CTA Section enhancement */
-      .pc-about-cta {
-        background: linear-gradient(135deg, 
-          color-mix(in srgb, var(--pc-primary) 85%, #0a2540) 0%, 
-          color-mix(in srgb, var(--pc-primary) 60%, #0a2540) 100%
-        );
-        color: white;
-        padding: 4rem 2rem;
-        margin: 0 -1rem -1rem;
-        text-align: center;
-      }
-      
-      .pc-about-cta__title {
-        color: white;
-        font-size: 2rem;
-        margin-bottom: 1rem;
-      }
-      
-      .pc-about-cta__text {
-        color: rgba(255,255,255,0.85);
-        font-size: 1.125rem;
-        max-width: 500px;
-        margin: 0 auto 2rem;
-      }
-      
-      .pc-about-cta__actions {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-      
-      .pc-about-cta .pc-btn--secondary {
-        background: rgba(255,255,255,0.15);
-        border-color: rgba(255,255,255,0.3);
-        color: white;
-      }
-      
-      .pc-about-cta .pc-btn--secondary:hover {
-        background: rgba(255,255,255,0.25);
-        border-color: rgba(255,255,255,0.5);
-      }
-    </style>
     <link rel="stylesheet" href="/assets/css/portal.css" />
     <link rel="stylesheet" href="/assets/css/logo-styles.css" />
     <link rel="stylesheet" href="/assets/css/portal-enhancements.css" />
@@ -336,20 +61,38 @@
     
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
-        <a class="pc-logo pc-logo--with-subtitle" href="/">
-          <img src="/assets/img/dvmready-logo-new.svg" alt="" class="pc-logo__img" aria-hidden="true" style="width: 40px; height: 48px;">
-          <div class="pc-logo__text-wrap">
-            <span class="pc-logo__text">DVMREADY</span>
-            <span class="pc-logo__subtitle">Clinical & Board Prep</span>
-          </div>
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
         </a>
         
-        <div class="pc-nav-group pc-nav-group--main">
-          <a class="pc-nav-link" href="/">Home</a>
-          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/navle/">NAVLE Prep</a>
-          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/tools/">Clinical Tools</a>
+        <!-- Search Bar (Desktop) -->
+        <form class="pc-nav-search" action="/search.html" method="get" role="search">
+          <div class="pc-search-wrapper">
+            <svg class="pc-search-icon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+            <input 
+              type="search" 
+              name="q" 
+              class="pc-search-input pc-search-input--nav" 
+              placeholder="Search..."
+              aria-label="Search veterinary calculators"
+              autocomplete="off"
+            >
+            <kbd class="pc-search-shortcut">⌘K</kbd>
+          </div>
+        </form>
+        
+        <div class="pc-nav-group">
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/tools/">Tools</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
           <a class="pc-nav-link pc-nav-link--hide-mobile pc-nav-link--active" href="/about.html">About</a>
-          <a class="pc-btn pc-btn--nav-login" href="/account/">Login / Sign Up</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          
           <!-- Mobile Menu Toggle -->
           <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
             <span class="pc-mobile-toggle__bar"></span>
@@ -366,29 +109,25 @@
           <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
         </div>
         <nav class="pc-mobile-menu__nav">
-          <a class="pc-mobile-nav-link" href="/">
-            <span class="pc-mobile-nav-link__icon">🏠</span>
-            <span class="pc-mobile-nav-link__text">Home</span>
-          </a>
-          <a class="pc-mobile-nav-link" href="/study/navle/">
-            <span class="pc-mobile-nav-link__icon">🎓</span>
-            <span class="pc-mobile-nav-link__text">NAVLE Prep</span>
-          </a>
           <a class="pc-mobile-nav-link" href="/tools/">
             <span class="pc-mobile-nav-link__icon">🧮</span>
-            <span class="pc-mobile-nav-link__text">Clinical Tools</span>
+            <span class="pc-mobile-nav-link__text">Tools</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/study/">
+            <span class="pc-mobile-nav-link__icon">📚</span>
+            <span class="pc-mobile-nav-link__text">Study</span>
           </a>
           <a class="pc-mobile-nav-link pc-mobile-nav-link--active" href="/about.html">
             <span class="pc-mobile-nav-link__icon">ℹ️</span>
             <span class="pc-mobile-nav-link__text">About</span>
           </a>
-          <a class="pc-mobile-nav-link" href="/search.html">
-            <span class="pc-mobile-nav-link__icon">🔍</span>
-            <span class="pc-mobile-nav-link__text">Search</span>
+          <a class="pc-mobile-nav-link" href="/contact.html">
+            <span class="pc-mobile-nav-link__icon">📧</span>
+            <span class="pc-mobile-nav-link__text">Contact</span>
           </a>
           <a class="pc-mobile-nav-link" href="/account/">
-            <span class="pc-mobile-nav-link__icon">🔐</span>
-            <span class="pc-mobile-nav-link__text">Login / Sign Up</span>
+            <span class="pc-mobile-nav-link__icon">👤</span>
+            <span class="pc-mobile-nav-link__text">Account</span>
           </a>
         </nav>
         <div class="pc-mobile-menu__footer">
@@ -401,7 +140,7 @@
       <!-- Hero Section -->
       <section class="pc-about-hero" data-animate="fade-up">
         <div class="pc-about-hero__content">
-          <img src="/assets/img/dvmready-logo-new.svg" alt="DVMReady Logo" class="pc-about-hero__logo" style="width: 120px; height: 144px;">
+          <img src="/assets/img/dvmready-logo.png" alt="DVMReady Logo" class="pc-about-hero__logo">
           <div class="pc-about-hero__badge">
             <span class="pc-about-hero__badge-dot"></span>
             Supporting Veterinary Excellence Since 2024
@@ -587,12 +326,9 @@
     <footer class="pc-footer pc-footer--enhanced">
       <div class="pc-footer__grid">
         <div class="pc-footer__brand">
-          <a class="pc-footer__logo pc-logo pc-logo--with-subtitle" href="/">
-          <img src="/assets/img/dvmready-logo-new.svg" alt="" class="pc-logo__img" aria-hidden="true" style="width: 40px; height: 48px;">
-          <div class="pc-logo__text-wrap">
-            <span class="pc-logo__text">DVMREADY</span>
-            <span class="pc-logo__subtitle">Clinical & Board Prep</span>
-          </div>
+          <a class="pc-footer__logo pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
         </a>
           <p class="pc-footer__tagline">Smart tools for veterinary excellence. Trusted by students and professionals worldwide.</p>
         </div>
