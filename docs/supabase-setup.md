@@ -101,15 +101,15 @@ The 20260215 migration also adds:
 
 - Authentication -> Providers -> Enable Email
 - Turn OFF "Confirm email" (optional)
-- Site URL: `https://parthchaudhari.com`
-- Redirect URLs: `https://parthchaudhari.com/account/`
-  - `https://parthchaudhari.com/study/navle/practice/`
+- Site URL: `https://dvmready.com`
+- Redirect URLs: `https://dvmready.com/account/`
+  - `https://dvmready.com/study/navle/practice/`
 
 ## Step 4: Configure CORS
 
 - API -> Settings -> Add your domain:
-  - `https://parthchaudhari.com`
-  - `https://www.parthchaudhari.com`
+  - `https://dvmready.com`
+  - `https://www.dvmready.com`
 
 ## Step 5: Get Keys
 

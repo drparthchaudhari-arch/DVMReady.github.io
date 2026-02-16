@@ -6,34 +6,7 @@
     "tags": ["wordweb", "navle", "study guide", "species", "systems"],
     "date": "2024-01-21"
   },
-  {
-    "title": "Sudoku Game",
-    "url": "/play/sudoku/",
-    "type": "game",
-    "tags": ["logic", "diagnostics", "pattern", "problem solving"],
-    "date": "2024-01-11"
-  },
-  {
-    "title": "Memory Match Game",
-    "url": "/play/memory-match/",
-    "type": "game",
-    "tags": ["memory", "anatomy", "visual", "recall"],
-    "date": "2024-01-12"
-  },
-  {
-    "title": "2048 Game",
-    "url": "/play/2048/",
-    "type": "game",
-    "tags": ["logic", "prioritization", "numbers", "strategy"],
-    "date": "2024-01-13"
-  },
-  {
-    "title": "IQ Challenge Game",
-    "url": "/play/iq-challenge/",
-    "type": "game",
-    "tags": ["challenge", "critical thinking", "problem solving"],
-    "date": "2024-01-14"
-  },
+
   {
     "title": "NAVLE Study Planner",
     "url": "/study/",
@@ -48,13 +21,7 @@
     "tags": ["account", "sync", "magic link", "export", "import"],
     "date": "2026-02-12"
   },
-  {
-    "title": "Top Learners Leaderboard",
-    "url": "/leaderboard/",
-    "type": "resource",
-    "tags": ["leaderboard", "weekly score", "rank", "streak", "cases"],
-    "date": "2026-02-12"
-  },
+
   {
     "title": "Privacy Policy",
     "url": "/privacy/",

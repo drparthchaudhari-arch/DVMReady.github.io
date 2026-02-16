@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document provides step-by-step instructions for integrating the new gaming platform into parthchaudhari.com using VS Code and GitHub.
+This document provides step-by-step instructions for integrating the new gaming platform into dvmready.com using VS Code and GitHub.
 
 ## Project Structure
 
@@ -97,8 +97,8 @@ parth-games/
 2. Clone your repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/parthchaudhari.com.git
-cd parthchaudhari.com
+git clone https://github.com/YOUR_USERNAME/dvmready.com.git
+cd dvmready.com
 ```
 
 3. Create a new branch for the games:
@@ -357,4 +357,4 @@ If you encounter issues:
 
 ## License
 
-This code is provided for integration into parthchaudhari.com.
+This code is provided for integration into dvmready.com.

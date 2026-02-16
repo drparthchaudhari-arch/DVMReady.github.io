@@ -1,14 +1,14 @@
 /**
- * VetLudics Authentication System
+ * DVMReady Authentication System
  * Handles guest access and account authentication
  */
 
 (function() {
   'use strict';
 
-  const AUTH_KEY = 'vetludics_auth';
-  const GUEST_KEY = 'vetludics_guest';
-  const ANALYTICS_KEY = 'vetludics_analytics';
+  const AUTH_KEY = 'dvmready_auth';
+  const GUEST_KEY = 'dvmready_guest';
+  const ANALYTICS_KEY = 'dvmready_analytics';
 
   // Admin credentials (stored in Supabase in production)
   const ADMIN_EMAIL = 'drparthchaudhari@gmail.com';
@@ -203,7 +203,7 @@
   }
 
   // Expose API
-  window.VetLudicsAuth = {
+  window.DVMReadyAuth = {
     init: initAuth,
     isLoggedIn: isLoggedIn,
     isAdmin: isAdmin,

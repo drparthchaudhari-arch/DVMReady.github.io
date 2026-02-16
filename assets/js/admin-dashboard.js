@@ -1,13 +1,13 @@
 /**
- * VetLudics Admin Dashboard
+ * DVMReady Admin Dashboard
  */
 
 (function() {
   'use strict';
   
-  const SESSION_KEY = 'vetludics_admin_session';
-  const REQUESTS_KEY = 'vetludics_access_requests';
-  const APPROVED_KEY = 'vetludics_controlled_access';
+  const SESSION_KEY = 'dvmready_admin_session';
+  const REQUESTS_KEY = 'dvmready_access_requests';
+  const APPROVED_KEY = 'dvmready_controlled_access';
   
   // Check admin session
   function checkSession() {
@@ -46,7 +46,7 @@
   // Load approved emails
   function loadApprovedEmails() {
     try {
-      const approved = JSON.parse(localStorage.getItem('vetludics_approved_emails') || '[]');
+      const approved = JSON.parse(localStorage.getItem('dvmready_approved_emails') || '[]');
       return approved;
     } catch (e) {
       return [];
@@ -58,7 +58,7 @@
     const approved = loadApprovedEmails();
     if (!approved.includes(email)) {
       approved.push(email);
-      localStorage.setItem('vetludics_approved_emails', JSON.stringify(approved));
+      localStorage.setItem('dvmready_approved_emails', JSON.stringify(approved));
     }
     
     // Also mark in requests
@@ -90,7 +90,7 @@
   function removeApprovedEmail(email) {
     let approved = loadApprovedEmails();
     approved = approved.filter(e => e !== email);
-    localStorage.setItem('vetludics_approved_emails', JSON.stringify(approved));
+    localStorage.setItem('dvmready_approved_emails', JSON.stringify(approved));
     renderDashboard();
   }
   

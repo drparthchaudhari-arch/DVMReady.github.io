@@ -1,6 +1,6 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 
-const BASE_URL = 'https://parthchaudhari.com'
+const BASE_URL = 'https://dvmready.com'
 const CONFIG_PATH = 'content/programmatic/phase3-pages.json'
 const MANIFEST_PATH = 'content/programmatic/manifest.phase3.json'
 
@@ -141,7 +141,7 @@ ${JSON.stringify(
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
         <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
+            <a class="pc-logo" href="/">DVMReady</a>
             <div class="pc-nav-group">
                 <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
                     <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>

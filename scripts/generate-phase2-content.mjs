@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 
 const LAST_REVIEWED = 'February 13, 2026'
-const BASE_URL = 'https://parthchaudhari.com'
+const BASE_URL = 'https://dvmready.com'
 
 const approvedReferences = [
   'Drug label search (DailyMed)',
@@ -65,7 +65,7 @@ function wrapPage({
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
         <div class="pc-portal-nav__inner">
-            <a class="pc-logo" href="/">VetLudics</a>
+            <a class="pc-logo" href="/">DVMReady</a>
             <div class="pc-nav-group">
                 <button type="button" class="pc-nav-toggle" data-pc-mode-toggle aria-label="Toggle professional or play mode">
                     <span class="pc-nav-toggle__label" data-pc-mode-label>Mode: Professional</span>
@@ -416,7 +416,7 @@ ${renderSources()}`
 
 const emergencyPillar = {
   slug: 'navle-emergency-critical-care',
-  title: 'NAVLE Emergency and Critical Care Guide – VetLudics',
+  title: 'NAVLE Emergency and Critical Care Guide – DVMReady',
   description:
     'Use this NAVLE emergency and critical care pillar to move from triage through stabilization and treatment priorities with linked veterinary support guides.',
   h1: 'NAVLE Emergency and Critical Care: Triage, Stabilize, Treat',
@@ -433,7 +433,7 @@ const emergencyPillar = {
 const emergencySupports = [
   {
     slug: 'gdv-approach',
-    title: 'GDV Approach in Dogs – VetLudics',
+    title: 'GDV Approach in Dogs – DVMReady',
     description:
       'Review canine GDV triage, decompression timing, shock stabilization, and surgery preparation with NAVLE-focused exam traps, prompts, and linked emergency tools.',
     h1: 'GDV Approach in Dogs: Triage to Surgical Stabilization',
@@ -497,7 +497,7 @@ const emergencySupports = [
   },
   {
     slug: 'shock-types-veterinary',
-    title: 'Veterinary Shock Types and Approach – VetLudics',
+    title: 'Veterinary Shock Types and Approach – DVMReady',
     description:
       'Understand hypovolemic, distributive, cardiogenic, and obstructive shock patterns with practical triage and treatment sequencing for NAVLE preparation.',
     h1: 'Veterinary Shock Types: Practical Triage and Treatment Flow',
@@ -561,7 +561,7 @@ const emergencySupports = [
   },
   {
     slug: 'sepsis-sirs-veterinary',
-    title: 'Sepsis and SIRS in Veterinary Patients – VetLudics',
+    title: 'Sepsis and SIRS in Veterinary Patients – DVMReady',
     description:
       'Study sepsis and SIRS triage, diagnostic reasoning, and hour-one treatment priorities for veterinary emergency workflows and NAVLE exam prep.',
     h1: 'Sepsis and SIRS in Veterinary Patients: Hour-One Priorities',
@@ -625,7 +625,7 @@ const emergencySupports = [
   },
   {
     slug: 'dka-approach-veterinary',
-    title: 'DKA Approach in Dogs and Cats – VetLudics',
+    title: 'DKA Approach in Dogs and Cats – DVMReady',
     description:
       'Review a practical DKA approach for dogs and cats: stabilization priorities, insulin timing, electrolyte corrections, and common NAVLE pitfalls.',
     h1: 'DKA Approach in Dogs and Cats: Stabilization Before Insulin',
@@ -689,7 +689,7 @@ const emergencySupports = [
   },
   {
     slug: 'heatstroke-veterinary',
-    title: 'Heatstroke in Veterinary Patients – VetLudics',
+    title: 'Heatstroke in Veterinary Patients – DVMReady',
     description:
       'Learn a practical veterinary heatstroke approach with controlled cooling strategy, perfusion support, and monitoring priorities for high-risk complications.',
     h1: 'Heatstroke in Dogs and Cats: Controlled Cooling and Critical Monitoring',
@@ -753,7 +753,7 @@ const emergencySupports = [
   },
   {
     slug: 'transfusion-basics-veterinary',
-    title: 'Veterinary Transfusion Basics – VetLudics',
+    title: 'Veterinary Transfusion Basics – DVMReady',
     description:
       'Study veterinary transfusion basics including indications, product selection, monitoring, and reaction response for exam preparation and clinical review.',
     h1: 'Veterinary Transfusion Basics: Product Choice, Monitoring, and Reactions',
@@ -817,7 +817,7 @@ const emergencySupports = [
   },
   {
     slug: 'rodenticide-bleeding-veterinary',
-    title: 'Rodenticide Bleeding Approach in Veterinary Medicine – VetLudics',
+    title: 'Rodenticide Bleeding Approach in Veterinary Medicine – DVMReady',
     description:
       'Review rodenticide-associated bleeding triage, diagnostic confirmation, stabilization, and follow-up strategy for canine and feline emergency care.',
     h1: 'Rodenticide Bleeding in Dogs and Cats: Triage and Stabilization Plan',
@@ -881,7 +881,7 @@ const emergencySupports = [
   },
   {
     slug: 'pleural-effusion-differentials-veterinary',
-    title: 'Pleural Effusion Differentials in Veterinary Patients – VetLudics',
+    title: 'Pleural Effusion Differentials in Veterinary Patients – DVMReady',
     description:
       'Learn a practical pleural effusion differential framework for dogs and cats, including triage priorities, diagnostics, and stabilization decisions.',
     h1: 'Pleural Effusion Differentials in Dogs and Cats: Practical Triage Framework',
@@ -947,7 +947,7 @@ const emergencySupports = [
 
 const cardiologyPillar = {
   slug: 'canine-feline-chf',
-  title: 'Canine and Feline CHF Guide – VetLudics',
+  title: 'Canine and Feline CHF Guide – DVMReady',
   description:
     'Study canine and feline CHF recognition, workup, staging, and monitoring in one pillar page with linked cardiology support guides and calculators.',
   h1: 'Canine and Feline CHF: Recognition, Workup, Staging, and Monitoring',
@@ -964,7 +964,7 @@ const cardiologyPillar = {
 const cardiologySupports = [
   {
     slug: 'chf-staging-overview',
-    title: 'CHF Staging Overview for Dogs and Cats – VetLudics',
+    title: 'CHF Staging Overview for Dogs and Cats – DVMReady',
     description:
       'Review canine and feline CHF staging with phenotype cues, monitoring intervals, and follow-up planning linked to practical workup and treatment decisions.',
     h1: 'CHF Staging Overview for Dogs and Cats',
@@ -1028,7 +1028,7 @@ const cardiologySupports = [
   },
   {
     slug: 'murmur-approach-dog-cat',
-    title: 'Dog and Cat Murmur Approach – VetLudics',
+    title: 'Dog and Cat Murmur Approach – DVMReady',
     description:
       'Use a practical dog and cat murmur approach to triage urgency, rank differentials, and choose high-yield next diagnostics for cardiology review.',
     h1: 'Dog and Cat Murmur Approach: Triage and Workup Logic',
@@ -1092,7 +1092,7 @@ const cardiologySupports = [
   },
   {
     slug: 'ecg-rhythm-id-af-svt-vt',
-    title: 'ECG Rhythm Identification AF SVT VT – VetLudics',
+    title: 'ECG Rhythm Identification AF SVT VT – DVMReady',
     description:
       'Learn practical ECG rhythm identification for AF, SVT, and VT in veterinary cardiology with emergency triage implications and exam-focused pitfalls.',
     h1: 'ECG Rhythm Identification: AF, SVT, and VT in Veterinary Cases',
@@ -1156,7 +1156,7 @@ const cardiologySupports = [
   },
   {
     slug: 'systemic-hypertension-target-organ-damage',
-    title: 'Systemic Hypertension and Target Organ Damage – VetLudics',
+    title: 'Systemic Hypertension and Target Organ Damage – DVMReady',
     description:
       'Review systemic hypertension in dogs and cats, target organ damage patterns, and practical monitoring steps for cardiology and internal medicine prep.',
     h1: 'Systemic Hypertension and Target Organ Damage in Dogs and Cats',
@@ -1220,7 +1220,7 @@ const cardiologySupports = [
   },
   {
     slug: 'dcm-basics-dog-cat',
-    title: 'DCM Basics in Dogs and Cats – VetLudics',
+    title: 'DCM Basics in Dogs and Cats – DVMReady',
     description:
       'Study dilated cardiomyopathy basics in dogs and cats with recognition clues, workup sequence, and monitoring principles for NAVLE cardiology prep.',
     h1: 'Dilated Cardiomyopathy Basics in Dogs and Cats',
@@ -1285,7 +1285,7 @@ const cardiologySupports = [
   {
     slug: 'pleural-effusion-vs-pulmonary-edema',
     title:
-      'Pleural Effusion vs Pulmonary Edema in Veterinary Patients – VetLudics',
+      'Pleural Effusion vs Pulmonary Edema in Veterinary Patients – DVMReady',
     description:
       'Differentiate pleural effusion versus pulmonary edema in dogs and cats using practical exam, imaging, and stabilization clues for cardiopulmonary triage.',
     h1: 'Pleural Effusion vs Pulmonary Edema: Veterinary Triage Differences',
@@ -1349,7 +1349,7 @@ const cardiologySupports = [
   },
   {
     slug: 'pimobendan-diuretics-overview',
-    title: 'Pimobendan and Diuretics Overview – VetLudics',
+    title: 'Pimobendan and Diuretics Overview – DVMReady',
     description:
       'Get an educational overview of pimobendan and diuretic strategy in veterinary CHF management with monitoring priorities and common exam pitfalls.',
     h1: 'Pimobendan and Diuretics in CHF: Educational Overview',
@@ -1413,7 +1413,7 @@ const cardiologySupports = [
   },
   {
     slug: 'syncope-differentials-dog-cat',
-    title: 'Syncope Differentials in Dogs and Cats – VetLudics',
+    title: 'Syncope Differentials in Dogs and Cats – DVMReady',
     description:
       'Review syncope differentials in dogs and cats with a practical triage algorithm, cardiopulmonary workup priorities, and exam-focused reasoning traps.',
     h1: 'Syncope Differentials in Dogs and Cats: Practical Triage Algorithm',
@@ -1479,7 +1479,7 @@ const cardiologySupports = [
 
 const calculatorPillar = {
   slug: 'veterinary-calculators-guide',
-  title: 'Veterinary Calculators Guide – VetLudics',
+  title: 'Veterinary Calculators Guide – DVMReady',
   description:
     'Use this veterinary calculators pillar to learn dosing, fluids, CRI, acid-base, and interpretation workflows with linked support guides and tools.',
   h1: 'Veterinary Calculators Guide: Dose, Fluids, CRI, and Acid-Base Workflows',
@@ -1496,7 +1496,7 @@ const calculatorPillar = {
 const calculatorSupports = [
   {
     slug: 'mgkg-dosing-guide',
-    title: 'mg/kg Dosing Guide for Veterinary Use – VetLudics',
+    title: 'mg/kg Dosing Guide for Veterinary Use – DVMReady',
     description:
       'Learn mg/kg dosing math, unit conversion checks, and concentration-to-volume steps for safer veterinary prescribing and exam-style medication calculations.',
     h1: 'mg/kg Dosing Guide for Veterinary Medication Math',
@@ -1583,7 +1583,7 @@ const calculatorSupports = [
   },
   {
     slug: 'cri-setup-guide',
-    title: 'CRI Setup Guide for Veterinary Patients – VetLudics',
+    title: 'CRI Setup Guide for Veterinary Patients – DVMReady',
     description:
       'Learn veterinary CRI setup with dose-unit conversion, concentration planning, and pump-rate verification to reduce infusion errors in exam workflows.',
     h1: 'CRI Setup Guide for Veterinary Continuous Infusions',
@@ -1666,7 +1666,7 @@ const calculatorSupports = [
   },
   {
     slug: 'fluid-deficit-guide',
-    title: 'Fluid Deficit Guide for Veterinary Patients – VetLudics',
+    title: 'Fluid Deficit Guide for Veterinary Patients – DVMReady',
     description:
       'Calculate veterinary fluid deficit with dehydration estimates, replacement timing, and reassessment strategy for emergency and inpatient care.',
     h1: 'Fluid Deficit Guide: Veterinary Dehydration Replacement Planning',
@@ -1749,7 +1749,7 @@ const calculatorSupports = [
   },
   {
     slug: 'maintenance-fluids-guide',
-    title: 'Maintenance Fluids Guide in Veterinary Medicine – VetLudics',
+    title: 'Maintenance Fluids Guide in Veterinary Medicine – DVMReady',
     description:
       'Review maintenance fluid calculations and practical adjustment logic for veterinary inpatients with clear monitoring and safety checkpoints.',
     h1: 'Maintenance Fluids Guide for Veterinary Inpatients',
@@ -1837,7 +1837,7 @@ const calculatorSupports = [
   },
   {
     slug: 'anion-gap-interpretation',
-    title: 'Anion Gap Interpretation Guide – VetLudics',
+    title: 'Anion Gap Interpretation Guide – DVMReady',
     description:
       'Use this anion gap interpretation guide to connect electrolyte math with acid-base reasoning and practical emergency decision support in veterinary patients.',
     h1: 'Anion Gap Interpretation Guide for Veterinary Acid-Base Cases',
@@ -1918,7 +1918,7 @@ const calculatorSupports = [
   },
   {
     slug: 'osmolality-basics-veterinary',
-    title: 'Osmolality Basics in Veterinary Medicine – VetLudics',
+    title: 'Osmolality Basics in Veterinary Medicine – DVMReady',
     description:
       'Learn veterinary osmolality basics, calculated osmolality use, and practical interpretation caveats for endocrine and emergency case review.',
     h1: 'Osmolality Basics for Veterinary Clinical Interpretation',
@@ -2004,7 +2004,7 @@ const calculatorSupports = [
   },
   {
     slug: 'dextrose-correction-guide',
-    title: 'Dextrose Correction Guide in Veterinary Medicine – VetLudics',
+    title: 'Dextrose Correction Guide in Veterinary Medicine – DVMReady',
     description:
       'Review dextrose correction planning for veterinary patients with hypoglycemia or insulin therapy transitions, including calculation and monitoring safeguards.',
     h1: 'Dextrose Correction Guide for Veterinary Patients',
@@ -2091,7 +2091,7 @@ const calculatorSupports = [
   },
   {
     slug: 'body-condition-score-guide',
-    title: 'Body Condition Score Guide for Dogs and Cats – VetLudics',
+    title: 'Body Condition Score Guide for Dogs and Cats – DVMReady',
     description:
       'Use a practical body condition score guide for dogs and cats with caloric planning context and common interpretation pitfalls for clinical communication.',
     h1: 'Body Condition Score Guide for Dogs and Cats',
@@ -2178,7 +2178,7 @@ const calculatorSupports = [
   },
   {
     slug: 'toxic-dose-calculations-guide',
-    title: 'Toxic Dose Calculations Guide for Veterinary Cases – VetLudics',
+    title: 'Toxic Dose Calculations Guide for Veterinary Cases – DVMReady',
     description:
       'Review toxic dose calculation strategy for common veterinary exposures with triage interpretation, uncertainty handling, and safety caveats.',
     h1: 'Toxic Dose Calculations Guide for Veterinary Triage',
@@ -2267,7 +2267,7 @@ const calculatorSupports = [
   },
   {
     slug: 'lab-interpretation-caveats',
-    title: 'Veterinary Lab Interpretation Caveats – VetLudics',
+    title: 'Veterinary Lab Interpretation Caveats – DVMReady',
     description:
       'Review lab interpretation caveats in veterinary medicine with species differences, variability warnings, and red-flag escalation triggers for safer decisions.',
     h1: 'Veterinary Lab Interpretation Caveats: Context Before Conclusion',
@@ -2452,16 +2452,16 @@ calculatorSupports.forEach((page, index) => {
 })
 
 const sourcesPage = wrapPage({
-  title: 'Veterinary Sources and Limitations – VetLudics',
+  title: 'Veterinary Sources and Limitations – DVMReady',
   description:
-    'Review VetLudics sources approach, calculator limitations, and practical safety boundaries for educational veterinary content and clinical math tools.',
+    'Review DVMReady sources approach, calculator limitations, and practical safety boundaries for educational veterinary content and clinical math tools.',
   canonicalPath: '/sources-and-limitations/',
   bodyClass: 'pc-page pc-page--study',
   mainClass: 'pc-bridge-shell',
   content: `        <section class="pc-bridge-hero">
             <p class="pc-kicker">Trust and Safety</p>
             <h1 class="pc-fork-title">Sources and Limitations</h1>
-            <p class="pc-fork-copy">This page explains how VetLudics uses source material and where educational tools stop. It is intended to make clinical safety boundaries explicit for students and clinicians using the platform.</p>
+            <p class="pc-fork-copy">This page explains how DVMReady uses source material and where educational tools stop. It is intended to make clinical safety boundaries explicit for students and clinicians using the platform.</p>
             <p class="pc-last-reviewed">Last reviewed: ${LAST_REVIEWED}</p>
         </section>
 
@@ -2506,7 +2506,7 @@ ${listItems(approvedReferences)}
                 <li>Any scenario where calculator output conflicts with direct patient status.</li>
             </ul>
             <div class="pc-note-box">
-                <p>Educational only. VetLudics does not provide patient-specific diagnosis or treatment advice and does not replace direct veterinary supervision.</p>
+                <p>Educational only. DVMReady does not provide patient-specific diagnosis or treatment advice and does not replace direct veterinary supervision.</p>
             </div>
         </section>
 

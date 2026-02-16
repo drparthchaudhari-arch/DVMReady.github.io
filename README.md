@@ -1,36 +1,30 @@
-# parthchaudhari.github.io
+# DVMReady.com
 
-Personal website and games portal for Parth Chaudhari.
+Veterinary calculators and clinical decision support tools for veterinary professionals and students.
 
 ## Site Structure
 
-- `index.html`: landing portal with entry points to profile and games.
-- `info.html`: main professional profile page.
-- `games.html`: screenshot-based games gallery launcher.
-- `iq.html`: IQ challenge page.
-- `memory-match.html`: standalone Memory Match game page.
-- `snake.html`: standalone Snake game page.
-- `tic-tac-toe.html`: standalone Tic Tac Toe game page.
-- `index1.html`: redirect wrapper for VetStrands.
-- `assets/screenshots/`: preview images used by the games gallery.
-- `assets/images/profile/`: profile photos used on the info page.
-- `docs/`: project documentation and integration guides.
-- `archive/`: legacy copies kept for reference and cleanup.
-- `dist/`: built VetStrands app served as static assets.
-- `src/`: VetStrands source (React + TypeScript + Vite).
+- `index.html`: Landing portal with entry points to veterinary calculators and clinical tools.
+- `info.html`: Professional profile and credentials page.
+- `tools/`: Veterinary calculators and clinical decision support tools.
+- `study/`: NAVLE study resources and exam preparation materials.
+- `reference/`: Quick reference materials for veterinary practice.
+- `assets/`: Static assets including images, CSS, and JavaScript.
+- `docs/`: Project documentation.
+- `src/`: Source code for React components (TypeScript + Vite).
 
 ## Local Development
 
 Static pages can be opened directly in a browser or served with any local static server.
 
-For VetStrands development:
+For React component development:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Build the VetStrands bundle:
+Build the bundle:
 
 ```bash
 npm run build

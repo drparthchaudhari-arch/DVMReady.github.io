@@ -6,9 +6,9 @@
   <meta name="author-status" content="NAVLE-candidate-unlicensed">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
-  <title>Controlled Drug Calculators | VetLudics</title>
+  <title>Controlled Drug Calculators | DVMReady</title>
   <meta name="description" content="Veterinary controlled substance dosing calculators for hydromorphone, butorphanol, buprenorphine, ketamine, and more. Licensed veterinary professionals only.">
-  <link rel="canonical" href="https://parthchaudhari.com/controlled-drugs/">
+  <link rel="canonical" href="https://dvmready.com/controlled-drugs/">
   
   <link rel="stylesheet" href="/assets/css/tokens.css">
   <link rel="stylesheet" href="/assets/css/portal.css">
@@ -249,12 +249,11 @@
     <div class="pc-portal-nav__inner">
       <a class="pc-logo" href="/">
         <span class="pc-logo__icon">🐾</span>
-        <span class="pc-logo__text">VetLudics</span>
+        <span class="pc-logo__text">DVMReady</span>
       </a>
       
       <div class="pc-nav-group">
-        <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
-        <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/extra/">Extra</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/extra/">Extra</a>
         <a class="pc-nav-link" href="/search.html">Search</a>
         <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
         <a class="pc-nav-link" href="/account/">
@@ -277,10 +276,6 @@
         <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
       </div>
       <nav class="pc-mobile-menu__nav">
-        <a class="pc-mobile-nav-link" href="/play/">
-          <span class="pc-mobile-nav-link__icon">🎮</span>
-          <span class="pc-mobile-nav-link__text">Play</span>
-        </a>
         <a class="pc-mobile-nav-link" href="/study/extra/">
           <span class="pc-mobile-nav-link__icon">📚</span>
           <span class="pc-mobile-nav-link__text">Bridge</span>
@@ -749,7 +744,7 @@
         <a href="/reference/">References</a>
         <a href="/about.html">About</a>
       </div>
-      <p class="pc-footer__copyright">© 2025 VetLudics. For licensed professionals only.</p>
+      <p class="pc-footer__copyright">© 2025 DVMReady. For licensed professionals only.</p>
     </div>
   </footer>
 
@@ -763,7 +758,7 @@
   (function() {
     'use strict';
     
-    const ACCESS_KEY = 'vetludics_controlled_access';
+    const ACCESS_KEY = 'dvmready_controlled_access';
     
     function checkAccess() {
       try {
@@ -804,9 +799,9 @@
       };
       
       // Store request for admin review
-      const requests = JSON.parse(localStorage.getItem('vetludics_access_requests') || '[]');
+      const requests = JSON.parse(localStorage.getItem('dvmready_access_requests') || '[]');
       requests.push(formData);
-      localStorage.setItem('vetludics_access_requests', JSON.stringify(requests));
+      localStorage.setItem('dvmready_access_requests', JSON.stringify(requests));
       
       // Show confirmation
       if (window.showToast) {

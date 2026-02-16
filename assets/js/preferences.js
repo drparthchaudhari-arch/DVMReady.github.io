@@ -1,12 +1,12 @@
 /**
- * VetLudics User Preferences
+ * DVMReady User Preferences
  * Personalization system for tools and features
  */
 
 (function() {
   'use strict';
 
-  const PREFS_KEY = 'vetludics_preferences';
+  const PREFS_KEY = 'dvmready_preferences';
 
   // Default preferences
   const defaultPrefs = {
@@ -217,7 +217,7 @@
   }
 
   // Expose API
-  window.VetLudicsPrefs = {
+  window.DVMReadyPrefs = {
     init: initPreferences,
     get: () => preferences,
     save: savePreferences,

@@ -15,14 +15,5 @@ Disallow: /node_modules/
 # Redirect directories - noindex to prevent duplicate content issues
 User-agent: *
 Disallow: /search/
-Disallow: /games/2048/
-Disallow: /games/memory-match/
-Disallow: /games/tictactoe/
-Disallow: /games/vetlex/
-Disallow: /games/sudoku/
-Disallow: /games/iq-challenge/
-Disallow: /study/vetlex/
-Disallow: /bridge/case-studies/
-Disallow: /play/vetlex/
 
-Sitemap: https://parthchaudhari.com/sitemap.xml
+Sitemap: https://dvmready.com/sitemap.xml

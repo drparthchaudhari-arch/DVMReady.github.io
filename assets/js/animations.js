@@ -1,5 +1,5 @@
 /**
- * VetLudics - Animations and Interactions
+ * DVMReady - Animations and Interactions
  * Handles all enhanced UI interactions and animations
  */
 
@@ -453,7 +453,7 @@
     initTrustCounter();
 
     // Log initialization
-    console.log('🐾 VetLudics: Animations initialized');
+    console.log('🐾 DVMReady: Animations initialized');
   }
 
   // Start when DOM is ready

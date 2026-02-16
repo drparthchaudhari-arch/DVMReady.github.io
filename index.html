@@ -13,15 +13,15 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg">
-    <title>Veterinary Calculators for Dogs, Cats, and Clinic Workflows | VetLudics</title>
-    <meta name="description" content="VetLudics is a veterinary calculator platform for drug dosing, CRI, fluid therapy, blood gas, transfusion, toxicity, and dog/cat clinical workflows.">
+    <title>Veterinary Calculators for Dogs, Cats, and Clinic Workflows | DVMReady</title>
+    <meta name="description" content="DVMReady is a veterinary calculator platform for drug dosing, CRI, fluid therapy, blood gas, transfusion, toxicity, and dog/cat clinical workflows.">
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-    <meta property="og:title" content="Veterinary Calculators for Dogs, Cats, and Clinic Workflows | VetLudics">
+    <meta property="og:title" content="Veterinary Calculators for Dogs, Cats, and Clinic Workflows | DVMReady">
     <meta property="og:description" content="Professional veterinary calculators for drug dosing, emergency care, and dog/cat clinic workflows.">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="VetLudics">
-    <meta property="og:url" content="https://parthchaudhari.com/">
-    <link rel="canonical" href="https://parthchaudhari.com/">
+    <meta property="og:site_name" content="DVMReady">
+    <meta property="og:url" content="https://dvmready.com/">
+    <link rel="canonical" href="https://dvmready.com/">
     <!-- Preload Critical Resources -->
     <link rel="preload" href="/assets/css/tokens.css" as="style">
     <link rel="preload" href="/assets/css/portal.css" as="style">
@@ -174,13 +174,13 @@
       "@graph": [
         {
           "@type": "WebSite",
-          "@id": "https://parthchaudhari.com/#website-static",
-          "name": "VetLudics",
-          "url": "https://parthchaudhari.com/",
+          "@id": "https://dvmready.com/#website-static",
+          "name": "DVMReady",
+          "url": "https://dvmready.com/",
           "description": "Veterinary calculator platform for clinic and study workflows.",
           "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://parthchaudhari.com/search.html?q={search_term_string}",
+            "target": "https://dvmready.com/search.html?q={search_term_string}",
             "query-input": "required name=search_term_string"
           }
         },
@@ -188,10 +188,10 @@
           "@type": "ItemList",
           "name": "Primary Veterinary Calculator Paths",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Clinical Tools", "url": "https://parthchaudhari.com/tools/" },
-            { "@type": "ListItem", "position": 2, "name": "Veterinary Calculators Hub", "url": "https://parthchaudhari.com/veterinary-calculators/" },
-            { "@type": "ListItem", "position": 3, "name": "NAVLE Study Hub", "url": "https://parthchaudhari.com/study/navle/" },
-            { "@type": "ListItem", "position": 4, "name": "Clinical Reference Library", "url": "https://parthchaudhari.com/reference/" }
+            { "@type": "ListItem", "position": 1, "name": "Clinical Tools", "url": "https://dvmready.com/tools/" },
+            { "@type": "ListItem", "position": 2, "name": "Veterinary Calculators Hub", "url": "https://dvmready.com/veterinary-calculators/" },
+            { "@type": "ListItem", "position": 3, "name": "NAVLE Study Hub", "url": "https://dvmready.com/study/navle/" },
+            { "@type": "ListItem", "position": 4, "name": "Clinical Reference Library", "url": "https://dvmready.com/reference/" }
           ]
         }
       ]
@@ -210,7 +210,7 @@
         <div class="pc-construction-popup__icon">🚧</div>
         <h2 id="construction-title" class="pc-construction-popup__title">We're Still Building!</h2>
         <p class="pc-construction-popup__text">
-          VetLudics is currently under active development. Some features may not work as expected, 
+          DVMReady is currently under active development. Some features may not work as expected, 
           and you might encounter occasional hiccups. We're working hard to make this the best 
           veterinary calculator platform for you!
         </p>
@@ -353,7 +353,7 @@
     <script>
     // Show popup on first visit (once per session)
     (function() {
-      const POPUP_KEY = 'vetludics_construction_seen';
+      const POPUP_KEY = 'dvmready_construction_seen';
       
       // Check if popup was already shown this session
       if (sessionStorage.getItem(POPUP_KEY)) {
@@ -383,8 +383,8 @@
     
     // Check login status and show appropriate content
     (function() {
-      const AUTH_KEY = 'vetludics_auth';
-      const GUEST_KEY = 'vetludics_guest';
+      const AUTH_KEY = 'dvmready_auth';
+      const GUEST_KEY = 'dvmready_guest';
       
       function isLoggedIn() {
         return localStorage.getItem(AUTH_KEY) !== null || localStorage.getItem(GUEST_KEY) !== null;
@@ -476,7 +476,7 @@
         <div class="pc-portal-nav__inner">
             <a class="pc-logo" href="/">
                 <span class="pc-logo__icon">🐾</span>
-                <span class="pc-logo__text">VetLudics</span>
+                <span class="pc-logo__text">DVMReady</span>
             </a>
             
             <!-- Search Bar (Desktop) -->
@@ -498,7 +498,7 @@
             </form>
             
             <div class="pc-nav-group">
-                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
+                
                 <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/extra/">Extra</a>
                 <a class="pc-nav-link" href="/search.html">Search</a>
                 <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
@@ -522,7 +522,7 @@
                 <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
             </div>
             <nav class="pc-mobile-menu__nav">
-                <a class="pc-mobile-nav-link" href="/play/">
+                <!-- Game navigation removed -->
                     <span class="pc-mobile-nav-link__icon">🎮</span>
                     <span class="pc-mobile-nav-link__text">Play</span>
                 </a>
@@ -544,7 +544,7 @@
                 </a>
             </nav>
             <div class="pc-mobile-menu__footer">
-                <p style="color: var(--pc-text-muted); font-size: 0.85rem;">© 2025 VetLudics</p>
+                <p style="color: var(--pc-text-muted); font-size: 0.85rem;">© 2025 DVMReady</p>
             </div>
         </div>
     </nav>
@@ -883,7 +883,7 @@
             <div class="pc-footer__brand">
                 <a class="pc-footer__logo" href="/">
                     <span class="pc-footer__logo-icon">🐾</span>
-                    <span>VetLudics</span>
+                    <span>DVMReady</span>
                 </a>
                 <p class="pc-footer__tagline">Smart tools for veterinary excellence. Trusted by students and professionals worldwide.</p>
                 <div class="pc-footer__social">
@@ -925,7 +925,7 @@
                 <ul class="pc-footer__links">
                     <li><a href="/reference/">Reference Library</a></li>
                     <li><a href="/study/extra/">Clinical Cases</a></li>
-                    <li><a href="/play/">Games</a></li>
+                    
                     <li><a href="/about.html">About</a></li>
                     <li><a href="/contact.html">Contact</a></li>
                 </ul>
@@ -955,7 +955,7 @@
                 <a href="/sources-and-limitations/">Sources</a>
                 <a href="/accessibility-plan/">Accessibility</a>
             </div>
-            <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
+            <p class="pc-footer__copyright">© 2025 DVMReady. Not a substitute for professional veterinary advice.</p>
         </div>
     </footer>
     

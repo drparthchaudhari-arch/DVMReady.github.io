@@ -13,19 +13,19 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     
     <link rel="icon" type="image/svg+xml" href="/assets/img/vet-favicon.svg" />
-    <title>Account | VetLudics</title>
+    <title>Account | DVMReady</title>
     <meta
       name="description"
       content="Manage your preferences, saved data, and customize your veterinary tool experience."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Account | VetLudics" />
+    <meta property="og:title" content="Account | DVMReady" />
     <meta
       property="og:description"
       content="Manage your preferences, saved data, and customize your veterinary tool experience."
     />
-    <meta property="og:url" content="https://parthchaudhari.com/account/" />
-    <link rel="canonical" href="https://parthchaudhari.com/account/" />
+    <meta property="og:url" content="https://dvmready.com/account/" />
+    <link rel="canonical" href="https://dvmready.com/account/" />
     
     <!-- Preload Critical Resources -->
     <link rel="preload" href="/assets/css/tokens.css" as="style">
@@ -516,7 +516,7 @@
         <div class="pc-portal-nav__inner">
             <a class="pc-logo" href="/">
                 <span class="pc-logo__icon">🐾</span>
-                <span class="pc-logo__text">VetLudics</span>
+                <span class="pc-logo__text">DVMReady</span>
             </a>
             
             <!-- Search Bar (Desktop) -->
@@ -538,7 +538,6 @@
             </form>
             
             <div class="pc-nav-group">
-                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/play/">Play</a>
                 <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/extra/">Extra</a>
                 <a class="pc-nav-link" href="/search.html">Search</a>
                 <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
@@ -562,10 +561,6 @@
                 <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
             </div>
             <nav class="pc-mobile-menu__nav">
-                <a class="pc-mobile-nav-link" href="/play/">
-                    <span class="pc-mobile-nav-link__icon">🎮</span>
-                    <span class="pc-mobile-nav-link__text">Play</span>
-                </a>
                 <a class="pc-mobile-nav-link" href="/study/extra/">
                     <span class="pc-mobile-nav-link__icon">📚</span>
                     <span class="pc-mobile-nav-link__text">Bridge</span>
@@ -584,7 +579,7 @@
                 </a>
             </nav>
             <div class="pc-mobile-menu__footer">
-                <p style="color: var(--pc-text-muted); font-size: 0.85rem;">© 2025 VetLudics</p>
+                <p style="color: var(--pc-text-muted); font-size: 0.85rem;">© 2025 DVMReady</p>
             </div>
         </div>
     </nav>
@@ -610,7 +605,7 @@
       <section id="auth-section" class="pc-auth-section" aria-labelledby="auth-title">
         <div class="pc-auth-container">
           <h2 id="auth-title" class="pc-auth-title">Sign In or Create Account</h2>
-          <p class="pc-auth-subtitle">Choose how you want to access VetLudics</p>
+          <p class="pc-auth-subtitle">Choose how you want to access DVMReady</p>
           
           <div class="pc-auth-options pc-auth-options--3col">
             <!-- Guest Login -->
@@ -653,7 +648,7 @@
             <div class="pc-auth-card pc-auth-card--signup">
               <div class="pc-auth-card__icon">✨</div>
               <h3>Create Account</h3>
-              <p>New to VetLudics? Create a full account.</p>
+              <p>New to DVMReady? Create a full account.</p>
               <form id="account-signup-form" class="pc-auth-form">
                 <div class="pc-form-field">
                   <label for="signup-email">Email Address</label>
@@ -843,7 +838,7 @@
             <div class="pc-footer__brand">
                 <a class="pc-footer__logo" href="/">
                     <span class="pc-footer__logo-icon">🐾</span>
-                    <span>VetLudics</span>
+                    <span>DVMReady</span>
                 </a>
                 <p class="pc-footer__tagline">Smart tools for veterinary excellence. Trusted by students and professionals worldwide.</p>
                 <div class="pc-footer__social">
@@ -885,7 +880,6 @@
                 <ul class="pc-footer__links">
                     <li><a href="/reference/">Reference Library</a></li>
                     <li><a href="/study/extra/">Clinical Cases</a></li>
-                    <li><a href="/play/">Games</a></li>
                     <li><a href="/about.html">About</a></li>
                     <li><a href="/contact.html">Contact</a></li>
                 </ul>
@@ -916,7 +910,7 @@
                 <a href="/accessibility-plan/">Accessibility</a>
                 <a href="/admin/" style="opacity: 0.5; font-size: 0.75rem;">Admin</a>
             </div>
-            <p class="pc-footer__copyright">© 2025 VetLudics. Not a substitute for professional veterinary advice.</p>
+            <p class="pc-footer__copyright">© 2025 DVMReady. Not a substitute for professional veterinary advice.</p>
         </div>
     </footer>
     
@@ -940,8 +934,8 @@
     (function() {
       'use strict';
       
-      const AUTH_KEY = 'vetludics_auth';
-      const GUEST_KEY = 'vetludics_guest';
+      const AUTH_KEY = 'dvmready_auth';
+      const GUEST_KEY = 'dvmready_guest';
       
       console.log('Account page auth script loaded');
       
@@ -1102,7 +1096,7 @@
             if (result.requiresEmailConfirmation) {
               showToast('Account created! Please check your email to confirm.', 'success');
             } else {
-              showToast('Account created successfully! Welcome to VetLudics!', 'success');
+              showToast('Account created successfully! Welcome to DVMReady!', 'success');
             }
             setTimeout(updateUI, 100);
           } else {
@@ -1123,7 +1117,7 @@
           localStorage.setItem(AUTH_KEY, JSON.stringify(userData));
           localStorage.removeItem(GUEST_KEY);
           
-          showToast('Account created successfully! Welcome to VetLudics!', 'success');
+          showToast('Account created successfully! Welcome to DVMReady!', 'success');
           setTimeout(updateUI, 100);
         }
       });

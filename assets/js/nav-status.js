@@ -1,5 +1,5 @@
 ;(function () {
-  var SITE_BRAND = 'VetLudics'
+  var SITE_BRAND = 'DVMReady'
   var AUTH_STATE_KEY = 'pc_sync_auth_state'
   var TEXT_SCALE_KEY = 'pc_text_scale_v1'
   var DESKTOP_VIEW_KEY = 'pc_desktop_view_v1'
@@ -264,22 +264,6 @@
     return anchor
   }
 
-  function createPlayNavAction(pathname) {
-    var anchor = document.createElement('a')
-    var isActive = isPathMatch(pathname, '/play/')
-    anchor.className =
-      'pc-nav-action pc-nav-action--play' + (isActive ? ' pc-is-active' : '')
-    anchor.href = '/play/'
-    anchor.setAttribute('title', 'Open games')
-    anchor.setAttribute('aria-label', 'Open games')
-    anchor.innerHTML =
-      '<span class="pc-nav-action__icon" aria-hidden="true">' +
-      PLAY_ICON +
-      '</span>' +
-      '<span class="pc-nav-action__label">Play</span>'
-    return anchor
-  }
-
   function normalizePortalNav() {
     var groups = document.querySelectorAll('.pc-portal-nav .pc-nav-group')
     if (!groups.length) {
@@ -311,12 +295,6 @@
         }
       }
 
-      var playAction = createPlayNavAction(pathname)
-      if (insertBefore) {
-        group.insertBefore(playAction, insertBefore)
-      } else {
-        group.appendChild(playAction)
-      }
     }
   }
 
@@ -718,7 +696,7 @@
 
   function toAbsoluteUrl(path) {
     return (
-      'https://parthchaudhari.com' +
+      'https://dvmready.com' +
       (path.charAt(0) === '/' ? path : '/' + path)
     )
   }
@@ -816,10 +794,10 @@
       '@graph': [
         {
           '@type': 'Organization',
-          '@id': 'https://parthchaudhari.com/#organization',
+          '@id': 'https://dvmready.com/#organization',
           name: SITE_BRAND,
-          url: 'https://parthchaudhari.com/',
-          logo: 'https://parthchaudhari.com/assets/img/vet-favicon.svg',
+          url: 'https://dvmready.com/',
+          logo: 'https://dvmready.com/assets/img/vet-favicon.svg',
           description:
             'Veterinary calculator and study platform for dog and cat clinical workflows, drug dosing math, emergency tools, and NAVLE preparation.',
           knowsAbout: [
@@ -829,24 +807,24 @@
             'Emergency and critical care workflows',
             'NAVLE preparation',
           ],
-          sameAs: ['https://parthchaudhari.com/about.html'],
+          sameAs: ['https://dvmready.com/about.html'],
         },
         {
           '@type': 'WebSite',
-          '@id': 'https://parthchaudhari.com/#website',
+          '@id': 'https://dvmready.com/#website',
           name: SITE_BRAND,
-          url: 'https://parthchaudhari.com/',
+          url: 'https://dvmready.com/',
           inLanguage: 'en',
           description:
             'Professional veterinary calculators and clinical reference workflows for clinic teams and students.',
           potentialAction: {
             '@type': 'SearchAction',
             target:
-              'https://parthchaudhari.com/search.html?q={search_term_string}',
+              'https://dvmready.com/search.html?q={search_term_string}',
             'query-input': 'required name=search_term_string',
           },
           publisher: {
-            '@id': 'https://parthchaudhari.com/#organization',
+            '@id': 'https://dvmready.com/#organization',
           },
         },
       ],

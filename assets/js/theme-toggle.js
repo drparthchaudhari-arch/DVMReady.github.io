@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  const THEME_KEY = 'vetludics_theme';
+  const THEME_KEY = 'dvmready_theme';
   const DARK_THEME = 'dark';
   const LIGHT_THEME = 'light';
 
@@ -112,7 +112,7 @@
   }
 
   // Expose API
-  window.VetLudicsTheme = {
+  window.DVMReadyTheme = {
     init: initTheme,
     toggle: toggleTheme,
     getTheme: getCurrentTheme,

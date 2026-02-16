@@ -1,5 +1,5 @@
 /**
- * VetLudics - Comprehensive Toxicity Suite
+ * DVMReady - Comprehensive Toxicity Suite
  * Calculates toxicity risk for various substances in dogs and cats
  */
 

@@ -1,4 +1,4 @@
-# VetLudics Website Overhaul - Implementation Summary
+# DVMReady Website Overhaul - Implementation Summary
 
 **Date:** February 15, 2026  
 **Status:** ✅ Complete
@@ -42,7 +42,7 @@ Complete website overhaul including homepage redesign, authentication system, co
 **Files Created:**
 - `/workspaces/parthchaudhari.github.io/assets/js/auth-system.js` (223 lines)
 
-**API Exposed:** `window.VetLudicsAuth`
+**API Exposed:** `window.DVMReadyAuth`
 - `guestLogin(email)`
 - `accountLogin(email, password)`
 - `logout()`
@@ -65,7 +65,7 @@ Complete website overhaul including homepage redesign, authentication system, co
 **Files Created:**
 - `/workspaces/parthchaudhari.github.io/assets/js/preferences.js` (243 lines)
 
-**API Exposed:** `window.VetLudicsPrefs`
+**API Exposed:** `window.DVMReadyPrefs`
 - `toggleFavorite(toolId)`
 - `savePatient(data)`
 - `saveCalculation(data)`
@@ -192,12 +192,12 @@ Complete website overhaul including homepage redesign, authentication system, co
    - Credential upload
 
 3. **Local Storage Keys:**
-   - `vetludics_auth` - User session
-   - `vetludics_guest` - Guest data
-   - `vetludics_preferences` - User settings
-   - `vetludics_admin_session` - Admin session
-   - `vetludics_access_requests` - Pending requests
-   - `vetludics_approved_emails` - Approved users
+   - `dvmready_auth` - User session
+   - `dvmready_guest` - Guest data
+   - `dvmready_preferences` - User settings
+   - `dvmready_admin_session` - Admin session
+   - `dvmready_access_requests` - Pending requests
+   - `dvmready_approved_emails` - Approved users
 
 ---
 

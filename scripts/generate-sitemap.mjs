@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 
-const BASE_URL = 'https://parthchaudhari.com'
+const BASE_URL = 'https://dvmready.com'
 const LASTMOD = new Date().toISOString().slice(0, 10)
 
 const CANONICAL_PATHS = [
@@ -80,13 +80,7 @@ const CANONICAL_PATHS = [
   '/reference/toxicities.html',
   '/bridge/',
   '/cardiology-chf-algorithm/',
-  '/play/',
-  '/play/sudoku/',
-  '/play/memory-match/',
-  '/play/2048/',
-  '/play/tictactoe/',
-  '/play/iq-challenge/',
-  '/play/vetlex/',
+
   '/search.html',
 ]
 

@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-This audit compares drug dosing information in the VetLudics calculators against authoritative veterinary references including:
+This audit compares drug dosing information in the DVMReady calculators against authoritative veterinary references including:
 - RECOVER CPR Guidelines (2024)
 - Plumb's Veterinary Drug Handbook
 - Merck Veterinary Manual
@@ -208,7 +208,7 @@ Add "Last verified" dates to drug databases to track when dosing was last confir
 
 ## Conclusion
 
-**The VetLudics drug dosing information is ACCURATE and SAFE for educational and clinical reference use.**
+**The DVMReady drug dosing information is ACCURATE and SAFE for educational and clinical reference use.**
 
 - ✅ All emergency drug doses verified against RECOVER 2024 guidelines
 - ✅ All general drug doses verified against Plumb's Veterinary Drug Handbook

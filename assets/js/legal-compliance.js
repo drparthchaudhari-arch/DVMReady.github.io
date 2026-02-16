@@ -9,7 +9,7 @@
   var CONSENT_COOKIE_MAX_AGE = 400 * 24 * 60 * 60
   var CONSENT_VERSION = 1
   var CONSENT_REPROMPT_MS = 365 * 24 * 60 * 60 * 1000
-  var CONSENT_KEY_PHRASE = 'pc-consent-key-v1-parthchaudhari.com'
+  var CONSENT_KEY_PHRASE = 'pc-consent-key-v1-dvmready.com'
   var TOOL_ACK_KEY = 'pc_tool_not_clinical_use_ack_v1'
 
   var state = {
@@ -611,23 +611,6 @@
     document.body.appendChild(footer)
   }
 
-  function addGameAttributionIfNeeded() {
-    var path = window.location.pathname || '/'
-
-    if (
-      path.indexOf('/play/2048/') === 0 ||
-      path === '/games/2048.html' ||
-      path.indexOf('/games/2048/') === 0
-    ) {
-      appendAttributionNote('© 2014 Gabriele Cirulli - MIT License.')
-      return
-    }
-
-    if (path.indexOf('/play/vetlex/') === 0) {
-      appendAttributionNote('Not affiliated with Wordle or NYT Games.')
-    }
-  }
-
   function appendGameframeDisclaimer() {
     if (
       !document.body ||
@@ -669,7 +652,6 @@
     ensureSecurityMetaDefaults()
     addGlobalDisclaimerBanner()
     addToolEducationalWarning()
-    addGameAttributionIfNeeded()
     appendGameframeDisclaimer()
     window.setTimeout(function () {
       appendTrademarkFooterIfMissing()

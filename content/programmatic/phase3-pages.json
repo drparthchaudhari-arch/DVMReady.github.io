@@ -5,7 +5,7 @@
     {
       "primaryQuery": "canine cbc normal values",
       "slug": "canine-cbc-normal-values",
-      "title": "Canine CBC Normal Values Reference – VetLudics",
+      "title": "Canine CBC Normal Values Reference – DVMReady",
       "metaDescription": "Review canine CBC normal values with practical interpretation notes, variability warnings, and escalation red flags for veterinary study and case prep.",
       "h1": "Canine CBC Normal Values: Practical Reference for Study and Case Review",
       "intro": [
@@ -167,7 +167,7 @@
     {
       "primaryQuery": "feline chemistry normal values",
       "slug": "feline-chemistry-normal-values",
-      "title": "Feline Chemistry Normal Values Reference – VetLudics",
+      "title": "Feline Chemistry Normal Values Reference – DVMReady",
       "metaDescription": "Use this feline chemistry normal values guide to review common ranges, interpretation caveats, and urgent red flags for practical veterinary study.",
       "h1": "Feline Chemistry Normal Values: Context-First Study Reference",
       "intro": [
@@ -333,7 +333,7 @@
     {
       "primaryQuery": "chocolate toxicity dose thresholds dog",
       "slug": "chocolate-toxicity-dose-thresholds-dogs",
-      "title": "Chocolate Toxicity Dose Thresholds in Dogs – VetLudics",
+      "title": "Chocolate Toxicity Dose Thresholds in Dogs – DVMReady",
       "metaDescription": "Review educational chocolate toxicity dose thresholds in dogs with triage framing, uncertainty handling, and safety caveats for veterinary learning.",
       "h1": "Chocolate Toxicity Dose Thresholds in Dogs: Educational Triage Guide",
       "intro": [
