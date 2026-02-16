@@ -21,17 +21,10 @@
   var SERVICE_WORKER_URL = '/service-worker.js'
   var NAV_ITEMS = [
     { id: 'home', label: 'Home', href: '/' },
-    { id: 'pricing', label: 'Pricing', href: '/pricing/' },
+    { id: 'tools', label: 'Tools', href: '/tools/' },
+    { id: 'study', label: 'Study', href: '/study/' },
     { id: 'account', label: 'Account', href: '/account/' },
-    {
-      id: 'about',
-      label: 'About',
-      href: '/about.html',
-      children: [
-        { label: 'Editorial Policy', href: '/editorial-policy/' },
-        { label: 'Contact', href: '/contact.html' },
-      ],
-    },
+    { id: 'contact', label: 'Contact', href: '/contact.html' },
   ]
   var PLAY_ICON = '\u25b6'
 

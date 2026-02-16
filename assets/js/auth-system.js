@@ -11,7 +11,7 @@
   const ANALYTICS_KEY = 'dvmready_analytics';
 
   // Admin credentials (stored in Supabase in production)
-  const ADMIN_EMAIL = 'drparthchaudhari@gmail.com';
+  const ADMIN_EMAIL = 'info@dvmready.com';
 
   // Auth state
   let currentUser = null;

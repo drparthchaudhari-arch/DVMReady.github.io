@@ -123,7 +123,7 @@ ${JSON.stringify(
     datePublished: '2026-02-13',
     author: {
       '@type': 'Person',
-      name: 'Parth Chaudhari',
+      name: 'DVMReady Team',
     },
   },
   null,

@@ -202,7 +202,7 @@ ${renderSources()}`
       description: page.description,
       author: {
         '@type': 'Person',
-        name: 'Parth Chaudhari',
+        name: 'DVMReady Team',
       },
       dateModified: '2026-02-13',
       datePublished: '2026-02-13',
@@ -329,7 +329,7 @@ ${renderSources()}`
       description: page.description,
       author: {
         '@type': 'Person',
-        name: 'Parth Chaudhari',
+        name: 'DVMReady Team',
       },
       dateModified: '2026-02-13',
       datePublished: '2026-02-13',
@@ -406,7 +406,7 @@ ${renderSources()}`
       description: pillar.description,
       author: {
         '@type': 'Person',
-        name: 'Parth Chaudhari',
+        name: 'DVMReady Team',
       },
       dateModified: '2026-02-13',
       datePublished: '2026-02-13',
