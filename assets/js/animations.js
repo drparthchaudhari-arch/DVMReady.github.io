@@ -201,7 +201,7 @@
 
   // ==========================================
   // CARD HOVER EFFECTS (Mouse tracking)
-  ==========================================
+  // ==========================================
   
   function initCardHoverEffects() {
     if (prefersReducedMotion()) return;
