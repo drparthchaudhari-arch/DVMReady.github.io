@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <!-- Performance: Resource Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
+    <link rel="icon" type="image/svg+xml" href="./assets/dvmready-logo-pro-U0CGaLZd.svg">
+    <link rel="manifest" href="./assets/manifest-1Ah6wHrb.json">
+    <meta name="theme-color" content="#0c607d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DVMReady">
+    <link rel="apple-touch-icon" href="/assets/img/icon-192x192.png">
+    <title>Veterinary Calculators for Dogs, Cats, and Clinic Workflows | DVMReady</title>
+    <meta name="description" content="DVMReady is a veterinary calculator platform for drug dosing, CRI, fluid therapy, blood gas, transfusion, toxicity, and dog/cat clinical workflows.">
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+    <meta property="og:title" content="Veterinary Calculators for Dogs, Cats, and Clinic Workflows | DVMReady">
+    <meta property="og:description" content="Professional veterinary calculators for drug dosing, emergency care, and dog/cat clinic workflows.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="DVMReady">
+    <meta property="og:url" content="https://dvmready.com/">
+    <link rel="canonical" href="https://dvmready.com/">
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="./assets/nav-status-DUdBM7VV.js" as="script">
+    
+    <!-- Critical CSS -->
+    
+    <!-- Auth Section Styles -->
+    <style>
+    /* Auth Section Styles */
+    .pc-auth-section {
+      margin: 2rem 0;
+      padding: 2rem;
+      background: linear-gradient(135deg, 
+        color-mix(in srgb, var(--pc-surface) 95%, transparent),
+        color-mix(in srgb, var(--pc-primary) 5%, var(--pc-surface))
+      );
+      border-radius: var(--pc-radius-lg);
+      border: 1px solid var(--pc-border);
+    }
+    
+    .pc-auth-container {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .pc-auth-title {
+      font-family: var(--pc-font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: 0.5rem;
+    }
+    
+    .pc-auth-subtitle {
+      color: var(--pc-text-muted);
+      margin-bottom: 1.5rem;
+    }
+    
+    .pc-auth-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .pc-auth-card {
+      padding: 1.5rem;
+      background: var(--pc-surface);
+      border-radius: var(--pc-radius-md);
+      border: 1px solid var(--pc-border);
+      text-align: left;
+    }
+    
+    .pc-auth-card__icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .pc-auth-card h3 {
+      margin: 0 0 0.5rem;
+      font-family: var(--pc-font-display);
+    }
+    
+    .pc-auth-card p {
+      color: var(--pc-text-muted);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .pc-auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .pc-auth-input {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--pc-border);
+      border-radius: var(--pc-radius-sm);
+      background: var(--pc-bg);
+      color: var(--pc-text);
+      font-size: 1rem;
+    }
+    
+    .pc-auth-input:focus {
+      outline: 2px solid var(--pc-primary);
+      outline-offset: 2px;
+    }
+    
+    .pc-consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--pc-text-muted);
+    }
+    
+    .pc-consent-label input {
+      margin-top: 0.2rem;
+    }
+    
+    .pc-auth-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .pc-auth-feature {
+      padding: 0.35rem 0.75rem;
+      background: color-mix(in srgb, var(--pc-primary) 15%, var(--pc-surface));
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .pc-auth-card--account {
+      background: linear-gradient(135deg,
+        color-mix(in srgb, var(--pc-primary) 10%, var(--pc-surface)),
+        var(--pc-surface)
+      );
+      border-color: color-mix(in srgb, var(--pc-primary) 40%, var(--pc-border));
+    }
+
+    /* 2-column tier grid layout */
+    .pc-home-tier-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .pc-home-tier-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== PROFESSIONAL STYLES ===== */
+    
+    /* Logo Pro */
+    .pc-logo--pro {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--pc-radius-md);
+    }
+    
+    .pc-logo--pro .pc-logo__img {
+      width: 36px;
+      height: 36px;
+    }
+    
+    .pc-logo--pro .pc-logo__text {
+      font-family: var(--pc-font-display);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--pc-text);
+      letter-spacing: -0.02em;
+    }
+    
+    /* Nav CTA */
+    .pc-nav-link--cta {
+      background: var(--pc-primary);
+      color: white !important;
+      padding: 0.5rem 1rem;
+      border-radius: var(--pc-radius-sm);
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+    
+    .pc-nav-link--cta:hover {
+      background: color-mix(in srgb, var(--pc-primary) 85%, black);
+    }
+    
+    /* Professional Hero */
+    .pc-hero-pro {
+      padding: 4rem 2rem;
+      margin: -1rem -1rem 2rem;
+      background: linear-gradient(180deg, 
+        var(--pc-surface) 0%,
+        color-mix(in srgb, var(--pc-primary) 5%, var(--pc-bg)) 100%
+      );
+      border-bottom: 1px solid var(--pc-border);
+    }
+    
+    .pc-hero-pro__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4rem;
+      align-items: center;
+    }
+    
+    .pc-hero-pro__eyebrow {
+      display: inline-block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--pc-primary);
+      margin-bottom: 1rem;
+    }
+    
+    .pc-hero-pro__title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--pc-text);
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    
+    .pc-hero-pro__subtitle {
+      font-size: 1.125rem;
+      color: var(--pc-text-muted);
+      max-width: 540px;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    
+    .pc-hero-pro__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .pc-hero-pro__stats {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 2rem;
+      background: var(--pc-surface);
+      border: 1px solid var(--pc-border);
+      border-radius: var(--pc-radius-lg);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    
+    .pc-hero-stat {
+      text-align: center;
+    }
+    
+    .pc-hero-stat__number {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--pc-primary);
+      line-height: 1;
+    }
+    
+    .pc-hero-stat__label {
+      font-size: 0.875rem;
+      color: var(--pc-text-muted);
+      margin-top: 0.25rem;
+    }
+    
+    /* Mobile responsive */
+    @media (max-width: 900px) {
+      .pc-hero-pro__container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .pc-hero-pro__stats {
+        flex-direction: row;
+        justify-content: center;
+        padding: 1.5rem;
+      }
+      
+      .pc-hero-pro {
+        padding: 3rem 1.5rem;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .pc-hero-pro__stats {
+        flex-direction: column;
+      }
+    }
+    </style>
+    
+    <!-- Deferred JavaScript -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://dvmready.com/#website-static",
+          "name": "DVMReady",
+          "url": "https://dvmready.com/",
+          "description": "Veterinary calculator platform for clinic and study workflows.",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://dvmready.com/search.html?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "ItemList",
+          "name": "Primary Veterinary Calculator Paths",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Clinical Tools", "url": "https://dvmready.com/tools/" },
+            { "@type": "ListItem", "position": 2, "name": "Veterinary Calculators Hub", "url": "https://dvmready.com/veterinary-calculators/" },
+            { "@type": "ListItem", "position": 3, "name": "NAVLE Study Hub", "url": "https://dvmready.com/study/navle/" },
+            { "@type": "ListItem", "position": 4, "name": "Clinical Reference Library", "url": "https://dvmready.com/reference/" }
+          ]
+        }
+      ]
+    }
+    </script>
+  <script type="module" crossorigin src="./assets/index-C2eHk-ae.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-D14jhjbQ.css">
+</head>
+<body class="pc-page pc-page--home no-js">
+    <!-- Construction Notice Popup -->
+    <div id="construction-popup" class="pc-construction-popup" role="dialog" aria-modal="true" aria-labelledby="construction-title">
+      <div class="pc-construction-popup__overlay"></div>
+      <div class="pc-construction-popup__content">
+        <button class="pc-construction-popup__close" aria-label="Close notice">&times;</button>
+        <div class="pc-construction-popup__icon">🚧</div>
+        <h2 id="construction-title" class="pc-construction-popup__title">We're Still Building!</h2>
+        <p class="pc-construction-popup__text">
+          DVMReady is currently under active development. Some features may not work as expected, 
+          and you might encounter occasional hiccups. We're working hard to make this the best 
+          veterinary calculator platform for you!
+        </p>
+        <div class="pc-construction-popup__links">
+          <p>Meanwhile, check out what's ready:</p>
+          <div class="pc-construction-popup__buttons">
+            <a href="/tools/dose-calculator.html" class="pc-btn pc-btn--primary">💊 Dose Calculator</a>
+            <a href="/tools/fluid-calculator.html" class="pc-btn pc-btn--secondary">💧 Fluid Calculator</a>
+            <a href="/study/navle/" class="pc-btn pc-btn--secondary">📚 NAVLE Study</a>
+          </div>
+        </div>
+        <p class="pc-construction-popup__note">
+          Have feedback? <a href="/contact.html">Let us know</a> — we'd love to hear from you!
+        </p>
+      </div>
+    </div>
+    
+    <style>
+    /* Construction Popup Styles */
+    .pc-construction-popup {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    
+    .pc-construction-popup__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+    }
+    
+    .pc-construction-popup__content {
+      position: relative;
+      background: var(--pc-surface);
+      border: 1px solid var(--pc-border);
+      border-radius: var(--pc-radius-lg);
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      animation: pc-popup-in 0.3s ease-out;
+    }
+    
+    @keyframes pc-popup-in {
+      from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    
+    .pc-construction-popup__close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--pc-text-muted);
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+    
+    .pc-construction-popup__close:hover {
+      background: var(--pc-surface-strong);
+      color: var(--pc-text);
+    }
+    
+    .pc-construction-popup__icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .pc-construction-popup__title {
+      font-family: var(--pc-font-display);
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--pc-text);
+    }
+    
+    .pc-construction-popup__text {
+      color: var(--pc-text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    
+    .pc-construction-popup__links {
+      margin-bottom: 1.5rem;
+    }
+    
+    .pc-construction-popup__links p {
+      color: var(--pc-text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .pc-construction-popup__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    
+    .pc-construction-popup__buttons .pc-btn {
+      font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+    }
+    
+    .pc-construction-popup__note {
+      font-size: 0.85rem;
+      color: var(--pc-text-muted);
+      margin: 0;
+    }
+    
+    .pc-construction-popup__note a {
+      color: var(--pc-primary);
+      text-decoration: underline;
+    }
+    
+    .pc-construction-popup--hidden {
+      display: none;
+    }
+    </style>
+    
+    <script>
+    // Show popup on first visit (once per session)
+    (function() {
+      const POPUP_KEY = 'dvmready_construction_seen';
+      
+      // Check if popup was already shown this session
+      if (sessionStorage.getItem(POPUP_KEY)) {
+        document.getElementById('construction-popup').classList.add('pc-construction-popup--hidden');
+        return;
+      }
+      
+      const popup = document.getElementById('construction-popup');
+      const closeBtn = popup.querySelector('.pc-construction-popup__close');
+      const overlay = popup.querySelector('.pc-construction-popup__overlay');
+      
+      function closePopup() {
+        popup.classList.add('pc-construction-popup--hidden');
+        sessionStorage.setItem(POPUP_KEY, 'true');
+      }
+      
+      closeBtn.addEventListener('click', closePopup);
+      overlay.addEventListener('click', closePopup);
+      
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !popup.classList.contains('pc-construction-popup--hidden')) {
+          closePopup();
+        }
+      });
+    })();
+    
+    // Check login status and show appropriate content
+    (function() {
+      const AUTH_KEY = 'dvmready_auth';
+      const GUEST_KEY = 'dvmready_guest';
+      
+      function isLoggedIn() {
+        return localStorage.getItem(AUTH_KEY) !== null || localStorage.getItem(GUEST_KEY) !== null;
+      }
+      
+      function getUser() {
+        try {
+          const auth = localStorage.getItem(AUTH_KEY);
+          if (auth) return JSON.parse(auth);
+          const guest = localStorage.getItem(GUEST_KEY);
+          if (guest) return JSON.parse(guest);
+        } catch (e) {}
+        return null;
+      }
+      
+      function updateHomepage() {
+        const authSection = document.getElementById('homepage-auth-section');
+        const loggedInSection = document.getElementById('homepage-logged-in');
+        const user = getUser();
+        
+        if (isLoggedIn() && user) {
+          // User is logged in - show personalized content
+          if (authSection) authSection.style.display = 'none';
+          if (loggedInSection) {
+            loggedInSection.style.display = 'block';
+            // Update user name
+            const nameEl = document.getElementById('homepage-user-name');
+            if (nameEl) {
+              nameEl.textContent = user.displayName || user.email.split('@')[0] || 'User';
+            }
+          }
+        } else {
+          // User is not logged in - show auth forms
+          if (authSection) authSection.style.display = 'block';
+          if (loggedInSection) loggedInSection.style.display = 'none';
+        }
+      }
+      
+      // Guest login from homepage
+      document.getElementById('homepage-guest-form')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('homepage-guest-email').value.trim();
+        const consent = document.getElementById('homepage-guest-consent').checked;
+        
+        if (!email || !email.includes('@')) {
+          alert('Please enter a valid email');
+          return;
+        }
+        if (!consent) {
+          alert('Please agree to the terms');
+          return;
+        }
+        
+        const guestData = {
+          email: email,
+          type: 'guest',
+          displayName: email.split('@')[0],
+          createdAt: new Date().toISOString(),
+          lastVisit: new Date().toISOString()
+        };
+        
+        localStorage.setItem(GUEST_KEY, JSON.stringify(guestData));
+        updateHomepage();
+      });
+      
+      // Initialize on load
+      updateHomepage();
+      
+      // Listen for storage changes (cross-tab sync)
+      window.addEventListener('storage', function(e) {
+        if (e.key === AUTH_KEY || e.key === GUEST_KEY) {
+          updateHomepage();
+        }
+      });
+    })();
+    </script>
+    <!-- Page Transition Overlay -->
+    <div class="pc-page-transition" aria-hidden="true"></div>
+    
+    <!-- Toast Container -->
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+    
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo pc-logo--pro" href="/">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBmaWxsPSJub25lIj4KICA8IS0tIEJhY2tncm91bmQgQ2lyY2xlIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iOTUiIGZpbGw9InVybCgjYmdHcmFkKSIgb3BhY2l0eT0iMC4xIi8+CiAgCiAgPCEtLSBPdXRlciBSaW5nIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iOTAiIHN0cm9rZT0idXJsKCNtYWluR3JhZCkiIHN0cm9rZS13aWR0aD0iNCIgZmlsbD0ibm9uZSIvPgogIAogIDwhLS0gSW5uZXIgZGVjb3JhdGl2ZSByaW5nIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iODIiIHN0cm9rZT0idXJsKCNtYWluR3JhZCkiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC4zIi8+CiAgCiAgPCEtLSBDcm9zcy9NZWRpY2FsIFN5bWJvbCAtLT4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMDAsIDU1KSI+CiAgICA8IS0tIFZlcnRpY2FsIGJhciAtLT4KICAgIDxyZWN0IHg9Ii02IiB5PSIwIiB3aWR0aD0iMTIiIGhlaWdodD0iNTAiIHJ4PSIyIiBmaWxsPSJ1cmwoI21haW5HcmFkKSIvPgogICAgPCEtLSBIb3Jpem9udGFsIGJhciAtLT4KICAgIDxyZWN0IHg9Ii0yMCIgeT0iMTciIHdpZHRoPSI0MCIgaGVpZ2h0PSIxMiIgcng9IjIiIGZpbGw9InVybCgjbWFpbkdyYWQpIi8+CiAgPC9nPgogIAogIDwhLS0gU3RldGhvc2NvcGUgaGludCAtLT4KICA8cGF0aCBkPSJNNjUgMTMwIFE2NSAxNTAgODUgMTUwIEw5NSAxNTAiIHN0cm9rZT0idXJsKCNtYWluR3JhZCkiIHN0cm9rZS13aWR0aD0iNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTEzNSAxMzAgUTEzNSAxNTAgMTE1IDE1MCBMMTA1IDE1MCIgc3Ryb2tlPSJ1cmwoI21haW5HcmFkKSIgc3Ryb2tlLXdpZHRoPSI0IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxNTUiIHI9IjgiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNtYWluR3JhZCkiIHN0cm9rZS13aWR0aD0iMyIvPgogIAogIDwhLS0gVGV4dCBEVk0gLS0+CiAgPHRleHQgeD0iMTAwIiB5PSIxNzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9InVybCgjbWFpbkdyYWQpIiBsZXR0ZXItc3BhY2luZz0iMiI+RFZNPC90ZXh0PgogIAogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtYWluR3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwZDk0ODgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxNGI4YTYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMGQ5NDg4Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJiZ0dyYWQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMTRiOGE2O3N0b3Atb3BhY2l0eTowLjIiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMGQ5NDg4O3N0b3Atb3BhY2l0eTowLjA1Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KPC9zdmc+" alt="" class="pc-logo__img" aria-hidden="true">
+                <span class="pc-logo__text">DVMReady</span>
+            </a>
+            
+            <!-- Search Bar (Desktop) -->
+            <form class="pc-nav-search" action="/search.html" method="get" role="search">
+                <div class="pc-search-wrapper">
+                    <svg class="pc-search-icon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                    </svg>
+                    <input 
+                        type="search" 
+                        name="q" 
+                        class="pc-search-input pc-search-input--nav" 
+                        placeholder="Search calculators, topics..."
+                        aria-label="Search veterinary calculators"
+                        autocomplete="off"
+                    >
+                    <kbd class="pc-search-shortcut">⌘K</kbd>
+                </div>
+            </form>
+            
+            <div class="pc-nav-group">
+                <a class="pc-nav-link" href="/">Home</a>
+                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/tools/">Tools</a>
+                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/navle/">NAVLE Prep</a>
+                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/about.html">About</a>
+                <a class="pc-nav-link" href="/search.html" title="Search">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
+                    </svg>
+                </a>
+                <a class="pc-nav-link pc-nav-link--cta" href="/account/">Sign In</a>
+                <!-- Mobile Menu Toggle -->
+                <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+                    <span class="pc-mobile-toggle__bar"></span>
+                    <span class="pc-mobile-toggle__bar"></span>
+                    <span class="pc-mobile-toggle__bar"></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+            <div class="pc-mobile-menu__header">
+                <span class="pc-mobile-menu__title">Menu</span>
+                <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+            </div>
+            <nav class="pc-mobile-menu__nav">
+                <a class="pc-mobile-nav-link" href="/tools/">
+                    <span class="pc-mobile-nav-link__icon">🧮</span>
+                    <span class="pc-mobile-nav-link__text">Tools</span>
+                </a>
+                <a class="pc-mobile-nav-link" href="/study/extra/">
+                    <span class="pc-mobile-nav-link__icon">📚</span>
+                    <span class="pc-mobile-nav-link__text">Extra</span>
+                </a>
+                <a class="pc-mobile-nav-link" href="/search.html">
+                    <span class="pc-mobile-nav-link__icon">🔍</span>
+                    <span class="pc-mobile-nav-link__text">Search</span>
+                </a>
+                <a class="pc-mobile-nav-link" href="/study/">
+                    <span class="pc-mobile-nav-link__icon">📚</span>
+                    <span class="pc-mobile-nav-link__text">Study Plan</span>
+                </a>
+                <a class="pc-mobile-nav-link" href="/account/">
+                    <span class="pc-mobile-nav-link__icon">👤</span>
+                    <span class="pc-mobile-nav-link__text">Account</span>
+                </a>
+            </nav>
+            <div class="pc-mobile-menu__footer">
+                <p style="color: var(--pc-text-muted); font-size: 0.85rem;">© 2025 DVMReady</p>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="pc-home-shell" role="main">
+        <!-- Hero Section - Professional -->
+        <section class="pc-hero-pro" aria-label="Welcome">
+            <div class="pc-hero-pro__container">
+                <div class="pc-hero-pro__content">
+                    <div class="pc-hero-pro__eyebrow">Professional Clinical Tools</div>
+                    <h1 class="pc-hero-pro__title">
+                        Veterinary Calculators<br>& NAVLE Prep
+                    </h1>
+                    <p class="pc-hero-pro__subtitle">
+                        Trusted by 10,000+ veterinary professionals. Free, accurate clinical calculators 
+                        and study resources for veterinarians, technicians, and students.
+                    </p>
+                    <div class="pc-hero-pro__actions">
+                        <a class="pc-btn pc-btn--primary pc-btn--large" href="/tools/">Explore Calculators</a>
+                        <a class="pc-btn pc-btn--secondary pc-btn--large" href="/study/navle/">NAVLE Study Hub</a>
+                    </div>
+                </div>
+                <div class="pc-hero-pro__visual">
+                    <div class="pc-hero-pro__stats">
+                        <div class="pc-hero-stat">
+                            <span class="pc-hero-stat__number">50+</span>
+                            <span class="pc-hero-stat__label">Clinical Tools</span>
+                        </div>
+                        <div class="pc-hero-stat">
+                            <span class="pc-hero-stat__number">10K+</span>
+                            <span class="pc-hero-stat__label">Monthly Users</span>
+                        </div>
+                        <div class="pc-hero-stat">
+                            <span class="pc-hero-stat__number">100%</span>
+                            <span class="pc-hero-stat__label">Free Access</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Authentication Section (hidden when logged in) -->
+        <section id="homepage-auth-section" class="pc-auth-section" aria-labelledby="auth-title">
+          <div class="pc-auth-container">
+            <h2 id="auth-title" class="pc-auth-title">Get Started</h2>
+            <p class="pc-auth-subtitle">Access all veterinary calculators and study tools</p>
+            
+            <div class="pc-auth-options">
+              <!-- Guest Option -->
+              <div class="pc-auth-card pc-auth-card--guest">
+                <div class="pc-auth-card__icon">👤</div>
+                <h3>Continue as Guest</h3>
+                <p>Quick access with just your email. No account required.</p>
+                <form id="homepage-guest-form" class="pc-auth-form">
+                  <input 
+                    type="email" 
+                    id="homepage-guest-email"
+                    class="pc-auth-input" 
+                    placeholder="your@email.com"
+                    aria-label="Email address"
+                    required
+                  >
+                  <label class="pc-consent-label">
+                    <input type="checkbox" id="homepage-guest-consent" checked>
+                    <span>I agree to analytics collection and <a href="/terms/">Terms</a></span>
+                  </label>
+                  <button type="submit" class="pc-btn pc-btn--secondary pc-btn--large">
+                    Continue as Guest →
+                  </button>
+                </form>
+              </div>
+              
+              <!-- Account Option -->
+              <div class="pc-auth-card pc-auth-card--account">
+                <div class="pc-auth-card__icon">⭐</div>
+                <h3>Create Account</h3>
+                <p>Personalized experience with saved preferences, favorites, and progress tracking.</p>
+                <div class="pc-auth-features">
+                  <span class="pc-auth-feature">⭐ Favorite Tools</span>
+                  <span class="pc-auth-feature">📊 Recent History</span>
+                  <span class="pc-auth-feature">⚙️ Custom Layout</span>
+                  <span class="pc-auth-feature">💾 Saved Patients</span>
+                  <span class="pc-auth-feature">📈 Study Progress</span>
+                  <span class="pc-auth-feature">📝 Personal Notes</span>
+                </div>
+                <a href="/account/" class="pc-btn pc-btn--primary pc-btn--large">
+                  Sign Up / Login →
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- LOGGED-IN WELCOME SECTION (shown when logged in) -->
+        <section id="homepage-logged-in" class="pc-auth-section" style="display: none;" aria-labelledby="welcome-title">
+          <div class="pc-auth-container">
+            <h2 id="welcome-title" class="pc-auth-title">Welcome back, <span id="homepage-user-name">User</span>!</h2>
+            <p class="pc-auth-subtitle">Your personalized veterinary tool experience</p>
+            
+            <div class="pc-auth-options">
+              <!-- Quick Access -->
+              <div class="pc-auth-card">
+                <div class="pc-auth-card__icon">⭐</div>
+                <h3>Your Favorites</h3>
+                <p>Quick access to your most-used tools.</p>
+                <div id="homepage-favorites" class="pc-home-favorites">
+                  <p style="color: var(--pc-text-muted); font-size: 0.9rem;">No favorites yet. Visit tools and star them!</p>
+                </div>
+                <a href="/tools/" class="pc-btn pc-btn--secondary pc-btn--large">Browse Tools</a>
+              </div>
+              
+              <!-- Continue Studying -->
+              <div class="pc-auth-card">
+                <div class="pc-auth-card__icon">📚</div>
+                <h3>Continue Learning</h3>
+                <p>Pick up where you left off.</p>
+                <div class="pc-auth-features">
+                  <span class="pc-auth-feature">📊 Study Progress</span>
+                  <span class="pc-auth-feature">📝 Saved Notes</span>
+                </div>
+                <a href="/study/navle/" class="pc-btn pc-btn--primary pc-btn--large">Continue Studying →</a>
+              </div>
+              
+              <!-- Go to Account -->
+              <div class="pc-auth-card pc-auth-card--account">
+                <div class="pc-auth-card__icon">⚙️</div>
+                <h3>Your Account</h3>
+                <p>Manage your preferences, saved data, and settings.</p>
+                <div class="pc-auth-features">
+                  <span class="pc-auth-feature">👤 Profile Settings</span>
+                  <span class="pc-auth-feature">🐾 Saved Patients</span>
+                  <span class="pc-auth-feature">💾 Saved Calculations</span>
+                </div>
+                <a href="/account/" class="pc-btn pc-btn--primary pc-btn--large">Go to Account →</a>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Trust Indicators Bar -->
+        <section class="pc-trust-bar" aria-label="Trust indicators">
+            <div class="pc-trust-bar__inner">
+                <div class="pc-trust-item">
+                    <span class="pc-trust-item__number">50+</span>
+                    <span class="pc-trust-item__label">Calculators</span>
+                </div>
+                <div class="pc-trust-item">
+                    <span class="pc-trust-item__number">10K+</span>
+                    <span class="pc-trust-item__label">Monthly Users</span>
+                </div>
+                <div class="pc-trust-item">
+                    <span class="pc-trust-item__number">100%</span>
+                    <span class="pc-trust-item__label">Free Access</span>
+                </div>
+                <div class="pc-trust-item">
+                    <span class="pc-trust-item__number">24/7</span>
+                    <span class="pc-trust-item__label">Available</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Quick Access Section -->
+        <section class="pc-quick-access" aria-labelledby="quick-access-title">
+            <div class="pc-quick-access__header">
+                <h2 id="quick-access-title" class="pc-quick-access__title">
+                    <span class="pc-gradient-text">Quick Access</span> Tools
+                </h2>
+                <p class="pc-quick-access__subtitle" id="quick-access-desc">Most used calculators, ready when you are</p>
+            </div>
+            <div class="pc-quick-access__grid">
+                <a href="/tools/dose-calculator.html" class="pc-quick-card">
+                    <div class="pc-quick-card__icon">💊</div>
+                    <div class="pc-quick-card__content">
+                        <h3 class="pc-quick-card__title">Dose Calculator</h3>
+                        <p class="pc-quick-card__desc">mg/kg calculations instantly</p>
+                    </div>
+                    <svg class="pc-quick-card__arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <a href="/tools/fluid-calculator.html" class="pc-quick-card">
+                    <div class="pc-quick-card__icon">💧</div>
+                    <div class="pc-quick-card__content">
+                        <h3 class="pc-quick-card__title">Fluid Calculator</h3>
+                        <p class="pc-quick-card__desc">Dehydration & maintenance</p>
+                    </div>
+                    <svg class="pc-quick-card__arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <a href="/tools/emergency-drug-chart.html" class="pc-quick-card">
+                    <div class="pc-quick-card__icon">⚡</div>
+                    <div class="pc-quick-card__content">
+                        <h3 class="pc-quick-card__title">Emergency Drugs</h3>
+                        <p class="pc-quick-card__desc">Critical care dosing</p>
+                    </div>
+                    <svg class="pc-quick-card__arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <a href="/tools/unit-converter.html" class="pc-quick-card">
+                    <div class="pc-quick-card__icon">🔄</div>
+                    <div class="pc-quick-card__content">
+                        <h3 class="pc-quick-card__title">Unit Converter</h3>
+                        <p class="pc-quick-card__desc">SI to US conversions</p>
+                    </div>
+                    <svg class="pc-quick-card__arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <a href="/cri-setup-guide/" class="pc-quick-card">
+                    <div class="pc-quick-card__icon">💉</div>
+                    <div class="pc-quick-card__content">
+                        <h3 class="pc-quick-card__title">CRI Calculator</h3>
+                        <p class="pc-quick-card__desc">Constant rate infusions</p>
+                    </div>
+                    <svg class="pc-quick-card__arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <a href="/tools/transfusion-helper.html" class="pc-quick-card">
+                    <div class="pc-quick-card__icon">🩸</div>
+                    <div class="pc-quick-card__content">
+                        <h3 class="pc-quick-card__title">Transfusion</h3>
+                        <p class="pc-quick-card__desc">Blood product dosing</p>
+                    </div>
+                    <svg class="pc-quick-card__arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+        </section>
+        
+        <!-- Main Destination Cards -->
+        <section class="pc-home-tier-wrap" aria-label="Primary destination windows">
+            <div class="pc-home-tier-grid">
+                <!-- Card 1: Clinical Tools -->
+                <article class="pc-home-tier-card pc-home-tier-card--clinic" tabindex="0" data-animate="fade-up" data-delay="0">
+                    <div>
+                        <span class="pc-kicker">Clinical</span>
+                        <h2 class="pc-home-tier-title pc-gradient-text--clinic">Clinical Tools</h2>
+                        <p class="pc-home-tier-copy">Point-of-care calculators and emergency workflow tools for rapid bedside decisions.</p>
+                        <div class="pc-home-tier-pellets" aria-label="Clinical highlights">
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--clinic">Emergency</span>
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--clinic">Dosing</span>
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--clinic">ICU Math</span>
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--clinic">Toxicity</span>
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--clinic">Fluids</span>
+                        </div>
+                    </div>
+                    <div class="pc-home-tier-inside">
+                        <p class="pc-home-tier-inside-label">Clinical essentials (most used first)</p>
+                        <ul class="pc-link-list pc-home-tier-links pc-home-tier-links--two-col">
+                            <li><a href="/tools/dose-calculator.html">Dose Calculator</a></li>
+                            <li><a href="/tools/exotic-dose-calculator.html">🦜 Exotic Drug Calculator</a></li>
+                            <li><a href="/tools/emergency-drug-chart.html">Emergency Drug Chart</a></li>
+                            <li><a href="/tools/fluid-calculator.html">Fluid Calculator</a></li>
+                            <li><a href="/cri-setup-guide/">CRI Calculator</a></li>
+                            <li><a href="/tools/transfusion-helper.html">Transfusion Helper</a></li>
+                            <li><a href="/tools/toxin-decontamination-planner.html">Toxicity Calculator Suite</a></li>
+                            <li><a href="/tools/unit-converter.html">Unit Converter</a></li>
+                            <li><a href="/tools/er-algorithms.html">ER Algorithms</a></li>
+                            <li><a href="/tools/phone-triage.html">Phone Triage</a></li>
+                            <li><a href="/emergency-triage-algorithms/">Emergency Triage Algorithms</a></li>
+                            <li><a href="/dextrose-correction-guide/">Dextrose Correction</a></li>
+                            <li><a href="/fluid-deficit-guide/">Fluid Deficit Guide</a></li>
+                            <li><a href="/maintenance-fluids-guide/">Maintenance Fluids</a></li>
+                            <li><a href="/mgkg-dosing-guide/">mg/kg Dosing Guide</a></li>
+                            <li><a href="/transfusion-basics-veterinary/">Transfusion Basics</a></li>
+                            <li><a href="/toxic-dose-calculations-guide/">Toxic Dose Calculations</a></li>
+                            <li><a href="/tools/dose-label-generator.html">Dose Label Generator</a></li>
+                            <li><a href="/tools/discharge-generator.html">Discharge Generator</a></li>
+                            <li><a href="/tools/parasite-control-reference.html">Parasite Control Reference</a></li>
+                            <li><a href="/tools/glucose-curve-generator.html">Glucose Curve Generator</a></li>
+                            <li><a href="/reference/normal-values.html">Normal Lab Values</a></li>
+                            <li><a href="https://dailymed.nlm.nih.gov/dailymed/" target="_blank" rel="noopener noreferrer">Drug Label Search (DailyMed)</a></li>
+                            <li><a href="/reference/#heartworm-treatment-protocol">Heartworm Treatment Protocol</a></li>
+                            <li><a href="/reference/#flea-tick-product-info">Flea/Tick Product Info</a></li>
+                            <li><a href="/reference/#dog-cat-breed-search">Dog/Cat Breed Search</a></li>
+                        </ul>
+                    </div>
+                    <a class="pc-btn pc-btn--primary pc-home-tier-cta" href="/tools/">Open Clinical Tools →</a>
+                </article>
+
+                <!-- Card 2: Study & Reference -->
+                <article class="pc-home-tier-card pc-home-tier-card--student" tabindex="0" data-animate="fade-up" data-delay="100">
+                    <div>
+                        <span class="pc-kicker">Learning</span>
+                        <h2 class="pc-home-tier-title pc-gradient-text--student">Study & Reference</h2>
+                        <p class="pc-home-tier-copy">NAVLE preparation, clinical references, case studies, and evidence-based guidelines.</p>
+                        <div class="pc-home-tier-pellets" aria-label="Study highlights">
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">NAVLE Prep</span>
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">Practice</span>
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">References</span>
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">Cases</span>
+                        </div>
+                    </div>
+                    <div class="pc-home-tier-inside">
+                        <p class="pc-home-tier-inside-label">Study resources & references</p>
+                        <ul class="pc-link-list pc-home-tier-links pc-home-tier-links--two-col">
+                            <li><a href="/study/navle/">NAVLE Study Hub</a></li>
+                            <li><a href="/study/navle/practice/">Practice Questions</a></li>
+                            <li><a href="/study/navle/exam-simulator/">Exam Simulator</a></li>
+                            <li><a href="/study/extra/">Topic Guides</a></li>
+                            <li><a href="/study/">Study Planner</a></li>
+                            <li><a href="/reference/">Reference Library</a></li>
+                            <li><a href="/study/extra/">Clinical Cases</a></li>
+                            <li><a href="/cardiology-chf-algorithm/">Cardiology & CHF Guide</a></li>
+                            <li><a href="/emergency-triage-algorithms/">Emergency Algorithms</a></li>
+                            <li><a href="https://www.acvim.org/research/consensus-statements" target="_blank" rel="noopener noreferrer">ACVIM Cardiology Consensus</a></li>
+                            <li><a href="https://recoverinitiative.org/" target="_blank" rel="noopener noreferrer">RECOVER CPR Guidelines</a></li>
+                            <li><a href="https://www.iris-kidney.com/iris-guidelines-1" target="_blank" rel="noopener noreferrer">IRIS Stages</a></li>
+                            <li><a href="https://wsava.org/global-guidelines/global-nutrition-guidelines/" target="_blank" rel="noopener noreferrer">BCS Charts</a></li>
+                            <li><a href="https://avdc.org/" target="_blank" rel="noopener noreferrer">Dental Charts</a></li>
+                            <li><a href="https://www.aaha.org/resources/2022-aaha-canine-vaccination-guidelines/" target="_blank" rel="noopener noreferrer">AAHA Vaccination Guidelines</a></li>
+                            <li><a href="/sources-and-limitations/">Sources and Limitations</a></li>
+                        </ul>
+                    </div>
+                    <a class="pc-btn pc-btn--mint pc-home-tier-cta" href="/study/navle/">Open Study Hub →</a>
+                </article>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Improved Footer -->
+    <footer class="pc-footer pc-footer--enhanced">
+        <div class="pc-footer__grid">
+            <div class="pc-footer__brand">
+                <a class="pc-footer__logo pc-logo" href="/">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBmaWxsPSJub25lIj4KICA8IS0tIEJhY2tncm91bmQgQ2lyY2xlIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iOTUiIGZpbGw9InVybCgjYmdHcmFkKSIgb3BhY2l0eT0iMC4xIi8+CiAgCiAgPCEtLSBPdXRlciBSaW5nIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iOTAiIHN0cm9rZT0idXJsKCNtYWluR3JhZCkiIHN0cm9rZS13aWR0aD0iNCIgZmlsbD0ibm9uZSIvPgogIAogIDwhLS0gSW5uZXIgZGVjb3JhdGl2ZSByaW5nIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iODIiIHN0cm9rZT0idXJsKCNtYWluR3JhZCkiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC4zIi8+CiAgCiAgPCEtLSBDcm9zcy9NZWRpY2FsIFN5bWJvbCAtLT4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMDAsIDU1KSI+CiAgICA8IS0tIFZlcnRpY2FsIGJhciAtLT4KICAgIDxyZWN0IHg9Ii02IiB5PSIwIiB3aWR0aD0iMTIiIGhlaWdodD0iNTAiIHJ4PSIyIiBmaWxsPSJ1cmwoI21haW5HcmFkKSIvPgogICAgPCEtLSBIb3Jpem9udGFsIGJhciAtLT4KICAgIDxyZWN0IHg9Ii0yMCIgeT0iMTciIHdpZHRoPSI0MCIgaGVpZ2h0PSIxMiIgcng9IjIiIGZpbGw9InVybCgjbWFpbkdyYWQpIi8+CiAgPC9nPgogIAogIDwhLS0gU3RldGhvc2NvcGUgaGludCAtLT4KICA8cGF0aCBkPSJNNjUgMTMwIFE2NSAxNTAgODUgMTUwIEw5NSAxNTAiIHN0cm9rZT0idXJsKCNtYWluR3JhZCkiIHN0cm9rZS13aWR0aD0iNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTEzNSAxMzAgUTEzNSAxNTAgMTE1IDE1MCBMMTA1IDE1MCIgc3Ryb2tlPSJ1cmwoI21haW5HcmFkKSIgc3Ryb2tlLXdpZHRoPSI0IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxNTUiIHI9IjgiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNtYWluR3JhZCkiIHN0cm9rZS13aWR0aD0iMyIvPgogIAogIDwhLS0gVGV4dCBEVk0gLS0+CiAgPHRleHQgeD0iMTAwIiB5PSIxNzUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksIC1hcHBsZS1zeXN0ZW0sIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9InVybCgjbWFpbkdyYWQpIiBsZXR0ZXItc3BhY2luZz0iMiI+RFZNPC90ZXh0PgogIAogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtYWluR3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwZDk0ODgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxNGI4YTYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMGQ5NDg4Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJiZ0dyYWQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMTRiOGE2O3N0b3Atb3BhY2l0eTowLjIiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMGQ5NDg4O3N0b3Atb3BhY2l0eTowLjA1Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KPC9zdmc+" alt="" class="pc-logo__img" aria-hidden="true">
+                <span class="pc-logo__text">DVMReady</span>
+            </a>
+                <p class="pc-footer__tagline">Smart tools for veterinary excellence. Trusted by students and professionals worldwide.</p>
+                <div class="pc-footer__social">
+                    <a href="#" class="pc-footer__social-link" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" class="pc-footer__social-link" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="#" class="pc-footer__social-link" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="pc-footer__links-group">
+                <h4 class="pc-footer__heading">Tools</h4>
+                <ul class="pc-footer__links">
+                    <li><a href="/tools/dose-calculator.html">Dose Calculator</a></li>
+                    <li><a href="/tools/fluid-calculator.html">Fluid Calculator</a></li>
+                    <li><a href="/tools/emergency-drug-chart.html">Emergency Drugs</a></li>
+                    <li><a href="/tools/unit-converter.html">Unit Converter</a></li>
+                    <li><a href="/veterinary-calculators/">All Calculators</a></li>
+                </ul>
+            </div>
+            
+            <div class="pc-footer__links-group">
+                <h4 class="pc-footer__heading">Study</h4>
+                <ul class="pc-footer__links">
+                    <li><a href="/study/navle/">NAVLE Hub</a></li>
+                    <li><a href="/study/navle/practice/">Practice Questions</a></li>
+                    <li><a href="/study/navle/exam-simulator/">Exam Simulator</a></li>
+                    <li><a href="/study/">Study Planner</a></li>
+                </ul>
+            </div>
+            
+            <div class="pc-footer__links-group">
+                <h4 class="pc-footer__heading">Resources</h4>
+                <ul class="pc-footer__links">
+                    <li><a href="/reference/">Reference Library</a></li>
+                    <li><a href="/study/extra/">Clinical Cases</a></li>
+                    
+                    <li><a href="/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="pc-footer__newsletter">
+                <h4 class="pc-footer__heading">Stay Updated</h4>
+                <p class="pc-footer__newsletter-text">Get new calculators and study resources delivered to your inbox.</p>
+                <form class="pc-newsletter-form" action="#" method="post" onsubmit="event.preventDefault(); showToast('Thanks for subscribing!', 'success');">
+                    <div class="pc-newsletter__field">
+                        <input type="email" class="pc-newsletter__input" placeholder="your@email.com" required aria-label="Email address">
+                        <button type="submit" class="pc-newsletter__btn">
+                            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="pc-footer__bottom">
+            <div class="pc-footer__legal">
+                <a href="/privacy/">Privacy</a>
+                <a href="/terms/">Terms</a>
+                <a href="/editorial-policy/">Editorial Policy</a>
+                <a href="/sources-and-limitations/">Sources</a>
+                <a href="/accessibility-plan/">Accessibility</a>
+            </div>
+            <p class="pc-footer__copyright">© 2025 DVMReady. Not a substitute for professional veterinary advice.</p>
+        </div>
+    </footer>
+    
+    <!-- Sticky Mobile CTA -->
+    <div class="pc-sticky-cta" aria-hidden="true">
+        <a href="/tools/" class="pc-sticky-cta__btn">
+            <svg class="pc-sticky-cta__icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 10-2 0v3a1 1 0 102 0v-3zm2-3a1 1 0 011 1v5a1 1 0 11-2 0v-5a1 1 0 011-1zm4-1a1 1 0 10-2 0v7a1 1 0 102 0V8z" clip-rule="evenodd" />
+            </svg>
+            <span>Quick Calc</span>
+        </a>
+    </div>
+</body>
+</html>

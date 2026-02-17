@@ -1,0 +1,119 @@
+{
+  "name": "DVMReady - Veterinary Calculators",
+  "short_name": "DVMReady",
+  "description": "Professional veterinary calculators for drug dosing, fluid therapy, CRI, emergency drugs, and clinical decision support.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1b2d",
+  "theme_color": "#0c607d",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["medical", "productivity", "education"],
+  "icons": [
+    {
+      "src": "/assets/img/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/img/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "DVMReady Calculator Dashboard"
+    },
+    {
+      "src": "/assets/img/screenshot-narrow.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "DVMReady on Mobile"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dose Calculator",
+      "short_name": "Dose",
+      "description": "Calculate drug doses for dogs and cats",
+      "url": "/tools/dose-calculator.html",
+      "icons": [{ "src": "/assets/img/shortcut-dose.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Fluid Calculator",
+      "short_name": "Fluids",
+      "description": "Calculate fluid rates and deficits",
+      "url": "/tools/fluid-calculator.html",
+      "icons": [{ "src": "/assets/img/shortcut-fluid.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Emergency Drugs",
+      "short_name": "Emergency",
+      "description": "Quick emergency drug reference",
+      "url": "/tools/emergency-drug-chart.html",
+      "icons": [{ "src": "/assets/img/shortcut-emergency.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "CRI Calculator",
+      "short_name": "CRI",
+      "description": "Constant rate infusion calculations",
+      "url": "/tools/cri-calculator.html",
+      "icons": [{ "src": "/assets/img/shortcut-cri.png", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  },
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}
