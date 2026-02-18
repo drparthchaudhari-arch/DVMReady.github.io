@@ -34,11 +34,11 @@ This audit compares drug dosing information in the DVMReady calculators against 
 | **Dexamethasone SP** | 0.1 mg/kg IV/IM | Merck: 0.1-0.2 mg/kg | ✅ CORRECT |
 | **Hydrocortisone** | 5 mg/kg IV | Merck: 5-10 mg/kg | ✅ CORRECT |
 | **Calcium gluconate 10%** | 100 mg/kg Slow IV | JAVMA/Sage: 50-100 mg/kg | ✅ CORRECT |
-| **Calcium chloride 10%** | 10 mg/kg Slow IV | Merck: 10 mg/kg | ✅ CORRECT |
+| **Calcium chloride 10%** | 0.1-0.2 mL/kg Slow IV | Standard: 0.1-0.2 mL/kg | ✅ CORRECTED - volume-based dosing |
 | **Regular insulin** | 0.2 U/kg + dextrose | Merck: 0.2-0.5 U/kg | ✅ CORRECT |
 | **Sodium bicarbonate** | 1-2 mEq/kg IV | RECOVER: 1-2 mEq/kg | ✅ CORRECT |
-| **Mannitol 20%** | 0.5 g/kg IV | Merck: 0.5-1 g/kg | ✅ CORRECT |
-| **Dextrose 50%** | 1 mL/kg IV (dilute) | Merck: 0.5-1 g/kg | ✅ CORRECT |
+| **Mannitol 20%** | 0.5-1 g/kg IV over 15-20 min | Merck: 0.5-1 g/kg | ✅ CORRECTED - added infusion time |
+| **Dextrose 50%** | 0.5-1 g/kg IV (dilute) | Standard: 0.5-1 g/kg | ✅ CORRECTED - weight-based dosing with dilution warning |
 | **Lidocaine (dog)** | 2 mg/kg IV | RECOVER 2024: 2 mg/kg for refractory VF/VT | ✅ CORRECT |
 | **Lidocaine (cat)** | ~~0.25 mg/kg IV~~ | RECOVER 2024: **Not recommended** - cardiotoxic | ⚠️ REMOVED - use amiodarone |
 | **Amiodarone (dog)** | 5 mg/kg IV | RECOVER 2024: 5 mg/kg for refractory VF/VT | ✅ ADDED |
@@ -55,7 +55,8 @@ This audit compares drug dosing information in the DVMReady calculators against 
 | **Levetiracetam** | 60 mg/kg IV loading | Merck: 60 mg/kg | ✅ CORRECT |
 | **Ketamine** | 5 mg/kg (IV), 10 mg/kg (IM) | Merck: 5-10 mg/kg | ✅ UPDATED with route-specific dosing |
 | **Propofol** | 3-6 mg/kg IV | Merck: 3-6 mg/kg | ✅ UPDATED with range |
-| **Etomidate** | 1.5-2 mg/kg IV | Merck: 1.5-2 mg/kg | ✅ UPDATED with range |
+| **Etomidate (dog)** | 1-2 mg/kg IV | Standard: 1-2 mg/kg | ✅ CORRECTED - species-specific |
+| **Etomidate (cat)** | 0.5-1 mg/kg IV | Standard: 0.5-1 mg/kg | ✅ CORRECTED - species-specific |
 | **Glycopyrrolate** | 0.01-0.02 mg/kg IV/IM | Merck: 0.01-0.02 mg/kg | ✅ UPDATED with range |
 
 ### Summary: Emergency Drug Chart
@@ -234,6 +235,13 @@ The dosing information is appropriately conservative and includes good safety ma
 4. **Dose Updates**: Standardized atropine to 0.04 mg/kg (single dose only)
 5. **Range Updates**: Updated diazepam, midazolam, ketamine, propofol, etomidate, and glycopyrrolate to show full dosing ranges
 6. **Species Notes**: Added notes for lower sedative doses in cats
+
+### Emergency Dosing Corrections (February 18, 2026)
+Per veterinary emergency dosing correction guidelines:
+1. **Dextrose 50%**: Changed from 1 mL/kg to 0.5-1 g/kg with CRITICAL dilution warning (dilute to 12.5-25% before IV)
+2. **Calcium chloride 10%**: Changed from 10 mg/kg to 0.1-0.2 mL/kg (volume-based dosing, not weight-based)
+3. **Etomidate**: Separated into species-specific dosing - Dogs: 1-2 mg/kg, Cats: 0.5-1 mg/kg
+4. **Mannitol**: Updated to 0.5-1 g/kg range with 15-20 minute infusion time note
 
 ---
 
