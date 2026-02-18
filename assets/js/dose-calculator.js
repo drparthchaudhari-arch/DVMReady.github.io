@@ -394,7 +394,9 @@
     }
 
     var species = byId('species') ? byId('species').value : ''
-    var weight = parseFloat(byId('weight') ? byId('weight').value : '')
+    // Use weight-kg field (always in kg) for calculations, fallback to weight field for backward compatibility
+    var weightKgField = byId('weight-kg')
+    var weight = parseFloat(weightKgField && weightKgField.value ? weightKgField.value : (byId('weight') ? byId('weight').value : ''))
     var drugName = byId('drug-select') ? byId('drug-select').value : ''
     var form = byId('dosage-form') ? byId('dosage-form').value : ''
     var concentration = parseFloat(byId('concentration') ? byId('concentration').value : '')

@@ -66,6 +66,56 @@
       }
     }
     </script>
+    <style>
+      /* Weight Unit Toggle Styles */
+      .pc-calc-unit-toggle {
+        display: flex;
+        gap: 0.25rem;
+        background: rgba(0,0,0,0.05);
+        padding: 0.25rem;
+        border-radius: 0.5rem;
+      }
+      
+      .pc-calc-unit-btn {
+        padding: 0.25rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--calc-text-muted);
+        background: transparent;
+        border: none;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      
+      .pc-calc-unit-btn:hover {
+        color: var(--calc-text);
+        background: rgba(255,255,255,0.5);
+      }
+      
+      .pc-calc-unit-btn--active {
+        color: var(--calc-primary);
+        background: var(--calc-surface);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      
+      /* Instructions Box */
+      .pc-calc-instructions {
+        background: rgba(99, 102, 241, 0.05);
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        border-radius: var(--calc-radius-md);
+        padding: 1rem;
+        margin-top: 1rem;
+      }
+      
+      .pc-calc-instructions ol li {
+        margin-bottom: 0.5rem;
+      }
+      
+      .pc-calc-instructions ol li strong {
+        color: var(--calc-text);
+      }
+    </style>
   </head>
   <body class="pc-page pc-page--study no-js">
       <div class="pc-float-shape pc-float-shape--1"></div>
@@ -213,15 +263,33 @@
               <div class="pc-calc-field">
                 <div class="pc-calc-field__label">
                   <span>Weight</span>
-                  <span class="pc-calc-field__hint">kg</span>
+                  <div class="pc-calc-unit-toggle" style="display: flex; gap: 0.25rem;">
+                    <button type="button" class="pc-calc-unit-btn pc-calc-unit-btn--active" data-unit="kg" onclick="setWeightUnit('kg')">kg</button>
+                    <button type="button" class="pc-calc-unit-btn" data-unit="lb" onclick="setWeightUnit('lb')">lb</button>
+                    <button type="button" class="pc-calc-unit-btn" data-unit="g" onclick="setWeightUnit('g')">g</button>
+                  </div>
                 </div>
-                <input id="weight" class="pc-calc-input pc-calc-input--number" type="number" min="0.2" step="0.1" value="10" required oninput="onInputChange()" />
-                <div class="pc-calc-chips">
+                <input id="weight" class="pc-calc-input pc-calc-input--number" type="number" min="0.2" step="0.1" value="10" required oninput="onWeightInputChange()" />
+                <input id="weight-kg" type="hidden" value="10" />
+                <div class="pc-calc-chips" id="weight-chips-kg">
                   <button type="button" class="pc-calc-chip" onclick="setWeight(2.5)">2.5 kg</button>
                   <button type="button" class="pc-calc-chip" onclick="setWeight(5)">5 kg</button>
                   <button type="button" class="pc-calc-chip" onclick="setWeight(10)">10 kg</button>
                   <button type="button" class="pc-calc-chip" onclick="setWeight(20)">20 kg</button>
                   <button type="button" class="pc-calc-chip" onclick="setWeight(30)">30 kg</button>
+                </div>
+                <div class="pc-calc-chips" id="weight-chips-lb" style="display: none;">
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(5.5)">5.5 lb</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(11)">11 lb</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(22)">22 lb</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(44)">44 lb</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(66)">66 lb</button>
+                </div>
+                <div class="pc-calc-chips" id="weight-chips-g" style="display: none;">
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(100)">100 g</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(250)">250 g</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(500)">500 g</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(1000)">1000 g</button>
                 </div>
               </div>
 
@@ -366,12 +434,32 @@
             </div>
           </div>
 
+          <!-- Step-by-Step Instructions -->
+          <div class="pc-calc-instructions" style="margin-top: 1rem; padding: 1rem; background: rgba(99, 102, 241, 0.05); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: var(--calc-radius-md);">
+            <div style="font-size: 0.75rem; font-weight: 600; color: #4f46e5; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+              📖 How to Use This Calculator
+            </div>
+            <ol style="font-size: 0.8125rem; color: var(--calc-text-muted); line-height: 1.8; margin: 0; padding-left: 1.25rem;">
+              <li><strong>Select Species:</strong> Choose Dog or Cat (dosing differs significantly)</li>
+              <li><strong>Enter Weight:</strong> Input patient weight in kg, lb, or grams using the unit toggle</li>
+              <li><strong>Select Drug:</strong> Choose from the dropdown or type to search</li>
+              <li><strong>Select Form:</strong> Oral (tablet/liquid) or Injectable (IV/IM/SC)</li>
+              <li><strong>Enter Concentration:</strong> Input drug concentration from vial/label (e.g., 50 mg/mL)</li>
+              <li><strong>Review Results:</strong> Check calculated dose, volume, and safety warnings</li>
+              <li><strong>Verify:</strong> Always double-check against current formulary before administering</li>
+            </ol>
+            <div style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(99, 102, 241, 0.1); font-size: 0.75rem; color: var(--calc-text-muted);">
+              <strong>💡 Tip:</strong> Use the preset weight chips for quick entry. Click "Custom dose range" to override default doses when needed.
+            </div>
+          </div>
+
           <!-- Formula Display -->
           <div class="pc-calc-formula">
             <div class="pc-calc-formula__label">Calculation Formula</div>
             <div class="pc-calc-formula__math" id="formula-display">
-              <span class="pc-calc-formula__highlight">Dose (mg)</span> = Weight (kg) × Dose (mg/kg)<br>
-              <span class="pc-calc-formula__highlight">Volume (mL)</span> = Dose (mg) ÷ Concentration (mg/mL)
+              <span class="pc-calc-formula__highlight">Step 1:</span> Weight converts to kg automatically<br>
+              <span class="pc-calc-formula__highlight">Step 2:</span> Dose (mg) = Weight (kg) × Dose (mg/kg)<br>
+              <span class="pc-calc-formula__highlight">Step 3:</span> Volume (mL) = Dose (mg) ÷ Concentration (mg/mL)
             </div>
           </div>
 
@@ -562,16 +650,106 @@
         if (autoCalcEnabled) calculateDose();
       }
 
-      // Set weight from chip
+      // Weight unit conversion state
+      let currentWeightUnit = 'kg';
+
+      // Handle direct weight input
+      function onWeightInputChange() {
+        const weightInput = document.getElementById('weight');
+        const kgInput = document.getElementById('weight-kg');
+        const displayValue = parseFloat(weightInput.value) || 0;
+        const kgValue = convertToKg(displayValue, currentWeightUnit);
+        kgInput.value = kgValue;
+        onInputChange();
+      }
+
+      // Set weight from chip (input is always in current display unit)
       function setWeight(weight) {
         document.getElementById('weight').value = weight;
+        // Convert to kg for calculations
+        const kgValue = convertToKg(weight, currentWeightUnit);
+        document.getElementById('weight-kg').value = kgValue;
         onInputChange();
         
         // Visual feedback
-        document.querySelectorAll('.pc-calc-chip').forEach(chip => {
-          chip.classList.remove('pc-calc-chip--active');
+        const activeContainer = document.getElementById('weight-chips-' + currentWeightUnit);
+        if (activeContainer) {
+          activeContainer.querySelectorAll('.pc-calc-chip').forEach(chip => {
+            chip.classList.remove('pc-calc-chip--active');
+          });
+        }
+        if (event && event.target) {
+          event.target.classList.add('pc-calc-chip--active');
+        }
+      }
+
+      // Convert weight to kg based on unit
+      function convertToKg(value, unit) {
+        const num = parseFloat(value);
+        if (isNaN(num)) return 0;
+        switch(unit) {
+          case 'kg': return num;
+          case 'lb': return num * 0.453592;
+          case 'g': return num / 1000;
+          default: return num;
+        }
+      }
+
+      // Convert kg to display unit
+      function convertFromKg(kgValue, unit) {
+        switch(unit) {
+          case 'kg': return kgValue;
+          case 'lb': return kgValue / 0.453592;
+          case 'g': return kgValue * 1000;
+          default: return kgValue;
+        }
+      }
+
+      // Set weight unit and convert display
+      function setWeightUnit(unit) {
+        if (unit === currentWeightUnit) return;
+        
+        const weightInput = document.getElementById('weight');
+        const kgInput = document.getElementById('weight-kg');
+        const currentValue = parseFloat(weightInput.value) || 0;
+        
+        // Convert current value to kg, then to new unit
+        const kgValue = convertToKg(currentValue, currentWeightUnit);
+        const newValue = convertFromKg(kgValue, unit);
+        
+        // Update input with new value (rounded appropriately)
+        if (unit === 'g') {
+          weightInput.value = Math.round(newValue);
+          weightInput.step = '1';
+          weightInput.min = '100';
+        } else if (unit === 'lb') {
+          weightInput.value = Math.round(newValue * 10) / 10;
+          weightInput.step = '0.1';
+          weightInput.min = '0.5';
+        } else {
+          weightInput.value = Math.round(newValue * 10) / 10;
+          weightInput.step = '0.1';
+          weightInput.min = '0.2';
+        }
+        
+        // Update hidden kg field
+        kgInput.value = kgValue;
+        
+        // Update unit buttons
+        document.querySelectorAll('.pc-calc-unit-btn').forEach(btn => {
+          btn.classList.remove('pc-calc-unit-btn--active');
+          if (btn.dataset.unit === unit) {
+            btn.classList.add('pc-calc-unit-btn--active');
+          }
         });
-        event.target.classList.add('pc-calc-chip--active');
+        
+        // Show/hide appropriate chip containers
+        document.getElementById('weight-chips-kg').style.display = unit === 'kg' ? 'flex' : 'none';
+        document.getElementById('weight-chips-lb').style.display = unit === 'lb' ? 'flex' : 'none';
+        document.getElementById('weight-chips-g').style.display = unit === 'g' ? 'flex' : 'none';
+        
+        currentWeightUnit = unit;
+        onInputChange();
       }
 
       // Reset calculator
