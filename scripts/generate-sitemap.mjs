@@ -18,9 +18,7 @@ const CANONICAL_PATHS = [
   '/study/navle/',
   '/study/navle/practice/',
   '/study/navle/exam-simulator/',
-  '/study/navle/topics/',
-  '/study/wordweb/',
-  '/study/vetlex/',
+  // Note: Removed dead paths - /study/navle/topics/, /study/wordweb/, /study/vetlex/
   '/today/',
   '/gdv-approach/',
   '/shock-types-veterinary/',
@@ -78,7 +76,7 @@ const CANONICAL_PATHS = [
   '/sources-and-limitations/',
   '/reference/normal-values.html',
   '/reference/toxicities.html',
-  '/bridge/',
+  // Note: /bridge/ removed - directory does not exist
   '/cardiology-chf-algorithm/',
 
   '/search.html',

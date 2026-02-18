@@ -69,17 +69,14 @@
   </head>
   <body class="pc-page pc-page--study no-js">
       <div class="pc-float-shape pc-float-shape--1"></div>
-      <div class="pc-float-shape pc-float-shape--2"></div>
-    </div>
+    <div class="pc-float-shape pc-float-shape--2"></div>
 
-      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
-      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
-      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
-      </div>
-    </div>
+    <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+    <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+    <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+    <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+    <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+    <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
     
 
     <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
@@ -387,6 +384,18 @@
             </div>
           </div>
 
+          <!-- Clinical Safety Note -->
+          <div style="margin-top: 1rem; padding: 1rem; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--calc-radius-md);">
+            <div style="font-size: 0.75rem; font-weight: 600; color: #d97706; margin-bottom: 0.5rem;">
+              ⚠️ Clinical Verification Required
+            </div>
+            <p style="font-size: 0.75rem; color: var(--calc-text-muted); margin: 0; line-height: 1.6;">
+              This calculator provides mathematical assistance only. Always verify doses against current 
+              formularies (Plumb's, Merck), check for drug interactions, and consider patient-specific factors 
+              (renal/hepatic function, age, pregnancy). <a href="/reference/clinical-validation.html" style="color: var(--calc-primary);">View validation sources →</a>
+            </p>
+          </div>
+
           <!-- Quick Tips -->
           <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--calc-glass-border);">
             <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
@@ -481,6 +490,14 @@
                 <span>📚 View drug references</span>
               </a>
             </div>
+          </div>
+        </div>
+
+        <!-- Last Updated & References -->
+        <div style="padding: 0.75rem; border-top: 1px solid var(--calc-glass-border);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; font-size: 0.6875rem; color: var(--calc-text-muted);">
+            <span>📅 Last updated: February 18, 2026</span>
+            <a href="/reference/clinical-validation.html" style="color: var(--calc-primary);">📋 Validation sources →</a>
           </div>
         </div>
 

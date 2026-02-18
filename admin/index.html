@@ -157,29 +157,30 @@
   
   <script>
   (function() {
-    const ADMIN_EMAIL = 'info@dvmready.com';
-    const ADMIN_PASSWORD = 'Popatlalachau@1431';
+    // SECURITY NOTICE: Client-side authentication has been removed.
+    // Admin authentication must be implemented server-side via Supabase Auth or backend API.
+    // The previous hardcoded credentials have been revoked and are no longer valid.
+    
     const SESSION_KEY = 'dvmready_admin_session';
     
-    // Check if already logged in
-    if (localStorage.getItem(SESSION_KEY) === 'active') {
-      window.location.href = 'dashboard.html';
-      return;
-    }
+    // Clear any existing client-side session (force re-auth via server)
+    localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(SESSION_KEY + '_time');
     
     document.getElementById('admin-login-form').addEventListener('submit', function(e) {
       e.preventDefault();
       
-      const email = document.getElementById('admin-email').value;
-      const password = document.getElementById('admin-password').value;
+      // Show error: Server-side authentication required
+      const errorEl = document.getElementById('login-error');
+      errorEl.textContent = 'Server-side authentication not configured. Please contact your administrator to set up Supabase Auth or backend authentication.';
+      errorEl.classList.add('pc-is-visible');
       
-      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-        localStorage.setItem(SESSION_KEY, 'active');
-        localStorage.setItem(SESSION_KEY + '_time', Date.now());
-        window.location.href = 'dashboard.html';
-      } else {
-        document.getElementById('login-error').classList.add('pc-is-visible');
-      }
+      // TODO: Implement Supabase Auth or backend authentication
+      // Example with Supabase:
+      // const { data, error } = await supabase.auth.signInWithPassword({
+      //   email: document.getElementById('admin-email').value,
+      //   password: document.getElementById('admin-password').value
+      // });
     });
   })();
   </script>
