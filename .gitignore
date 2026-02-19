@@ -4,6 +4,7 @@ node_modules/
 # Build and tool cache
 .vite/
 *.tsbuildinfo
+dist/
 
 # Logs
 npm-debug.log*

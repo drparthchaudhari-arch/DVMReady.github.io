@@ -317,11 +317,29 @@
 
     const code = input.value.trim()
     
-    // Simple verification - in production this would verify against a server
-    // For now, use a basic code that can be distributed to veterinarians
-    const validCodes = ['VET2026', 'DVMACCESS', 'VETPROF', 'DEALICENSE']
+    // SECURITY WARNING: This is client-side verification only and is NOT secure.
+    // Anyone can view this code and bypass the access control.
+    // 
+    // For production use, controlled substance verification MUST be implemented:
+    // 1. Server-side verification via Supabase Auth/RLS, OR
+    // 2. Backend API with proper veterinarian credential verification, OR
+    // 3. Remove this feature entirely until proper auth is implemented
+    //
+    // The hardcoded codes below are REVOKED and will be removed in the next update.
+    // Current behavior: All access attempts will be denied pending server-side implementation.
     
-    if (validCodes.includes(code.toUpperCase())) {
+    // TODO: Replace with server-side verification
+    // const { data, error } = await supabase
+    //   .from('vet_verifications')
+    //   .select('*')
+    //   .eq('license_number', code)
+    //   .eq('verified', true)
+    //   .single();
+    
+    const validCodes = [] // All codes revoked - server-side auth required
+    const isValid = false // Force deny until server-side auth is implemented
+    
+    if (isValid) {
       grantAccess({
         drug: drugName,
         code: code.toUpperCase(),
@@ -341,7 +359,9 @@
     } else {
       if (errorDiv) {
         errorDiv.style.display = 'block'
-        errorDiv.textContent = 'Invalid verification code. Please contact your administrator.'
+        errorDiv.innerHTML = 'Access denied. Controlled substance verification requires server-side authentication.<br><br>' +
+          'This feature is temporarily disabled pending implementation of secure veterinarian credential verification.<br>' +
+          'Please consult your local formulary or contact your veterinary board for controlled drug information.'
       }
       logAuditEvent('ACCESS_DENIED_INVALID_CODE', { drug: drugName })
     }

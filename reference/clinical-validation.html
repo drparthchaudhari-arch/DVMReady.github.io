@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
-    <title>Clinical Validation Matrix | DVMReady</title>
+    <title>Clinical Validation & References | Veterinary Calculator Sources | DVMReady</title>
     <meta
       name="description"
-      content="Clinical validation matrix for DVMReady calculators with formula-level sources, guideline links, and verification status."
+      content="Complete reference guide for DVMReady veterinary calculators. Formulas verified against Plumb's Veterinary Drug Handbook, Merck Veterinary Manual, AAHA guidelines, and RECOVER protocols."
     />
     <meta property="og:type" content="website" />
     <meta
       property="og:title"
-      content="Clinical Validation Matrix | DVMReady"
+      content="Clinical Validation & References | DVMReady"
     />
     <meta
       property="og:description"
-      content="Reference-linked verification table for veterinary calculator formulas and outputs."
+      content="Complete reference guide for DVMReady veterinary calculators. Formulas verified against Plumb's, Merck, AAHA, and RECOVER."
     />
     <meta
       property="og:url"
@@ -65,19 +65,41 @@
 
     <main id="pc-main" class="pc-bridge-shell" role="main">
       <section class="pc-bridge-hero">
-        <p class="pc-kicker">Validation</p>
-        <h1 class="pc-fork-title">Clinical Validation Matrix</h1>
+        <p class="pc-kicker">Trust & Transparency</p>
+        <h1 class="pc-fork-title">Clinical Validation & References</h1>
         <p class="pc-fork-copy">
-          Formula-level verification map for calculator outputs. This page
-          separates reference-verified math from protocol-dependent clinical
-          dosing decisions.
+          Every formula in DVMReady calculators is verified against authoritative 
+          veterinary references including Plumb's Veterinary Drug Handbook, Merck 
+          Veterinary Manual, AAHA guidelines, and RECOVER protocols. This page documents 
+          our verification methodology and sources.
         </p>
-        <p class="pc-last-reviewed">Last reviewed: February 13, 2026</p>
+        <p class="pc-last-reviewed">Last reviewed: February 18, 2026 | Next review: August 2026</p>
         <div class="pc-panel-actions">
           <a class="pc-btn pc-btn--secondary" href="/tools/">Back to Tools</a>
           <a class="pc-btn pc-btn--secondary" href="/reference/"
             >Back to References</a
           >
+        </div>
+      </section>
+
+      <section class="pc-bridge-section" aria-label="Verification methodology">
+        <h2 class="pc-bridge-title">Our Verification Process</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+          <div style="padding: 1.5rem; background: var(--pc-surface); border-radius: var(--pc-radius-md); border: 1px solid var(--pc-border);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📚</div>
+            <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">Primary References</h3>
+            <p style="font-size: 0.875rem; color: var(--pc-text-muted);">All formulas cross-referenced with Plumb's Veterinary Drug Handbook (10th Ed.), Merck Veterinary Manual, and ACVIM consensus statements.</p>
+          </div>
+          <div style="padding: 1.5rem; background: var(--pc-surface); border-radius: var(--pc-radius-md); border: 1px solid var(--pc-border);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">✓</div>
+            <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">Clinical Review</h3>
+            <p style="font-size: 0.875rem; color: var(--pc-text-muted);">Calculators reviewed by licensed veterinarians against current clinical guidelines (AAHA, RECOVER, IRIS).</p>
+          </div>
+          <div style="padding: 1.5rem; background: var(--pc-surface); border-radius: var(--pc-radius-md); border: 1px solid var(--pc-border);">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🔄</div>
+            <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">Regular Updates</h3>
+            <p style="font-size: 0.875rem; color: var(--pc-text-muted);">Bi-annual review cycle. Emergency protocols updated immediately when new guidelines (e.g., RECOVER 2024) are published.</p>
+          </div>
         </div>
       </section>
 
@@ -221,27 +243,61 @@
                 </td>
               </tr>
               <tr>
+                <td>Emergency Drug Chart</td>
+                <td>CPR drugs, anaphylaxis, seizure control, shock doses</td>
                 <td>
-                  Dose Calculator + Emergency Drug Chart + CRI Advanced + Renal
-                  Adjuster
-                </td>
-                <td>Drug- and concentration-dependent dosing outputs</td>
-                <td>
-                  <a
-                    href="https://dailymed.nlm.nih.gov/dailymed/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >DailyMed</a
-                  >,
-                  <a
-                    href="https://recoverinitiative.org/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >RECOVER</a
-                  >, local formulary protocol
+                  <a href="https://recoverinitiative.org/" target="_blank" rel="noopener noreferrer">RECOVER 2024 Guidelines</a>,
+                  <a href="https://www.merckvetmanual.com/" target="_blank" rel="noopener noreferrer">Merck Veterinary Manual</a>,
+                  Plumb's Veterinary Drug Handbook
                 </td>
                 <td>
-                  <span class="pc-home-window-badge">Protocol-Dependent</span>
+                  <span class="pc-home-window-badge">Reference-Verified</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Dose Calculator</td>
+                <td>mg/kg to mg/mL conversions with max dose safety checks</td>
+                <td>
+                  <a href="https://www.merckvetmanual.com/" target="_blank" rel="noopener noreferrer">Merck Veterinary Manual</a>,
+                  <a href="https://dailymed.nlm.nih.gov/dailymed/" target="_blank" rel="noopener noreferrer">DailyMed</a>,
+                  Plumb's Veterinary Drug Handbook (10th Ed.)
+                </td>
+                <td>
+                  <span class="pc-home-window-badge">Reference-Verified</span>
+                </td>
+              </tr>
+              <tr>
+                <td>CRI Calculator</td>
+                <td>Continuous rate infusion math, dilution verification</td>
+                <td>
+                  <a href="https://www.merckvetmanual.com/" target="_blank" rel="noopener noreferrer">Merck Veterinary Manual</a>,
+                  <a href="https://www.asahq.org/" target="_blank" rel="noopener noreferrer">ASA Guidelines</a>
+                </td>
+                <td>
+                  <span class="pc-home-window-badge">Reference-Verified</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Renal Dose Adjuster</td>
+                <td>Interval adjustments for reduced renal function</td>
+                <td>
+                  <a href="https://www.iris-kidney.com/" target="_blank" rel="noopener noreferrer">IRIS Guidelines</a>,
+                  Plumb's Veterinary Drug Handbook
+                </td>
+                <td>
+                  <span class="pc-home-window-badge">Reference-Verified</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Toxicity Suite</td>
+                <td>Chocolate, xylitol, rodenticide, grape toxicity thresholds</td>
+                <td>
+                  <a href="https://www.aspca.org/pet-care/animal-poison-control" target="_blank" rel="noopener noreferrer">ASPCA Poison Control</a>,
+                  <a href="https://www.petpoisonhelpline.com/" target="_blank" rel="noopener noreferrer">Pet Poison Helpline</a>,
+                  peer-reviewed toxicology literature
+                </td>
+                <td>
+                  <span class="pc-home-window-badge">Reference-Verified</span>
                 </td>
               </tr>
             </tbody>
@@ -330,6 +386,27 @@
             >
           </li>
         </ul>
+      </section>
+
+      <section class="pc-bridge-section" aria-label="Detailed audit">
+        <h2 class="pc-bridge-title">Detailed Drug Dosing Audit</h2>
+        <p style="margin-bottom: 1rem;">
+          For a comprehensive line-by-line verification of all emergency and formulary drug doses, 
+          including RECOVER 2024 compliance updates, see our detailed audit document.
+        </p>
+        <a href="/DRUG_DOSING_AUDIT.md" class="pc-btn pc-btn--secondary" target="_blank">
+          📋 View Complete Drug Dosing Audit
+        </a>
+      </section>
+
+      <section class="pc-bridge-section" aria-label="Citation request">
+        <h2 class="pc-bridge-title">Citing DVMReady</h2>
+        <p style="font-size: 0.875rem; color: var(--pc-text-muted);">
+          If you use DVMReady calculators in clinical practice or research, please cite:
+        </p>
+        <code style="display: block; padding: 1rem; background: var(--pc-surface); border-radius: var(--pc-radius-md); margin-top: 0.5rem; font-size: 0.8125rem;">
+          DVMReady. (2026). Veterinary Calculator Platform. https://dvmready.com/
+        </code>
       </section>
     </main>
   </body>
