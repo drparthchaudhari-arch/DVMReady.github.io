@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <defs>
+    <linearGradient id="bg192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0c607d"/>
+      <stop offset="50%" style="stop-color:#1b7f9e"/>
+      <stop offset="100%" style="stop-color:#0c607d"/>
+    </linearGradient>
+    <linearGradient id="accent192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00f5d4"/>
+      <stop offset="100%" style="stop-color:#00d4b8"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="192" height="192" rx="48" fill="url(#bg192)"/>
+  <!-- DNA/Vet Cross hybrid symbol -->
+  <g transform="translate(96, 80)" filter="url(#glow)">
+    <!-- Cross -->
+    <rect x="-8" y="-40" width="16" height="80" rx="4" fill="url(#accent192)"/>
+    <rect x="-40" y="-8" width="80" height="16" rx="4" fill="url(#accent192)"/>
+    <!-- Center circle -->
+    <circle cx="0" cy="0" r="20" fill="white"/>
+    <circle cx="0" cy="0" r="14" fill="url(#bg192)"/>
+    <!-- Paw print -->
+    <ellipse cx="0" cy="4" rx="6" ry="5" fill="white"/>
+    <circle cx="-8" cy="-6" r="3" fill="white"/>
+    <circle cx="8" cy="-6" r="3" fill="white"/>
+    <circle cx="-5" cy="-14" r="2.5" fill="white"/>
+    <circle cx="5" cy="-14" r="2.5" fill="white"/>
+  </g>
+  <!-- Text -->
+  <text x="96" y="160" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="white" letter-spacing="2">DVM</text>
+</svg>

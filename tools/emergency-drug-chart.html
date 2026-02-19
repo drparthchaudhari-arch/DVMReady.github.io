@@ -3,579 +3,341 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#0c607d" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Emergency Drugs" />
-    <title>Emergency Drug Dose Chart | DVMReady Tools</title>
-    <meta
-      name="description"
-      content="Grab-and-go emergency drug chart for CPR, anaphylaxis, hyperkalemia, hypoglycemia, and seizures."
-    />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Emergency Drug Dose Chart | DVMReady Tools"
-    />
-    <meta
-      property="og:description"
-      content="Weight-based emergency dose reference with quick calculated amounts."
-    />
-    <meta
-      property="og:url"
-      content="https://dvmready.com/tools/emergency-drug-chart.html"
-    />
+    <title>Emergency Drug Chart | DVMReady Tools</title>
+    <meta name="description" content="Quick reference emergency drug doses for dogs and cats. ACLS drugs, CPR medications, anaphylaxis, and critical care drugs with instant calculation." />
     <link rel="canonical" href="https://dvmready.com/tools/emergency-drug-chart.html" />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
     <link rel="stylesheet" href="/assets/css/logo-styles.css" />
-    <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
-    <link rel="stylesheet" href="/assets/css/calculator-print.css" />
-    <script src="/assets/js/calculator-print.js" defer></script>
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/theme-toggle.js" defer></script>
-    <script src="/assets/js/legal-compliance.js" defer></script>
-    <script src="/assets/js/emergency-drug-chart.js" defer></script>
+    <script src="/assets/js/unified-calculator.js" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Veterinary Emergency Drug Chart",
       "applicationCategory": "HealthApplication",
-      "operatingSystem": "Any",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "description": "Quick reference emergency drug doses for dogs and cats. ACLS drugs, CPR medications, anaphylaxis, and critical care drugs.",
-      "url": "https://dvmready.com/tools/emergency-drug-chart.html",
-      "image": "https://dvmready.com/assets/img/dvmready-og.jpg",
-      "author": {
-        "@type": "Organization",
-        "name": "DVMReady",
-        "url": "https://dvmready.com"
-      },
-      "featureList": [
-        "Emergency drug doses",
-        "ACLS drug reference",
-        "CPR medication guide",
-        "Anaphylaxis protocol",
-        "Weight-based calculations"
-      ],
-      "softwareVersion": "1.0"
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Quick reference emergency drug doses for dogs and cats. ACLS drugs, CPR medications, anaphylaxis, and critical care drugs."
     }
     </script>
-    <script src="/assets/js/preferences.js" defer></script>
-    <script src="/assets/js/auth-system.js" defer></script>
-    <script src="/assets/js/animations.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
-      <div class="pc-float-shape pc-float-shape--1"></div>
-      <div class="pc-float-shape pc-float-shape--2"></div>
-    </div>
-
+    <div class="pc-ambient-container">
       <div class="pc-ambient-orb pc-ambient-orb--1"></div>
       <div class="pc-ambient-orb pc-ambient-orb--2"></div>
       <div class="pc-ambient-orb pc-ambient-orb--3"></div>
       <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
       <div class="pc-ambient-shape pc-ambient-shape--square"></div>
       <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
-      </div>
     </div>
-    
 
     <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
-    <!-- Mobile Menu Overlay -->
     <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
-    
 
-    
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
-    
+
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
         <a class="pc-logo" href="/">
           <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
           <span class="pc-logo__text">DVMReady</span>
         </a>
-
-        <!-- Search Bar (Desktop) -->
-        <form class="pc-nav-search" action="/search.html" method="get" role="search">
-          <div class="pc-search-wrapper">
-            <svg class="pc-search-icon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-            </svg>
-            <input 
-              type="search" 
-              name="q" 
-              class="pc-search-input pc-search-input--nav" 
-              placeholder="Search calculators, topics..."
-              aria-label="Search veterinary calculators"
-              autocomplete="off"
-            >
-            <kbd class="pc-search-shortcut">⌘K</kbd>
-          </div>
-        </form>
         <div class="pc-nav-group">
-          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/extra/">Extra</a>
-          <a class="pc-nav-link" href="/search.html">Search</a>
-          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
-          <a class="pc-nav-link" href="/account/">
-            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
-            <span class="pc-nav-link__text">Account</span>
-          </a>
-          <!-- Mobile Menu Toggle -->
-          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
             <span class="pc-mobile-toggle__bar"></span>
             <span class="pc-mobile-toggle__bar"></span>
             <span class="pc-mobile-toggle__bar"></span>
           </button>
-
         </div>
       </div>
     </nav>
 
-    <main id="pc-main" class="pc-calc-dashboard" role="main" style="padding-top: calc(5rem + env(safe-area-inset-top));">
-      <!-- Header -->
-      <header class="pc-calc-header pc-calc-animate">
-        <div class="pc-calc-header__title">
-          <div class="pc-calc-header__icon">🚨</div>
-          <div class="pc-calc-header__text">
-            <h1>Emergency Drug Chart</h1>
-            <p>Fast dosing aid for critical emergencies</p>
-          </div>
-        </div>
-        <div class="pc-calc-header__actions">
-          <div class="pc-calc-quick-actions">
-            <button type="button" class="pc-calc-action-btn" onclick="resetChart()" title="Reset all fields">
-              <span>↺</span> Reset
-            </button>
-            <button type="button" class="pc-calc-action-btn" onclick="toggleAutoCalc()" id="auto-calc-btn" title="Toggle auto-calculation">
-              <span>⚡</span> <span id="auto-calc-text">Auto: On</span>
-            </button>
-            <button type="button" id="er-print" class="pc-calc-action-btn" onclick="CalculatorPrint.printEmergencyChart()" title="Print chart">
-              <span>🖨️</span> Print
-            </button>
-            <a href="/tools/" class="pc-calc-action-btn">
-              <span>←</span> Back
-            </a>
-          </div>
-        </div>
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🚨</div>
+        <h1 class="calc-header__title">Emergency Drug Chart</h1>
+        <p class="calc-header__subtitle">Quick reference for critical care medications. Calculate doses instantly for CPR, anaphylaxis, and common emergencies.</p>
       </header>
 
-      <!-- Input Panel -->
-      <aside class="pc-calc-inputs pc-calc-animate pc-calc-animate--1" aria-label="Chart inputs">
-        <div class="pc-calc-panel">
-          <div class="pc-calc-panel__header">
-            <span class="pc-calc-panel__title">
-              <span class="pc-calc-panel__icon">📝</span>
-              Patient Inputs
-            </span>
-          </div>
-          <div class="pc-calc-panel__content">
-            <form id="er-dose-form" novalidate>
-              <!-- Weight -->
-              <div class="pc-calc-field">
-                <div class="pc-calc-field__label">
-                  <span>Weight</span>
-                  <span class="pc-calc-field__hint">kg</span>
-                </div>
-                <input 
-                  id="er-weight" 
-                  class="pc-calc-input pc-calc-input--number" 
-                  type="number" 
-                  min="0.2" 
-                  step="0.1" 
-                  placeholder="e.g. 22" 
-                  required 
-                  oninput="onInputChange()" 
-                />
-                <div class="pc-calc-chips">
-                  <button type="button" class="pc-calc-chip" onclick="setWeight(2.5)">2.5 kg</button>
-                  <button type="button" class="pc-calc-chip" onclick="setWeight(5)">5 kg</button>
-                  <button type="button" class="pc-calc-chip" onclick="setWeight(10)">10 kg</button>
-                  <button type="button" class="pc-calc-chip" onclick="setWeight(20)">20 kg</button>
-                  <button type="button" class="pc-calc-chip" onclick="setWeight(30)">30 kg</button>
-                </div>
-              </div>
+      <div class="calc-mode-toggle">
+        <button class="calc-mode-btn active" data-mode="basic"><span>⚡ Quick Reference</span></button>
+        <button class="calc-mode-btn" data-mode="advanced"><span>🔬 All Drugs</span></button>
+      </div>
 
-              <!-- Species -->
-              <div class="pc-calc-field">
-                <div class="pc-calc-field__label">
-                  <span>Species</span>
-                </div>
-                <select id="er-species" class="pc-calc-input" onchange="onInputChange()">
-                  <option value="dog">🐕 Dog</option>
-                  <option value="cat">🐈 Cat</option>
-                </select>
-              </div>
-
-              <button type="submit" class="pc-calc-submit" id="calc-btn">
-                <span>🧮</span> Update Doses
-              </button>
-            </form>
-          </div>
+      <div class="calc-card" id="emergency-calculator" data-calc="emergency">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span id="mode-icon">⚡</span>
+            <span id="mode-title">Emergency Protocols</span>
+          </h2>
+          <p class="calc-card__subtitle" id="mode-subtitle">Weight-based emergency drug calculations</p>
         </div>
 
-        <!-- Concentration Settings -->
-        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--2">
-          <div class="pc-calc-panel__header">
-            <span class="pc-calc-panel__title">
-              <span class="pc-calc-panel__icon">⚗️</span>
-              Concentrations
-            </span>
+        <div class="calc-card__body">
+          <!-- Species -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+            </div>
           </div>
-          <div class="pc-calc-panel__content" style="padding: 1rem;">
-            <p style="font-size: 0.8125rem; color: var(--calc-text-muted); margin-bottom: 1rem;">
-              Adjust concentration values for your stocked formulations. These values are used for volume calculations.
-            </p>
-            <button type="button" id="er-reset-concentration" class="pc-calc-action-btn" onclick="resetConcentrations()" style="width: 100%; justify-content: center;">
-              <span>↺</span> Reset Concentrations
-            </button>
-          </div>
-        </div>
 
-        <!-- Related Tools -->
-        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--3">
-          <div class="pc-calc-related">
-            <div class="pc-calc-related__title">Related Tools</div>
-            <div class="pc-calc-related__grid">
-              <a href="/tools/dose-calculator.html" class="pc-calc-related__item">
-                <span class="pc-calc-related__icon">💊</span>
-                <span>Dosing</span>
-              </a>
-              <a href="/tools/cri-calculator.html" class="pc-calc-related__item">
-                <span class="pc-calc-related__icon">💉</span>
-                <span>CRI Calc</span>
-              </a>
-              <a href="/tools/fluid-calculator.html" class="pc-calc-related__item">
-                <span class="pc-calc-related__icon">💧</span>
-                <span>Fluids</span>
-              </a>
-              <a href="/navle-emergency-critical-care/" class="pc-calc-related__item">
-                <span class="pc-calc-related__icon">📚</span>
-                <span>Guide</span>
-              </a>
+          <!-- Weight -->
+          <div class="calc-form-group">
+            <label class="calc-label">Weight</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="weight" placeholder="10" min="0.1" step="0.1" data-conversion="weight" data-unit="kg">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Emergency Type (Basic Mode) -->
+          <div class="calc-form-group" id="emergency-type-group">
+            <label class="calc-label">Emergency Type</label>
+            <select class="calc-select" id="emergency-type">
+              <option value="cpr">CPR / Cardiac Arrest</option>
+              <option value="anaphylaxis">Anaphylaxis</option>
+              <option value="seizure">Seizure / Status Epilepticus</option>
+              <option value="shock">Shock / Hypotension</option>
+              <option value="respiratory">Respiratory Distress</option>
+            </select>
+          </div>
+
+          <!-- Drug Category (Advanced Mode) -->
+          <div class="calc-form-group" id="drug-category-group" style="display: none;">
+            <label class="calc-label">Drug Category</label>
+            <select class="calc-select" id="drug-category">
+              <option value="all">All Emergency Drugs</option>
+              <option value="cpr">CPR/ACLS Drugs</option>
+              <option value="anaphylaxis">Anaphylaxis</option>
+              <option value="sedation">Emergency Sedation</option>
+              <option value="reversal">Reversal Agents</option>
+            </select>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>🚨</span> Calculate Emergency Doses
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <div id="emergency-drugs-list">
+              <!-- Drug cards will be inserted here -->
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy All</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
             </div>
           </div>
         </div>
-      </aside>
 
-      <!-- Main Content -->
-      <section class="pc-calc-main pc-calc-animate pc-calc-animate--2" aria-label="Emergency drug chart display" aria-live="polite">
-        <div class="pc-calc-viz">
-          <div class="pc-calc-viz__header">
-            <span class="pc-calc-viz__title">Grab-and-Go Dose Chart</span>
-          </div>
-
-          <!-- Emergency Categories Legend -->
-          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
-            <span style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; background: rgba(239, 68, 68, 0.1); color: #dc2626; border-radius: var(--calc-radius-sm); font-size: 0.75rem; font-weight: 500;">
-              <span style="width: 8px; height: 8px; background: #dc2626; border-radius: 50%;"></span>
-              CPR/Arrest
-            </span>
-            <span style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; background: rgba(245, 158, 11, 0.1); color: #d97706; border-radius: var(--calc-radius-sm); font-size: 0.75rem; font-weight: 500;">
-              <span style="width: 8px; height: 8px; background: #d97706; border-radius: 50%;"></span>
-              Anaphylaxis
-            </span>
-            <span style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; background: rgba(99, 102, 241, 0.1); color: #4f46e5; border-radius: var(--calc-radius-sm); font-size: 0.75rem; font-weight: 500;">
-              <span style="width: 8px; height: 8px; background: #4f46e5; border-radius: 50%;"></span>
-              Hyperkalemia
-            </span>
-            <span style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; background: rgba(16, 185, 129, 0.1); color: #059669; border-radius: var(--calc-radius-sm); font-size: 0.75rem; font-weight: 500;">
-              <span style="width: 8px; height: 8px; background: #059669; border-radius: 50%;"></span>
-              Hypoglycemia
-            </span>
-            <span style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; background: rgba(139, 92, 246, 0.1); color: #7c3aed; border-radius: var(--calc-radius-sm); font-size: 0.75rem; font-weight: 500;">
-              <span style="width: 8px; height: 8px; background: #7c3aed; border-radius: 50%;"></span>
-              Seizures
-            </span>
-          </div>
-
-          <!-- Drug Chart Table -->
-          <div class="pc-table-wrap" style="margin-bottom: 1rem;">
-            <table class="pc-table" id="er-drug-table">
-              <thead>
-                <tr>
-                  <th>Use Case</th>
-                  <th>Drug</th>
-                  <th>Standard Dose</th>
-                  <th>Concentration</th>
-                  <th>Calculated Dose</th>
-                  <th>Approx Volume</th>
-                  <th>Route</th>
-                </tr>
-              </thead>
-              <tbody id="er-drug-rows"></tbody>
-            </table>
-          </div>
-
-          <!-- Note when no weight entered -->
-          <p id="er-drug-note" class="pc-calculator-note" style="text-align: center; padding: 2rem;">
-            Enter patient weight to render calculated doses.
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            ⚠️ Emergency reference only. Always confirm doses and follow current CPR guidelines. Call for help immediately in emergencies.
           </p>
+        </div>
+      </div>
 
-          <!-- Quick Tips -->
-          <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--calc-glass-border);">
-            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
-              💡 Emergency Tips
-            </div>
-            <ul style="font-size: 0.8125rem; color: var(--calc-text-muted); line-height: 1.8; margin: 0; padding-left: 1.25rem;">
-              <li>Always verify drug concentrations on vial labels before administration</li>
-              <li>Have emergency reversal agents readily available (e.g., naloxone for opioids)</li>
-              <li>CPR drugs can be given via endotracheal route if IV access is delayed</li>
-              <li>Double-check calculations in high-stress situations - use the copy button to share results</li>
-            </ul>
+      <!-- Quick Reference Cards -->
+      <div style="margin-top: 2rem;">
+        <h3 style="text-align: center; color: var(--calc-text-secondary); margin-bottom: 1rem;">Always Remember</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+          <div style="background: var(--calc-surface); border: 1px solid var(--calc-border); border-radius: 12px; padding: 1rem; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">📞</div>
+            <h4 style="margin: 0 0 0.25rem; color: var(--calc-text-primary);">Call for Help</h4>
+            <p style="margin: 0; font-size: 0.875rem; color: var(--calc-text-muted);">Alert team immediately</p>
+          </div>
+          <div style="background: var(--calc-surface); border: 1px solid var(--calc-border); border-radius: 12px; padding: 1rem; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🧮</div>
+            <h4 style="margin: 0 0 0.25rem; color: var(--calc-text-primary);">Double Check</h4>
+            <p style="margin: 0; font-size: 0.875rem; color: var(--calc-text-muted);">Verify all calculations</p>
+          </div>
+          <div style="background: var(--calc-surface); border: 1px solid var(--calc-border); border-radius: 12px; padding: 1rem; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏱️</div>
+            <h4 style="margin: 0 0 0.25rem; color: var(--calc-text-primary);">Time Matters</h4>
+            <p style="margin: 0; font-size: 0.875rem; color: var(--calc-text-muted);">Act quickly but calmly</p>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- Results Panel -->
-      <aside class="pc-calc-results pc-calc-animate pc-calc-animate--3" aria-label="Chart summary" aria-live="polite">
-        <div class="pc-calc-panel">
-          <div class="pc-calc-panel__header">
-            <span class="pc-calc-panel__title">
-              <span class="pc-calc-panel__icon">📋</span>
-              Chart Summary
-            </span>
-            <button type="button" class="pc-calc-copy" onclick="copyResults()" title="Copy results">
-              📋
-            </button>
-          </div>
-          <div class="pc-calc-panel__content">
-            <!-- Patient Info -->
-            <div class="pc-calc-result-card pc-calc-result-card--primary" id="patient-info-card">
-              <div class="pc-calc-result__label">
-                <span>🐾</span> Patient
-              </div>
-              <div class="pc-calc-result__value" style="font-size: 1.25rem;">
-                <span id="summary-weight">--</span>
-                <span class="pc-calc-result__unit">kg</span>
-                <span id="summary-species" style="font-size: 0.875rem; color: var(--calc-text-muted);">--</span>
-              </div>
-              <div class="pc-calc-result__context" id="summary-status">Enter weight to see chart</div>
-            </div>
-
-            <!-- Drug Count -->
-            <div class="pc-calc-result-card">
-              <div class="pc-calc-result__label">
-                <span>💊</span> Active Drugs
-              </div>
-              <div class="pc-calc-result__value">
-                <span id="summary-drug-count">--</span>
-              </div>
-              <div class="pc-calc-result__context">For selected species</div>
-            </div>
-
-            <!-- Progress indicator -->
-            <div class="pc-calc-progress" style="margin-top: 1rem;">
-              <div class="pc-calc-progress__bar" id="calc-progress" style="width: 0%"></div>
-            </div>
-          </div>
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/dose-calculator.html" class="calc-chip">💊 Dose Calculator</a>
+          <a href="/tools/fluid-calculator.html" class="calc-chip">💧 Fluid Calculator</a>
+          <a href="/tools/cri-calculator.html" class="calc-chip">💉 CRI Calculator</a>
+          <a href="/tools/shock-types-veterinary/" class="calc-chip">⚡ Shock Types</a>
         </div>
-
-        <!-- Emergency Reference -->
-        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--4">
-          <div class="pc-calc-panel__content" style="padding: 1rem;">
-            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
-              ⚡ Quick Reference
-            </div>
-            <div style="font-size: 0.75rem; line-height: 1.6;">
-              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--calc-glass-border);">
-                <span>Epinephrine (CPR)</span>
-                <span style="font-weight: 500;">0.01-0.1 mg/kg</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--calc-glass-border);">
-                <span>Atropine</span>
-                <span style="font-weight: 500;">0.02-0.04 mg/kg</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0; border-bottom: 1px solid var(--calc-glass-border);">
-                <span>Diphenhydramine</span>
-                <span style="font-weight: 500;">1-2 mg/kg</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; padding: 0.375rem 0;">
-                <span>Diazepam</span>
-                <span style="font-weight: 500;">0.5-2 mg/kg</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Disclaimer -->
-        <div style="padding: 0.75rem; font-size: 0.6875rem; color: var(--calc-text-muted); text-align: center; line-height: 1.5;">
-          Educational tool only. Doses are estimates - always verify with current formularies.
-        </div>
-      </aside>
+      </div>
     </main>
 
-    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal" style="margin-top: 0;">
-      <div class="pc-footer__bottom">
-        <div class="pc-footer__legal">
-          <a href="/">Home</a>
-          <a href="/tools/">Tools</a>
-          <a href="/reference/">References</a>
-          <a href="/privacy/">Privacy</a>
-        </div>
-        <p class="pc-footer__copyright">© 2025 DVMReady. Not a substitute for professional veterinary advice.</p>
-      </div>
-    </footer>
-
     <script>
-      // Auto-calculation toggle
-      let autoCalcEnabled = true;
-      
-      function toggleAutoCalc() {
-        autoCalcEnabled = !autoCalcEnabled;
-        document.getElementById('auto-calc-text').textContent = autoCalcEnabled ? 'Auto: On' : 'Auto: Off';
-        document.getElementById('auto-calc-btn').classList.toggle('pc-calc-chip--active', autoCalcEnabled);
-        if (autoCalcEnabled) {
-          updateDoses();
-        }
-      }
+    (function() {
+      const els = {
+        modeBtns: document.querySelectorAll('.calc-mode-btn'),
+        speciesBtns: document.querySelectorAll('.calc-species-btn'),
+        weightInput: document.getElementById('weight'),
+        emergencyType: document.getElementById('emergency-type'),
+        emergencyGroup: document.getElementById('emergency-type-group'),
+        drugCategory: document.getElementById('drug-category'),
+        categoryGroup: document.getElementById('drug-category-group'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        drugsList: document.getElementById('emergency-drugs-list'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
 
-      // Input change handler
-      function onInputChange() {
-        updateProgress();
-        if (autoCalcEnabled) {
-          updateDoses();
-        }
-      }
+      let currentMode = 'basic';
+      let currentSpecies = 'dog';
 
-      // Update progress bar
-      function updateProgress() {
-        const weight = document.getElementById('er-weight').value;
-        const progress = weight ? 100 : 0;
-        document.getElementById('calc-progress').style.width = progress + '%';
-      }
+      const EMERGENCY_DRUGS = {
+        cpr: [
+          { name: 'Epinephrine', dose: '0.01 mg/kg', max: '1 mg', route: 'IV/IO', concentration: '1 mg/mL', note: 'Repeat every 3-5 min' },
+          { name: 'Atropine', dose: '0.04 mg/kg', max: '3 mg', route: 'IV/IO', concentration: '0.54 mg/mL', note: 'For bradycardia/asystole' },
+          { name: 'Vasopressin', dose: '0.8 U/kg', max: '', route: 'IV/IO', concentration: '20 U/mL', note: 'Alternative to epinephrine' }
+        ],
+        anaphylaxis: [
+          { name: 'Epinephrine', dose: '0.01 mg/kg', max: '0.5 mg', route: 'IM', concentration: '1 mg/mL', note: 'Lateral thigh, repeat q5-15min' },
+          { name: 'Diphenhydramine', dose: '1-2 mg/kg', max: '50 mg', route: 'IM/IV', concentration: '50 mg/mL', note: '' },
+          { name: 'Dexamethasone', dose: '0.1-0.5 mg/kg', max: '', route: 'IV', concentration: '4 mg/mL', note: 'Anti-inflammatory' }
+        ],
+        seizure: [
+          { name: 'Diazepam', dose: '0.5-1 mg/kg', max: '20 mg', route: 'IV/PR', concentration: '5 mg/mL', note: 'Repeat up to 3 times' },
+          { name: 'Midazolam', dose: '0.1-0.3 mg/kg', max: '', route: 'IV/IM', concentration: '5 mg/mL', note: 'Alternative to diazepam' },
+          { name: 'Propofol', dose: '1-6 mg/kg', max: '', route: 'IV', concentration: '10 mg/mL', note: 'If benzodiazepines fail' }
+        ],
+        shock: [
+          { name: 'Fluid Bolus', dose: '10-20 mL/kg', max: '', route: 'IV', concentration: '', note: 'Crystalloids over 15-20 min' },
+          { name: 'Hydrocortisone', dose: '1-5 mg/kg', max: '', route: 'IV', concentration: '50 mg/mL', note: 'If suspect adrenal crisis' }
+        ],
+        respiratory: [
+          { name: 'Butorphanol', dose: '0.1-0.4 mg/kg', max: '', route: 'IV/IM', concentration: '10 mg/mL', note: 'For cough/sedation' },
+          { name: 'Oxygen', dose: '100%', max: '', route: 'Flow-by/mask', concentration: '', note: 'Start immediately' }
+        ]
+      };
 
-      // Set weight from chip
-      function setWeight(weight) {
-        document.getElementById('er-weight').value = weight;
-        onInputChange();
-        
-        // Visual feedback
-        const chips = event.target.parentElement.querySelectorAll('.pc-calc-chip');
-        chips.forEach(chip => chip.classList.remove('pc-calc-chip--active'));
-        event.target.classList.add('pc-calc-chip--active');
-      }
-
-      // Reset chart
-      function resetChart() {
-        document.getElementById('er-weight').value = '';
-        document.getElementById('er-species').value = 'dog';
-        document.getElementById('er-drug-rows').innerHTML = '';
-        document.getElementById('er-drug-note').style.display = 'block';
-        
-        // Reset summary
-        document.getElementById('summary-weight').textContent = '--';
-        document.getElementById('summary-species').textContent = '--';
-        document.getElementById('summary-status').textContent = 'Enter weight to see chart';
-        document.getElementById('summary-drug-count').textContent = '--';
-        
-        // Reset chips
-        document.querySelectorAll('.pc-calc-chip').forEach(chip => {
-          chip.classList.remove('pc-calc-chip--active');
-        });
-        
-        updateProgress();
-        showToast('Chart reset', 'info');
-      }
-
-      // Reset concentrations
-      function resetConcentrations() {
-        // This will be handled by emergency-drug-chart.js
-        if (typeof resetConcentrationValues === 'function') {
-          resetConcentrationValues();
-        }
-        showToast('Concentrations reset to defaults', 'info');
-      }
-
-      // Print chart
-      function printChart() {
-        window.print();
-      }
-
-      // Copy results
-      function copyResults() {
-        const weight = document.getElementById('er-weight').value;
-        const species = document.getElementById('er-species').value;
-        
-        if (!weight) {
-          showToast('Enter weight first', 'warning');
-          return;
-        }
-        
-        const text = `Emergency Drug Chart - ${weight}kg ${species}`;
-        
-        navigator.clipboard.writeText(text).then(() => {
-          const btn = document.querySelector('.pc-calc-copy');
-          btn.classList.add('pc-calc-copy--copied');
-          btn.textContent = '✓';
-          showToast('Chart info copied to clipboard', 'success');
-          setTimeout(() => {
-            btn.classList.remove('pc-calc-copy--copied');
-            btn.textContent = '📋';
-          }, 2000);
-        });
-      }
-
-      // Update doses (placeholder - actual logic in emergency-drug-chart.js)
-      function updateDoses() {
-        const weight = document.getElementById('er-weight').value;
-        const species = document.getElementById('er-species').value;
-        
-        if (weight) {
-          document.getElementById('er-drug-note').style.display = 'none';
-          document.getElementById('summary-weight').textContent = weight;
-          document.getElementById('summary-species').textContent = species === 'dog' ? '🐕 Dog' : '🐈 Cat';
-          document.getElementById('summary-status').textContent = 'Chart active';
+      els.modeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentMode = btn.dataset.mode;
+          els.modeBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
           
-          // The actual table rendering is done by emergency-drug-chart.js
-          // This triggers the form submission for that script
-          const form = document.getElementById('er-dose-form');
-          if (form && typeof form.dispatchEvent === 'function') {
-            form.dispatchEvent(new Event('submit'));
-          }
-        } else {
-          document.getElementById('er-drug-note').style.display = 'block';
-          document.getElementById('summary-weight').textContent = '--';
-          document.getElementById('summary-species').textContent = '--';
-          document.getElementById('summary-status').textContent = 'Enter weight to see chart';
-          document.getElementById('summary-drug-count').textContent = '--';
-        }
-      }
-
-      // Toast notification
-      function showToast(message, type = 'info') {
-        const container = document.querySelector('.pc-toast-container');
-        const toast = document.createElement('div');
-        toast.className = `pc-toast pc-toast--${type}`;
-        toast.textContent = message;
-        container.appendChild(toast);
-        
-        setTimeout(() => {
-          toast.classList.add('pc-toast--show');
-        }, 10);
-        
-        setTimeout(() => {
-          toast.classList.remove('pc-toast--show');
-          setTimeout(() => toast.remove(), 300);
-        }, 3000);
-      }
-
-      // Form submission handler
-      document.getElementById('er-dose-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        // The emergency-drug-chart.js handles the actual rendering
-        // This just ensures the form doesn't actually submit
+          document.getElementById('mode-icon').textContent = currentMode === 'basic' ? '⚡' : '🔬';
+          document.getElementById('mode-title').textContent = currentMode === 'basic' ? 'Emergency Protocols' : 'Complete Drug Reference';
+          document.getElementById('mode-subtitle').textContent = currentMode === 'basic' ? 'Weight-based emergency drug calculations' : 'All emergency medications with dosing';
+          
+          els.emergencyGroup.style.display = currentMode === 'basic' ? 'block' : 'none';
+          els.categoryGroup.style.display = currentMode === 'advanced' ? 'block' : 'none';
+        });
       });
 
-      // Initial progress update
-      document.addEventListener('DOMContentLoaded', updateProgress);
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      function calculate() {
+        const weight = parseFloat(els.weightInput.value);
+        if (!weight) return;
+
+        const emergencyType = els.emergencyType.value;
+        const drugs = EMERGENCY_DRUGS[emergencyType] || [];
+
+        els.drugsList.innerHTML = drugs.map(drug => {
+          // Calculate actual dose
+          let calculatedDose = '';
+          if (drug.dose.includes('mg/kg')) {
+            const doseNum = parseFloat(drug.dose);
+            const totalMg = doseNum * weight;
+            calculatedDose = `${totalMg.toFixed(1)} mg`;
+          } else if (drug.dose.includes('mL/kg')) {
+            const doseNum = parseFloat(drug.dose);
+            const totalMl = doseNum * weight;
+            calculatedDose = `${totalMl.toFixed(1)} mL`;
+          } else if (drug.dose.includes('U/kg')) {
+            const doseNum = parseFloat(drug.dose);
+            const totalU = doseNum * weight;
+            calculatedDose = `${totalU.toFixed(1)} U`;
+          }
+
+          // Calculate volume to administer
+          let volume = '';
+          if (drug.concentration && drug.concentration.includes('mg/mL')) {
+            const conc = parseFloat(drug.concentration);
+            const mg = parseFloat(calculatedDose);
+            volume = `${(mg / conc).toFixed(2)} mL`;
+          } else if (drug.concentration && drug.concentration.includes('U/mL')) {
+            const conc = parseFloat(drug.concentration);
+            const units = parseFloat(calculatedDose);
+            volume = `${(units / conc).toFixed(2)} mL`;
+          }
+
+          return `
+            <div class="calc-result-card" style="margin-bottom: 1rem;">
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                <h4 style="margin: 0; color: var(--calc-primary);">${drug.name}</h4>
+                <span style="font-size: 0.8rem; color: var(--calc-text-muted);">${drug.route}</span>
+              </div>
+              <p style="margin: 0.25rem 0; font-size: 0.9rem;">
+                <strong>${calculatedDose}</strong> 
+                ${volume ? `(<strong>${volume}</strong>)` : ''}
+              </p>
+              <p style="margin: 0.25rem 0; font-size: 0.8rem; color: var(--calc-text-muted);">
+                Standard: ${drug.dose} · ${drug.concentration || 'N/A'}
+              </p>
+              ${drug.note ? `<p style="margin: 0.5rem 0 0; font-size: 0.8rem; color: var(--calc-warning);">💡 ${drug.note}</p>` : ''}
+            </div>
+          `;
+        }).join('');
+
+        els.results.style.display = 'block';
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const cards = els.drugsList.querySelectorAll('.calc-result-card');
+        let text = `Emergency Drugs for ${els.weightInput.value}kg ${currentSpecies}:\n\n`;
+        cards.forEach(card => {
+          const name = card.querySelector('h4').textContent;
+          const dose = card.querySelector('strong').textContent;
+          text += `${name}: ${dose}\n`;
+        });
+        
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy All', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.weightInput.value = '';
+        els.results.style.display = 'none';
+      });
+    })();
     </script>
   </body>
 </html>
