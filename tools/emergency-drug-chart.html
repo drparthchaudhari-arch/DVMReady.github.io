@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="/assets/css/portal.css" />
     <link rel="stylesheet" href="/assets/css/logo-styles.css" />
     <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
     <link rel="stylesheet" href="/assets/css/calculator-print.css" />
     <script src="/assets/js/calculator-print.js" defer></script>
     <script src="/assets/js/nav-status.js" defer></script>
@@ -148,6 +149,7 @@
           <div class="pc-calc-header__icon">🚨</div>
           <div class="pc-calc-header__text">
             <h1>Emergency Drug Chart</h1>
+            <p>RECOVER 2024 Guidelines</p>
             <p>Fast dosing aid for critical emergencies</p>
           </div>
         </div>
@@ -168,6 +170,16 @@
           </div>
         </div>
       </header>
+
+      <!-- Mode Toggle -->
+      <div class="calc-mode-toggle" style="max-width: 400px; margin: 1rem auto;">
+        <button class="calc-mode-btn active" data-mode="fast" onclick="setMode('fast')">
+          <span>⚡ Fast</span>
+        </button>
+        <button class="calc-mode-btn" data-mode="advanced" onclick="setMode('advanced')">
+          <span>🔬 Advanced</span>
+        </button>
+      </div>
 
       <!-- Input Panel -->
       <aside class="pc-calc-inputs pc-calc-animate pc-calc-animate--1" aria-label="Chart inputs">
@@ -549,6 +561,22 @@
           document.getElementById('summary-status').textContent = 'Enter weight to see chart';
           document.getElementById('summary-drug-count').textContent = '--';
         }
+      }
+
+      // Mode toggle
+      let currentMode = 'fast';
+      
+      function setMode(mode) {
+        currentMode = mode;
+        document.querySelectorAll('.calc-mode-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.mode === mode);
+        });
+        
+        // Show/hide advanced elements
+        const advancedElements = document.querySelectorAll('.er-advanced');
+        advancedElements.forEach(el => {
+          el.style.display = mode === 'advanced' ? 'block' : 'none';
+        });
       }
 
       // Toast notification
