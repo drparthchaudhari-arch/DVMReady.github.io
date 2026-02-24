@@ -9,6 +9,9 @@
   // ==========================================
   // UTILITY FUNCTIONS
   // ==========================================
+
+  const STORAGE_PREFIX = 'dvmready_calc_';
+  const LEGACY_STORAGE_PREFIX = 'dvmcalc_';
   
   const Utils = {
     // Weight conversions
@@ -76,7 +79,7 @@
     // Save to localStorage with error handling
     saveToStorage: function(key, value) {
       try {
-        localStorage.setItem(`dvmcalc_${key}`, JSON.stringify(value));
+        localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(value));
         return true;
       } catch (e) {
         console.warn('Failed to save to storage:', e);
@@ -87,8 +90,17 @@
     // Load from localStorage
     loadFromStorage: function(key, defaultValue = null) {
       try {
-        const item = localStorage.getItem(`dvmcalc_${key}`);
-        return item ? JSON.parse(item) : defaultValue;
+        const primaryItem = localStorage.getItem(STORAGE_PREFIX + key);
+        if (primaryItem) {
+          return JSON.parse(primaryItem);
+        }
+        const legacyItem = localStorage.getItem(LEGACY_STORAGE_PREFIX + key);
+        if (legacyItem) {
+          const parsed = JSON.parse(legacyItem);
+          localStorage.setItem(STORAGE_PREFIX + key, legacyItem);
+          return parsed;
+        }
+        return defaultValue;
       } catch (e) {
         console.warn('Failed to load from storage:', e);
         return defaultValue;

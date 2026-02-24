@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <title>Dextrose Dilution Calculator | DVMReady Tools</title>
+    <meta
+      name="description"
+      content="Calculate sterile dilution volumes for preparing D25, D12.5, D10, and D5 from stocked dextrose solutions in veterinary practice."
+    />
+    <link rel="canonical" href="https://dvmready.com/tools/dextrose-dilution-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/clinic-utilities.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/clinic-utilities.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true" />
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🍬</div>
+        <h1 class="calc-header__title">Dextrose Dilution Calculator</h1>
+        <p class="calc-header__subtitle">
+          Prepare target dextrose concentration safely using stock dextrose and sterile diluent.
+        </p>
+      </header>
+
+      <div class="calc-card">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">Dilution Setup</h2>
+          <p class="calc-card__subtitle">Inputs and calculated mixing volumes</p>
+        </div>
+
+        <div class="calc-card__body">
+          <div class="calc-form-group">
+            <label class="calc-label" for="stock-concentration">Stock Concentration</label>
+            <select id="stock-concentration" class="calc-select">
+              <option value="50">D50 (50%)</option>
+              <option value="25">D25 (25%)</option>
+              <option value="10">D10 (10%)</option>
+            </select>
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="target-concentration">Target Concentration</label>
+            <select id="target-concentration" class="calc-select">
+              <option value="25">D25 (25%)</option>
+              <option value="12.5" selected>D12.5 (12.5%)</option>
+              <option value="10">D10 (10%)</option>
+              <option value="5">D5 (5%)</option>
+              <option value="2.5">D2.5 (2.5%)</option>
+            </select>
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="final-volume">Final Volume (mL)</label>
+            <input
+              id="final-volume"
+              class="calc-input"
+              type="number"
+              min="1"
+              step="1"
+              value="100"
+              inputmode="decimal"
+            />
+          </div>
+
+          <button type="button" id="calculate-btn" class="calc-btn">
+            <span>🧪</span>
+            Calculate Mix
+          </button>
+
+          <div id="result-box" class="calc-results" style="display: none">
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Stock Solution Volume</p>
+              <p class="calc-result-card__value">
+                <span id="stock-volume">--</span>
+                <span class="calc-result-card__unit">mL</span>
+              </p>
+              <p class="calc-result-card__context" id="stock-context">Volume to draw from stock</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Diluent Volume</p>
+              <p class="calc-result-card__value">
+                <span id="diluent-volume">--</span>
+                <span class="calc-result-card__unit">mL</span>
+              </p>
+              <p class="calc-result-card__context">Sterile water or isotonic fluid per protocol</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Mixing Ratio (Stock : Diluent)</p>
+              <p class="calc-result-card__value" id="mix-ratio">--</p>
+              <p class="calc-result-card__context">Rounded for practical bedside preparation</p>
+            </div>
+
+            <div class="calc-info-box" style="margin-top: 1rem">
+              <h3 style="margin: 0 0 0.5rem; font-size: 0.95rem">Safety Notes</h3>
+              <ul style="margin: 0; padding-left: 1.2rem">
+                <li>Confirm concentration on vial/bag label before drawing up.</li>
+                <li>Do not give concentrated dextrose undiluted via peripheral vein.</li>
+                <li>Document final concentration and time mixed on the bag/syringe label.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          Educational support only. Follow clinic SOPs and supervising clinician guidance.
+        </div>
+      </div>
+    </main>
+
+    <script>
+      ;(function () {
+        var stockInput = document.getElementById('stock-concentration')
+        var targetInput = document.getElementById('target-concentration')
+        var finalVolumeInput = document.getElementById('final-volume')
+        var calculateButton = document.getElementById('calculate-btn')
+        var resultBox = document.getElementById('result-box')
+        var stockVolumeNode = document.getElementById('stock-volume')
+        var stockContextNode = document.getElementById('stock-context')
+        var diluentVolumeNode = document.getElementById('diluent-volume')
+        var ratioNode = document.getElementById('mix-ratio')
+
+        function round(value) {
+          return Math.round(value * 100) / 100
+        }
+
+        function gcd(a, b) {
+          var x = Math.round(Math.abs(a) * 100)
+          var y = Math.round(Math.abs(b) * 100)
+          while (y !== 0) {
+            var temp = y
+            y = x % y
+            x = temp
+          }
+          return x || 1
+        }
+
+        function calculate() {
+          var stock = Number(stockInput.value)
+          var target = Number(targetInput.value)
+          var finalVolume = Number(finalVolumeInput.value)
+
+          if (!Number.isFinite(stock) || !Number.isFinite(target) || !Number.isFinite(finalVolume) || finalVolume <= 0) {
+            return
+          }
+
+          if (target > stock) {
+            stockVolumeNode.textContent = '--'
+            diluentVolumeNode.textContent = '--'
+            ratioNode.textContent = 'Invalid: target concentration is higher than stock concentration.'
+            stockContextNode.textContent = 'Select a stronger stock or lower target concentration.'
+            resultBox.style.display = 'block'
+            return
+          }
+
+          var stockVolume = (target / stock) * finalVolume
+          var diluentVolume = finalVolume - stockVolume
+          var divisor = gcd(stockVolume, diluentVolume)
+          var ratioStock = Math.max(1, Math.round((stockVolume * 100) / divisor))
+          var ratioDiluent = Math.max(1, Math.round((diluentVolume * 100) / divisor))
+
+          stockVolumeNode.textContent = round(stockVolume).toFixed(2)
+          diluentVolumeNode.textContent = round(diluentVolume).toFixed(2)
+          ratioNode.textContent = ratioStock + ' : ' + ratioDiluent
+          stockContextNode.textContent = 'Draw from D' + stock + ' stock solution.'
+          resultBox.style.display = 'block'
+        }
+
+        calculateButton.addEventListener('click', calculate)
+        ;[stockInput, targetInput, finalVolumeInput].forEach(function (node) {
+          node.addEventListener('input', calculate)
+          node.addEventListener('change', calculate)
+        })
+
+        calculate()
+      })()
+    </script>
+  </body>
+</html>

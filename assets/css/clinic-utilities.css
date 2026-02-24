@@ -1,0 +1,245 @@
+.pc-clinic-fab {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 5000;
+  border: 1px solid var(--pc-border, #334155);
+  background: var(--pc-primary, #0c607d);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+}
+
+.pc-clinic-panel {
+  position: fixed;
+  right: 1rem;
+  bottom: 4.4rem;
+  z-index: 5000;
+  width: min(420px, calc(100vw - 2rem));
+  max-height: 80vh;
+  overflow: auto;
+  background: var(--pc-surface, #0f172a);
+  color: var(--pc-text, #e2e8f0);
+  border: 1px solid var(--pc-border, #334155);
+  border-radius: 14px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+  padding: 0.9rem;
+}
+
+.pc-clinic-panel[hidden] {
+  display: none;
+}
+
+.pc-clinic-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.pc-clinic-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.pc-clinic-close {
+  border: 1px solid var(--pc-border, #334155);
+  background: transparent;
+  color: inherit;
+  border-radius: 8px;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.pc-clinic-section {
+  border: 1px solid var(--pc-border, #334155);
+  border-radius: 10px;
+  padding: 0.7rem;
+  margin-bottom: 0.7rem;
+  background: color-mix(in srgb, var(--pc-surface, #0f172a) 90%, #000 10%);
+}
+
+.pc-clinic-section h4 {
+  margin: 0 0 0.55rem;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--pc-text-muted, #94a3b8);
+}
+
+.pc-clinic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.pc-clinic-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+}
+
+.pc-clinic-field--full {
+  grid-column: 1 / -1;
+}
+
+.pc-clinic-field label {
+  font-size: 0.72rem;
+  color: var(--pc-text-muted, #94a3b8);
+}
+
+.pc-clinic-field input,
+.pc-clinic-field select,
+.pc-clinic-field textarea {
+  border: 1px solid var(--pc-border, #334155);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--pc-bg, #020617) 86%, #000 14%);
+  color: inherit;
+  padding: 0.48rem 0.55rem;
+  font-size: 0.86rem;
+}
+
+.pc-clinic-field textarea {
+  min-height: 72px;
+  resize: vertical;
+}
+
+.pc-clinic-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.pc-clinic-actions button {
+  border: 1px solid var(--pc-border, #334155);
+  background: color-mix(in srgb, var(--pc-primary, #0c607d) 15%, transparent);
+  color: inherit;
+  border-radius: 8px;
+  padding: 0.42rem 0.58rem;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.pc-clinic-math-display {
+  width: 100%;
+  border: 1px solid var(--pc-border, #334155);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--pc-bg, #020617) 86%, #000 14%);
+  color: inherit;
+  padding: 0.55rem 0.6rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  min-height: 2.2rem;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+
+.pc-clinic-math-grid {
+  margin-top: 0.55rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.pc-clinic-math-btn {
+  border: 1px solid var(--pc-border, #334155);
+  background: color-mix(in srgb, var(--pc-primary, #0c607d) 9%, transparent);
+  color: inherit;
+  border-radius: 8px;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.pc-clinic-mode-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+}
+
+.pc-clinic-switch {
+  appearance: none;
+  width: 46px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid var(--pc-border, #334155);
+  background: #334155;
+  position: relative;
+  cursor: pointer;
+}
+
+.pc-clinic-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.16s ease;
+}
+
+.pc-clinic-switch:checked {
+  background: var(--pc-primary, #0c607d);
+}
+
+.pc-clinic-switch:checked::after {
+  transform: translateX(22px);
+}
+
+.clinic-mode .pc-ambient-container,
+.clinic-mode .pc-ambient-orb,
+.clinic-mode .pc-ambient-shape,
+.clinic-mode .pc-ambient-particles,
+.clinic-mode .pc-float-shape,
+.clinic-mode .pc-page-transition,
+.clinic-mode .pc-construction-popup,
+.clinic-mode [data-animate-group],
+.clinic-mode [data-animate] {
+  display: none !important;
+}
+
+.clinic-mode *,
+.clinic-mode *::before,
+.clinic-mode *::after {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+.clinic-mode .calc-header__subtitle,
+.clinic-mode .pc-disclaimer,
+.clinic-mode .pc-footer__bottom {
+  opacity: 0.82;
+}
+
+.clinic-mode .calc-input,
+.clinic-mode .calc-select,
+.clinic-mode .calc-btn,
+.clinic-mode .pc-calc-input,
+.clinic-mode .pc-calc-submit,
+.clinic-mode .calc-action-btn {
+  min-height: 44px;
+  font-size: 1rem;
+}
+
+@media (max-width: 700px) {
+  .pc-clinic-panel {
+    right: 0.5rem;
+    left: 0.5rem;
+    width: auto;
+    bottom: 4.4rem;
+  }
+
+  .pc-clinic-grid {
+    grid-template-columns: 1fr;
+  }
+}

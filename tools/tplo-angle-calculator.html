@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <title>TPLO Angle Calculator | DVMReady Tools</title>
+    <meta
+      name="description"
+      content="Estimate TPLO rotational correction from pre-operative tibial plateau angle and target post-op angle."
+    />
+    <link rel="canonical" href="https://dvmready.com/tools/tplo-angle-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/clinic-utilities.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/clinic-utilities.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true" />
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🦴</div>
+        <h1 class="calc-header__title">TPLO Angle Calculator</h1>
+        <p class="calc-header__subtitle">Estimate rotational correction needed to reach target tibial plateau angle.</p>
+      </header>
+
+      <div class="calc-card">
+        <div class="calc-card__body">
+          <div class="calc-form-group">
+            <label class="calc-label" for="preop-tpa">Pre-op Tibial Plateau Angle (degrees)</label>
+            <input id="preop-tpa" class="calc-input" type="number" min="0" max="60" step="0.1" value="28" />
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="target-tpa">Target Post-op Angle (degrees)</label>
+            <input id="target-tpa" class="calc-input" type="number" min="0" max="20" step="0.1" value="5" />
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="blade-radius">Saw Blade Radius (mm, optional)</label>
+            <input id="blade-radius" class="calc-input" type="number" min="0" step="0.1" placeholder="e.g. 12" />
+          </div>
+
+          <button id="calculate-btn" type="button" class="calc-btn">
+            <span>📐</span>
+            Calculate TPLO Rotation
+          </button>
+
+          <div id="results" class="calc-results" style="display: none">
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Required Rotation</p>
+              <p class="calc-result-card__value">
+                <span id="rotation-value">--</span>
+                <span class="calc-result-card__unit">degrees</span>
+              </p>
+              <p class="calc-result-card__context" id="rotation-note">--</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Estimated Arc Distance</p>
+              <p class="calc-result-card__value">
+                <span id="arc-distance">--</span>
+                <span class="calc-result-card__unit">mm</span>
+              </p>
+              <p class="calc-result-card__context">Calculated when saw blade radius is entered</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          Planning support only. Final surgical planning should follow surgeon preference, imaging quality, and intra-op findings.
+        </div>
+      </div>
+    </main>
+
+    <script>
+      ;(function () {
+        var preopInput = document.getElementById('preop-tpa')
+        var targetInput = document.getElementById('target-tpa')
+        var radiusInput = document.getElementById('blade-radius')
+
+        var nodes = {
+          results: document.getElementById('results'),
+          rotation: document.getElementById('rotation-value'),
+          note: document.getElementById('rotation-note'),
+          arc: document.getElementById('arc-distance'),
+        }
+
+        function calculate() {
+          var preop = Number(preopInput.value)
+          var target = Number(targetInput.value)
+          var radius = Number(radiusInput.value)
+          if (!Number.isFinite(preop) || !Number.isFinite(target)) {
+            return
+          }
+
+          var rotation = preop - target
+          nodes.rotation.textContent = rotation.toFixed(2)
+
+          if (rotation <= 0) {
+            nodes.note.textContent = 'Target is at or above pre-op angle. Re-check measurement/goal.'
+          } else {
+            nodes.note.textContent = 'Rotate the plateau segment by this angle toward target leveling.'
+          }
+
+          if (Number.isFinite(radius) && radius > 0) {
+            var radians = (Math.PI / 180) * rotation
+            var arc = Math.abs(radians * radius)
+            nodes.arc.textContent = arc.toFixed(2)
+          } else {
+            nodes.arc.textContent = '--'
+          }
+
+          nodes.results.style.display = 'block'
+        }
+
+        document.getElementById('calculate-btn').addEventListener('click', calculate)
+        ;[preopInput, targetInput, radiusInput].forEach(function (node) {
+          node.addEventListener('input', calculate)
+        })
+
+        calculate()
+      })()
+    </script>
+  </body>
+</html>

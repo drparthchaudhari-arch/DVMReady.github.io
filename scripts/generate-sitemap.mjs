@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 
 const BASE_URL = 'https://dvmready.com'
 const LASTMOD = new Date().toISOString().slice(0, 10)
@@ -106,9 +106,28 @@ function loadProgrammaticRoutes() {
   }
 }
 
+function loadToolRoutes() {
+  const toolsDir = 'tools'
+  if (!existsSync(toolsDir)) {
+    return []
+  }
+
+  const EXCLUDED = new Set(['index.html', 'dose-calculator-old.html'])
+
+  try {
+    return readdirSync(toolsDir)
+      .filter((name) => name.endsWith('.html') && !EXCLUDED.has(name))
+      .map((name) => `/tools/${name}`)
+  } catch (error) {
+    console.error('Could not read tools directory for sitemap:', error)
+    return []
+  }
+}
+
 const PROGRAMMATIC_PATHS = loadProgrammaticRoutes()
+const TOOL_PATHS = loadToolRoutes()
 const ALL_CANONICAL_PATHS = Array.from(
-  new Set(CANONICAL_PATHS.concat(PROGRAMMATIC_PATHS))
+  new Set(CANONICAL_PATHS.concat(PROGRAMMATIC_PATHS, TOOL_PATHS))
 )
 
 const urlEntries = ALL_CANONICAL_PATHS.map((path) => {

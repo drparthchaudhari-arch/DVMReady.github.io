@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <title>ER CPR Bundle | DVMReady Tools</title>
+    <meta
+      name="description"
+      content="Rapid emergency package for CPR and shock support: core drug doses, defibrillation energy, and fluid bolus calculations for dogs and cats."
+    />
+    <link rel="canonical" href="https://dvmready.com/tools/er-cpr-bundle.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/clinic-utilities.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/clinic-utilities.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true" />
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🚨</div>
+        <h1 class="calc-header__title">ER CPR Bundle</h1>
+        <p class="calc-header__subtitle">
+          One-screen emergency setup with key doses and shock planning values.
+        </p>
+      </header>
+
+      <div class="calc-card">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">Patient Inputs</h2>
+          <p class="calc-card__subtitle">Enter weight/species to generate the full bundle</p>
+        </div>
+        <div class="calc-card__body">
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">
+                🐕
+                <span class="calc-species-btn__label">Dog</span>
+              </button>
+              <button type="button" class="calc-species-btn" data-species="cat">
+                🐈
+                <span class="calc-species-btn__label">Cat</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="weight">Weight</label>
+            <div class="calc-input-wrapper">
+              <input id="weight" class="calc-input calc-input--with-unit" type="number" min="0.1" step="0.1" value="10" />
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="calculate-btn" class="calc-btn">
+            <span>⚡</span>
+            Generate CPR Bundle
+          </button>
+
+          <div id="results" class="calc-results" style="display: none">
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Defibrillation Energy</p>
+              <p class="calc-result-card__value" id="defib-energy">--</p>
+              <p class="calc-result-card__context">Initial biphasic range: 2-4 J/kg</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Epinephrine (0.1 mg/mL)</p>
+              <p class="calc-result-card__value" id="epi-dose">--</p>
+              <p class="calc-result-card__context">CPR dose 0.01 mg/kg IV/IO</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Vasopressin (20 U/mL)</p>
+              <p class="calc-result-card__value" id="vaso-dose">--</p>
+              <p class="calc-result-card__context">Dose 0.8 U/kg IV/IO</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Atropine (0.54 mg/mL)</p>
+              <p class="calc-result-card__value" id="atropine-dose">--</p>
+              <p class="calc-result-card__context">Dose 0.04 mg/kg for bradycardia/CPR</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Crystalloid Shock Bolus</p>
+              <p class="calc-result-card__value" id="crystalloid-bolus">--</p>
+              <p class="calc-result-card__context" id="crystalloid-context">--</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Hypertonic Saline (7.2%)</p>
+              <p class="calc-result-card__value" id="hts-bolus">--</p>
+              <p class="calc-result-card__context">Range 3-5 mL/kg (if indicated)</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Colloid Bolus</p>
+              <p class="calc-result-card__value" id="colloid-bolus">--</p>
+              <p class="calc-result-card__context" id="colloid-context">--</p>
+            </div>
+
+            <div class="calc-info-box" style="margin-top: 1rem">
+              <h3 style="margin: 0 0 0.5rem; font-size: 0.95rem">Rapid Checklist</h3>
+              <ul style="margin: 0; padding-left: 1.2rem">
+                <li>Start high-quality chest compressions immediately.</li>
+                <li>Rotate compressor every 2 minutes and reassess rhythm.</li>
+                <li>Secure airway and confirm ventilation strategy.</li>
+                <li>Treat reversible causes (Hs/Ts) in parallel.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          Educational support only. Confirm doses against your crash sheet and clinic protocols.
+        </div>
+      </div>
+    </main>
+
+    <script>
+      ;(function () {
+        var species = 'dog'
+        var speciesButtons = document.querySelectorAll('[data-species]')
+        var weightInput = document.getElementById('weight')
+        var calculateButton = document.getElementById('calculate-btn')
+        var results = document.getElementById('results')
+
+        var nodes = {
+          defib: document.getElementById('defib-energy'),
+          epi: document.getElementById('epi-dose'),
+          vaso: document.getElementById('vaso-dose'),
+          atropine: document.getElementById('atropine-dose'),
+          cryst: document.getElementById('crystalloid-bolus'),
+          crystContext: document.getElementById('crystalloid-context'),
+          hts: document.getElementById('hts-bolus'),
+          colloid: document.getElementById('colloid-bolus'),
+          colloidContext: document.getElementById('colloid-context'),
+        }
+
+        function kgValue() {
+          var value = Number(weightInput.value)
+          if (!Number.isFinite(value) || value <= 0) {
+            return null
+          }
+          var activeUnit = document.querySelector('.calc-unit-btn.active')
+          var unit = activeUnit ? activeUnit.dataset.unit : 'kg'
+          return unit === 'lb' ? value * 0.45359237 : value
+        }
+
+        function format(value, digits) {
+          return Number(value).toFixed(digits)
+        }
+
+        function calculate() {
+          var weightKg = kgValue()
+          if (!weightKg) {
+            return
+          }
+
+          var defibLow = weightKg * 2
+          var defibHigh = weightKg * 4
+
+          var epinephrineMg = weightKg * 0.01
+          var epinephrineMl = epinephrineMg / 0.1
+
+          var vasopressinUnits = weightKg * 0.8
+          var vasopressinMl = vasopressinUnits / 20
+
+          var atropineMg = weightKg * 0.04
+          var atropineMl = atropineMg / 0.54
+
+          var crystRate = species === 'dog' ? 80 : 60
+          var crystalloidBolus = weightKg * crystRate
+
+          var htsLow = weightKg * 3
+          var htsHigh = weightKg * 5
+
+          var colloidRate = species === 'dog' ? 5 : 3
+          var colloidBolus = weightKg * colloidRate
+
+          nodes.defib.textContent = format(defibLow, 1) + ' - ' + format(defibHigh, 1) + ' J'
+          nodes.epi.textContent = format(epinephrineMg, 3) + ' mg (' + format(epinephrineMl, 2) + ' mL)'
+          nodes.vaso.textContent = format(vasopressinUnits, 2) + ' U (' + format(vasopressinMl, 2) + ' mL)'
+          nodes.atropine.textContent = format(atropineMg, 3) + ' mg (' + format(atropineMl, 2) + ' mL)'
+          nodes.cryst.textContent = format(crystalloidBolus, 0) + ' mL total'
+          nodes.crystContext.textContent = 'Use ' + crystRate + ' mL/kg as full shock dose; reassess in aliquots.'
+          nodes.hts.textContent = format(htsLow, 1) + ' - ' + format(htsHigh, 1) + ' mL'
+          nodes.colloid.textContent = format(colloidBolus, 1) + ' mL bolus'
+          nodes.colloidContext.textContent = species === 'dog' ? 'Dog bolus target 5 mL/kg.' : 'Cat bolus target 3 mL/kg.'
+
+          results.style.display = 'block'
+        }
+
+        speciesButtons.forEach(function (button) {
+          button.addEventListener('click', function () {
+            speciesButtons.forEach(function (inner) {
+              inner.classList.remove('active')
+            })
+            button.classList.add('active')
+            species = button.dataset.species
+            calculate()
+          })
+        })
+
+        document.querySelectorAll('.calc-unit-btn').forEach(function (button) {
+          button.addEventListener('click', function () {
+            document.querySelectorAll('.calc-unit-btn').forEach(function (inner) {
+              inner.classList.remove('active')
+            })
+            button.classList.add('active')
+            calculate()
+          })
+        })
+
+        weightInput.addEventListener('input', calculate)
+        calculateButton.addEventListener('click', calculate)
+
+        calculate()
+      })()
+    </script>
+  </body>
+</html>

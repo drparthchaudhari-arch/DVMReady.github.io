@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <title>Urea Reduction Ratio Calculator | DVMReady Tools</title>
+    <meta
+      name="description"
+      content="Calculate urea reduction ratio (URR) and optional estimated spKt/V from dialysis session values."
+    />
+    <link rel="canonical" href="https://dvmready.com/tools/urea-reduction-ratio-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/clinic-utilities.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/clinic-utilities.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true" />
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🩸</div>
+        <h1 class="calc-header__title">Urea Reduction Ratio (URR)</h1>
+        <p class="calc-header__subtitle">Dialysis adequacy support using pre- and post-treatment urea values.</p>
+      </header>
+
+      <div class="calc-card">
+        <div class="calc-card__body">
+          <div class="calc-form-group">
+            <label class="calc-label" for="pre-urea">Pre-Dialysis Urea (same units)</label>
+            <input id="pre-urea" class="calc-input" type="number" min="0.1" step="0.1" value="90" />
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="post-urea">Post-Dialysis Urea (same units)</label>
+            <input id="post-urea" class="calc-input" type="number" min="0.1" step="0.1" value="30" />
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="session-hours">Session Length (hours, optional for Kt/V)</label>
+            <input id="session-hours" class="calc-input" type="number" min="0.1" step="0.1" value="4" />
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="uf-volume">Ultrafiltration Volume (L, optional)</label>
+            <input id="uf-volume" class="calc-input" type="number" min="0" step="0.01" value="0.5" />
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="post-weight">Post-Dialysis Weight (kg, optional)</label>
+            <input id="post-weight" class="calc-input" type="number" min="0" step="0.1" value="20" />
+          </div>
+
+          <button id="calculate-btn" type="button" class="calc-btn">
+            <span>📉</span>
+            Calculate URR
+          </button>
+
+          <div id="results" class="calc-results" style="display: none">
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">URR</p>
+              <p class="calc-result-card__value">
+                <span id="urr-value">--</span>
+                <span class="calc-result-card__unit">%</span>
+              </p>
+              <p class="calc-result-card__context" id="urr-note">--</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Reduction Ratio (R = Post/Pre)</p>
+              <p class="calc-result-card__value" id="ratio-value">--</p>
+              <p class="calc-result-card__context">Lower ratio indicates greater urea removal</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Estimated spKt/V</p>
+              <p class="calc-result-card__value" id="ktv-value">--</p>
+              <p class="calc-result-card__context">Daugirdas II estimate when optional fields are valid</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          URR/Kt/V are one part of adequacy review. Interpret with clinical status and protocol targets.
+        </div>
+      </div>
+    </main>
+
+    <script>
+      ;(function () {
+        var nodes = {
+          pre: document.getElementById('pre-urea'),
+          post: document.getElementById('post-urea'),
+          hours: document.getElementById('session-hours'),
+          uf: document.getElementById('uf-volume'),
+          postWeight: document.getElementById('post-weight'),
+          results: document.getElementById('results'),
+          urr: document.getElementById('urr-value'),
+          note: document.getElementById('urr-note'),
+          ratio: document.getElementById('ratio-value'),
+          ktv: document.getElementById('ktv-value'),
+        }
+
+        function calc() {
+          var pre = Number(nodes.pre.value)
+          var post = Number(nodes.post.value)
+          if (!Number.isFinite(pre) || !Number.isFinite(post) || pre <= 0 || post < 0 || post > pre) {
+            return
+          }
+
+          var ratio = post / pre
+          var urr = ((pre - post) / pre) * 100
+
+          nodes.urr.textContent = urr.toFixed(2)
+          nodes.ratio.textContent = ratio.toFixed(3)
+
+          if (urr >= 65) {
+            nodes.note.textContent = 'At or above common URR threshold (>= 65%).'
+          } else {
+            nodes.note.textContent = 'Below common URR threshold; review session adequacy and clinical context.'
+          }
+
+          var hours = Number(nodes.hours.value)
+          var uf = Number(nodes.uf.value)
+          var postWeight = Number(nodes.postWeight.value)
+          var term = ratio - 0.008 * hours
+
+          if (
+            Number.isFinite(hours) &&
+            Number.isFinite(uf) &&
+            Number.isFinite(postWeight) &&
+            hours > 0 &&
+            postWeight > 0 &&
+            uf >= 0 &&
+            term > 0
+          ) {
+            var ktv = -Math.log(term) + (4 - 3.5 * ratio) * (uf / postWeight)
+            nodes.ktv.textContent = Number.isFinite(ktv) ? ktv.toFixed(3) : '--'
+          } else {
+            nodes.ktv.textContent = '--'
+          }
+
+          nodes.results.style.display = 'block'
+        }
+
+        document.getElementById('calculate-btn').addEventListener('click', calc)
+        ;[nodes.pre, nodes.post, nodes.hours, nodes.uf, nodes.postWeight].forEach(function (node) {
+          node.addEventListener('input', calc)
+        })
+
+        calc()
+      })()
+    </script>
+  </body>
+</html>

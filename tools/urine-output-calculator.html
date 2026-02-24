@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <title>Urine Output Calculator | DVMReady Tools</title>
+    <meta
+      name="description"
+      content="Calculate urine output in mL/kg/hr with trend interpretation to support monitoring in hospitalized veterinary patients."
+    />
+    <link rel="canonical" href="https://dvmready.com/tools/urine-output-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/clinic-utilities.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/clinic-utilities.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true" />
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">💧</div>
+        <h1 class="calc-header__title">Urine Output Calculator</h1>
+        <p class="calc-header__subtitle">Track UOP quickly in mL/kg/hr for monitoring rounds and ICU updates.</p>
+      </header>
+
+      <div class="calc-card">
+        <div class="calc-card__body">
+          <div class="calc-form-group">
+            <label class="calc-label" for="weight">Weight (kg)</label>
+            <input id="weight" class="calc-input" type="number" min="0.1" step="0.1" value="10" />
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="urine-volume">Urine Volume Collected (mL)</label>
+            <input id="urine-volume" class="calc-input" type="number" min="0" step="0.1" value="20" />
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="collection-hours">Collection Interval (hours)</label>
+            <input id="collection-hours" class="calc-input" type="number" min="0.1" step="0.1" value="2" />
+          </div>
+
+          <button id="calculate-btn" type="button" class="calc-btn">
+            <span>📈</span>
+            Calculate UOP
+          </button>
+
+          <div id="results" class="calc-results" style="display: none">
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Urine Output Rate</p>
+              <p class="calc-result-card__value">
+                <span id="uop-rate">--</span>
+                <span class="calc-result-card__unit">mL/kg/hr</span>
+              </p>
+              <p class="calc-result-card__context">Primary monitoring value</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">24h Projected Volume</p>
+              <p class="calc-result-card__value">
+                <span id="projection">--</span>
+                <span class="calc-result-card__unit">mL/day</span>
+              </p>
+              <p class="calc-result-card__context">Assumes current trend stays stable</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Interpretation</p>
+              <p class="calc-result-card__value" id="interpretation">--</p>
+              <p class="calc-result-card__context" id="interpretation-note">--</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          UOP trends should be interpreted with hydration status, blood pressure, and serial chemistry.
+        </div>
+      </div>
+    </main>
+
+    <script>
+      ;(function () {
+        var weightInput = document.getElementById('weight')
+        var volumeInput = document.getElementById('urine-volume')
+        var hoursInput = document.getElementById('collection-hours')
+
+        var nodes = {
+          results: document.getElementById('results'),
+          rate: document.getElementById('uop-rate'),
+          projection: document.getElementById('projection'),
+          interpretation: document.getElementById('interpretation'),
+          note: document.getElementById('interpretation-note'),
+        }
+
+        function format(value, digits) {
+          return Number(value).toFixed(digits)
+        }
+
+        function getInterpretation(rate) {
+          if (rate < 0.5) {
+            return {
+              label: 'Oliguria',
+              note: 'Low output. Reassess perfusion, hydration, and obstruction risk urgently.',
+            }
+          }
+          if (rate < 1) {
+            return {
+              label: 'Borderline Low',
+              note: 'Monitor closely and trend with blood pressure and fluid plan.',
+            }
+          }
+          if (rate <= 2) {
+            return {
+              label: 'Typical Target',
+              note: 'Within common hospitalized target range (about 1-2 mL/kg/hr).',
+            }
+          }
+          return {
+            label: 'High Output',
+            note: 'Consider post-obstructive diuresis, osmotic diuresis, or fluid over-delivery.',
+          }
+        }
+
+        function calculate() {
+          var weight = Number(weightInput.value)
+          var volume = Number(volumeInput.value)
+          var hours = Number(hoursInput.value)
+
+          if (!Number.isFinite(weight) || !Number.isFinite(volume) || !Number.isFinite(hours) || weight <= 0 || hours <= 0 || volume < 0) {
+            return
+          }
+
+          var rate = volume / (weight * hours)
+          var daily = rate * weight * 24
+          var interpretation = getInterpretation(rate)
+
+          nodes.rate.textContent = format(rate, 2)
+          nodes.projection.textContent = format(daily, 1)
+          nodes.interpretation.textContent = interpretation.label
+          nodes.note.textContent = interpretation.note
+          nodes.results.style.display = 'block'
+        }
+
+        document.getElementById('calculate-btn').addEventListener('click', calculate)
+        ;[weightInput, volumeInput, hoursInput].forEach(function (node) {
+          node.addEventListener('input', calculate)
+        })
+
+        calculate()
+      })()
+    </script>
+  </body>
+</html>
