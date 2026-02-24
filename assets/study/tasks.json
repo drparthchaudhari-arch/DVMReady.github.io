@@ -20,11 +20,11 @@
       "difficulty": "beginner"
     },
     {
-      "id": "sudoku_logic",
-      "title": "Sudoku: Clinical Reasoning",
+      "id": "clinical_reasoning_drill",
+      "title": "Clinical Reasoning Drill",
       "category": "logic",
-      "type": "game",
-      "url": "/play/sudoku/",
+      "type": "case",
+      "url": "/study/navle/practice/",
       "estimatedTime": 15,
       "difficulty": "intermediate"
     }

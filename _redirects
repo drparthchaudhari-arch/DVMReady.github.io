@@ -24,6 +24,7 @@
 
 # Play redirects
 /play/vetlex/ /study/wordweb/ 301
+/play/sudoku/ /study/navle/practice/ 301
 
 # Legacy game redirect kept for backwards compatibility
 /games/vetlex/ /study/wordweb/ 301
