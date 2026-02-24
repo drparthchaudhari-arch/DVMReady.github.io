@@ -47,6 +47,37 @@
     <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
     <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
 
+    <div class="pc-mobile-menu" id="pc-mobile-menu" aria-hidden="true">
+      <div class="pc-mobile-menu__header">
+        <span class="pc-mobile-menu__title">Menu</span>
+        <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <nav class="pc-mobile-menu__nav" aria-label="Mobile navigation">
+        <a class="pc-mobile-nav-link" href="/">
+          <span class="pc-mobile-nav-link__icon">🏠</span>
+          <span class="pc-mobile-nav-link__text">Home</span>
+        </a>
+        <a class="pc-mobile-nav-link pc-is-active" href="/tools/">
+          <span class="pc-mobile-nav-link__icon">🧰</span>
+          <span class="pc-mobile-nav-link__text">Tools</span>
+        </a>
+        <a class="pc-mobile-nav-link" href="/study/">
+          <span class="pc-mobile-nav-link__icon">📚</span>
+          <span class="pc-mobile-nav-link__text">Study</span>
+        </a>
+        <a class="pc-mobile-nav-link" href="/search.html">
+          <span class="pc-mobile-nav-link__icon">🔍</span>
+          <span class="pc-mobile-nav-link__text">Search</span>
+        </a>
+        <a class="pc-mobile-nav-link" href="/account/">
+          <span class="pc-mobile-nav-link__icon">👤</span>
+          <span class="pc-mobile-nav-link__text">Account</span>
+        </a>
+      </nav>
+    </div>
+
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
 
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
@@ -56,8 +87,10 @@
           <span class="pc-logo__text">DVMReady</span>
         </a>
         <div class="pc-nav-group">
-          <a class="pc-nav-link" href="/tools/">Tools</a>
-          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/">Home</a>
+          <a class="pc-nav-link pc-is-active" href="/tools/">Tools</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
           <a class="pc-nav-link" href="/account/">Account</a>
           <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
             <span class="pc-mobile-toggle__bar"></span>
