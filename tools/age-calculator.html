@@ -5,35 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="DVMReady Tools" />
     <title>Age Calculator | DVMReady Tools</title>
     <meta
       name="description"
       content="Calculate exact age from date of birth with years, months, days, and quick life-stage labels for veterinary workflow use."
     />
-    <link rel="canonical" href="https://dvmready.com/tools/age-calculator.html" />
+    <link
+      rel="canonical"
+      href="https://dvmready.com/tools/age-calculator.html"
+    />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
     <link rel="stylesheet" href="/assets/css/logo-styles.css" />
     <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
     <link rel="stylesheet" href="/assets/css/clinic-utilities.css" />
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/clinic-utilities.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div
+      class="pc-toast-container"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
 
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
         <a class="pc-logo" href="/">
-          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true" />
+          <img
+            src="/assets/img/dvmready-logo.png"
+            alt=""
+            class="pc-logo__img"
+            aria-hidden="true"
+          />
           <span class="pc-logo__text">DVMReady</span>
         </a>
         <div class="pc-nav-group">
           <a class="pc-nav-link" href="/tools/">Tools</a>
           <a class="pc-nav-link" href="/study/">Study</a>
-          <a class="pc-nav-link" href="/account/">Account</a>
+          <a class="pc-nav-link" href="/account/">
+            <span
+              class="pc-auth-indicator"
+              data-pc-auth-indicator
+              aria-hidden="true"
+              >○</span
+            >
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          <button
+            type="button"
+            class="pc-mobile-toggle"
+            aria-label="Toggle mobile menu"
+            aria-expanded="false"
+            aria-controls="pc-mobile-menu"
+          >
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
         </div>
+      </div>
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button
+            type="button"
+            class="pc-mobile-menu__close"
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/tools/">🧮 Tools</a>
+          <a class="pc-mobile-nav-link" href="/study/">📚 Study</a>
+          <a class="pc-mobile-nav-link" href="/account/">👤 Account</a>
+        </nav>
       </div>
     </nav>
 
@@ -41,10 +111,22 @@
       <header class="calc-header">
         <div class="calc-header__icon">📅</div>
         <h1 class="calc-header__title">Age Calculator</h1>
-        <p class="calc-header__subtitle">Quick DOB-based age math for records, dosing context, and life-stage tracking.</p>
+        <p class="calc-header__subtitle">
+          Quick DOB-based age math for records, dosing context, and life-stage
+          tracking.
+        </p>
       </header>
 
       <div class="calc-card">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>📅</span>
+            <span>Age Timeline</span>
+          </h2>
+          <p class="calc-card__subtitle">
+            Calculate exact age and quick life-stage context from DOB.
+          </p>
+        </div>
         <div class="calc-card__body">
           <div class="calc-form-group">
             <label class="calc-label" for="species">Species (optional)</label>
@@ -74,13 +156,17 @@
             <div class="calc-result-card">
               <p class="calc-result-card__label">Exact Age</p>
               <p class="calc-result-card__value" id="exact-age">--</p>
-              <p class="calc-result-card__context">Calendar age at selected reference date</p>
+              <p class="calc-result-card__context">
+                Calendar age at selected reference date
+              </p>
             </div>
 
             <div class="calc-result-card">
               <p class="calc-result-card__label">Total Days</p>
               <p class="calc-result-card__value" id="total-days">--</p>
-              <p class="calc-result-card__context">Includes leap years automatically</p>
+              <p class="calc-result-card__context">
+                Includes leap years automatically
+              </p>
             </div>
 
             <div class="calc-result-card">
@@ -92,7 +178,8 @@
         </div>
 
         <div class="calc-card__footer">
-          DOB estimates should be clearly documented as estimated in medical records.
+          ⚠️ Educational tool only. Always verify calculations with current
+          veterinary references and patient-specific factors.
         </div>
       </div>
     </main>
@@ -147,18 +234,30 @@
           }
 
           if (years < 0.5) {
-            return { stage: 'Pediatric', note: 'Rapid growth and developmental stage.' }
+            return {
+              stage: 'Pediatric',
+              note: 'Rapid growth and developmental stage.',
+            }
           }
           if (years < 1) {
             return { stage: 'Juvenile', note: 'Near-adult transition stage.' }
           }
           if (years < 7) {
-            return { stage: 'Adult', note: 'Typical maintenance stage for healthy adults.' }
+            return {
+              stage: 'Adult',
+              note: 'Typical maintenance stage for healthy adults.',
+            }
           }
           if (years < 10) {
-            return { stage: 'Mature', note: 'Age-related monitoring needs increase.' }
+            return {
+              stage: 'Mature',
+              note: 'Age-related monitoring needs increase.',
+            }
           }
-          return { stage: 'Senior', note: 'Prioritize senior-focused screening and monitoring.' }
+          return {
+            stage: 'Senior',
+            note: 'Prioritize senior-focused screening and monitoring.',
+          }
         }
 
         function calculate() {
@@ -175,15 +274,26 @@
           var lifeStage = stageFor(speciesInput.value, yearsFloat)
 
           document.getElementById('exact-age').textContent =
-            calendar.years + ' years, ' + calendar.months + ' months, ' + calendar.days + ' days'
+            calendar.years +
+            ' years, ' +
+            calendar.months +
+            ' months, ' +
+            calendar.days +
+            ' days'
           document.getElementById('total-days').textContent =
-            totalDays.toLocaleString() + ' days (' + (totalDays / 7).toFixed(1) + ' weeks)'
+            totalDays.toLocaleString() +
+            ' days (' +
+            (totalDays / 7).toFixed(1) +
+            ' weeks)'
           document.getElementById('life-stage').textContent = lifeStage.stage
-          document.getElementById('life-stage-note').textContent = lifeStage.note
+          document.getElementById('life-stage-note').textContent =
+            lifeStage.note
           document.getElementById('results').style.display = 'block'
         }
 
-        document.getElementById('calculate-btn').addEventListener('click', calculate)
+        document
+          .getElementById('calculate-btn')
+          .addEventListener('click', calculate)
         ;[dobInput, asOfInput, speciesInput].forEach(function (node) {
           node.addEventListener('input', calculate)
           node.addEventListener('change', calculate)

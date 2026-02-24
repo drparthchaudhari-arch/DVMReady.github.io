@@ -5,35 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="DVMReady Tools" />
     <title>Steroid Conversion Calculator | DVMReady Tools</title>
     <meta
       name="description"
       content="Convert common veterinary corticosteroids using prednisone-equivalent potency references for quick cross-drug comparison."
     />
-    <link rel="canonical" href="https://dvmready.com/tools/steroid-conversion-calculator.html" />
+    <link
+      rel="canonical"
+      href="https://dvmready.com/tools/steroid-conversion-calculator.html"
+    />
     <link rel="stylesheet" href="/assets/css/tokens.css" />
     <link rel="stylesheet" href="/assets/css/portal.css" />
     <link rel="stylesheet" href="/assets/css/logo-styles.css" />
     <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
     <link rel="stylesheet" href="/assets/css/clinic-utilities.css" />
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/theme-toggle.js" defer></script>
     <script src="/assets/js/clinic-utilities.js" defer></script>
   </head>
   <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div
+      class="pc-toast-container"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
     <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
 
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
       <div class="pc-portal-nav__inner">
         <a class="pc-logo" href="/">
-          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true" />
+          <img
+            src="/assets/img/dvmready-logo.png"
+            alt=""
+            class="pc-logo__img"
+            aria-hidden="true"
+          />
           <span class="pc-logo__text">DVMReady</span>
         </a>
         <div class="pc-nav-group">
           <a class="pc-nav-link" href="/tools/">Tools</a>
           <a class="pc-nav-link" href="/study/">Study</a>
-          <a class="pc-nav-link" href="/account/">Account</a>
+          <a class="pc-nav-link" href="/account/">
+            <span
+              class="pc-auth-indicator"
+              data-pc-auth-indicator
+              aria-hidden="true"
+              >○</span
+            >
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          <button
+            type="button"
+            class="pc-mobile-toggle"
+            aria-label="Toggle mobile menu"
+            aria-expanded="false"
+            aria-controls="pc-mobile-menu"
+          >
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
         </div>
+      </div>
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button
+            type="button"
+            class="pc-mobile-menu__close"
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/tools/">🧮 Tools</a>
+          <a class="pc-mobile-nav-link" href="/study/">📚 Study</a>
+          <a class="pc-mobile-nav-link" href="/account/">👤 Account</a>
+        </nav>
       </div>
     </nav>
 
@@ -42,11 +112,22 @@
         <div class="calc-header__icon">💊</div>
         <h1 class="calc-header__title">Steroid Conversion Calculator</h1>
         <p class="calc-header__subtitle">
-          Compare corticosteroid doses using prednisone-equivalent reference potency.
+          Compare corticosteroid doses using prednisone-equivalent reference
+          potency.
         </p>
       </header>
 
       <div class="calc-card">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>💊</span>
+            <span>Corticosteroid Equivalents</span>
+          </h2>
+          <p class="calc-card__subtitle">
+            Convert doses between common steroids using prednisone-equivalent
+            potency.
+          </p>
+        </div>
         <div class="calc-card__body">
           <div class="calc-form-group">
             <label class="calc-label" for="source-drug">Source Steroid</label>
@@ -62,7 +143,14 @@
 
           <div class="calc-form-group">
             <label class="calc-label" for="source-dose">Dose (mg)</label>
-            <input id="source-dose" class="calc-input" type="number" min="0" step="0.01" value="5" />
+            <input
+              id="source-dose"
+              class="calc-input"
+              type="number"
+              min="0"
+              step="0.01"
+              value="5"
+            />
           </div>
 
           <button type="button" id="calculate-btn" class="calc-btn">
@@ -77,16 +165,28 @@
                 <span id="pred-equivalent">--</span>
                 <span class="calc-result-card__unit">mg</span>
               </p>
-              <p class="calc-result-card__context">Reference anchor for cross-steroid conversion</p>
+              <p class="calc-result-card__context">
+                Reference anchor for cross-steroid conversion
+              </p>
             </div>
 
             <div class="calc-info-box" style="margin-top: 1rem">
-              <h3 style="margin: 0 0 0.75rem; font-size: 0.95rem">Equivalent Doses</h3>
-              <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem">
+              <h3 style="margin: 0 0 0.75rem; font-size: 0.95rem">
+                Equivalent Doses
+              </h3>
+              <table
+                style="
+                  width: 100%;
+                  border-collapse: collapse;
+                  font-size: 0.9rem;
+                "
+              >
                 <thead>
                   <tr>
                     <th style="text-align: left; padding: 0.4rem">Steroid</th>
-                    <th style="text-align: right; padding: 0.4rem">Equivalent Dose (mg)</th>
+                    <th style="text-align: right; padding: 0.4rem">
+                      Equivalent Dose (mg)
+                    </th>
                   </tr>
                 </thead>
                 <tbody id="results-table"></tbody>
@@ -96,7 +196,8 @@
         </div>
 
         <div class="calc-card__footer">
-          Potency tables vary by source and route. Confirm final dosing decisions with current formulary guidance.
+          ⚠️ Educational tool only. Always verify calculations with current
+          veterinary references and patient-specific factors.
         </div>
       </div>
     </main>
@@ -107,7 +208,10 @@
           hydrocortisone: { label: 'Hydrocortisone', predEqPerMg: 0.25 },
           prednisone: { label: 'Prednisone', predEqPerMg: 1 },
           prednisolone: { label: 'Prednisolone', predEqPerMg: 1 },
-          methylprednisolone: { label: 'Methylprednisolone', predEqPerMg: 1.25 },
+          methylprednisolone: {
+            label: 'Methylprednisolone',
+            predEqPerMg: 1.25,
+          },
           triamcinolone: { label: 'Triamcinolone', predEqPerMg: 1.25 },
           dexamethasone: { label: 'Dexamethasone', predEqPerMg: 6.6666667 },
         }
@@ -150,7 +254,9 @@
           results.style.display = 'block'
         }
 
-        document.getElementById('calculate-btn').addEventListener('click', calculate)
+        document
+          .getElementById('calculate-btn')
+          .addEventListener('click', calculate)
         sourceDrugInput.addEventListener('change', calculate)
         sourceDoseInput.addEventListener('input', calculate)
 
