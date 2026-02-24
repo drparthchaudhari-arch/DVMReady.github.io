@@ -4,18 +4,26 @@
 # Search redirect
 /search/ /search.html 301
 
+# Legacy about routes
+/info /about.html 301
+/info.html /about.html 301
+
 # Note: Game redirects removed - games directory does not exist
 # If games are added in the future, re-enable these redirects:
 # /games/2048/ /games/2048.html 301
 # /games/memory-match/ /memory-match.html 301
 # /games/tictactoe/ /games/tic-tac-toe.html 301
-# /games/vetlex/ /study/wordweb/ 301
 # /games/sudoku/ /games/sudoku.html 301
 # /games/iq-challenge/ /games/iq.html 301
 
 # Study redirects
-# /study/vetlex/ redirect removed - target does not exist
+/study/vetlex/ /study/wordweb/ 301
+/study/navle/topics/ /study/wordweb/ 301
+/study/navle/topics /study/wordweb/ 301
 /bridge/case-studies/ /study/ 301
 
 # Play redirects
-# /play/vetlex/ redirect removed - target does not exist
+/play/vetlex/ /study/wordweb/ 301
+
+# Legacy game redirect kept for backwards compatibility
+/games/vetlex/ /study/wordweb/ 301

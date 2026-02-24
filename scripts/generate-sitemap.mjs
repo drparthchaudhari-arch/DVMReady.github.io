@@ -15,10 +15,12 @@ const CANONICAL_PATHS = [
   '/licenses/',
   '/accessibility-plan/',
   '/study/',
+  '/study/extra/',
+  '/study/wordweb/',
   '/study/navle/',
   '/study/navle/practice/',
   '/study/navle/exam-simulator/',
-  // Note: Removed dead paths - /study/navle/topics/, /study/wordweb/, /study/vetlex/
+  // Note: Removed dead paths - /study/navle/topics/, /study/vetlex/
   '/today/',
   '/gdv-approach/',
   '/shock-types-veterinary/',
