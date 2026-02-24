@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Corrected Na" />
+    <title>Corrected Sodium Calculator | DVMReady Tools</title>
+    <meta name="description" content="Calculate corrected sodium for hyperglycemia in diabetic patients." />
+    <link rel="canonical" href="https://dvmready.com/tools/corrected-sodium-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🧂</div>
+        <h1 class="calc-header__title">Corrected Sodium Calculator</h1>
+        <p class="calc-header__subtitle">Adjust sodium for hyperglycemia in diabetic patients</p>
+      </header>
+
+      <div class="calc-card" id="na-calculator" data-calc="corrected-na">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>🧂</span>
+            <span>Sodium Correction</span>
+          </h2>
+          <p class="calc-card__subtitle">Calculate true sodium level corrected for glucose</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+            </div>
+          </div>
+
+          <!-- Measured Sodium -->
+          <div class="calc-form-group">
+            <label class="calc-label">Measured Sodium</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input" id="measured-na" placeholder="130" min="80" max="200" step="0.1">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mEq/L</span>
+            </div>
+          </div>
+
+          <!-- Glucose -->
+          <div class="calc-form-group">
+            <label class="calc-label">Blood Glucose</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="glucose" placeholder="400" min="0" step="1">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="mgdl">mg/dL</button>
+                <button type="button" class="calc-unit-btn" data-unit="mmol">mmol/L</button>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>🧂</span> Calculate Corrected Na
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Corrected Sodium</p>
+              <p class="calc-result-card__value">
+                <span id="result-corrected">--</span>
+                <span class="calc-result-card__unit">mEq/L</span>
+              </p>
+              <p class="calc-result-card__context" id="na-interpretation"></p>
+            </div>
+
+            <div class="calc-result-card" style="background: rgba(107, 114, 128, 0.1);">
+              <p class="calc-result-card__label">Measured Sodium</p>
+              <p class="calc-result-card__value">
+                <span id="result-measured">--</span>
+                <span class="calc-result-card__unit">mEq/L</span>
+              </p>
+              <p class="calc-result-card__context">Before correction</p>
+            </div>
+
+            <div class="calc-info-grid" style="margin-top: 1rem;">
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Correction Applied</span>
+                <span class="calc-info-item__value" id="correction-amount">-- mEq/L</span>
+              </div>
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Glucose Used</span>
+                <span class="calc-info-item__value" id="glucose-used">-- mg/dL</span>
+              </div>
+            </div>
+
+            <div class="calc-info-box" style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--calc-primary); padding: 1rem; border-radius: var(--calc-radius-md); margin-top: 1rem;">
+              <h4 style="margin: 0 0 0.5rem; color: var(--calc-primary);">📋 Clinical Interpretation</h4>
+              <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.875rem; color: var(--calc-text);">
+                <li>Hyperglycemia draws water from ICF → dilutes sodium (pseudohyponatremia)</li>
+                <li>Corrected Na reflects true sodium status</li>
+                <li>Rate of fall matters: &gt;0.5 mEq/L/hr risks cerebral edema</li>
+                <li>Replace free water deficit slowly in hypernatremia</li>
+              </ul>
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            Formula: Corrected Na = Measured Na + 0.016 × (Glucose[mg/dL] - 100)
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/acid-base-electrolyte.html" class="calc-chip">🧪 Blood Gas</a>
+          <a href="/tools/free-water-deficit-calculator.html" class="calc-chip">💧 Free Water Deficit</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      const els = {
+        speciesBtns: document.querySelectorAll('[data-species]'),
+        measuredNa: document.getElementById('measured-na'),
+        glucose: document.getElementById('glucose'),
+        glucoseUnitBtns: document.querySelectorAll('[data-unit="mgdl"], [data-unit="mmol"]'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        resultCorrected: document.getElementById('result-corrected'),
+        resultMeasured: document.getElementById('result-measured'),
+        naInterp: document.getElementById('na-interpretation'),
+        correctionAmount: document.getElementById('correction-amount'),
+        glucoseUsed: document.getElementById('glucose-used'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
+
+      let currentSpecies = 'dog';
+      let glucoseUnit = 'mgdl';
+
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      els.glucoseUnitBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          glucoseUnit = btn.dataset.unit;
+          els.glucoseUnitBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      function calculate() {
+        const measured = parseFloat(els.measuredNa.value);
+        const glucoseVal = parseFloat(els.glucose.value);
+
+        if (!measured || !glucoseVal) return;
+
+        // Convert glucose to mg/dL if needed
+        const glucoseMgdl = glucoseUnit === 'mmol' ? glucoseVal * 18 : glucoseVal;
+
+        // Formula: Corrected Na = Measured Na + 0.016 × (Glucose - 100)
+        const correction = 0.016 * (glucoseMgdl - 100);
+        const corrected = measured + correction;
+
+        els.resultMeasured.textContent = measured.toFixed(1);
+        els.resultCorrected.textContent = corrected.toFixed(1);
+        els.correctionAmount.textContent = `+${correction.toFixed(1)} mEq/L`;
+        els.glucoseUsed.textContent = `${glucoseMgdl.toFixed(0)} mg/dL`;
+
+        // Interpretation
+        let interp = '';
+        if (corrected < 135) {
+          interp = '⚠ Hyponatremia (true deficit)';
+          els.naInterp.style.color = 'var(--calc-danger)';
+        } else if (corrected > 150) {
+          interp = '⚠ Hypernatremia (free water deficit)';
+          els.naInterp.style.color = 'var(--calc-warning)';
+        } else {
+          interp = '✓ Normal sodium';
+          els.naInterp.style.color = 'var(--calc-success)';
+        }
+        els.naInterp.textContent = interp;
+
+        els.results.style.display = 'block';
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const text = `Corrected Na: ${els.resultCorrected.textContent} mEq/L (measured: ${els.resultMeasured.textContent})`;
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.measuredNa.value = '';
+        els.glucose.value = '';
+        els.results.style.display = 'none';
+      });
+    })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="A-a Gradient" />
+    <title>A-a Gradient Calculator | DVMReady Tools</title>
+    <meta name="description" content="Calculate alveolar-arterial oxygen gradient for respiratory assessment in dogs and cats." />
+    <link rel="canonical" href="https://dvmready.com/tools/aa-gradient-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🫁</div>
+        <h1 class="calc-header__title">A-a Gradient Calculator</h1>
+        <p class="calc-header__subtitle">Alveolar-arterial oxygen gradient for respiratory assessment</p>
+      </header>
+
+      <div class="calc-card" id="aa-calculator" data-calc="aa-gradient">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>🫁</span>
+            <span>Oxygen Gradient Calculation</span>
+          </h2>
+          <p class="calc-card__subtitle">Calculate PAO2 and A-a gradient from blood gas values</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+            </div>
+          </div>
+
+          <!-- FiO2 -->
+          <div class="calc-form-group">
+            <label class="calc-label">FiO2 (Fraction of Inspired Oxygen)</label>
+            <div class="calc-chips">
+              <button type="button" class="calc-chip active" data-fio2="0.21">Room Air (21%)</button>
+              <button type="button" class="calc-chip" data-fio2="0.4">40%</button>
+              <button type="button" class="calc-chip" data-fio2="1.0">100%</button>
+            </div>
+            <div class="calc-input-wrapper" style="margin-top: 0.5rem;">
+              <input type="number" class="calc-input" id="fio2-custom" placeholder="0.21" min="0.21" max="1.0" step="0.01">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">Decimal (0.21-1.0)</span>
+            </div>
+          </div>
+
+          <!-- PaO2 -->
+          <div class="calc-form-group">
+            <label class="calc-label">PaO2 (Arterial O2)</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="pao2" placeholder="85" min="0" step="1">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mmHg</span>
+            </div>
+          </div>
+
+          <!-- PaCO2 -->
+          <div class="calc-form-group">
+            <label class="calc-label">PaCO2 (Arterial CO2)</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="paco2" placeholder="40" min="0" step="1">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mmHg</span>
+            </div>
+          </div>
+
+          <!-- Barometric Pressure -->
+          <div class="calc-form-group">
+            <label class="calc-label">Barometric Pressure (optional)</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input" id="barometric" placeholder="760" value="760" min="500" max="800">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mmHg</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.25rem;">760 mmHg at sea level. Decrease 1 mmHg per 30 ft elevation.</p>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>🫁</span> Calculate Gradient
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">PAO2 (Alveolar O2)</p>
+              <p class="calc-result-card__value">
+                <span id="result-pao2">--</span>
+                <span class="calc-result-card__unit">mmHg</span>
+              </p>
+            </div>
+
+            <div class="calc-result-card" id="gradient-card">
+              <p class="calc-result-card__label">A-a Gradient</p>
+              <p class="calc-result-card__value">
+                <span id="result-gradient">--</span>
+                <span class="calc-result-card__unit">mmHg</span>
+              </p>
+              <p class="calc-result-card__context" id="gradient-interpretation"></p>
+            </div>
+
+            <div class="calc-info-grid" style="margin-top: 1rem;">
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Normal Range</span>
+                <span class="calc-info-item__value">5-15 mmHg (room air)</span>
+              </div>
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Hypoxemia Cause</span>
+                <span class="calc-info-item__value" id="hypoxemia-cause">--</span>
+              </div>
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            Formula: PAO2 = FiO2 × (Pb - 47) - (PaCO2 / 0.9) | A-a = PAO2 - PaO2
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/acid-base-electrolyte.html" class="calc-chip">🧪 Blood Gas</a>
+          <a href="/tools/anion-gap-interpretation/" class="calc-chip">⚡ Anion Gap</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      const els = {
+        speciesBtns: document.querySelectorAll('[data-species]'),
+        fio2Btns: document.querySelectorAll('[data-fio2]'),
+        fio2Custom: document.getElementById('fio2-custom'),
+        pao2: document.getElementById('pao2'),
+        paco2: document.getElementById('paco2'),
+        barometric: document.getElementById('barometric'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        resultPao2: document.getElementById('result-pao2'),
+        resultGradient: document.getElementById('result-gradient'),
+        gradientInterp: document.getElementById('gradient-interpretation'),
+        hypoxemiaCause: document.getElementById('hypoxemia-cause'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
+
+      let currentSpecies = 'dog';
+      let fio2 = 0.21;
+
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      els.fio2Btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          fio2 = parseFloat(btn.dataset.fio2);
+          els.fio2Btns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          els.fio2Custom.value = fio2;
+        });
+      });
+
+      els.fio2Custom.addEventListener('input', () => {
+        const val = parseFloat(els.fio2Custom.value);
+        if (val >= 0.21 && val <= 1.0) {
+          fio2 = val;
+          els.fio2Btns.forEach(b => b.classList.remove('active'));
+        }
+      });
+
+      function calculate() {
+        const pao2 = parseFloat(els.pao2.value);
+        const paco2 = parseFloat(els.paco2.value);
+        const pb = parseFloat(els.barometric.value) || 760;
+
+        if (!pao2 || !paco2) return;
+
+        // PAO2 = FiO2 × (Pb - PH2O) - (PaCO2 / RQ)
+        const ph2o = 47; // Water vapor pressure
+        const rq = 0.9; // Respiratory quotient
+        const pao2_calc = (fio2 * (pb - ph2o)) - (paco2 / rq);
+        const gradient = pao2_calc - pao2;
+
+        els.resultPao2.textContent = pao2_calc.toFixed(1);
+        els.resultGradient.textContent = gradient.toFixed(1);
+
+        // Interpretation
+        let interp = '';
+        let cause = '';
+        const normalMax = fio2 <= 0.21 ? 15 : 50; // Higher normal with O2
+
+        if (gradient < 15) {
+          interp = '✓ Normal gradient';
+          els.gradientInterp.style.color = 'var(--calc-success)';
+          cause = gradient < 0 ? 'Hyperoxygenation' : 'Normal';
+        } else if (gradient < 25) {
+          interp = '⚠ Mild elevation';
+          els.gradientInterp.style.color = 'var(--calc-warning)';
+          cause = 'V/Q mismatch or diffusion defect';
+        } else {
+          interp = '⚠ Significantly elevated';
+          els.gradientInterp.style.color = 'var(--calc-danger)';
+          cause = 'Shunt, severe V/Q mismatch, or diffusion limitation';
+        }
+
+        els.gradientInterp.textContent = interp;
+        els.hypoxemiaCause.textContent = cause;
+
+        els.results.style.display = 'block';
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const text = `A-a Gradient: ${els.resultGradient.textContent} mmHg (PAO2: ${els.resultPao2.textContent} mmHg)`;
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.pao2.value = '';
+        els.paco2.value = '';
+        els.fio2Custom.value = '0.21';
+        fio2 = 0.21;
+        els.fio2Btns.forEach(b => b.classList.remove('active'));
+        els.fio2Btns[0].classList.add('active');
+        els.results.style.display = 'none';
+      });
+    })();
+    </script>
+  </body>
+</html>

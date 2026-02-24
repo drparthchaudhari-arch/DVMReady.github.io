@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Free Water Deficit" />
+    <title>Free Water Deficit Calculator | DVMReady Tools</title>
+    <meta name="description" content="Calculate free water deficit for hypernatremia correction in dogs and cats. Includes correction rate and fluid administration guidance." />
+    <link rel="canonical" href="https://dvmready.com/tools/free-water-deficit-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">💧</div>
+        <h1 class="calc-header__title">Free Water Deficit Calculator</h1>
+        <p class="calc-header__subtitle">Hypernatremia correction planning for dogs and cats</p>
+      </header>
+
+      <div class="calc-card" id="fwd-calculator" data-calc="free-water-deficit">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>💧</span>
+            <span>Water Deficit Calculation</span>
+          </h2>
+          <p class="calc-card__subtitle">Calculate free water replacement for hypernatremia</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+            </div>
+          </div>
+
+          <!-- Weight -->
+          <div class="calc-form-group">
+            <label class="calc-label">Weight</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="weight" placeholder="10" min="0.1" step="0.1">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Current Sodium -->
+          <div class="calc-form-group">
+            <label class="calc-label">Current Sodium</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input" id="current-na" placeholder="160" min="100" max="200" step="0.1">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mEq/L</span>
+            </div>
+          </div>
+
+          <!-- Target Sodium -->
+          <div class="calc-form-group">
+            <label class="calc-label">Target Sodium</label>
+            <div class="calc-chips">
+              <button type="button" class="calc-chip active" data-target="150">150 (mod)</button>
+              <button type="button" class="calc-chip" data-target="145">145 (norm)</button>
+              <button type="button" class="calc-chip" data-target="155">155 (mild)</button>
+            </div>
+            <div class="calc-input-wrapper" style="margin-top: 0.5rem;">
+              <input type="number" class="calc-input" id="target-na" placeholder="150" value="150" min="120" max="160" step="0.1">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mEq/L</span>
+            </div>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>💧</span> Calculate Free Water Deficit
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Free Water Deficit</p>
+              <p class="calc-result-card__value">
+                <span id="result-liters">--</span>
+                <span class="calc-result-card__unit">L</span>
+              </p>
+              <p class="calc-result-card__context" id="result-ml">-- mL</p>
+            </div>
+
+            <div class="calc-result-card" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));">
+              <p class="calc-result-card__label">Recommended Correction Time</p>
+              <p class="calc-result-card__value">
+                <span id="result-hours">--</span>
+                <span class="calc-result-card__unit">hours</span>
+              </p>
+              <p class="calc-result-card__context" id="correction-rate">Max 0.5 mEq/L/hr</p>
+            </div>
+
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Fluid Administration Rate</p>
+              <p class="calc-result-card__value">
+                <span id="result-rate">--</span>
+                <span class="calc-result-card__unit">mL/hr</span>
+              </p>
+              <p class="calc-result-card__context" id="rate-context">Using 5% dextrose in water</p>
+            </div>
+
+            <div class="calc-info-grid" style="margin-top: 1rem;">
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Sodium Drop Needed</span>
+                <span class="calc-info-item__value" id="na-drop">-- mEq/L</span>
+              </div>
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">TBW Estimate</span>
+                <span class="calc-info-item__value" id="tbw-value">-- L</span>
+              </div>
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Max Daily Drop</span>
+                <span class="calc-info-item__value">12 mEq/L/day</span>
+              </div>
+            </div>
+
+            <div class="calc-info-box" style="background: rgba(239, 68, 68, 0.1); border-left: 4px solid var(--calc-danger); padding: 1rem; border-radius: var(--calc-radius-md); margin-top: 1rem;">
+              <h4 style="margin: 0 0 0.5rem; color: var(--calc-danger);">⚠️ Critical Safety Warnings</h4>
+              <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.875rem; color: var(--calc-text);">
+                <li><strong>Rapid correction causes cerebral edema</strong> - seizure, coma, death</li>
+                <li>Maximum safe rate: <strong>0.5 mEq/L/hr</strong> (12 mEq/L/day)</li>
+                <li>Use <strong>5% dextrose in water (D5W)</strong> for free water replacement</li>
+                <li>Consider adding 0.2-0.45% NaCl if risk of cerebral edema</li>
+                <li>Recheck sodium every 4-6 hours during correction</li>
+                <li>Chronic hypernatremia (&gt;48 hrs) needs even slower correction</li>
+              </ul>
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            Formula: FWD (L) = 0.6 × weight(kg) × [(Current Na / Target Na) - 1]
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/corrected-sodium-calculator.html" class="calc-chip">🧂 Corrected Sodium</a>
+          <a href="/tools/fluid-calculator.html" class="calc-chip">💧 Fluid Calculator</a>
+          <a href="/tools/acid-base-electrolyte.html" class="calc-chip">🧪 Blood Gas</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      const els = {
+        speciesBtns: document.querySelectorAll('[data-species]'),
+        weight: document.getElementById('weight'),
+        currentNa: document.getElementById('current-na'),
+        targetNa: document.getElementById('target-na'),
+        targetBtns: document.querySelectorAll('[data-target]'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        resultLiters: document.getElementById('result-liters'),
+        resultMl: document.getElementById('result-ml'),
+        resultHours: document.getElementById('result-hours'),
+        correctionRate: document.getElementById('correction-rate'),
+        resultRate: document.getElementById('result-rate'),
+        rateContext: document.getElementById('rate-context'),
+        naDrop: document.getElementById('na-drop'),
+        tbwValue: document.getElementById('tbw-value'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
+
+      let currentSpecies = 'dog';
+      let weightUnit = 'kg';
+      const MAX_CORRECTION_RATE = 0.5; // mEq/L/hr
+      const TBW_FACTOR = 0.6; // 60% of body weight
+
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      document.querySelectorAll('[data-unit]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          weightUnit = btn.dataset.unit;
+          document.querySelectorAll('[data-unit]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      els.targetBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          els.targetNa.value = btn.dataset.target;
+          els.targetBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      function getWeightKg() {
+        const w = parseFloat(els.weight.value);
+        if (!w) return null;
+        return weightUnit === 'lb' ? w * 0.453592 : w;
+      }
+
+      function calculate() {
+        const weightKg = getWeightKg();
+        const currentNa = parseFloat(els.currentNa.value);
+        const targetNa = parseFloat(els.targetNa.value) || 150;
+
+        if (!weightKg || !currentNa) return;
+
+        // Validate sodium values
+        if (currentNa <= targetNa) {
+          alert('Current sodium must be higher than target sodium for hypernatremia correction.');
+          return;
+        }
+
+        // Calculate TBW (Total Body Water)
+        const tbw = TBW_FACTOR * weightKg;
+
+        // Calculate Free Water Deficit
+        // Formula: FWD = TBW × [(Current Na / Target Na) - 1]
+        const fwd = tbw * ((currentNa / targetNa) - 1);
+        const fwdMl = fwd * 1000;
+
+        // Calculate sodium drop needed
+        const naDrop = currentNa - targetNa;
+
+        // Calculate recommended correction time
+        // Hours = (Na drop needed) / (max correction rate)
+        const hoursNeeded = naDrop / MAX_CORRECTION_RATE;
+
+        // Calculate fluid administration rate (mL/hr)
+        // Using 5% dextrose in water (D5W) which provides free water
+        const rate = fwdMl / hoursNeeded;
+
+        // Display results
+        els.resultLiters.textContent = fwd.toFixed(2);
+        els.resultMl.textContent = `${fwdMl.toFixed(0)} mL`;
+        els.resultHours.textContent = hoursNeeded.toFixed(1);
+        els.resultRate.textContent = rate.toFixed(1);
+        els.naDrop.textContent = `${naDrop.toFixed(1)} mEq/L`;
+        els.tbwValue.textContent = `${tbw.toFixed(1)} L`;
+
+        // Set rate context
+        if (rate > 250) {
+          els.rateContext.textContent = '⚠️ High rate - monitor closely for volume overload';
+          els.rateContext.style.color = 'var(--calc-warning)';
+        } else if (rate > 100) {
+          els.rateContext.textContent = 'Moderate rate - use D5W';
+          els.rateContext.style.color = 'var(--calc-text-muted)';
+        } else {
+          els.rateContext.textContent = 'Conservative rate - use D5W';
+          els.rateContext.style.color = 'var(--calc-success)';
+        }
+
+        els.results.style.display = 'block';
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const text = `Free Water Deficit: ${els.resultLiters.textContent} L (${els.resultMl.textContent}) - Administer over ${els.resultHours.textContent} hours at ${els.resultRate.textContent} mL/hr`;
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.weight.value = '';
+        els.currentNa.value = '';
+        els.targetNa.value = '150';
+        els.targetBtns.forEach(b => b.classList.remove('active'));
+        els.targetBtns[0].classList.add('active');
+        els.results.style.display = 'none';
+      });
+    })();
+    </script>
+  </body>
+</html>

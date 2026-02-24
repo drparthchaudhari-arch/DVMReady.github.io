@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Drip Rate Calculator" />
+    <title>Drip Rate Calculator | DVMReady Tools</title>
+    <meta name="description" content="Veterinary IV drip rate calculator. Calculate drops per minute for fluid administration using macrodrip and microdrip sets." />
+    <link rel="canonical" href="https://dvmready.com/tools/drip-rate-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/unified-calculator.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Veterinary Drip Rate Calculator",
+      "applicationCategory": "HealthApplication",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Calculate IV drip rates for veterinary fluid therapy. Macrodrip and microdrip set calculations for dogs and cats."
+    }
+    </script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">💧</div>
+        <h1 class="calc-header__title">Drip Rate Calculator</h1>
+        <p class="calc-header__subtitle">Calculate IV fluid drip rates (drops per minute) for manual fluid administration. Use with macrodrip or microdrip sets.</p>
+      </header>
+
+      <div class="calc-mode-toggle">
+        <button class="calc-mode-btn active" data-mode="rate"><span>💧 mL/hr</span></button>
+        <button class="calc-mode-btn" data-mode="volume"><span>📊 Volume + Time</span></button>
+      </div>
+
+      <div class="calc-card" id="drip-calculator" data-calc="drip">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span id="mode-icon">💧</span>
+            <span id="mode-title">Drip Rate from mL/hr</span>
+          </h2>
+          <p class="calc-card__subtitle" id="mode-subtitle">Enter fluid rate to calculate drops per minute</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+            </div>
+          </div>
+
+          <!-- Weight -->
+          <div class="calc-form-group">
+            <label class="calc-label">Weight</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="weight" placeholder="10" min="0.1" step="0.1" data-conversion="weight" data-unit="kg">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- MODE: mL/hr -->
+          <div class="calc-form-group" id="rate-options">
+            <label class="calc-label">Fluid Rate</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="fluid-rate" placeholder="50" min="0.1" step="0.1">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="ml">mL/hr</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- MODE: Volume + Time -->
+          <div class="calc-advanced" id="volume-options" style="display: none;">
+            <h3 class="calc-advanced__title">📊 Volume & Time</h3>
+
+            <div class="calc-form-group">
+              <label class="calc-label">Total Volume</label>
+              <div class="calc-input-wrapper">
+                <input type="number" class="calc-input calc-input--with-unit" id="total-volume" placeholder="500" min="1" step="1">
+                <div class="calc-input-unit">
+                  <button type="button" class="calc-unit-btn active" data-unit="ml">mL</button>
+                  <button type="button" class="calc-unit-btn" data-unit="l">L</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="calc-form-group">
+              <label class="calc-label">Administration Time</label>
+              <div class="calc-input-wrapper">
+                <input type="number" class="calc-input calc-input--with-unit" id="admin-time" placeholder="8" min="0.1" step="0.1">
+                <div class="calc-input-unit">
+                  <button type="button" class="calc-unit-btn active" data-unit="hr">hours</button>
+                  <button type="button" class="calc-unit-btn" data-unit="min">minutes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Drip Factor -->
+          <div class="calc-form-group">
+            <label class="calc-label">Drip Factor (gtt/mL)</label>
+            <div class="calc-chips">
+              <button type="button" class="calc-chip active" data-drip="10">10<br><small>Macrodrip</small></button>
+              <button type="button" class="calc-chip" data-drip="15">15<br><small>Macrodrip</small></button>
+              <button type="button" class="calc-chip" data-drip="20">20<br><small>Macrodrip</small></button>
+              <button type="button" class="calc-chip" data-drip="60">60<br><small>Microdrip</small></button>
+            </div>
+            <div class="calc-input-wrapper" style="margin-top: 0.75rem;">
+              <input type="number" class="calc-input" id="custom-drip" placeholder="Custom drip factor (optional)" min="1" step="1">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.875rem;">gtt/mL</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.5rem;">
+              💡 <strong>Macrodrip (10-20 gtt/mL):</strong> Standard adult sets<br>
+              💡 <strong>Microdrip (60 gtt/mL):</strong> Pediatrics, small patients, precise rates
+            </p>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>💧</span> Calculate Drip Rate
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <!-- Drip Rate -->
+            <div class="calc-result-card calc-result-card--highlight">
+              <p class="calc-result-card__label">Drip Rate</p>
+              <p class="calc-result-card__value">
+                <span id="result-drip">--</span>
+                <span class="calc-result-card__unit">gtt/min</span>
+              </p>
+              <p class="calc-result-card__context">Set roller clamp to this rate</p>
+            </div>
+
+            <!-- Fluid Rate -->
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Fluid Rate</p>
+              <p class="calc-result-card__value">
+                <span id="result-rate">--</span>
+                <span class="calc-result-card__unit">mL/hr</span>
+              </p>
+            </div>
+
+            <!-- Drops per mL info -->
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Drip Factor Used</p>
+              <p class="calc-result-card__value">
+                <span id="result-factor">--</span>
+                <span class="calc-result-card__unit">gtt/mL</span>
+              </p>
+              <p class="calc-result-card__context" id="set-type">Macrodrip set</p>
+            </div>
+
+            <!-- Time to empty (if applicable) -->
+            <div class="calc-result-card" id="time-result" style="display: none;">
+              <p class="calc-result-card__label">Time to Complete</p>
+              <p class="calc-result-card__value">
+                <span id="result-time">--</span>
+              </p>
+            </div>
+
+            <!-- Quick Reference -->
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Quick Reference</p>
+              <div class="calc-info-grid" style="margin-top: 0.5rem;">
+                <div class="calc-info-item">
+                  <span class="calc-info-item__label">1 drop every</span>
+                  <span class="calc-info-item__value" id="drop-interval">-- sec</span>
+                </div>
+                <div class="calc-info-item">
+                  <span class="calc-info-item__label">60 drops in</span>
+                  <span class="calc-info-item__value" id="sixty-drops">-- sec</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+
+            <div class="calc-details">
+              <button type="button" class="calc-details__trigger">
+                <span>📋 Show Calculation Details</span>
+                <svg class="calc-details__trigger-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="calc-details__content">
+                <div class="calc-details__inner" id="calculation-details"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            ⚠️ Always verify drip rate by counting drops at the drip chamber. Adjust for patient tolerance.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/fluid-calculator.html" class="calc-chip">💧 Fluid Calculator</a>
+          <a href="/tools/cri-calculator.html" class="calc-chip">💉 CRI Calculator</a>
+          <a href="/tools/transfusion-helper.html" class="calc-chip">🩸 Transfusion Helper</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      const els = {
+        modeBtns: document.querySelectorAll('.calc-mode-btn'),
+        speciesBtns: document.querySelectorAll('.calc-species-btn'),
+        weightInput: document.getElementById('weight'),
+        rateOptions: document.getElementById('rate-options'),
+        fluidRate: document.getElementById('fluid-rate'),
+        volumeOptions: document.getElementById('volume-options'),
+        totalVolume: document.getElementById('total-volume'),
+        adminTime: document.getElementById('admin-time'),
+        dripChips: document.querySelectorAll('[data-drip]'),
+        customDrip: document.getElementById('custom-drip'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        resultDrip: document.getElementById('result-drip'),
+        resultRate: document.getElementById('result-rate'),
+        resultFactor: document.getElementById('result-factor'),
+        setType: document.getElementById('set-type'),
+        timeResult: document.getElementById('time-result'),
+        resultTime: document.getElementById('result-time'),
+        dropInterval: document.getElementById('drop-interval'),
+        sixtyDrops: document.getElementById('sixty-drops'),
+        calcDetails: document.querySelector('.calc-details'),
+        calculationDetails: document.getElementById('calculation-details'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
+
+      let currentMode = 'rate';
+      let currentSpecies = 'dog';
+      let dripFactor = 10;
+
+      // Mode toggle
+      els.modeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentMode = btn.dataset.mode;
+          els.modeBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          if (currentMode === 'rate') {
+            document.getElementById('mode-icon').textContent = '💧';
+            document.getElementById('mode-title').textContent = 'Drip Rate from mL/hr';
+            document.getElementById('mode-subtitle').textContent = 'Enter fluid rate to calculate drops per minute';
+            els.rateOptions.style.display = 'block';
+            els.volumeOptions.style.display = 'none';
+          } else {
+            document.getElementById('mode-icon').textContent = '📊';
+            document.getElementById('mode-title').textContent = 'Drip Rate from Volume + Time';
+            document.getElementById('mode-subtitle').textContent = 'Enter total volume and time to calculate drip rate';
+            els.rateOptions.style.display = 'none';
+            els.volumeOptions.style.display = 'block';
+          }
+          
+          els.results.style.display = 'none';
+        });
+      });
+
+      // Species selection
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      // Drip factor chips
+      els.dripChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          dripFactor = parseInt(chip.dataset.drip);
+          els.dripChips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          els.customDrip.value = '';
+        });
+      });
+
+      // Custom drip factor
+      els.customDrip.addEventListener('input', () => {
+        if (els.customDrip.value) {
+          els.dripChips.forEach(c => c.classList.remove('active'));
+        }
+      });
+
+      // Get effective drip factor
+      function getDripFactor() {
+        if (els.customDrip.value) {
+          return parseFloat(els.customDrip.value);
+        }
+        return dripFactor;
+      }
+
+      // Format time
+      function formatTime(hours) {
+        if (hours < 1) {
+          return Math.round(hours * 60) + ' min';
+        }
+        const h = Math.floor(hours);
+        const m = Math.round((hours - h) * 60);
+        if (m === 0) return h + ' hr';
+        return h + ' hr ' + m + ' min';
+      }
+
+      function calculate() {
+        const weight = parseFloat(els.weightInput.value);
+        const factor = getDripFactor();
+        
+        if (!weight || !factor) return;
+
+        let mlPerHour, totalVol, timeHours;
+
+        if (currentMode === 'rate') {
+          mlPerHour = parseFloat(els.fluidRate.value);
+          if (!mlPerHour) return;
+        } else {
+          totalVol = parseFloat(els.totalVolume.value);
+          const timeVal = parseFloat(els.adminTime.value);
+          const timeUnit = document.querySelector('#volume-options .calc-unit-btn.active')?.dataset.unit || 'hr';
+          
+          if (!totalVol || !timeVal) return;
+          
+          timeHours = timeUnit === 'min' ? timeVal / 60 : timeVal;
+          mlPerHour = totalVol / timeHours;
+        }
+
+        // Calculate drip rate: (mL/hr × gtt/mL) / 60
+        const dripRate = (mlPerHour * factor) / 60;
+        
+        // Drop interval in seconds
+        const interval = 60 / dripRate;
+        const sixtyDropsTime = 60 * interval;
+
+        // Display results
+        els.resultDrip.textContent = dripRate.toFixed(0);
+        els.resultRate.textContent = mlPerHour.toFixed(1);
+        els.resultFactor.textContent = factor;
+        els.setType.textContent = factor === 60 ? 'Microdrip set (pediatric)' : 'Macrodrip set';
+        
+        // Time reference
+        els.dropInterval.textContent = interval.toFixed(1) + ' sec';
+        els.sixtyDrops.textContent = sixtyDropsTime.toFixed(0) + ' sec';
+
+        // Show time result if in volume mode
+        if (currentMode === 'volume' && timeHours) {
+          els.timeResult.style.display = 'block';
+          els.resultTime.innerHTML = formatTime(timeHours);
+        } else {
+          els.timeResult.style.display = 'none';
+        }
+
+        // Calculation details
+        let formula = '';
+        if (currentMode === 'rate') {
+          formula = `Formula: (mL/hr × Drip Factor) / 60<br>
+            Calculation: (${mlPerHour.toFixed(1)} mL/hr × ${factor} gtt/mL) / 60<br>
+            = ${(mlPerHour * factor).toFixed(1)} / 60<br>
+            = <strong>${dripRate.toFixed(1)} gtt/min</strong> → <strong>${dripRate.toFixed(0)} gtt/min</strong> (rounded)`;
+        } else {
+          formula = `Formula: [(Total Volume / Time in min) × Drip Factor]<br>
+            Step 1: Calculate mL/hr = ${totalVol} mL / ${timeHours.toFixed(2)} hr = ${mlPerHour.toFixed(1)} mL/hr<br>
+            Step 2: (${mlPerHour.toFixed(1)} × ${factor}) / 60<br>
+            = <strong>${dripRate.toFixed(1)} gtt/min</strong> → <strong>${dripRate.toFixed(0)} gtt/min</strong> (rounded)`;
+        }
+
+        let tips = '<br><br><strong>Administration Tips:</strong><ul style="margin: 0.5rem 0 0 1.5rem;">';
+        tips += `<li>Count ${dripRate.toFixed(0)} drops in the drip chamber per minute</li>`;
+        if (factor === 60) {
+          tips += '<li>Microdrip (60 gtt/mL) provides more precise control for small patients</li>';
+        } else {
+          tips += '<li>Macrodrip delivers fluid faster with fewer drops to count</li>';
+        }
+        if (currentSpecies === 'cat' || weight < 5) {
+          tips += '<li>⚠️ Small patient: Consider microdrip (60 gtt/mL) for better precision</li>';
+        }
+        tips += '<li>Recount drops after adjusting roller clamp</li>';
+        tips += '</ul>';
+
+        els.calculationDetails.innerHTML = formula + tips;
+
+        els.results.style.display = 'block';
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const text = `Drip Rate: ${els.resultDrip.textContent} gtt/min (${els.resultFactor.textContent} gtt/mL set) | ${els.resultRate.textContent} mL/hr`;
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.weightInput.value = '';
+        els.fluidRate.value = '';
+        els.totalVolume.value = '';
+        els.adminTime.value = '';
+        els.customDrip.value = '';
+        
+        // Reset drip factor to 10
+        dripFactor = 10;
+        els.dripChips.forEach(c => c.classList.remove('active'));
+        document.querySelector('[data-drip="10"]').classList.add('active');
+        
+        els.results.style.display = 'none';
+      });
+
+      els.calcDetails.querySelector('.calc-details__trigger').addEventListener('click', () => {
+        els.calcDetails.classList.toggle('open');
+      });
+    })();
+    </script>
+  </body>
+</html>

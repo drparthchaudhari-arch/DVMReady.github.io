@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="FENa Calculator" />
+    <title>FENa Calculator | DVMReady Tools</title>
+    <meta name="description" content="Calculate Fractional Excretion of Sodium (FENa) to differentiate pre-renal from intrinsic renal azotemia in dogs and cats." />
+    <link rel="canonical" href="https://dvmready.com/tools/fena-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🧪</div>
+        <h1 class="calc-header__title">FENa Calculator</h1>
+        <p class="calc-header__subtitle">Fractional Excretion of Sodium for azotemia differentiation</p>
+      </header>
+
+      <div class="calc-card" id="fena-calculator" data-calc="fena">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>🧪</span>
+            <span>FENa Calculation</span>
+          </h2>
+          <p class="calc-card__subtitle">Differentiate pre-renal from intrinsic renal azotemia</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+            </div>
+          </div>
+
+          <!-- Urine Sodium -->
+          <div class="calc-form-group">
+            <label class="calc-label">Urine Sodium</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input" id="urine-na" placeholder="20" min="0" max="300" step="0.1">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mEq/L</span>
+            </div>
+          </div>
+
+          <!-- Plasma/Serum Sodium -->
+          <div class="calc-form-group">
+            <label class="calc-label">Plasma/Serum Sodium</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input" id="plasma-na" placeholder="145" min="80" max="200" step="0.1">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mEq/L</span>
+            </div>
+          </div>
+
+          <!-- Urine Creatinine -->
+          <div class="calc-form-group">
+            <label class="calc-label">Urine Creatinine</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input" id="urine-cr" placeholder="100" min="1" max="500" step="0.1">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mg/dL</span>
+            </div>
+          </div>
+
+          <!-- Plasma/Serum Creatinine -->
+          <div class="calc-form-group">
+            <label class="calc-label">Plasma/Serum Creatinine</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input" id="plasma-cr" placeholder="2.5" min="0.1" max="50" step="0.1">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mg/dL</span>
+            </div>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>🧮</span> Calculate FENa
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <div class="calc-result-card" id="fena-card">
+              <p class="calc-result-card__label">FENa</p>
+              <p class="calc-result-card__value">
+                <span id="result-fena">--</span>
+                <span class="calc-result-card__unit">%</span>
+              </p>
+              <p class="calc-result-card__context" id="fena-interpretation"></p>
+            </div>
+
+            <div class="calc-info-grid" style="margin-top: 1rem;">
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Urine Na</span>
+                <span class="calc-info-item__value" id="info-urine-na">-- mEq/L</span>
+              </div>
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Plasma Na</span>
+                <span class="calc-info-item__value" id="info-plasma-na">-- mEq/L</span>
+              </div>
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Urine Cr</span>
+                <span class="calc-info-item__value" id="info-urine-cr">-- mg/dL</span>
+              </div>
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Plasma Cr</span>
+                <span class="calc-info-item__value" id="info-plasma-cr">-- mg/dL</span>
+              </div>
+            </div>
+
+            <div class="calc-info-box" id="interpretation-box" style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--calc-primary); padding: 1rem; border-radius: var(--calc-radius-md); margin-top: 1rem;">
+              <h4 style="margin: 0 0 0.5rem; color: var(--calc-primary);">📋 Clinical Interpretation</h4>
+              <div id="interpretation-content" style="font-size: 0.875rem; color: var(--calc-text);">
+                <!-- Dynamic content -->
+              </div>
+            </div>
+
+            <div class="calc-info-box" style="background: rgba(107, 114, 128, 0.1); padding: 1rem; border-radius: var(--calc-radius-md); margin-top: 1rem;">
+              <h4 style="margin: 0 0 0.5rem; color: var(--calc-text-muted);">📊 Reference Ranges</h4>
+              <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.875rem; color: var(--calc-text); line-height: 1.8;">
+                <li><strong>FENa &lt; 1%:</strong> Pre-renal azotemia (appropriate Na retention)</li>
+                <li><strong>FENa 1-2%:</strong> Borderline/indeterminate</li>
+                <li><strong>FENa &gt; 2%:</strong> Intrinsic renal disease (ATN)</li>
+              </ul>
+              <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0.75rem 0 0; font-style: italic;">
+                Note: Cats may have slightly higher thresholds. Use with other clinical findings.
+              </p>
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            Formula: FENa (%) = (Urine Na × Plasma Cr) / (Plasma Na × Urine Cr) × 100
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/acid-base-electrolyte.html" class="calc-chip">🧪 Blood Gas</a>
+          <a href="/anion-gap-interpretation/" class="calc-chip">⚡ Anion Gap</a>
+          <a href="/tools/renal-dose-adjuster.html" class="calc-chip">💊 Renal Dose Adjuster</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      const els = {
+        speciesBtns: document.querySelectorAll('[data-species]'),
+        urineNa: document.getElementById('urine-na'),
+        plasmaNa: document.getElementById('plasma-na'),
+        urineCr: document.getElementById('urine-cr'),
+        plasmaCr: document.getElementById('plasma-cr'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        resultFena: document.getElementById('result-fena'),
+        fenaInterp: document.getElementById('fena-interpretation'),
+        fenaCard: document.getElementById('fena-card'),
+        infoUrineNa: document.getElementById('info-urine-na'),
+        infoPlasmaNa: document.getElementById('info-plasma-na'),
+        infoUrineCr: document.getElementById('info-urine-cr'),
+        infoPlasmaCr: document.getElementById('info-plasma-cr'),
+        interpBox: document.getElementById('interpretation-box'),
+        interpContent: document.getElementById('interpretation-content'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
+
+      let currentSpecies = 'dog';
+
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      function calculate() {
+        const urineNa = parseFloat(els.urineNa.value);
+        const plasmaNa = parseFloat(els.plasmaNa.value);
+        const urineCr = parseFloat(els.urineCr.value);
+        const plasmaCr = parseFloat(els.plasmaCr.value);
+
+        if (!urineNa || !plasmaNa || !urineCr || !plasmaCr) {
+          alert('Please enter all required values');
+          return;
+        }
+
+        // FENa (%) = (Urine Na × Plasma Cr) / (Plasma Na × Urine Cr) × 100
+        const fena = ((urineNa * plasmaCr) / (plasmaNa * urineCr)) * 100;
+
+        // Update result display
+        els.resultFena.textContent = fena.toFixed(2);
+        els.infoUrineNa.textContent = `${urineNa.toFixed(1)} mEq/L`;
+        els.infoPlasmaNa.textContent = `${plasmaNa.toFixed(1)} mEq/L`;
+        els.infoUrineCr.textContent = `${urineCr.toFixed(1)} mg/dL`;
+        els.infoPlasmaCr.textContent = `${plasmaCr.toFixed(1)} mg/dL`;
+
+        // Interpretation
+        let interp = '';
+        let interpDetail = '';
+        let cardClass = '';
+        let boxColor = '';
+
+        // Species-specific thresholds (cats may have slightly different)
+        const prerenalThreshold = currentSpecies === 'cat' ? 1.0 : 1.0;
+        const intrinsicThreshold = currentSpecies === 'cat' ? 2.0 : 2.0;
+
+        if (fena < prerenalThreshold) {
+          interp = '✓ Pre-renal azotemia';
+          interpDetail = `
+            <p><strong>Pre-renal azotemia</strong> - Appropriate sodium retention</p>
+            <ul style="margin: 0.5rem 0 0; padding-left: 1.2rem;">
+              <li>Functional kidneys responding to decreased perfusion</li>
+              <li>Low urine sodium indicates intact tubular reabsorption</li>
+              <li>Responds to fluid therapy</li>
+              <li>Common causes: Hypovolemia, dehydration, decreased cardiac output</li>
+            </ul>
+          `;
+          cardClass = 'calc-result-card--success';
+          boxColor = 'var(--calc-success)';
+          els.fenaInterp.style.color = 'var(--calc-success)';
+        } else if (fena <= 2) {
+          interp = '⚠ Borderline/Indeterminate';
+          interpDetail = `
+            <p><strong>Borderline result</strong> - Interpret with caution</p>
+            <ul style="margin: 0.5rem 0 0; padding-left: 1.2rem;">
+              <li>May represent early intrinsic disease or partial response</li>
+              <li>Consider clinical context and other diagnostics</li>
+              <li>Concurrent diuretic use can affect results</li>
+              <li>Repeat testing may be helpful</li>
+            </ul>
+          `;
+          cardClass = 'calc-result-card--warning';
+          boxColor = 'var(--calc-warning)';
+          els.fenaInterp.style.color = 'var(--calc-warning)';
+        } else {
+          interp = '⚠ Intrinsic renal disease';
+          interpDetail = `
+            <p><strong>Intrinsic renal disease</strong> - Tubular damage (ATN)</p>
+            <ul style="margin: 0.5rem 0 0; padding-left: 1.2rem;">
+              <li>Loss of tubular sodium reabsorption capability</li>
+              <li>High urine sodium despite azotemia</li>
+              <li>May not respond fully to fluid therapy alone</li>
+              <li>Common causes: Nephrotoxins, ischemia, pyelonephritis</li>
+            </ul>
+          `;
+          cardClass = 'calc-result-card--danger';
+          boxColor = 'var(--calc-danger)';
+          els.fenaInterp.style.color = 'var(--calc-danger)';
+        }
+
+        els.fenaInterp.textContent = interp;
+        els.interpContent.innerHTML = interpDetail;
+
+        // Update card styling
+        els.fenaCard.className = 'calc-result-card ' + cardClass;
+        els.interpBox.style.borderLeftColor = boxColor;
+        els.interpBox.querySelector('h4').style.color = boxColor;
+
+        els.results.style.display = 'block';
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const fena = els.resultFena.textContent;
+        const interp = els.fenaInterp.textContent;
+        const text = `FENa: ${fena}% (${interp.replace(/^[^ ]+ /, '')})`;
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.urineNa.value = '';
+        els.plasmaNa.value = '';
+        els.urineCr.value = '';
+        els.plasmaCr.value = '';
+        els.results.style.display = 'none';
+        els.fenaCard.className = 'calc-result-card';
+      });
+    })();
+    </script>
+  </body>
+</html>

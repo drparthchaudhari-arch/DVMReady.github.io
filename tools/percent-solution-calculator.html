@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Percent Solution Calculator" />
+    <title>Percent Solution Calculator | DVMReady Tools</title>
+    <meta name="description" content="Convert between percent solutions, mg/mL, and molarity for veterinary drugs and solutions. Includes common drug presets like NaCl, Dextrose, Mannitol, and more." />
+    <link rel="canonical" href="https://dvmready.com/tools/percent-solution-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/unified-calculator.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Veterinary Percent Solution Calculator",
+      "applicationCategory": "HealthApplication",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Convert between percent solutions, mg/mL, and molarity. Calculate drug concentrations with common veterinary drug presets."
+    }
+    </script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🧪</div>
+        <h1 class="calc-header__title">Percent Solution Calculator</h1>
+        <p class="calc-header__subtitle">Convert between percent solutions, mg/mL, and molarity for veterinary drugs and solutions.</p>
+      </header>
+
+      <div class="calc-card" id="percent-calculator" data-calc="percent-solution">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>🧪</span>
+            <span>Concentration Converter</span>
+          </h2>
+          <p class="calc-card__subtitle">Select conversion type and enter value</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Conversion Type -->
+          <div class="calc-form-group">
+            <label class="calc-label">Conversion Type</label>
+            <select class="calc-select" id="conversion-type">
+              <option value="percent-to-mgml">% Solution → mg/mL</option>
+              <option value="mgml-to-percent">mg/mL → % Solution</option>
+              <option value="molarity-to-mgml">Molarity → mg/mL</option>
+              <option value="mgml-to-molarity">mg/mL → Molarity</option>
+              <option value="percent-to-molarity">% Solution → Molarity</option>
+              <option value="molarity-to-percent">Molarity → % Solution</option>
+            </select>
+          </div>
+
+          <!-- Common Drug Presets -->
+          <div class="calc-form-group" id="preset-group">
+            <label class="calc-label">Common Drug Presets</label>
+            <div class="calc-chips">
+              <button type="button" class="calc-chip" data-drug="nacl" data-mw="58.44">NaCl</button>
+              <button type="button" class="calc-chip" data-drug="dextrose" data-mw="180.16">Dextrose</button>
+              <button type="button" class="calc-chip" data-drug="mannitol" data-mw="182.17">Mannitol</button>
+              <button type="button" class="calc-chip" data-drug="cagluc" data-mw="430.37">Calcium Gluconate</button>
+              <button type="button" class="calc-chip" data-drug="mgso4" data-mw="246.47">MgSO₄</button>
+              <button type="button" class="calc-chip" data-drug="custom">Custom</button>
+            </div>
+          </div>
+
+          <!-- Molecular Weight Input -->
+          <div class="calc-form-group" id="mw-group" style="display: none;">
+            <label class="calc-label">Molecular Weight (MW)</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input" id="molecular-weight" placeholder="58.44" min="1" step="0.01">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.875rem;">g/mol</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.25rem;">Required for molarity conversions</p>
+          </div>
+
+          <!-- Input Value -->
+          <div class="calc-form-group">
+            <label class="calc-label" id="input-label">Percent Solution (%)</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input" id="input-value" placeholder="0.9" min="0" step="0.001">
+              <span class="calc-input-unit" id="input-unit">%</span>
+            </div>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>🧪</span> Calculate
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <!-- Percent Solution -->
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Percent Solution</p>
+              <p class="calc-result-card__value">
+                <span id="result-percent">--</span>
+                <span class="calc-result-card__unit">%</span>
+              </p>
+              <p class="calc-result-card__context">Weight/volume (w/v)</p>
+            </div>
+
+            <!-- mg/mL -->
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Concentration</p>
+              <p class="calc-result-card__value">
+                <span id="result-mgml">--</span>
+                <span class="calc-result-card__unit">mg/mL</span>
+              </p>
+              <p class="calc-result-card__context" id="result-gL">-- g/L</p>
+            </div>
+
+            <!-- Molarity -->
+            <div class="calc-result-card" id="molarity-result" style="display: none;">
+              <p class="calc-result-card__label">Molarity</p>
+              <p class="calc-result-card__value">
+                <span id="result-molarity">--</span>
+                <span class="calc-result-card__unit">M (mol/L)</span>
+              </p>
+              <p class="calc-result-card__context" id="mw-display"></p>
+            </div>
+
+            <!-- Common Preparations -->
+            <div class="calc-result-card" id="preparations-result" style="display: none;">
+              <p class="calc-result-card__label">Common Preparations</p>
+              <div class="calc-info-grid" id="preparations-list" style="margin-top: 0.5rem;">
+              </div>
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+
+            <div class="calc-details">
+              <button type="button" class="calc-details__trigger">
+                <span>📋 Show Calculation Details</span>
+                <svg class="calc-details__trigger-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="calc-details__content">
+                <div class="calc-details__inner" id="calculation-details"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            💡 <strong>Reference:</strong> 1% solution = 10 mg/mL = 10 g/L. Molarity (M) = moles/L = (mg/mL × 1000) / MW.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/unit-converter.html" class="calc-chip">📐 Unit Converter</a>
+          <a href="/tools/dose-calculator.html" class="calc-chip">💊 Dose Calculator</a>
+          <a href="/tools/cri-calculator.html" class="calc-chip">💉 CRI Calculator</a>
+          <a href="/tools/fluid-calculator.html" class="calc-chip">💧 Fluid Calculator</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      const els = {
+        conversionType: document.getElementById('conversion-type'),
+        drugChips: document.querySelectorAll('[data-drug]'),
+        mwGroup: document.getElementById('mw-group'),
+        molecularWeight: document.getElementById('molecular-weight'),
+        inputLabel: document.getElementById('input-label'),
+        inputValue: document.getElementById('input-value'),
+        inputUnit: document.getElementById('input-unit'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        resultPercent: document.getElementById('result-percent'),
+        resultMgml: document.getElementById('result-mgml'),
+        resultGL: document.getElementById('result-gL'),
+        molarityResult: document.getElementById('molarity-result'),
+        resultMolarity: document.getElementById('result-molarity'),
+        mwDisplay: document.getElementById('mw-display'),
+        preparationsResult: document.getElementById('preparations-result'),
+        preparationsList: document.getElementById('preparations-list'),
+        calcDetails: document.querySelector('.calc-details'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
+
+      let selectedMW = null;
+      let selectedDrugName = '';
+
+      const DRUG_PRESETS = {
+        nacl: { name: 'NaCl', mw: 58.44 },
+        dextrose: { name: 'Dextrose', mw: 180.16 },
+        mannitol: { name: 'Mannitol', mw: 182.17 },
+        cagluc: { name: 'Calcium Gluconate', mw: 430.37 },
+        mgso4: { name: 'Magnesium Sulfate', mw: 246.47 }
+      };
+
+      const COMMON_PREPARATIONS = {
+        nacl: [
+          { name: '0.45% NaCl (½ strength)', percent: 0.45 },
+          { name: '0.9% NaCl (normal saline)', percent: 0.9 },
+          { name: '3% NaCl (hypertonic)', percent: 3 },
+          { name: '7.2-7.5% NaCl (resuscitation)', percent: 7.5 }
+        ],
+        dextrose: [
+          { name: '2.5% Dextrose', percent: 2.5 },
+          { name: '5% Dextrose (D5W)', percent: 5 },
+          { name: '10% Dextrose', percent: 10 },
+          { name: '50% Dextrose', percent: 50 }
+        ],
+        mannitol: [
+          { name: '10% Mannitol', percent: 10 },
+          { name: '15% Mannitol', percent: 15 },
+          { name: '20% Mannitol', percent: 20 },
+          { name: '25% Mannitol', percent: 25 }
+        ],
+        cagluc: [
+          { name: '10% Calcium Gluconate', percent: 10 },
+          { name: '23% Calcium Gluconate', percent: 23 }
+        ],
+        mgso4: [
+          { name: '50% MgSO₄', percent: 50 }
+        ]
+      };
+
+      function updateInputLabel() {
+        const type = els.conversionType.value;
+        const labels = {
+          'percent-to-mgml': { label: 'Percent Solution (%)', unit: '%' },
+          'mgml-to-percent': { label: 'Concentration (mg/mL)', unit: 'mg/mL' },
+          'molarity-to-mgml': { label: 'Molarity (M)', unit: 'M' },
+          'mgml-to-molarity': { label: 'Concentration (mg/mL)', unit: 'mg/mL' },
+          'percent-to-molarity': { label: 'Percent Solution (%)', unit: '%' },
+          'molarity-to-percent': { label: 'Molarity (M)', unit: 'M' }
+        };
+        els.inputLabel.textContent = labels[type].label;
+        els.inputUnit.textContent = labels[type].unit;
+
+        // Show/hide MW input based on conversion type
+        const needsMW = type.includes('molarity');
+        els.mwGroup.style.display = needsMW ? 'block' : 'none';
+      }
+
+      function selectDrug(drug, mw, chip) {
+        selectedMW = mw;
+        selectedDrugName = drug === 'custom' ? 'Custom' : DRUG_PRESETS[drug]?.name || '';
+        
+        els.drugChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+
+        if (drug !== 'custom') {
+          els.molecularWeight.value = mw;
+        }
+      }
+
+      function calculate() {
+        const type = els.conversionType.value;
+        const inputVal = parseFloat(els.inputValue.value);
+        
+        if (!inputVal && inputVal !== 0) return;
+
+        let percent, mgml, molarity, mw;
+
+        // Get MW if needed
+        if (type.includes('molarity')) {
+          mw = parseFloat(els.molecularWeight.value);
+          if (!mw) {
+            alert('Please enter a molecular weight for molarity conversions');
+            return;
+          }
+        }
+
+        // Perform conversions
+        switch (type) {
+          case 'percent-to-mgml':
+            percent = inputVal;
+            mgml = percent * 10;
+            break;
+          case 'mgml-to-percent':
+            mgml = inputVal;
+            percent = mgml / 10;
+            break;
+          case 'molarity-to-mgml':
+            molarity = inputVal;
+            mgml = molarity * mw;
+            percent = mgml / 10;
+            break;
+          case 'mgml-to-molarity':
+            mgml = inputVal;
+            percent = mgml / 10;
+            molarity = mgml / mw;
+            break;
+          case 'percent-to-molarity':
+            percent = inputVal;
+            mgml = percent * 10;
+            molarity = mgml / mw;
+            break;
+          case 'molarity-to-percent':
+            molarity = inputVal;
+            mgml = molarity * mw;
+            percent = mgml / 10;
+            break;
+        }
+
+        // Display results
+        els.resultPercent.textContent = percent.toFixed(3);
+        els.resultMgml.textContent = mgml.toFixed(3);
+        els.resultGL.textContent = (mgml * 1000 / 1000).toFixed(2) + ' g/L';
+
+        // Show molarity result if MW is available
+        if (molarity !== undefined) {
+          els.molarityResult.style.display = 'block';
+          els.resultMolarity.textContent = molarity.toFixed(4);
+          els.mwDisplay.textContent = 'MW: ' + mw + ' g/mol';
+        } else {
+          els.molarityResult.style.display = 'none';
+        }
+
+        // Show common preparations if a preset drug is selected
+        const activeDrug = document.querySelector('[data-drug].active');
+        if (activeDrug && activeDrug.dataset.drug !== 'custom') {
+          const drugKey = activeDrug.dataset.drug;
+          const preps = COMMON_PREPARATIONS[drugKey];
+          if (preps) {
+            els.preparationsResult.style.display = 'block';
+            els.preparationsList.innerHTML = preps.map(p => {
+              const pMgml = p.percent * 10;
+              const pMolar = mw ? (pMgml / mw).toFixed(3) : null;
+              return `
+                <div class="calc-info-item">
+                  <span class="calc-info-item__label">${p.name}</span>
+                  <span class="calc-info-item__value">${p.percent}% = ${pMgml} mg/mL${pMolar ? ' = ' + pMolar + ' M' : ''}</span>
+                </div>
+              `;
+            }).join('');
+          }
+        } else {
+          els.preparationsResult.style.display = 'none';
+        }
+
+        // Build calculation details
+        const details = [];
+        details.push(`<p><strong>Input:</strong> ${inputVal} ${els.inputUnit.textContent}</p>`);
+        details.push(`<hr style="margin: 0.5rem 0; border: none; border-top: 1px solid var(--calc-border);">`);
+        details.push(`<p><strong>Formulas used:</strong></p>`);
+        details.push(`<ul style="margin-left: 1rem; margin-top: 0.25rem;">`);
+        details.push(`<li>% to mg/mL: % × 10 = mg/mL</li>`);
+        details.push(`<li>mg/mL to %: mg/mL ÷ 10 = %</li>`);
+        if (mw) {
+          details.push(`<li>Molarity to mg/mL: M × MW = mg/mL</li>`);
+          details.push(`<li>mg/mL to Molarity: mg/mL ÷ MW = M</li>`);
+        }
+        details.push(`</ul>`);
+        details.push(`<hr style="margin: 0.5rem 0; border: none; border-top: 1px solid var(--calc-border);">`);
+        details.push(`<p><strong>Results:</strong></p>`);
+        details.push(`<ul style="margin-left: 1rem; margin-top: 0.25rem;">`);
+        details.push(`<li>Percent: ${percent.toFixed(3)}%</li>`);
+        details.push(`<li>Concentration: ${mgml.toFixed(3)} mg/mL (${(mgml).toFixed(2)} g/L)</li>`);
+        if (molarity !== undefined) {
+          details.push(`<li>Molarity: ${molarity.toFixed(4)} M (MW: ${mw} g/mol)</li>`);
+        }
+        details.push(`</ul>`);
+        
+        document.getElementById('calculation-details').innerHTML = details.join('');
+
+        els.results.style.display = 'block';
+      }
+
+      // Event listeners
+      els.conversionType.addEventListener('change', updateInputLabel);
+
+      els.drugChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const drug = chip.dataset.drug;
+          const mw = parseFloat(chip.dataset.mw) || null;
+          selectDrug(drug, mw, chip);
+        });
+      });
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const mw = els.molecularWeight.value;
+        let text = `Percent Solution: ${els.resultPercent.textContent}% = ${els.resultMgml.textContent} mg/mL`;
+        if (els.molarityResult.style.display !== 'none') {
+          text += ` = ${els.resultMolarity.textContent} M`;
+        }
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.inputValue.value = '';
+        els.molecularWeight.value = '';
+        els.drugChips.forEach(c => c.classList.remove('active'));
+        selectedMW = null;
+        selectedDrugName = '';
+        els.results.style.display = 'none';
+      });
+
+      els.calcDetails.querySelector('.calc-details__trigger').addEventListener('click', () => {
+        els.calcDetails.classList.toggle('open');
+      });
+
+      // Initialize
+      updateInputLabel();
+    })();
+    </script>
+  </body>
+</html>

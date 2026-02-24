@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Surgical Blood Loss Calculator" />
+    <title>Surgical Blood Loss Calculator | DVMReady Tools</title>
+    <meta name="description" content="Veterinary surgical blood loss calculator. Estimate blood loss from sponges, calculate allowable blood loss, and determine transfusion needs during surgery." />
+    <link rel="canonical" href="https://dvmready.com/tools/surgical-blood-loss-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/unified-calculator.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Veterinary Surgical Blood Loss Calculator",
+      "applicationCategory": "HealthApplication",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Calculate surgical blood loss, allowable blood loss, and transfusion needs for dogs and cats."
+    }
+    </script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🩸</div>
+        <h1 class="calc-header__title">Surgical Blood Loss Calculator</h1>
+        <p class="calc-header__subtitle">Estimate blood loss from sponges and suction, calculate allowable blood loss, and determine transfusion needs during surgery.</p>
+      </header>
+
+      <div class="calc-card" id="blood-loss-calculator" data-calc="blood-loss">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>🔬</span>
+            <span>Patient Parameters</span>
+          </h2>
+          <p class="calc-card__subtitle">Enter patient details to calculate blood volume and allowable loss</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+            </div>
+          </div>
+
+          <!-- Weight -->
+          <div class="calc-form-group">
+            <label class="calc-label">Weight</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="weight" placeholder="20" min="0.1" step="0.1" data-conversion="weight">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Starting HCT -->
+          <div class="calc-form-group">
+            <label class="calc-label">Starting HCT/PCV <span class="calc-label__hint">%</span></label>
+            <input type="number" class="calc-input" id="starting-hct" placeholder="35" min="5" max="80" step="0.1">
+            <div class="calc-chips">
+              <button type="button" class="calc-chip" data-hct="20">20%</button>
+              <button type="button" class="calc-chip" data-hct="25">25%</button>
+              <button type="button" class="calc-chip" data-hct="30">30%</button>
+              <button type="button" class="calc-chip active" data-hct="35">35%</button>
+              <button type="button" class="calc-chip" data-hct="40">40%</button>
+              <button type="button" class="calc-chip" data-hct="45">45%</button>
+            </div>
+          </div>
+
+          <!-- Target HCT -->
+          <div class="calc-form-group">
+            <label class="calc-label">Target HCT/PCV <span class="calc-label__hint">%</span></label>
+            <input type="number" class="calc-input" id="target-hct" placeholder="25" min="10" max="80" step="0.1">
+            <div class="calc-chips">
+              <button type="button" class="calc-chip" data-target="18">18%</button>
+              <button type="button" class="calc-chip active" data-target="20">20%</button>
+              <button type="button" class="calc-chip" data-target="22">22%</button>
+              <button type="button" class="calc-chip" data-target="25">25%</button>
+              <button type="button" class="calc-chip" data-target="30">30%</button>
+            </div>
+          </div>
+
+          <div class="calc-card__header" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--calc-border);">
+            <h2 class="calc-card__title">
+              <span>🧽</span>
+              <span>Blood Loss Estimation</span>
+            </h2>
+            <p class="calc-card__subtitle">Estimate blood loss from surgical materials</p>
+          </div>
+
+          <!-- 4x4 Sponges -->
+          <div class="calc-form-group">
+            <label class="calc-label">4×4 Gauze Sponges (fully soaked) <span class="calc-label__hint">≈ 10 mL each</span></label>
+            <input type="number" class="calc-input" id="sponges-4x4" placeholder="0" min="0" step="1">
+            <div class="calc-chips">
+              <button type="button" class="calc-chip" data-sponge4="0">0</button>
+              <button type="button" class="calc-chip" data-sponge4="1">1</button>
+              <button type="button" class="calc-chip" data-sponge4="2">2</button>
+              <button type="button" class="calc-chip" data-sponge4="5">5</button>
+              <button type="button" class="calc-chip" data-sponge4="10">10</button>
+            </div>
+          </div>
+
+          <!-- Lap Sponges -->
+          <div class="calc-form-group">
+            <label class="calc-label">Lap Sponges/Raytec (fully soaked) <span class="calc-label__hint">≈ 100 mL each</span></label>
+            <input type="number" class="calc-input" id="lap-sponges" placeholder="0" min="0" step="1">
+            <div class="calc-chips">
+              <button type="button" class="calc-chip" data-lap="0">0</button>
+              <button type="button" class="calc-chip" data-lap="1">1</button>
+              <button type="button" class="calc-chip" data-lap="2">2</button>
+              <button type="button" class="calc-chip" data-lap="3">3</button>
+              <button type="button" class="calc-chip" data-lap="5">5</button>
+            </div>
+          </div>
+
+          <!-- Suction Volume -->
+          <div class="calc-form-group">
+            <label class="calc-label">Suction Canister Volume <span class="calc-label__hint">mL</span></label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="suction-volume" placeholder="0" min="0" step="10">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="ml">mL</button>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>🧮</span> Calculate Blood Loss
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <!-- EBV -->
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Estimated Blood Volume (EBV)</p>
+              <p class="calc-result-card__value">
+                <span id="result-ebv">--</span>
+                <span class="calc-result-card__unit">mL</span>
+              </p>
+              <p class="calc-result-card__context" id="ebv-context">Dog: 90 mL/kg</p>
+            </div>
+
+            <!-- Allowable Blood Loss -->
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Allowable Blood Loss</p>
+              <p class="calc-result-card__value">
+                <span id="result-abl">--</span>
+                <span class="calc-result-card__unit">mL</span>
+              </p>
+              <p class="calc-result-card__context" id="abl-context">EBV × (Start − Target) ÷ Start</p>
+            </div>
+
+            <!-- Estimated Blood Loss -->
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Estimated Blood Loss</p>
+              <p class="calc-result-card__value">
+                <span id="result-loss">--</span>
+                <span class="calc-result-card__unit">mL</span>
+              </p>
+              <p class="calc-result-card__context" id="loss-breakdown">From sponges and suction</p>
+            </div>
+
+            <!-- Remaining Allowable Loss -->
+            <div class="calc-result-card" id="remaining-card">
+              <p class="calc-result-card__label">Remaining Allowable Loss</p>
+              <p class="calc-result-card__value">
+                <span id="result-remaining">--</span>
+                <span class="calc-result-card__unit">mL</span>
+              </p>
+              <p class="calc-result-card__context" id="remaining-context">Before reaching target HCT</p>
+            </div>
+
+            <!-- Percentage of EBV Lost -->
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">% of EBV Lost</p>
+              <p class="calc-result-card__value">
+                <span id="result-percent">--</span>
+                <span class="calc-result-card__unit">%</span>
+              </p>
+            </div>
+
+            <!-- Transfusion Recommendation -->
+            <div class="calc-result-card" id="transfusion-card" style="display: none;">
+              <p class="calc-result-card__label">
+                <span id="transfusion-icon">⚠️</span> Transfusion Recommendation
+              </p>
+              <p class="calc-result-card__value" id="transfusion-text" style="font-size: 1.125rem;">
+                --
+              </p>
+              <p class="calc-result-card__context" id="transfusion-context"></p>
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+
+            <div class="calc-details">
+              <button type="button" class="calc-details__trigger">
+                <span>📋 Show Calculation Details</span>
+                <svg class="calc-details__trigger-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="calc-details__content">
+                <div class="calc-details__inner" id="calculation-details"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            ⚠️ Educational tool. Clinical judgment required. Transfusion triggers: HCT &lt; 20% (dogs), &lt; 18% (cats) or clinical signs of anemia.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/transfusion-helper.html" class="calc-chip">🩸 Transfusion Helper</a>
+          <a href="/transfusion-basics-veterinary/" class="calc-chip">📚 Transfusion Guide</a>
+          <a href="/tools/fluid-calculator.html" class="calc-chip">💧 Fluid Calculator</a>
+          <a href="/tools/cri-calculator.html" class="calc-chip">💉 CRI Calculator</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      const els = {
+        speciesBtns: document.querySelectorAll('[data-species]'),
+        weightInput: document.getElementById('weight'),
+        weightUnitBtns: document.querySelectorAll('[data-unit="kg"], [data-unit="lb"]'),
+        startingHctInput: document.getElementById('starting-hct'),
+        targetHctInput: document.getElementById('target-hct'),
+        spongesInput: document.getElementById('sponges-4x4'),
+        lapSpongesInput: document.getElementById('lap-sponges'),
+        suctionInput: document.getElementById('suction-volume'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        resultEbv: document.getElementById('result-ebv'),
+        ebvContext: document.getElementById('ebv-context'),
+        resultAbl: document.getElementById('result-abl'),
+        ablContext: document.getElementById('abl-context'),
+        resultLoss: document.getElementById('result-loss'),
+        lossBreakdown: document.getElementById('loss-breakdown'),
+        resultRemaining: document.getElementById('result-remaining'),
+        remainingContext: document.getElementById('remaining-context'),
+        resultPercent: document.getElementById('result-percent'),
+        transfusionCard: document.getElementById('transfusion-card'),
+        transfusionIcon: document.getElementById('transfusion-icon'),
+        transfusionText: document.getElementById('transfusion-text'),
+        transfusionContext: document.getElementById('transfusion-context'),
+        calcDetails: document.querySelector('.calc-details'),
+        calcDetailsContent: document.getElementById('calculation-details'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
+
+      let currentSpecies = 'dog';
+      let weightUnit = 'kg';
+
+      // Blood volume factors
+      const BLOOD_VOLUME = {
+        dog: 90, // mL/kg
+        cat: 60  // mL/kg
+      };
+
+      // Transfusion triggers
+      const TRANSFUSION_TRIGGER = {
+        dog: 20, // %
+        cat: 18  // %
+      };
+
+      // Sponge volumes (mL)
+      const SPONGE_VOLUME = {
+        '4x4': 10,   // mL per fully soaked 4x4
+        'lap': 100   // mL per fully soaked lap sponge
+      };
+
+      // Species selection
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      // Weight unit toggle
+      els.weightUnitBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          weightUnit = btn.dataset.unit;
+          els.weightUnitBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          // Convert existing value
+          const currentVal = parseFloat(els.weightInput.value);
+          if (currentVal) {
+            if (weightUnit === 'lb') {
+              els.weightInput.value = (currentVal * 2.20462).toFixed(1);
+            } else {
+              els.weightInput.value = (currentVal / 2.20462).toFixed(1);
+            }
+          }
+        });
+      });
+
+      // HCT chips
+      document.querySelectorAll('[data-hct]').forEach(chip => {
+        chip.addEventListener('click', () => {
+          els.startingHctInput.value = chip.dataset.hct;
+          document.querySelectorAll('[data-hct]').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+        });
+      });
+
+      // Target HCT chips
+      document.querySelectorAll('[data-target]').forEach(chip => {
+        chip.addEventListener('click', () => {
+          els.targetHctInput.value = chip.dataset.target;
+          document.querySelectorAll('[data-target]').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+        });
+      });
+
+      // 4x4 sponge chips
+      document.querySelectorAll('[data-sponge4]').forEach(chip => {
+        chip.addEventListener('click', () => {
+          els.spongesInput.value = chip.dataset.sponge4;
+          document.querySelectorAll('[data-sponge4]').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+        });
+      });
+
+      // Lap sponge chips
+      document.querySelectorAll('[data-lap]').forEach(chip => {
+        chip.addEventListener('click', () => {
+          els.lapSpongesInput.value = chip.dataset.lap;
+          document.querySelectorAll('[data-lap]').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+        });
+      });
+
+      function calculate() {
+        let weight = parseFloat(els.weightInput.value);
+        if (!weight || weight <= 0) {
+          showToast('Please enter a valid weight', 'error');
+          return;
+        }
+
+        // Convert to kg if needed
+        if (weightUnit === 'lb') {
+          weight = weight / 2.20462;
+        }
+
+        const startingHct = parseFloat(els.startingHctInput.value) || 35;
+        const targetHct = parseFloat(els.targetHctInput.value) || 20;
+        
+        const sponges4x4 = parseInt(els.spongesInput.value) || 0;
+        const lapSponges = parseInt(els.lapSpongesInput.value) || 0;
+        const suctionVolume = parseFloat(els.suctionInput.value) || 0;
+
+        // Calculate EBV
+        const ebv = weight * BLOOD_VOLUME[currentSpecies];
+
+        // Calculate Allowable Blood Loss
+        // ABL = EBV × (Starting HCT − Target HCT) / Starting HCT
+        const allowableBloodLoss = ebv * (startingHct - targetHct) / startingHct;
+
+        // Calculate estimated blood loss from sponges and suction
+        const spongeLoss = (sponges4x4 * SPONGE_VOLUME['4x4']) + (lapSponges * SPONGE_VOLUME['lap']);
+        const totalLoss = spongeLoss + suctionVolume;
+
+        // Calculate remaining allowable loss
+        const remainingAllowable = allowableBloodLoss - totalLoss;
+
+        // Calculate percentage of EBV lost
+        const percentLost = (totalLoss / ebv) * 100;
+
+        // Update results
+        els.resultEbv.textContent = ebv.toFixed(0);
+        els.ebvContext.textContent = `${currentSpecies.charAt(0).toUpperCase() + currentSpecies.slice(1)}: ${BLOOD_VOLUME[currentSpecies]} mL/kg × ${weight.toFixed(1)} kg`;
+
+        els.resultAbl.textContent = allowableBloodLoss.toFixed(0);
+        els.ablContext.textContent = `From ${startingHct}% to ${targetHct}% HCT`;
+
+        els.resultLoss.textContent = totalLoss.toFixed(0);
+        els.lossBreakdown.textContent = `${sponges4x4}× 4×4 (${sponges4x4 * SPONGE_VOLUME['4x4']} mL) + ${lapSponges}× lap (${lapSponges * SPONGE_VOLUME['lap']} mL) + suction (${suctionVolume} mL)`;
+
+        els.resultRemaining.textContent = remainingAllowable.toFixed(0);
+        els.remainingContext.textContent = remainingAllowable >= 0 ? 'Safe to continue' : 'Allowable loss exceeded';
+
+        els.resultPercent.textContent = percentLost.toFixed(1);
+
+        // Transfusion recommendation
+        const triggerHct = TRANSFUSION_TRIGGER[currentSpecies];
+        els.transfusionCard.style.display = 'block';
+        
+        if (targetHct <= triggerHct || remainingAllowable < 0) {
+          // Transfusion recommended
+          els.transfusionCard.classList.add('calc-result-card--alert');
+          els.transfusionIcon.textContent = '🚨';
+          els.transfusionText.textContent = 'Transfusion Recommended';
+          
+          if (remainingAllowable < 0) {
+            els.transfusionContext.textContent = `Allowable blood loss exceeded. Consider transfusion if HCT falls below ${triggerHct}%.`;
+          } else {
+            els.transfusionContext.textContent = `Target HCT at or below transfusion trigger (${triggerHct}% for ${currentSpecies}s). Transfusion likely needed.`;
+          }
+        } else if (remainingAllowable < allowableBloodLoss * 0.25) {
+          // Warning - approaching limit
+          els.transfusionCard.classList.remove('calc-result-card--alert');
+          els.transfusionCard.classList.add('calc-result-card--warning');
+          els.transfusionIcon.textContent = '⚠️';
+          els.transfusionText.textContent = 'Approaching Limit - Monitor Closely';
+          els.transfusionContext.textContent = `< 25% of allowable blood loss remaining. Monitor HCT and consider transfusion preparedness.`;
+        } else {
+          // Safe
+          els.transfusionCard.classList.remove('calc-result-card--alert', 'calc-result-card--warning');
+          els.transfusionIcon.textContent = '✓';
+          els.transfusionText.textContent = 'No Transfusion Indicated';
+          els.transfusionContext.textContent = `HCT expected to remain above ${triggerHct}% with current blood loss.`;
+        }
+
+        // Calculation details
+        els.calcDetailsContent.innerHTML = `
+          <div class="calc-info-grid">
+            <div class="calc-info-item">
+              <span class="calc-info-item__label">Blood Volume Factor</span>
+              <span class="calc-info-item__value">${BLOOD_VOLUME[currentSpecies]} mL/kg (${currentSpecies})</span>
+            </div>
+            <div class="calc-info-item">
+              <span class="calc-info-item__label">EBV Formula</span>
+              <span class="calc-info-item__value">${weight.toFixed(1)} kg × ${BLOOD_VOLUME[currentSpecies]} = ${ebv.toFixed(0)} mL</span>
+            </div>
+            <div class="calc-info-item">
+              <span class="calc-info-item__label">ABL Formula</span>
+              <span class="calc-info-item__value">${ebv.toFixed(0)} × (${startingHct} − ${targetHct}) ÷ ${startingHct} = ${allowableBloodLoss.toFixed(0)} mL</span>
+            </div>
+            <div class="calc-info-item">
+              <span class="calc-info-item__label">4×4 Sponge Volume</span>
+              <span class="calc-info-item__value">${sponges4x4} × ${SPONGE_VOLUME['4x4']} mL = ${sponges4x4 * SPONGE_VOLUME['4x4']} mL</span>
+            </div>
+            <div class="calc-info-item">
+              <span class="calc-info-item__label">Lap Sponge Volume</span>
+              <span class="calc-info-item__value">${lapSponges} × ${SPONGE_VOLUME['lap']} mL = ${lapSponges * SPONGE_VOLUME['lap']} mL</span>
+            </div>
+            <div class="calc-info-item">
+              <span class="calc-info-item__label">Suction Volume</span>
+              <span class="calc-info-item__value">${suctionVolume} mL</span>
+            </div>
+            <div class="calc-info-item" style="border-top: 2px solid var(--calc-border); font-weight: 600;">
+              <span class="calc-info-item__label">Total Blood Loss</span>
+              <span class="calc-info-item__value">${totalLoss.toFixed(0)} mL (${percentLost.toFixed(1)}% of EBV)</span>
+            </div>
+          </div>
+        `;
+
+        els.results.style.display = 'block';
+        
+        // Scroll to results on mobile
+        if (window.innerWidth < 768) {
+          els.results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      function showToast(message, type = 'info') {
+        const container = document.querySelector('.pc-toast-container');
+        const toast = document.createElement('div');
+        toast.className = `pc-toast pc-toast--${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.add('pc-toast--show');
+        }, 10);
+        
+        setTimeout(() => {
+          toast.classList.remove('pc-toast--show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const ebv = els.resultEbv.textContent;
+        const abl = els.resultAbl.textContent;
+        const loss = els.resultLoss.textContent;
+        const remaining = els.resultRemaining.textContent;
+        
+        const text = `Surgical Blood Loss: EBV ${ebv} mL, ABL ${abl} mL, Loss ${loss} mL, Remaining ${remaining} mL`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.weightInput.value = '';
+        els.startingHctInput.value = '';
+        els.targetHctInput.value = '';
+        els.spongesInput.value = '';
+        els.lapSpongesInput.value = '';
+        els.suctionInput.value = '';
+        els.results.style.display = 'none';
+        
+        // Reset species to dog
+        currentSpecies = 'dog';
+        els.speciesBtns.forEach(b => b.classList.remove('active'));
+        document.querySelector('[data-species="dog"]').classList.add('active');
+        
+        // Reset weight unit to kg
+        weightUnit = 'kg';
+        els.weightUnitBtns.forEach(b => b.classList.remove('active'));
+        document.querySelector('[data-unit="kg"]').classList.add('active');
+        
+        // Reset chips
+        document.querySelectorAll('.calc-chip').forEach(c => c.classList.remove('active'));
+        document.querySelector('[data-hct="35"]').classList.add('active');
+        document.querySelector('[data-target="20"]').classList.add('active');
+      });
+
+      els.calcDetails.querySelector('.calc-details__trigger').addEventListener('click', () => {
+        els.calcDetails.classList.toggle('open');
+      });
+
+      // Enter key handler
+      document.querySelectorAll('.calc-input').forEach(input => {
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            calculate();
+          }
+        });
+      });
+    })();
+    </script>
+  </body>
+</html>

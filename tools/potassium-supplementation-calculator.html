@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="K+ Calculator" />
+    <title>Potassium Supplementation Calculator | DVMReady Tools</title>
+    <meta name="description" content="Veterinary potassium supplementation calculator for IV fluid additives. Calculate KCl dosing with safety limits for peripheral and central lines." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Potassium Supplementation Calculator | DVMReady Tools" />
+    <meta property="og:description" content="Calculate safe KCl supplementation for IV fluids with species-specific safety limits." />
+    <meta property="og:url" content="https://dvmready.com/tools/potassium-supplementation-calculator.html" />
+    <link rel="canonical" href="https://dvmready.com/tools/potassium-supplementation-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-print.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/unified-calculator.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Veterinary Potassium Supplementation Calculator",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Calculate safe KCl supplementation for IV fluids. Includes safety limits for peripheral and central lines, K deficit calculations, and volume to add to fluid bags.",
+      "url": "https://dvmready.com/tools/potassium-supplementation-calculator.html",
+      "featureList": ["K deficit calculation", "Safety limit warnings", "Peripheral/Central line options", "Species-specific dosing", "Volume calculation for fluid bags"]
+    }
+    </script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <!-- Ambient Background -->
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+      <div class="pc-ambient-particles" id="particles"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/tools/">🧮 Tools</a>
+          <a class="pc-mobile-nav-link" href="/study/">📚 Study</a>
+          <a class="pc-mobile-nav-link" href="/account/">👤 Account</a>
+        </nav>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <!-- Header -->
+      <header class="calc-header">
+        <div class="calc-header__icon">⚡</div>
+        <h1 class="calc-header__title">Potassium Supplementation</h1>
+        <p class="calc-header__subtitle">Calculate safe KCl supplementation for IV fluids. Includes safety limits for peripheral and central lines with K deficit calculations.</p>
+      </header>
+
+      <!-- Safety Warning Banner -->
+      <div class="calc-card" style="border-left: 4px solid #ef4444; background: rgba(239, 68, 68, 0.1); margin-bottom: 1.5rem;">
+        <div class="calc-card__body" style="padding: 1rem;">
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+            <span style="font-size: 1.5rem;">🚨</span>
+            <div>
+              <p style="font-weight: 600; color: #ef4444; margin: 0 0 0.5rem 0;">Critical Safety Limits</p>
+              <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.875rem; color: var(--calc-text-secondary);">
+                <li>Peripheral vein: Max 40-60 mEq/L (max 0.5 mEq/kg/hr)</li>
+                <li>Central vein: Max 80 mEq/L (max 1 mEq/kg/hr)</li>
+                <li><strong>Cardiac arrest risk:</strong> &gt;1.5 mEq/kg/hr</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Calculator Card -->
+      <div class="calc-card" id="kcl-calculator" data-calc="potassium">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>⚡</span>
+            <span>KCl Supplementation Calculator</span>
+          </h2>
+          <p class="calc-card__subtitle">Calculate potassium deficit and safe fluid additive concentrations</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species Selection -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">
+                <span class="calc-species-btn__icon">🐕</span>
+                <span class="calc-species-btn__label">Dog</span>
+              </button>
+              <button type="button" class="calc-species-btn" data-species="cat">
+                <span class="calc-species-btn__icon">🐈</span>
+                <span class="calc-species-btn__label">Cat</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Weight Input -->
+          <div class="calc-form-group">
+            <label class="calc-label">
+              Weight <span class="calc-label__hint">— patient body weight</span>
+            </label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="weight" placeholder="10" min="0.1" step="0.1" data-conversion="weight" data-unit="kg">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+              </div>
+            </div>
+            <div class="calc-chips" id="weight-presets">
+              <button type="button" class="calc-chip" data-weight="2.5">2.5 kg (Small)</button>
+              <button type="button" class="calc-chip" data-weight="10">10 kg (Medium)</button>
+              <button type="button" class="calc-chip" data-weight="25">25 kg (Large)</button>
+              <button type="button" class="calc-chip" data-weight="35">35 kg (X-Large)</button>
+            </div>
+          </div>
+
+          <!-- Current Potassium -->
+          <div class="calc-form-group">
+            <label class="calc-label">
+              Current K⁺ <span class="calc-label__hint">— serum potassium (mEq/L)</span>
+            </label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="current-k" placeholder="3.0" min="1" max="10" step="0.1">
+              <span class="calc-input-unit-text">mEq/L</span>
+            </div>
+            <div class="calc-chips" id="k-presets">
+              <button type="button" class="calc-chip" data-k="2.0">2.0 (Severe)</button>
+              <button type="button" class="calc-chip" data-k="2.5">2.5 (Severe)</button>
+              <button type="button" class="calc-chip" data-k="2.8">2.8 (Moderate)</button>
+              <button type="button" class="calc-chip" data-k="3.2">3.2 (Mild)</button>
+              <button type="button" class="calc-chip" data-k="3.5">3.5 (Mild)</button>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.25rem;">
+              Normal: Dog 3.5-5.5 mEq/L | Cat 3.5-5.0 mEq/L
+            </p>
+          </div>
+
+          <!-- Target Potassium -->
+          <div class="calc-form-group">
+            <label class="calc-label">
+              Target K⁺ <span class="calc-label__hint">— desired fluid concentration</span>
+            </label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="target-k" placeholder="4.5" min="3" max="8" step="0.1">
+              <span class="calc-input-unit-text">mEq/L</span>
+            </div>
+            <div class="calc-chips" id="target-presets">
+              <button type="button" class="calc-chip" data-target="4.0" data-severity="mild">4.0 (Mild deficit)</button>
+              <button type="button" class="calc-chip" data-target="4.5" data-severity="moderate">4.5 (Moderate)</button>
+              <button type="button" class="calc-chip" data-target="5.0" data-severity="moderate">5.0 (Moderate)</button>
+              <button type="button" class="calc-chip" data-target="6.0" data-severity="severe">6.0 (Severe/Central)</button>
+            </div>
+          </div>
+
+          <!-- Fluid Rate -->
+          <div class="calc-form-group">
+            <label class="calc-label">
+              Fluid Rate <span class="calc-label__hint">— IV fluid administration rate</span>
+            </label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="fluid-rate" placeholder="50" min="0" step="1">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-rate-unit="ml-hr">mL/hr</button>
+                <button type="button" class="calc-unit-btn" data-rate-unit="ml-day">mL/day</button>
+              </div>
+            </div>
+            <div class="calc-chips">
+              <button type="button" class="calc-chip" data-rate="25">25 mL/hr</button>
+              <button type="button" class="calc-chip" data-rate="50">50 mL/hr</button>
+              <button type="button" class="calc-chip" data-rate="75">75 mL/hr</button>
+              <button type="button" class="calc-chip" data-rate="100">100 mL/hr</button>
+            </div>
+          </div>
+
+          <!-- Administration Route -->
+          <div class="calc-form-group">
+            <label class="calc-label">Administration Route <span class="calc-label__hint">— affects maximum safe concentration</span></label>
+            <div class="calc-chips" id="route-selector">
+              <button type="button" class="calc-chip active" data-route="peripheral">
+                💉 Peripheral IV
+                <small style="display: block; font-size: 0.75rem; opacity: 0.8;">Max 40-60 mEq/L</small>
+              </button>
+              <button type="button" class="calc-chip" data-route="central">
+                🏥 Central Line
+                <small style="display: block; font-size: 0.75rem; opacity: 0.8;">Max 80 mEq/L</small>
+              </button>
+            </div>
+          </div>
+
+          <!-- Fluid Bag Size (for volume calculation) -->
+          <div class="calc-form-group">
+            <label class="calc-label">
+              Fluid Bag Size <span class="calc-label__hint">— for KCl volume calculation</span>
+            </label>
+            <div class="calc-chips" id="bag-size-selector">
+              <button type="button" class="calc-chip" data-bag="250">250 mL</button>
+              <button type="button" class="calc-chip active" data-bag="500">500 mL</button>
+              <button type="button" class="calc-chip" data-bag="1000">1000 mL</button>
+              <button type="button" class="calc-chip" data-bag="custom">Custom</button>
+            </div>
+            <div class="calc-input-wrapper" id="custom-bag-wrap" style="display: none; margin-top: 0.5rem;">
+              <input type="number" class="calc-input" id="custom-bag-size" placeholder="500" min="50" step="50">
+              <span class="calc-input-unit-text">mL</span>
+            </div>
+          </div>
+
+          <!-- Calculate Button -->
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>⚡</span> Calculate Supplementation
+          </button>
+
+          <!-- Results Section -->
+          <div class="calc-results" id="results" style="display: none;">
+            <!-- K Deficit -->
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Potassium Deficit</p>
+              <p class="calc-result-card__value">
+                <span id="result-deficit">--</span>
+                <span class="calc-result-card__unit">mEq</span>
+              </p>
+              <p class="calc-result-card__context">Total body K⁺ deficit</p>
+            </div>
+
+            <!-- Safe Concentration -->
+            <div class="calc-result-card" id="concentration-card">
+              <p class="calc-result-card__label">Safe Concentration</p>
+              <p class="calc-result-card__value">
+                <span id="result-concentration">--</span>
+                <span class="calc-result-card__unit">mEq/L</span>
+              </p>
+              <p class="calc-result-card__range" id="concentration-breakdown"></p>
+            </div>
+
+            <!-- KCl Volume to Add -->
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">KCl to Add</p>
+              <p class="calc-result-card__value">
+                <span id="result-volume">--</span>
+                <span class="calc-result-card__unit">mL</span>
+              </p>
+              <p class="calc-result-card__context">per <span id="bag-size-display">500</span> mL bag</p>
+              <p style="font-size: 0.75rem; color: var(--calc-text-muted); margin-top: 0.25rem;">
+                Standard KCl: 2 mEq/mL
+              </p>
+            </div>
+
+            <!-- Infusion Rate -->
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">K⁺ Infusion Rate</p>
+              <p class="calc-result-card__value">
+                <span id="result-infusion">--</span>
+                <span class="calc-result-card__unit">mEq/kg/hr</span>
+              </p>
+              <p class="calc-result-card__range" id="infusion-breakdown"></p>
+            </div>
+
+            <!-- Safety Status -->
+            <div class="calc-result-card" id="safety-card">
+              <p class="calc-result-card__label">Safety Status</p>
+              <p class="calc-result-card__value" id="safety-status" style="font-size: 1.5rem;">--</p>
+              <p class="calc-result-card__context" id="safety-message"></p>
+            </div>
+
+            <!-- Warnings -->
+            <div class="calc-result-card__warning" id="warning-message" style="display: none;"></div>
+
+            <!-- Action Buttons -->
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+              <button class="calc-action-btn" onclick="window.print()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                Print
+              </button>
+              <button class="calc-action-btn" id="reset-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"/></svg>
+                Reset
+              </button>
+            </div>
+
+            <!-- Expandable Calculation Details -->
+            <div class="calc-details">
+              <button type="button" class="calc-details__trigger" aria-expanded="false">
+                <span>📋 Show Calculation Details</span>
+                <svg class="calc-details__trigger-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="calc-details__content">
+                <div class="calc-details__inner">
+                  <div class="calc-info-grid" id="calculation-details">
+                    <!-- Filled by JavaScript -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            ⚠️ Educational tool only. Always verify calculations and monitor ECG during K⁺ supplementation. Rapid IV potassium can cause cardiac arrest.
+          </p>
+        </div>
+      </div>
+
+      <!-- Reference Info -->
+      <div class="calc-card" style="margin-top: 1.5rem;">
+        <div class="calc-card__header">
+          <h3 class="calc-card__title">📚 Quick Reference</h3>
+        </div>
+        <div class="calc-card__body">
+          <div class="calc-info-grid">
+            <div class="calc-info-item">
+              <span class="calc-info-item__label">Hypokalemia Severity</span>
+              <span class="calc-info-item__value">Target K⁺ in fluids</span>
+            </div>
+            <div class="calc-info-item">
+              <span class="calc-info-item__label">Mild (3.0-3.5 mEq/L)</span>
+              <span class="calc-info-item__value">4.0 mEq/L</span>
+            </div>
+            <div class="calc-info-item">
+              <span class="calc-info-item__label">Moderate (2.5-3.0 mEq/L)</span>
+              <span class="calc-info-item__value">4.5-5.0 mEq/L</span>
+            </div>
+            <div class="calc-info-item">
+              <span class="calc-info-item__label">Severe (&lt;2.5 mEq/L)</span>
+              <span class="calc-info-item__value">6.0 mEq/L (Central line)</span>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--calc-border);">
+            <p style="font-size: 0.875rem; margin: 0;"><strong>Formula:</strong> K deficit = (Target K - Current K) × TBW</p>
+            <p style="font-size: 0.875rem; margin: 0.25rem 0 0 0; color: var(--calc-text-muted);">TBW ≈ 0.6 × body weight (kg)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Tools -->
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/fluid-calculator.html" class="calc-chip">💧 Fluid Calculator</a>
+          <a href="/tools/cri-calculator.html" class="calc-chip">💉 CRI Calculator</a>
+          <a href="/tools/electrolyte-replacement-planner.html" class="calc-chip">⚡ Electrolytes</a>
+          <a href="/tools/corrected-sodium-calculator.html" class="calc-chip">🧂 Corrected Na⁺</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    // Potassium Supplementation Calculator
+    (function() {
+      'use strict';
+
+      // Safety limits
+      const SAFETY_LIMITS = {
+        peripheral: { maxConcentration: 60, maxRate: 0.5, label: 'Peripheral IV' },
+        central: { maxConcentration: 80, maxRate: 1.0, label: 'Central Line' },
+        cardiacArrest: 1.5 // mEq/kg/hr
+      };
+
+      // DOM Elements
+      const els = {
+        speciesBtns: document.querySelectorAll('[data-species]'),
+        weightInput: document.getElementById('weight'),
+        weightPresets: document.querySelectorAll('#weight-presets .calc-chip'),
+        currentK: document.getElementById('current-k'),
+        kPresets: document.querySelectorAll('#k-presets .calc-chip'),
+        targetK: document.getElementById('target-k'),
+        targetPresets: document.querySelectorAll('#target-presets .calc-chip'),
+        fluidRate: document.getElementById('fluid-rate'),
+        rateUnitBtns: document.querySelectorAll('[data-rate-unit]'),
+        ratePresets: document.querySelectorAll('[data-rate]'),
+        routeBtns: document.querySelectorAll('[data-route]'),
+        bagSizeBtns: document.querySelectorAll('[data-bag]'),
+        customBagWrap: document.getElementById('custom-bag-wrap'),
+        customBagSize: document.getElementById('custom-bag-size'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        resultDeficit: document.getElementById('result-deficit'),
+        resultConcentration: document.getElementById('result-concentration'),
+        concentrationCard: document.getElementById('concentration-card'),
+        concentrationBreakdown: document.getElementById('concentration-breakdown'),
+        resultVolume: document.getElementById('result-volume'),
+        bagSizeDisplay: document.getElementById('bag-size-display'),
+        resultInfusion: document.getElementById('result-infusion'),
+        infusionBreakdown: document.getElementById('infusion-breakdown'),
+        safetyCard: document.getElementById('safety-card'),
+        safetyStatus: document.getElementById('safety-status'),
+        safetyMessage: document.getElementById('safety-message'),
+        warningMessage: document.getElementById('warning-message'),
+        calculationDetails: document.getElementById('calculation-details'),
+        calcDetails: document.querySelector('.calc-details'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
+
+      let currentSpecies = 'dog';
+      let currentRoute = 'peripheral';
+      let currentBagSize = 500;
+      let rateUnit = 'ml-hr';
+
+      // Species selection
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          updateWeightPresets();
+        });
+      });
+
+      function updateWeightPresets() {
+        const presets = {
+          dog: [['2.5', 'Small'], ['10', 'Medium'], ['25', 'Large'], ['35', 'X-Large']],
+          cat: [['1', 'Kitten'], ['2.5', 'Small'], ['4', 'Average'], ['6', 'Large']]
+        };
+        
+        const presetContainer = document.getElementById('weight-presets');
+        presetContainer.innerHTML = presets[currentSpecies].map(([w, l]) => 
+          `<button type="button" class="calc-chip" data-weight="${w}">${w} kg (${l})</button>`
+        ).join('');
+        
+        presetContainer.querySelectorAll('.calc-chip').forEach(chip => {
+          chip.addEventListener('click', () => {
+            els.weightInput.value = chip.dataset.weight;
+          });
+        });
+      }
+
+      // Weight presets
+      els.weightPresets.forEach(chip => {
+        chip.addEventListener('click', () => {
+          els.weightInput.value = chip.dataset.weight;
+        });
+      });
+
+      // K presets
+      els.kPresets.forEach(chip => {
+        chip.addEventListener('click', () => {
+          els.currentK.value = chip.dataset.k;
+        });
+      });
+
+      // Target K presets
+      els.targetPresets.forEach(chip => {
+        chip.addEventListener('click', () => {
+          els.targetK.value = chip.dataset.target;
+        });
+      });
+
+      // Rate unit toggle
+      els.rateUnitBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          rateUnit = btn.dataset.rateUnit;
+          els.rateUnitBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          // Convert existing value
+          const currentVal = parseFloat(els.fluidRate.value);
+          if (currentVal) {
+            if (rateUnit === 'ml-day') {
+              els.fluidRate.value = (currentVal * 24).toFixed(0);
+            } else {
+              els.fluidRate.value = (currentVal / 24).toFixed(1);
+            }
+          }
+        });
+      });
+
+      // Rate presets
+      els.ratePresets.forEach(chip => {
+        chip.addEventListener('click', () => {
+          els.fluidRate.value = chip.dataset.rate;
+          rateUnit = 'ml-hr';
+          els.rateUnitBtns.forEach(b => b.classList.remove('active'));
+          document.querySelector('[data-rate-unit="ml-hr"]').classList.add('active');
+        });
+      });
+
+      // Route selection
+      els.routeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentRoute = btn.dataset.route;
+          els.routeBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      // Bag size selection
+      els.bagSizeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const bagSize = btn.dataset.bag;
+          els.bagSizeBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          if (bagSize === 'custom') {
+            els.customBagWrap.style.display = 'block';
+            currentBagSize = parseFloat(els.customBagSize.value) || 500;
+          } else {
+            els.customBagWrap.style.display = 'none';
+            currentBagSize = parseInt(bagSize);
+          }
+        });
+      });
+
+      els.customBagSize.addEventListener('input', () => {
+        currentBagSize = parseFloat(els.customBagSize.value) || 500;
+      });
+
+      // Unit converters for weight
+      document.querySelectorAll('.calc-unit-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          if (btn.dataset.rateUnit) return; // Skip rate unit buttons
+          
+          const wrapper = e.target.closest('.calc-input-wrapper');
+          const input = wrapper.querySelector('input');
+          const currentUnit = wrapper.querySelector('.calc-unit-btn.active').dataset.unit;
+          const newUnit = e.target.dataset.unit;
+          
+          if (currentUnit === newUnit) return;
+          
+          wrapper.querySelectorAll('.calc-unit-btn').forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          
+          if (input.value) {
+            const val = parseFloat(input.value);
+            const conversions = {
+              kg: { kg: 1, lb: 2.20462 },
+              lb: { kg: 0.453592, lb: 1 }
+            };
+            
+            if (conversions[currentUnit] && conversions[currentUnit][newUnit]) {
+              input.value = (val * conversions[currentUnit][newUnit]).toFixed(2);
+            }
+          }
+        });
+      });
+
+      // Calculate
+      function calculate() {
+        const weight = parseFloat(els.weightInput.value);
+        const currentK = parseFloat(els.currentK.value);
+        const targetK = parseFloat(els.targetK.value);
+        let fluidRate = parseFloat(els.fluidRate.value);
+        
+        if (!weight || !currentK || !targetK || !fluidRate) {
+          alert('Please fill in all required fields');
+          return;
+        }
+
+        // Convert fluid rate to mL/hr if needed
+        if (rateUnit === 'ml-day') {
+          fluidRate = fluidRate / 24;
+        }
+
+        // Convert weight to kg if in lb
+        const weightUnit = document.querySelector('#weight').closest('.calc-input-wrapper').querySelector('.calc-unit-btn.active').dataset.unit;
+        const weightKg = weightUnit === 'lb' ? weight * 0.453592 : weight;
+
+        // Calculate TBW and deficit
+        const tbw = 0.6 * weightKg;
+        const kDeficit = (targetK - currentK) * tbw;
+
+        // Safe concentration based on route
+        const safeLimits = SAFETY_LIMITS[currentRoute];
+        let safeConcentration = Math.min(targetK, safeLimits.maxConcentration);
+        
+        // Ensure concentration doesn't exceed target
+        if (safeConcentration < targetK) {
+          safeConcentration = safeLimits.maxConcentration;
+        }
+
+        // Calculate KCl volume needed (standard KCl = 2 mEq/mL)
+        const kclConcentration = 2; // mEq/mL
+        const kNeededPerBag = (safeConcentration * currentBagSize) / 1000; // mEq per bag
+        const kclVolume = kNeededPerBag / kclConcentration;
+
+        // Calculate infusion rate
+        const kPerHour = (safeConcentration * fluidRate) / 1000; // mEq/hr
+        const kPerKgHour = kPerHour / weightKg; // mEq/kg/hr
+
+        // Display results
+        els.resultDeficit.textContent = kDeficit.toFixed(1);
+        els.resultConcentration.textContent = safeConcentration.toFixed(1);
+        els.bagSizeDisplay.textContent = currentBagSize;
+        els.resultVolume.textContent = kclVolume.toFixed(1);
+        els.resultInfusion.textContent = kPerKgHour.toFixed(2);
+
+        // Safety assessment
+        let warning = '';
+        let safetyIcon = '✅';
+        let safetyText = 'Safe';
+        let safetyColor = '#22c55e';
+
+        if (kPerKgHour > SAFETY_LIMITS.cardiacArrest) {
+          safetyIcon = '🚨';
+          safetyText = 'DANGER';
+          safetyColor = '#dc2626';
+          warning = '⚠️ CRITICAL: Infusion rate exceeds cardiac arrest threshold (>1.5 mEq/kg/hr). STOP immediately and reduce rate.';
+        } else if (kPerKgHour > safeLimits.maxRate) {
+          safetyIcon = '⚠️';
+          safetyText = 'WARNING';
+          safetyColor = '#f59e0b';
+          warning = `⚠️ Infusion rate exceeds safe limit for ${safeLimits.label} (${safeLimits.maxRate} mEq/kg/hr). Consider central line or reduce rate.`;
+        } else if (targetK > safeLimits.maxConcentration && currentRoute === 'peripheral') {
+          safetyIcon = '⚠️';
+          safetyText = 'CAUTION';
+          safetyColor = '#f59e0b';
+          warning = `⚠️ Target concentration exceeds peripheral limit (${safeLimits.maxConcentration} mEq/L). Consider central line or lower target.`;
+        }
+
+        els.safetyStatus.textContent = `${safetyIcon} ${safetyText}`;
+        els.safetyStatus.style.color = safetyColor;
+        els.safetyMessage.textContent = warning || `Within safe limits for ${safeLimits.label}`;
+
+        if (warning) {
+          els.warningMessage.style.display = 'block';
+          els.warningMessage.textContent = warning;
+        } else {
+          els.warningMessage.style.display = 'none';
+        }
+
+        // Concentration breakdown
+        els.concentrationBreakdown.textContent = `Target: ${targetK.toFixed(1)} mEq/L | Max for route: ${safeLimits.maxConcentration} mEq/L`;
+
+        // Infusion breakdown
+        const rateStatus = kPerKgHour > SAFETY_LIMITS.cardiacArrest ? 'DANGER' : 
+                          kPerKgHour > safeLimits.maxRate ? 'Exceeds limit' : 'Safe';
+        els.infusionBreakdown.textContent = `${kPerHour.toFixed(2)} mEq/hr | ${rateStatus}`;
+
+        // Calculation details
+        const details = [
+          { label: 'Weight', value: `${weightKg.toFixed(2)} kg` },
+          { label: 'Total Body Water (TBW)', value: `${tbw.toFixed(2)} L (0.6 × weight)` },
+          { label: 'Current K⁺', value: `${currentK.toFixed(1)} mEq/L` },
+          { label: 'Target K⁺', value: `${targetK.toFixed(1)} mEq/L` },
+          { label: 'K⁺ Deficit', value: `(${targetK.toFixed(1)} - ${currentK.toFixed(1)}) × ${tbw.toFixed(2)} = ${kDeficit.toFixed(1)} mEq` },
+          { label: 'Fluid Rate', value: `${fluidRate.toFixed(1)} mL/hr` },
+          { label: 'Administration Route', value: safeLimits.label },
+          { label: 'Safe Concentration', value: `${safeConcentration.toFixed(1)} mEq/L` },
+          { label: 'Bag Size', value: `${currentBagSize} mL` },
+          { label: 'K⁺ per Bag', value: `${kNeededPerBag.toFixed(2)} mEq` },
+          { label: 'KCl Volume (2 mEq/mL)', value: `${kclVolume.toFixed(1)} mL per bag` },
+          { label: 'K⁺ Infusion Rate', value: `${kPerKgHour.toFixed(2)} mEq/kg/hr` },
+          { label: 'Max Safe Rate', value: `${safeLimits.maxRate} mEq/kg/hr (${currentRoute})` }
+        ];
+
+        els.calculationDetails.innerHTML = details.map(d => `
+          <div class="calc-info-item">
+            <span class="calc-info-item__label">${d.label}</span>
+            <span class="calc-info-item__value">${d.value}</span>
+          </div>
+        `).join('');
+
+        els.results.style.display = 'block';
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      // Copy results
+      els.copyBtn.addEventListener('click', () => {
+        const text = `K⁺ Supplementation:\n` +
+          `Deficit: ${els.resultDeficit.textContent} mEq\n` +
+          `Concentration: ${els.resultConcentration.textContent} mEq/L\n` +
+          `KCl to add: ${els.resultVolume.textContent} mL per ${currentBagSize} mL bag\n` +
+          `Infusion rate: ${els.resultInfusion.textContent} mEq/kg/hr\n` +
+          `Status: ${els.safetyStatus.textContent}`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.innerHTML = '✓ Copied!';
+          setTimeout(() => {
+            els.copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy`;
+          }, 2000);
+        });
+      });
+
+      // Reset
+      els.resetBtn.addEventListener('click', () => {
+        els.weightInput.value = '';
+        els.currentK.value = '';
+        els.targetK.value = '';
+        els.fluidRate.value = '';
+        els.customBagSize.value = '';
+        els.results.style.display = 'none';
+        els.warningMessage.style.display = 'none';
+        
+        // Reset to defaults
+        currentSpecies = 'dog';
+        currentRoute = 'peripheral';
+        currentBagSize = 500;
+        rateUnit = 'ml-hr';
+        
+        els.speciesBtns.forEach(b => b.classList.remove('active'));
+        document.querySelector('[data-species="dog"]').classList.add('active');
+        
+        els.routeBtns.forEach(b => b.classList.remove('active'));
+        document.querySelector('[data-route="peripheral"]').classList.add('active');
+        
+        els.bagSizeBtns.forEach(b => b.classList.remove('active'));
+        document.querySelector('[data-bag="500"]').classList.add('active');
+        els.customBagWrap.style.display = 'none';
+        
+        els.rateUnitBtns.forEach(b => b.classList.remove('active'));
+        document.querySelector('[data-rate-unit="ml-hr"]').classList.add('active');
+        
+        updateWeightPresets();
+      });
+
+      // Expandable details
+      els.calcDetails.querySelector('.calc-details__trigger').addEventListener('click', () => {
+        els.calcDetails.classList.toggle('open');
+      });
+
+      // Initialize
+      updateWeightPresets();
+    })();
+    </script>
+  </body>
+</html>

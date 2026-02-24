@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="BSA Calculator" />
+    <title>Body Surface Area Calculator | DVMReady Tools</title>
+    <meta name="description" content="Calculate body surface area for chemotherapy dosing in dogs and cats." />
+    <link rel="canonical" href="https://dvmready.com/tools/body-surface-area-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">📐</div>
+        <h1 class="calc-header__title">Body Surface Area Calculator</h1>
+        <p class="calc-header__subtitle">Chemotherapy dosing based on BSA for dogs and cats</p>
+      </header>
+
+      <div class="calc-card" id="bsa-calculator" data-calc="bsa">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>📐</span>
+            <span>BSA Calculation</span>
+          </h2>
+          <p class="calc-card__subtitle">Calculate body surface area for drug dosing</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+              <button type="button" class="calc-species-btn" data-species="other">🐾<span class="calc-species-btn__label">Other</span></button>
+            </div>
+          </div>
+
+          <!-- Weight -->
+          <div class="calc-form-group">
+            <label class="calc-label">Weight</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="weight" placeholder="20" min="0.1" step="0.1">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Optional: Drug Dose -->
+          <div class="calc-form-group">
+            <label class="calc-label">Chemotherapy Dose (optional)</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input" id="drug-dose" placeholder="e.g., 200" min="0" step="0.1">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mg/m²</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.25rem;">Enter to calculate total drug dose</p>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>📐</span> Calculate BSA
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Body Surface Area</p>
+              <p class="calc-result-card__value">
+                <span id="result-bsa">--</span>
+                <span class="calc-result-card__unit">m²</span>
+              </p>
+              <p class="calc-result-card__context" id="bsa-method"></p>
+            </div>
+
+            <div class="calc-result-card" id="drug-result" style="display: none; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));">
+              <p class="calc-result-card__label">Calculated Drug Dose</p>
+              <p class="calc-result-card__value">
+                <span id="result-dose">--</span>
+                <span class="calc-result-card__unit">mg</span>
+              </p>
+              <p class="calc-result-card__context">Based on entered dose of mg/m²</p>
+            </div>
+
+            <div class="calc-info-grid" style="margin-top: 1rem;">
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Weight Used</span>
+                <span class="calc-info-item__value" id="weight-used">-- kg</span>
+              </div>
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Formula</span>
+                <span class="calc-info-item__value">BSA = 0.1 × kg^0.67</span>
+              </div>
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            Formula: BSA (m²) = 0.1 × (body weight in kg)^0.67
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/dose-calculator.html" class="calc-chip">💊 Dose Calculator</a>
+          <a href="/tools/transfusion-helper.html" class="calc-chip">🩸 Transfusion</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      const els = {
+        speciesBtns: document.querySelectorAll('[data-species]'),
+        weight: document.getElementById('weight'),
+        drugDose: document.getElementById('drug-dose'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        resultBsa: document.getElementById('result-bsa'),
+        bsaMethod: document.getElementById('bsa-method'),
+        drugResult: document.getElementById('drug-result'),
+        resultDose: document.getElementById('result-dose'),
+        weightUsed: document.getElementById('weight-used'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
+
+      let currentSpecies = 'dog';
+      let weightUnit = 'kg';
+
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      document.querySelectorAll('[data-unit]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          weightUnit = btn.dataset.unit;
+          document.querySelectorAll('[data-unit]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      function getWeightKg() {
+        const w = parseFloat(els.weight.value);
+        if (!w) return null;
+        return weightUnit === 'lb' ? w * 0.453592 : w;
+      }
+
+      function calculate() {
+        const weightKg = getWeightKg();
+        if (!weightKg) return;
+
+        // BSA formula: 0.1 × weight^0.67
+        const bsa = 0.1 * Math.pow(weightKg, 0.67);
+
+        els.resultBsa.textContent = bsa.toFixed(3);
+        els.bsaMethod.textContent = `Using ${weightKg.toFixed(2)} kg`;
+        els.weightUsed.textContent = `${weightKg.toFixed(2)} kg`;
+
+        // Drug dose calculation
+        const dose = parseFloat(els.drugDose.value);
+        if (dose) {
+          const totalDose = bsa * dose;
+          els.resultDose.textContent = totalDose.toFixed(2);
+          els.drugResult.style.display = 'block';
+        } else {
+          els.drugResult.style.display = 'none';
+        }
+
+        els.results.style.display = 'block';
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        let text = `BSA: ${els.resultBsa.textContent} m²`;
+        if (els.drugResult.style.display !== 'none') {
+          text += ` | Drug dose: ${els.resultDose.textContent} mg`;
+        }
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.weight.value = '';
+        els.drugDose.value = '';
+        els.results.style.display = 'none';
+      });
+    })();
+    </script>
+  </body>
+</html>
