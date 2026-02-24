@@ -249,6 +249,38 @@
     <priority>0.8</priority>
   </url>
   
+  <!-- ADDITIONAL CALCULATORS - Complete DVM Calc Match -->
+  <url>
+    <loc>https://dvmready.com/tools/anesthetic-preparation-calculator.html</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/enteral-feeding-calculator.html</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/gestation-wheel-calculator.html</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/metabolic-weight-calculator.html</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/osmolality-calculator.html</loc>
+    <lastmod>2026-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
   <!-- Study Hub -->
   <url>
     <loc>https://dvmready.com/study/</loc>

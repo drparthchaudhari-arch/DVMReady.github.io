@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Metabolic Weight" />
+    <title>Metabolic Weight Calculator | DVMReady Tools</title>
+    <meta name="description" content="Calculate metabolic weight (BW^0.75) for veterinary drug dosing and allometric scaling." />
+    <link rel="canonical" href="https://dvmready.com/tools/metabolic-weight-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">⚖️</div>
+        <h1 class="calc-header__title">Metabolic Weight Calculator</h1>
+        <p class="calc-header__subtitle">Allometric scaling for drug dosing (BW^0.75)</p>
+      </header>
+
+      <div class="calc-card" id="metabolic-calculator" data-calc="metabolic-weight">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>⚖️</span>
+            <span>Metabolic Weight (BW^0.75)</span>
+          </h2>
+          <p class="calc-card__subtitle">Calculate metabolic weight for research and specialized dosing</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+              <button type="button" class="calc-species-btn" data-species="other">🐾<span class="calc-species-btn__label">Other</span></button>
+            </div>
+          </div>
+
+          <!-- Weight -->
+          <div class="calc-form-group">
+            <label class="calc-label">Body Weight</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="weight" placeholder="10" min="0.1" step="0.1">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Drug Dose (optional) -->
+          <div class="calc-form-group">
+            <label class="calc-label">Drug Dose Rate (optional)</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input" id="dose-rate" placeholder="e.g., 10" min="0" step="0.01">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mg/kg^0.75</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.25rem;">Enter to calculate total drug dose using metabolic weight</p>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>⚖️</span> Calculate Metabolic Weight
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <div class="calc-result-card" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.05));">
+              <p class="calc-result-card__label">Metabolic Weight (BW^0.75)</p>
+              <p class="calc-result-card__value">
+                <span id="result-metabolic">--</span>
+                <span class="calc-result-card__unit">kg^0.75</span>
+              </p>
+              <p class="calc-result-card__context">Allometric scaling factor</p>
+            </div>
+
+            <div class="calc-result-card" id="drug-result" style="display: none; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));">
+              <p class="calc-result-card__label">Calculated Drug Dose</p>
+              <p class="calc-result-card__value">
+                <span id="result-dose">--</span>
+                <span class="calc-result-card__unit">mg</span>
+              </p>
+              <p class="calc-result-card__context">Based on metabolic weight scaling</p>
+            </div>
+
+            <!-- Comparison Table -->
+            <div style="margin-top: 1.5rem;">
+              <h3 style="font-size: 1rem; margin-bottom: 0.75rem;">Weight Scaling Comparison</h3>
+              <div style="background: var(--calc-surface-2); border-radius: var(--calc-radius-md); overflow: hidden;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem;">
+                  <thead>
+                    <tr style="background: var(--calc-surface-3);">
+                      <th style="padding: 0.75rem; text-align: left; font-weight: 600;">Method</th>
+                      <th style="padding: 0.75rem; text-align: right; font-weight: 600;">Value</th>
+                      <th style="padding: 0.75rem; text-align: left; font-weight: 600;">Use Case</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-top: 1px solid var(--calc-border);">
+                      <td style="padding: 0.75rem;">Linear (mg/kg)</td>
+                      <td style="padding: 0.75rem; text-align: right; font-weight: 500;" id="compare-linear">--</td>
+                      <td style="padding: 0.75rem; color: var(--calc-text-muted);">Most drugs</td>
+                    </tr>
+                    <tr style="border-top: 1px solid var(--calc-border);">
+                      <td style="padding: 0.75rem;">Metabolic (BW^0.75)</td>
+                      <td style="padding: 0.75rem; text-align: right; font-weight: 600; color: var(--calc-primary);" id="compare-metabolic">--</td>
+                      <td style="padding: 0.75rem; color: var(--calc-text-muted);">Research, some antibiotics</td>
+                    </tr>
+                    <tr style="border-top: 1px solid var(--calc-border);">
+                      <td style="padding: 0.75rem;">Surface Area (BSA)</td>
+                      <td style="padding: 0.75rem; text-align: right; font-weight: 500;" id="compare-bsa">--</td>
+                      <td style="padding: 0.75rem; color: var(--calc-text-muted);">Chemotherapy</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Educational Content -->
+            <div class="calc-info-box" style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--calc-primary); padding: 1rem; border-radius: var(--calc-radius-md); margin-top: 1.5rem;">
+              <h4 style="margin: 0 0 0.5rem; color: var(--calc-primary);">📚 About Metabolic Weight</h4>
+              <p style="margin: 0 0 0.5rem; font-size: 0.875rem;">
+                Metabolic weight (BW^0.75) accounts for the non-linear relationship between body size and metabolic rate. 
+                Kleiber's law states that metabolic rate scales to the 3/4 power of body mass.
+              </p>
+              <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.875rem;">
+                <li><strong>Linear (mg/kg):</strong> Simple but overestimates for large animals</li>
+                <li><strong>Metabolic (BW^0.75):</strong> Better for drugs eliminated by metabolism</li>
+                <li><strong>BSA (mg/m²):</strong> Best for chemo and cell-cycle specific drugs</li>
+              </ul>
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            Formula: Metabolic Weight = Body Weight(kg)^0.75
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/body-surface-area-calculator.html" class="calc-chip">📐 BSA Calculator</a>
+          <a href="/tools/dose-calculator.html" class="calc-chip">💊 Dose Calculator</a>
+          <a href="/tools/enteral-feeding-calculator.html" class="calc-chip">🍼 Feeding Calculator</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      const els = {
+        speciesBtns: document.querySelectorAll('[data-species]'),
+        weight: document.getElementById('weight'),
+        doseRate: document.getElementById('dose-rate'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        resultMetabolic: document.getElementById('result-metabolic'),
+        drugResult: document.getElementById('drug-result'),
+        resultDose: document.getElementById('result-dose'),
+        compareLinear: document.getElementById('compare-linear'),
+        compareMetabolic: document.getElementById('compare-metabolic'),
+        compareBsa: document.getElementById('compare-bsa'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
+
+      let currentSpecies = 'dog';
+      let weightUnit = 'kg';
+
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      document.querySelectorAll('[data-unit]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          weightUnit = btn.dataset.unit;
+          document.querySelectorAll('[data-unit]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      function getWeightKg() {
+        const w = parseFloat(els.weight.value);
+        if (!w) return null;
+        return weightUnit === 'lb' ? w * 0.453592 : w;
+      }
+
+      function calculate() {
+        const weightKg = getWeightKg();
+        if (!weightKg) return;
+
+        // Metabolic weight = BW^0.75
+        const metabolicWeight = Math.pow(weightKg, 0.75);
+        
+        // BSA = 0.1 × BW^0.67
+        const bsa = 0.1 * Math.pow(weightKg, 0.67);
+
+        els.resultMetabolic.textContent = metabolicWeight.toFixed(3);
+        
+        // Comparison table
+        els.compareLinear.textContent = weightKg.toFixed(2) + ' kg';
+        els.compareMetabolic.textContent = metabolicWeight.toFixed(3) + ' kg^0.75';
+        els.compareBsa.textContent = bsa.toFixed(3) + ' m²';
+
+        // Drug dose calculation
+        const doseRate = parseFloat(els.doseRate.value);
+        if (doseRate) {
+          const totalDose = metabolicWeight * doseRate;
+          els.resultDose.textContent = totalDose.toFixed(2);
+          els.drugResult.style.display = 'block';
+        } else {
+          els.drugResult.style.display = 'none';
+        }
+
+        els.results.style.display = 'block';
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const weightKg = getWeightKg();
+        let text = `Metabolic Weight Calculation\nBody Weight: ${weightKg.toFixed(2)} kg\nMetabolic Weight: ${els.resultMetabolic.textContent} kg^0.75`;
+        if (els.drugResult.style.display !== 'none') {
+          text += `\nDrug Dose: ${els.resultDose.textContent} mg`;
+        }
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.weight.value = '';
+        els.doseRate.value = '';
+        els.results.style.display = 'none';
+      });
+    })();
+    </script>
+  </body>
+</html>

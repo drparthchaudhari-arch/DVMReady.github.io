@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Enteral Feeding Calculator" />
+    <title>Enteral Feeding Calculator | Tube Feeding for Dogs & Cats | DVMReady</title>
+    <meta name="description" content="Veterinary enteral feeding calculator for nasogastric, esophagostomy, and gastrostomy tubes. Calculate RER, MER, feeding volumes, and rates with refeeding syndrome warnings." />
+    <link rel="canonical" href="https://dvmready.com/tools/enteral-feeding-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Veterinary Enteral Feeding Calculator",
+      "applicationCategory": "HealthApplication",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Calculate tube feeding volumes for dogs and cats. RER/MER calculations with refeeding syndrome warnings for NG, esophagostomy, and gastrostomy tubes."
+    }
+    </script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🍼</div>
+        <h1 class="calc-header__title">Enteral Feeding Calculator</h1>
+        <p class="calc-header__subtitle">Calculate tube feeding volumes for nasogastric, esophagostomy, and gastrostomy tubes. Includes refeeding syndrome warnings.</p>
+      </header>
+
+      <!-- Warning Banner -->
+      <div class="calc-warning-banner" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(220, 38, 38, 0.1)); border: 2px solid var(--calc-warning); border-radius: var(--calc-radius-lg); padding: 1.25rem; margin-bottom: 2rem;">
+        <div style="display: flex; align-items: flex-start; gap: 1rem;">
+          <span style="font-size: 1.5rem;">⚠️</span>
+          <div>
+            <h3 style="margin: 0 0 0.5rem; font-size: 1rem; color: var(--calc-warning);">Refeeding Syndrome Risk</h3>
+            <p style="margin: 0; font-size: 0.875rem; color: var(--calc-text-secondary); line-height: 1.6;">
+              Start at <strong>25-33% of RER</strong> in malnourished patients, then gradually increase over 3-5 days. 
+              Monitor phosphorus, potassium, magnesium, and thiamine. Risk increases with BMI &lt;16, &gt;10 days anorexia, 
+              or significant weight loss.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-card" id="enteral-calculator" data-calc="enteral">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>🍼</span>
+            <span>Tube Feeding Calculator</span>
+          </h2>
+          <p class="calc-card__subtitle">Calculate daily and per-feeding volumes for enteral nutrition</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species Selection -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+            </div>
+          </div>
+
+          <!-- Weight Input -->
+          <div class="calc-form-group">
+            <label class="calc-label">Body Weight</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="weight" placeholder="10" min="0.1" step="0.1" data-conversion="weight" data-unit="kg">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+              </div>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.25rem;">Use <strong>ideal body weight</strong> if overweight (BCS &gt; 6/9)</p>
+          </div>
+
+          <!-- BCS Selection -->
+          <div class="calc-form-group">
+            <label class="calc-label">Body Condition Score (BCS)</label>
+            <div class="calc-chips" id="bcs-chips">
+              <button type="button" class="calc-chip" data-bcs="1">1/9 (Emaciated)</button>
+              <button type="button" class="calc-chip" data-bcs="2">2/9 (Very thin)</button>
+              <button type="button" class="calc-chip" data-bcs="3">3/9 (Thin)</button>
+              <button type="button" class="calc-chip" data-bcs="4">4/9 (Lean)</button>
+              <button type="button" class="calc-chip active" data-bcs="5">5/9 (Ideal)</button>
+              <button type="button" class="calc-chip" data-bcs="6">6/9 (Overweight)</button>
+              <button type="button" class="calc-chip" data-bcs="7">7/9 (Heavy)</button>
+              <button type="button" class="calc-chip" data-bcs="8">8/9 (Obese)</button>
+              <button type="button" class="calc-chip" data-bcs="9">9/9 (Severely obese)</button>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.5rem;" id="bcs-warning"></p>
+          </div>
+
+          <!-- Days Without Food -->
+          <div class="calc-form-group">
+            <label class="calc-label">Days Without Food / Minimal Intake</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input" id="days-anorectic" placeholder="0" min="0" max="30" step="1">
+            </div>
+            <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.25rem;">&gt;3 days increases refeeding risk; &gt;10 days is high risk</p>
+          </div>
+
+          <!-- Condition Factor -->
+          <div class="calc-form-group">
+            <label class="calc-label">Condition / Illness Factor</label>
+            <select class="calc-select" id="condition-factor">
+              <option value="0.8">Weight loss protocol (0.8 × RER)</option>
+              <option value="1.0" selected>Maintenance / Recovery (1.0 × RER)</option>
+              <option value="1.1">Elective surgery (1.1-1.2 × RER)</option>
+              <option value="1.2">Mild illness (1.2 × RER)</option>
+              <option value="1.3">Critical care - initial (1.0-1.3 × RER)</option>
+              <option value="1.4">Moderate illness / Trauma (1.3-1.5 × RER)</option>
+              <option value="1.6">Severe illness / Sepsis (1.4-1.8 × RER)</option>
+              <option value="1.8">Burns / Severe trauma (1.6-2.0 × RER)</option>
+            </select>
+          </div>
+
+          <!-- Food Selection -->
+          <div class="calc-form-group">
+            <label class="calc-label">Diet Type</label>
+            <select class="calc-select" id="diet-type">
+              <option value="1.0" data-kcal="1.0">Recovery/ICU canned (1.0 kcal/mL)</option>
+              <option value="1.3" data-kcal="1.3">Recovery/ICU canned (1.3 kcal/mL)</option>
+              <option value="1.5" data-kcal="1.5" selected>Standard recovery (1.5 kcal/mL)</option>
+              <option value="2.0" data-kcal="2.0">Critical care liquid (2.0 kcal/mL)</option>
+              <option value="custom">Custom energy density</option>
+            </select>
+          </div>
+
+          <!-- Custom kcal/mL (hidden by default) -->
+          <div class="calc-form-group" id="custom-kcal-group" style="display: none;">
+            <label class="calc-label">Custom Energy Density</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="custom-kcal" placeholder="1.5" min="0.1" step="0.1" value="1.5">
+              <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.875rem;">kcal/mL</span>
+            </div>
+          </div>
+
+          <!-- Feeding Frequency -->
+          <div class="calc-form-group">
+            <label class="calc-label">Feeding Schedule</label>
+            <div class="calc-chips" id="frequency-chips">
+              <button type="button" class="calc-chip" data-freq="cri">CRI (Continuous)</button>
+              <button type="button" class="calc-chip" data-freq="2">q12h (2× daily)</button>
+              <button type="button" class="calc-chip" data-freq="3">q8h (3× daily)</button>
+              <button type="button" class="calc-chip active" data-freq="4">q6h (4× daily)</button>
+              <button type="button" class="calc-chip" data-freq="6">q4h (6× daily)</button>
+            </div>
+          </div>
+
+          <!-- Refeeding Precaution Checkbox -->
+          <div class="calc-form-group">
+            <label class="calc-label" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              <input type="checkbox" id="refeeding-precaution" style="width: auto;">
+              <span>Apply refeeding precautions (start at 25% RER)</span>
+            </label>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>🍼</span> Calculate Feeding Plan
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <!-- Refeeding Warning (conditional) -->
+            <div class="calc-result-card" id="refeeding-alert" style="display: none; background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(245, 158, 11, 0.1)); border-color: var(--calc-error); margin-bottom: 1rem;">
+              <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                <span style="font-size: 1.5rem;">🚨</span>
+                <div>
+                  <p class="calc-result-card__label" style="color: var(--calc-error);">High Refeeding Risk</p>
+                  <p style="font-size: 0.875rem; color: var(--calc-text-secondary); margin: 0.5rem 0 0;">
+                    Start at <strong>25% of calculated needs</strong> and increase gradually over 3-5 days. 
+                    Monitor electrolytes q12-24h for first 72 hours. Consider thiamine supplementation.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- RER/MER Results -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+              <div class="calc-result-card">
+                <p class="calc-result-card__label">RER (Resting)</p>
+                <p class="calc-result-card__value">
+                  <span id="result-rer">--</span>
+                  <span class="calc-result-card__unit">kcal/day</span>
+                </p>
+                <p class="calc-result-card__range">70 × BW<sup>0.75</sup></p>
+              </div>
+              <div class="calc-result-card">
+                <p class="calc-result-card__label">MER (Adjusted)</p>
+                <p class="calc-result-card__value">
+                  <span id="result-mer">--</span>
+                  <span class="calc-result-card__unit">kcal/day</span>
+                </p>
+                <p class="calc-result-card__range" id="mer-factor">× 1.0</p>
+              </div>
+            </div>
+
+            <!-- Feeding Volume Results -->
+            <div class="calc-result-card" style="margin-bottom: 1rem;">
+              <p class="calc-result-card__label">Daily Feeding Volume</p>
+              <p class="calc-result-card__value">
+                <span id="result-daily-volume">--</span>
+                <span class="calc-result-card__unit">mL/day</span>
+              </p>
+              <p class="calc-result-card__range" id="daily-volume-breakdown"></p>
+            </div>
+
+            <!-- Per Feeding / Hourly Rate -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+              <div class="calc-result-card" id="per-feeding-card">
+                <p class="calc-result-card__label">Volume Per Feeding</p>
+                <p class="calc-result-card__value">
+                  <span id="result-per-feeding">--</span>
+                  <span class="calc-result-card__unit">mL</span>
+                </p>
+                <p class="calc-result-card__range" id="feeding-frequency-display"></p>
+              </div>
+              <div class="calc-result-card" id="hourly-rate-card" style="display: none;">
+                <p class="calc-result-card__label">Hourly Rate (CRI)</p>
+                <p class="calc-result-card__value">
+                  <span id="result-hourly">--</span>
+                  <span class="calc-result-card__unit">mL/hr</span>
+                </p>
+                <p class="calc-result-card__range">Continuous infusion</p>
+              </div>
+            </div>
+
+            <!-- Gradual Increase Schedule -->
+            <div class="calc-result-card" id="gradual-schedule" style="display: none; background: linear-gradient(135deg, rgba(31, 127, 80, 0.1), rgba(12, 96, 125, 0.1)); border-color: var(--calc-success);">
+              <p class="calc-result-card__label">Gradual Introduction Schedule</p>
+              <div class="calc-info-grid" style="margin-top: 0.75rem;">
+                <div class="calc-info-item">
+                  <span class="calc-info-item__label">Days 1-2</span>
+                  <span class="calc-info-item__value" id="schedule-day1">-- mL/day</span>
+                </div>
+                <div class="calc-info-item">
+                  <span class="calc-info-item__label">Days 3-4</span>
+                  <span class="calc-info-item__value" id="schedule-day3">-- mL/day</span>
+                </div>
+                <div class="calc-info-item">
+                  <span class="calc-info-item__label">Days 5-7</span>
+                  <span class="calc-info-item__value" id="schedule-day5">-- mL/day</span>
+                </div>
+                <div class="calc-info-item" style="border-top: 2px solid var(--calc-border); font-weight: 600;">
+                  <span class="calc-info-item__label">Target (Day 7+)</span>
+                  <span class="calc-info-item__value" id="schedule-target">-- mL/day</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Monitoring Recommendations -->
+            <div class="calc-result-card" style="background: linear-gradient(135deg, var(--calc-bg-tertiary), var(--calc-surface)); margin-top: 1rem;">
+              <p class="calc-result-card__label">Monitoring Recommendations</p>
+              <ul style="font-size: 0.875rem; color: var(--calc-text-secondary); line-height: 1.8; margin: 0.75rem 0 0; padding-left: 1.25rem;">
+                <li>Check <strong>phosphorus, potassium, magnesium</strong> at baseline, 24h, 48h, 72h</li>
+                <li>Monitor for regurgitation, vomiting, diarrhea</li>
+                <li>Verify tube placement before each feeding</li>
+                <li>Warm food to body temperature before administration</li>
+                <li>Flush tube with 5-10 mL water after each feeding</li>
+              </ul>
+            </div>
+
+            <!-- Actions -->
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+
+            <!-- Calculation Details -->
+            <div class="calc-details">
+              <button type="button" class="calc-details__trigger">
+                <span>📋 Show Calculation Details</span>
+                <svg class="calc-details__trigger-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="calc-details__content">
+                <div class="calc-details__inner" id="calculation-details"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            ⚠️ Educational tool. Always verify calculations and adjust for individual patient needs. Consult current veterinary nutrition references.
+          </p>
+        </div>
+      </div>
+
+      <!-- Related Calculators -->
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/nutrition-rer-mer-calculator.html" class="calc-chip">🍖 RER/MER Calculator</a>
+          <a href="/tools/fluid-calculator.html" class="calc-chip">💧 Fluid Calculator</a>
+          <a href="/tools/electrolyte-replacement-planner.html" class="calc-chip">⚡ Electrolytes</a>
+          <a href="/body-condition-score-guide/" class="calc-chip">📊 BCS Guide</a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal" style="margin-top: 2rem;">
+      <div class="pc-footer__bottom">
+        <div class="pc-footer__legal">
+          <a href="/">Home</a>
+          <a href="/tools/">Tools</a>
+          <a href="/reference/">References</a>
+          <a href="/about.html">About</a>
+        </div>
+        <p class="pc-footer__copyright">© 2025 DVMReady. Not a substitute for professional veterinary advice.</p>
+      </div>
+    </footer>
+
+    <script>
+    (function() {
+      // DOM Elements
+      const els = {
+        speciesBtns: document.querySelectorAll('[data-species]'),
+        weightInput: document.getElementById('weight'),
+        unitBtns: document.querySelectorAll('[data-unit]'),
+        bcsChips: document.querySelectorAll('[data-bcs]'),
+        daysAnorectic: document.getElementById('days-anorectic'),
+        conditionFactor: document.getElementById('condition-factor'),
+        dietType: document.getElementById('diet-type'),
+        customKcalGroup: document.getElementById('custom-kcal-group'),
+        customKcal: document.getElementById('custom-kcal'),
+        frequencyChips: document.querySelectorAll('[data-freq]'),
+        refeedingPrecaution: document.getElementById('refeeding-precaution'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        refeedingAlert: document.getElementById('refeeding-alert'),
+        resultRer: document.getElementById('result-rer'),
+        resultMer: document.getElementById('result-mer'),
+        merFactor: document.getElementById('mer-factor'),
+        resultDailyVolume: document.getElementById('result-daily-volume'),
+        dailyVolumeBreakdown: document.getElementById('daily-volume-breakdown'),
+        perFeedingCard: document.getElementById('per-feeding-card'),
+        hourlyRateCard: document.getElementById('hourly-rate-card'),
+        resultPerFeeding: document.getElementById('result-per-feeding'),
+        resultHourly: document.getElementById('result-hourly'),
+        feedingFrequencyDisplay: document.getElementById('feeding-frequency-display'),
+        gradualSchedule: document.getElementById('gradual-schedule'),
+        scheduleDay1: document.getElementById('schedule-day1'),
+        scheduleDay3: document.getElementById('schedule-day3'),
+        scheduleDay5: document.getElementById('schedule-day5'),
+        scheduleTarget: document.getElementById('schedule-target'),
+        calcDetails: document.querySelector('.calc-details'),
+        calculationDetails: document.getElementById('calculation-details'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn'),
+        bcsWarning: document.getElementById('bcs-warning')
+      };
+
+      // State
+      let currentSpecies = 'dog';
+      let currentUnit = 'kg';
+      let currentBCS = 5;
+      let currentFrequency = 4;
+
+      // Unit conversion for weight
+      function toKg(value, unit) {
+        if (unit === 'lb') return value * 0.453592;
+        return value;
+      }
+
+      // Species selection
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      // Unit toggle
+      els.unitBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const newUnit = btn.dataset.unit;
+          const currentWeight = parseFloat(els.weightInput.value);
+          
+          if (!isNaN(currentWeight) && currentWeight > 0) {
+            if (currentUnit === 'kg' && newUnit === 'lb') {
+              els.weightInput.value = (currentWeight * 2.20462).toFixed(1);
+            } else if (currentUnit === 'lb' && newUnit === 'kg') {
+              els.weightInput.value = (currentWeight * 0.453592).toFixed(1);
+            }
+          }
+          
+          currentUnit = newUnit;
+          els.unitBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      // BCS selection
+      els.bcsChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          currentBCS = parseInt(chip.dataset.bcs);
+          els.bcsChips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          updateBCSWarning();
+        });
+      });
+
+      function updateBCSWarning() {
+        let warning = '';
+        if (currentBCS <= 3) {
+          warning = '⚠️ Low BCS: High refeeding risk. Start at 25% RER and monitor electrolytes closely.';
+        } else if (currentBCS >= 7) {
+          warning = '💡 Use ideal body weight for calculations, not actual weight.';
+        }
+        els.bcsWarning.textContent = warning;
+      }
+
+      // Feeding frequency
+      els.frequencyChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          currentFrequency = chip.dataset.freq;
+          els.frequencyChips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+        });
+      });
+
+      // Diet type change
+      els.dietType.addEventListener('change', () => {
+        els.customKcalGroup.style.display = els.dietType.value === 'custom' ? 'block' : 'none';
+      });
+
+      // Check refeeding risk
+      function checkRefeedingRisk() {
+        const days = parseInt(els.daysAnorectic.value) || 0;
+        const precaution = els.refeedingPrecaution.checked;
+        
+        // Risk factors: BCS 1-3, >3 days anorexia, or precaution checkbox
+        return currentBCS <= 3 || days >= 3 || precaution;
+      }
+
+      // Calculate
+      function calculate() {
+        const weightInput = parseFloat(els.weightInput.value);
+        if (!weightInput || weightInput <= 0) {
+          alert('Please enter a valid weight');
+          return;
+        }
+
+        const weightKg = toKg(weightInput, currentUnit);
+        const factor = parseFloat(els.conditionFactor.value);
+        
+        // Get kcal/mL
+        let kcalPerMl;
+        if (els.dietType.value === 'custom') {
+          kcalPerMl = parseFloat(els.customKcal.value) || 1.5;
+        } else {
+          kcalPerMl = parseFloat(els.dietType.value);
+        }
+
+        // Calculate RER (70 × BW^0.75) or linear for 2-30kg dogs
+        let rer;
+        if (currentSpecies === 'dog' && weightKg >= 2 && weightKg <= 30) {
+          // Linear approximation: 30 × BW
+          rer = 30 * weightKg;
+        } else {
+          rer = 70 * Math.pow(weightKg, 0.75);
+        }
+
+        // MER
+        const mer = rer * factor;
+
+        // Daily volume
+        const dailyVolume = mer / kcalPerMl;
+
+        // Check refeeding risk
+        const highRisk = checkRefeedingRisk();
+        const precaution = els.refeedingPrecaution.checked;
+        const daysAnorectic = parseInt(els.daysAnorectic.value) || 0;
+
+        // Update results
+        els.resultRer.textContent = Math.round(rer);
+        els.resultMer.textContent = Math.round(mer);
+        els.merFactor.textContent = `× ${factor}`;
+        els.resultDailyVolume.textContent = Math.round(dailyVolume);
+        els.dailyVolumeBreakdown.textContent = `${Math.round(mer)} kcal ÷ ${kcalPerMl} kcal/mL`;
+
+        // Show refeeding alert if needed
+        els.refeedingAlert.style.display = (highRisk || precaution) ? 'block' : 'none';
+
+        // Per feeding or hourly rate
+        if (currentFrequency === 'cri') {
+          els.perFeedingCard.style.display = 'none';
+          els.hourlyRateCard.style.display = 'block';
+          const hourlyRate = dailyVolume / 24;
+          els.resultHourly.textContent = hourlyRate.toFixed(1);
+        } else {
+          els.perFeedingCard.style.display = 'block';
+          els.hourlyRateCard.style.display = 'none';
+          const freq = parseInt(currentFrequency);
+          const perFeeding = dailyVolume / freq;
+          els.resultPerFeeding.textContent = perFeeding.toFixed(1);
+          
+          const freqText = {
+            2: 'q12h',
+            3: 'q8h',
+            4: 'q6h',
+            6: 'q4h'
+          };
+          els.feedingFrequencyDisplay.textContent = `${freqText[freq]} (${freq}× daily)`;
+        }
+
+        // Gradual schedule if high risk or precaution selected
+        if (highRisk || precaution) {
+          els.gradualSchedule.style.display = 'block';
+          const day1Vol = dailyVolume * 0.25;
+          const day3Vol = dailyVolume * 0.5;
+          const day5Vol = dailyVolume * 0.75;
+          
+          els.scheduleDay1.textContent = `${Math.round(day1Vol)} mL/day (${Math.round(day1Vol / (currentFrequency === 'cri' ? 24 : parseInt(currentFrequency)))} ${currentFrequency === 'cri' ? 'mL/hr' : 'mL/feed'})`;
+          els.scheduleDay3.textContent = `${Math.round(day3Vol)} mL/day (${Math.round(day3Vol / (currentFrequency === 'cri' ? 24 : parseInt(currentFrequency)))} ${currentFrequency === 'cri' ? 'mL/hr' : 'mL/feed'})`;
+          els.scheduleDay5.textContent = `${Math.round(day5Vol)} mL/day (${Math.round(day5Vol / (currentFrequency === 'cri' ? 24 : parseInt(currentFrequency)))} ${currentFrequency === 'cri' ? 'mL/hr' : 'mL/feed'})`;
+          els.scheduleTarget.textContent = `${Math.round(dailyVolume)} mL/day`;
+        } else {
+          els.gradualSchedule.style.display = 'none';
+        }
+
+        // Calculation details
+        const rerFormula = (currentSpecies === 'dog' && weightKg >= 2 && weightKg <= 30) 
+          ? `RER = 30 × ${weightKg.toFixed(1)} kg = ${Math.round(rer)} kcal/day`
+          : `RER = 70 × (${weightKg.toFixed(1)} kg)^0.75 = ${Math.round(rer)} kcal/day`;
+        
+        els.calculationDetails.innerHTML = `
+          <div class="calc-info-item">
+            <span class="calc-info-item__label">Species</span>
+            <span class="calc-info-item__value">${currentSpecies.charAt(0).toUpperCase() + currentSpecies.slice(1)}</span>
+          </div>
+          <div class="calc-info-item">
+            <span class="calc-info-item__label">Weight</span>
+            <span class="calc-info-item__value">${weightKg.toFixed(2)} kg (${weightInput} ${currentUnit})</span>
+          </div>
+          <div class="calc-info-item">
+            <span class="calc-info-item__label">BCS</span>
+            <span class="calc-info-item__value">${currentBCS}/9</span>
+          </div>
+          <div class="calc-info-item">
+            <span class="calc-info-item__label">RER Formula</span>
+            <span class="calc-info-item__value">${rerFormula}</span>
+          </div>
+          <div class="calc-info-item">
+            <span class="calc-info-item__label">MER Calculation</span>
+            <span class="calc-info-item__value">${Math.round(rer)} × ${factor} = ${Math.round(mer)} kcal/day</span>
+          </div>
+          <div class="calc-info-item">
+            <span class="calc-info-item__label">Diet Energy</span>
+            <span class="calc-info-item__value">${kcalPerMl} kcal/mL</span>
+          </div>
+          <div class="calc-info-item">
+            <span class="calc-info-item__label">Daily Volume</span>
+            <span class="calc-info-item__value">${Math.round(mer)} ÷ ${kcalPerMl} = ${Math.round(dailyVolume)} mL</span>
+          </div>
+          ${highRisk || els.refeedingPrecaution.checked ? `
+          <div class="calc-info-item" style="background: rgba(245, 158, 11, 0.1); padding: 0.5rem; border-radius: 4px;">
+            <span class="calc-info-item__label">⚠️ Refeeding Precautions</span>
+            <span class="calc-info-item__value">Start at 25% RER</span>
+          </div>
+          ` : ''}
+        `;
+
+        els.results.style.display = 'block';
+        els.results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      // Event listeners
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const rer = els.resultRer.textContent;
+        const mer = els.resultMer.textContent;
+        const dailyVol = els.resultDailyVolume.textContent;
+        const freq = currentFrequency === 'cri' ? 'CRI' : `q${Math.round(24/parseInt(currentFrequency))}h`;
+        const perFeeding = currentFrequency === 'cri' ? els.resultHourly.textContent + ' mL/hr' : els.resultPerFeeding.textContent + ' mL/feed';
+        
+        const text = `Enteral Feeding Plan (${currentSpecies} ${els.weightInput.value}${currentUnit}): RER ${rer} | MER ${mer} kcal/day | ${dailyVol} mL/day | ${freq} ${perFeeding}`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.weightInput.value = '';
+        els.daysAnorectic.value = '';
+        els.refeedingPrecaution.checked = false;
+        els.results.style.display = 'none';
+        
+        // Reset to defaults
+        currentBCS = 5;
+        els.bcsChips.forEach(c => c.classList.remove('active'));
+        document.querySelector('[data-bcs="5"]').classList.add('active');
+        updateBCSWarning();
+        
+        currentFrequency = 4;
+        els.frequencyChips.forEach(c => c.classList.remove('active'));
+        document.querySelector('[data-freq="4"]').classList.add('active');
+        
+        els.dietType.value = '1.5';
+        els.customKcalGroup.style.display = 'none';
+      });
+
+      els.calcDetails.querySelector('.calc-details__trigger').addEventListener('click', () => {
+        els.calcDetails.classList.toggle('open');
+      });
+
+      // Keyboard support
+      els.weightInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') calculate();
+      });
+    })();
+    </script>
+  </body>
+</html>

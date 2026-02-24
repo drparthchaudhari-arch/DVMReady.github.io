@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Osmolality" />
+    <title>Osmolality & Osmolar Gap Calculator | DVMReady Tools</title>
+    <meta name="description" content="Calculate serum osmolality, osmolar gap, and urine osmolality for toxicology and fluid balance assessment in veterinary patients." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Osmolality & Osmolar Gap Calculator | DVMReady Tools" />
+    <meta property="og:description" content="Serum and urine osmolality calculator with toxic alcohol screening for veterinary patients." />
+    <meta property="og:url" content="https://dvmready.com/tools/osmolality-calculator.html" />
+    <link rel="canonical" href="https://dvmready.com/tools/osmolality-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">💧</div>
+        <h1 class="calc-header__title">Osmolality & Osmolar Gap</h1>
+        <p class="calc-header__subtitle">Serum osmolality, osmolar gap, and urine concentration assessment</p>
+      </header>
+
+      <div class="calc-card" id="osm-calculator" data-calc="osmolality">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>💧</span>
+            <span>Osmolality Calculator</span>
+          </h2>
+          <p class="calc-card__subtitle">Calculate osmolar gap to detect unmeasured osmoles (toxic alcohols)</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Mode Selection -->
+          <div class="calc-form-group">
+            <label class="calc-label">Calculator Mode</label>
+            <div class="calc-mode-grid">
+              <button type="button" class="calc-mode-btn active" data-mode="serum">
+                <span class="calc-mode-btn__icon">🩸</span>
+                <span class="calc-mode-btn__text">
+                  <span class="calc-mode-btn__title">Serum Osmolar Gap</span>
+                  <span class="calc-mode-btn__desc">Detect toxic alcohols</span>
+                </span>
+              </button>
+              <button type="button" class="calc-mode-btn" data-mode="urine">
+                <span class="calc-mode-btn__icon">🧪</span>
+                <span class="calc-mode-btn__text">
+                  <span class="calc-mode-btn__title">Urine Osmolality</span>
+                  <span class="calc-mode-btn__desc">Concentration assessment</span>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Serum Section -->
+          <div id="serum-section">
+            <!-- Sodium -->
+            <div class="calc-form-group">
+              <label class="calc-label">Sodium (Na⁺)</label>
+              <div class="calc-input-wrapper">
+                <input type="number" class="calc-input" id="sodium" placeholder="145" min="80" max="200" step="0.1">
+                <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mEq/L</span>
+              </div>
+              <div class="calc-chips">
+                <button type="button" class="calc-chip" data-value="130">130</button>
+                <button type="button" class="calc-chip" data-value="140">140</button>
+                <button type="button" class="calc-chip" data-value="145">145</button>
+                <button type="button" class="calc-chip" data-value="150">150</button>
+                <button type="button" class="calc-chip" data-value="155">155</button>
+              </div>
+            </div>
+
+            <!-- Glucose -->
+            <div class="calc-form-group">
+              <label class="calc-label">Glucose</label>
+              <div class="calc-input-wrapper">
+                <input type="number" class="calc-input calc-input--with-unit" id="glucose" placeholder="100" min="0" step="1">
+                <div class="calc-input-unit">
+                  <button type="button" class="calc-unit-btn active" data-unit="mgdl">mg/dL</button>
+                  <button type="button" class="calc-unit-btn" data-unit="mmol">mmol/L</button>
+                </div>
+              </div>
+              <div class="calc-chips">
+                <button type="button" class="calc-chip" data-value="80">80</button>
+                <button type="button" class="calc-chip" data-value="100">100</button>
+                <button type="button" class="calc-chip" data-value="200">200</button>
+                <button type="button" class="calc-chip" data-value="400">400</button>
+                <button type="button" class="calc-chip" data-value="600">600</button>
+              </div>
+            </div>
+
+            <!-- BUN/Urea -->
+            <div class="calc-form-group">
+              <label class="calc-label">BUN / Urea</label>
+              <div class="calc-input-wrapper">
+                <input type="number" class="calc-input calc-input--with-unit" id="bun" placeholder="20" min="0" step="0.1">
+                <div class="calc-input-unit">
+                  <button type="button" class="calc-unit-btn active" data-bun-unit="mgdl">mg/dL</button>
+                  <button type="button" class="calc-unit-btn" data-bun-unit="mmol">mmol/L</button>
+                </div>
+              </div>
+              <div class="calc-chips">
+                <button type="button" class="calc-chip" data-bun-value="10">10</button>
+                <button type="button" class="calc-chip" data-bun-value="20">20</button>
+                <button type="button" class="calc-chip" data-bun-value="30">30</button>
+                <button type="button" class="calc-chip" data-bun-value="50">50</button>
+                <button type="button" class="calc-chip" data-bun-value="80">80</button>
+              </div>
+            </div>
+
+            <!-- Measured Osmolality (optional) -->
+            <div class="calc-form-group">
+              <label class="calc-label">
+                Measured Serum Osmolality
+                <span style="font-weight: 400; color: var(--calc-text-muted);">(optional)</span>
+              </label>
+              <div class="calc-input-wrapper">
+                <input type="number" class="calc-input" id="measured-osm" placeholder="Leave blank to calculate only" min="200" max="500" step="1">
+                <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mOsm/kg</span>
+              </div>
+              <p style="font-size: 0.75rem; color: var(--calc-text-muted); margin-top: 0.25rem;">
+                If provided, osmolar gap will be calculated
+              </p>
+            </div>
+
+            <!-- Ethanol (optional) -->
+            <div class="calc-form-group">
+              <label class="calc-label">
+                Ethanol Level
+                <span style="font-weight: 400; color: var(--calc-text-muted);">(optional)</span>
+              </label>
+              <div class="calc-input-wrapper">
+                <input type="number" class="calc-input calc-input--with-unit" id="ethanol" placeholder="0" min="0" step="1">
+                <div class="calc-input-unit">
+                  <button type="button" class="calc-unit-btn active" data-eth-unit="mgdl">mg/dL</button>
+                  <button type="button" class="calc-unit-btn" data-eth-unit="mmol">mmol/L</button>
+                </div>
+              </div>
+              <p style="font-size: 0.75rem; color: var(--calc-text-muted); margin-top: 0.25rem;">
+                Ethanol contributes to measured osmolality but is often unmeasured in calculated
+              </p>
+            </div>
+          </div>
+
+          <!-- Urine Section (hidden by default) -->
+          <div id="urine-section" style="display: none;">
+            <!-- Urine Osmolality -->
+            <div class="calc-form-group">
+              <label class="calc-label">Urine Osmolality</label>
+              <div class="calc-input-wrapper">
+                <input type="number" class="calc-input" id="urine-osm" placeholder="600" min="0" max="2000" step="1">
+                <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mOsm/kg</span>
+              </div>
+              <div class="calc-chips">
+                <button type="button" class="calc-chip" data-urine-osm="100">100</button>
+                <button type="button" class="calc-chip" data-urine-osm="300">300</button>
+                <button type="button" class="calc-chip" data-urine-osm="600">600</button>
+                <button type="button" class="calc-chip" data-urine-osm="900">900</button>
+                <button type="button" class="calc-chip" data-urine-osm="1200">1200</button>
+              </div>
+              <p style="font-size: 0.75rem; color: var(--calc-text-muted); margin-top: 0.25rem;">
+                Normal: 300-900 | Concentrated: &gt;900 | Dilute: &lt;300
+              </p>
+            </div>
+
+            <!-- Urine Sodium -->
+            <div class="calc-form-group">
+              <label class="calc-label">
+                Urine Sodium
+                <span style="font-weight: 400; color: var(--calc-text-muted);">(for U/S ratio)</span>
+              </label>
+              <div class="calc-input-wrapper">
+                <input type="number" class="calc-input" id="urine-na" placeholder="40" min="0" max="300" step="1">
+                <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mEq/L</span>
+              </div>
+            </div>
+
+            <!-- Serum Osmolality (for ratio) -->
+            <div class="calc-form-group">
+              <label class="calc-label">Serum Osmolality</label>
+              <div class="calc-input-wrapper">
+                <input type="number" class="calc-input" id="serum-osm-ratio" placeholder="295" min="200" max="500" step="1">
+                <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted);">mOsm/kg</span>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>🧮</span> Calculate
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <!-- Calculated Serum Osmolality -->
+            <div class="calc-result-card" id="calc-osm-card">
+              <p class="calc-result-card__label">Calculated Serum Osmolality</p>
+              <p class="calc-result-card__value">
+                <span id="result-calc-osm">--</span>
+                <span class="calc-result-card__unit">mOsm/kg</span>
+              </p>
+              <p class="calc-result-card__context">2 × [Na] + Glu/18 + BUN/2.8</p>
+            </div>
+
+            <!-- Osmolar Gap (if measured provided) -->
+            <div class="calc-result-card" id="osm-gap-card" style="display: none;">
+              <p class="calc-result-card__label">Osmolar Gap</p>
+              <p class="calc-result-card__value">
+                <span id="result-osm-gap">--</span>
+                <span class="calc-result-card__unit">mOsm/kg</span>
+              </p>
+              <p class="calc-result-card__context" id="osm-gap-context">Normal: &lt;10-15</p>
+            </div>
+
+            <!-- Gap Interpretation -->
+            <div class="calc-info-box" id="gap-interpretation" style="display: none; margin-top: 1rem;">
+              <h4 style="margin: 0 0 0.5rem; color: var(--calc-primary);">📋 Interpretation</h4>
+              <p id="gap-text" style="margin: 0; font-size: 0.875rem; color: var(--calc-text);"></p>
+            </div>
+
+            <!-- Toxicology Warning -->
+            <div class="calc-alert calc-alert--error" id="tox-alert" style="display: none; margin-top: 1rem;">
+              <div class="calc-alert__icon">☠️</div>
+              <div class="calc-alert__content">
+                <div class="calc-alert__title">Elevated Osmolar Gap - Toxic Alcohol Suspected</div>
+                <div class="calc-alert__text">
+                  <p style="margin: 0.5rem 0;">An elevated gap suggests unmeasured osmoles. Consider:</p>
+                  <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                    <li><strong>Ethylene glycol</strong> - Calcium oxalate crystals, ATN</li>
+                    <li><strong>Methanol</strong> - Visual disturbances, metabolic acidosis</li>
+                    <li><strong>Isopropanol</strong> - Ketosis without acidosis</li>
+                    <li><strong>Mannitol</strong> - Iatrogenic, check administration history</li>
+                    <li><strong>Severe lactic acidosis / ketoacidosis</strong></li>
+                  </ul>
+                  <p style="margin: 0.5rem 0 0; font-weight: 600;">
+                    Contact poison control immediately if toxic alcohol ingestion suspected
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Urine Results -->
+            <div id="urine-results" style="display: none;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem;">
+                <div class="calc-result-card" id="urine-osm-result">
+                  <p class="calc-result-card__label">Urine Osmolality</p>
+                  <p class="calc-result-card__value" style="font-size: 1.5rem;">
+                    <span id="result-urine-osm">--</span>
+                    <span class="calc-result-card__unit">mOsm/kg</span>
+                  </p>
+                  <p class="calc-result-card__context" id="urine-conc-text">--</p>
+                </div>
+                <div class="calc-result-card" id="us-ratio-result">
+                  <p class="calc-result-card__label">Urine/Serum Ratio</p>
+                  <p class="calc-result-card__value" style="font-size: 1.5rem;">
+                    <span id="result-us-ratio">--</span>
+                  </p>
+                  <p class="calc-result-card__context" id="us-ratio-text">Normal: 1.0-3.0</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Reference Ranges -->
+            <div class="calc-info-grid" style="margin-top: 1rem;">
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Normal Osmolar Gap</span>
+                <span class="calc-info-item__value">&lt;10-15 mOsm/kg</span>
+              </div>
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Normal Urine Osm</span>
+                <span class="calc-info-item__value">300-900 mOsm/kg</span>
+              </div>
+            </div>
+
+            <!-- Clinical Notes -->
+            <div class="calc-info-box" style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--calc-primary); padding: 1rem; border-radius: var(--calc-radius-md); margin-top: 1rem;">
+              <h4 style="margin: 0 0 0.5rem; color: var(--calc-primary);">📋 Clinical Notes</h4>
+              <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.875rem; color: var(--calc-text);">
+                <li><strong>Calculated Osm:</strong> 2×[Na] + (Glucose÷18) + (BUN÷2.8) [mg/dL units]</li>
+                <li><strong>Or:</strong> 2×[Na] + glucose(mmol/L) + urea(mmol/L)</li>
+                <li><strong>Osmolar Gap:</strong> Measured − Calculated</li>
+                <li><strong>Timing matters:</strong> Gap may normalize as toxic alcohols are metabolized</li>
+                <li><strong>Combine with ABG:</strong> High anion gap + high osmolar gap = toxic alcohol</li>
+              </ul>
+            </div>
+
+            <!-- Actions -->
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            Formulas: Calculated Osm = 2×[Na] + Glu/18 + BUN/2.8 | Osmolar Gap = Measured − Calculated
+          </p>
+        </div>
+      </div>
+
+      <!-- Related Calculators -->
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/acid-base-electrolyte.html" class="calc-chip">🧪 Blood Gas</a>
+          <a href="/anion-gap-interpretation/" class="calc-chip">📊 Anion Gap</a>
+          <a href="/tools/toxicity-suite.html" class="calc-chip">☠️ Toxicity Suite</a>
+          <a href="/tools/corrected-sodium-calculator.html" class="calc-chip">🧂 Corrected Na</a>
+          <a href="/tools/free-water-deficit-calculator.html" class="calc-chip">💧 Free Water Deficit</a>
+        </div>
+      </div>
+
+      <!-- Emergency Contact -->
+      <div style="margin-top: 2rem; padding: 1rem; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: var(--calc-radius-md); text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text); margin: 0 0 0.5rem;">
+          <strong>☠️ Suspected Toxic Alcohol Ingestion?</strong>
+        </p>
+        <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0;">
+          Contact ASPCA Animal Poison Control: <strong>888-426-4435</strong> or 
+          Pet Poison Helpline: <strong>855-764-7661</strong>
+        </p>
+      </div>
+    </main>
+
+    <style>
+      /* Mode Selection Grid */
+      .calc-mode-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+
+      .calc-mode-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.875rem;
+        background: var(--calc-glass-bg);
+        border: 2px solid var(--calc-border);
+        border-radius: var(--calc-radius-md);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+      }
+
+      .calc-mode-btn:hover {
+        border-color: var(--calc-primary-light);
+        background: rgba(99, 102, 241, 0.05);
+      }
+
+      .calc-mode-btn.active {
+        border-color: var(--calc-primary);
+        background: rgba(99, 102, 241, 0.1);
+      }
+
+      .calc-mode-btn__icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .calc-mode-btn__text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+      }
+
+      .calc-mode-btn__title {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--calc-text);
+      }
+
+      .calc-mode-btn__desc {
+        font-size: 0.75rem;
+        color: var(--calc-text-muted);
+      }
+
+      /* Alert Box */
+      .calc-alert {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 1rem;
+        border-radius: var(--calc-radius-md);
+        border: 1px solid;
+      }
+
+      .calc-alert--error {
+        background: rgba(239, 68, 68, 0.1);
+        border-color: rgba(239, 68, 68, 0.3);
+      }
+
+      .calc-alert__icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .calc-alert__content {
+        flex: 1;
+      }
+
+      .calc-alert__title {
+        font-weight: 600;
+        color: #dc2626;
+        font-size: 0.9375rem;
+      }
+
+      .calc-alert__text {
+        font-size: 0.8125rem;
+        color: var(--calc-text);
+        line-height: 1.6;
+      }
+
+      /* Result card states */
+      .calc-result-card--success {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+
+      .calc-result-card--warning {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+        border-color: rgba(245, 158, 11, 0.3);
+      }
+
+      .calc-result-card--error {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+        border-color: rgba(239, 68, 68, 0.3);
+      }
+
+      @media (max-width: 480px) {
+        .calc-mode-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+
+    <script>
+    (function() {
+      // DOM Elements
+      const els = {
+        modeBtns: document.querySelectorAll('[data-mode]'),
+        serumSection: document.getElementById('serum-section'),
+        urineSection: document.getElementById('urine-section'),
+        sodium: document.getElementById('sodium'),
+        glucose: document.getElementById('glucose'),
+        glucoseUnitBtns: document.querySelectorAll('[data-unit="mgdl"], [data-unit="mmol"]'),
+        bun: document.getElementById('bun'),
+        bunUnitBtns: document.querySelectorAll('[data-bun-unit="mgdl"], [data-bun-unit="mmol"]'),
+        measuredOsm: document.getElementById('measured-osm'),
+        ethanol: document.getElementById('ethanol'),
+        ethanolUnitBtns: document.querySelectorAll('[data-eth-unit="mgdl"], [data-eth-unit="mmol"]'),
+        urineOsm: document.getElementById('urine-osm'),
+        urineNa: document.getElementById('urine-na'),
+        serumOsmRatio: document.getElementById('serum-osm-ratio'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        resultCalcOsm: document.getElementById('result-calc-osm'),
+        osmGapCard: document.getElementById('osm-gap-card'),
+        resultOsmGap: document.getElementById('result-osm-gap'),
+        osmGapContext: document.getElementById('osm-gap-context'),
+        gapInterpretation: document.getElementById('gap-interpretation'),
+        gapText: document.getElementById('gap-text'),
+        toxAlert: document.getElementById('tox-alert'),
+        urineResults: document.getElementById('urine-results'),
+        resultUrineOsm: document.getElementById('result-urine-osm'),
+        urineConcText: document.getElementById('urine-conc-text'),
+        usRatioResult: document.getElementById('us-ratio-result'),
+        resultUsRatio: document.getElementById('result-us-ratio'),
+        usRatioText: document.getElementById('us-ratio-text'),
+        calcOsmCard: document.getElementById('calc-osm-card'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
+
+      let currentMode = 'serum';
+      let glucoseUnit = 'mgdl';
+      let bunUnit = 'mgdl';
+      let ethanolUnit = 'mgdl';
+
+      // Mode switching
+      els.modeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentMode = btn.dataset.mode;
+          els.modeBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          if (currentMode === 'serum') {
+            els.serumSection.style.display = 'block';
+            els.urineSection.style.display = 'none';
+            els.calcOsmCard.style.display = 'block';
+          } else {
+            els.serumSection.style.display = 'block';
+            els.urineSection.style.display = 'block';
+          }
+          
+          els.results.style.display = 'none';
+        });
+      });
+
+      // Unit toggles
+      els.glucoseUnitBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          glucoseUnit = btn.dataset.unit;
+          els.glucoseUnitBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      els.bunUnitBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          bunUnit = btn.dataset.bunUnit;
+          els.bunUnitBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      els.ethanolUnitBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          ethanolUnit = btn.dataset.ethUnit;
+          els.ethanolUnitBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      // Quick value chips
+      document.querySelectorAll('.calc-chip[data-value]').forEach(chip => {
+        chip.addEventListener('click', () => {
+          els.sodium.value = chip.dataset.value;
+        });
+      });
+
+      document.querySelectorAll('.calc-chip[data-value]').forEach(chip => {
+        chip.addEventListener('click', (e) => {
+          const val = e.target.dataset.value;
+          if (e.target.dataset.bunValue) {
+            els.bun.value = e.target.dataset.bunValue;
+          } else if (e.target.dataset.urineOsm) {
+            els.urineOsm.value = e.target.dataset.urineOsm;
+          } else {
+            els.glucose.value = val;
+          }
+        });
+      });
+
+      document.querySelectorAll('.calc-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          if (chip.dataset.value) {
+            if (chip.closest('#serum-section')) {
+              if (chip.parentElement.previousElementSibling.querySelector('label').textContent.includes('Sodium')) {
+                els.sodium.value = chip.dataset.value;
+              } else if (chip.parentElement.previousElementSibling.querySelector('label').textContent.includes('Glucose')) {
+                els.glucose.value = chip.dataset.value;
+              }
+            }
+          }
+          if (chip.dataset.bunValue) {
+            els.bun.value = chip.dataset.bunValue;
+          }
+          if (chip.dataset.urineOsm) {
+            els.urineOsm.value = chip.dataset.urineOsm;
+          }
+        });
+      });
+
+      // Sodium chips
+      document.querySelectorAll('.calc-chip').forEach(chip => {
+        chip.addEventListener('click', (e) => {
+          const btn = e.target;
+          const value = btn.dataset.value;
+          const bunValue = btn.dataset.bunValue;
+          const urineOsm = btn.dataset.urineOsm;
+          
+          if (value) {
+            // Determine which input this chip belongs to based on its siblings
+            const parent = btn.closest('.calc-form-group');
+            const label = parent?.querySelector('.calc-label')?.textContent || '';
+            
+            if (label.includes('Sodium') && !label.includes('Urine')) {
+              els.sodium.value = value;
+            } else if (label.includes('Glucose')) {
+              els.glucose.value = value;
+            }
+          }
+          
+          if (bunValue) {
+            els.bun.value = bunValue;
+          }
+          
+          if (urineOsm) {
+            els.urineOsm.value = urineOsm;
+          }
+        });
+      });
+
+      function calculate() {
+        // Get values
+        const sodium = parseFloat(els.sodium.value);
+        const glucoseVal = parseFloat(els.glucose.value) || 0;
+        const bunVal = parseFloat(els.bun.value) || 0;
+        const measuredOsm = parseFloat(els.measuredOsm.value);
+        const ethanolVal = parseFloat(els.ethanol.value) || 0;
+        
+        // Urine values
+        const urineOsmVal = parseFloat(els.urineOsm.value);
+        const urineNaVal = parseFloat(els.urineNa.value);
+        const serumOsmRatioVal = parseFloat(els.serumOsmRatio.value);
+
+        // Validate required inputs
+        if (!sodium) {
+          showToast('Please enter sodium value', 'warning');
+          return;
+        }
+
+        // Convert units to mg/dL for calculation
+        const glucoseMgdl = glucoseUnit === 'mmol' ? glucoseVal * 18 : glucoseVal;
+        const bunMgdl = bunUnit === 'mmol' ? bunVal * 2.8 : bunVal;
+        const ethanolMgdl = ethanolUnit === 'mmol' ? ethanolVal * 4.6 : ethanolVal;
+
+        // Calculate serum osmolality
+        // Formula: 2 × [Na] + (Glucose/18) + (BUN/2.8)
+        const calculatedOsm = (2 * sodium) + (glucoseMgdl / 18) + (bunMgdl / 2.8);
+        
+        // Adjust calculated osm for ethanol if provided
+        // Ethanol contributes: mg/dL ÷ 4.6 to osmolality
+        const ethanolContribution = ethanolMgdl / 4.6;
+        const adjustedCalcOsm = calculatedOsm + ethanolContribution;
+
+        // Display calculated osmolality
+        els.resultCalcOsm.textContent = adjustedCalcOsm.toFixed(1);
+
+        // Calculate osmolar gap if measured osm provided
+        let osmGap = null;
+        if (measuredOsm) {
+          osmGap = measuredOsm - adjustedCalcOsm;
+          els.resultOsmGap.textContent = osmGap.toFixed(1);
+          els.osmGapCard.style.display = 'block';
+          
+          // Gap interpretation
+          els.gapInterpretation.style.display = 'block';
+          
+          if (osmGap < 10) {
+            els.osmGapCard.className = 'calc-result-card calc-result-card--success';
+            els.osmGapContext.textContent = 'Normal gap (<10)';
+            els.gapText.textContent = 'Osmolar gap is normal. No evidence of unmeasured osmoles (toxic alcohols, mannitol).';
+            els.gapText.style.color = 'var(--calc-success)';
+            els.toxAlert.style.display = 'none';
+          } else if (osmGap < 20) {
+            els.osmGapCard.className = 'calc-result-card calc-result-card--warning';
+            els.osmGapContext.textContent = 'Mild elevation (10-20)';
+            els.gapText.textContent = 'Mildly elevated osmolar gap. Consider: early toxic alcohol ingestion, severe lactic acidosis, or ketoacidosis.';
+            els.gapText.style.color = 'var(--calc-warning)';
+            els.toxAlert.style.display = 'block';
+          } else {
+            els.osmGapCard.className = 'calc-result-card calc-result-card--error';
+            els.osmGapContext.textContent = 'Elevated (>20) - Toxic alcohol suspected!';
+            els.gapText.textContent = 'Significantly elevated osmolar gap strongly suggests toxic alcohol ingestion (ethylene glycol, methanol, isopropanol) or mannitol administration.';
+            els.gapText.style.color = '#dc2626';
+            els.toxAlert.style.display = 'block';
+          }
+        } else {
+          els.osmGapCard.style.display = 'none';
+          els.gapInterpretation.style.display = 'none';
+          els.toxAlert.style.display = 'none';
+        }
+
+        // Urine calculations
+        if (currentMode === 'urine' && urineOsmVal) {
+          els.urineResults.style.display = 'block';
+          els.resultUrineOsm.textContent = urineOsmVal.toFixed(0);
+          
+          // Urine concentration interpretation
+          if (urineOsmVal < 300) {
+            els.urineConcText.textContent = 'Dilute urine (<300)';
+            els.urineConcText.style.color = 'var(--calc-primary)';
+            document.getElementById('urine-osm-result').className = 'calc-result-card';
+          } else if (urineOsmVal <= 900) {
+            els.urineConcText.textContent = 'Normal concentration';
+            els.urineConcText.style.color = 'var(--calc-success)';
+            document.getElementById('urine-osm-result').className = 'calc-result-card calc-result-card--success';
+          } else {
+            els.urineConcText.textContent = 'Concentrated urine (>900)';
+            els.urineConcText.style.color = 'var(--calc-warning)';
+            document.getElementById('urine-osm-result').className = 'calc-result-card calc-result-card--warning';
+          }
+          
+          // U/S ratio
+          if (serumOsmRatioVal) {
+            const ratio = urineOsmVal / serumOsmRatioVal;
+            els.resultUsRatio.textContent = ratio.toFixed(2);
+            els.usRatioResult.style.display = 'block';
+            
+            if (ratio < 1.0) {
+              els.usRatioText.textContent = 'Inappropriately dilute (<1.0)';
+              els.usRatioText.style.color = 'var(--calc-primary)';
+            } else if (ratio <= 3.0) {
+              els.usRatioText.textContent = 'Normal range (1.0-3.0)';
+              els.usRatioText.style.color = 'var(--calc-success)';
+            } else {
+              els.usRatioText.textContent = 'Appropriately concentrated (>3.5)';
+              els.usRatioText.style.color = 'var(--calc-success)';
+            }
+          } else {
+            els.usRatioResult.style.display = 'none';
+          }
+        } else {
+          els.urineResults.style.display = 'none';
+        }
+
+        els.results.style.display = 'block';
+        
+        // Scroll to results
+        els.results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      function showToast(message, type = 'info') {
+        const container = document.querySelector('.pc-toast-container');
+        const toast = document.createElement('div');
+        toast.className = `pc-toast pc-toast--${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.add('pc-toast--show');
+        }, 10);
+        
+        setTimeout(() => {
+          toast.classList.remove('pc-toast--show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const calcOsm = els.resultCalcOsm.textContent;
+        const osmGap = els.resultOsmGap.textContent;
+        const hasGap = els.osmGapCard.style.display !== 'none';
+        
+        let text = `Calculated Serum Osmolality: ${calcOsm} mOsm/kg`;
+        if (hasGap && osmGap !== '--') {
+          text += ` | Osmolar Gap: ${osmGap} mOsm/kg`;
+        }
+        
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          showToast('Results copied to clipboard', 'success');
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.sodium.value = '';
+        els.glucose.value = '';
+        els.bun.value = '';
+        els.measuredOsm.value = '';
+        els.ethanol.value = '';
+        els.urineOsm.value = '';
+        els.urineNa.value = '';
+        els.serumOsmRatio.value = '';
+        els.results.style.display = 'none';
+        showToast('Calculator reset', 'info');
+      });
+    })();
+    </script>
+  </body>
+</html>

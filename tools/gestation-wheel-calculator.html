@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Gestation Wheel" />
+    <title>Gestation Wheel Calculator | DVMReady Tools</title>
+    <meta name="description" content="Pregnancy dating calculator for dogs and cats. Calculate due dates and track gestational milestones." />
+    <link rel="canonical" href="https://dvmready.com/tools/gestation-wheel-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🗓️</div>
+        <h1 class="calc-header__title">Gestation Wheel</h1>
+        <p class="calc-header__subtitle">Pregnancy dating and due date calculator for dogs and cats</p>
+      </header>
+
+      <div class="calc-card" id="gestation-calculator" data-calc="gestation">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>🗓️</span>
+            <span>Pregnancy Dating</span>
+          </h2>
+          <p class="calc-card__subtitle">Calculate due dates and track gestational progress</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+            </div>
+          </div>
+
+          <!-- Dating Method -->
+          <div class="calc-form-group">
+            <label class="calc-label">Dating Method</label>
+            <select class="calc-select" id="dating-method">
+              <option value="breeding">First Breeding/Mating Date</option>
+              <option value="ovulation">Ovulation Date</option>
+              <option value="lh">LH Surge</option>
+              <option value="diestrus">Cytologic Diestrus</option>
+            </select>
+          </div>
+
+          <!-- Date Input -->
+          <div class="calc-form-group">
+            <label class="calc-label">Date</label>
+            <input type="date" class="calc-input" id="breeding-date">
+          </div>
+
+          <!-- Litter Size (optional) -->
+          <div class="calc-form-group">
+            <label class="calc-label">Expected Litter Size (optional)</label>
+            <div class="calc-chips">
+              <button type="button" class="calc-chip" data-litter="small">Small (1-2)</button>
+              <button type="button" class="calc-chip active" data-litter="average">Average</button>
+              <button type="button" class="calc-chip" data-litter="large">Large (6+)</button>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.25rem;">Large litters may deliver earlier</p>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>🗓️</span> Calculate Due Date
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <div class="calc-result-card" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(236, 72, 153, 0.05));">
+              <p class="calc-result-card__label">Expected Due Date</p>
+              <p class="calc-result-card__value">
+                <span id="due-date">--</span>
+              </p>
+              <p class="calc-result-card__context" id="due-range"></p>
+            </div>
+
+            <div class="calc-info-grid" style="margin-top: 1rem;">
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Current Gestation Day</span>
+                <span class="calc-info-item__value" id="current-day">--</span>
+              </div>
+              <div class="calc-info-item">
+                <span class="calc-info-item__label">Days Until Delivery</span>
+                <span class="calc-info-item__value" id="days-remaining">--</span>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div style="margin: 1.5rem 0;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--calc-text-muted); margin-bottom: 0.25rem;">
+                <span>Day 0</span>
+                <span id="progress-label">Progress</span>
+                <span id="total-days">Day 63</span>
+              </div>
+              <div style="background: var(--calc-surface-2); border-radius: 999px; height: 12px; overflow: hidden;">
+                <div id="progress-bar" style="background: linear-gradient(90deg, #ec4899, #f472b6); height: 100%; border-radius: 999px; width: 0%; transition: width 0.5s ease;"></div>
+              </div>
+            </div>
+
+            <!-- Trimester Info -->
+            <div class="calc-info-box" style="background: rgba(236, 72, 153, 0.1); border-left: 4px solid #ec4899; padding: 1rem; border-radius: var(--calc-radius-md); margin-top: 1rem;">
+              <h4 style="margin: 0 0 0.5rem; color: #ec4899;">📅 Current Status</h4>
+              <p id="trimester-info" style="margin: 0; font-size: 0.9rem;">--</p>
+            </div>
+
+            <!-- Milestones -->
+            <h3 style="margin: 1.5rem 0 0.75rem; font-size: 1rem;">Key Milestones</h3>
+            <div id="milestones"></div>
+
+            <!-- Prepartum Signs -->
+            <div class="calc-info-box" style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid var(--calc-warning); padding: 1rem; border-radius: var(--calc-radius-md); margin-top: 1.5rem;">
+              <h4 style="margin: 0 0 0.5rem; color: var(--calc-warning);">⚠️ Prepartum Warning Signs</h4>
+              <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.875rem;">
+                <li>Temperature drop below 37.2°C (99°F) - usually 12-24h before labor</li>
+                <li>Nesting behavior, restlessness, panting</li>
+                <li>Loss of appetite, vomiting possible</li>
+                <li>Mammary gland engorgement, milk may be expressed</li>
+              </ul>
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            Dog gestation: 58-68 days from ovulation. Cat gestation: 63-67 days from mating.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Resources</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/emergency-drug-chart.html" class="calc-chip">🚨 Emergency Drugs</a>
+          <a href="/tools/enteral-feeding-calculator.html" class="calc-chip">🍼 Enteral Feeding</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      const els = {
+        speciesBtns: document.querySelectorAll('[data-species]'),
+        datingMethod: document.getElementById('dating-method'),
+        breedingDate: document.getElementById('breeding-date'),
+        litterBtns: document.querySelectorAll('[data-litter]'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        dueDate: document.getElementById('due-date'),
+        dueRange: document.getElementById('due-range'),
+        currentDay: document.getElementById('current-day'),
+        daysRemaining: document.getElementById('days-remaining'),
+        progressBar: document.getElementById('progress-bar'),
+        progressLabel: document.getElementById('progress-label'),
+        totalDays: document.getElementById('total-days'),
+        trimesterInfo: document.getElementById('trimester-info'),
+        milestones: document.getElementById('milestones'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
+
+      let currentSpecies = 'dog';
+      let litterSize = 'average';
+
+      // Set default date to today
+      els.breedingDate.valueAsDate = new Date();
+
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          updateDatingOptions();
+        });
+      });
+
+      els.litterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          litterSize = btn.dataset.litter;
+          els.litterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      function updateDatingOptions() {
+        const options = els.datingMethod.options;
+        if (currentSpecies === 'cat') {
+          options[2].disabled = true; // LH surge less common in cats
+          options[3].disabled = true; // Diestrus less used in cats
+        } else {
+          options[2].disabled = false;
+          options[3].disabled = false;
+        }
+      }
+
+      function calculate() {
+        const startDate = new Date(els.breedingDate.value);
+        if (isNaN(startDate)) return;
+
+        const today = new Date();
+        const method = els.datingMethod.value;
+
+        // Gestation lengths
+        const gestationData = {
+          dog: {
+            breeding: { avg: 62, min: 59, max: 65 },
+            ovulation: { avg: 63, min: 58, max: 68 },
+            lh: { avg: 65, min: 64, max: 66 },
+            diestrus: { avg: 57, min: 56, max: 58 }
+          },
+          cat: {
+            breeding: { avg: 65, min: 63, max: 67 },
+            ovulation: { avg: 65, min: 63, max: 67 },
+            lh: { avg: 65, min: 63, max: 67 },
+            diestrus: { avg: 65, min: 63, max: 67 }
+          }
+        };
+
+        const data = gestationData[currentSpecies][method];
+        
+        // Adjust for litter size
+        let adjustment = 0;
+        if (litterSize === 'large') adjustment = -2;
+        if (litterSize === 'small') adjustment = 2;
+
+        const dueDateAvg = new Date(startDate);
+        dueDateAvg.setDate(dueDateAvg.getDate() + data.avg + adjustment);
+
+        const dueDateMin = new Date(startDate);
+        dueDateMin.setDate(dueDateMin.getDate() + data.min + adjustment);
+
+        const dueDateMax = new Date(startDate);
+        dueDateMax.setDate(dueDateMax.getDate() + data.max + adjustment);
+
+        // Current day calculation
+        const daysPregnant = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+        const daysLeft = data.avg + adjustment - daysPregnant;
+        const progress = Math.min(100, Math.max(0, (daysPregnant / (data.avg + adjustment)) * 100));
+
+        // Format dates
+        const formatDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        
+        els.dueDate.textContent = formatDate(dueDateAvg);
+        els.dueRange.textContent = `Range: ${formatDate(dueDateMin)} - ${formatDate(dueDateMax)}`;
+        els.currentDay.textContent = `Day ${daysPregnant}`;
+        els.daysRemaining.textContent = daysLeft > 0 ? `${daysLeft} days` : 'Due or overdue';
+        
+        els.progressBar.style.width = `${progress}%`;
+        els.progressLabel.textContent = `${Math.round(progress)}% Complete`;
+        els.totalDays.textContent = `Day ${data.avg + adjustment}`;
+
+        // Trimester info
+        const totalDays = data.avg + adjustment;
+        let trimester = '';
+        if (daysPregnant <= totalDays * 0.33) {
+          trimester = 'First Trimester (Embryogenesis)';
+        } else if (daysPregnant <= totalDays * 0.66) {
+          trimester = 'Second Trimester (Organogenesis)';
+        } else {
+          trimester = 'Third Trimester (Fetal Growth)';
+        }
+        els.trimesterInfo.textContent = `${trimester} - Day ${daysPregnant} of ~${totalDays}`;
+
+        // Milestones
+        const milestones = currentSpecies === 'dog' ? [
+          { day: 21, event: 'Fetal heartbeats detectable (ultrasound)' },
+          { day: 28, event: 'Fetuses palpable (be gentle!)' },
+          { day: 45, event: 'Radiographs show fetal skeletons' },
+          { day: 58, event: 'Final week - monitor closely' }
+        ] : [
+          { day: 15, event: 'Implantation complete' },
+          { day: 21, event: 'Fetal heartbeats detectable' },
+          { day: 28, event: 'Fetuses palpable' },
+          { day: 45, event: 'Radiographs for fetal count' },
+          { day: 60, event: 'Final week - nesting behavior begins' }
+        ];
+
+        els.milestones.innerHTML = milestones.map(m => {
+          const status = daysPregnant >= m.day ? '✓' : '○';
+          const color = daysPregnant >= m.day ? 'var(--calc-success)' : 'var(--calc-text-muted)';
+          return `
+            <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px solid var(--calc-border);">
+              <span style="color: ${color}; font-weight: 600;">${status}</span>
+              <span style="color: var(--calc-text-muted); min-width: 50px;">Day ${m.day}</span>
+              <span style="color: var(--calc-text);">${m.event}</span>
+            </div>
+          `;
+        }).join('');
+
+        els.results.style.display = 'block';
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const text = `Gestation Tracking (${currentSpecies}):\nDue Date: ${els.dueDate.textContent}\n${els.dueRange.textContent}\n${els.currentDay.textContent}\n${els.daysRemaining.textContent}`;
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.breedingDate.valueAsDate = new Date();
+        els.results.style.display = 'none';
+      });
+    })();
+    </script>
+  </body>
+</html>

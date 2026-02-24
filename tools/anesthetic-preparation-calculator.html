@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Anesthetic Prep" />
+    <title>Anesthetic Preparation Calculator | DVMReady Tools</title>
+    <meta name="description" content="Pre-medication and induction drug dosing calculator for veterinary anesthesia in dogs and cats." />
+    <link rel="canonical" href="https://dvmready.com/tools/anesthetic-preparation-calculator.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">💉</div>
+        <h1 class="calc-header__title">Anesthetic Preparation</h1>
+        <p class="calc-header__subtitle">Pre-medication and induction drug dosing for dogs and cats</p>
+      </header>
+
+      <div class="calc-card" id="anesthetic-calculator" data-calc="anesthetic">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>💉</span>
+            <span>Anesthetic Protocol</span>
+          </h2>
+          <p class="calc-card__subtitle">Calculate pre-med and induction doses</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+            </div>
+          </div>
+
+          <!-- Weight -->
+          <div class="calc-form-group">
+            <label class="calc-label">Weight</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="weight" placeholder="10" min="0.1" step="0.1">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ASA Status -->
+          <div class="calc-form-group">
+            <label class="calc-label">ASA Status</label>
+            <div class="calc-chips">
+              <button type="button" class="calc-chip active" data-asa="I">I - Normal</button>
+              <button type="button" class="calc-chip" data-asa="II">II - Mild disease</button>
+              <button type="button" class="calc-chip" data-asa="III">III - Moderate</button>
+              <button type="button" class="calc-chip" data-asa="IV">IV - Severe</button>
+              <button type="button" class="calc-chip" data-asa="V">V - Moribund</button>
+            </div>
+          </div>
+
+          <!-- Premedication -->
+          <div class="calc-form-group">
+            <label class="calc-label">Premedication Protocol</label>
+            <select class="calc-select" id="premed-protocol">
+              <option value="none">-- Select protocol --</option>
+              <option value="ace">Acepromazine + Opioid</option>
+              <option value="dex">Dexmedetomidine + Opioid</option>
+              <option value="midaz">Midazolam + Opioid</option>
+              <option value="combo">Dex + Midazolam + Opioid</option>
+              <option value="custom">Custom selection</option>
+            </select>
+          </div>
+
+          <!-- Custom Premed Drugs -->
+          <div class="calc-advanced" id="premed-drugs" style="display: none; margin-top: 1rem;">
+            <h3 style="font-size: 0.9rem; margin-bottom: 0.75rem; color: var(--calc-text-muted);">Select Drugs:</h3>
+            <div style="display: grid; gap: 0.5rem;">
+              <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" class="premed-check" data-drug="acepromazine" data-low="0.01" data-high="0.05" data-unit="mg/kg"> Acepromazine (0.01-0.05 mg/kg)
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" class="premed-check" data-drug="butorphanol" data-low="0.2" data-high="0.4" data-unit="mg/kg"> Butorphanol (0.2-0.4 mg/kg)
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" class="premed-check" data-drug="hydromorphone" data-low="0.05" data-high="0.2" data-unit="mg/kg"> Hydromorphone (0.05-0.2 mg/kg)
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" class="premed-check" data-drug="morphine" data-low="0.5" data-high="1.0" data-unit="mg/kg"> Morphine (0.5-1.0 mg/kg)
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" class="premed-check" data-drug="buprenorphine" data-low="0.02" data-high="0.03" data-unit="mg/kg"> Buprenorphine (0.02-0.03 mg/kg)
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" class="premed-check" data-drug="dexmedetomidine" data-low="2" data-high="10" data-unit="mcg/kg"> Dexmedetomidine (2-10 mcg/kg)
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                <input type="checkbox" class="premed-check" data-drug="midazolam" data-low="0.1" data-high="0.3" data-unit="mg/kg"> Midazolam (0.1-0.3 mg/kg)
+              </label>
+            </div>
+          </div>
+
+          <!-- Induction -->
+          <div class="calc-form-group">
+            <label class="calc-label">Induction Agent</label>
+            <select class="calc-select" id="induction">
+              <option value="none">-- Select induction --</option>
+              <option value="propofol">Propofol (2-6 mg/kg IV)</option>
+              <option value="alfaxalone">Alfaxalone (1-2 mg/kg IV)</option>
+              <option value="etomidate">Etomidate (1-2 mg/kg IV)</option>
+              <option value="ketamine">Ketamine + Midazolam (5-10 + 0.2-0.3 mg/kg)</option>
+              <option value="tiletamine">Tiletamine/Zolazepam (Telazol) (2-4 mg/kg</option>
+            </select>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>💉</span> Calculate Protocol
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="results" style="display: none;">
+            <h3 style="margin: 0 0 1rem; font-size: 1.1rem; color: var(--calc-text);">Premedication Doses</h3>
+            <div id="premed-results"></div>
+
+            <h3 style="margin: 1.5rem 0 1rem; font-size: 1.1rem; color: var(--calc-text);">Induction Dose</h3>
+            <div id="induction-results"></div>
+
+            <div class="calc-info-box" style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--calc-primary); padding: 1rem; border-radius: var(--calc-radius-md); margin-top: 1.5rem;">
+              <h4 style="margin: 0 0 0.5rem; color: var(--calc-primary);">📋 Monitoring Guidelines</h4>
+              <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.875rem; color: var(--calc-text);">
+                <li>Monitor HR, RR, SpO2, BP, temp every 5 min</li>
+                <li>Have reversal agents ready (atipamezole, naloxone, flumazenil)</li>
+                <li>Secure airway before induction</li>
+                <li>Calculate emergency drug doses before starting</li>
+              </ul>
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            Always adjust doses based on patient condition and monitoring. Refer to current formularies.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Calculators</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/emergency-drug-chart.html" class="calc-chip">🚨 Emergency Drugs</a>
+          <a href="/tools/cri-calculator.html" class="calc-chip">💉 CRI Calculator</a>
+          <a href="/tools/fluid-calculator.html" class="calc-chip">💧 Fluid Calculator</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      const els = {
+        speciesBtns: document.querySelectorAll('[data-species]'),
+        weight: document.getElementById('weight'),
+        asaBtns: document.querySelectorAll('[data-asa]'),
+        premedProtocol: document.getElementById('premed-protocol'),
+        premedDrugs: document.getElementById('premed-drugs'),
+        premedChecks: document.querySelectorAll('.premed-check'),
+        induction: document.getElementById('induction'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        premedResults: document.getElementById('premed-results'),
+        inductionResults: document.getElementById('induction-results'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn')
+      };
+
+      let currentSpecies = 'dog';
+      let asaStatus = 'I';
+      let weightUnit = 'kg';
+
+      const premedProtocols = {
+        ace: ['acepromazine', 'butorphanol'],
+        dex: ['dexmedetomidine', 'butorphanol'],
+        midaz: ['midazolam', 'butorphanol'],
+        combo: ['dexmedetomidine', 'midazolam', 'butorphanol']
+      };
+
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      els.asaBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          asaStatus = btn.dataset.asa;
+          els.asaBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      document.querySelectorAll('[data-unit]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          weightUnit = btn.dataset.unit;
+          document.querySelectorAll('[data-unit]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      els.premedProtocol.addEventListener('change', () => {
+        els.premedDrugs.style.display = els.premedProtocol.value === 'custom' ? 'block' : 'none';
+        if (els.premedProtocol.value !== 'custom' && els.premedProtocol.value !== 'none') {
+          els.premedChecks.forEach(check => {
+            check.checked = premedProtocols[els.premedProtocol.value]?.includes(check.dataset.drug);
+          });
+        }
+      });
+
+      function getWeightKg() {
+        const w = parseFloat(els.weight.value);
+        if (!w) return null;
+        return weightUnit === 'lb' ? w * 0.453592 : w;
+      }
+
+      function calculate() {
+        const weightKg = getWeightKg();
+        if (!weightKg) return;
+
+        // Premedication
+        let premedHTML = '';
+        const selectedDrugs = Array.from(els.premedChecks).filter(c => c.checked);
+        
+        if (selectedDrugs.length === 0) {
+          premedHTML = '<p style="color: var(--calc-text-muted);">No premedication selected</p>';
+        } else {
+          selectedDrugs.forEach(check => {
+            const drug = check.dataset.drug;
+            const low = parseFloat(check.dataset.low);
+            const high = parseFloat(check.dataset.high);
+            const unit = check.dataset.unit;
+            const lowDose = (low * weightKg).toFixed(2);
+            const highDose = (high * weightKg).toFixed(2);
+            
+            premedHTML += `
+              <div class="calc-result-card" style="margin-bottom: 0.5rem;">
+                <p class="calc-result-card__label">${drug.charAt(0).toUpperCase() + drug.slice(1)}</p>
+                <p class="calc-result-card__value">
+                  <span>${lowDose} - ${highDose}</span>
+                  <span class="calc-result-card__unit">${unit}</span>
+                </p>
+              </div>
+            `;
+          });
+        }
+        els.premedResults.innerHTML = premedHTML;
+
+        // Induction
+        let inductionHTML = '';
+        const inductionVal = els.induction.value;
+        
+        if (inductionVal === 'none') {
+          inductionHTML = '<p style="color: var(--calc-text-muted);">No induction agent selected</p>';
+        } else {
+          const inductionDoses = {
+            propofol: { low: 2, high: 6, unit: 'mg/kg IV' },
+            alfaxalone: { low: 1, high: 2, unit: 'mg/kg IV' },
+            etomidate: { low: 1, high: 2, unit: 'mg/kg IV' },
+            ketamine: { low: 5, high: 10, unit: 'mg/kg IV + midazolam' },
+            tiletamine: { low: 2, high: 4, unit: 'mg/kg IV/IM' }
+          };
+          
+          const dose = inductionDoses[inductionVal];
+          const lowTotal = (dose.low * weightKg).toFixed(1);
+          const highTotal = (dose.high * weightKg).toFixed(1);
+          
+          inductionHTML = `
+            <div class="calc-result-card" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));">
+              <p class="calc-result-card__label">${els.induction.options[els.induction.selectedIndex].text.split('(')[0].trim()}</p>
+              <p class="calc-result-card__value">
+                <span>${lowTotal} - ${highTotal}</span>
+                <span class="calc-result-card__unit">mg total (${dose.unit})</span>
+              </p>
+              <p class="calc-result-card__context">Give slowly to effect</p>
+            </div>
+          `;
+        }
+        els.inductionResults.innerHTML = inductionHTML;
+
+        els.results.style.display = 'block';
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        let text = `Anesthetic Protocol (${currentSpecies}, ${getWeightKg().toFixed(1)} kg, ASA ${asaStatus}):\n\nPremed:\n`;
+        els.premedResults.querySelectorAll('.calc-result-card').forEach(card => {
+          const drug = card.querySelector('.calc-result-card__label').textContent;
+          const dose = card.querySelector('.calc-result-card__value span').textContent;
+          text += `- ${drug}: ${dose}\n`;
+        });
+        text += `\nInduction:\n${els.inductionResults.textContent.trim()}`;
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.weight.value = '';
+        els.premedProtocol.value = 'none';
+        els.induction.value = 'none';
+        els.premedDrugs.style.display = 'none';
+        els.premedChecks.forEach(c => c.checked = false);
+        els.results.style.display = 'none';
+      });
+    })();
+    </script>
+  </body>
+</html>
