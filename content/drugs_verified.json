@@ -710,6 +710,205 @@
         }
       },
       "reference": "Same as Amoxicillin-Clavulanate"
+    },
+    {
+      "name": "Metronidazole",
+      "category": "Antibiotic/Antiprotozoal",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dog": {
+            "dose_mg_kg": 10,
+            "max_mg_kg": 25,
+            "frequency": "BID",
+            "concentrations": ["50 mg/mL suspension", "250 mg/tablet", "500 mg/tablet"]
+          },
+          "cat": {
+            "dose_mg_kg": 10,
+            "max_mg_kg": 20,
+            "frequency": "BID",
+            "concentrations": ["50 mg/mL suspension", "250 mg/tablet"]
+          }
+        },
+        "injectable": {
+          "dog": {
+            "dose_mg_kg": 10,
+            "max_mg_kg": 15,
+            "frequency": "BID",
+            "routes": ["IV", "IM"],
+            "concentrations": ["5 mg/mL"]
+          },
+          "cat": {
+            "dose_mg_kg": 10,
+            "max_mg_kg": 15,
+            "frequency": "BID",
+            "routes": ["IV", "IM"],
+            "concentrations": ["5 mg/mL"]
+          }
+        }
+      },
+      "reference": "Merck: 10-25 mg/kg PO BID (dogs); 10-20 mg/kg PO BID (cats)"
+    },
+    {
+      "name": "Gabapentin",
+      "category": "Analgesic/Neuropathic Pain",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dog": {
+            "dose_mg_kg": 10,
+            "max_mg_kg": 20,
+            "frequency": "BID-TID",
+            "concentrations": ["50 mg/mL (compounded)", "100 mg/capsule", "300 mg/capsule", "400 mg/capsule"]
+          },
+          "cat": {
+            "dose_mg_kg": 5,
+            "max_mg_kg": 10,
+            "frequency": "BID-TID",
+            "concentrations": ["50 mg/mL (compounded)", "100 mg/capsule"],
+            "notes": "Start at 2.5-5 mg/kg in cats, can increase to 10 mg/kg"
+          }
+        }
+      },
+      "reference": "Plumb's: 10-20 mg/kg BID-TID (dogs); 2.5-10 mg/kg BID-TID (cats). Cats more sensitive."
+    },
+    {
+      "name": "Tramadol",
+      "category": "Analgesic/Opioid",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dog": {
+            "dose_mg_kg": 2,
+            "max_mg_kg": 5,
+            "frequency": "BID-QID",
+            "concentrations": ["50 mg/tablet"]
+          },
+          "cat": {
+            "dose_mg_kg": 2,
+            "max_mg_kg": 4,
+            "frequency": "BID-TID",
+            "concentrations": ["50 mg/tablet (quarter tablets)", "10 mg/mL (compounded)"],
+            "notes": "Cats have variable metabolism - monitor efficacy"
+          }
+        }
+      },
+      "reference": "Plumb's: 2-5 mg/kg BID-QID (dogs); 2-4 mg/kg BID-TID (cats). Poor bioavailability in cats."
+    },
+    {
+      "name": "Clindamycin",
+      "category": "Antibiotic/Lincosamide",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dog": {
+            "dose_mg_kg": 5,
+            "max_mg_kg": 11,
+            "frequency": "BID",
+            "concentrations": ["25 mg/mL liquid", "75 mg/tablet", "150 mg/capsule"]
+          },
+          "cat": {
+            "dose_mg_kg": 5,
+            "max_mg_kg": 11,
+            "frequency": "BID",
+            "concentrations": ["25 mg/mL liquid", "75 mg/tablet"],
+            "notes": "Watch for esophageal strictures in cats - give with water"
+          }
+        }
+      },
+      "reference": "FDA: 5-11 mg/kg BID (dogs/cats). Toxic to some exotic species."
+    },
+    {
+      "name": "Doxycycline",
+      "category": "Antibiotic/Tetracycline",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dog": {
+            "dose_mg_kg": 5,
+            "max_mg_kg": 10,
+            "frequency": "BID",
+            "concentrations": ["25 mg/mL suspension", "50 mg/tablet", "100 mg/tablet"]
+          },
+          "cat": {
+            "dose_mg_kg": 5,
+            "max_mg_kg": 10,
+            "frequency": "BID",
+            "concentrations": ["25 mg/mL suspension", "50 mg/tablet"],
+            "notes": "Give with water to prevent esophageal strictures"
+          }
+        }
+      },
+      "reference": "Plumb's: 5-10 mg/kg PO BID (dogs/cats). Use liquid or follow tablets with water."
+    },
+    {
+      "name": "Apoquel (Oclacitinib)",
+      "category": "Anti-itch/Janus Kinase Inhibitor",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dog": {
+            "dose_mg_kg": 0.4,
+            "max_mg_kg": 0.6,
+            "frequency": "BID x 14 days, then SID",
+            "concentrations": ["3.6 mg/tablet", "5.4 mg/tablet", "16 mg/tablet"]
+          },
+          "cat": {
+            "dose_mg_kg": 1,
+            "max_mg_kg": 2,
+            "frequency": "SID-BID",
+            "concentrations": ["1 mg/tablet"],
+            "notes": "Off-label in cats - use with caution"
+          }
+        }
+      },
+      "reference": "FDA Label: 0.4-0.6 mg/kg BID x 14 days, then SID (dogs). Off-label in cats."
+    },
+    {
+      "name": "Cyproheptadine",
+      "category": "Antihistamine/Appetite Stimulant",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dog": {
+            "dose_mg_kg": 0.5,
+            "max_mg_kg": 1,
+            "frequency": "BID-TID",
+            "concentrations": ["4 mg/tablet"]
+          },
+          "cat": {
+            "dose_mg_kg": 1,
+            "max_mg_kg": 2,
+            "frequency": "BID",
+            "concentrations": ["4 mg/tablet (quarter tablet)"],
+            "notes": "Commonly used as appetite stimulant in cats"
+          }
+        }
+      },
+      "reference": "Plumb's: 0.5-1 mg/kg BID-TID (dogs); 1-2 mg/kg BID (cats)"
+    },
+    {
+      "name": "Mirtazapine",
+      "category": "Appetite Stimulant/Antidepressant",
+      "controlled": false,
+      "forms": {
+        "oral": {
+          "dog": {
+            "dose_mg_kg": 0.5,
+            "max_mg_kg": 1,
+            "frequency": "Every 48-72h",
+            "concentrations": ["7.5 mg/tablet", "15 mg/tablet", "30 mg/tablet"]
+          },
+          "cat": {
+            "dose_mg_kg": 1.9,
+            "max_mg_kg": 3.8,
+            "frequency": "Every 48-72h",
+            "concentrations": ["7.5 mg/tablet (quarter)"],
+            "notes": "1/4 of 7.5 mg tablet = ~1.9 mg for 3-4 kg cat"
+          }
+        }
+      },
+      "reference": "Plumb's: 0.5-1 mg/kg q48-72h (dogs); 1.9-3.8 mg/kg q48-72h (cats)"
     }
   ]
 }
