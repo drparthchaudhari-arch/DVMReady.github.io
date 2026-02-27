@@ -1,29 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <linearGradient id="iconBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0a3d52"/>
-      <stop offset="100%" style="stop-color:#107a94"/>
-    </linearGradient>
-    <linearGradient id="iconAccent" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#00fff2"/>
+    <linearGradient id="vetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d5c73"/>
       <stop offset="100%" style="stop-color:#00b8a8"/>
     </linearGradient>
+    <linearGradient id="crossGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#e0f7ff"/>
+    </linearGradient>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
   </defs>
-  <rect width="100" height="100" rx="24" fill="url(#iconBg)"/>
-  <g transform="translate(50, 50)">
-    <!-- Medical Cross -->
-    <rect x="-8" y="-35" width="16" height="70" rx="4" fill="url(#iconAccent)"/>
-    <rect x="-35" y="-8" width="70" height="16" rx="4" fill="url(#iconAccent)"/>
-    <!-- Center -->
-    <circle cx="0" cy="0" r="20" fill="#ffffff"/>
-    <circle cx="0" cy="0" r="17" fill="url(#iconBg)"/>
-    <!-- Paw -->
-    <g fill="#ffffff">
-      <ellipse cx="0" cy="4" rx="6" ry="5"/>
-      <circle cx="-8" cy="-5" r="3.5"/>
-      <circle cx="8" cy="-5" r="3.5"/>
-      <circle cx="-5" cy="-15" r="2.5"/>
-      <circle cx="5" cy="-15" r="2.5"/>
+  
+  <!-- Rounded Square Background -->
+  <rect x="4" y="4" width="56" height="56" rx="14" ry="14" fill="url(#vetGrad)" filter="url(#softShadow)"/>
+  
+  <!-- Medical Cross with Paw -->
+  <g transform="translate(32, 32)">
+    <!-- Paw Pad Base -->
+    <ellipse cx="0" cy="6" rx="10" ry="8" fill="url(#crossGrad)" opacity="0.95"/>
+    
+    <!-- Medical Cross Overlay -->
+    <g fill="#0d5c73">
+      <!-- Horizontal bar -->
+      <rect x="-8" y="-2" width="16" height="4" rx="1"/>
+      <!-- Vertical bar -->
+      <rect x="-2" y="-8" width="4" height="16" rx="1"/>
     </g>
+    
+    <!-- Small Paw Toes -->
+    <circle cx="-7" cy="-6" r="3.5" fill="url(#crossGrad)"/>
+    <circle cx="0" cy="-9" r="3.5" fill="url(#crossGrad)"/>
+    <circle cx="7" cy="-6" r="3.5" fill="url(#crossGrad)"/>
   </g>
 </svg>

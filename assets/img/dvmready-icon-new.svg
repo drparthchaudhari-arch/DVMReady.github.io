@@ -1,22 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <linearGradient id="bgIcon" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0c607d"/>
-      <stop offset="100%" style="stop-color:#1b7f9e"/>
-    </linearGradient>
-    <linearGradient id="accentIcon" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#00f5d4"/>
-      <stop offset="100%" style="stop-color:#00d4b8"/>
+    <linearGradient id="dn" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d5c73"/>
+      <stop offset="100%" style="stop-color:#00b8a8"/>
     </linearGradient>
   </defs>
-  <rect width="100" height="100" rx="24" fill="url(#bgIcon)"/>
-  <g transform="translate(50, 45)">
-    <rect x="-8" y="-30" width="16" height="60" rx="4" fill="url(#accentIcon)"/>
-    <rect x="-30" y="-8" width="60" height="16" rx="4" fill="url(#accentIcon)"/>
-    <circle cx="0" cy="0" r="18" fill="white"/>
-    <circle cx="0" cy="0" r="12" fill="url(#bgIcon)"/>
-    <ellipse cx="0" cy="3" rx="5" ry="4" fill="white"/>
-    <circle cx="-7" cy="-5" r="2.5" fill="white"/>
-    <circle cx="7" cy="-5" r="2.5" fill="white"/>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#dn)"/>
+  <g transform="translate(32, 32)">
+    <ellipse cx="0" cy="6" rx="10" ry="8" fill="#ffffff"/>
+    <g fill="#0d5c73">
+      <rect x="-8" y="-2" width="16" height="4" rx="1"/>
+      <rect x="-2" y="-8" width="4" height="16" rx="1"/>
+    </g>
+    <circle cx="-7" cy="-6" r="3.5" fill="#ffffff"/>
+    <circle cx="0" cy="-9" r="3.5" fill="#ffffff"/>
+    <circle cx="7" cy="-6" r="3.5" fill="#ffffff"/>
   </g>
 </svg>
