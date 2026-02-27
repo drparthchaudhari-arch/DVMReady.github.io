@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="iconBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a3d52"/>
+      <stop offset="100%" style="stop-color:#107a94"/>
+    </linearGradient>
+    <linearGradient id="iconAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00fff2"/>
+      <stop offset="100%" style="stop-color:#00b8a8"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="24" fill="url(#iconBg)"/>
+  <g transform="translate(50, 50)">
+    <!-- Medical Cross -->
+    <rect x="-8" y="-35" width="16" height="70" rx="4" fill="url(#iconAccent)"/>
+    <rect x="-35" y="-8" width="70" height="16" rx="4" fill="url(#iconAccent)"/>
+    <!-- Center -->
+    <circle cx="0" cy="0" r="20" fill="#ffffff"/>
+    <circle cx="0" cy="0" r="17" fill="url(#iconBg)"/>
+    <!-- Paw -->
+    <g fill="#ffffff">
+      <ellipse cx="0" cy="4" rx="6" ry="5"/>
+      <circle cx="-8" cy="-5" r="3.5"/>
+      <circle cx="8" cy="-5" r="3.5"/>
+      <circle cx="-5" cy="-15" r="2.5"/>
+      <circle cx="5" cy="-15" r="2.5"/>
+    </g>
+  </g>
+</svg>

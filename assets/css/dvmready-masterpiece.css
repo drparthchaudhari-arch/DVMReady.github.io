@@ -1,0 +1,219 @@
+/**
+ * DVMReady Masterpiece Logo Styles
+ * World-class artistic logo implementation
+ */
+
+/* Masterpiece Logo Container */
+.pc-logo--masterpiece {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.pc-logo--masterpiece::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(0, 255, 242, 0.1) 0%, rgba(0, 184, 168, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pc-logo--masterpiece:hover::before {
+  opacity: 1;
+}
+
+.pc-logo--masterpiece:hover {
+  transform: translateY(-2px);
+}
+
+/* Masterpiece Logo Image */
+.pc-logo--masterpiece .pc-logo__img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 2px 8px rgba(0, 212, 200, 0.2));
+}
+
+.pc-logo--masterpiece:hover .pc-logo__img {
+  transform: rotate(8deg) scale(1.08);
+  filter: drop-shadow(0 4px 16px rgba(0, 255, 242, 0.4));
+}
+
+/* Masterpiece Logo Text */
+.pc-logo--masterpiece .pc-logo__text {
+  font-family: var(--pc-font-display, system-ui, -apple-system, 'SF Pro Display', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff 0%, #00fff2 50%, #00d4c8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+
+.pc-logo--masterpiece .pc-logo__text::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00fff2, #00d4c8);
+  transition: width 0.3s ease;
+}
+
+.pc-logo--masterpiece:hover .pc-logo__text::after {
+  width: 100%;
+}
+
+/* Large Hero Logo */
+.pc-hero-logo--masterpiece {
+  width: 140px;
+  height: 140px;
+  margin-bottom: 2rem;
+  animation: masterpiece-float 5s ease-in-out infinite;
+  filter: drop-shadow(0 8px 32px rgba(0, 212, 200, 0.3));
+}
+
+@keyframes masterpiece-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(-2deg);
+  }
+}
+
+/* Logo Shine Effect */
+.pc-hero-logo--masterpiece::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  animation: masterpiece-shine 4s ease-in-out infinite;
+}
+
+@keyframes masterpiece-shine {
+  0%, 100% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  50% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
+
+/* Footer Masterpiece Logo */
+.pc-footer__logo--masterpiece .pc-logo__img {
+  width: 36px;
+  height: 36px;
+}
+
+.pc-footer__logo--masterpiece .pc-logo__text {
+  font-size: 1.35rem;
+}
+
+/* Loading Animation */
+.pc-logo--masterpiece .pc-logo__img {
+  animation: masterpiece-fade-in 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes masterpiece-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-20deg);
+  }
+  60% {
+    transform: scale(1.1) rotate(5deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Pulse Ring Animation for Special Occasions */
+.pc-logo--masterpiece.pulse-ring::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #00fff2;
+  opacity: 0;
+  animation: masterpiece-pulse-ring 2s ease-out infinite;
+}
+
+@keyframes masterpiece-pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .pc-logo--masterpiece .pc-logo__img {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .pc-logo--masterpiece .pc-logo__text {
+    font-size: 1.25rem;
+  }
+  
+  .pc-hero-logo--masterpiece {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Dark/Light Theme Adaptations */
+[data-theme="light"] .pc-logo--masterpiece .pc-logo__img {
+  filter: drop-shadow(0 2px 8px rgba(0, 212, 200, 0.3));
+}
+
+[data-theme="light"] .pc-logo--masterpiece .pc-logo__text {
+  background: linear-gradient(135deg, #0a3d52 0%, #107a94 50%, #0d5c73 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Print Styles */
+@media print {
+  .pc-logo--masterpiece .pc-logo__img {
+    filter: none;
+  }
+  
+  .pc-logo--masterpiece .pc-logo__text {
+    -webkit-text-fill-color: #0a3d52;
+    background: none;
+  }
+}
