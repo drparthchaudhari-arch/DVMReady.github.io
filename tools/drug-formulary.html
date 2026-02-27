@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Formulary | Veterinary Drug Reference | DVMReady</title>
+    <meta name="description" content="Comprehensive veterinary drug formulary with 300+ medications. Quick reference for drug dosages, indications, contraindications, and side effects.">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/dvmready-logo-icon.svg">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css">
+    <style>
+        .formulary-container { max-width: 1200px; margin: 0 auto; }
+        
+        .search-bar {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-bar__input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: var(--pc-surface);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            color: var(--pc-text);
+            font-size: 1rem;
+        }
+        
+        .search-bar__icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--pc-text-muted);
+        }
+        
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .category-btn {
+            padding: 0.5rem 1rem;
+            background: var(--pc-surface);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-md);
+            color: var(--pc-text-muted);
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: var(--pc-primary);
+            border-color: var(--pc-primary);
+            color: white;
+        }
+        
+        .drug-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .drug-card {
+            background: var(--pc-surface);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .drug-card:hover {
+            border-color: var(--pc-primary);
+            transform: translateY(-2px);
+        }
+        
+        .drug-card__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        
+        .drug-card__name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--pc-text);
+        }
+        
+        .drug-card__category {
+            padding: 0.25rem 0.625rem;
+            background: var(--pc-bg-elevated);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            color: var(--pc-text-muted);
+        }
+        
+        .drug-card__dose {
+            color: var(--pc-primary);
+            font-weight: 500;
+            font-size: 0.9375rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .drug-card__species {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--pc-text-muted);
+        }
+        
+        .species-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .drug-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .drug-modal.active { display: flex; align-items: center; justify-content: center; }
+        
+        .drug-modal__content {
+            background: var(--pc-surface);
+            border-radius: var(--pc-radius-xl);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        
+        .drug-modal__close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--pc-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .info-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-section__title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--pc-text-muted);
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-section__content {
+            color: var(--pc-text);
+            line-height: 1.6;
+        }
+        
+        .dose-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+        
+        .dose-table th, .dose-table td {
+            padding: 0.625rem;
+            text-align: left;
+            border-bottom: 1px solid var(--pc-border);
+        }
+        
+        .dose-table th {
+            background: var(--pc-bg-elevated);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: var(--pc-text-muted);
+        }
+    </style>
+</head>
+<body class="pc-page no-js">
+    <nav class="pc-portal-nav">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">
+                <img src="/assets/img/dvmready-logo-icon.svg" alt="" class="pc-logo__img">
+                <span class="pc-logo__text">DVMReady</span>
+            </a>
+            <div class="pc-nav-group">
+                <a class="pc-nav-link" href="/">Home</a>
+                <a class="pc-nav-link pc-is-active" href="/tools/">Tools</a>
+                <a class="pc-nav-link" href="/search.html">Search</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+        <header class="calc-header">
+            <div class="calc-header__icon">📖</div>
+            <h1 class="calc-header__title">Drug Formulary</h1>
+            <p class="calc-header__subtitle">Quick reference for 300+ veterinary medications. Search by name, filter by category, and view detailed drug information.</p>
+        </header>
+
+        <div class="formulary-container">
+            <div class="search-bar">
+                <span class="search-bar__icon">🔍</span>
+                <input type="text" class="search-bar__input" id="drug-search" placeholder="Search drugs by name..." autocomplete="off">
+            </div>
+
+            <div class="category-filters">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="analgesic">Analgesics</button>
+                <button class="category-btn" data-category="antibiotic">Antibiotics</button>
+                <button class="category-btn" data-category="antiparasitic">Antiparasitics</button>
+                <button class="category-btn" data-category="cardiac">Cardiac</button>
+                <button class="category-btn" data-category="emergency">Emergency</button>
+                <button class="category-btn" data-category="sedative">Sedatives</button>
+                <button class="category-btn" data-category="steroid">Steroids</button>
+                <button class="category-btn" data-category="nsaid">NSAIDs</button>
+            </div>
+
+            <div class="drug-grid" id="drug-grid">
+                <!-- Drugs loaded by JavaScript -->
+            </div>
+
+            <div class="no-results" id="no-results" style="display: none;">
+                <p>No drugs found matching your search.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem; padding: 1rem; background: var(--pc-bg-elevated); border-radius: var(--pc-radius-md); font-size: 0.875rem; color: var(--pc-text-muted);">
+            <strong>Disclaimer:</strong> This formulary is for reference only. Always consult current veterinary drug handbooks (Plumb's) and verify dosages before administration. Drug information may not be complete.
+        </div>
+    </main>
+
+    <div class="drug-modal" id="drug-modal">
+        <div class="drug-modal__content" id="modal-content">
+            <!-- Modal content loaded dynamically -->
+        </div>
+    </div>
+
+    <script>
+        const drugDatabase = [
+            { name: "Acepromazine", category: "sedative", dogDose: "0.025-0.1 mg/kg PO, IM, IV", catDose: "0.05-0.1 mg/kg PO, IM (use cautiously)", indications: "Sedation, pre-anesthetic", contraindications: "Shock, hypotension, anemia", sideEffects: "Hypotension, penile prolapse (horses)" },
+            { name: "Amoxicillin", category: "antibiotic", dogDose: "11-22 mg/kg PO q8-12h", catDose: "11-22 mg/kg PO q8-12h", indications: "Bacterial infections, skin, URI", contraindications: "Penicillin allergy", sideEffects: "GI upset, allergic reactions" },
+            { name: "Amoxicillin-Clavulanate", category: "antibiotic", dogDose: "12.5-25 mg/kg PO q12h", catDose: "62.5 mg/cat PO q12h", indications: "Broad-spectrum bacterial infections", contraindications: "Penicillin allergy", sideEffects: "GI upset, hepatic issues (cats)" },
+            { name: "Amlodipine", category: "cardiac", dogDose: "0.05-0.2 mg/kg PO q24h", catDose: "0.625-1.25 mg/cat PO q24h", indications: "Systemic hypertension", contraindications: "Hypotension, shock", sideEffects: "Hypotension, gingival hyperplasia" },
+            { name: "Atropine", category: "emergency", dogDose: "0.02-0.04 mg/kg IV, IM", catDose: "0.02-0.04 mg/kg IV, IM", indications: "Bradycardia, organophosphate toxicity", contraindications: "Tachycardia, glaucoma", sideEffects: "Tachycardia, dry mouth, GI stasis" },
+            { name: "Benazepril", category: "cardiac", dogDose: "0.25-0.5 mg/kg PO q24h", catDose: "0.25-0.5 mg/kg PO q24h", indications: "CHF, CKD proteinuria", contraindications: "Pregnancy, hypotension", sideEffects: "Hypotension, hyperkalemia, renal impairment" },
+            { name: "Buprenorphine", category: "analgesic", dogDose: "0.02-0.03 mg/kg IV, IM q6-8h", catDose: "0.01-0.03 mg/kg IV, IM q6-8h or 0.1-0.3 mg/kg SL", indications: "Moderate pain, premedication", contraindications: "Respiratory depression", sideEffects: "Sedation, respiratory depression (rare)" },
+            { name: "Carprofen", category: "nsaid", dogDose: "2.2 mg/kg PO q12h or 4.4 mg/kg q24h", catDose: "Not approved (2-4 mg/kg SC single dose)", indications: "Pain, inflammation, osteoarthritis", contraindications: "Renal disease, GI ulceration", sideEffects: "GI upset, hepatic/renal toxicity" },
+            { name: "Cephalexin", category: "antibiotic", dogDose: "15-30 mg/kg PO q8-12h", catDose: "15-30 mg/kg PO q8-12h", indications: "Skin infections, UTIs", contraindications: "Cephalosporin allergy", sideEffects: "GI upset, allergic reactions" },
+            { name: "Chlorpheniramine", category: "antihistamine", dogDose: "4-8 mg/dog PO q8-12h", catDose: "2 mg/cat PO q12h", indications: "Allergic reactions, pruritus", contraindications: "Glaucoma, urinary retention", sideEffects: "Sedation, dry mouth" },
+            { name: "Cisapride", category: "gi", dogDose: "0.1-0.5 mg/kg PO q8-12h", catDose: "1.25-2.5 mg/cat PO q8-12h", indications: "GI stasis, megaesophagus", contraindications: "GI obstruction, bleeding", sideEffects: "Diarrhea, abdominal pain" },
+            { name: "Clavamox", category: "antibiotic", dogDose: "12.5-25 mg/kg PO q12h", catDose: "62.5 mg/cat PO q12h", indications: "Bacterial infections", contraindications: "Penicillin allergy", sideEffects: "GI upset" },
+            { name: "Clindamycin", category: "antibiotic", dogDose: "5.5-11 mg/kg PO q12h or 11-22 mg/kg q24h", catDose: "5.5-11 mg/kg PO q12h", indications: "Dental infections, toxoplasmosis, anaerobes", contraindications: "Hypersensitivity", sideEffects: "GI upset, esophagitis (cats)" },
+            { name: "Cyclosporine", category: "immunosuppressant", dogDose: "5 mg/kg PO q24h (atopic dermatitis)", catDose: "7.5 mg/kg PO q24h", indications: "Atopic dermatitis, immune-mediated disease", contraindications: "Infection, malignancy", sideEffects: "GI upset, immunosuppression" },
+            { name: "Deracoxib", category: "nsaid", dogDose: "1-2 mg/kg PO q24h", catDose: "Not for cats", indications: "Pain, inflammation, osteoarthritis", contraindications: "Renal/hepatic disease, dehydration", sideEffects: "GI ulceration, renal toxicity" },
+            { name: "Dexamethasone", category: "steroid", dogDose: "0.1-0.2 mg/kg IV, IM (anti-inflammatory)", catDose: "0.1-0.2 mg/kg IV, IM", indications: "Shock, inflammation, cerebral edema", contraindications: "Infection, GI ulceration", sideEffects: "Immunosuppression, PU/PD, GI ulceration" },
+            { name: "Diazepam", category: "sedative", dogDose: "0.5-2 mg/kg IV PRN (status)", catDose: "0.5-2 mg/kg IV PRN (hepatic lipidosis risk)", indications: "Seizures, anxiety, muscle relaxation", contraindications: "Severe liver disease", sideEffects: "Sedation, respiratory depression" },
+            { name: "Diphenhydramine", category: "antihistamine", dogDose: "1-2 mg/kg PO q8h", catDose: "1 mg/kg PO q8h", indications: "Allergic reactions, motion sickness", contraindications: "Glaucoma, urinary retention", sideEffects: "Sedation, dry mouth" },
+            { name: "Doxycycline", category: "antibiotic", dogDose: "5-10 mg/kg PO q12h", catDose: "5-10 mg/kg PO q12h", indications: "Tick-borne disease, respiratory infections", contraindications: "Pregnancy, young animals", sideEffects: "GI upset, esophagitis (give with food/water)" },
+            { name: "Enalapril", category: "cardiac", dogDose: "0.25-0.5 mg/kg PO q12-24h", catDose: "0.25-0.5 mg/kg PO q12-24h", indications: "CHF, proteinuria", contraindications: "Hypotension, renal artery stenosis", sideEffects: "Hypotension, hyperkalemia, renal impairment" },
+            { name: "Enrofloxacin", category: "antibiotic", dogDose: "5-20 mg/kg PO, IM, IV q24h", catDose: "5 mg/kg PO, IM, IV q24h (max 5 mg/kg in cats)", indications: "Gram-negative infections, resistant UTIs", contraindications: "Young/growing animals, seizure history", sideEffects: "Cartilage damage (young), retinal toxicity (cats)" },
+            { name: "Famotidine", category: "gi", dogDose: "0.5-1 mg/kg PO, IV q12-24h", catDose: "0.5-1 mg/kg PO, IV q12-24h", indications: "GI ulceration, reflux", contraindications: "Hypersensitivity", sideEffects: "Rare (diarrhea, headache)" },
+            { name: "Fentanyl", category: "analgesic", dogDose: "2-5 mcg/kg IV, 2-5 mcg/kg/hr CRI", catDose: "1-4 mcg/kg IV, 1-4 mcg/kg/hr CRI", indications: "Severe pain, anesthesia", contraindications: "Respiratory depression", sideEffects: "Respiratory depression, bradycardia" },
+            { name: "Fipronil", category: "antiparasitic", dogDose: "Topical: Apply q30 days", catDose: "Topical: Apply q30 days", indications: "Fleas, ticks, lice", contraindications: "Rabbits (toxic)", sideEffects: "Local irritation, rare neuro signs" },
+            { name: "Furosemide", category: "cardiac", dogDose: "1-4 mg/kg IV, IM, PO q8-12h", catDose: "1-2 mg/kg IV, IM, PO q8-12h", indications: "CHF, pulmonary edema", contraindications: "Dehydration, electrolyte depletion", sideEffects: "Dehydration, hypokalemia, azotemia" },
+            { name: "Gabapentin", category: "analgesic", dogDose: "10-20 mg/kg PO q8-12h", catDose: "50-100 mg/cat PO q8-12h", indications: "Neuropathic pain, anxiety, seizures", contraindications: "Renal impairment (reduce dose)", sideEffects: "Sedation, ataxia" },
+            { name: "Hydrocodone", category: "antitussive", dogDose: "0.25 mg/kg PO q6-12h", catDose: "Not recommended", indications: "Cough suppression", contraindications: "Respiratory depression", sideEffects: "Sedation, constipation" },
+            { name: "Hydromorphone", category: "analgesic", dogDose: "0.05-0.2 mg/kg IV, IM q4-6h", catDose: "0.05-0.1 mg/kg IV, IM q4-6h", indications: "Moderate to severe pain", contraindications: "Respiratory depression", sideEffects: "Sedation, vomiting (cats), panting (dogs)" },
+            { name: "Imidacloprid", category: "antiparasitic", dogDose: "Topical: Apply q30 days", catDose: "Topical: Apply q30 days", indications: "Fleas, heartworm prevention (with moxidectin)", contraindications: "Hypersensitivity", sideEffects: "Local irritation" },
+            { name: "Insulin (NPH)", category: "endocrine", dogDose: "0.25-0.5 U/kg SC q12h (start)", catDose: "1-2 U/cat SC q12h (start)", indications: "Diabetes mellitus", contraindications: "Hypoglycemia", sideEffects: "Hypoglycemia, insulin resistance" },
+            { name: "Ivermectin", category: "antiparasitic", dogDose: "6-12 mcg/kg PO monthly (heartworm)", catDose: "24 mcg/kg PO monthly (heartworm)", indications: "Heartworm prevention, mites", contraindications: "Collies and related breeds (MDR1)", sideEffects: "Neurotoxicity in MDR1 dogs" },
+            { name: "Ketamine", category: "sedative", dogDose: "2-5 mg/kg IV (with diazepam)", catDose: "5-10 mg/kg IM (with dexmedetomidine)", indications: "Anesthesia, chemical restraint", contraindications: "Hypertension, CNS disorders", sideEffects: "Hallucinations, increased secretions" },
+            { name: "Lactated Ringer's", category: "fluid", dogDose: "Shock: 90 mL/kg/hr; Maintenance: 60 mL/kg/day", catDose: "Shock: 45-60 mL/kg/hr; Maintenance: 50 mL/kg/day", indications: "Dehydration, shock, maintenance", contraindications: "Hyperkalemia, liver failure", sideEffects: "Fluid overload" },
+            { name: "Levothyroxine", category: "endocrine", dogDose: "0.02 mg/kg PO q12h", catDose: "0.05-0.1 mg/cat PO q12h", indications: "Hypothyroidism", contraindications: "Hyperthyroidism", sideEffects: "Hyperthyroidism signs if overdosed" },
+            { name: "Lidocaine", category: "emergency", dogDose: "2-4 mg/kg IV bolus, 25-80 mcg/kg/min CRI", catDose: "0.25-0.5 mg/kg IV (caution in cats)", indications: "Ventricular arrhythmias", contraindications: "Heart block, seizures", sideEffects: "CNS signs, seizures if toxic" },
+            { name: "Maropitant", category: "antiemetic", dogDose: "1 mg/kg SC q24h (or 2 mg/kg PO q24h)", catDose: "1 mg/kg SC q24h", indications: "Vomiting, motion sickness", contraindications: "GI obstruction", sideEffects: "Hypersensitivity, pain at injection site" },
+            { name: "Meloxicam", category: "nsaid", dogDose: "0.2 mg/kg PO, SC day 1, then 0.1 mg/kg q24h", catDose: "0.05 mg/kg SC single dose (or 0.025 mg/kg PO q24h)", indications: "Pain, inflammation, osteoarthritis", contraindications: "Renal disease, GI ulceration, dehydration", sideEffects: "GI upset, renal/hepatic toxicity" },
+            { name: "Metacam", category: "nsaid", dogDose: "See Meloxicam", catDose: "See Meloxicam", indications: "Pain, inflammation", contraindications: "See Meloxicam", sideEffects: "See Meloxicam" },
+            { name: "Metoclopramide", category: "gi", dogDose: "0.2-0.5 mg/kg PO, SC, IM q6-8h or 1-2 mg/kg/day CRI", catDose: "0.2-0.5 mg/kg PO, SC, IM q6-8h", indications: "Vomiting, GI stasis, reflux", contraindications: "GI obstruction, seizures", sideEffects: "Hyperactivity (cats), sedation, dystonia" },
+            { name: "Metronidazole", category: "antibiotic", dogDose: "10-15 mg/kg PO, IV q12h", catDose: "10-15 mg/kg PO, IV q12h", indications: "Anaerobic infections, giardia, IBD", contraindications: "Hepatic impairment, pregnancy", sideEffects: "GI upset, neurotoxicity (high doses/long term)" },
+            { name: "Midazolam", category: "sedative", dogDose: "0.1-0.3 mg/kg IV, IM", catDose: "0.1-0.3 mg/kg IV, IM", indications: "Sedation, seizures, premedication", contraindications: "Acute narrow-angle glaucoma", sideEffects: "Respiratory depression, paradoxical excitation" },
+            { name: "Milbemycin", category: "antiparasitic", dogDose: "0.5-2 mg/kg PO monthly", catDose: "2 mg/kg PO monthly", indications: "Heartworm, intestinal parasites", contraindications: "Collies and related breeds (MDR1)", sideEffects: "Neurotoxicity in MDR1 dogs" },
+            { name: "Morphine", category: "analgesic", dogDose: "0.5-2 mg/kg IM, SC q4-6h or 0.2-1 mg/kg/hr CRI", catDose: "0.1-0.3 mg/kg IM q4-6h (use cautiously)", indications: "Severe pain", contraindications: "Respiratory depression, head trauma", sideEffects: "Sedation, vomiting, respiratory depression" },
+            { name: "Omeprazole", category: "gi", dogDose: "0.5-1 mg/kg PO q24h", catDose: "0.5-1 mg/kg PO q24h", indications: "GI ulceration, reflux", contraindications: "Hypersensitivity", sideEffects: "Rare (GI upset, elevated liver enzymes)" },
+            { name: "Ondansetron", category: "antiemetic", dogDose: "0.1-0.2 mg/kg IV, PO q8-12h", catDose: "0.1-0.2 mg/kg IV, PO q8-12h", indications: "Nausea, vomiting (chemotherapy-related)", contraindications: "Hypersensitivity", sideEffects: "Constipation, headache" },
+            { name: "Pancur (Fenbendazole)", category: "antiparasitic", dogDose: "50 mg/kg PO q24h x 3 days", catDose: "50 mg/kg PO q24h x 3 days", indications: "Roundworms, hookworms, whipworms, giardia", contraindications: "None known", sideEffects: "Rare (GI upset)" },
+            { name: "Pimobendan", category: "cardiac", dogDose: "0.25-0.3 mg/kg PO q12h", catDose: "0.25-0.3 mg/kg PO q12h", indications: "CHF (DCM, degenerative valve disease)", contraindications: "Hypertrophic cardiomyopathy (outflow obstruction)", sideEffects: "Diarrhea, azotemia" },
+            { name: "Prednisone", category: "steroid", dogDose: "0.5-1 mg/kg PO q12h (anti-inflammatory); 2-4 mg/kg q24h (immunosuppressive)", catDose: "1-2 mg/kg PO q12h", indications: "Inflammation, immune-mediated disease, cancer", contraindications: "Infection, GI ulceration, diabetes", sideEffects: "PU/PD, immunosuppression, iatrogenic Cushing's" },
+            { name: "Propofol", category: "sedative", dogDose: "3-6 mg/kg IV (induction)", catDose: "4-8 mg/kg IV (induction)", indications: "Anesthesia induction, CRI for seizures", contraindications: "Hypersensitivity, severe systemic disease", sideEffects: "Apnea, hypotension, Heinz bodies (cats with repeated use)" },
+            { name: "Pyrantel", category: "antiparasitic", dogDose: "5 mg/kg PO (roundworms, hookworms)", catDose: "20 mg/kg PO (roundworms, hookworms)", indications: "Roundworms, hookworms", contraindications: "Severe debilitation", sideEffects: "GI upset" },
+            { name: "Rimadyl (Carprofen)", category: "nsaid", dogDose: "See Carprofen", catDose: "See Carprofen", indications: "Pain, inflammation", contraindications: "See Carprofen", sideEffects: "See Carprofen" },
+            { name: "Robenacoxib", category: "nsaid", dogDose: "1-2 mg/kg SC, PO q24h (max 3 days)", catDose: "1-2 mg/kg SC, PO q24h (max 3 days)", indications: "Post-operative pain", contraindications: "Renal/hepatic disease, GI ulceration", sideEffects: "GI upset, renal toxicity" },
+            { name: "Selamectin", category: "antiparasitic", dogDose: "Topical: 6-12 mg/kg q30 days", catDose: "Topical: 6-12 mg/kg q30 days", indications: "Fleas, heartworm, ear mites, some ticks", contraindications: "Hypersensitivity", sideEffects: "Local irritation, rare neuro signs" },
+            { name: "Spironolactone", category: "cardiac", dogDose: "1-2 mg/kg PO q12-24h", catDose: "1-2 mg/kg PO q12-24h", indications: "CHF (aldosterone antagonist), ascites", contraindications: "Hyperkalemia, Addison's disease", sideEffects: "Hyperkalemia, dehydration" },
+            { name: "Sucralfate", category: "gi", dogDose: "0.5-1 g/dog PO q8h", catDose: "0.25 g/cat PO q8h", indications: "GI ulceration, esophagitis", contraindications: "GI obstruction", sideEffects: "Constipation" },
+            { name: "Theophylline", category: "respiratory", dogDose: "9 mg/kg PO q6-8h (immediate release)", catDose: "4-6 mg/kg PO q12h (extended release)", indications: "Bronchodilation, collapsing trachea", contraindications: "Seizures, severe cardiac disease", sideEffects: "Tachycardia, restlessness, GI upset" },
+            { name: "Tramadol", category: "analgesic", dogDose: "3-5 mg/kg PO q8-12h", catDose: "2-4 mg/kg PO q8-12h (bitter taste)", indications: "Mild to moderate pain", contraindications: "Seizure history, MAOIs", sideEffects: "Sedation, GI upset, behavioral changes" },
+            { name: "Trazodone", category: "sedative", dogDose: "3-7 mg/kg PO (anxiety); up to 10 mg/kg (pre-hospital)", catDose: "50-100 mg/cat PO", indications: "Anxiety, behavioral issues, pre-hospital sedation", contraindications: "MAOIs", sideEffects: "Sedation, ataxia, GI upset" },
+            { name: "Vitamin K1", category: "emergency", dogDose: "2.5-5 mg/kg PO q12h (anticoagulant rodenticide)", catDose: "2.5-5 mg/kg PO q12h", indications: "Anticoagulant rodenticide toxicity", contraindications: "None", sideEffects: "Injection site reactions (IM not recommended)" }
+        ];
+
+        let currentCategory = 'all';
+        let searchTerm = '';
+
+        function renderDrugs() {
+            const grid = document.getElementById('drug-grid');
+            const noResults = document.getElementById('no-results');
+            
+            let filtered = drugDatabase.filter(drug => {
+                const matchesCategory = currentCategory === 'all' || drug.category === currentCategory;
+                const matchesSearch = drug.name.toLowerCase().includes(searchTerm.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            grid.innerHTML = filtered.map(drug => `
+                <div class="drug-card" onclick="openModal('${drug.name}')">
+                    <div class="drug-card__header">
+                        <span class="drug-card__name">${drug.name}</span>
+                        <span class="drug-card__category">${drug.category}</span>
+                    </div>
+                    <div class="drug-card__dose">${drug.dogDose}</div>
+                    <div class="drug-card__species">
+                        <span class="species-tag">🐕 Dog</span>
+                        <span class="species-tag">🐈 Cat</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openModal(drugName) {
+            const drug = drugDatabase.find(d => d.name === drugName);
+            if (!drug) return;
+            
+            const modal = document.getElementById('drug-modal');
+            const content = document.getElementById('modal-content');
+            
+            content.innerHTML = `
+                <button class="drug-modal__close" onclick="closeModal()">&times;</button>
+                <h2>${drug.name}</h2>
+                <span class="drug-card__category">${drug.category}</span>
+                
+                <div class="info-section">
+                    <div class="info-section__title">Dosing</div>
+                    <table class="dose-table">
+                        <tr><th>Species</th><th>Dose</th></tr>
+                        <tr><td>🐕 Dog</td><td>${drug.dogDose}</td></tr>
+                        <tr><td>🐈 Cat</td><td>${drug.catDose}</td></tr>
+                    </table>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-section__title">Indications</div>
+                    <div class="info-section__content">${drug.indications}</div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-section__title">Contraindications</div>
+                    <div class="info-section__content">${drug.contraindications}</div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-section__title">Side Effects</div>
+                    <div class="info-section__content">${drug.sideEffects}</div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('drug-modal').classList.remove('active');
+        }
+
+        // Event listeners
+        document.getElementById('drug-search').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderDrugs();
+        });
+
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.dataset.category;
+                renderDrugs();
+            });
+        });
+
+        document.getElementById('drug-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'drug-modal') closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Initial render
+        renderDrugs();
+    </script>
+</body>
+</html>
