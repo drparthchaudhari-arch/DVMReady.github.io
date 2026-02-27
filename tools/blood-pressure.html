@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Pressure Calculator | ACVIM Guidelines | DVMReady</title>
+    <meta name="description" content="Blood pressure categorization for dogs and cats based on ACVIM guidelines. Risk assessment and treatment recommendations.">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/dvmready-logo-icon.svg">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css">
+    <style>
+        .bp-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .bp-input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (max-width: 480px) {
+            .bp-input-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .bp-input-group {
+            background: var(--pc-surface);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.25rem;
+        }
+        
+        .bp-input-group__label {
+            font-weight: 600;
+            color: var(--pc-text);
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+        
+        .bp-input {
+            width: 100%;
+            padding: 0.875rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            background: var(--pc-bg-elevated);
+            border: 2px solid var(--pc-border);
+            border-radius: var(--pc-radius-md);
+            color: var(--pc-text);
+            transition: all 0.2s ease;
+        }
+        
+        .bp-input:focus {
+            outline: none;
+            border-color: var(--pc-primary);
+        }
+        
+        .bp-input__unit {
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--pc-text-muted);
+            margin-top: 0.5rem;
+        }
+        
+        .bp-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            justify-content: center;
+        }
+        
+        .bp-preset {
+            padding: 0.375rem 0.75rem;
+            background: var(--pc-bg);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-sm);
+            font-size: 0.875rem;
+            color: var(--pc-text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .bp-preset:hover {
+            background: var(--pc-primary);
+            color: white;
+            border-color: var(--pc-primary);
+        }
+        
+        .species-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--pc-bg-elevated);
+            padding: 0.5rem;
+            border-radius: var(--pc-radius-md);
+        }
+        
+        .species-btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--pc-text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: var(--pc-radius-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .species-btn.active {
+            background: var(--pc-primary);
+            color: white;
+        }
+        
+        .bp-result {
+            background: var(--pc-surface);
+            border: 2px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .bp-result__category {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--pc-radius-md);
+            display: inline-block;
+        }
+        
+        .bp-result__category.normal {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+        
+        .bp-result__category.elevated {
+            background: rgba(132, 204, 22, 0.2);
+            color: #84cc16;
+        }
+        
+        .bp-result__category.mild {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+        
+        .bp-result__category.moderate {
+            background: rgba(249, 115, 22, 0.2);
+            color: #f97316;
+        }
+        
+        .bp-result__category.severe {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        .bp-result__description {
+            font-size: 1.125rem;
+            color: var(--pc-text-muted);
+            margin-bottom: 1rem;
+        }
+        
+        .bp-result__values {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--pc-text);
+            margin-bottom: 1rem;
+        }
+        
+        .bp-recommendations {
+            text-align: left;
+            background: var(--pc-bg-elevated);
+            padding: 1.25rem;
+            border-radius: var(--pc-radius-md);
+            margin-top: 1rem;
+        }
+        
+        .bp-recommendations__title {
+            font-weight: 600;
+            color: var(--pc-text);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+        
+        .bp-recommendations__list {
+            margin: 0;
+            padding-left: 1.25rem;
+            color: var(--pc-text-muted);
+            font-size: 0.9375rem;
+        }
+        
+        .bp-recommendations__list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .bp-chart {
+            margin-top: 1.5rem;
+            overflow-x: auto;
+        }
+        
+        .bp-chart table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+        
+        .bp-chart th,
+        .bp-chart td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--pc-border);
+        }
+        
+        .bp-chart th {
+            background: var(--pc-bg-elevated);
+            font-weight: 600;
+            color: var(--pc-text);
+        }
+        
+        .bp-category-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .bp-category-badge.normal {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+        
+        .bp-category-badge.elevated {
+            background: rgba(132, 204, 22, 0.2);
+            color: #84cc16;
+        }
+        
+        .bp-category-badge.mild {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+        
+        .bp-category-badge.moderate {
+            background: rgba(249, 115, 22, 0.2);
+            color: #f97316;
+        }
+        
+        .bp-category-badge.severe {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        .map-display {
+            background: var(--pc-bg-elevated);
+            padding: 1rem;
+            border-radius: var(--pc-radius-md);
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .map-display__label {
+            font-size: 0.875rem;
+            color: var(--pc-text-muted);
+            margin-bottom: 0.25rem;
+        }
+        
+        .map-display__value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--pc-primary);
+        }
+        
+        .todi-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: var(--pc-radius-md);
+            font-size: 0.9375rem;
+        }
+        
+        .todi-indicator__label {
+            color: var(--pc-text-muted);
+        }
+        
+        .todi-indicator__value {
+            font-weight: 600;
+            color: var(--pc-primary);
+        }
+    </style>
+</head>
+<body class="pc-page no-js">
+    <nav class="pc-portal-nav">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">
+                <img src="/assets/img/dvmready-logo-icon.svg" alt="" class="pc-logo__img">
+                <span class="pc-logo__text">DVMReady</span>
+            </a>
+            <div class="pc-nav-group">
+                <a class="pc-nav-link" href="/">Home</a>
+                <a class="pc-nav-link pc-is-active" href="/tools/">Tools</a>
+                <a class="pc-nav-link" href="/search.html">Search</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+        <header class="calc-header">
+            <div class="calc-header__icon">🫀</div>
+            <h1 class="calc-header__title">Blood Pressure Calculator</h1>
+            <p class="calc-header__subtitle">ACVIM guidelines for blood pressure categorization in dogs and cats. Risk stratification and treatment recommendations.</p>
+        </header>
+
+        <div class="bp-container">
+            <div class="species-toggle">
+                <button type="button" class="species-btn active" data-species="dog">🐕 Dog</button>
+                <button type="button" class="species-btn" data-species="cat">🐈 Cat</button>
+            </div>
+
+            <div class="calc-card">
+                <div class="bp-input-grid">
+                    <div class="bp-input-group">
+                        <label class="bp-input-group__label">Systolic BP</label>
+                        <input type="number" class="bp-input" id="systolic" placeholder="120" min="50" max="300">
+                        <div class="bp-input__unit">mmHg (top number)</div>
+                        <div class="bp-presets">
+                            <button type="button" class="bp-preset" onclick="setBP(120, 80)">120/80</button>
+                            <button type="button" class="bp-preset" onclick="setBP(140, 90)">140/90</button>
+                            <button type="button" class="bp-preset" onclick="setBP(160, 100)">160/100</button>
+                            <button type="button" class="bp-preset" onclick="setBP(180, 110)">180/110</button>
+                        </div>
+                    </div>
+                    <div class="bp-input-group">
+                        <label class="bp-input-group__label">Diastolic BP</label>
+                        <input type="number" class="bp-input" id="diastolic" placeholder="80" min="30" max="200">
+                        <div class="bp-input__unit">mmHg (bottom number)</div>
+                        <div class="bp-presets">
+                            <button type="button" class="bp-preset" onclick="setBP(120, 80)">120/80</button>
+                            <button type="button" class="bp-preset" onclick="setBP(140, 90)">140/90</button>
+                            <button type="button" class="bp-preset" onclick="setBP(160, 100)">160/100</button>
+                            <button type="button" class="bp-preset" onclick="setBP(180, 110)">180/110</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bp-result" id="result" style="display: none;">
+                    <div class="bp-result__values" id="bp-values">--/-- mmHg</div>
+                    <div class="bp-result__category" id="bp-category">Enter BP values</div>
+                    <div class="bp-result__description" id="bp-description">Input systolic and diastolic blood pressure to see classification</div>
+                    
+                    <div class="map-display">
+                        <div class="map-display__label">Mean Arterial Pressure (MAP)</div>
+                        <div class="map-display__value" id="map-value">-- mmHg</div>
+                    </div>
+                    
+                    <div class="todi-indicator">
+                        <span class="todi-indicator__label">Target Organ Damage Risk:</span>
+                        <span class="todi-indicator__value" id="todi-risk">--</span>
+                    </div>
+                    
+                    <div class="bp-recommendations" id="recommendations" style="display: none;">
+                        <div class="bp-recommendations__title">📋 Recommendations</div>
+                        <ul class="bp-recommendations__list" id="recommendations-list"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reference Table -->
+            <div class="calc-card" style="margin-top: 1.5rem;">
+                <h3 style="margin-bottom: 1rem;">📊 ACVIM Classification (Dogs)</h3>
+                <div class="bp-chart">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Systolic (mmHg)</th>
+                                <th>Diastolic (mmHg)</th>
+                                <th>Risk</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="bp-category-badge normal">Normal</span></td>
+                                <td>&lt; 140</td>
+                                <td>&lt; 90</td>
+                                <td>Minimal</td>
+                            </tr>
+                            <tr>
+                                <td><span class="bp-category-badge elevated">Pre-hypertension</span></td>
+                                <td>140-159</td>
+                                <td>90-99</td>
+                                <td>Low</td>
+                            </tr>
+                            <tr>
+                                <td><span class="bp-category-badge mild">Stage 1</span></td>
+                                <td>160-179</td>
+                                <td>100-119</td>
+                                <td>Moderate</td>
+                            </tr>
+                            <tr>
+                                <td><span class="bp-category-badge moderate">Stage 2</span></td>
+                                <td>180-199</td>
+                                <td>120-149</td>
+                                <td>High</td>
+                            </tr>
+                            <tr>
+                                <td><span class="bp-category-badge severe">Stage 3</span></td>
+                                <td>≥ 200</td>
+                                <td>≥ 150</td>
+                                <td>Severe</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div style="margin-top: 1.5rem;">
+                    <h4 style="margin-bottom: 0.75rem;">🐈 Feline Guidelines</h4>
+                    <p style="font-size: 0.9375rem; color: var(--pc-text-muted); margin: 0;">
+                        Cats: Risk of target organ damage increases at <strong>SBP ≥ 160 mmHg</strong>. 
+                        Cats with SBP 150-159 mmHg should be closely monitored.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Clinical Notes -->
+            <div class="calc-card" style="margin-top: 1.5rem;">
+                <h3 style="margin-bottom: 1rem;">🏥 Clinical Guidelines</h3>
+                <div style="display: grid; gap: 0.75rem; font-size: 0.9375rem; color: var(--pc-text-muted);">
+                    <p><strong>Measurement Method:</strong> Doppler sphygmomanometry is preferred in small animals. Use appropriate cuff size (40% of limb circumference).</p>
+                    <p><strong>White Coat Effect:</strong> BP may be elevated due to stress. Allow 5-10 minutes acclimation before measurement.</p>
+                    <p><strong>Target Organ Damage (TOD):</strong> Eyes (retinal hemorrhage/detachment), Kidney (proteinuria), Brain (encephalopathy), Heart (LV hypertrophy).</p>
+                    <p><strong>Treatment Goal:</strong> Reduce SBP to &lt; 140-160 mmHg or decrease by ≥ 20 mmHg.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding: 1rem; background: var(--pc-bg-elevated); border-radius: var(--pc-radius-md); font-size: 0.875rem; color: var(--pc-text-muted);">
+                <strong>Reference:</strong> ACVIM Consensus Statement on Guidelines for the Identification, Evaluation, and Management of Systemic Hypertension in Dogs and Cats (2018).
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentSpecies = 'dog';
+        
+        // Species toggle
+        document.querySelectorAll('.species-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.species-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentSpecies = btn.dataset.species;
+                calculateBP();
+            });
+        });
+        
+        // Input listeners
+        document.getElementById('systolic').addEventListener('input', calculateBP);
+        document.getElementById('diastolic').addEventListener('input', calculateBP);
+        
+        function setBP(sys, dia) {
+            document.getElementById('systolic').value = sys;
+            document.getElementById('diastolic').value = dia;
+            calculateBP();
+        }
+        
+        function calculateBP() {
+            const sys = parseInt(document.getElementById('systolic').value);
+            const dia = parseInt(document.getElementById('diastolic').value);
+            
+            if (!sys || !dia) {
+                document.getElementById('result').style.display = 'none';
+                return;
+            }
+            
+            // Calculate MAP (Mean Arterial Pressure)
+            const map = Math.round(dia + (sys - dia) / 3);
+            
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('bp-values').textContent = `${sys}/${dia} mmHg`;
+            document.getElementById('map-value').textContent = `${map} mmHg`;
+            
+            // Determine category
+            let category = '';
+            let categoryClass = '';
+            let description = '';
+            let todiRisk = '';
+            let recommendations = [];
+            
+            if (currentSpecies === 'dog') {
+                if (sys < 140 && dia < 90) {
+                    category = 'Normal';
+                    categoryClass = 'normal';
+                    description = 'Blood pressure is within normal limits. Continue routine monitoring.';
+                    todiRisk = 'Minimal';
+                    recommendations = [
+                        'Continue routine wellness examinations',
+                        'Monitor annually or as indicated by other conditions',
+                        'No antihypertensive therapy indicated'
+                    ];
+                } else if (sys < 160 && dia < 100) {
+                    category = 'Pre-hypertension';
+                    categoryClass = 'elevated';
+                    description = 'Slightly elevated BP. Monitor for progression. Consider underlying causes.';
+                    todiRisk = 'Low';
+                    recommendations = [
+                        'Recheck BP in 3-6 months',
+                        'Investigate underlying conditions (renal, endocrine)',
+                        'Lifestyle modifications if applicable',
+                        'Consider treatment if comorbidities present'
+                    ];
+                } else if (sys < 180 && dia < 120) {
+                    category = 'Stage 1 Hypertension';
+                    categoryClass = 'mild';
+                    description = 'Moderate hypertension. Treatment recommended, especially with target organ damage.';
+                    todiRisk = 'Moderate';
+                    recommendations = [
+                        'Initiate antihypertensive therapy (amlodipine first-line)',
+                        'Assess for target organ damage (eyes, kidneys, heart)',
+                        'Workup for underlying disease (CBC, chemistry, UA, SDMA)',
+                        'Recheck BP in 1-2 weeks after starting therapy'
+                    ];
+                } else if (sys < 200 && dia < 150) {
+                    category = 'Stage 2 Hypertension';
+                    categoryClass = 'moderate';
+                    description = 'Severe hypertension. Immediate treatment required to prevent target organ damage.';
+                    todiRisk = 'High';
+                    recommendations = [
+                        'Start antihypertensive therapy immediately (amlodipine)',
+                        'Comprehensive evaluation for target organ damage',
+                        'Fundic exam, urinalysis, echocardiogram recommended',
+                        'Consider combination therapy if single agent insufficient',
+                        'Recheck BP in 7-14 days'
+                    ];
+                } else {
+                    category = 'Stage 3 Hypertension';
+                    categoryClass = 'severe';
+                    description = 'Hypertensive crisis. Immediate intervention required. High risk of blindness and organ damage.';
+                    todiRisk = 'Severe';
+                    recommendations = [
+                        'EMERGENCY - Start aggressive antihypertensive therapy',
+                        'Immediate fundic examination',
+                        'Hospitalization may be required',
+                        'Rule out underlying emergency (acute kidney injury, hyperthyroid crisis)',
+                        'Recheck within 24-48 hours'
+                    ];
+                }
+            } else {
+                // Cat guidelines
+                if (sys < 140) {
+                    category = 'Normal';
+                    categoryClass = 'normal';
+                    description = 'Blood pressure is normal for a cat.';
+                    todiRisk = 'Minimal';
+                    recommendations = [
+                        'Continue routine monitoring',
+                        'Annual BP check recommended for senior cats'
+                    ];
+                } else if (sys < 150) {
+                    category = 'Borderline';
+                    categoryClass = 'elevated';
+                    description = 'Slightly elevated. Monitor closely for progression.';
+                    todiRisk = 'Low-Moderate';
+                    recommendations = [
+                        'Recheck in 1-3 months',
+                        'Assess for underlying renal or thyroid disease',
+                        'Consider treatment if comorbidities present'
+                    ];
+                } else if (sys < 160) {
+                    category = 'Elevated';
+                    categoryClass = 'mild';
+                    description = 'At risk for target organ damage. Treatment should be considered.';
+                    todiRisk = 'Moderate';
+                    recommendations = [
+                        'Consider antihypertensive therapy',
+                        'Complete fundic examination',
+                        'Evaluate for CKD and hyperthyroidism',
+                        'Check urinalysis for proteinuria'
+                    ];
+                } else if (sys < 180) {
+                    category = 'Stage 1 Hypertension';
+                    categoryClass = 'moderate';
+                    description = 'Hypertension with significant TOD risk. Treatment indicated.';
+                    todiRisk = 'High';
+                    recommendations = [
+                        'Start amlodipine (0.625-1.25 mg/cat)',
+                        'Fundic exam mandatory',
+                        'Complete renal and thyroid workup',
+                        'Recheck in 1-2 weeks'
+                    ];
+                } else {
+                    category = 'Stage 2 Hypertension';
+                    categoryClass = 'severe';
+                    description = 'Severe hypertension. Immediate treatment to prevent blindness.';
+                    todiRisk = 'Severe';
+                    recommendations = [
+                        'URGENT - Start amlodipine immediately',
+                        'Emergency fundic exam (high risk of retinal detachment)',
+                        'Consider hospitalization',
+                        'Aggressive workup for underlying disease',
+                        'Recheck within 1 week'
+                    ];
+                }
+            }
+            
+            // Update UI
+            const catEl = document.getElementById('bp-category');
+            catEl.textContent = category;
+            catEl.className = 'bp-result__category ' + categoryClass;
+            
+            document.getElementById('bp-description').textContent = description;
+            document.getElementById('todi-risk').textContent = todiRisk;
+            
+            const recDiv = document.getElementById('recommendations');
+            const recList = document.getElementById('recommendations-list');
+            
+            recDiv.style.display = 'block';
+            recList.innerHTML = recommendations.map(r => `<li>${r}</li>`).join('');
+        }
+    </script>
+</body>
+</html>

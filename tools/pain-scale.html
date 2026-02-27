@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glasgow Pain Scale | Pain Assessment | DVMReady</title>
+    <meta name="description" content="Modified Glasgow Composite Measure Pain Scale for dogs and cats. Objective pain assessment tool for veterinary patients.">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/dvmready-logo-icon.svg">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css">
+    <style>
+        .pain-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .pain-category {
+            background: var(--pc-surface);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pain-category__title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--pc-text);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .pain-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .pain-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.875rem;
+            border-radius: var(--pc-radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+        
+        .pain-option:hover {
+            background: var(--pc-bg-elevated);
+        }
+        
+        .pain-option.selected {
+            background: var(--pc-primary);
+            border-color: var(--pc-accent);
+        }
+        
+        .pain-option.selected .pain-option__text {
+            color: white;
+        }
+        
+        .pain-option input[type="radio"] {
+            margin-top: 0.125rem;
+            accent-color: var(--pc-primary);
+        }
+        
+        .pain-option__text {
+            flex: 1;
+            font-size: 0.9375rem;
+            color: var(--pc-text);
+            line-height: 1.4;
+        }
+        
+        .pain-result {
+            background: var(--pc-surface);
+            border: 2px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            position: sticky;
+            bottom: 1rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .pain-result__score {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pain-result__score.none { color: #22c55e; }
+        .pain-result__score.mild { color: #84cc16; }
+        .pain-result__score.moderate { color: #f59e0b; }
+        .pain-result__score.severe { color: #ef4444; }
+        
+        .pain-result__label {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pain-result__action {
+            font-size: 0.9375rem;
+            color: var(--pc-text-muted);
+            padding: 0.5rem 1rem;
+            background: var(--pc-bg-elevated);
+            border-radius: var(--pc-radius-md);
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        
+        .species-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--pc-bg-elevated);
+            padding: 0.5rem;
+            border-radius: var(--pc-radius-md);
+        }
+        
+        .species-btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--pc-text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: var(--pc-radius-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .species-btn.active {
+            background: var(--pc-primary);
+            color: white;
+        }
+        
+        .pain-progress {
+            height: 8px;
+            background: var(--pc-bg-elevated);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        
+        .pain-progress__bar {
+            height: 100%;
+            background: var(--pc-primary);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .pain-progress__bar.none { background: #22c55e; }
+        .pain-progress__bar.mild { background: #84cc16; }
+        .pain-progress__bar.moderate { background: #f59e0b; }
+        .pain-progress__bar.severe { background: #ef4444; }
+        
+        .reset-btn {
+            background: transparent;
+            border: 1px solid var(--pc-border);
+            color: var(--pc-text-muted);
+            padding: 0.5rem 1rem;
+            border-radius: var(--pc-radius-md);
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+        
+        .reset-btn:hover {
+            background: var(--pc-bg-elevated);
+            color: var(--pc-text);
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="pc-page no-js">
+    <nav class="pc-portal-nav">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">
+                <img src="/assets/img/dvmready-logo-icon.svg" alt="" class="pc-logo__img">
+                <span class="pc-logo__text">DVMReady</span>
+            </a>
+            <div class="pc-nav-group">
+                <a class="pc-nav-link" href="/">Home</a>
+                <a class="pc-nav-link pc-is-active" href="/tools/">Tools</a>
+                <a class="pc-nav-link" href="/search.html">Search</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+        <header class="calc-header">
+            <div class="calc-header__icon">🩹</div>
+            <h1 class="calc-header__title">Glasgow Pain Scale</h1>
+            <p class="calc-header__subtitle">Modified Composite Measure Pain Scale (CMPS) for objective pain assessment in dogs and cats. Use before and after analgesic administration.</p>
+        </header>
+
+        <div class="pain-container">
+            <div class="species-toggle">
+                <button type="button" class="species-btn active" data-species="dog">🐕 Dog</button>
+                <button type="button" class="species-btn" data-species="cat">🐈 Cat</button>
+            </div>
+
+            <div class="calc-card">
+                <!-- Dog Questions -->
+                <div id="dog-questions">
+                    <div class="pain-category">
+                        <div class="pain-category__title">🐕 Posture</div>
+                        <div class="pain-options">
+                            <label class="pain-option">
+                                <input type="radio" name="posture" value="0" checked>
+                                <span class="pain-option__text">Normal, comfortable position</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="posture" value="1">
+                                <span class="pain-option__text">Slightly abnormal position or guarding</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="posture" value="2">
+                                <span class="pain-option__text">Hunched or tense, reluctant to move</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pain-category">
+                        <div class="pain-category__title">😮 Vocalization</div>
+                        <div class="pain-options">
+                            <label class="pain-option">
+                                <input type="radio" name="vocal" value="0" checked>
+                                <span class="pain-option__text">Normal or silent</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="vocal" value="1">
+                                <span class="pain-option__text">Occasional whimpering or groaning</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="vocal" value="2">
+                                <span class="pain-option__text">Frequent crying, whining, or growling</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pain-category">
+                        <div class="pain-category__title">🦶 Activity/Behavior</div>
+                        <div class="pain-options">
+                            <label class="pain-option">
+                                <input type="radio" name="activity" value="0" checked>
+                                <span class="pain-option__text">Normal activity, interested in surroundings</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="activity" value="1">
+                                <span class="pain-option__text">Restless, reluctant to settle, or subdued</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="activity" value="2">
+                                <span class="pain-option__text">Severe restlessness or completely inactive</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pain-category">
+                        <div class="pain-category__title">👋 Response to Touch</div>
+                        <div class="pain-options">
+                            <label class="pain-option">
+                                <input type="radio" name="touch" value="0" checked>
+                                <span class="pain-option__text">No reaction or friendly response</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="touch" value="1">
+                                <span class="pain-option__text">Flinches, moves away, or tenses</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="touch" value="2">
+                                <span class="pain-option__text">Cries out, snaps, or becomes aggressive</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pain-category">
+                        <div class="pain-category__title">🦴 Attention to Wound/Painful Area</div>
+                        <div class="pain-options">
+                            <label class="pain-option">
+                                <input type="radio" name="attention" value="0" checked>
+                                <span class="pain-option__text">Ignoring wound/site</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="attention" value="1">
+                                <span class="pain-option__text">Occasional licking or looking at site</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="attention" value="2">
+                                <span class="pain-option__text">Intense focus on wound, constant licking</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pain-category">
+                        <div class="pain-category__title">😔 Demeanor</div>
+                        <div class="pain-options">
+                            <label class="pain-option">
+                                <input type="radio" name="demeanor" value="0" checked>
+                                <span class="pain-option__text">Happy, content, or normal</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="demeanor" value="1">
+                                <span class="pain-option__text">Anxious, fearful, or depressed</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="demeanor" value="2">
+                                <span class="pain-option__text">Extremely anxious or severely depressed</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cat Questions (hidden by default) -->
+                <div id="cat-questions" class="hidden">
+                    <div class="pain-category">
+                        <div class="pain-category__title">🐈 Posture</div>
+                        <div class="pain-options">
+                            <label class="pain-option">
+                                <input type="radio" name="cat_posture" value="0" checked>
+                                <span class="pain-option__text">Relaxed, normal posture</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="cat_posture" value="1">
+                                <span class="pain-option__text">Tense, crouched, or hiding</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="cat_posture" value="2">
+                                <span class="pain-option__text">Rigid, hunched, or pressing head</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pain-category">
+                        <div class="pain-category__title">😮 Vocalization</div>
+                        <div class="pain-options">
+                            <label class="pain-option">
+                                <input type="radio" name="cat_vocal" value="0" checked>
+                                <span class="pain-option__text">Normal meow or silent</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="cat_vocal" value="1">
+                                <span class="pain-option__text">Occasional meowing or growling</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="cat_vocal" value="2">
+                                <span class="pain-option__text">Persistent crying or yowling</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pain-category">
+                        <div class="pain-category__title">🐱 Activity</div>
+                        <div class="pain-options">
+                            <label class="pain-option">
+                                <input type="radio" name="cat_activity" value="0" checked>
+                                <span class="pain-option__text">Normal movement, exploring</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="cat_activity" value="1">
+                                <span class="pain-option__text">Reluctant to move, hiding</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="cat_activity" value="2">
+                                <span class="pain-option__text">Completely immobile or agitated</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pain-category">
+                        <div class="pain-category__title">👋 Response to Touch</div>
+                        <div class="pain-options">
+                            <label class="pain-option">
+                                <input type="radio" name="cat_touch" value="0" checked>
+                                <span class="pain-option__text">Tolerates touch, normal response</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="cat_touch" value="1">
+                                <span class="pain-option__text">Withdraws, tenses, or moves away</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="cat_touch" value="2">
+                                <span class="pain-option__text">Hisses, spits, or attempts to bite</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pain-category">
+                        <div class="pain-category__title">😔 Overall Demeanor</div>
+                        <div class="pain-options">
+                            <label class="pain-option">
+                                <input type="radio" name="cat_demeanor" value="0" checked>
+                                <span class="pain-option__text">Normal, interactive, purring</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="cat_demeanor" value="1">
+                                <span class="pain-option__text">Quiet, withdrawn, or unsettled</span>
+                            </label>
+                            <label class="pain-option">
+                                <input type="radio" name="cat_demeanor" value="2">
+                                <span class="pain-option__text">Severely depressed or extremely agitated</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sticky Result -->
+            <div class="pain-result" id="result">
+                <div class="pain-progress">
+                    <div class="pain-progress__bar" id="progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="pain-result__score" id="pain-score">0</div>
+                <div class="pain-result__label" id="pain-label">No Pain</div>
+                <div class="pain-result__action" id="pain-action">No analgesia required</div>
+                <button type="button" class="reset-btn" onclick="resetPainScale()" style="margin-top: 1rem;">↺ Reset Assessment</button>
+            </div>
+
+            <!-- Interpretation Guide -->
+            <div class="calc-card" style="margin-top: 1.5rem;">
+                <h3 style="margin-bottom: 1rem;">📊 Pain Score Interpretation</h3>
+                <div style="display: grid; gap: 0.75rem;">
+                    <div style="padding: 0.75rem; background: rgba(34, 197, 94, 0.1); border-radius: var(--pc-radius-md); border-left: 4px solid #22c55e;">
+                        <strong style="color: #22c55e;">0 = No Pain</strong>
+                        <p style="margin: 0.25rem 0 0; font-size: 0.875rem; color: var(--pc-text-muted);">No analgesia required. Continue monitoring.</p>
+                    </div>
+                    <div style="padding: 0.75rem; background: rgba(132, 204, 22, 0.1); border-radius: var(--pc-radius-md); border-left: 4px solid #84cc16;">
+                        <strong style="color: #84cc16;">1-3 = Mild Pain</strong>
+                        <p style="margin: 0.25rem 0 0; font-size: 0.875rem; color: var(--pc-text-muted);">Consider mild analgesia (NSAID). Reassess in 2-4 hours.</p>
+                    </div>
+                    <div style="padding: 0.75rem; background: rgba(245, 158, 11, 0.1); border-radius: var(--pc-radius-md); border-left: 4px solid #f59e0b;">
+                        <strong style="color: #f59e0b;">4-6 = Moderate Pain</strong>
+                        <p style="margin: 0.25rem 0 0; font-size: 0.875rem; color: var(--pc-text-muted);">Analgesia required (opioid ± NSAID). Reassess in 1-2 hours.</p>
+                    </div>
+                    <div style="padding: 0.75rem; background: rgba(239, 68, 68, 0.1); border-radius: var(--pc-radius-md); border-left: 4px solid #ef4444;">
+                        <strong style="color: #ef4444;">7-10 = Severe Pain</strong>
+                        <p style="margin: 0.25rem 0 0; font-size: 0.875rem; color: var(--pc-text-muted);">Immediate analgesia required (opioid + multimodal). Reassess in 30-60 min.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding: 1rem; background: var(--pc-bg-elevated); border-radius: var(--pc-radius-md); font-size: 0.875rem; color: var(--pc-text-muted);">
+                <strong>Reference:</strong> Modified Glasgow Composite Measure Pain Scale. Based on Holton et al. (1998) for dogs and Calvo et al. (2014) for cats. Score range 0-10.
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentSpecies = 'dog';
+        
+        // Species toggle
+        document.querySelectorAll('.species-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.species-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentSpecies = btn.dataset.species;
+                
+                // Toggle question sets
+                document.getElementById('dog-questions').classList.toggle('hidden', currentSpecies !== 'dog');
+                document.getElementById('cat-questions').classList.toggle('hidden', currentSpecies !== 'cat');
+                
+                resetPainScale();
+            });
+        });
+        
+        // Calculate pain score
+        function calculatePainScore() {
+            let score = 0;
+            
+            if (currentSpecies === 'dog') {
+                const names = ['posture', 'vocal', 'activity', 'touch', 'attention', 'demeanor'];
+                names.forEach(name => {
+                    const selected = document.querySelector(`input[name="${name}"]:checked`);
+                    if (selected) score += parseInt(selected.value);
+                });
+            } else {
+                const names = ['cat_posture', 'cat_vocal', 'cat_activity', 'cat_touch', 'cat_demeanor'];
+                names.forEach(name => {
+                    const selected = document.querySelector(`input[name="${name}"]:checked`);
+                    if (selected) score += parseInt(selected.value);
+                });
+            }
+            
+            return score;
+        }
+        
+        // Update result
+        function updateResult() {
+            const score = calculatePainScore();
+            const scoreEl = document.getElementById('pain-score');
+            const labelEl = document.getElementById('pain-label');
+            const actionEl = document.getElementById('pain-action');
+            const progressBar = document.getElementById('progress-bar');
+            
+            scoreEl.textContent = score;
+            progressBar.style.width = (score / 10 * 100) + '%';
+            
+            // Remove all classes
+            scoreEl.classList.remove('none', 'mild', 'moderate', 'severe');
+            progressBar.classList.remove('none', 'mild', 'moderate', 'severe');
+            
+            if (score === 0) {
+                scoreEl.classList.add('none');
+                progressBar.classList.add('none');
+                labelEl.textContent = 'No Pain';
+                actionEl.textContent = 'No analgesia required. Continue monitoring.';
+            } else if (score <= 3) {
+                scoreEl.classList.add('mild');
+                progressBar.classList.add('mild');
+                labelEl.textContent = 'Mild Pain';
+                actionEl.textContent = 'Consider mild analgesia (NSAID). Reassess in 2-4 hours.';
+            } else if (score <= 6) {
+                scoreEl.classList.add('moderate');
+                progressBar.classList.add('moderate');
+                labelEl.textContent = 'Moderate Pain';
+                actionEl.textContent = 'Analgesia required (opioid ± NSAID). Reassess in 1-2 hours.';
+            } else {
+                scoreEl.classList.add('severe');
+                progressBar.classList.add('severe');
+                labelEl.textContent = 'Severe Pain';
+                actionEl.textContent = 'Immediate analgesia required (opioid + multimodal). Reassess in 30-60 min.';
+            }
+        }
+        
+        // Reset
+        function resetPainScale() {
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = radio.value === '0';
+            });
+            updateResult();
+        }
+        
+        // Event listeners
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', updateResult);
+        });
+        
+        // Initial calculation
+        updateResult();
+    </script>
+</body>
+</html>

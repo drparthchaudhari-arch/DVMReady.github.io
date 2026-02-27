@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality of Life Calculator | HHHHHMM Scale | DVMReady</title>
+    <meta name="description" content="Quality of Life assessment tool using the HHHHHMM Scale for end-of-life decision making in veterinary patients.">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/dvmready-logo-icon.svg">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css">
+    <style>
+        .qol-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .qol-intro {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .qol-intro h2 {
+            margin: 0 0 0.5rem;
+            color: var(--pc-text);
+        }
+        
+        .qol-intro p {
+            margin: 0;
+            color: var(--pc-text-muted);
+        }
+        
+        .qol-category {
+            background: var(--pc-surface);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .qol-category::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--pc-primary);
+        }
+        
+        .qol-category__header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .qol-category__icon {
+            font-size: 1.5rem;
+        }
+        
+        .qol-category__title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--pc-text);
+        }
+        
+        .qol-category__desc {
+            font-size: 0.875rem;
+            color: var(--pc-text-muted);
+            margin-bottom: 1rem;
+        }
+        
+        .qol-options {
+            display: grid;
+            gap: 0.5rem;
+        }
+        
+        .qol-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--pc-radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            background: var(--pc-bg-elevated);
+        }
+        
+        .qol-option:hover {
+            background: var(--pc-bg);
+            border-color: var(--pc-border);
+        }
+        
+        .qol-option.selected {
+            background: var(--pc-primary);
+            border-color: var(--pc-accent);
+        }
+        
+        .qol-option.selected .qol-option__score,
+        .qol-option.selected .qol-option__text {
+            color: white;
+        }
+        
+        .qol-option__score {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            font-weight: 700;
+            color: var(--pc-primary);
+            flex-shrink: 0;
+        }
+        
+        .qol-option.selected .qol-option__score {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .qol-option__text {
+            flex: 1;
+            font-size: 0.9375rem;
+            color: var(--pc-text);
+        }
+        
+        .qol-result {
+            background: var(--pc-surface);
+            border: 2px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            position: sticky;
+            bottom: 1rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .qol-result__score {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .qol-result__score.good { color: #22c55e; }
+        .qol-result__score.marginal { color: #f59e0b; }
+        .qol-result__score.poor { color: #ef4444; }
+        
+        .qol-result__label {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        
+        .qol-result__description {
+            color: var(--pc-text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 1rem;
+        }
+        
+        .qol-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--pc-border);
+        }
+        
+        .qol-breakdown__item {
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--pc-bg-elevated);
+            border-radius: var(--pc-radius-md);
+        }
+        
+        .qol-breakdown__value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--pc-primary);
+        }
+        
+        .qol-breakdown__value.good { color: #22c55e; }
+        .qol-breakdown__value.fair { color: #f59e0b; }
+        .qol-breakdown__value.poor { color: #ef4444; }
+        
+        .qol-breakdown__label {
+            font-size: 0.75rem;
+            color: var(--pc-text-muted);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .reset-btn {
+            background: transparent;
+            border: 1px solid var(--pc-border);
+            color: var(--pc-text-muted);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--pc-radius-md);
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            margin-top: 1rem;
+        }
+        
+        .reset-btn:hover {
+            background: var(--pc-bg-elevated);
+            color: var(--pc-text);
+        }
+        
+        .scale-legend {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        @media (max-width: 640px) {
+            .scale-legend {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .scale-item {
+            padding: 1rem;
+            border-radius: var(--pc-radius-md);
+            text-align: center;
+        }
+        
+        .scale-item.good {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+        }
+        
+        .scale-item.fair {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .scale-item.poor {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+        }
+        
+        .scale-item__score {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .scale-item__label {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .scale-item__desc {
+            font-size: 0.875rem;
+            color: var(--pc-text-muted);
+        }
+    </style>
+</head>
+<body class="pc-page no-js">
+    <nav class="pc-portal-nav">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">
+                <img src="/assets/img/dvmready-logo-icon.svg" alt="" class="pc-logo__img">
+                <span class="pc-logo__text">DVMReady</span>
+            </a>
+            <div class="pc-nav-group">
+                <a class="pc-nav-link" href="/">Home</a>
+                <a class="pc-nav-link pc-is-active" href="/tools/">Tools</a>
+                <a class="pc-nav-link" href="/search.html">Search</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+        <header class="calc-header">
+            <div class="calc-header__icon">🌈</div>
+            <h1 class="calc-header__title">Quality of Life Calculator</h1>
+            <p class="calc-header__subtitle">HHHHHMM Scale for end-of-life decision making. Evaluate Hurt, Hunger, Hydration, Hygiene, Happiness, Mobility, and More good days than bad.</p>
+        </header>
+
+        <div class="qol-container">
+            <div class="qol-intro">
+                <h2>When to Use This Tool</h2>
+                <p>This assessment helps evaluate whether your patient's quality of life is acceptable or if humane euthanasia should be considered. Score each category honestly. A total score of 35+ suggests acceptable quality of life. Below 35, consider palliative care or euthanasia.</p>
+            </div>
+
+            <div class="scale-legend">
+                <div class="scale-item good">
+                    <div class="scale-item__score" style="color: #22c55e;">2</div>
+                    <div class="scale-item__label" style="color: #22c55e;">Good</div>
+                    <div class="scale-item__desc">Acceptable, manageable</div>
+                </div>
+                <div class="scale-item fair">
+                    <div class="scale-item__score" style="color: #f59e0b;">1</div>
+                    <div class="scale-item__label" style="color: #f59e0b;">Fair</div>
+                    <div class="scale-item__desc">Some concerns, borderline</div>
+                </div>
+                <div class="scale-item poor">
+                    <div class="scale-item__score" style="color: #ef4444;">0</div>
+                    <div class="scale-item__label" style="color: #ef4444;">Poor</div>
+                    <div class="scale-item__desc">Unacceptable, suffering</div>
+                </div>
+            </div>
+
+            <!-- HURT -->
+            <div class="qol-category">
+                <div class="qol-category__header">
+                    <span class="qol-category__icon">💔</span>
+                    <span class="qol-category__title">Hurt</span>
+                </div>
+                <p class="qol-category__desc">Is the patient in pain? Can it be controlled with medication?</p>
+                <div class="qol-options" data-category="hurt">
+                    <div class="qol-option" data-score="2">
+                        <span class="qol-option__score">2</span>
+                        <span class="qol-option__text">No apparent pain, or pain well-controlled with medication</span>
+                    </div>
+                    <div class="qol-option" data-score="1">
+                        <span class="qol-option__score">1</span>
+                        <span class="qol-option__text">Moderate pain, partially controlled with medication, some breakthrough pain</span>
+                    </div>
+                    <div class="qol-option" data-score="0">
+                        <span class="qol-option__score">0</span>
+                        <span class="qol-option__text">Severe pain uncontrolled despite medication, frequent suffering</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HUNGER -->
+            <div class="qol-category">
+                <div class="qol-category__header">
+                    <span class="qol-category__icon">🍽️</span>
+                    <span class="qol-category__title">Hunger</span>
+                </div>
+                <p class="qol-category__desc">Is the patient eating enough? Is hand-feeding or assisted feeding needed?</p>
+                <div class="qol-options" data-category="hunger">
+                    <div class="qol-option" data-score="2">
+                        <span class="qol-option__score">2</span>
+                        <span class="qol-option__text">Eating normally, good appetite, maintaining weight</span>
+                    </div>
+                    <div class="qol-option" data-score="1">
+                        <span class="qol-option__score">1</span>
+                        <span class="qol-option__text">Eating with encouragement or hand-feeding, some weight loss</span>
+                    </div>
+                    <div class="qol-option" data-score="0">
+                        <span class="qol-option__score">0</span>
+                        <span class="qol-option__text">Not eating despite intervention, significant weight loss, requires force-feeding</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HYDRATION -->
+            <div class="qol-category">
+                <div class="qol-category__header">
+                    <span class="qol-category__icon">💧</span>
+                    <span class="qol-category__title">Hydration</span>
+                </div>
+                <p class="qol-category__desc">Is the patient drinking enough? Are fluids needed?</p>
+                <div class="qol-options" data-category="hydration">
+                    <div class="qol-option" data-score="2">
+                        <span class="qol-option__score">2</span>
+                        <span class="qol-option__text">Drinking normally, well-hydrated</span>
+                    </div>
+                    <div class="qol-option" data-score="1">
+                        <span class="qol-option__score">1</span>
+                        <span class="qol-option__text">Drinking with encouragement or needs occasional fluids</span>
+                    </div>
+                    <div class="qol-option" data-score="0">
+                        <span class="qol-option__score">0</span>
+                        <span class="qol-option__text">Dehydrated despite efforts, requires frequent fluid administration</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HYGIENE -->
+            <div class="qol-category">
+                <div class="qol-category__header">
+                    <span class="qol-category__icon">🧼</span>
+                    <span class="qol-category__title">Hygiene</span>
+                </div>
+                <p class="qol-category__desc">Can the patient keep itself clean? Are bedsores present?</p>
+                <div class="qol-options" data-category="hygiene">
+                    <div class="qol-option" data-score="2">
+                        <span class="qol-option__score">2</span>
+                        <span class="qol-option__text">Grooming normally, clean, no soiling or sores</span>
+                    </div>
+                    <div class="qol-option" data-score="1">
+                        <span class="qol-option__score">1</span>
+                        <span class="qol-option__text">Needs occasional help with grooming, minor soiling that can be managed</span>
+                    </div>
+                    <div class="qol-option" data-score="0">
+                        <span class="qol-option__score">0</span>
+                        <span class="qol-option__text">Frequently soiled, pressure sores developing, unable to stay clean</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HAPPINESS -->
+            <div class="qol-category">
+                <div class="qol-category__header">
+                    <span class="qol-category__icon">😊</span>
+                    <span class="qol-category__title">Happiness</span>
+                </div>
+                <p class="qol-category__desc">Does the patient show joy and interest in life?</p>
+                <div class="qol-options" data-category="happiness">
+                    <div class="qol-option" data-score="2">
+                        <span class="qol-option__score">2</span>
+                        <span class="qol-option__text">Engaged, responsive, shows interest in family and activities</span>
+                    </div>
+                    <div class="qol-option" data-score="1">
+                        <span class="qol-option__score">1</span>
+                        <span class="qol-option__text">Some depression or anxiety, withdrawn at times but still engages</span>
+                    </div>
+                    <div class="qol-option" data-score="0">
+                        <span class="qol-option__score">0</span>
+                        <span class="qol-option__text">Severely depressed, anxious, or unresponsive, no joy in interaction</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MOBILITY -->
+            <div class="qol-category">
+                <div class="qol-category__header">
+                    <span class="qol-category__icon">🚶</span>
+                    <span class="qol-category__title">Mobility</span>
+                </div>
+                <p class="qol-category__desc">Can the patient get up and move around? Is assistance needed?</p>
+                <div class="qol-options" data-category="mobility">
+                    <div class="qol-option" data-score="2">
+                        <span class="qol-option__score">2</span>
+                        <span class="qol-option__text">Moves freely, walks without assistance, can get to elimination area</span>
+                    </div>
+                    <div class="qol-option" data-score="1">
+                        <span class="qol-option__score">1</span>
+                        <span class="qol-option__text">Needs occasional help, unsteady but mobile with assistance</span>
+                    </div>
+                    <div class="qol-option" data-score="0">
+                        <span class="qol-option__score">0</span>
+                        <span class="qol-option__text">Unable to move without significant help, cannot stand or walk</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MORE GOOD DAYS -->
+            <div class="qol-category">
+                <div class="qol-category__header">
+                    <span class="qol-category__icon">📅</span>
+                    <span class="qol-category__title">More Good Days Than Bad</span>
+                </div>
+                <p class="qol-category__desc">When bad days outnumber good days, quality of life might be too compromised.</p>
+                <div class="qol-options" data-category="days">
+                    <div class="qol-option" data-score="2">
+                        <span class="qol-option__score">2</span>
+                        <span class="qol-option__text">Good days clearly outnumber bad days (3:1 or better)</span>
+                    </div>
+                    <div class="qol-option" data-score="1">
+                        <span class="qol-option__score">1</span>
+                        <span class="qol-option__text">Good and bad days are roughly equal</span>
+                    </div>
+                    <div class="qol-option" data-score="0">
+                        <span class="qol-option__score">0</span>
+                        <span class="qol-option__text">Bad days outnumber good days, more suffering than joy</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESULT -->
+            <div class="qol-result" id="result">
+                <div class="qol-result__score" id="total-score">0</div>
+                <div class="qol-result__label" id="result-label">Complete All Categories</div>
+                <div class="qol-result__description" id="result-description">Select a score for each category above to see the assessment</div>
+                
+                <div class="qol-breakdown" id="breakdown"></div>
+                
+                <button type="button" class="reset-btn" onclick="resetQoL()">↺ Start Over</button>
+            </div>
+
+            <!-- Guidelines -->
+            <div class="calc-card" style="margin-top: 1.5rem;">
+                <h3 style="margin-bottom: 1rem;">📋 Interpretation Guide</h3>
+                <div style="display: grid; gap: 0.75rem;">
+                    <div style="padding: 1rem; background: rgba(34, 197, 94, 0.1); border-radius: var(--pc-radius-md); border-left: 4px solid #22c55e;">
+                        <strong style="color: #22c55e; font-size: 1.125rem;">35+ Points = Acceptable Quality of Life</strong>
+                        <p style="margin: 0.5rem 0 0; color: var(--pc-text-muted);">Continue current care, reassess regularly. Monitor for changes.</p>
+                    </div>
+                    <div style="padding: 1rem; background: rgba(245, 158, 11, 0.1); border-radius: var(--pc-radius-md); border-left: 4px solid #f59e0b;">
+                        <strong style="color: #f59e0b; font-size: 1.125rem;">25-34 Points = Marginal Quality of Life</strong>
+                        <p style="margin: 0.5rem 0 0; color: var(--pc-text-muted);">Consider palliative care, hospice, or intensive intervention. Reassess frequently (weekly).</p>
+                    </div>
+                    <div style="padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: var(--pc-radius-md); border-left: 4px solid #ef4444;">
+                        <strong style="color: #ef4444; font-size: 1.125rem;">Below 25 Points = Poor Quality of Life</strong>
+                        <p style="margin: 0.5rem 0 0; color: var(--pc-text-muted);">Humane euthanasia should be considered to prevent suffering. Discuss with family.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding: 1.25rem; background: var(--pc-bg-elevated); border-radius: var(--pc-radius-md); font-size: 0.875rem; color: var(--pc-text-muted);">
+                <strong>Reference:</strong> HHHHHMM Scale adapted from Villalobos, A. (2004). "Canine and Feline Geriatric Oncology: Honoring the Human-Animal Bond." This tool is a guide only. Always discuss end-of-life decisions with your veterinarian.
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const categories = ['hurt', 'hunger', 'hydration', 'hygiene', 'happiness', 'mobility', 'days'];
+        const scores = {};
+        
+        // Initialize
+        categories.forEach(cat => scores[cat] = null);
+        
+        // Option selection
+        document.querySelectorAll('.qol-options').forEach(container => {
+            const category = container.dataset.category;
+            
+            container.querySelectorAll('.qol-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    // Remove selected from siblings
+                    container.querySelectorAll('.qol-option').forEach(opt => opt.classList.remove('selected'));
+                    // Add selected to clicked
+                    option.classList.add('selected');
+                    
+                    // Update score
+                    scores[category] = parseInt(option.dataset.score);
+                    updateResult();
+                });
+            });
+        });
+        
+        function updateResult() {
+            const total = Object.values(scores).reduce((a, b) => a + (b || 0), 0);
+            const answered = Object.values(scores).filter(s => s !== null).length;
+            
+            const scoreEl = document.getElementById('total-score');
+            const labelEl = document.getElementById('result-label');
+            const descEl = document.getElementById('result-description');
+            const breakdownEl = document.getElementById('breakdown');
+            
+            scoreEl.textContent = total;
+            
+            // Remove all classes
+            scoreEl.classList.remove('good', 'marginal', 'poor');
+            
+            if (answered < 7) {
+                labelEl.textContent = `${answered}/7 Categories Completed`;
+                descEl.textContent = 'Select a score for each category to see the full assessment';
+                scoreEl.style.color = 'var(--pc-text-muted)';
+            } else {
+                if (total >= 35) {
+                    scoreEl.classList.add('good');
+                    labelEl.textContent = 'Acceptable Quality of Life';
+                    labelEl.style.color = '#22c55e';
+                    descEl.textContent = 'Continue current care with regular reassessment. Monitor for any changes in condition.';
+                } else if (total >= 25) {
+                    scoreEl.classList.add('marginal');
+                    labelEl.textContent = 'Marginal Quality of Life';
+                    labelEl.style.color = '#f59e0b';
+                    descEl.textContent = 'Consider palliative care options or intensive intervention. Reassess frequently.';
+                } else {
+                    scoreEl.classList.add('poor');
+                    labelEl.textContent = 'Poor Quality of Life';
+                    labelEl.style.color = '#ef4444';
+                    descEl.textContent = 'Consider humane euthanasia to prevent continued suffering. Discuss with your veterinarian and family.';
+                }
+            }
+            
+            // Update breakdown
+            breakdownEl.innerHTML = categories.map(cat => {
+                const score = scores[cat];
+                const label = cat.charAt(0).toUpperCase() + cat.slice(1);
+                let scoreClass = '';
+                if (score === 2) scoreClass = 'good';
+                else if (score === 1) scoreClass = 'fair';
+                else if (score === 0) scoreClass = 'poor';
+                
+                return `
+                    <div class="qol-breakdown__item">
+                        <div class="qol-breakdown__value ${scoreClass}">${score !== null ? score : '-'}</div>
+                        <div class="qol-breakdown__label">${label.substring(0, 4)}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function resetQoL() {
+            categories.forEach(cat => scores[cat] = null);
+            document.querySelectorAll('.qol-option').forEach(opt => opt.classList.remove('selected'));
+            updateResult();
+        }
+        
+        // Initial update
+        updateResult();
+    </script>
+</body>
+</html>

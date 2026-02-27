@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glasgow Coma Scale | Neurological Assessment | DVMReady</title>
+    <meta name="description" content="Modified Glasgow Coma Scale for dogs and cats. Assess neurological status in trauma and emergency patients.">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/dvmready-logo-icon.svg">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css">
+    <style>
+        .gcs-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .gcs-category {
+            background: var(--pc-surface);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.25rem;
+        }
+        
+        .gcs-category__title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--pc-text);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--pc-border);
+        }
+        
+        .gcs-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .gcs-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: var(--pc-radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+        
+        .gcs-option:hover {
+            background: var(--pc-bg-elevated);
+        }
+        
+        .gcs-option.selected {
+            background: var(--pc-primary);
+            border-color: var(--pc-accent);
+        }
+        
+        .gcs-option.selected .gcs-option__text,
+        .gcs-option.selected .gcs-option__score {
+            color: white;
+        }
+        
+        .gcs-option__score {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--pc-bg-elevated);
+            border-radius: 50%;
+            font-weight: 700;
+            color: var(--pc-primary);
+            flex-shrink: 0;
+        }
+        
+        .gcs-option.selected .gcs-option__score {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .gcs-option__text {
+            flex: 1;
+            font-size: 0.9375rem;
+            color: var(--pc-text);
+        }
+        
+        .gcs-result {
+            background: var(--pc-surface);
+            border: 2px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .gcs-result__score {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .gcs-result__score.mild { color: #22c55e; }
+        .gcs-result__score.moderate { color: #f59e0b; }
+        .gcs-result__score.severe { color: #ef4444; }
+        
+        .gcs-result__label {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .gcs-result__description {
+            color: var(--pc-text-muted);
+            font-size: 0.9375rem;
+        }
+        
+        .species-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--pc-bg-elevated);
+            padding: 0.5rem;
+            border-radius: var(--pc-radius-md);
+        }
+        
+        .species-btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--pc-text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: var(--pc-radius-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .species-btn.active {
+            background: var(--pc-primary);
+            color: white;
+        }
+        
+        .gcs-breakdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        @media (max-width: 640px) {
+            .gcs-breakdown {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .gcs-breakdown__item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--pc-bg-elevated);
+            border-radius: var(--pc-radius-md);
+        }
+        
+        .gcs-breakdown__value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--pc-primary);
+        }
+        
+        .gcs-breakdown__label {
+            font-size: 0.875rem;
+            color: var(--pc-text-muted);
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body class="pc-page no-js">
+    <nav class="pc-portal-nav">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">
+                <img src="/assets/img/dvmready-logo-icon.svg" alt="" class="pc-logo__img">
+                <span class="pc-logo__text">DVMReady</span>
+            </a>
+            <div class="pc-nav-group">
+                <a class="pc-nav-link" href="/">Home</a>
+                <a class="pc-nav-link pc-is-active" href="/tools/">Tools</a>
+                <a class="pc-nav-link" href="/search.html">Search</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+        <header class="calc-header">
+            <div class="calc-header__icon">🧠</div>
+            <h1 class="calc-header__title">Glasgow Coma Scale</h1>
+            <p class="calc-header__subtitle">Modified GCS for neurological assessment in dogs and cats. Evaluate consciousness level in trauma and emergency patients.</p>
+        </header>
+
+        <div class="species-toggle">
+            <button type="button" class="species-btn active" data-species="dog">🐕 Dog</button>
+            <button type="button" class="species-btn" data-species="cat">🐈 Cat</button>
+        </div>
+
+        <div class="calc-card">
+            <div class="gcs-grid">
+                <!-- Motor Response -->
+                <div class="gcs-category">
+                    <div class="gcs-category__title">🦵 Motor Response</div>
+                    <div class="gcs-options" id="motor-options">
+                        <label class="gcs-option" data-score="6">
+                            <span class="gcs-option__score">6</span>
+                            <span class="gcs-option__text">Normal gait, walks normally</span>
+                        </label>
+                        <label class="gcs-option" data-score="5">
+                            <span class="gcs-option__score">5</span>
+                            <span class="gcs-option__text">Ambulatory but ataxic or weak</span>
+                        </label>
+                        <label class="gcs-option" data-score="4">
+                            <span class="gcs-option__score">4</span>
+                            <span class="gcs-option__text">Withdraws or extends limbs to support weight</span>
+                        </label>
+                        <label class="gcs-option" data-score="3">
+                            <span class="gcs-option__score">3</span>
+                            <span class="gcs-option__text">Withdraws limb from painful stimulus</span>
+                        </label>
+                        <label class="gcs-option" data-score="2">
+                            <span class="gcs-option__score">2</span>
+                            <span class="gcs-option__text">Flexor response (withdrawal with extension)</span>
+                        </label>
+                        <label class="gcs-option" data-score="1">
+                            <span class="gcs-option__score">1</span>
+                            <span class="gcs-option__text">No response or extensor rigidity</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Brainstem Reflexes -->
+                <div class="gcs-category">
+                    <div class="gcs-category__title">👁️ Brainstem Reflexes</div>
+                    <div class="gcs-options" id="brainstem-options">
+                        <label class="gcs-option" data-score="5">
+                            <span class="gcs-option__score">5</span>
+                            <span class="gcs-option__text">Pupils normal size with PLR present</span>
+                        </label>
+                        <label class="gcs-option" data-score="4">
+                            <span class="gcs-option__score">4</span>
+                            <span class="gcs-option__text">Pinpoint pupils with PLR present</span>
+                        </label>
+                        <label class="gcs-option" data-score="3">
+                            <span class="gcs-option__score">3</span>
+                            <span class="gcs-option__text">Unequal pupils with PLR present</span>
+                        </label>
+                        <label class="gcs-option" data-score="2">
+                            <span class="gcs-option__score">2</span>
+                            <span class="gcs-option__text">Bilateral mydriasis with PLR absent</span>
+                        </label>
+                        <label class="gcs-option" data-score="1">
+                            <span class="gcs-option__score">1</span>
+                            <span class="gcs-option__text">Bilateral mydriasis with no PLR, or anisocoria with PLR absent</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Level of Consciousness -->
+                <div class="gcs-category">
+                    <div class="gcs-category__title">🧠 Level of Consciousness</div>
+                    <div class="gcs-options" id="consciousness-options">
+                        <label class="gcs-option" data-score="5">
+                            <span class="gcs-option__score">5</span>
+                            <span class="gcs-option__text">Alert, interactive, responsive to environment</span>
+                        </label>
+                        <label class="gcs-option" data-score="4">
+                            <span class="gcs-option__score">4</span>
+                            <span class="gcs-option__text">Depressed/delirious but responsive</span>
+                        </label>
+                        <label class="gcs-option" data-score="3">
+                            <span class="gcs-option__score">3</span>
+                            <span class="gcs-option__text">Obtunded - responds to visual stimuli</span>
+                        </label>
+                        <label class="gcs-option" data-score="2">
+                            <span class="gcs-option__score">2</span>
+                            <span class="gcs-option__text">Stuporous - responds only to painful stimuli</span>
+                        </label>
+                        <label class="gcs-option" data-score="1">
+                            <span class="gcs-option__score">1</span>
+                            <span class="gcs-option__text">Comatose - no response to any stimuli</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gcs-result" id="result" style="display: none;">
+                <div class="gcs-result__score" id="total-score">--</div>
+                <div class="gcs-result__label" id="severity-label">Select all categories</div>
+                <div class="gcs-result__description" id="result-description">Complete the assessment to see the score</div>
+                
+                <div class="gcs-breakdown">
+                    <div class="gcs-breakdown__item">
+                        <div class="gcs-breakdown__value" id="motor-score">-</div>
+                        <div class="gcs-breakdown__label">Motor</div>
+                    </div>
+                    <div class="gcs-breakdown__item">
+                        <div class="gcs-breakdown__value" id="brainstem-score">-</div>
+                        <div class="gcs-breakdown__label">Brainstem</div>
+                    </div>
+                    <div class="gcs-breakdown__item">
+                        <div class="gcs-breakdown__value" id="consciousness-score">-</div>
+                        <div class="gcs-breakdown__label">Consciousness</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding: 1rem; background: var(--pc-bg-elevated); border-radius: var(--pc-radius-md); font-size: 0.875rem; color: var(--pc-text-muted);">
+                <strong>Reference:</strong> Modified Glasgow Coma Scale for dogs and cats (Shores et al., 1989). Total score ranges from 3 (severely impaired) to 18 (normal).
+            </div>
+        </div>
+
+        <!-- Interpretation Guide -->
+        <div class="calc-card" style="margin-top: 1.5rem;">
+            <h3 style="margin-bottom: 1rem;">📊 Score Interpretation</h3>
+            <div style="display: grid; gap: 0.75rem;">
+                <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem; background: rgba(34, 197, 94, 0.1); border-radius: var(--pc-radius-md);">
+                    <span style="font-size: 1.5rem; font-weight: 700; color: #22c55e;">15-18</span>
+                    <div>
+                        <strong style="color: #22c55e;">Mild impairment</strong>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--pc-text-muted);">Normal to mildly altered consciousness. Good prognosis.</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem; background: rgba(245, 158, 11, 0.1); border-radius: var(--pc-radius-md);">
+                    <span style="font-size: 1.5rem; font-weight: 700; color: #f59e0b;">9-14</span>
+                    <div>
+                        <strong style="color: #f59e0b;">Moderate impairment</strong>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--pc-text-muted);">Moderate depression or deficits. Guarded prognosis. Monitor closely.</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem; background: rgba(239, 68, 68, 0.1); border-radius: var(--pc-radius-md);">
+                    <span style="font-size: 1.5rem; font-weight: 700; color: #ef4444;">3-8</span>
+                    <div>
+                        <strong style="color: #ef4444;">Severe impairment</strong>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--pc-text-muted);">Severe neurological dysfunction. Poor prognosis. Consider advanced care.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // State
+        let scores = {
+            motor: 0,
+            brainstem: 0,
+            consciousness: 0
+        };
+        
+        let currentSpecies = 'dog';
+        
+        // Species toggle
+        document.querySelectorAll('.species-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.species-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentSpecies = btn.dataset.species;
+            });
+        });
+        
+        // Option selection
+        document.querySelectorAll('.gcs-options').forEach(container => {
+            container.querySelectorAll('.gcs-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    // Remove selected from siblings
+                    container.querySelectorAll('.gcs-option').forEach(opt => opt.classList.remove('selected'));
+                    // Add selected to clicked
+                    option.classList.add('selected');
+                    
+                    // Update scores
+                    const score = parseInt(option.dataset.score);
+                    const category = container.id.replace('-options', '');
+                    scores[category] = score;
+                    
+                    updateResult();
+                });
+            });
+        });
+        
+        function updateResult() {
+            const total = scores.motor + scores.brainstem + scores.consciousness;
+            
+            document.getElementById('motor-score').textContent = scores.motor || '-';
+            document.getElementById('brainstem-score').textContent = scores.brainstem || '-';
+            document.getElementById('consciousness-score').textContent = scores.consciousness || '-';
+            
+            const resultDiv = document.getElementById('result');
+            const totalScore = document.getElementById('total-score');
+            const severityLabel = document.getElementById('severity-label');
+            const description = document.getElementById('result-description');
+            
+            if (total > 0) {
+                resultDiv.style.display = 'block';
+                totalScore.textContent = total;
+                
+                // Remove all severity classes
+                totalScore.classList.remove('mild', 'moderate', 'severe');
+                
+                if (total >= 15) {
+                    totalScore.classList.add('mild');
+                    severityLabel.textContent = 'Mild Impairment';
+                    description.textContent = 'Normal to mildly altered consciousness. Good prognosis with appropriate treatment.';
+                } else if (total >= 9) {
+                    totalScore.classList.add('moderate');
+                    severityLabel.textContent = 'Moderate Impairment';
+                    description.textContent = 'Moderate depression or deficits. Guarded prognosis. Close monitoring required.';
+                } else {
+                    totalScore.classList.add('severe');
+                    severityLabel.textContent = 'Severe Impairment';
+                    description.textContent = 'Severe neurological dysfunction. Poor prognosis. Consider advanced imaging and intensive care.';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
