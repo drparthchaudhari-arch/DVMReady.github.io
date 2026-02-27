@@ -12,17 +12,18 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     
     <link rel="icon" type="image/svg+xml" href="./assets/dvmready-logo-pro-U0CGaLZd.svg">
-    <link rel="manifest" href="./assets/manifest-1Ah6wHrb.json">
+    <link rel="manifest" href="./assets/manifest-Bf8sXSLd.json">
     <meta name="theme-color" content="#0c607d">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="DVMReady">
-    <link rel="apple-touch-icon" href="/assets/img/icon-192x192.png">
-    <title>Veterinary Calculators & Clinical Tools | Free, Fast, No Login | DVMReady</title>
-    <meta name="description" content="Free veterinary calculators for drug dosing, CRI, fluids, emergencies, and toxicity. Built for vets, techs, and students. No signup. Works offline. Formulas verified against Plumb's & Merck.">
+    <link rel="icon" type="image/svg+xml" href="./assets/dvmready-favicon-Cx9X0q3P.svg">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <title>40+ Free Veterinary Calculators | Drug Dosing, CRI, Fluids | DVMReady</title>
+    <meta name="description" content="Free veterinary calculators for drug dosing, CRI, fluids, emergencies, and toxicity. 40+ clinical tools for vets and students. No signup. Works offline. Formulas verified.">
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-    <meta property="og:title" content="Veterinary Calculators & Clinical Tools | DVMReady">
-    <meta property="og:description" content="Free veterinary calculators for drug dosing, CRI, fluids, emergencies, and toxicity. No signup required. Used by 10,000+ vet professionals.">
+    <meta property="og:title" content="40+ Free Veterinary Calculators | DVMReady">
+    <meta property="og:description" content="Free veterinary calculators for drug dosing, CRI, fluids, emergencies, and toxicity. 40+ clinical tools. No signup required.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="DVMReady">
     <meta property="og:url" content="https://dvmready.com/">
@@ -31,123 +32,13 @@
     <link rel="preload" href="./assets/nav-status-DUdBM7VV.js" as="script">
     
     <!-- Critical CSS -->
+    <!-- Performance: Animation CSS deferred -->
+    <link rel="stylesheet" href="./assets/floating-elements-3txVccpJ.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="./assets/animations-enhanced-C3XeZZLX.css" media="print" onload="this.media='all'">
     
-    <!-- Auth Section Styles -->
     <style>
-    /* Auth Section Styles */
-    .pc-auth-section {
-      margin: 2rem 0;
-      padding: 2rem;
-      background: linear-gradient(135deg, 
-        color-mix(in srgb, var(--pc-surface) 95%, transparent),
-        color-mix(in srgb, var(--pc-primary) 5%, var(--pc-surface))
-      );
-      border-radius: var(--pc-radius-lg);
-      border: 1px solid var(--pc-border);
-    }
+    /* ===== CLEAN HOMEPAGE STYLES ===== */
     
-    .pc-auth-container {
-      max-width: 900px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    
-    .pc-auth-title {
-      font-family: var(--pc-font-display);
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      margin-bottom: 0.5rem;
-    }
-    
-    .pc-auth-subtitle {
-      color: var(--pc-text-muted);
-      margin-bottom: 1.5rem;
-    }
-    
-    .pc-auth-options {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-    
-    .pc-auth-card {
-      padding: 1.5rem;
-      background: var(--pc-surface);
-      border-radius: var(--pc-radius-md);
-      border: 1px solid var(--pc-border);
-      text-align: left;
-    }
-    
-    .pc-auth-card__icon {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .pc-auth-card h3 {
-      margin: 0 0 0.5rem;
-      font-family: var(--pc-font-display);
-    }
-    
-    .pc-auth-card p {
-      color: var(--pc-text-muted);
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
-    }
-    
-    .pc-auth-form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    
-    .pc-auth-input {
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--pc-border);
-      border-radius: var(--pc-radius-sm);
-      background: var(--pc-bg);
-      color: var(--pc-text);
-      font-size: 1rem;
-    }
-    
-    .pc-auth-input:focus {
-      outline: 2px solid var(--pc-primary);
-      outline-offset: 2px;
-    }
-    
-    .pc-consent-label {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      color: var(--pc-text-muted);
-    }
-    
-    .pc-consent-label input {
-      margin-top: 0.2rem;
-    }
-    
-    .pc-auth-features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .pc-auth-feature {
-      padding: 0.35rem 0.75rem;
-      background: color-mix(in srgb, var(--pc-primary) 15%, var(--pc-surface));
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    
-    .pc-auth-card--account {
-      background: linear-gradient(135deg,
-        color-mix(in srgb, var(--pc-primary) 10%, var(--pc-surface)),
-        var(--pc-surface)
-      );
-      border-color: color-mix(in srgb, var(--pc-primary) 40%, var(--pc-border));
-    }
-
     /* 2-column tier grid layout */
     .pc-home-tier-grid {
       display: grid;
@@ -308,7 +199,8 @@
     }
     </style>
     
-    <!-- Deferred JavaScript -->
+    <!-- Deferred JavaScript - Performance optimized -->
+    <!-- Note: Heavy animation scripts removed for faster page load -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -338,268 +230,48 @@
       ]
     }
     </script>
-  <script type="module" crossorigin src="./assets/index-C2eHk-ae.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-D14jhjbQ.css">
+  <script type="module" crossorigin src="./assets/index-DT4tvKJ3.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-AdYQ6Vww.css">
 </head>
 <body class="pc-page pc-page--home no-js">
-    <!-- Construction Notice Popup -->
-    <div id="construction-popup" class="pc-construction-popup" role="dialog" aria-modal="true" aria-labelledby="construction-title">
-      <div class="pc-construction-popup__overlay"></div>
-      <div class="pc-construction-popup__content">
-        <button class="pc-construction-popup__close" aria-label="Close notice">&times;</button>
-        <div class="pc-construction-popup__icon">🚧</div>
-        <h2 id="construction-title" class="pc-construction-popup__title">We're Still Building!</h2>
-        <p class="pc-construction-popup__text">
-          DVMReady is currently under active development. Some features may not work as expected, 
-          and you might encounter occasional hiccups. We're working hard to make this the best 
-          veterinary calculator platform for you!
-        </p>
-        <div class="pc-construction-popup__links">
-          <p>Meanwhile, check out what's ready:</p>
-          <div class="pc-construction-popup__buttons">
-            <a href="/tools/dose-calculator.html" class="pc-btn pc-btn--primary">💊 Dose Calculator</a>
-            <a href="/tools/fluid-calculator.html" class="pc-btn pc-btn--secondary">💧 Fluid Calculator</a>
-            <a href="/study/navle/" class="pc-btn pc-btn--secondary">📚 NAVLE Study</a>
-          </div>
-        </div>
-        <p class="pc-construction-popup__note">
-          Have feedback? <a href="/contact.html">Let us know</a> — we'd love to hear from you!
-        </p>
-      </div>
+
+    <!-- Ambient Floating Background -->
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+      <div class="pc-ambient-grid"></div>
+      <div class="pc-ambient-particles" id="ambient-particles"></div>
     </div>
     
-    <style>
-    /* Construction Popup Styles */
-    .pc-construction-popup {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
-    
-    .pc-construction-popup__overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
-    }
-    
-    .pc-construction-popup__content {
-      position: relative;
-      background: var(--pc-surface);
-      border: 1px solid var(--pc-border);
-      border-radius: var(--pc-radius-lg);
-      padding: 2rem;
-      max-width: 500px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-      animation: pc-popup-in 0.3s ease-out;
-    }
-    
-    @keyframes pc-popup-in {
-      from {
-        opacity: 0;
-        transform: scale(0.95) translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-    
-    .pc-construction-popup__close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--pc-text-muted);
-      cursor: pointer;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: all 0.2s;
-    }
-    
-    .pc-construction-popup__close:hover {
-      background: var(--pc-surface-strong);
-      color: var(--pc-text);
-    }
-    
-    .pc-construction-popup__icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-    
-    .pc-construction-popup__title {
-      font-family: var(--pc-font-display);
-      font-size: 1.5rem;
-      margin-bottom: 0.75rem;
-      color: var(--pc-text);
-    }
-    
-    .pc-construction-popup__text {
-      color: var(--pc-text-muted);
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
-    
-    .pc-construction-popup__links {
-      margin-bottom: 1.5rem;
-    }
-    
-    .pc-construction-popup__links p {
-      color: var(--pc-text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 0.75rem;
-    }
-    
-    .pc-construction-popup__buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-    }
-    
-    .pc-construction-popup__buttons .pc-btn {
-      font-size: 0.85rem;
-      padding: 0.5rem 1rem;
-    }
-    
-    .pc-construction-popup__note {
-      font-size: 0.85rem;
-      color: var(--pc-text-muted);
-      margin: 0;
-    }
-    
-    .pc-construction-popup__note a {
-      color: var(--pc-primary);
-      text-decoration: underline;
-    }
-    
-    .pc-construction-popup--hidden {
-      display: none;
-    }
-    </style>
-    
+    <!-- Simple toast notification helper -->
     <script>
-    // Show popup on first visit (once per session)
-    (function() {
-      const POPUP_KEY = 'dvmready_construction_seen';
-      
-      // Check if popup was already shown this session
-      if (sessionStorage.getItem(POPUP_KEY)) {
-        document.getElementById('construction-popup').classList.add('pc-construction-popup--hidden');
-        return;
-      }
-      
-      const popup = document.getElementById('construction-popup');
-      const closeBtn = popup.querySelector('.pc-construction-popup__close');
-      const overlay = popup.querySelector('.pc-construction-popup__overlay');
-      
-      function closePopup() {
-        popup.classList.add('pc-construction-popup--hidden');
-        sessionStorage.setItem(POPUP_KEY, 'true');
-      }
-      
-      closeBtn.addEventListener('click', closePopup);
-      overlay.addEventListener('click', closePopup);
-      
-      // Close on Escape key
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && !popup.classList.contains('pc-construction-popup--hidden')) {
-          closePopup();
-        }
-      });
-    })();
-    
-    // Check login status and show appropriate content
-    (function() {
-      const AUTH_KEY = 'dvmready_auth';
-      const GUEST_KEY = 'dvmready_guest';
-      
-      function isLoggedIn() {
-        return localStorage.getItem(AUTH_KEY) !== null || localStorage.getItem(GUEST_KEY) !== null;
-      }
-      
-      function getUser() {
-        try {
-          const auth = localStorage.getItem(AUTH_KEY);
-          if (auth) return JSON.parse(auth);
-          const guest = localStorage.getItem(GUEST_KEY);
-          if (guest) return JSON.parse(guest);
-        } catch (e) {}
-        return null;
-      }
-      
-      function updateHomepage() {
-        const authSection = document.getElementById('homepage-auth-section');
-        const loggedInSection = document.getElementById('homepage-logged-in');
-        const user = getUser();
-        
-        if (isLoggedIn() && user) {
-          // User is logged in - show personalized content
-          if (authSection) authSection.style.display = 'none';
-          if (loggedInSection) {
-            loggedInSection.style.display = 'block';
-            // Update user name
-            const nameEl = document.getElementById('homepage-user-name');
-            if (nameEl) {
-              nameEl.textContent = user.displayName || user.email.split('@')[0] || 'User';
-            }
-          }
-        } else {
-          // User is not logged in - show auth forms
-          if (authSection) authSection.style.display = 'block';
-          if (loggedInSection) loggedInSection.style.display = 'none';
-        }
-      }
-      
-      // Guest login from homepage
-      document.getElementById('homepage-guest-form')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = document.getElementById('homepage-guest-email').value.trim();
-        const consent = document.getElementById('homepage-guest-consent').checked;
-        
-        if (!email || !email.includes('@')) {
-          alert('Please enter a valid email');
-          return;
-        }
-        if (!consent) {
-          alert('Please agree to the terms');
-          return;
-        }
-        
-        const guestData = {
-          email: email,
-          type: 'guest',
-          displayName: email.split('@')[0],
-          createdAt: new Date().toISOString(),
-          lastVisit: new Date().toISOString()
-        };
-        
-        localStorage.setItem(GUEST_KEY, JSON.stringify(guestData));
-        updateHomepage();
-      });
-      
-      // Initialize on load
-      updateHomepage();
-      
-      // Listen for storage changes (cross-tab sync)
-      window.addEventListener('storage', function(e) {
-        if (e.key === AUTH_KEY || e.key === GUEST_KEY) {
-          updateHomepage();
-        }
-      });
-    })();
+    function showToast(message, type = 'info') {
+        // Simple toast implementation
+        const toast = document.createElement('div');
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            background: ${type === 'success' ? 'var(--pc-success)' : 'var(--pc-primary)'};
+            color: white;
+            border-radius: var(--pc-radius-md);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            z-index: 9999;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        `;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
     </script>
     <!-- Page Transition Overlay -->
     <div class="pc-page-transition" aria-hidden="true"></div>
@@ -647,7 +319,7 @@
                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
                     </svg>
                 </a>
-                <a class="pc-nav-link pc-nav-link--cta" href="/account/">Sign In</a>
+                <a class="pc-nav-link" href="/account/" title="Account">👤</a>
                 <!-- Mobile Menu Toggle -->
                 <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
                     <span class="pc-mobile-toggle__bar"></span>
@@ -710,24 +382,24 @@
                         <a class="pc-btn pc-btn--secondary pc-btn--large" href="/tools/toxicity-suite.html">☠️ Toxicity Triage</a>
                     </div>
                     <div class="pc-trust-badges" style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.875rem; color: var(--pc-text-muted);">
-                        <span>✓ No login required</span>
-                        <span>✓ 25+ clinical tools</span>
-                        <span>✓ Used by 10,000+ vet professionals</span>
+                        <span>✓ 40+ calculators</span>
+                        <span>✓ No signup required</span>
                         <span>✓ Works offline</span>
+                        <span>✓ Formulas verified</span>
                     </div>
                 </div>
                 <div class="pc-hero-pro__visual">
                     <div class="pc-hero-pro__stats">
                         <div class="pc-hero-stat">
-                            <span class="pc-hero-stat__number">50+</span>
-                            <span class="pc-hero-stat__label">Clinical Tools</span>
+                            <span class="pc-hero-stat__number">40+</span>
+                            <span class="pc-hero-stat__label">Clinical Calculators</span>
                         </div>
                         <div class="pc-hero-stat">
-                            <span class="pc-hero-stat__number">10K+</span>
-                            <span class="pc-hero-stat__label">Monthly Users</span>
+                            <span class="pc-hero-stat__number">0</span>
+                            <span class="pc-hero-stat__label">Login Required</span>
                         </div>
                         <div class="pc-hero-stat">
-                            <span class="pc-hero-stat__number">100%</span>
+                            <span class="pc-hero-stat__number">24/7</span>
                             <span class="pc-hero-stat__label">Free Access</span>
                         </div>
                     </div>
@@ -735,102 +407,232 @@
             </div>
         </section>
         
-        <!-- Authentication Section (hidden when logged in) -->
-        <section id="homepage-auth-section" class="pc-auth-section" aria-labelledby="auth-title">
-          <div class="pc-auth-container">
-            <h2 id="auth-title" class="pc-auth-title">Get Started</h2>
-            <p class="pc-auth-subtitle">Access all veterinary calculators and study tools</p>
-            
-            <div class="pc-auth-options">
-              <!-- Guest Option -->
-              <div class="pc-auth-card pc-auth-card--guest">
-                <div class="pc-auth-card__icon">👤</div>
-                <h3>Continue as Guest</h3>
-                <p>Quick access with just your email. No account required.</p>
-                <form id="homepage-guest-form" class="pc-auth-form">
-                  <input 
-                    type="email" 
-                    id="homepage-guest-email"
-                    class="pc-auth-input" 
-                    placeholder="your@email.com"
-                    aria-label="Email address"
-                    required
-                  >
-                  <label class="pc-consent-label">
-                    <input type="checkbox" id="homepage-guest-consent" checked>
-                    <span>I agree to analytics collection and <a href="/terms/">Terms</a></span>
-                  </label>
-                  <button type="submit" class="pc-btn pc-btn--secondary pc-btn--large">
-                    Continue as Guest →
-                  </button>
-                </form>
-              </div>
-              
-              <!-- Account Option -->
-              <div class="pc-auth-card pc-auth-card--account">
-                <div class="pc-auth-card__icon">⭐</div>
-                <h3>Create Account</h3>
-                <p>Personalized experience with saved preferences, favorites, and progress tracking.</p>
-                <div class="pc-auth-features">
-                  <span class="pc-auth-feature">⭐ Favorite Tools</span>
-                  <span class="pc-auth-feature">📊 Recent History</span>
-                  <span class="pc-auth-feature">⚙️ Custom Layout</span>
-                  <span class="pc-auth-feature">💾 Saved Patients</span>
-                  <span class="pc-auth-feature">📈 Study Progress</span>
-                  <span class="pc-auth-feature">📝 Personal Notes</span>
-                </div>
-                <a href="/account/" class="pc-btn pc-btn--primary pc-btn--large">
-                  Sign Up / Login →
+        <!-- Featured Tools Section - Beautiful Grid -->
+        <section class="pc-featured-section" aria-labelledby="featured-title">
+            <style>
+                .pc-featured-section {
+                    padding: 3rem 2rem;
+                    max-width: 1400px;
+                    margin: 0 auto;
+                }
+                .pc-featured-header {
+                    text-align: center;
+                    margin-bottom: 2.5rem;
+                }
+                .pc-featured-header h2 {
+                    font-size: clamp(1.75rem, 4vw, 2.5rem);
+                    font-weight: 700;
+                    margin-bottom: 0.75rem;
+                    background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-secondary) 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                }
+                .pc-featured-header p {
+                    color: var(--pc-text-muted);
+                    font-size: 1.1rem;
+                    max-width: 600px;
+                    margin: 0 auto;
+                }
+                .pc-featured-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: 1.25rem;
+                }
+                .pc-featured-card {
+                    background: var(--pc-surface);
+                    border: 1px solid var(--pc-border);
+                    border-radius: var(--pc-radius-lg);
+                    padding: 1.5rem;
+                    transition: all 0.3s ease;
+                    text-decoration: none;
+                    color: inherit;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    position: relative;
+                    overflow: hidden;
+                }
+                .pc-featured-card::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    height: 3px;
+                    background: linear-gradient(90deg, var(--pc-primary), var(--pc-secondary));
+                    transform: scaleX(0);
+                    transition: transform 0.3s ease;
+                }
+                .pc-featured-card:hover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+                    border-color: var(--pc-primary);
+                }
+                .pc-featured-card:hover::before {
+                    transform: scaleX(1);
+                }
+                .pc-featured-card--urgent::before {
+                    background: linear-gradient(90deg, #dc2626, #ef4444);
+                }
+                .pc-featured-card--urgent:hover {
+                    border-color: #dc2626;
+                }
+                .pc-featured-card__icon {
+                    width: 48px;
+                    height: 48px;
+                    border-radius: var(--pc-radius-md);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.5rem;
+                    background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-secondary) 100%);
+                }
+                .pc-featured-card--urgent .pc-featured-card__icon {
+                    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+                }
+                .pc-featured-card__title {
+                    font-size: 1.125rem;
+                    font-weight: 600;
+                    margin: 0;
+                    color: var(--pc-text);
+                }
+                .pc-featured-card__desc {
+                    color: var(--pc-text-muted);
+                    font-size: 0.9rem;
+                    line-height: 1.5;
+                    margin: 0;
+                    flex-grow: 1;
+                }
+                .pc-featured-card__meta {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    font-size: 0.8rem;
+                    color: var(--pc-text-muted);
+                }
+                .pc-featured-card__tag {
+                    padding: 0.25rem 0.5rem;
+                    background: var(--pc-surface-2);
+                    border-radius: 999px;
+                    font-size: 0.7rem;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                }
+                .pc-view-all {
+                    text-align: center;
+                    margin-top: 2.5rem;
+                }
+                .pc-view-all-btn {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 1rem 2rem;
+                    background: var(--pc-surface);
+                    border: 2px solid var(--pc-border);
+                    border-radius: var(--pc-radius-md);
+                    color: var(--pc-text);
+                    font-weight: 600;
+                    text-decoration: none;
+                    transition: all 0.2s ease;
+                }
+                .pc-view-all-btn:hover {
+                    border-color: var(--pc-primary);
+                    color: var(--pc-primary);
+                    transform: translateY(-2px);
+                }
+            </style>
+            <div class="pc-featured-header">
+                <h2 id="featured-title">40+ Clinical Calculators</h2>
+                <p>Free, accurate tools for drug dosing, fluids, emergencies, and more. No signup required.</p>
+            </div>
+            <div class="pc-featured-grid">
+                <a href="/tools/emergency-drug-chart.html" class="pc-featured-card pc-featured-card--urgent">
+                    <div class="pc-featured-card__icon">🚨</div>
+                    <h3 class="pc-featured-card__title">Emergency Drugs</h3>
+                    <p class="pc-featured-card__desc">CPR medications, crash cart doses, and critical care protocols for dogs and cats.</p>
+                    <div class="pc-featured-card__meta">
+                        <span class="pc-featured-card__tag">Critical</span>
+                        <span>Epinephrine, Atropine, Lidocaine</span>
+                    </div>
                 </a>
-              </div>
+                
+                <a href="/tools/dose-calculator.html" class="pc-featured-card">
+                    <div class="pc-featured-card__icon">💊</div>
+                    <h3 class="pc-featured-card__title">Drug Dosing</h3>
+                    <p class="pc-featured-card__desc">mg/kg to mg/mL conversions with built-in drug reference and safety alerts.</p>
+                    <div class="pc-featured-card__meta">
+                        <span class="pc-featured-card__tag">Most Used</span>
+                        <span>300+ medications</span>
+                    </div>
+                </a>
+                
+                <a href="/tools/fluid-calculator.html" class="pc-featured-card">
+                    <div class="pc-featured-card__icon">💧</div>
+                    <h3 class="pc-featured-card__title">Fluid Therapy</h3>
+                    <p class="pc-featured-card__desc">Maintenance rates, dehydration deficits, shock doses, and drip calculations.</p>
+                    <div class="pc-featured-card__meta">
+                        <span class="pc-featured-card__tag">ICU</span>
+                        <span>Crystalloids & Colloids</span>
+                    </div>
+                </a>
+                
+                <a href="/tools/cri-calculator.html" class="pc-featured-card">
+                    <div class="pc-featured-card__icon">💉</div>
+                    <h3 class="pc-featured-card__title">CRI Calculator</h3>
+                    <p class="pc-featured-card__desc">Constant rate infusions for fentanyl, ketamine, dopamine, and 15+ drugs.</p>
+                    <div class="pc-featured-card__meta">
+                        <span class="pc-featured-card__tag">Advanced</span>
+                        <span>Syringe pump ready</span>
+                    </div>
+                </a>
+                
+                <a href="/tools/toxicity-suite.html" class="pc-featured-card pc-featured-card--urgent">
+                    <div class="pc-featured-card__icon">☠️</div>
+                    <h3 class="pc-featured-card__title">Toxicity Suite</h3>
+                    <p class="pc-featured-card__desc">Chocolate, xylitol, rodenticide, grapes, and medication toxicity assessment.</p>
+                    <div class="pc-featured-card__meta">
+                        <span class="pc-featured-card__tag">Emergency</span>
+                        <span>Decontamination protocols</span>
+                    </div>
+                </a>
+                
+                <a href="/tools/transfusion-helper.html" class="pc-featured-card">
+                    <div class="pc-featured-card__icon">🩸</div>
+                    <h3 class="pc-featured-card__title">Transfusion</h3>
+                    <p class="pc-featured-card__desc">Blood volume calculations, component therapy, and crossmatch guidance.</p>
+                    <div class="pc-featured-card__meta">
+                        <span class="pc-featured-card__tag">Critical Care</span>
+                        <span>PRBCs, FFP, Platelets</span>
+                    </div>
+                </a>
+                
+                <a href="/tools/acid-base-electrolyte.html" class="pc-featured-card">
+                    <div class="pc-featured-card__icon">🧪</div>
+                    <h3 class="pc-featured-card__title">Blood Gas & Electrolytes</h3>
+                    <p class="pc-featured-card__desc">Acid-base analysis, anion gap, corrected sodium, and electrolyte replacement.</p>
+                    <div class="pc-featured-card__meta">
+                        <span class="pc-featured-card__tag">Lab</span>
+                        <span>Venous & Arterial</span>
+                    </div>
+                </a>
+                
+                <a href="/tools/anesthetic-preparation-calculator.html" class="pc-featured-card">
+                    <div class="pc-featured-card__icon">😴</div>
+                    <h3 class="pc-featured-card__title">Anesthesia</h3>
+                    <p class="pc-featured-card__desc">Pre-med and induction dosing with ASA protocols and monitoring guidance.</p>
+                    <div class="pc-featured-card__meta">
+                        <span class="pc-featured-card__tag">Surgery</span>
+                        <span>Propofol, Dexmedetomidine</span>
+                    </div>
+                </a>
             </div>
-          </div>
-        </section>
-        
-        <!-- LOGGED-IN WELCOME SECTION (shown when logged in) -->
-        <section id="homepage-logged-in" class="pc-auth-section" style="display: none;" aria-labelledby="welcome-title">
-          <div class="pc-auth-container">
-            <h2 id="welcome-title" class="pc-auth-title">Welcome back, <span id="homepage-user-name">User</span>!</h2>
-            <p class="pc-auth-subtitle">Your personalized veterinary tool experience</p>
-            
-            <div class="pc-auth-options">
-              <!-- Quick Access -->
-              <div class="pc-auth-card">
-                <div class="pc-auth-card__icon">⭐</div>
-                <h3>Your Favorites</h3>
-                <p>Quick access to your most-used tools.</p>
-                <div id="homepage-favorites" class="pc-home-favorites">
-                  <p style="color: var(--pc-text-muted); font-size: 0.9rem;">No favorites yet. Visit tools and star them!</p>
-                </div>
-                <a href="/tools/" class="pc-btn pc-btn--secondary pc-btn--large">Browse Tools</a>
-              </div>
-              
-              <!-- Continue Studying -->
-              <div class="pc-auth-card">
-                <div class="pc-auth-card__icon">📚</div>
-                <h3>Continue Learning</h3>
-                <p>Pick up where you left off.</p>
-                <div class="pc-auth-features">
-                  <span class="pc-auth-feature">📊 Study Progress</span>
-                  <span class="pc-auth-feature">📝 Saved Notes</span>
-                </div>
-                <a href="/study/navle/" class="pc-btn pc-btn--primary pc-btn--large">Continue Studying →</a>
-              </div>
-              
-              <!-- Go to Account -->
-              <div class="pc-auth-card pc-auth-card--account">
-                <div class="pc-auth-card__icon">⚙️</div>
-                <h3>Your Account</h3>
-                <p>Manage your preferences, saved data, and settings.</p>
-                <div class="pc-auth-features">
-                  <span class="pc-auth-feature">👤 Profile Settings</span>
-                  <span class="pc-auth-feature">🐾 Saved Patients</span>
-                  <span class="pc-auth-feature">💾 Saved Calculations</span>
-                </div>
-                <a href="/account/" class="pc-btn pc-btn--primary pc-btn--large">Go to Account →</a>
-              </div>
+            <div class="pc-view-all">
+                <a href="/tools/" class="pc-view-all-btn">
+                    View All 40+ Calculators →
+                </a>
             </div>
-          </div>
         </section>
         
         <!-- Trust Indicators Bar -->
@@ -1108,5 +910,8 @@
             <span>Quick Calc</span>
         </a>
     </div>
+    <!-- DVMReady Enhancement Components -->
+    <script src="/assets/js/drug-formulary-data.js"></script>
+    <script src="/assets/js/quick-calculate-widget.js"></script>
 </body>
 </html>

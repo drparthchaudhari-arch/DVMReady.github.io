@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "dvmready-website",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "sitemap": "node scripts/generate-sitemap.mjs",
     "programmatic": "node scripts/generate-programmatic-pages.mjs",
+    "check:seo-meta": "node scripts/check-seo-meta.mjs",
     "format": "prettier --write .",
     "analyze": "ANALYZE=true npm run build"
   },

@@ -1219,10 +1219,8 @@
   }
 
   function loadRouteEnhancements() {
-    var path = getPathForAnalytics()
-    if (path === '/' || path === '/index.html') {
-      loadScriptAsync('/assets/js/home-popup.js')
-    }
+    // Home popup script was removed; no route-level enhancement currently required.
+    return
   }
 
   function canRegisterServiceWorker() {
