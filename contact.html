@@ -75,6 +75,60 @@
       .pc-nav-link--cta:hover {
         background: color-mix(in srgb, var(--pc-primary) 85%, black);
       }
+      
+      /* Navigation Dropdown */
+      .pc-nav-dropdown {
+          position: relative;
+      }
+
+      .pc-nav-dropdown__menu {
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%) translateY(10px);
+          background: var(--pc-surface, #1a2332);
+          border: 1px solid var(--pc-border, #2d3748);
+          border-radius: 12px;
+          padding: 0.5rem;
+          min-width: 220px;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.2s ease;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+          z-index: 1000;
+      }
+
+      .pc-nav-dropdown:hover .pc-nav-dropdown__menu {
+          opacity: 1;
+          visibility: visible;
+          transform: translateX(-50%) translateY(0);
+      }
+
+      .pc-nav-dropdown__menu a {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.6rem 0.75rem;
+          color: var(--pc-text, #e2e8f0);
+          text-decoration: none;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          transition: all 0.15s ease;
+          white-space: nowrap;
+      }
+
+      .pc-nav-dropdown__menu a:hover {
+          background: var(--pc-primary, #0d7377);
+          color: white;
+      }
+
+      .pc-nav-dropdown__menu a:last-child {
+          margin-top: 0.5rem;
+          border-top: 1px solid var(--pc-border, #2d3748);
+          padding-top: 0.75rem;
+          font-weight: 600;
+          color: var(--pc-accent, #32e0c4);
+      }
     </style>
     <script src="/assets/js/nav-status.js" defer></script>
     <script src="/assets/js/theme-toggle.js" defer></script>
@@ -145,7 +199,21 @@
         
         <div class="pc-nav-group">
           <a class="pc-nav-link" href="/">Home</a>
-          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/tools/">Tools</a>
+          <div class="pc-nav-dropdown pc-nav-link--hide-mobile">
+            <a class="pc-nav-link" href="/tools/">Tools ▾</a>
+            <div class="pc-nav-dropdown__menu">
+                <a href="/tools/dose-calculator.html">💊 Dose Calculator</a>
+                <a href="/tools/fluid-calculator.html">💧 Fluid Calculator</a>
+                <a href="/tools/cri-calculator.html">💉 CRI Calculator</a>
+                <a href="/tools/emergency-drug-chart.html">🚨 Emergency Drugs</a>
+                <a href="/tools/toxicity-suite.html">☠️ Toxicity Suite</a>
+                <a href="/tools/transfusion-helper.html">🩸 Transfusion Helper</a>
+                <a href="/tools/acid-base-electrolyte.html">🧪 Acid-Base</a>
+                <a href="/tools/anesthetic-preparation-calculator.html">😴 Anesthesia Prep</a>
+                <a href="/tools/unit-converter.html">🔄 Unit Converter</a>
+                <a href="/tools/">📋 All Tools →</a>
+            </div>
+        </div>
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/navle/">NAVLE Prep</a>
           <a class="pc-nav-link pc-nav-link--hide-mobile" href="/about.html">About</a>
           <a class="pc-nav-link" href="/search.html" title="Search">

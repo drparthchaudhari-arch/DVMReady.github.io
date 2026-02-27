@@ -63,6 +63,82 @@
     <link rel="stylesheet" href="/assets/css/dvmready-masterpiece.css">
     
     <style>
+    /* ===== MOBILE MENU SECTIONS ===== */
+    .pc-mobile-nav-section {
+        border-bottom: 1px solid var(--pc-border, #2d3748);
+        padding-bottom: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .pc-mobile-nav-section__title {
+        display: block;
+        padding: 0.5rem 0;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--pc-text-muted, #94a3b8);
+    }
+    
+    .pc-mobile-nav-link--sub {
+        padding-left: 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    /* ===== NAVIGATION DROPDOWN ===== */
+    .pc-nav-dropdown {
+        position: relative;
+    }
+    
+    .pc-nav-dropdown__menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        background: var(--pc-surface, #1a2332);
+        border: 1px solid var(--pc-border, #2d3748);
+        border-radius: 12px;
+        padding: 0.5rem;
+        min-width: 220px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.2s ease;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        z-index: 1000;
+    }
+    
+    .pc-nav-dropdown:hover .pc-nav-dropdown__menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+    
+    .pc-nav-dropdown__menu a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 0.75rem;
+        color: var(--pc-text, #e2e8f0);
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+    }
+    
+    .pc-nav-dropdown__menu a:hover {
+        background: var(--pc-primary, #0d7377);
+        color: white;
+    }
+    
+    .pc-nav-dropdown__menu a:last-child {
+        margin-top: 0.5rem;
+        border-top: 1px solid var(--pc-border, #2d3748);
+        padding-top: 0.75rem;
+        font-weight: 600;
+        color: var(--pc-accent, #32e0c4);
+    }
+    
     /* ===== CLEAN HOMEPAGE STYLES ===== */
     
     /* 2-column tier grid layout */
@@ -365,7 +441,21 @@
             
             <div class="pc-nav-group">
                 <a class="pc-nav-link" href="/">Home</a>
-                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/tools/">Tools</a>
+                <div class="pc-nav-dropdown">
+                    <a class="pc-nav-link pc-nav-link--hide-mobile" href="/tools/">Tools ▾</a>
+                    <div class="pc-nav-dropdown__menu">
+                        <a href="/tools/dose-calculator.html">💊 Dose Calculator</a>
+                        <a href="/tools/fluid-calculator.html">💧 Fluid Calculator</a>
+                        <a href="/tools/cri-calculator.html">💉 CRI Calculator</a>
+                        <a href="/tools/emergency-drug-chart.html">🚨 Emergency Drugs</a>
+                        <a href="/tools/toxicity-suite.html">☠️ Toxicity Suite</a>
+                        <a href="/tools/transfusion-helper.html">🩸 Transfusion Helper</a>
+                        <a href="/tools/acid-base-electrolyte.html">🧪 Acid-Base</a>
+                        <a href="/tools/anesthetic-preparation-calculator.html">😴 Anesthesia Prep</a>
+                        <a href="/tools/unit-converter.html">🔄 Unit Converter</a>
+                        <a href="/tools/">📋 All Tools →</a>
+                    </div>
+                </div>
                 <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/navle/">NAVLE Prep</a>
                 <a class="pc-nav-link pc-nav-link--hide-mobile" href="/about.html">About</a>
                 <a class="pc-nav-link" href="/search.html" title="Search">
@@ -390,10 +480,32 @@
                 <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
             </div>
             <nav class="pc-mobile-menu__nav">
-                <a class="pc-mobile-nav-link" href="/tools/">
-                    <span class="pc-mobile-nav-link__icon">🧮</span>
-                    <span class="pc-mobile-nav-link__text">Tools</span>
-                </a>
+                <div class="pc-mobile-nav-section">
+                    <span class="pc-mobile-nav-section__title">🧮 Popular Calculators</span>
+                    <a class="pc-mobile-nav-link pc-mobile-nav-link--sub" href="/tools/dose-calculator.html">
+                        <span class="pc-mobile-nav-link__icon">💊</span>
+                        <span class="pc-mobile-nav-link__text">Dose Calculator</span>
+                    </a>
+                    <a class="pc-mobile-nav-link pc-mobile-nav-link--sub" href="/tools/fluid-calculator.html">
+                        <span class="pc-mobile-nav-link__icon">💧</span>
+                        <span class="pc-mobile-nav-link__text">Fluid Calculator</span>
+                    </a>
+                    <a class="pc-mobile-nav-link pc-mobile-nav-link--sub" href="/tools/cri-calculator.html">
+                        <span class="pc-mobile-nav-link__icon">💉</span>
+                        <span class="pc-mobile-nav-link__text">CRI Calculator</span>
+                    </a>
+                    <a class="pc-mobile-nav-link pc-mobile-nav-link--sub" href="/tools/emergency-drug-chart.html">
+                        <span class="pc-mobile-nav-link__icon">🚨</span>
+                        <span class="pc-mobile-nav-link__text">Emergency Drugs</span>
+                    </a>
+                    <a class="pc-mobile-nav-link pc-mobile-nav-link--sub" href="/tools/toxicity-suite.html">
+                        <span class="pc-mobile-nav-link__icon">☠️</span>
+                        <span class="pc-mobile-nav-link__text">Toxicity Suite</span>
+                    </a>
+                    <a class="pc-mobile-nav-link" href="/tools/">
+                        <span class="pc-mobile-nav-link__text" style="color: var(--pc-accent, #32e0c4); font-weight: 600;">📋 View All Tools →</span>
+                    </a>
+                </div>
                 <a class="pc-mobile-nav-link" href="/study/extra/">
                     <span class="pc-mobile-nav-link__icon">📚</span>
                     <span class="pc-mobile-nav-link__text">Extra</span>
