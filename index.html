@@ -11,6 +11,9 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     
+    <!-- Google Search Console Verification - ADD YOUR CODE HERE -->
+    <meta name="google-site-verification" content="YOUR_GOOGLE_SEARCH_CONSOLE_CODE_HERE">
+    
     <link rel="icon" type="image/svg+xml" href="/assets/img/dvmready-logo-icon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
@@ -23,11 +26,26 @@
     <title>40+ Free Veterinary Calculators | Drug Dosing, CRI, Fluids | DVMReady</title>
     <meta name="description" content="Free veterinary calculators for drug dosing, CRI, fluids, emergencies, and toxicity. 40+ clinical tools for vets and students. No signup. Works offline. Formulas verified.">
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+    <meta name="author" content="DVMReady">
+    <meta name="keywords" content="veterinary calculators, drug dosing, CRI calculator, fluid therapy, emergency drugs, vet tools, NAVLE prep, veterinary medicine">
+    
+    <!-- Open Graph / Social Media -->
     <meta property="og:title" content="40+ Free Veterinary Calculators | DVMReady">
     <meta property="og:description" content="Free veterinary calculators for drug dosing, CRI, fluids, emergencies, and toxicity. 40+ clinical tools. No signup required.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="DVMReady">
     <meta property="og:url" content="https://dvmready.com/">
+    <meta property="og:image" content="https://dvmready.com/assets/img/dvmready-og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="DVMReady - Veterinary Calculators and Tools">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="40+ Free Veterinary Calculators | DVMReady">
+    <meta name="twitter:description" content="Free veterinary calculators for drug dosing, CRI, fluids, emergencies. 40+ clinical tools for vets and students.">
+    <meta name="twitter:image" content="https://dvmready.com/assets/img/dvmready-og-image.png">
+    
     <link rel="canonical" href="https://dvmready.com/">
     <!-- Preload Critical Resources -->
     <link rel="preload" href="/assets/css/tokens.css" as="style">
@@ -42,6 +60,7 @@
     <link rel="stylesheet" href="/assets/css/floating-elements.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="/assets/css/animations-enhanced.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="/assets/css/logo-styles.css">
+    <link rel="stylesheet" href="/assets/css/dvmready-masterpiece.css">
     
     <style>
     /* ===== CLEAN HOMEPAGE STYLES ===== */
@@ -296,8 +315,33 @@
     
     <nav class="pc-portal-nav" aria-label="Global portal navigation">
         <div class="pc-portal-nav__inner">
-            <a class="pc-logo pc-logo--pro" href="/">
-                <img src="/assets/img/dvmready-logo-pro.svg" alt="" class="pc-logo__img" aria-hidden="true">
+            <a class="pc-logo pc-logo--masterpiece" href="/" aria-label="DVMReady Home">
+                <svg class="pc-logo__img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="navLogoBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#0a3d52"/>
+                            <stop offset="100%" stop-color="#107a94"/>
+                        </linearGradient>
+                        <linearGradient id="navLogoAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00fff2"/>
+                            <stop offset="100%" stop-color="#00b8a8"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="100" height="100" rx="24" fill="url(#navLogoBg)"/>
+                    <g transform="translate(50, 50)">
+                        <rect x="-8" y="-35" width="16" height="70" rx="4" fill="url(#navLogoAccent)"/>
+                        <rect x="-35" y="-8" width="70" height="16" rx="4" fill="url(#navLogoAccent)"/>
+                        <circle cx="0" cy="0" r="20" fill="#ffffff"/>
+                        <circle cx="0" cy="0" r="17" fill="url(#navLogoBg)"/>
+                        <g fill="#ffffff">
+                            <ellipse cx="0" cy="4" rx="6" ry="5"/>
+                            <circle cx="-8" cy="-5" r="3.5"/>
+                            <circle cx="8" cy="-5" r="3.5"/>
+                            <circle cx="-5" cy="-15" r="2.5"/>
+                            <circle cx="5" cy="-15" r="2.5"/>
+                        </g>
+                    </g>
+                </svg>
                 <span class="pc-logo__text">DVMReady</span>
             </a>
             
@@ -834,10 +878,35 @@
     <footer class="pc-footer pc-footer--enhanced">
         <div class="pc-footer__grid">
             <div class="pc-footer__brand">
-                <a class="pc-footer__logo pc-logo" href="/">
-                <img src="/assets/img/dvmready-logo-pro.svg" alt="" class="pc-logo__img" aria-hidden="true">
-                <span class="pc-logo__text">DVMReady</span>
-            </a>
+                <a class="pc-footer__logo pc-logo pc-logo--masterpiece" href="/" aria-label="DVMReady Home">
+                    <svg class="pc-logo__img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="footerLogoBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#0a3d52"/>
+                                <stop offset="100%" stop-color="#107a94"/>
+                            </linearGradient>
+                            <linearGradient id="footerLogoAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00fff2"/>
+                                <stop offset="100%" stop-color="#00b8a8"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="100" height="100" rx="24" fill="url(#footerLogoBg)"/>
+                        <g transform="translate(50, 50)">
+                            <rect x="-8" y="-35" width="16" height="70" rx="4" fill="url(#footerLogoAccent)"/>
+                            <rect x="-35" y="-8" width="70" height="16" rx="4" fill="url(#footerLogoAccent)"/>
+                            <circle cx="0" cy="0" r="20" fill="#ffffff"/>
+                            <circle cx="0" cy="0" r="17" fill="url(#footerLogoBg)"/>
+                            <g fill="#ffffff">
+                                <ellipse cx="0" cy="4" rx="6" ry="5"/>
+                                <circle cx="-8" cy="-5" r="3.5"/>
+                                <circle cx="8" cy="-5" r="3.5"/>
+                                <circle cx="-5" cy="-15" r="2.5"/>
+                                <circle cx="5" cy="-15" r="2.5"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <span class="pc-logo__text">DVMReady</span>
+                </a>
                 <p class="pc-footer__tagline">Smart tools for veterinary excellence. Trusted by students and professionals worldwide.</p>
                 <div class="pc-footer__social">
                     <a href="mailto:info@dvmready.com" class="pc-footer__social-link" aria-label="Email DVMReady">

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="ogBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1f26"/>
+      <stop offset="50%" stop-color="#0d3d4a"/>
+      <stop offset="100%" stop-color="#0a2f3a"/>
+    </linearGradient>
+    <linearGradient id="ogAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00fff2"/>
+      <stop offset="50%" stop-color="#00d4c8"/>
+      <stop offset="100%" stop-color="#00b8a8"/>
+    </linearGradient>
+    <filter id="ogGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="15" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#ogBg)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="300" fill="url(#ogAccent)" opacity="0.05"/>
+  <circle cx="1100" cy="530" r="250" fill="url(#ogAccent)" opacity="0.03"/>
+  
+  <!-- Logo Icon -->
+  <g transform="translate(200, 315)">
+    <rect x="-100" y="-100" width="200" height="200" rx="48" fill="#0a3d52"/>
+    <g transform="translate(0, 0)">
+      <rect x="-16" y="-70" width="32" height="140" rx="8" fill="url(#ogAccent)"/>
+      <rect x="-70" y="-16" width="140" height="32" rx="8" fill="url(#ogAccent)"/>
+      <circle cx="0" cy="0" r="40" fill="#ffffff"/>
+      <circle cx="0" cy="0" r="34" fill="#0a3d52"/>
+      <g fill="#ffffff">
+        <ellipse cx="0" cy="8" rx="12" ry="10"/>
+        <circle cx="-16" cy="-10" r="7"/>
+        <circle cx="16" cy="-10" r="7"/>
+        <circle cx="-10" cy="-30" r="5"/>
+        <circle cx="10" cy="-30" r="5"/>
+      </g>
+    </g>
+  </g>
+  
+  <!-- Text Content -->
+  <text x="450" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="80" font-weight="800" fill="#ffffff">DVMReady</text>
+  <text x="450" y="330" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="600" fill="url(#ogAccent)">Veterinary Calculators & Tools</text>
+  
+  <!-- Tagline -->
+  <text x="450" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="rgba(255,255,255,0.7)">40+ Free Clinical Tools for Vets & Students</text>
+  
+  <!-- Features -->
+  <g transform="translate(450, 480)">
+    <rect x="0" y="0" width="180" height="50" rx="8" fill="rgba(0,255,242,0.1)" stroke="url(#ogAccent)" stroke-width="1"/>
+    <text x="90" y="33" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#00fff2">Drug Dosing</text>
+    
+    <rect x="200" y="0" width="180" height="50" rx="8" fill="rgba(0,255,242,0.1)" stroke="url(#ogAccent)" stroke-width="1"/>
+    <text x="290" y="33" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#00fff2">CRI Calculator</text>
+    
+    <rect x="400" y="0" width="180" height="50" rx="8" fill="rgba(0,255,242,0.1)" stroke="url(#ogAccent)" stroke-width="1"/>
+    <text x="490" y="33" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#00fff2">NAVLE Prep</text>
+  </g>
+  
+  <!-- URL at bottom -->
+  <text x="600" y="590" text-anchor="middle" font-family="system-ui, sans-serif" font-size="24" fill="rgba(255,255,255,0.5)">www.dvmready.com</text>
+</svg>
