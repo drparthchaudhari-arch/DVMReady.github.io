@@ -1,0 +1,1159 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Seizure Protocol" />
+    <title>Seizure Protocol Calculator | DVMReady Tools</title>
+    <meta name="description" content="Veterinary seizure protocol calculator with emergency management (diazepam, midazolam, phenobarbital) and maintenance therapy (phenobarbital, KBr, Keppra, zonisamide). Dosages verified per Plumb's." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Seizure Protocol Calculator | DVMReady Tools" />
+    <meta property="og:description" content="Emergency and maintenance seizure protocols for dogs and cats with weight-based dosing calculations." />
+    <meta property="og:url" content="https://dvmready.com/tools/seizure-protocol.html" />
+    <link rel="canonical" href="https://dvmready.com/tools/seizure-protocol.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-dashboard.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/legal-compliance.js" defer></script>
+    <script src="/assets/js/preferences.js" defer></script>
+    <script src="/assets/js/auth-system.js" defer></script>
+    <script src="/assets/js/animations.js" defer></script>
+    <link rel="stylesheet" href="/assets/css/clinic-utilities.css" />
+    <script src="/assets/js/clinic-utilities.js" defer></script>
+    <style>
+      /* Protocol-specific styles */
+      .protocol-mode-toggle {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        background: var(--calc-glass-bg, rgba(15, 23, 42, 0.6));
+        padding: 0.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--calc-glass-border, rgba(94, 234, 212, 0.1));
+      }
+      
+      .protocol-mode-btn {
+        flex: 1;
+        padding: 0.875rem 1rem;
+        border: none;
+        background: transparent;
+        color: var(--calc-text-muted, #94a3b8);
+        font-size: 0.9rem;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      
+      .protocol-mode-btn.active {
+        background: var(--calc-primary, #0d7377);
+        color: white;
+      }
+      
+      .protocol-mode-btn:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      
+      .emergency-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        padding: 0.25rem 0.625rem;
+        background: rgba(220, 38, 38, 0.15);
+        border: 1px solid rgba(220, 38, 38, 0.3);
+        color: #f87171;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-radius: 4px;
+      }
+      
+      .drug-card {
+        background: var(--calc-surface, #1a2332);
+        border: 1px solid var(--calc-glass-border, rgba(94, 234, 212, 0.1));
+        border-radius: 12px;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+      }
+      
+      .drug-card__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 0.75rem;
+      }
+      
+      .drug-card__name {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--calc-text-primary, #e2e8f0);
+      }
+      
+      .drug-card__dose {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--calc-primary, #32e0c4);
+        font-family: 'JetBrains Mono', monospace;
+      }
+      
+      .drug-card__range {
+        font-size: 0.8rem;
+        color: var(--calc-text-muted, #94a3b8);
+        margin-bottom: 0.5rem;
+      }
+      
+      .drug-card__route {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.25rem 0.5rem;
+        background: rgba(12, 96, 125, 0.2);
+        color: var(--calc-primary-light, #5eead4);
+        font-size: 0.75rem;
+        font-weight: 600;
+        border-radius: 4px;
+        margin-right: 0.5rem;
+      }
+      
+      .step-card {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem;
+        background: var(--calc-surface, #1a2332);
+        border: 1px solid var(--calc-glass-border, rgba(94, 234, 212, 0.1));
+        border-radius: 12px;
+        margin-bottom: 0.75rem;
+      }
+      
+      .step-number {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--calc-primary, #0d7377);
+        color: white;
+        font-weight: 700;
+        font-size: 0.875rem;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      
+      .step-content {
+        flex: 1;
+      }
+      
+      .step-title {
+        font-weight: 600;
+        color: var(--calc-text-primary, #e2e8f0);
+        margin-bottom: 0.25rem;
+      }
+      
+      .step-desc {
+        font-size: 0.8125rem;
+        color: var(--calc-text-muted, #94a3b8);
+        line-height: 1.5;
+      }
+      
+      .checklist-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.75rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      
+      .checklist-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      
+      .checklist-item input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-top: 2px;
+        accent-color: var(--calc-primary, #0d7377);
+      }
+      
+      .checklist-item__text {
+        font-size: 0.875rem;
+        color: var(--calc-text-secondary, #cbd5e1);
+        line-height: 1.5;
+      }
+      
+      .alert-box {
+        padding: 1rem 1.25rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+      
+      .alert-box--warning {
+        background: rgba(245, 158, 11, 0.1);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+        color: #fbbf24;
+      }
+      
+      .alert-box--danger {
+        background: rgba(220, 38, 38, 0.1);
+        border: 1px solid rgba(220, 38, 38, 0.3);
+        color: #f87171;
+      }
+      
+      .alert-box--info {
+        background: rgba(12, 96, 125, 0.15);
+        border: 1px solid rgba(12, 96, 125, 0.3);
+        color: #5eead4;
+      }
+      
+      .monitoring-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      
+      .monitoring-card {
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--calc-glass-border, rgba(94, 234, 212, 0.1));
+        border-radius: 8px;
+      }
+      
+      .monitoring-card__title {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--calc-text-muted, #94a3b8);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+      }
+      
+      .monitoring-card__value {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--calc-text-primary, #e2e8f0);
+      }
+      
+      .timing-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0.5rem;
+        background: rgba(245, 158, 11, 0.15);
+        color: #fbbf24;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border-radius: 4px;
+        margin-left: auto;
+      }
+      
+      .referral-section {
+        padding: 1.25rem;
+        background: linear-gradient(135deg, rgba(12, 96, 125, 0.1), rgba(12, 96, 125, 0.05));
+        border: 1px solid rgba(12, 96, 125, 0.3);
+        border-radius: 12px;
+        margin-top: 1rem;
+      }
+      
+      .hidden-section {
+        display: none;
+      }
+      
+      .drug-alert {
+        padding: 0.5rem 0.75rem;
+        background: rgba(220, 38, 38, 0.1);
+        border: 1px solid rgba(220, 38, 38, 0.2);
+        border-radius: 6px;
+        font-size: 0.75rem;
+        color: #f87171;
+        margin-top: 0.5rem;
+      }
+      
+      .species-note {
+        padding: 0.75rem;
+        background: rgba(12, 96, 125, 0.1);
+        border-radius: 8px;
+        font-size: 0.8125rem;
+        color: var(--calc-text-secondary, #cbd5e1);
+        margin-top: 0.75rem;
+      }
+      
+      .status-epilepticus-box {
+        padding: 1rem;
+        background: rgba(220, 38, 38, 0.08);
+        border: 2px solid rgba(220, 38, 38, 0.3);
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+      }
+      
+      .status-epilepticus-box label {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        cursor: pointer;
+      }
+      
+      .status-epilepticus-box input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+        accent-color: #dc2626;
+      }
+      
+      .status-epilepticus-box .checkbox-label {
+        font-weight: 600;
+        color: #f87171;
+      }
+      
+      .status-epilepticus-box .checkbox-desc {
+        font-size: 0.8125rem;
+        color: var(--calc-text-muted, #94a3b8);
+      }
+    </style>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <form class="pc-nav-search" action="/search.html" method="get" role="search">
+          <div class="pc-search-wrapper">
+            <svg class="pc-search-icon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+            </svg>
+            <input type="search" name="q" class="pc-search-input pc-search-input--nav" placeholder="Search calculators, topics..." aria-label="Search veterinary calculators" autocomplete="off">
+            <kbd class="pc-search-shortcut">⌘K</kbd>
+          </div>
+        </form>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/extra/">Extra</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="pc-calc-dashboard" role="main" style="padding-top: calc(5rem + env(safe-area-inset-top));">
+      <!-- Header -->
+      <header class="pc-calc-header pc-calc-animate">
+        <div class="pc-calc-header__title">
+          <div class="pc-calc-header__icon">⚡</div>
+          <div class="pc-calc-header__text">
+            <h1>Seizure Protocol Calculator</h1>
+            <p>Emergency management and maintenance therapy for canine and feline seizures</p>
+          </div>
+        </div>
+        <div class="pc-calc-header__actions">
+          <div class="pc-calc-quick-actions">
+            <button type="button" class="pc-calc-action-btn" onclick="resetCalculator()" title="Reset all fields">
+              <span>↺</span> Reset
+            </button>
+            <button type="button" class="pc-calc-action-btn" onclick="copyResults()" title="Copy protocol summary">
+              <span>📋</span> Copy
+            </button>
+            <a href="/tools/" class="pc-calc-action-btn">
+              <span>←</span> Back
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Input Panel -->
+      <aside class="pc-calc-inputs pc-calc-animate pc-calc-animate--1" aria-label="Patient inputs">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📝</span>
+              Patient Data
+            </span>
+          </div>
+          <div class="pc-calc-panel__content">
+            <form id="seizure-form" novalidate>
+              <!-- Species -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Species</span>
+                </div>
+                <select id="species" class="pc-calc-input" onchange="onInputChange()">
+                  <option value="dog">🐕 Dog</option>
+                  <option value="cat">🐈 Cat</option>
+                </select>
+              </div>
+
+              <!-- Weight -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Weight</span>
+                  <span class="pc-calc-field__hint">kg</span>
+                </div>
+                <input id="weight" class="pc-calc-input pc-calc-input--number" type="number" min="0.5" step="0.1" value="10" required oninput="onInputChange()" />
+                <div class="pc-calc-chips" id="weight-chips">
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(2.5)">2.5 kg</button>
+                  <button type="button" class="pc-calc-chip pc-calc-chip--active" onclick="setWeight(10)">10 kg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(20)">20 kg</button>
+                  <button type="button" class="pc-calc-chip" onclick="setWeight(30)">30 kg</button>
+                </div>
+              </div>
+
+              <!-- Protocol Mode Toggle -->
+              <div class="pc-calc-field">
+                <div class="pc-calc-field__label">
+                  <span>Protocol Mode</span>
+                </div>
+                <div class="protocol-mode-toggle">
+                  <button type="button" class="protocol-mode-btn active" id="mode-emergency" onclick="setMode('emergency')">
+                    <span>🚨</span> Emergency
+                  </button>
+                  <button type="button" class="protocol-mode-btn" id="mode-maintenance" onclick="setMode('maintenance')">
+                    <span>💊</span> Maintenance
+                  </button>
+                </div>
+              </div>
+
+              <!-- Status Epilepticus (Emergency mode only) -->
+              <div id="status-epi-section" class="status-epilepticus-box">
+                <label>
+                  <input type="checkbox" id="status-epilepticus" onchange="onInputChange()">
+                  <div>
+                    <div class="checkbox-label">⚠️ Status Epilepticus Protocol</div>
+                    <div class="checkbox-desc">Seizure &gt;5 min or multiple seizures without full recovery</div>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Drug Selection (Maintenance mode only) -->
+              <div id="drug-select-section" class="pc-calc-field hidden-section">
+                <div class="pc-calc-field__label">
+                  <span>Maintenance Drug</span>
+                </div>
+                <select id="maintenance-drug" class="pc-calc-input" onchange="onInputChange()">
+                  <option value="phenobarbital">Phenobarbital (First-line)</option>
+                  <option value="kbr">Potassium Bromide (KBr)</option>
+                  <option value="levetiracetam">Levetiracetam (Keppra)</option>
+                  <option value="zonisamide">Zonisamide</option>
+                </select>
+              </div>
+
+              <button type="button" class="pc-calc-submit" onclick="calculateProtocol()">
+                <span>🧮</span> Calculate Protocol
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Side Effects Checklist -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--2">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">👁️</span>
+              Side Effect Monitoring
+            </span>
+          </div>
+          <div class="pc-calc-panel__content" style="padding: 1rem;">
+            <div id="monitoring-checklist">
+              <label class="checklist-item">
+                <input type="checkbox" id="monitor-sedation">
+                <span class="checklist-item__text">Sedation / Ataxia</span>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" id="monitor-appetite">
+                <span class="checklist-item__text">Appetite / PU/PD</span>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" id="monitor-liver">
+                <span class="checklist-item__text">Hepatic enzymes (phenobarbital)</span>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" id="monitor-blood">
+                <span class="checklist-item__text">Drug blood levels</span>
+              </label>
+              <label class="checklist-item">
+                <input type="checkbox" id="monitor-behavior">
+                <span class="checklist-item__text">Behavior changes</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Related Tools -->
+        <div class="pc-calc-panel pc-calc-animate pc-calc-animate--3">
+          <div class="pc-calc-related">
+            <div class="pc-calc-related__title">Related Tools</div>
+            <div class="pc-calc-related__grid">
+              <a href="/tools/dose-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💊</span>
+                <span>Dose Calc</span>
+              </a>
+              <a href="/tools/cri-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💉</span>
+                <span>CRI Calc</span>
+              </a>
+              <a href="/tools/emergency-drug-chart.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">🚨</span>
+                <span>Emergency</span>
+              </a>
+              <a href="/tools/fluids-calculator.html" class="pc-calc-related__item">
+                <span class="pc-calc-related__icon">💧</span>
+                <span>Fluids</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <section class="pc-calc-main pc-calc-animate pc-calc-animate--2" aria-label="Protocol details">
+        <div class="pc-calc-viz">
+          <div class="pc-calc-viz__header">
+            <span class="pc-calc-viz__title" id="protocol-title">Emergency Seizure Protocol</span>
+          </div>
+
+          <!-- Emergency Protocol Content -->
+          <div id="emergency-content">
+            <!-- Initial Alert -->
+            <div class="alert-box alert-box--danger">
+              <span>🚨</span>
+              <div>
+                <strong>EMERGENCY:</strong> Seizures require immediate intervention. Protect patient from injury, ensure airway patency, and establish IV access.
+              </div>
+            </div>
+
+            <!-- Emergency Steps -->
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              Step-by-Step Emergency Management
+            </div>
+
+            <div class="step-card">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <div class="step-title">First-Line: Diazepam <span class="timing-badge">0-2 min</span></div>
+                <div class="step-desc">Administer diazepam IV (preferred) or rectally if no IV access. Begin with low end of dose range.</div>
+                <div class="drug-card" style="margin-top: 0.75rem; margin-bottom: 0;">
+                  <div class="drug-card__header">
+                    <span class="drug-card__name">Diazepam</span>
+                  </div>
+                  <div class="drug-card__dose" id="diazepam-dose">5 - 20 mg</div>
+                  <div class="drug-card__range">0.5 - 2 mg/kg</div>
+                  <div>
+                    <span class="drug-card__route">💉 IV (preferred)</span>
+                    <span class="drug-card__route">🎯 PR (rectal)</span>
+                  </div>
+                  <div class="drug-alert">⚠️ Give slowly IV. Respiratory depression possible.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-card">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <div class="step-title">If No Response: Repeat Diazepam <span class="timing-badge">2-5 min</span></div>
+                <div class="step-desc">May repeat diazepam up to 3 times total if seizure continues. Monitor for respiratory depression.</div>
+              </div>
+            </div>
+
+            <div class="step-card">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <div class="step-title">Second-Line: Phenobarbital Loading <span class="timing-badge">5-10 min</span></div>
+                <div class="step-desc">If seizure persists after max diazepam doses, administer phenobarbital loading dose.</div>
+                <div class="drug-card" style="margin-top: 0.75rem; margin-bottom: 0;">
+                  <div class="drug-card__header">
+                    <span class="drug-card__name">Phenobarbital (Loading)</span>
+                  </div>
+                  <div class="drug-card__dose" id="phenobarbital-loading-dose">20 - 40 mg</div>
+                  <div class="drug-card__range">2 - 4 mg/kg IV</div>
+                  <div>
+                    <span class="drug-card__route">💉 IV slow</span>
+                  </div>
+                  <div class="drug-alert">⚠️ Max 60-90 mg/min in large dogs. Monitor respiration closely.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-card">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <div class="step-title">Alternative: Midazolam <span class="timing-badge">As needed</span></div>
+                <div class="step-desc">May be used as alternative or adjunct to diazepam. Water-soluble, better IM absorption.</div>
+                <div class="drug-card" style="margin-top: 0.75rem; margin-bottom: 0;">
+                  <div class="drug-card__header">
+                    <span class="drug-card__name">Midazolam</span>
+                  </div>
+                  <div class="drug-card__dose" id="midazolam-dose">1 - 3 mg</div>
+                  <div class="drug-card__range">0.1 - 0.3 mg/kg IV/IM</div>
+                  <div>
+                    <span class="drug-card__route">💉 IV</span>
+                    <span class="drug-card__route">💪 IM</span>
+                    <span class="drug-card__route">👃 Intranasal (0.2 mg/kg)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Status Epilepticus Additional -->
+            <div id="status-additional" class="hidden-section">
+              <div class="alert-box alert-box--warning" style="margin-top: 1rem;">
+                <span>⚠️</span>
+                <div>
+                  <strong>STATUS EPILEPTICUS PROTOCOL:</strong> Consider propofol CRI or general anesthesia if refractory to above. Continuous monitoring required.
+                </div>
+              </div>
+              <div class="drug-card" style="border-color: rgba(220, 38, 38, 0.3);">
+                <div class="drug-card__header">
+                  <span class="drug-card__name">Propofol CRI (Refractory Cases)</span>
+                  <span class="emergency-badge">Critical Care</span>
+                </div>
+                <div class="drug-card__dose">0.1 - 0.6 mg/kg/min</div>
+                <div class="drug-card__range">Start low, titrate to effect</div>
+                <div class="drug-alert">⚠️ Requires intubation and mechanical ventilation capability. Close cardiovascular monitoring essential.</div>
+              </div>
+            </div>
+
+            <!-- Emergency Monitoring -->
+            <div style="margin-top: 1.5rem;">
+              <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+                Emergency Monitoring Parameters
+              </div>
+              <div class="monitoring-grid">
+                <div class="monitoring-card">
+                  <div class="monitoring-card__title">Temperature</div>
+                  <div class="monitoring-card__value">Check for hyperthermia</div>
+                </div>
+                <div class="monitoring-card">
+                  <div class="monitoring-card__title">Respiration</div>
+                  <div class="monitoring-card__value">Monitor for depression</div>
+                </div>
+                <div class="monitoring-card">
+                  <div class="monitoring-card__title">Glucose</div>
+                  <div class="monitoring-card__value">Check if prolonged</div>
+                </div>
+                <div class="monitoring-card">
+                  <div class="monitoring-card__title">BP/Perfusion</div>
+                  <div class="monitoring-card__value">Assess cardiovascular</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintenance Protocol Content -->
+          <div id="maintenance-content" class="hidden-section">
+            <div class="alert-box alert-box--info">
+              <span>💊</span>
+              <div>
+                <strong>MAINTENANCE THERAPY:</strong> Goal is seizure control with minimal side effects. Start with first-line agent, add adjunctive therapy as needed.
+              </div>
+            </div>
+
+            <!-- Phenobarbital -->
+            <div id="maint-phenobarbital" class="drug-card">
+              <div class="drug-card__header">
+                <span class="drug-card__name">Phenobarbital (First-Line)</span>
+              </div>
+              <div class="drug-card__dose" id="pheno-maint-dose">20 - 30 mg</div>
+              <div class="drug-card__range">2 - 3 mg/kg PO q12h</div>
+              <div>
+                <span class="drug-card__route">💊 PO (tablet/liquid)</span>
+                <span class="drug-card__route">💉 IV (if NPO)</span>
+              </div>
+              <div class="species-note">
+                <strong>Blood Level Monitoring:</strong> Therapeutic range 15-45 μg/mL (dogs), 10-30 μg/mL (cats). Check 2 weeks after starting or dose change, then q6-12 months.
+              </div>
+            </div>
+
+            <!-- Potassium Bromide -->
+            <div id="maint-kbr" class="drug-card hidden-section">
+              <div class="drug-card__header">
+                <span class="drug-card__name">Potassium Bromide (KBr)</span>
+                <span class="emergency-badge">Adjunctive</span>
+              </div>
+              <div class="drug-card__dose" id="kbr-dose">200 - 400 mg</div>
+              <div class="drug-card__range">20 - 40 mg/kg/day PO (can divide q12h)</div>
+              <div>
+                <span class="drug-card__route">💊 PO with food</span>
+              </div>
+              <div class="species-note" id="kbr-species-note">
+                <strong>Note:</strong> Dogs only - not recommended in cats due to airway disease risk. Therapeutic range 1-3 mg/mL (serum bromide).
+              </div>
+            </div>
+
+            <!-- Levetiracetam -->
+            <div id="maint-levetiracetam" class="drug-card hidden-section">
+              <div class="drug-card__header">
+                <span class="drug-card__name">Levetiracetam (Keppra)</span>
+                <span class="emergency-badge">Adjunctive</span>
+              </div>
+              <div class="drug-card__dose" id="keppra-dose">100 - 200 mg</div>
+              <div class="drug-card__range" id="keppra-range">10 - 20 mg/kg PO q8h (dogs)</div>
+              <div>
+                <span class="drug-card__route">💊 PO (tablet)</span>
+                <span class="drug-card__route">💉 IV available</span>
+              </div>
+              <div class="species-note">
+                <strong>Note:</strong> Wide safety margin. Minimal drug interactions. Extended-release available (Keppra XR) for BID dosing in dogs.
+              </div>
+            </div>
+
+            <!-- Zonisamide -->
+            <div id="maint-zonisamide" class="drug-card hidden-section">
+              <div class="drug-card__header">
+                <span class="drug-card__name">Zonisamide</span>
+                <span class="emergency-badge">Adjunctive</span>
+              </div>
+              <div class="drug-card__dose" id="zonisamide-dose">50 - 100 mg</div>
+              <div class="drug-card__range">5 - 10 mg/kg PO q12h</div>
+              <div>
+                <span class="drug-card__route">💊 PO (capsule)</span>
+              </div>
+              <div class="species-note">
+                <strong>Note:</strong> Hepatic metabolism. Monitor liver enzymes. Therapeutic range 10-40 μg/mL. Avoid in severe hepatic disease.
+              </div>
+            </div>
+
+            <!-- Combination Therapy Info -->
+            <div id="combination-info" class="alert-box alert-box--info" style="margin-top: 1rem;">
+              <span>ℹ️</span>
+              <div>
+                <strong>Combination Therapy:</strong> ~60% of epileptic dogs require multiple AEDs. Add second drug if seizures persist after therapeutic phenobarbital levels reached.
+              </div>
+            </div>
+
+            <!-- Monitoring Schedule -->
+            <div style="margin-top: 1.5rem;">
+              <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+                Monitoring Schedule
+              </div>
+              <div class="monitoring-grid">
+                <div class="monitoring-card">
+                  <div class="monitoring-card__title">Baseline</div>
+                  <div class="monitoring-card__value">CBC, chemistry, UA</div>
+                </div>
+                <div class="monitoring-card">
+                  <div class="monitoring-card__title">2 Weeks</div>
+                  <div class="monitoring-card__value">Drug levels, recheck exam</div>
+                </div>
+                <div class="monitoring-card">
+                  <div class="monitoring-card__title">3 Months</div>
+                  <div class="monitoring-card__value">Chemistry panel</div>
+                </div>
+                <div class="monitoring-card">
+                  <div class="monitoring-card__title">6-12 Months</div>
+                  <div class="monitoring-card__value">Levels + chemistry</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formula Display -->
+          <div class="pc-calc-formula" style="margin-top: 1.5rem;">
+            <div class="pc-calc-formula__label">Dosage Calculation</div>
+            <div class="pc-calc-formula__math" id="formula-display">
+              <span class="pc-calc-formula__highlight">Dose (mg)</span> = Weight (kg) × Dose Rate (mg/kg)<br>
+              <span class="pc-calc-formula__highlight">Range</span> = Min to Max based on clinical response
+            </div>
+          </div>
+
+          <!-- Quick Tips -->
+          <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--calc-glass-border);">
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--calc-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              💡 Clinical Pearls
+            </div>
+            <ul style="font-size: 0.8125rem; color: var(--calc-text-muted); line-height: 1.8; margin: 0; padding-left: 1.25rem;" id="clinical-pearls">
+              <li>Do not start maintenance AEDs until status controlled and patient recovered from acute episode</li>
+              <li>Phenobarbital: therapeutic effect may take 1-2 weeks to fully develop</li>
+              <li>Never discontinue AEDs abruptly - risk of withdrawal seizures</li>
+              <li>Document seizure frequency, duration, and character for treatment adjustments</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results Panel -->
+      <aside class="pc-calc-results pc-calc-animate pc-calc-animate--3" aria-label="Protocol summary" aria-live="polite">
+        <div class="pc-calc-panel">
+          <div class="pc-calc-panel__header">
+            <span class="pc-calc-panel__title">
+              <span class="pc-calc-panel__icon">📋</span>
+              Protocol Summary
+            </span>
+            <button type="button" class="pc-calc-copy" onclick="copyResults()" title="Copy results">
+              📋
+            </button>
+          </div>
+          <div class="pc-calc-panel__content">
+            <!-- Primary Result -->
+            <div class="pc-calc-result-card pc-calc-result-card--primary" id="result-primary">
+              <div class="pc-calc-result__label">
+                <span>⚡</span> Current Protocol
+              </div>
+              <div class="pc-calc-result__value" style="font-size: 1.5rem;">
+                <span id="protocol-summary">Emergency Management</span>
+              </div>
+              <div class="pc-calc-result__context" id="protocol-context">Active seizure intervention</div>
+            </div>
+
+            <!-- Calculated Doses -->
+            <div class="pc-calc-result-card">
+              <div class="pc-calc-result__label">
+                <span>💊</span> Calculated Doses
+              </div>
+              <div id="calculated-doses" style="margin-top: 0.75rem;">
+                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--calc-glass-border);">
+                  <span style="font-size: 0.8125rem; color: var(--calc-text-muted);">Diazepam</span>
+                  <span style="font-weight: 600;" id="summary-diazepam">5 - 20 mg</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--calc-glass-border);">
+                  <span style="font-size: 0.8125rem; color: var(--calc-text-muted);">Phenobarbital (load)</span>
+                  <span style="font-weight: 600;" id="summary-phenobarbital">20 - 40 mg</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                  <span style="font-size: 0.8125rem; color: var(--calc-text-muted);">Midazolam</span>
+                  <span style="font-weight: 600;" id="summary-midazolam">1 - 3 mg</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Patient Info -->
+            <div class="pc-calc-result-card">
+              <div class="pc-calc-result__label">
+                <span>🐕</span> Patient Details
+              </div>
+              <div style="margin-top: 0.75rem; font-size: 0.875rem;">
+                <div style="display: flex; justify-content: space-between; padding: 0.375rem 0;">
+                  <span style="color: var(--calc-text-muted);">Species</span>
+                  <span id="summary-species">Dog</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.375rem 0;">
+                  <span style="color: var(--calc-text-muted);">Weight</span>
+                  <span id="summary-weight">10 kg</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Status Indicator -->
+            <div id="status-indicator" class="pc-calc-result-card" style="display: none;">
+              <div class="pc-calc-result__label">
+                <span>⚠️</span> Status Epilepticus
+              </div>
+              <div style="font-size: 0.875rem; color: #f87171; margin-top: 0.5rem;">
+                Aggressive protocol activated. Consider propofol CRI and immediate referral if refractory.
+              </div>
+            </div>
+
+            <!-- Progress indicator -->
+            <div class="pc-calc-progress" style="margin-top: 1rem;">
+              <div class="pc-calc-progress__bar" id="calc-progress" style="width: 100%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- When to Refer -->
+        <div class="referral-section">
+          <div style="font-size: 0.875rem; font-weight: 600; color: var(--calc-text-primary); margin-bottom: 0.75rem;">
+            🏥 When to Refer to Neurologist
+          </div>
+          <ul style="font-size: 0.8125rem; color: var(--calc-text-secondary); line-height: 1.7; margin: 0; padding-left: 1.25rem;">
+            <li>First seizure in patient &gt;6 years old</li>
+            <li>Status epilepticus or cluster seizures</li>
+            <li>Refractory to 2+ appropriate AEDs</li>
+            <li>Abnormal neuro exam between seizures</li>
+            <li>Structural brain disease suspected</li>
+            <li>Owner requests advanced diagnostics (MRI/CSF)</li>
+          </ul>
+        </div>
+
+        <!-- Disclaimer -->
+        <div style="padding: 0.75rem; font-size: 0.6875rem; color: var(--calc-text-muted); text-align: center; line-height: 1.5;">
+          Dosages per Plumb's Veterinary Drug Handbook. Always verify and consider patient-specific factors. Emergency cases require immediate veterinary attention.
+        </div>
+      </aside>
+    </main>
+
+    <footer class="pc-footer pc-footer--enhanced pc-footer--minimal" style="margin-top: 0;">
+      <div class="pc-footer__bottom">
+        <div class="pc-footer__legal">
+          <a href="/">Home</a>
+          <a href="/tools/">Tools</a>
+          <a href="/reference/">References</a>
+          <a href="/privacy/">Privacy</a>
+        </div>
+        <p class="pc-footer__copyright">© 2025 DVMReady. Not a substitute for professional veterinary advice.</p>
+      </div>
+    </footer>
+
+    <script>
+      // State management
+      let currentMode = 'emergency';
+      let currentSpecies = 'dog';
+      let currentWeight = 10;
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', function() {
+        calculateProtocol();
+        updateWeightChips();
+      });
+
+      // Set protocol mode
+      function setMode(mode) {
+        currentMode = mode;
+        
+        // Update toggle buttons
+        document.getElementById('mode-emergency').classList.toggle('active', mode === 'emergency');
+        document.getElementById('mode-maintenance').classList.toggle('active', mode === 'maintenance');
+        
+        // Show/hide sections
+        document.getElementById('emergency-content').classList.toggle('hidden-section', mode !== 'emergency');
+        document.getElementById('maintenance-content').classList.toggle('hidden-section', mode !== 'maintenance');
+        document.getElementById('status-epi-section').classList.toggle('hidden-section', mode !== 'emergency');
+        document.getElementById('drug-select-section').classList.toggle('hidden-section', mode !== 'maintenance');
+        
+        // Update title
+        document.getElementById('protocol-title').textContent = 
+          mode === 'emergency' ? 'Emergency Seizure Protocol' : 'Maintenance Therapy Protocol';
+        
+        calculateProtocol();
+      }
+
+      // Set weight from chip
+      function setWeight(weight) {
+        document.getElementById('weight').value = weight;
+        onInputChange();
+        
+        // Update active chip
+        document.querySelectorAll('#weight-chips .pc-calc-chip').forEach(chip => {
+          chip.classList.remove('pc-calc-chip--active');
+        });
+        event.target.classList.add('pc-calc-chip--active');
+      }
+
+      // Input change handler
+      function onInputChange() {
+        currentSpecies = document.getElementById('species').value;
+        currentWeight = parseFloat(document.getElementById('weight').value) || 10;
+        
+        updateWeightChips();
+        
+        if (currentMode === 'maintenance') {
+          updateMaintenanceDisplay();
+        }
+        
+        calculateProtocol();
+      }
+
+      // Update weight chips based on species
+      function updateWeightChips() {
+        const chips = document.getElementById('weight-chips');
+        const presets = currentSpecies === 'dog' 
+          ? [[2.5, 'Toy'], [10, 'Small'], [20, 'Medium'], [30, 'Large']]
+          : [[2, 'Small'], [3.5, 'Average'], [5, 'Large'], [7, 'XL']];
+        
+        chips.innerHTML = presets.map(([w, label]) => 
+          `<button type="button" class="pc-calc-chip ${currentWeight === w ? 'pc-calc-chip--active' : ''}" onclick="setWeight(${w})">${w} kg</button>`
+        ).join('');
+      }
+
+      // Update maintenance drug display
+      function updateMaintenanceDisplay() {
+        const drug = document.getElementById('maintenance-drug').value;
+        
+        // Hide all drug cards
+        ['maint-phenobarbital', 'maint-kbr', 'maint-levetiracetam', 'maint-zonisamide'].forEach(id => {
+          document.getElementById(id).classList.add('hidden-section');
+        });
+        
+        // Show selected drug
+        const drugMap = {
+          'phenobarbital': 'maint-phenobarbital',
+          'kbr': 'maint-kbr',
+          'levetiracetam': 'maint-levetiracetam',
+          'zonisamide': 'maint-zonisamide'
+        };
+        
+        if (drugMap[drug]) {
+          document.getElementById(drugMap[drug]).classList.remove('hidden-section');
+        }
+        
+        // KBr species warning
+        if (drug === 'kbr') {
+          document.getElementById('kbr-species-note').style.display = currentSpecies === 'cat' ? 'block' : 'none';
+        }
+      }
+
+      // Calculate all doses
+      function calculateProtocol() {
+        currentWeight = parseFloat(document.getElementById('weight').value) || 10;
+        currentSpecies = document.getElementById('species').value;
+        
+        // Emergency doses
+        const diazepamLow = (currentWeight * 0.5).toFixed(1);
+        const diazepamHigh = (currentWeight * 2).toFixed(1);
+        document.getElementById('diazepam-dose').textContent = `${diazepamLow} - ${diazepamHigh} mg`;
+        document.getElementById('summary-diazepam').textContent = `${diazepamLow} - ${diazepamHigh} mg`;
+        
+        const phenoLoadLow = (currentWeight * 2).toFixed(1);
+        const phenoLoadHigh = (currentWeight * 4).toFixed(1);
+        document.getElementById('phenobarbital-loading-dose').textContent = `${phenoLoadLow} - ${phenoLoadHigh} mg`;
+        document.getElementById('summary-phenobarbital').textContent = `${phenoLoadLow} - ${phenoLoadHigh} mg`;
+        
+        const midazolamLow = (currentWeight * 0.1).toFixed(1);
+        const midazolamHigh = (currentWeight * 0.3).toFixed(1);
+        document.getElementById('midazolam-dose').textContent = `${midazolamLow} - ${midazolamHigh} mg`;
+        document.getElementById('summary-midazolam').textContent = `${midazolamLow} - ${midazolamHigh} mg`;
+        
+        // Status epilepticus
+        const statusEpi = document.getElementById('status-epilepticus').checked;
+        document.getElementById('status-additional').classList.toggle('hidden-section', !statusEpi);
+        document.getElementById('status-indicator').style.display = statusEpi ? 'block' : 'none';
+        
+        // Maintenance doses
+        const phenoMaintLow = (currentWeight * 2).toFixed(1);
+        const phenoMaintHigh = (currentWeight * 3).toFixed(1);
+        document.getElementById('pheno-maint-dose').textContent = `${phenoMaintLow} - ${phenoMaintHigh} mg`;
+        
+        const kbrLow = (currentWeight * 20).toFixed(1);
+        const kbrHigh = (currentWeight * 40).toFixed(1);
+        document.getElementById('kbr-dose').textContent = `${kbrLow} - ${kbrHigh} mg/day`;
+        
+        // Keppra dosing differs by species
+        const keppraLow = (currentWeight * 10).toFixed(1);
+        const keppraHigh = (currentWeight * 20).toFixed(1);
+        const keppraFreq = currentSpecies === 'dog' ? 'q8h' : 'q12h';
+        document.getElementById('keppra-dose').textContent = `${keppraLow} - ${keppraHigh} mg`;
+        document.getElementById('keppra-range').textContent = `10 - 20 mg/kg PO ${keppraFreq}`;
+        
+        const zonisamideLow = (currentWeight * 5).toFixed(1);
+        const zonisamideHigh = (currentWeight * 10).toFixed(1);
+        document.getElementById('zonisamide-dose').textContent = `${zonisamideLow} - ${zonisamideHigh} mg`;
+        
+        // Update summary
+        document.getElementById('protocol-summary').textContent = 
+          currentMode === 'emergency' ? 'Emergency Management' : 'Maintenance Therapy';
+        document.getElementById('protocol-context').textContent = 
+          currentMode === 'emergency' 
+            ? (statusEpi ? 'Status epilepticus protocol' : 'Active seizure intervention')
+            : document.getElementById('maintenance-drug').selectedOptions[0].text.split('(')[0].trim();
+        
+        // Update patient summary
+        document.getElementById('summary-species').textContent = currentSpecies === 'dog' ? 'Dog' : 'Cat';
+        document.getElementById('summary-weight').textContent = `${currentWeight} kg`;
+        
+        // Update formula
+        document.getElementById('formula-display').innerHTML = 
+          `<span class="pc-calc-formula__highlight">${currentWeight} kg patient</span><br>` +
+          `Doses calculated using standard mg/kg ranges`;
+      }
+
+      // Reset calculator
+      function resetCalculator() {
+        document.getElementById('weight').value = '10';
+        document.getElementById('species').value = 'dog';
+        document.getElementById('status-epilepticus').checked = false;
+        document.getElementById('maintenance-drug').value = 'phenobarbital';
+        
+        // Reset checkboxes
+        ['monitor-sedation', 'monitor-appetite', 'monitor-liver', 'monitor-blood', 'monitor-behavior'].forEach(id => {
+          document.getElementById(id).checked = false;
+        });
+        
+        setMode('emergency');
+        updateWeightChips();
+        calculateProtocol();
+      }
+
+      // Copy results
+      function copyResults() {
+        const statusEpi = document.getElementById('status-epilepticus').checked;
+        const lines = [
+          '🚨 SEIZURE PROTOCOL SUMMARY',
+          `Species: ${currentSpecies === 'dog' ? 'Dog' : 'Cat'} | Weight: ${currentWeight} kg`,
+          `Mode: ${currentMode === 'emergency' ? 'Emergency Management' : 'Maintenance Therapy'}`,
+          ''
+        ];
+        
+        if (currentMode === 'emergency') {
+          lines.push('EMERGENCY DOSES:');
+          lines.push(`Diazepam: ${document.getElementById('summary-diazepam').textContent} (0.5-2 mg/kg)`);
+          lines.push(`Phenobarbital (loading): ${document.getElementById('summary-phenobarbital').textContent} (2-4 mg/kg)`);
+          lines.push(`Midazolam: ${document.getElementById('summary-midazolam').textContent} (0.1-0.3 mg/kg)`);
+          if (statusEpi) {
+            lines.push('⚠️ STATUS EPILEPTICUS: Consider propofol CRI 0.1-0.6 mg/kg/min');
+          }
+        } else {
+          const drug = document.getElementById('maintenance-drug').value;
+          lines.push('MAINTENANCE THERAPY:');
+          lines.push(`Drug: ${document.getElementById('maintenance-drug').selectedOptions[0].text}`);
+          
+          if (drug === 'phenobarbital') {
+            lines.push(`Dose: ${document.getElementById('pheno-maint-dose').textContent} PO q12h`);
+          } else if (drug === 'kbr') {
+            lines.push(`Dose: ${document.getElementById('kbr-dose').textContent} PO`);
+          } else if (drug === 'levetiracetam') {
+            lines.push(`Dose: ${document.getElementById('keppra-dose').textContent} PO ${currentSpecies === 'dog' ? 'q8h' : 'q12h'}`);
+          } else if (drug === 'zonisamide') {
+            lines.push(`Dose: ${document.getElementById('zonisamide-dose').textContent} PO q12h`);
+          }
+        }
+        
+        lines.push('', 'Generated by DVMReady Seizure Protocol Calculator');
+        
+        navigator.clipboard.writeText(lines.join('\n')).then(() => {
+          showToast('Protocol copied to clipboard');
+        });
+      }
+
+      // Toast notification
+      function showToast(message) {
+        const container = document.querySelector('.pc-toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'pc-toast';
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.remove();
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>

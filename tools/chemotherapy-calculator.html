@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemotherapy Dosing | Oncology Calculator | DVMReady</title>
+    <meta name="description" content="Chemotherapy dosing calculator for dogs and cats. BSA-based dosing with safety checks for common chemotherapeutic agents.">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/dvmready-logo-icon.svg">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css">
+    <style>
+        .chemo-warning {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chemo-warning__title {
+            color: #ef4444;
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .chemo-warning__text {
+            color: var(--pc-text-muted);
+            font-size: 0.9375rem;
+            margin: 0;
+        }
+        
+        .protocol-selector {
+            background: var(--pc-surface);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .protocol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        .protocol-card {
+            padding: 1rem;
+            background: var(--pc-bg-elevated);
+            border: 2px solid transparent;
+            border-radius: var(--pc-radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .protocol-card:hover {
+            border-color: var(--pc-border);
+        }
+        
+        .protocol-card.selected {
+            background: var(--pc-primary);
+            border-color: var(--pc-accent);
+        }
+        
+        .protocol-card.selected .protocol-card__name,
+        .protocol-card.selected .protocol-card__indication {
+            color: white;
+        }
+        
+        .protocol-card__name {
+            font-weight: 600;
+            color: var(--pc-text);
+            margin-bottom: 0.25rem;
+        }
+        
+        .protocol-card__indication {
+            font-size: 0.875rem;
+            color: var(--pc-text-muted);
+        }
+        
+        .drug-list {
+            background: var(--pc-surface);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .drug-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--pc-bg-elevated);
+            border-radius: var(--pc-radius-md);
+            margin-bottom: 0.75rem;
+        }
+        
+        .drug-item:last-child { margin-bottom: 0; }
+        
+        .drug-item__info { flex: 1; }
+        
+        .drug-item__name {
+            font-weight: 600;
+            color: var(--pc-text);
+            margin-bottom: 0.25rem;
+        }
+        
+        .drug-item__dose {
+            font-size: 0.875rem;
+            color: var(--pc-text-muted);
+        }
+        
+        .drug-item__result {
+            text-align: right;
+        }
+        
+        .drug-item__amount {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--pc-primary);
+        }
+        
+        .drug-item__unit {
+            font-size: 0.875rem;
+            color: var(--pc-text-muted);
+        }
+        
+        .safety-checks {
+            background: var(--pc-surface);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.25rem;
+        }
+        
+        .safety-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: var(--pc-radius-md);
+            margin-bottom: 0.5rem;
+        }
+        
+        .safety-item.ok {
+            background: rgba(34, 197, 94, 0.1);
+        }
+        
+        .safety-item.warning {
+            background: rgba(245, 158, 11, 0.1);
+        }
+        
+        .safety-item.danger {
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .safety-item__icon {
+            font-size: 1.25rem;
+        }
+        
+        .safety-item__text {
+            flex: 1;
+            font-size: 0.9375rem;
+        }
+        
+        .safety-item__text strong {
+            display: block;
+            color: var(--pc-text);
+        }
+        
+        .cycle-tracker {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .cycle-box {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--pc-bg-elevated);
+            border: 2px solid transparent;
+            border-radius: var(--pc-radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .cycle-box:hover { border-color: var(--pc-border); }
+        
+        .cycle-box.completed {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: #22c55e;
+        }
+        
+        .cycle-box.current {
+            background: var(--pc-primary);
+            border-color: var(--pc-accent);
+            color: white;
+        }
+        
+        .cycle-box__num {
+            font-size: 0.75rem;
+            font-weight: 600;
+            opacity: 0.7;
+        }
+        
+        .cycle-box__day {
+            font-size: 0.875rem;
+            font-weight: 700;
+        }
+        
+        .cycle-box.completed .cycle-box__day::after {
+            content: '✓';
+            margin-left: 0.25rem;
+        }
+    </style>
+</head>
+<body class="pc-page no-js">
+    <nav class="pc-portal-nav">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">
+                <img src="/assets/img/dvmready-logo-icon.svg" alt="" class="pc-logo__img">
+                <span class="pc-logo__text">DVMReady</span>
+            </a>
+            <div class="pc-nav-group">
+                <a class="pc-nav-link" href="/">Home</a>
+                <a class="pc-nav-link pc-is-active" href="/tools/">Tools</a>
+                <a class="pc-nav-link" href="/search.html">Search</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+        <header class="calc-header">
+            <div class="calc-header__icon">🎗️</div>
+            <h1 class="calc-header__title">Chemotherapy Dosing</h1>
+            <p class="calc-header__subtitle">BSA-based chemotherapy dosing with safety checks for dogs and cats. Calculate doses for common protocols.</p>
+        </header>
+
+        <div class="chemo-warning">
+            <div class="chemo-warning__title">⚠️ WARNING - Cytotoxic Drugs</div>
+            <p class="chemo-warning__text">
+                Chemotherapy agents are hazardous. Use appropriate PPE (gloves, gown, eye protection). 
+                Follow institutional safety protocols. Verify all doses independently. 
+                This calculator is for reference only - dosing decisions are the veterinarian's responsibility.
+            </p>
+        </div>
+
+        <div class="calc-card">
+            <!-- Patient Input -->
+            <div class="calc-form-group">
+                <label class="calc-label">Patient Weight</label>
+                <div class="calc-input-wrapper">
+                    <input type="number" class="calc-input calc-input--with-unit" id="weight" placeholder="25" min="0.1" step="0.1">
+                    <div class="calc-input-unit">
+                        <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                        <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calc-form-group">
+                <label class="calc-label">Species</label>
+                <div class="calc-species-grid">
+                    <button type="button" class="calc-species-btn active" data-species="dog">🐕 Dog</button>
+                    <button type="button" class="calc-species-btn" data-species="cat">🐈 Cat</button>
+                </div>
+            </div>
+
+            <!-- BSA Display -->
+            <div class="calc-result-card" id="bsa-display" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <p class="calc-result-card__label">Body Surface Area</p>
+                        <p class="calc-result-card__value" id="bsa-value" style="font-size: 2rem;">--</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <p class="calc-result-card__label">Formula</p>
+                        <p style="font-size: 0.875rem; color: var(--pc-text-muted);">BSA (m²) = (Wt^0.67 × K)</p>
+                        <p style="font-size: 0.75rem; color: var(--pc-text-muted);">K=0.101 for dogs, 0.100 for cats</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Protocol Selection -->
+        <div class="protocol-selector">
+            <h3 style="margin-bottom: 0.5rem;">Select Protocol</h3>
+            <p style="font-size: 0.875rem; color: var(--pc-text-muted); margin-bottom: 1rem;">Common chemotherapy protocols for veterinary oncology</p>
+            
+            <div class="protocol-grid" id="protocol-grid">
+                <div class="protocol-card" data-protocol="chop">
+                    <div class="protocol-card__name">CHOP</div>
+                    <div class="protocol-card__indication">Lymphoma (Canine/Feline)</div>
+                </div>
+                <div class="protocol-card" data-protocol="modified-chop">
+                    <div class="protocol-card__name">Modified CHOP</div>
+                    <div class="protocol-card__indication">Lymphoma (Reduced intensity)</div>
+                </div>
+                <div class="protocol-card" data-protocol="ccnu">
+                    <div class="protocol-card__name">CCNU (Lomustine)</div>
+                    <div class="protocol-card__indication">Cutaneous lymphoma, CNS</div>
+                </div>
+                <div class="protocol-card" data-protocol="carboplatin">
+                    <div class="protocol-card__name">Carboplatin</div>
+                    <div class="protocol-card__indication">Osteosarcoma, various carcinomas</div>
+                </div>
+                <div class="protocol-card" data-protocol="doxorubicin">
+                    <div class="protocol-card__name">Doxorubicin Only</div>
+                    <div class="protocol-card__indication">Single agent protocol</div>
+                </div>
+                <div class="protocol-card" data-protocol="mascc">
+                    <div class="protocol-card__name">MASCC Protocol</div>
+                    <div class="protocol-card__indication">Canine mast cell tumor</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Drug Dosing Results -->
+        <div class="drug-list" id="drug-list" style="display: none;">
+            <h3 style="margin-bottom: 1rem;">Calculated Doses</h3>
+            <div id="drugs-container"></div>
+        </div>
+
+        <!-- Safety Checks -->
+        <div class="safety-checks" id="safety-checks" style="display: none;">
+            <h3 style="margin-bottom: 1rem;">⚠️ Safety Checks</h3>
+            <div id="safety-container"></div>
+        </div>
+
+        <!-- Cycle Tracker -->
+        <div class="calc-card" style="margin-top: 1.5rem;">
+            <h3 style="margin-bottom: 1rem;">Treatment Cycle Tracker</h3>
+            <div class="cycle-tracker" id="cycle-tracker"></div>
+            <div style="margin-top: 1rem; padding: 1rem; background: var(--pc-bg-elevated); border-radius: var(--pc-radius-md); font-size: 0.875rem; color: var(--pc-text-muted);">
+                <strong>Tip:</strong> Click on a cycle box to mark it complete. Monitor CBC before each cycle (nadir typically 7-10 days post-treatment).
+            </div>
+        </div>
+
+        <!-- Common Drugs Reference -->
+        <div class="calc-card" style="margin-top: 1.5rem;">
+            <h3 style="margin-bottom: 1rem;">📋 Common Chemotherapy Doses</h3>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.875rem;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--pc-border);">
+                            <th style="padding: 0.75rem; text-align: left;">Drug</th>
+                            <th style="padding: 0.75rem; text-align: left;">Dose (Dogs)</th>
+                            <th style="padding: 0.75rem; text-align: left;">Dose (Cats)</th>
+                            <th style="padding: 0.75rem; text-align: left;">Route</th>
+                            <th style="padding: 0.75rem; text-align: left;">Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody style="color: var(--pc-text-muted);">
+                        <tr style="border-bottom: 1px solid var(--pc-border);">
+                            <td style="padding: 0.75rem; font-weight: 500; color: var(--pc-text);">Doxorubicin</td>
+                            <td style="padding: 0.75rem;">30 mg/m²</td>
+                            <td style="padding: 0.75rem;">25 mg/m²</td>
+                            <td style="padding: 0.75rem;">IV (slow)</td>
+                            <td style="padding: 0.75rem;">q21d</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--pc-border);">
+                            <td style="padding: 0.75rem; font-weight: 500; color: var(--pc-text);">Vincristine</td>
+                            <td style="padding: 0.75rem;">0.5-0.7 mg/m²</td>
+                            <td style="padding: 0.75rem;">0.5-0.75 mg/m²</td>
+                            <td style="padding: 0.75rem;">IV</td>
+                            <td style="padding: 0.75rem;">q7-14d</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--pc-border);">
+                            <td style="padding: 0.75rem; font-weight: 500; color: var(--pc-text);">Cyclophosphamide</td>
+                            <td style="padding: 0.75rem;">200-250 mg/m²</td>
+                            <td style="padding: 0.75rem;">200-300 mg/m²</td>
+                            <td style="padding: 0.75rem;">PO or IV</td>
+                            <td style="padding: 0.75rem;">q21d</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--pc-border);">
+                            <td style="padding: 0.75rem; font-weight: 500; color: var(--pc-text);">Carboplatin</td>
+                            <td style="padding: 0.75rem;">300 mg/m²</td>
+                            <td style="padding: 0.75rem;">200-250 mg/m²</td>
+                            <td style="padding: 0.75rem;">IV</td>
+                            <td style="padding: 0.75rem;">q21d</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--pc-border);">
+                            <td style="padding: 0.75rem; font-weight: 500; color: var(--pc-text);">CCNU (Lomustine)</td>
+                            <td style="padding: 0.75rem;">60-90 mg/m²</td>
+                            <td style="padding: 0.75rem;">50-60 mg/m²</td>
+                            <td style="padding: 0.75rem;">PO</td>
+                            <td style="padding: 0.75rem;">q21-28d</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--pc-border);">
+                            <td style="padding: 0.75rem; font-weight: 500; color: var(--pc-text);">Prednisone</td>
+                            <td style="padding: 0.75rem;">2 mg/kg/day</td>
+                            <td style="padding: 0.75rem;">2 mg/kg/day</td>
+                            <td style="padding: 0.75rem;">PO</td>
+                            <td style="padding: 0.75rem;">Daily, then taper</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; padding: 1rem; background: var(--pc-bg-elevated); border-radius: var(--pc-radius-md); font-size: 0.875rem; color: var(--pc-text-muted);">
+            <strong>References:</strong> Veterinary Cancer Society Guidelines, Plumb's Veterinary Drug Handbook, 
+            Veterinary Comparative Oncology Group (VCOG) protocols. Always verify doses and check for drug interactions.
+        </div>
+    </main>
+
+    <script>
+        // Protocol data
+        const protocols = {
+            'chop': {
+                name: 'CHOP Protocol',
+                cycles: 6,
+                drugs: [
+                    { name: 'Vincristine', dose: 0.5, unit: 'mg/m²', route: 'IV', day: 1 },
+                    { name: 'Cyclophosphamide', dose: 200, unit: 'mg/m²', route: 'PO or IV', day: 1 },
+                    { name: 'Doxorubicin', dose: 30, unit: 'mg/m²', route: 'IV (slow)', day: 1, catDose: 25 },
+                    { name: 'Prednisone', dose: 2, unit: 'mg/kg/day', route: 'PO', day: 'Daily' }
+                ],
+                notes: 'Cycle repeated every 21 days for 6 cycles. Monitor CBC before each cycle.'
+            },
+            'modified-chop': {
+                name: 'Modified CHOP',
+                cycles: 6,
+                drugs: [
+                    { name: 'Vincristine', dose: 0.5, unit: 'mg/m²', route: 'IV', day: 1 },
+                    { name: 'Doxorubicin', dose: 30, unit: 'mg/m²', route: 'IV', day: 1, catDose: 25 },
+                    { name: 'Prednisone', dose: 2, unit: 'mg/kg/day', route: 'PO', day: 'Daily, taper wk 4' }
+                ],
+                notes: 'Reduced intensity protocol. Good for geriatric or compromised patients.'
+            },
+            'ccnu': {
+                name: 'CCNU Protocol',
+                cycles: 4,
+                drugs: [
+                    { name: 'CCNU (Lomustine)', dose: 60, unit: 'mg/m²', route: 'PO', day: 1, catDose: 50 }
+                ],
+                notes: 'Repeat q21-28d x 4 cycles. Monitor liver enzymes closely.'
+            },
+            'carboplatin': {
+                name: 'Carboplatin',
+                cycles: 4,
+                drugs: [
+                    { name: 'Carboplatin', dose: 300, unit: 'mg/m²', route: 'IV', day: 1, catDose: 200 }
+                ],
+                notes: 'Repeat q21d x 4 cycles. Check platelet count before each treatment.'
+            },
+            'doxorubicin': {
+                name: 'Doxorubicin Single Agent',
+                cycles: 5,
+                drugs: [
+                    { name: 'Doxorubicin', dose: 30, unit: 'mg/m²', route: 'IV (slow)', day: 1, catDose: 25 }
+                ],
+                notes: 'Repeat q21d x 5 cycles. Cumulative dose limit: 180-240 mg/m²'
+            },
+            'mascc': {
+                name: 'MASCC Protocol',
+                cycles: 4,
+                drugs: [
+                    { name: 'Vinblastine', dose: 2, unit: 'mg/m²', route: 'IV', day: 1 },
+                    { name: 'CCNU', dose: 60, unit: 'mg/m²', route: 'PO', day: 1 }
+                ],
+                notes: 'For mast cell tumor. Repeat q21d x 4 cycles.'
+            }
+        };
+        
+        let weight = 0;
+        let unit = 'kg';
+        let species = 'dog';
+        let selectedProtocol = null;
+        let bsa = 0;
+        
+        // Weight input
+        document.getElementById('weight').addEventListener('input', (e) => {
+            weight = parseFloat(e.target.value);
+            calculateBSA();
+        });
+        
+        // Unit toggle
+        document.querySelectorAll('.calc-unit-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.calc-unit-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                unit = btn.dataset.unit;
+                calculateBSA();
+            });
+        });
+        
+        // Species toggle
+        document.querySelectorAll('.calc-species-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.calc-species-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                species = btn.dataset.species;
+                calculateBSA();
+            });
+        });
+        
+        function calculateBSA() {
+            if (!weight) {
+                document.getElementById('bsa-display').style.display = 'none';
+                return;
+            }
+            
+            // Convert to kg if needed
+            let wtKg = unit === 'lb' ? weight * 0.453592 : weight;
+            
+            // BSA calculation using the formula: BSA (m²) = K × Wt^0.67
+            // K = 0.101 for dogs, 0.100 for cats
+            const K = species === 'dog' ? 0.101 : 0.100;
+            bsa = K * Math.pow(wtKg, 0.67);
+            
+            document.getElementById('bsa-value').textContent = bsa.toFixed(2) + ' m²';
+            document.getElementById('bsa-display').style.display = 'block';
+            
+            if (selectedProtocol) {
+                calculateDoses();
+            }
+        }
+        
+        // Protocol selection
+        document.querySelectorAll('.protocol-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.protocol-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedProtocol = protocols[card.dataset.protocol];
+                calculateDoses();
+                createCycleTracker();
+            });
+        });
+        
+        function calculateDoses() {
+            if (!selectedProtocol || !bsa) return;
+            
+            const container = document.getElementById('drugs-container');
+            container.innerHTML = '';
+            
+            selectedProtocol.drugs.forEach(drug => {
+                let dose = drug.dose;
+                let amount = 0;
+                let displayAmount = '';
+                
+                // Use cat dose if available and species is cat
+                if (species === 'cat' && drug.catDose) {
+                    dose = drug.catDose;
+                }
+                
+                if (drug.unit.includes('m²')) {
+                    amount = dose * bsa;
+                    displayAmount = amount.toFixed(1) + ' mg';
+                } else if (drug.unit.includes('kg')) {
+                    let wtKg = unit === 'lb' ? weight * 0.453592 : weight;
+                    amount = dose * wtKg;
+                    displayAmount = amount.toFixed(1) + ' mg';
+                }
+                
+                const div = document.createElement('div');
+                div.className = 'drug-item';
+                div.innerHTML = `
+                    <div class="drug-item__info">
+                        <div class="drug-item__name">${drug.name}</div>
+                        <div class="drug-item__dose">${dose} ${drug.unit} via ${drug.route} • Day ${drug.day}</div>
+                    </div>
+                    <div class="drug-item__result">
+                        <div class="drug-item__amount">${displayAmount}</div>
+                        <div class="drug-item__unit">total dose</div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+            
+            document.getElementById('drug-list').style.display = 'block';
+            
+            // Safety checks
+            const safetyContainer = document.getElementById('safety-container');
+            safetyContainer.innerHTML = `
+                <div class="safety-item ok">
+                    <span class="safety-item__icon">✅</span>
+                    <span class="safety-item__text">
+                        <strong>BSA Calculated</strong>
+                        BSA of ${bsa.toFixed(2)} m² appropriate for ${weight}${unit} ${species}
+                    </span>
+                </div>
+                <div class="safety-item warning">
+                    <span class="safety-item__icon">⚠️</span>
+                    <span class="safety-item__text">
+                        <strong>Pre-treatment CBC Required</strong>
+                        Check neutrophil count (>3,000/μL) and platelet count (>100,000/μL) before each cycle
+                    </span>
+                </div>
+                <div class="safety-item warning">
+                    <span class="safety-item__icon">⚠️</span>
+                    <span class="safety-item__text">
+                        <strong>Doxorubicin Cardiotoxicity</strong>
+                        Cumulative dose should not exceed 180-240 mg/m². Monitor with echocardiogram if possible.
+                    </span>
+                </div>
+                <div class="safety-item warning">
+                    <span class="safety-item__icon">⚠️</span>
+                    <span class="safety-item__text">
+                        <strong>Neutrophil Nadir Expected</strong>
+                        Monitor for neutropenia 7-10 days post-treatment. Hold treatment if ANC < 2,000/μL.
+                    </span>
+                </div>
+            `;
+            document.getElementById('safety-checks').style.display = 'block';
+        }
+        
+        function createCycleTracker() {
+            const container = document.getElementById('cycle-tracker');
+            container.innerHTML = '';
+            
+            if (!selectedProtocol) return;
+            
+            for (let i = 1; i <= selectedProtocol.cycles; i++) {
+                const box = document.createElement('div');
+                box.className = 'cycle-box';
+                box.innerHTML = `
+                    <span class="cycle-box__num">Cycle ${i}</span>
+                    <span class="cycle-box__day">Day ${21 * (i-1) + 1}</span>
+                `;
+                box.addEventListener('click', () => {
+                    box.classList.toggle('completed');
+                });
+                container.appendChild(box);
+            }
+        }
+    </script>
+</body>
+</html>

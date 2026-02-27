@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBC Interpreter | Complete Blood Count Analysis | DVMReady</title>
+    <meta name="description" content="Professional veterinary CBC interpreter for dogs and cats. Analyze RBC indices, WBC differentials, and platelet parameters with clinical significance and differential diagnoses.">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/dvmready-logo-icon.svg">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css">
+    <style>
+        .cbc-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .species-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--pc-bg-elevated);
+            padding: 0.5rem;
+            border-radius: var(--pc-radius-md);
+        }
+        
+        .species-btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--pc-text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: var(--pc-radius-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .species-btn.active {
+            background: var(--pc-primary);
+            color: white;
+        }
+        
+        .cbc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        @media (max-width: 640px) {
+            .cbc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .cbc-section {
+            background: var(--pc-surface);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.25rem;
+        }
+        
+        .cbc-section__title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--pc-text);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--pc-border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .cbc-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--pc-border);
+            gap: 1rem;
+        }
+        
+        .cbc-row:last-child { border-bottom: none; }
+        
+        .cbc-row__label {
+            font-weight: 500;
+            color: var(--pc-text);
+            flex-shrink: 0;
+        }
+        
+        .cbc-row__ref {
+            font-size: 0.75rem;
+            color: var(--pc-text-muted);
+        }
+        
+        .cbc-row__input {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        
+        .cbc-input {
+            width: 100px;
+            padding: 0.5rem 0.75rem;
+            background: var(--pc-bg-elevated);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-md);
+            color: var(--pc-text);
+            font-size: 0.9375rem;
+            text-align: right;
+        }
+        
+        .cbc-input:focus {
+            outline: none;
+            border-color: var(--pc-primary);
+        }
+        
+        .cbc-input.wbc-pct {
+            width: 70px;
+        }
+        
+        .cbc-input.wbc-abs {
+            width: 90px;
+        }
+        
+        .cbc-unit {
+            font-size: 0.8rem;
+            color: var(--pc-text-muted);
+        }
+        
+        .cbc-flag {
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--pc-radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            min-width: 50px;
+            text-align: center;
+        }
+        
+        .cbc-flag.normal {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+        }
+        
+        .cbc-flag.low {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+        }
+        
+        .cbc-flag.high {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+        
+        .cbc-flag.critical {
+            background: rgba(220, 38, 38, 0.2);
+            color: #dc2626;
+            animation: pulse-flag 2s infinite;
+        }
+        
+        @keyframes pulse-flag {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .interpretation-panel {
+            background: var(--pc-surface);
+            border: 2px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .interpretation-panel__title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--pc-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .interp-category {
+            margin-bottom: 1.5rem;
+        }
+        
+        .interp-category:last-child {
+            margin-bottom: 0;
+        }
+        
+        .interp-category__title {
+            font-weight: 600;
+            color: var(--pc-text);
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid var(--pc-border);
+        }
+        
+        .interp-item {
+            padding: 0.875rem;
+            background: var(--pc-bg-elevated);
+            border-radius: var(--pc-radius-md);
+            margin-bottom: 0.75rem;
+            border-left: 4px solid var(--pc-border);
+        }
+        
+        .interp-item:last-child { margin-bottom: 0; }
+        
+        .interp-item.normal { border-left-color: #22c55e; }
+        .interp-item.info { border-left-color: #3b82f6; }
+        .interp-item.warning { border-left-color: #f59e0b; }
+        .interp-item.critical { border-left-color: #ef4444; }
+        
+        .interp-item__title {
+            font-weight: 600;
+            color: var(--pc-text);
+            margin-bottom: 0.25rem;
+        }
+        
+        .interp-item__text {
+            font-size: 0.875rem;
+            color: var(--pc-text-muted);
+        }
+        
+        .interp-item__differentials {
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed var(--pc-border);
+            font-size: 0.8rem;
+            color: var(--pc-text-muted);
+        }
+        
+        .differential-tag {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            background: var(--pc-bg);
+            border-radius: var(--pc-radius-sm);
+            margin: 0.125rem;
+            font-size: 0.75rem;
+        }
+        
+        .pattern-summary {
+            background: linear-gradient(135deg, var(--pc-primary), var(--pc-primary-light));
+            color: white;
+            padding: 1.25rem;
+            border-radius: var(--pc-radius-lg);
+            margin-bottom: 1.5rem;
+        }
+        
+        .pattern-summary__title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pattern-summary__desc {
+            font-size: 0.9375rem;
+            opacity: 0.9;
+        }
+        
+        .btn-clear {
+            padding: 0.75rem 1.5rem;
+            background: var(--pc-bg-elevated);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-md);
+            color: var(--pc-text);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-clear:hover {
+            background: var(--pc-border);
+        }
+        
+        .wbc-diff-header {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--pc-text-muted);
+            margin-bottom: 0.5rem;
+            justify-content: flex-end;
+            padding-right: 0.5rem;
+        }
+        
+        .wbc-diff-header span {
+            width: 70px;
+            text-align: center;
+        }
+        
+        .wbc-diff-header span:last-child {
+            width: 90px;
+        }
+        
+        .disclaimer {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--pc-bg-elevated);
+            border-radius: var(--pc-radius-md);
+            font-size: 0.875rem;
+            color: var(--pc-text-muted);
+            border-left: 4px solid var(--pc-warning);
+        }
+        
+        .reference-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+        
+        .reference-table th,
+        .reference-table td {
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--pc-border);
+        }
+        
+        .reference-table th {
+            background: var(--pc-bg-elevated);
+            font-weight: 600;
+            color: var(--pc-text);
+        }
+        
+        .reference-table td {
+            color: var(--pc-text-muted);
+        }
+    </style>
+</head>
+<body class="pc-page no-js">
+    <nav class="pc-portal-nav">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">
+                <img src="/assets/img/dvmready-logo-icon.svg" alt="" class="pc-logo__img">
+                <span class="pc-logo__text">DVMReady</span>
+            </a>
+            <div class="pc-nav-group">
+                <a class="pc-nav-link" href="/">Home</a>
+                <a class="pc-nav-link pc-is-active" href="/tools/">Tools</a>
+                <a class="pc-nav-link" href="/search.html">Search</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container cbc-container" role="main">
+        <header class="calc-header">
+            <div class="calc-header__icon">🩸</div>
+            <h1 class="calc-header__title">CBC Interpreter</h1>
+            <p class="calc-header__subtitle">Complete Blood Count analysis with species-specific reference ranges, clinical interpretation, and differential diagnoses.</p>
+        </header>
+
+        <div class="species-toggle">
+            <button type="button" class="species-btn active" data-species="dog">🐕 Dog</button>
+            <button type="button" class="species-btn" data-species="cat">🐈 Cat</button>
+        </div>
+
+        <div class="cbc-grid">
+            <!-- Erythrocyte Section -->
+            <div class="cbc-section">
+                <div class="cbc-section__title">🔴 Erythrocyte Parameters</div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">RBC Count</span>
+                        <div class="cbc-row__ref" id="rbc-ref">5.5-8.5 ×10⁶/μL</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input" id="rbc" step="0.1" placeholder="0.0">
+                        <span class="cbc-unit">×10⁶/μL</span>
+                        <span class="cbc-flag" id="rbc-flag">--</span>
+                    </div>
+                </div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">Hemoglobin</span>
+                        <div class="cbc-row__ref" id="hgb-ref">12.0-18.0 g/dL</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input" id="hgb" step="0.1" placeholder="0.0">
+                        <span class="cbc-unit">g/dL</span>
+                        <span class="cbc-flag" id="hgb-flag">--</span>
+                    </div>
+                </div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">Hematocrit</span>
+                        <div class="cbc-row__ref" id="hct-ref">37.0-55.0 %</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input" id="hct" step="0.1" placeholder="0.0">
+                        <span class="cbc-unit">%</span>
+                        <span class="cbc-flag" id="hct-flag">--</span>
+                    </div>
+                </div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">MCV</span>
+                        <div class="cbc-row__ref" id="mcv-ref">60.0-77.0 fL</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input" id="mcv" step="0.1" placeholder="0.0">
+                        <span class="cbc-unit">fL</span>
+                        <span class="cbc-flag" id="mcv-flag">--</span>
+                    </div>
+                </div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">MCHC</span>
+                        <div class="cbc-row__ref" id="mchc-ref">32.0-36.0 g/dL</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input" id="mchc" step="0.1" placeholder="0.0">
+                        <span class="cbc-unit">g/dL</span>
+                        <span class="cbc-flag" id="mchc-flag">--</span>
+                    </div>
+                </div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">Reticulocytes</span>
+                        <div class="cbc-row__ref" id="retic-ref">< 1.5% or < 60K/μL</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input" id="retic" step="0.1" placeholder="0.0">
+                        <select class="cbc-input" id="retic-unit" style="width: 80px;">
+                            <option value="percent">%</option>
+                            <option value="absolute">K/μL</option>
+                        </select>
+                        <span class="cbc-flag" id="retic-flag">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leukocyte Section -->
+            <div class="cbc-section">
+                <div class="cbc-section__title">⚪ Leukocyte Parameters</div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">WBC Count</span>
+                        <div class="cbc-row__ref" id="wbc-ref">6.0-17.0 ×10³/μL</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input" id="wbc" step="0.1" placeholder="0.0">
+                        <span class="cbc-unit">×10³/μL</span>
+                        <span class="cbc-flag" id="wbc-flag">--</span>
+                    </div>
+                </div>
+                
+                <div class="wbc-diff-header">
+                    <span>%</span>
+                    <span>Absolute</span>
+                </div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">Neutrophils</span>
+                        <div class="cbc-row__ref" id="neu-ref">3.0-11.5 ×10³/μL</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input wbc-pct" id="neu-pct" step="0.1" placeholder="0">
+                        <input type="number" class="cbc-input wbc-abs" id="neu-abs" step="0.01" placeholder="0.0">
+                        <span class="cbc-flag" id="neu-flag">--</span>
+                    </div>
+                </div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">Lymphocytes</span>
+                        <div class="cbc-row__ref" id="lym-ref">1.0-4.8 ×10³/μL</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input wbc-pct" id="lym-pct" step="0.1" placeholder="0">
+                        <input type="number" class="cbc-input wbc-abs" id="lym-abs" step="0.01" placeholder="0.0">
+                        <span class="cbc-flag" id="lym-flag">--</span>
+                    </div>
+                </div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">Monocytes</span>
+                        <div class="cbc-row__ref" id="mono-ref">0.2-1.4 ×10³/μL</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input wbc-pct" id="mono-pct" step="0.1" placeholder="0">
+                        <input type="number" class="cbc-input wbc-abs" id="mono-abs" step="0.01" placeholder="0.0">
+                        <span class="cbc-flag" id="mono-flag">--</span>
+                    </div>
+                </div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">Eosinophils</span>
+                        <div class="cbc-row__ref" id="eo-ref">0.1-1.3 ×10³/μL</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input wbc-pct" id="eo-pct" step="0.1" placeholder="0">
+                        <input type="number" class="cbc-input wbc-abs" id="eo-abs" step="0.01" placeholder="0.0">
+                        <span class="cbc-flag" id="eo-flag">--</span>
+                    </div>
+                </div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">Basophils</span>
+                        <div class="cbc-row__ref" id="baso-ref">0.0-0.1 ×10³/μL</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input wbc-pct" id="baso-pct" step="0.1" placeholder="0">
+                        <input type="number" class="cbc-input wbc-abs" id="baso-abs" step="0.01" placeholder="0.0">
+                        <span class="cbc-flag" id="baso-flag">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platelet Section -->
+            <div class="cbc-section">
+                <div class="cbc-section__title">🟣 Platelet Parameters</div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">Platelets</span>
+                        <div class="cbc-row__ref" id="plt-ref">200-500 ×10³/μL</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input" id="plt" step="1" placeholder="0">
+                        <span class="cbc-unit">×10³/μL</span>
+                        <span class="cbc-flag" id="plt-flag">--</span>
+                    </div>
+                </div>
+                
+                <div class="cbc-row">
+                    <div>
+                        <span class="cbc-row__label">MPV</span>
+                        <div class="cbc-row__ref" id="mpv-ref">7.0-11.0 fL</div>
+                    </div>
+                    <div class="cbc-row__input">
+                        <input type="number" class="cbc-input" id="mpv" step="0.1" placeholder="0.0">
+                        <span class="cbc-unit">fL</span>
+                        <span class="cbc-flag" id="mpv-flag">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Reference -->
+            <div class="cbc-section">
+                <div class="cbc-section__title">📊 Quick Reference Ranges</div>
+                <table class="reference-table">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Dog</th>
+                            <th>Cat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ref-table-body">
+                        <tr><td>RBC (×10⁶/μL)</td><td>5.5-8.5</td><td>5.0-10.0</td></tr>
+                        <tr><td>Hgb (g/dL)</td><td>12.0-18.0</td><td>8.0-15.0</td></tr>
+                        <tr><td>Hct (%)</td><td>37.0-55.0</td><td>24.0-45.0</td></tr>
+                        <tr><td>MCV (fL)</td><td>60.0-77.0</td><td>39.0-55.0</td></tr>
+                        <tr><td>MCHC (g/dL)</td><td>32.0-36.0</td><td>30.0-36.0</td></tr>
+                        <tr><td>WBC (×10³/μL)</td><td>6.0-17.0</td><td>5.5-19.5</td></tr>
+                        <tr><td>Platelets (×10³/μL)</td><td>200-500</td><td>200-500</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Interpretation Panel -->
+        <div class="interpretation-panel" id="interpretation-panel" style="display: none;">
+            <div class="interpretation-panel__title">🩺 Clinical Interpretation</div>
+            
+            <div id="pattern-summary"></div>
+            
+            <div id="interp-container">
+                <!-- Interpretations will be inserted here -->
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: center;">
+            <button type="button" class="btn-clear" onclick="clearAll()">Clear All Values</button>
+        </div>
+
+        <div class="disclaimer">
+            <strong>⚠️ Important Disclaimer:</strong> This tool is for educational and reference purposes only. CBC interpretation should always be performed in conjunction with a complete physical examination, patient history, and other diagnostic findings. Abnormal results should be confirmed by a clinical pathologist or reference laboratory. This calculator does not replace professional veterinary judgment or consultation with a board-certified clinical pathologist.
+        </div>
+    </main>
+
+    <script>
+        // Reference ranges for dogs and cats (IDEXX/Cornell standards)
+        const referenceRanges = {
+            dog: {
+                rbc: { min: 5.5, max: 8.5, unit: '×10⁶/μL' },
+                hgb: { min: 12.0, max: 18.0, unit: 'g/dL' },
+                hct: { min: 37.0, max: 55.0, unit: '%' },
+                mcv: { min: 60.0, max: 77.0, unit: 'fL' },
+                mchc: { min: 32.0, max: 36.0, unit: 'g/dL' },
+                retic: { min: 0, max: 1.5, unit: '%' },
+                reticAbs: { min: 0, max: 60, unit: 'K/μL' },
+                wbc: { min: 6.0, max: 17.0, unit: '×10³/μL' },
+                neu: { min: 3.0, max: 11.5, unit: '×10³/μL' },
+                lym: { min: 1.0, max: 4.8, unit: '×10³/μL' },
+                mono: { min: 0.2, max: 1.4, unit: '×10³/μL' },
+                eo: { min: 0.1, max: 1.3, unit: '×10³/μL' },
+                baso: { min: 0, max: 0.1, unit: '×10³/μL' },
+                plt: { min: 200, max: 500, unit: '×10³/μL' },
+                mpv: { min: 7.0, max: 11.0, unit: 'fL' }
+            },
+            cat: {
+                rbc: { min: 5.0, max: 10.0, unit: '×10⁶/μL' },
+                hgb: { min: 8.0, max: 15.0, unit: 'g/dL' },
+                hct: { min: 24.0, max: 45.0, unit: '%' },
+                mcv: { min: 39.0, max: 55.0, unit: 'fL' },
+                mchc: { min: 30.0, max: 36.0, unit: 'g/dL' },
+                retic: { min: 0, max: 1.0, unit: '%' },
+                reticAbs: { min: 0, max: 50, unit: 'K/μL' },
+                wbc: { min: 5.5, max: 19.5, unit: '×10³/μL' },
+                neu: { min: 2.5, max: 12.5, unit: '×10³/μL' },
+                lym: { min: 1.5, max: 7.0, unit: '×10³/μL' },
+                mono: { min: 0.1, max: 0.8, unit: '×10³/μL' },
+                eo: { min: 0.1, max: 1.5, unit: '×10³/μL' },
+                baso: { min: 0, max: 0.1, unit: '×10³/μL' },
+                plt: { min: 200, max: 500, unit: '×10³/μL' },
+                mpv: { min: 7.0, max: 11.0, unit: 'fL' }
+            }
+        };
+
+        let currentSpecies = 'dog';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            updateReferenceLabels();
+        });
+
+        function setupEventListeners() {
+            // Species toggle
+            document.querySelectorAll('.species-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.species-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentSpecies = btn.dataset.species;
+                    updateReferenceLabels();
+                    clearAll();
+                });
+            });
+
+            // Input listeners for all CBC parameters
+            const inputs = document.querySelectorAll('.cbc-input');
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    calculateAbsolutes();
+                    analyzeCBC();
+                });
+            });
+        }
+
+        function updateReferenceLabels() {
+            const ranges = referenceRanges[currentSpecies];
+            
+            document.getElementById('rbc-ref').textContent = `${ranges.rbc.min}-${ranges.rbc.max} ${ranges.rbc.unit}`;
+            document.getElementById('hgb-ref').textContent = `${ranges.hgb.min}-${ranges.hgb.max} ${ranges.hgb.unit}`;
+            document.getElementById('hct-ref').textContent = `${ranges.hct.min}-${ranges.hct.max} ${ranges.hct.unit}`;
+            document.getElementById('mcv-ref').textContent = `${ranges.mcv.min}-${ranges.mcv.max} ${ranges.mcv.unit}`;
+            document.getElementById('mchc-ref').textContent = `${ranges.mchc.min}-${ranges.mchc.max} ${ranges.mchc.unit}`;
+            
+            const reticText = currentSpecies === 'dog' ? '< 1.5% or < 60K/μL' : '< 1.0% or < 50K/μL';
+            document.getElementById('retic-ref').textContent = reticText;
+            
+            document.getElementById('wbc-ref').textContent = `${ranges.wbc.min}-${ranges.wbc.max} ${ranges.wbc.unit}`;
+            document.getElementById('neu-ref').textContent = `${ranges.neu.min}-${ranges.neu.max} ${ranges.neu.unit}`;
+            document.getElementById('lym-ref').textContent = `${ranges.lym.min}-${ranges.lym.max} ${ranges.lym.unit}`;
+            document.getElementById('mono-ref').textContent = `${ranges.mono.min}-${ranges.mono.max} ${ranges.mono.unit}`;
+            document.getElementById('eo-ref').textContent = `${ranges.eo.min}-${ranges.eo.max} ${ranges.eo.unit}`;
+            document.getElementById('baso-ref').textContent = `${ranges.baso.min}-${ranges.baso.max} ${ranges.baso.unit}`;
+            document.getElementById('plt-ref').textContent = `${ranges.plt.min}-${ranges.plt.max} ${ranges.plt.unit}`;
+            document.getElementById('mpv-ref').textContent = `${ranges.mpv.min}-${ranges.mpv.max} ${ranges.mpv.unit}`;
+        }
+
+        function calculateAbsolutes() {
+            const wbc = parseFloat(document.getElementById('wbc').value);
+            if (!wbc) return;
+
+            // Calculate absolute values from percentages
+            const cells = ['neu', 'lym', 'mono', 'eo', 'baso'];
+            cells.forEach(cell => {
+                const pctInput = document.getElementById(`${cell}-pct`);
+                const absInput = document.getElementById(`${cell}-abs`);
+                
+                if (pctInput.value && !absInput.value) {
+                    const pct = parseFloat(pctInput.value);
+                    absInput.value = (wbc * pct / 100).toFixed(2);
+                }
+            });
+        }
+
+        function getFlag(value, min, max, criticalLow, criticalHigh) {
+            if (!value && value !== 0) return { text: '--', class: '' };
+            
+            if (criticalLow !== undefined && value <= criticalLow) {
+                return { text: 'CRIT', class: 'critical' };
+            }
+            if (criticalHigh !== undefined && value >= criticalHigh) {
+                return { text: 'CRIT', class: 'critical' };
+            }
+            if (value < min) {
+                return { text: 'LOW', class: 'low' };
+            }
+            if (value > max) {
+                return { text: 'HIGH', class: 'high' };
+            }
+            return { text: 'NORM', class: 'normal' };
+        }
+
+        function analyzeCBC() {
+            const ranges = referenceRanges[currentSpecies];
+            const interpretations = [];
+            
+            // Get all values
+            const values = {
+                rbc: parseFloat(document.getElementById('rbc').value),
+                hgb: parseFloat(document.getElementById('hgb').value),
+                hct: parseFloat(document.getElementById('hct').value),
+                mcv: parseFloat(document.getElementById('mcv').value),
+                mchc: parseFloat(document.getElementById('mchc').value),
+                retic: parseFloat(document.getElementById('retic').value),
+                reticUnit: document.getElementById('retic-unit').value,
+                wbc: parseFloat(document.getElementById('wbc').value),
+                neu: parseFloat(document.getElementById('neu-abs').value),
+                lym: parseFloat(document.getElementById('lym-abs').value),
+                mono: parseFloat(document.getElementById('mono-abs').value),
+                eo: parseFloat(document.getElementById('eo-abs').value),
+                baso: parseFloat(document.getElementById('baso-abs').value),
+                plt: parseFloat(document.getElementById('plt').value),
+                mpv: parseFloat(document.getElementById('mpv').value)
+            };
+
+            // Update flags
+            updateFlag('rbc', values.rbc, ranges.rbc.min, ranges.rbc.max, 2.5, undefined);
+            updateFlag('hgb', values.hgb, ranges.hgb.min, ranges.hgb.max, 5, undefined);
+            updateFlag('hct', values.hct, ranges.hct.min, ranges.hct.max, 15, undefined);
+            updateFlag('mcv', values.mcv, ranges.mcv.min, ranges.mcv.max);
+            updateFlag('mchc', values.mchc, ranges.mchc.min, ranges.mchc.max);
+            
+            // Reticulocyte flag
+            if (values.retic) {
+                const reticMin = 0;
+                const reticMax = values.reticUnit === 'percent' ? ranges.retic.max : ranges.reticAbs.max;
+                const reticFlag = getFlag(values.retic, reticMin, reticMax);
+                setFlag('retic-flag', reticFlag);
+            }
+            
+            updateFlag('wbc', values.wbc, ranges.wbc.min, ranges.wbc.max, 1.5, 50);
+            updateFlag('neu', values.neu, ranges.neu.min, ranges.neu.max, 1, undefined);
+            updateFlag('lym', values.lym, ranges.lym.min, ranges.lym.max, 0.5, undefined);
+            updateFlag('mono', values.mono, ranges.mono.min, ranges.mono.max);
+            updateFlag('eo', values.eo, ranges.eo.min, ranges.eo.max);
+            updateFlag('baso', values.baso, ranges.baso.min, ranges.baso.max);
+            updateFlag('plt', values.plt, ranges.plt.min, ranges.plt.max, 50, undefined);
+            updateFlag('mpv', values.mpv, ranges.mpv.min, ranges.mpv.max);
+
+            // RBC Analysis - Anemia
+            if (values.hct || values.hgb) {
+                const hctLow = values.hct < ranges.hct.min;
+                const hgbLow = values.hgb < ranges.hgb.min;
+                
+                if (hctLow || hgbLow) {
+                    const hctValue = values.hct || (values.hgb * 3); // Estimate if only Hgb available
+                    let severity = 'Mild';
+                    if (hctValue < (ranges.hct.min * 0.5)) severity = 'Severe';
+                    else if (hctValue < (ranges.hct.min * 0.7)) severity = 'Moderate';
+                    
+                    // Determine if regenerative
+                    let isRegenerative = false;
+                    if (values.retic) {
+                        if (values.reticUnit === 'percent') {
+                            isRegenerative = values.retic > ranges.retic.max;
+                        } else {
+                            isRegenerative = values.retic > ranges.reticAbs.max;
+                        }
+                    }
+                    
+                    // Check macrocytosis (regenerative indicator)
+                    if (values.mcv > ranges.mcv.max) {
+                        isRegenerative = true;
+                    }
+                    
+                    const anemiaType = isRegenerative ? 'Regenerative' : 'Non-Regenerative';
+                    
+                    let differentials = [];
+                    if (isRegenerative) {
+                        differentials = ['Blood loss (acute/chronic)', 'Hemolysis (IMHA, toxin, parasite)', 'Fragmentation (DIC, hemangiosarcoma)'];
+                    } else {
+                        differentials = ['CKD (erythropoietin deficiency)', 'Chronic disease/inflammation', 'Bone marrow disorder', 'Nutritional deficiency'];
+                    }
+                    
+                    interpretations.push({
+                        category: 'Erythrocyte',
+                        class: severity === 'Severe' ? 'critical' : 'warning',
+                        title: `${severity} ${anemiaType} Anemia`,
+                        text: isRegenerative 
+                            ? `Reticulocytosis and/or macrocytosis indicate bone marrow response. Consider blood loss (surgical, GI, trauma) or hemolysis.`
+                            : `Lack of reticulocyte response indicates inadequate bone marrow production. Evaluate for chronic disease, CKD, or primary bone marrow pathology.`,
+                        differentials: differentials
+                    });
+                }
+                
+                // Polycythemia
+                if (values.hct > ranges.hct.max) {
+                    const isRelative = values.hct < 60; // Dehydration
+                    interpretations.push({
+                        category: 'Erythrocyte',
+                        class: values.hct > 65 ? 'critical' : 'warning',
+                        title: isRelative ? 'Relative Polycythemia' : 'Absolute Polycythemia',
+                        text: isRelative 
+                            ? 'Elevated Hct likely due to hemoconcentration (dehydration). Check hydration status.'
+                            : 'True polycythemia may indicate secondary hypoxia (cardiac/respiratory), renal EPO production, or polycythemia vera.',
+                        differentials: isRelative 
+                            ? ['Dehydration', 'Splenic contraction'] 
+                            : ['Hypoxia (cardiac/respiratory)', 'Renal mass', 'Polycythemia vera']
+                    });
+                }
+            }
+
+            // MCV Analysis
+            if (values.mcv) {
+                if (values.mcv > ranges.mcv.max) {
+                    interpretations.push({
+                        category: 'RBC Morphology',
+                        class: 'info',
+                        title: 'Macrocytosis',
+                        text: 'Large RBCs may indicate reticulocytosis (regeneration), breed predisposition (Poodles), or bone marrow dysplasia.',
+                        differentials: ['Regeneration', 'Poodle macrocytosis', 'FeLV (cats)', 'Dysplasia']
+                    });
+                } else if (values.mcv < ranges.mcv.min) {
+                    interpretations.push({
+                        category: 'RBC Morphology',
+                        class: 'info',
+                        title: 'Microcytosis',
+                        text: 'Small RBCs suggest iron deficiency (chronic blood loss), portosystemic shunt, or Akita trait.',
+                        differentials: ['Iron deficiency anemia', 'Portosystemic shunt', 'Akita/ Shiba Inu', 'Copper deficiency']
+                    });
+                }
+            }
+
+            // MCHC Analysis
+            if (values.mchc) {
+                if (values.mchc < ranges.mchc.min) {
+                    interpretations.push({
+                        category: 'RBC Morphology',
+                        class: 'info',
+                        title: 'Hypochromasia',
+                        text: 'Decreased hemoglobin concentration suggests iron deficiency or incomplete hemoglobin synthesis.',
+                        differentials: ['Iron deficiency', 'Copper deficiency', 'Lead toxicity']
+                    });
+                }
+            }
+
+            // WBC Analysis
+            if (values.wbc) {
+                const neutrophilia = values.neu > ranges.neu.max;
+                const neutropenia = values.neu < ranges.neu.min;
+                const lymphopenia = values.lym < ranges.lym.min;
+                const lymphocytosis = values.lym > ranges.lym.max;
+                const eosinophilia = values.eo > ranges.eo.max;
+                const monocytosis = values.mono > ranges.mono.max;
+                
+                // Stress leukogram pattern
+                if (neutrophilia && lymphopenia && eosinophilia === false) {
+                    interpretations.push({
+                        category: 'Leukocyte',
+                        class: 'info',
+                        title: 'Stress Leukogram Pattern',
+                        text: 'Neutrophilia with lymphopenia and/or eosinopenia suggests endogenous corticosteroid release (stress, hyperadrenocorticism, or exogenous steroid administration).',
+                        differentials: ['Physiologic stress', 'Hyperadrenocorticism', 'Exogenous steroids', 'Recent illness/trauma']
+                    });
+                }
+                
+                // Inflammatory leukogram
+                if (neutrophilia) {
+                    if (values.neu > ranges.neu.max * 1.5) {
+                        interpretations.push({
+                            category: 'Leukocyte',
+                            class: 'warning',
+                            title: 'Marked Neutrophilia',
+                            text: 'Significant neutrophilia suggests active inflammation. Left shift or toxic change would indicate tissue demand.',
+                            differentials: ['Bacterial infection', 'Necrosis', 'Immune-mediated disease', 'Paraneoplastic syndrome']
+                        });
+                    }
+                }
+                
+                // Neutropenia
+                if (neutropenia) {
+                    const severity = values.neu < 1 ? 'critical' : 'warning';
+                    interpretations.push({
+                        category: 'Leukocyte',
+                        class: severity,
+                        title: values.neu < 1 ? 'Severe Neutropenia' : 'Neutropenia',
+                        text: values.neu < 1 
+                            ? 'Critical neutropenia places patient at high risk for sepsis. May indicate overwhelming infection, bone marrow failure, or parvovirus.'
+                            : 'Neutropenia may indicate viral infection, bone marrow suppression, or immune-mediated destruction.',
+                        differentials: ['Parvovirus', 'Sepsis/endotoxemia', 'Bone marrow aplasia', 'Drug toxicity', 'Cyclic neutropenia']
+                    });
+                }
+                
+                // Lymphocytosis
+                if (lymphocytosis) {
+                    if (values.lym > 10) {
+                        interpretations.push({
+                            category: 'Leukocyte',
+                            class: 'critical',
+                            title: 'Marked Lymphocytosis',
+                            text: 'Severe lymphocytosis (>10,000/μL) raises concern for lymphoid neoplasia. Consider lymph node cytology and flow cytometry.',
+                            differentials: ['Lymphoid leukemia', 'Lymphoma (stage V)', 'Epinephrine response (reactive)', 'Chronic ehrlichiosis']
+                        });
+                    } else {
+                        interpretations.push({
+                            category: 'Leukocyte',
+                            class: 'info',
+                            title: 'Reactive Lymphocytosis',
+                            text: 'Moderate lymphocytosis often represents antigenic stimulation. Assess for chronic infection or immune response.',
+                            differentials: ['Chronic infection', 'Immune-mediated disease', 'Hypersensitivity', 'Excitement/epinephrine']
+                        });
+                    }
+                }
+                
+                // Eosinophilia
+                if (eosinophilia) {
+                    interpretations.push({
+                        category: 'Leukocyte',
+                        class: 'info',
+                        title: 'Eosinophilia',
+                        text: 'Elevated eosinophils suggest parasitism, hypersensitivity, or eosinophilic conditions.',
+                        differentials: ['Parasitism (fleas, heartworm, GI)', 'Atopy/Food allergy', 'Eosinophilic granuloma', 'Hypoadrenocorticism', 'Eosinophilic leukemia (rare)']
+                    });
+                }
+                
+                // Leukemia consideration
+                if (values.wbc > 50) {
+                    interpretations.push({
+                        category: 'Leukocyte',
+                        class: 'critical',
+                        title: 'Suspected Leukemia',
+                        text: 'Marked leukocytosis (>50,000/μL) is highly suggestive of leukemia. Urgent cytology/bone marrow evaluation needed.',
+                        differentials: ['Acute leukemia', 'Chronic leukemia', 'Leukemoid response (rare)']
+                    });
+                }
+            }
+
+            // Platelet Analysis
+            if (values.plt) {
+                if (values.plt < ranges.plt.min) {
+                    const severity = values.plt < 50 ? 'critical' : (values.plt < 100 ? 'warning' : 'info');
+                    const title = values.plt < 50 ? 'Severe Thrombocytopenia' : (values.plt < 100 ? 'Moderate Thrombocytopenia' : 'Mild Thrombocytopenia');
+                    
+                    let differentials = [];
+                    if (values.plt < 50) {
+                        differentials = ['IMT (primary/secondary)', 'Bone marrow aplasia', 'DIC', 'Severe sepsis', 'Ehrlichiosis'];
+                    } else {
+                        differentials = ['IMT', 'Infectious disease (Ehrlichia, RMSF)', 'Bone marrow suppression', 'DIC', 'Splenic sequestration'];
+                    }
+                    
+                    interpretations.push({
+                        category: 'Hemostasis',
+                        class: severity,
+                        title: title,
+                        text: values.plt < 50 
+                            ? 'Critical platelet count - spontaneous bleeding risk. Consider transfusion if active hemorrhage.'
+                            : 'Thrombocytopenia may be due to decreased production, increased destruction, or consumption.',
+                        differentials: differentials
+                    });
+                }
+                
+                if (values.plt > ranges.plt.max) {
+                    interpretations.push({
+                        category: 'Hemostasis',
+                        class: 'info',
+                        title: 'Thrombocytosis',
+                        text: 'Reactive thrombocytosis is common post-splenectomy, with inflammation, or after blood loss.',
+                        differentials: ['Reactive (inflammation)', 'Post-splenectomy', 'Iron deficiency', 'Essential thrombocythemia (rare)']
+                    });
+                }
+            }
+
+            // MPV Analysis
+            if (values.mpv && values.plt < ranges.plt.min) {
+                if (values.mpv > ranges.mpv.max) {
+                    interpretations.push({
+                        category: 'Hemostasis',
+                        class: 'info',
+                        title: 'Increased MPV with Thrombocytopenia',
+                        text: 'Large platelets suggest active regeneration, supporting peripheral destruction/consumption rather than bone marrow failure.',
+                        differentials: ['Immune-mediated thrombocytopenia', 'DIC', 'Blood loss']
+                    });
+                } else if (values.mpv < ranges.mpv.min) {
+                    interpretations.push({
+                        category: 'Hemostasis',
+                        class: 'warning',
+                        title: 'Decreased MPV with Thrombocytopenia',
+                        text: 'Small platelets with low count suggest bone marrow production problem.',
+                        differentials: ['Bone marrow aplasia', 'Infectious disease', 'Toxin']
+                    });
+                }
+            }
+
+            // Display interpretations
+            displayInterpretations(interpretations);
+        }
+
+        function updateFlag(id, value, min, max, criticalLow, criticalHigh) {
+            const flag = getFlag(value, min, max, criticalLow, criticalHigh);
+            setFlag(`${id}-flag`, flag);
+        }
+
+        function setFlag(elementId, flag) {
+            const el = document.getElementById(elementId);
+            el.textContent = flag.text;
+            el.className = 'cbc-flag ' + flag.class;
+        }
+
+        function displayInterpretations(interpretations) {
+            const container = document.getElementById('interp-container');
+            const panel = document.getElementById('interpretation-panel');
+            
+            if (interpretations.length === 0) {
+                panel.style.display = 'none';
+                return;
+            }
+            
+            panel.style.display = 'block';
+            
+            // Group by category
+            const grouped = {};
+            interpretations.forEach(interp => {
+                if (!grouped[interp.category]) grouped[interp.category] = [];
+                grouped[interp.category].push(interp);
+            });
+            
+            // Generate HTML
+            let html = '';
+            
+            // Pattern summary at top
+            const anemiaInterp = interpretations.find(i => i.category === 'Erythrocyte' && i.title.includes('Anemia'));
+            const wbcInterp = interpretations.find(i => i.category === 'Leukocyte');
+            const pltInterp = interpretations.find(i => i.category === 'Hemostasis');
+            
+            let summaryText = [];
+            if (anemiaInterp) summaryText.push(anemiaInterp.title);
+            if (wbcInterp) summaryText.push(wbcInterp.title);
+            if (pltInterp) summaryText.push(pltInterp.title);
+            
+            if (summaryText.length > 0) {
+                html += `
+                    <div class="pattern-summary">
+                        <div class="pattern-summary__title">Pattern Summary</div>
+                        <div class="pattern-summary__desc">${summaryText.join(' • ')}</div>
+                    </div>
+                `;
+            }
+            
+            // Group interpretations
+            for (const [category, interps] of Object.entries(grouped)) {
+                html += `<div class="interp-category">`;
+                html += `<div class="interp-category__title">${category} Findings</div>`;
+                
+                interps.forEach(interp => {
+                    const diffs = interp.differentials 
+                        ? `<div class="interp-item__differentials">Differential diagnoses: ${interp.differentials.map(d => `<span class="differential-tag">${d}</span>`).join('')}</div>`
+                        : '';
+                    
+                    html += `
+                        <div class="interp-item ${interp.class}">
+                            <div class="interp-item__title">${interp.title}</div>
+                            <div class="interp-item__text">${interp.text}</div>
+                            ${diffs}
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function clearAll() {
+            document.querySelectorAll('.cbc-input').forEach(input => {
+                input.value = '';
+            });
+            
+            document.querySelectorAll('.cbc-flag').forEach(flag => {
+                flag.textContent = '--';
+                flag.className = 'cbc-flag';
+            });
+            
+            document.getElementById('interpretation-panel').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

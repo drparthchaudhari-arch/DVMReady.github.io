@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="pro" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apgar Score Calculator | Neonatal Assessment | DVMReady</title>
+    <meta name="description" content="Apgar scoring system for newborn dogs and cats. Assess puppy and kitten viability at 1 and 5 minutes after birth.">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/dvmready-logo-icon.svg">
+    <link rel="stylesheet" href="/assets/css/tokens.css">
+    <link rel="stylesheet" href="/assets/css/portal.css">
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css">
+    <style>
+        .apgar-container { max-width: 900px; margin: 0 auto; }
+        
+        .timer-display {
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-accent) 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--pc-radius-lg);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timer-display__label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.9;
+        }
+        
+        .timer-display__time {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1;
+            margin: 0.5rem 0;
+        }
+        
+        .timer-controls {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        .timer-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            border-radius: var(--pc-radius-md);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .timer-btn:hover { background: rgba(255,255,255,0.3); }
+        
+        .assessment-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--pc-bg-elevated);
+            padding: 0.5rem;
+            border-radius: var(--pc-radius-md);
+        }
+        
+        .assessment-tab {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            background: transparent;
+            color: var(--pc-text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: var(--pc-radius-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .assessment-tab.active {
+            background: var(--pc-primary);
+            color: white;
+        }
+        
+        .apgar-category {
+            background: var(--pc-surface);
+            border: 1px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .apgar-category__title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--pc-text);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .apgar-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .apgar-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: var(--pc-radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            background: var(--pc-bg-elevated);
+        }
+        
+        .apgar-option:hover { background: var(--pc-bg); }
+        
+        .apgar-option.selected {
+            background: var(--pc-primary);
+            border-color: var(--pc-accent);
+        }
+        
+        .apgar-option.selected .apgar-option__score,
+        .apgar-option.selected .apgar-option__text { color: white; }
+        
+        .apgar-option__score {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            font-weight: 700;
+            color: var(--pc-primary);
+            flex-shrink: 0;
+        }
+        
+        .apgar-option.selected .apgar-option__score {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .apgar-option__text {
+            flex: 1;
+            font-size: 0.9375rem;
+            color: var(--pc-text);
+        }
+        
+        .apgar-result {
+            background: var(--pc-surface);
+            border: 2px solid var(--pc-border);
+            border-radius: var(--pc-radius-lg);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .apgar-result__score {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .apgar-result__score.normal { color: #22c55e; }
+        .apgar-result__score.mild { color: #f59e0b; }
+        .apgar-result__score.severe { color: #ef4444; }
+        
+        .apgar-result__label {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .apgar-result__action {
+            background: var(--pc-bg-elevated);
+            padding: 1rem;
+            border-radius: var(--pc-radius-md);
+            margin-top: 1rem;
+            font-size: 0.9375rem;
+        }
+        
+        .apgar-breakdown {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        
+        @media (max-width: 640px) {
+            .apgar-breakdown { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        .apgar-breakdown__item {
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--pc-bg-elevated);
+            border-radius: var(--pc-radius-md);
+        }
+        
+        .apgar-breakdown__value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--pc-primary);
+        }
+        
+        .apgar-breakdown__label {
+            font-size: 0.75rem;
+            color: var(--pc-text-muted);
+            margin-top: 0.25rem;
+        }
+        
+        .interpretation-grid {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        .interpretation-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem;
+            border-radius: var(--pc-radius-md);
+        }
+        
+        .interpretation-item.normal {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+        }
+        
+        .interpretation-item.mild {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .interpretation-item.severe {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+        }
+        
+        .interpretation-item__score {
+            font-size: 1.5rem;
+            font-weight: 700;
+            min-width: 4rem;
+        }
+        
+        .interpretation-item__text { flex: 1; }
+        
+        .interpretation-item__text strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .interpretation-item__text span {
+            font-size: 0.875rem;
+            color: var(--pc-text-muted);
+        }
+    </style>
+</head>
+<body class="pc-page no-js">
+    <nav class="pc-portal-nav">
+        <div class="pc-portal-nav__inner">
+            <a class="pc-logo" href="/">
+                <img src="/assets/img/dvmready-logo-icon.svg" alt="" class="pc-logo__img">
+                <span class="pc-logo__text">DVMReady</span>
+            </a>
+            <div class="pc-nav-group">
+                <a class="pc-nav-link" href="/">Home</a>
+                <a class="pc-nav-link pc-is-active" href="/tools/">Tools</a>
+                <a class="pc-nav-link" href="/search.html">Search</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+        <header class="calc-header">
+            <div class="calc-header__icon">👶</div>
+            <h1 class="calc-header__title">Apgar Score Calculator</h1>
+            <p class="calc-header__subtitle">Neonatal assessment for puppies and kittens. Score at 1 minute and 5 minutes after birth to assess viability and guide resuscitation.</p>
+        </header>
+
+        <div class="apgar-container">
+            <!-- Timer -->
+            <div class="timer-display">
+                <div class="timer-display__label">Time Since Birth</div>
+                <div class="timer-display__time" id="timer">00:00</div>
+                <div class="timer-controls">
+                    <button type="button" class="timer-btn" onclick="startTimer()">▶ Start</button>
+                    <button type="button" class="timer-btn" onclick="pauseTimer()">⏸ Pause</button>
+                    <button type="button" class="timer-btn" onclick="resetTimer()">↺ Reset</button>
+                </div>
+            </div>
+
+            <!-- Assessment Tabs -->
+            <div class="assessment-tabs">
+                <button type="button" class="assessment-tab active" data-time="1">1-Minute Assessment</button>
+                <button type="button" class="assessment-tab" data-time="5">5-Minute Assessment</button>
+            </div>
+
+            <div class="calc-card">
+                <!-- Heart Rate -->
+                <div class="apgar-category">
+                    <div class="apgar-category__title">❤️ Heart Rate</div>
+                    <div class="apgar-options" data-category="hr">
+                        <div class="apgar-option" data-score="2">
+                            <span class="apgar-option__score">2</span>
+                            <span class="apgar-option__text">> 100 bpm (puppy/kitten actively crying)</span>
+                        </div>
+                        <div class="apgar-option" data-score="1">
+                            <span class="apgar-option__score">1</span>
+                            <span class="apgar-option__text">< 100 bpm (slow, weak heartbeat)</span>
+                        </div>
+                        <div class="apgar-option" data-score="0">
+                            <span class="apgar-option__score">0</span>
+                            <span class="apgar-option__text">Absent (no heartbeat detected)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Respiration -->
+                <div class="apgar-category">
+                    <div class="apgar-category__title">🫁 Respiration</div>
+                    <div class="apgar-options" data-category="resp">
+                        <div class="apgar-option" data-score="2">
+                            <span class="apgar-option__score">2</span>
+                            <span class="apgar-option__text">Regular, strong crying or breathing</span>
+                        </div>
+                        <div class="apgar-option" data-score="1">
+                            <span class="apgar-option__score">1</span>
+                            <span class="apgar-option__text">Weak, irregular breathing or gasping</span>
+                        </div>
+                        <div class="apgar-option" data-score="0">
+                            <span class="apgar-option__score">0</span>
+                            <span class="apgar-option__text">Apneic (not breathing)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Muscle Tone -->
+                <div class="apgar-category">
+                    <div class="apgar-category__title">💪 Muscle Tone</div>
+                    <div class="apgar-options" data-category="tone">
+                        <div class="apgar-option" data-score="2">
+                            <span class="apgar-option__score">2</span>
+                            <span class="apgar-option__text">Active movement, flexed limbs, resists extension</span>
+                        </div>
+                        <div class="apgar-option" data-score="1">
+                            <span class="apgar-option__score">1</span>
+                            <span class="apgar-option__text">Some flexion of extremities, weak movement</span>
+                        </div>
+                        <div class="apgar-option" data-score="0">
+                            <span class="apgar-option__score">0</span>
+                            <span class="apgar-option__text">Limp, flaccid (no muscle tone)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reflex Irritability -->
+                <div class="apgar-category">
+                    <div class="apgar-category__title">👂 Reflex Response</div>
+                    <div class="apgar-options" data-category="reflex">
+                        <div class="apgar-option" data-score="2">
+                            <span class="apgar-option__score">2</span>
+                            <span class="apgar-option__text">Vigorous cry or pull away when stimulated</span>
+                        </div>
+                        <div class="apgar-option" data-score="1">
+                            <span class="apgar-option__score">1</span>
+                            <span class="apgar-option__text">Weak grimace or slight movement</span>
+                        </div>
+                        <div class="apgar-option" data-score="0">
+                            <span class="apgar-option__score">0</span>
+                            <span class="apgar-option__text">No response to stimulation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Color -->
+                <div class="apgar-category">
+                    <div class="apgar-category__title">🎨 Color/Mucous Membranes</div>
+                    <div class="apgar-options" data-category="color">
+                        <div class="apgar-option" data-score="2">
+                            <span class="apgar-option__score">2</span>
+                            <span class="apgar-option__text">Completely pink (normal color)</span>
+                        </div>
+                        <div class="apgar-option" data-score="1">
+                            <span class="apgar-option__score">1</span>
+                            <span class="apgar-option__text">Body pink but extremities cyanotic (acrocyanosis)</span>
+                        </div>
+                        <div class="apgar-option" data-score="0">
+                            <span class="apgar-option__score">0</span>
+                            <span class="apgar-option__text">Pale, cyanotic, or mottled all over</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result -->
+            <div class="apgar-result" id="result">
+                <div class="apgar-result__score" id="total-score">--</div>
+                <div class="apgar-result__label" id="result-label">Complete All Categories</div>
+                
+                <div class="apgar-result__action" id="result-action">
+                    Select scores for all 5 categories to see the Apgar assessment
+                </div>
+                
+                <div class="apgar-breakdown" id="breakdown"></div>
+            </div>
+
+            <!-- Interpretation Guide -->
+            <div class="calc-card" style="margin-top: 1.5rem;">
+                <h3 style="margin-bottom: 1rem;">📊 Apgar Score Interpretation</h3>
+                <div class="interpretation-grid">
+                    <div class="interpretation-item normal">
+                        <div class="interpretation-item__score" style="color: #22c55e;">7-10</div>
+                        <div class="interpretation-item__text">
+                            <strong style="color: #22c55e;">Normal</strong>
+                            <span>Vigorous neonate. Routine care, dry and stimulate.</span>
+                        </div>
+                    </div>
+                    <div class="interpretation-item mild">
+                        <div class="interpretation-item__score" style="color: #f59e0b;">4-6</div>
+                        <div class="interpretation-item__text">
+                            <strong style="color: #f59e0b;">Moderately Depressed</strong>
+                            <span>Active resuscitation needed. Clear airways, ventilate, stimulate.</span>
+                        </div>
+                    </div>
+                    <div class="interpretation-item severe">
+                        <div class="interpretation-item__score" style="color: #ef4444;">0-3</div>
+                        <div class="interpretation-item__text">
+                            <strong style="color: #ef4444;">Severely Depressed</strong>
+                            <span>Immediate aggressive resuscitation. Intubation and ventilation may be needed.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resuscitation Protocol -->
+            <div class="calc-card" style="margin-top: 1.5rem;">
+                <h3 style="margin-bottom: 1rem;">🚨 Neonatal Resuscitation Protocol</h3>
+                <div style="display: grid; gap: 0.75rem; font-size: 0.9375rem;">
+                    <div style="padding: 0.75rem; background: var(--pc-bg-elevated); border-radius: var(--pc-radius-md);">
+                        <strong>Step 1:</strong> Dry and stimulate (rub with towel, flick feet)
+                    </div>
+                    <div style="padding: 0.75rem; background: var(--pc-bg-elevated); border-radius: var(--pc-radius-md);">
+                        <strong>Step 2:</strong> Clear airways (bulb syringe, position head down)
+                    </div>
+                    <div style="padding: 0.75rem; background: var(--pc-bg-elevated); border-radius: var(--pc-radius-md);">
+                        <strong>Step 3:</strong> Oxygen supplementation (flow-by or mask)
+                    </div>
+                    <div style="padding: 0.75rem; background: var(--pc-bg-elevated); border-radius: var(--pc-radius-md);">
+                        <strong>Step 4:</strong> Ventilation if apneic (1 breath every 2-3 seconds)
+                    </div>
+                    <div style="padding: 0.75rem; background: var(--pc-bg-elevated); border-radius: var(--pc-radius-md);">
+                        <strong>Step 5:</strong> CPR if HR &lt; 60 bpm (100-120 compressions/min)
+                    </div>
+                    <div style="padding: 0.75rem; background: rgba(99, 102, 241, 0.1); border-radius: var(--pc-radius-md);">
+                        <strong>Emergency Drugs:</strong> Epinephrine 0.01-0.1 mg/kg (if no response to ventilation)
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding: 1rem; background: var(--pc-bg-elevated); border-radius: var(--pc-radius-md); font-size: 0.875rem; color: var(--pc-text-muted);">
+                <strong>Reference:</strong> Modified Apgar scoring for veterinary use. Assess at 1 minute and 5 minutes. Score &lt;7 at 5 minutes indicates need for continued monitoring and possible intensive care.
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Timer
+        let timerInterval;
+        let seconds = 0;
+        let isRunning = false;
+        
+        function updateTimerDisplay() {
+            const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const secs = (seconds % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${mins}:${secs}`;
+        }
+        
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                timerInterval = setInterval(() => {
+                    seconds++;
+                    updateTimerDisplay();
+                }, 1000);
+            }
+        }
+        
+        function pauseTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+        }
+        
+        function resetTimer() {
+            pauseTimer();
+            seconds = 0;
+            updateTimerDisplay();
+        }
+        
+        // Assessment tabs
+        let currentAssessment = '1';
+        const assessments = { '1': {}, '5': {} };
+        
+        document.querySelectorAll('.assessment-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.assessment-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentAssessment = tab.dataset.time;
+                clearAllSelections();
+                updateResult();
+            });
+        });
+        
+        // Option selection
+        document.querySelectorAll('.apgar-options').forEach(container => {
+            const category = container.dataset.category;
+            
+            container.querySelectorAll('.apgar-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    container.querySelectorAll('.apgar-option').forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    assessments[currentAssessment][category] = parseInt(option.dataset.score);
+                    updateResult();
+                });
+            });
+        });
+        
+        function clearAllSelections() {
+            document.querySelectorAll('.apgar-option').forEach(opt => opt.classList.remove('selected'));
+        }
+        
+        function updateResult() {
+            const current = assessments[currentAssessment];
+            const total = Object.values(current).reduce((a, b) => a + b, 0);
+            const answered = Object.keys(current).length;
+            
+            document.getElementById('total-score').textContent = answered === 5 ? total : '--';
+            
+            const scoreEl = document.getElementById('total-score');
+            const labelEl = document.getElementById('result-label');
+            const actionEl = document.getElementById('result-action');
+            
+            scoreEl.classList.remove('normal', 'mild', 'severe');
+            
+            if (answered < 5) {
+                labelEl.textContent = `${answered}/5 Categories Scored`;
+                actionEl.textContent = 'Select a score for each category to see the Apgar assessment';
+            } else {
+                if (total >= 7) {
+                    scoreEl.classList.add('normal');
+                    labelEl.textContent = `Normal (${currentAssessment}-minute score)`;
+                    labelEl.style.color = '#22c55e';
+                    actionEl.innerHTML = '<strong>✅ Routine Care</strong><br>Dry, stimulate, return to dam. Monitor for normal nursing behavior.';
+                } else if (total >= 4) {
+                    scoreEl.classList.add('mild');
+                    labelEl.textContent = `Moderately Depressed (${currentAssessment}-minute score)`;
+                    labelEl.style.color = '#f59e0b';
+                    actionEl.innerHTML = '<strong>⚠️ Active Resuscitation Required</strong><br>Clear airways, provide oxygen, stimulate. Consider ventilation if needed.';
+                } else {
+                    scoreEl.classList.add('severe');
+                    labelEl.textContent = `Severely Depressed (${currentAssessment}-minute score)`;
+                    labelEl.style.color = '#ef4444';
+                    actionEl.innerHTML = '<strong>🚨 Aggressive Resuscitation NOW</strong><br>Immediate ventilation, possible intubation, CPR if needed. Call for assistance.';
+                }
+            }
+            
+            // Update breakdown
+            const categories = ['hr', 'resp', 'tone', 'reflex', 'color'];
+            const labels = ['HR', 'Resp', 'Tone', 'Reflex', 'Color'];
+            
+            document.getElementById('breakdown').innerHTML = categories.map((cat, i) => {
+                const score = current[cat];
+                return `
+                    <div class="apgar-breakdown__item">
+                        <div class="apgar-breakdown__value">${score !== undefined ? score : '-'}</div>
+                        <div class="apgar-breakdown__label">${labels[i]}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Initial update
+        updateResult();
+    </script>
+</body>
+</html>

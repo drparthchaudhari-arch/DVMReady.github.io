@@ -1,0 +1,1154 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Radiology Contrast Calculator" />
+    <title>Radiology Contrast Dosing | DVMReady Tools</title>
+    <meta name="description" content="Veterinary radiology contrast dosing calculator. Calculate iodinated contrast (iohexol, iopamidol) and GI contrast (barium, iohexol) doses for dogs and cats. Includes contraindications and preparation guidelines." />
+    <link rel="canonical" href="https://dvmready.com/tools/radiology-contrast.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/legal-compliance.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Veterinary Radiology Contrast Calculator",
+      "applicationCategory": "HealthApplication",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Calculate iodinated contrast and GI contrast doses for veterinary radiology studies. Includes contraindications and preparation guidelines."
+    }
+    </script>
+    <style>
+      /* Radiology Contrast Calculator Specific Styles */
+      .contrast-type-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+      }
+      
+      .contrast-type-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        border: 2px solid var(--calc-border);
+        border-radius: var(--calc-radius);
+        background: var(--calc-surface);
+        cursor: pointer;
+        transition: var(--calc-transition);
+        text-align: center;
+      }
+      
+      .contrast-type-btn__icon {
+        font-size: 1.75rem;
+      }
+      
+      .contrast-type-btn__label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--calc-text-secondary);
+      }
+      
+      .contrast-type-btn__desc {
+        font-size: 0.75rem;
+        color: var(--calc-text-muted);
+      }
+      
+      .contrast-type-btn:hover {
+        border-color: var(--calc-primary-light);
+        transform: translateY(-2px);
+        box-shadow: var(--calc-shadow);
+      }
+      
+      .contrast-type-btn.active {
+        border-color: var(--calc-primary);
+        background: linear-gradient(135deg, rgba(12, 96, 125, 0.05), rgba(12, 96, 125, 0.1));
+      }
+      
+      .contrast-type-btn.active .contrast-type-btn__label {
+        color: var(--calc-primary);
+      }
+      
+      .contraindication-panel {
+        margin-top: 1.5rem;
+        padding: 1rem 1.25rem;
+        border-radius: var(--calc-radius);
+        border-left: 4px solid var(--calc-warning);
+        background: rgba(245, 158, 11, 0.08);
+      }
+      
+      .contraindication-panel--danger {
+        border-left-color: var(--calc-error);
+        background: rgba(220, 38, 38, 0.08);
+      }
+      
+      .contraindication-panel__title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--calc-text-primary);
+        margin: 0 0 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .contraindication-panel--danger .contraindication-panel__title {
+        color: var(--calc-error);
+      }
+      
+      .contraindication-panel ul {
+        margin: 0;
+        padding-left: 1.25rem;
+        font-size: 0.875rem;
+        color: var(--calc-text-secondary);
+      }
+      
+      .contraindication-panel li {
+        margin-bottom: 0.25rem;
+      }
+      
+      .contraindication-panel li:last-child {
+        margin-bottom: 0;
+      }
+      
+      .prep-section {
+        margin-top: 1.5rem;
+        padding: 1rem 1.25rem;
+        border-radius: var(--calc-radius);
+        background: var(--calc-bg-tertiary);
+      }
+      
+      .prep-section__title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--calc-text-primary);
+        margin: 0 0 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .prep-section ul {
+        margin: 0;
+        padding-left: 1.25rem;
+        font-size: 0.875rem;
+        color: var(--calc-text-secondary);
+      }
+      
+      .prep-section li {
+        margin-bottom: 0.375rem;
+      }
+      
+      .result-highlight {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      
+      .result-highlight__item {
+        padding: 1rem;
+        background: var(--calc-surface);
+        border-radius: var(--calc-radius);
+        border: 1px solid var(--calc-border);
+      }
+      
+      .result-highlight__label {
+        font-size: 0.75rem;
+        color: var(--calc-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.25rem;
+      }
+      
+      .result-highlight__value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--calc-primary);
+        font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      }
+      
+      .disclaimer-box {
+        margin-top: 2rem;
+        padding: 1rem 1.25rem;
+        border-radius: var(--calc-radius);
+        border: 1px solid var(--calc-border);
+        background: linear-gradient(135deg, var(--calc-bg-tertiary), var(--calc-surface));
+      }
+      
+      .disclaimer-box__title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--calc-text-primary);
+        margin: 0 0 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .disclaimer-box p {
+        font-size: 0.875rem;
+        color: var(--calc-text-secondary);
+        margin: 0;
+        line-height: 1.5;
+      }
+      
+      .procedure-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 0.5rem;
+      }
+      
+      .procedure-chip {
+        padding: 0.75rem;
+        border: 1px solid var(--calc-border);
+        border-radius: var(--calc-radius);
+        background: var(--calc-surface);
+        cursor: pointer;
+        transition: var(--calc-transition);
+        text-align: center;
+        font-size: 0.85rem;
+      }
+      
+      .procedure-chip:hover {
+        border-color: var(--calc-primary-light);
+        color: var(--calc-primary);
+      }
+      
+      .procedure-chip.active {
+        background: var(--calc-primary);
+        border-color: var(--calc-primary);
+        color: white;
+      }
+      
+      .concentration-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      
+      .conc-chip {
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--calc-border);
+        border-radius: 50px;
+        background: var(--calc-surface);
+        cursor: pointer;
+        transition: var(--calc-transition);
+        font-size: 0.85rem;
+      }
+      
+      .conc-chip:hover {
+        border-color: var(--calc-primary-light);
+        color: var(--calc-primary);
+      }
+      
+      .conc-chip.active {
+        background: var(--calc-primary);
+        border-color: var(--calc-primary);
+        color: white;
+      }
+      
+      .species-notes {
+        margin-top: 0.75rem;
+        padding: 0.75rem 1rem;
+        border-radius: var(--calc-radius-sm);
+        background: rgba(12, 96, 125, 0.08);
+        font-size: 0.85rem;
+        color: var(--calc-text-secondary);
+      }
+      
+      .species-notes strong {
+        color: var(--calc-primary);
+      }
+      
+      @media (max-width: 600px) {
+        .contrast-type-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .result-highlight {
+          grid-template-columns: 1fr;
+        }
+        
+        .procedure-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <div class="pc-mobile-menu" id="pc-mobile-menu" aria-hidden="true">
+      <div class="pc-mobile-menu__header">
+        <span class="pc-mobile-menu__title">Menu</span>
+        <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <nav class="pc-mobile-menu__nav" aria-label="Mobile navigation">
+        <a class="pc-mobile-nav-link" href="/">
+          <span class="pc-mobile-nav-link__icon">🏠</span>
+          <span class="pc-mobile-nav-link__text">Home</span>
+        </a>
+        <a class="pc-mobile-nav-link pc-is-active" href="/tools/">
+          <span class="pc-mobile-nav-link__icon">🧰</span>
+          <span class="pc-mobile-nav-link__text">Tools</span>
+        </a>
+        <a class="pc-mobile-nav-link" href="/study/">
+          <span class="pc-mobile-nav-link__icon">📚</span>
+          <span class="pc-mobile-nav-link__text">Study</span>
+        </a>
+        <a class="pc-mobile-nav-link" href="/search.html">
+          <span class="pc-mobile-nav-link__icon">🔍</span>
+          <span class="pc-mobile-nav-link__text">Search</span>
+        </a>
+        <a class="pc-mobile-nav-link" href="/account/">
+          <span class="pc-mobile-nav-link__icon">👤</span>
+          <span class="pc-mobile-nav-link__text">Account</span>
+        </a>
+      </nav>
+    </div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/">Home</a>
+          <a class="pc-nav-link pc-is-active" href="/tools/">Tools</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🩻</div>
+        <h1 class="calc-header__title">Radiology Contrast Calculator</h1>
+        <p class="calc-header__subtitle">Calculate iodinated contrast and GI contrast doses for dogs and cats. Includes contraindications and preparation guidelines.</p>
+      </header>
+
+      <div class="calc-mode-toggle">
+        <button class="calc-mode-btn active" data-mode="contrast-media"><span>🔬 Contrast Media</span></button>
+        <button class="calc-mode-btn" data-mode="gi-contrast"><span>🍽️ GI Contrast</span></button>
+      </div>
+
+      <!-- CONTRAST MEDIA SECTION -->
+      <div class="calc-card" id="contrast-media-section">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>🔬</span>
+            <span>Iodinated Contrast Media</span>
+          </h2>
+          <p class="calc-card__subtitle">Iohexol, Iopamidol, and other iodinated agents for CT, angiography, urography, and myelography</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species Selection -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+            </div>
+            <div class="species-notes" id="species-notes">
+              <strong>Dogs:</strong> Generally tolerate higher contrast doses. Monitor for allergic reactions. Use lower end of dose range for geriatric patients or those with renal compromise.
+            </div>
+          </div>
+
+          <!-- Weight Input -->
+          <div class="calc-form-group">
+            <label class="calc-label">Patient Weight</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="contrast-weight" placeholder="10" min="0.1" step="0.1" data-conversion="weight" data-unit="kg">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contrast Agent Type -->
+          <div class="calc-form-group">
+            <label class="calc-label">Contrast Agent</label>
+            <select class="calc-select" id="contrast-agent">
+              <option value="iohexol">Iohexol (Omnipaque)</option>
+              <option value="iopamidol">Iopamidol (Isovue)</option>
+              <option value="ioversol">Ioversol (Optiray)</option>
+              <option value="iodixanol">Iodixanol (Visipaque) - Iso-osmolar</option>
+            </select>
+          </div>
+
+          <!-- Concentration Selection -->
+          <div class="calc-form-group">
+            <label class="calc-label">Concentration <span class="calc-label__hint">(mg Iodine/mL)</span></label>
+            <div class="concentration-options" id="concentration-options">
+              <button type="button" class="conc-chip active" data-conc="140">140</button>
+              <button type="button" class="conc-chip" data-conc="180">180</button>
+              <button type="button" class="conc-chip" data-conc="240">240</button>
+              <button type="button" class="conc-chip" data-conc="300">300</button>
+              <button type="button" class="conc-chip" data-conc="320">320</button>
+              <button type="button" class="conc-chip" data-conc="350">350</button>
+            </div>
+            <input type="hidden" id="concentration-value" value="140">
+          </div>
+
+          <!-- Procedure Type -->
+          <div class="calc-form-group">
+            <label class="calc-label">Procedure Type</label>
+            <div class="procedure-grid" id="procedure-type">
+              <button type="button" class="procedure-chip active" data-procedure="ct-general" data-dose-min="400" data-dose-max="800" data-dose-typical="600">
+                CT General
+              </button>
+              <button type="button" class="procedure-chip" data-procedure="ct-angio" data-dose-min="400" data-dose-max="600" data-dose-typical="500">
+                CT Angiography
+              </button>
+              <button type="button" class="procedure-chip" data-procedure="excretory-urography" data-dose-min="600" data-dose-max="800" data-dose-typical="700">
+                Excretory Urography
+              </button>
+              <button type="button" class="procedure-chip" data-procedure="myelography" data-volume-min="0.2" data-volume-max="0.4" data-unit="ml-kg">
+                Myelography
+              </button>
+              <button type="button" class="procedure-chip" data-procedure="epidurography" data-volume-min="0.1" data-volume-max="0.2" data-unit="ml-kg">
+                Epidurography
+              </button>
+              <button type="button" class="procedure-chip" data-procedure="arthrography" data-volume-min="0.5" data-volume-max="2" data-unit="ml-total">
+                Arthrography
+              </button>
+            </div>
+          </div>
+
+          <!-- Dose Selection (for mg/kg procedures) -->
+          <div class="calc-form-group" id="dose-selection-group">
+            <label class="calc-label">Iodine Dose <span class="calc-label__hint">(mg I/kg)</span></label>
+            <div class="calc-chips" id="dose-options">
+              <button type="button" class="calc-chip active" data-dose="400">400</button>
+              <button type="button" class="calc-chip" data-dose="500">500</button>
+              <button type="button" class="calc-chip" data-dose="600">600 (typical)</button>
+              <button type="button" class="calc-chip" data-dose="700">700</button>
+              <button type="button" class="calc-chip" data-dose="800">800</button>
+            </div>
+            <input type="hidden" id="selected-dose" value="600">
+          </div>
+
+          <!-- Contraindications -->
+          <div class="contraindication-panel" id="contraindications">
+            <p class="contraindication-panel__title">⚠️ Contraindications & Precautions</p>
+            <ul>
+              <li><strong>Known hypersensitivity</strong> to iodinated contrast</li>
+              <li><strong>Severe renal impairment</strong> - consider alternative imaging or pre-treatment</li>
+              <li><strong>Dehydration</strong> - correct before administration</li>
+              <li><strong>Cardiac disease</strong> - use with caution, monitor closely</li>
+              <li><strong>Hyperthyroidism</strong> (cats) - iodine load may worsen condition</li>
+              <li><strong>Pregnancy</strong> - weigh risks vs. benefits</li>
+            </ul>
+          </div>
+
+          <!-- Preparation -->
+          <div class="prep-section">
+            <p class="prep-section__title">📋 Patient Preparation</p>
+            <ul id="prep-list">
+              <li><strong>Fasting:</strong> 12 hours for dogs, 8-12 hours for cats</li>
+              <li><strong>Hydration:</strong> Ensure adequate hydration; consider IV fluids for at-risk patients</li>
+              <li><strong>Pre-medication:</strong> Antihistamines (diphenhydramine 1-2 mg/kg IM) 15-30 min prior if previous reaction</li>
+              <li><strong>Emergency drugs:</strong> Have epinephrine, corticosteroids, and fluids readily available</li>
+              <li><strong>Monitoring:</strong> Continuous monitoring during and 30 min post-injection</li>
+            </ul>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-contrast-btn">
+            <span>🔬</span> Calculate Contrast Dose
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="contrast-results" style="display: none;">
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Total Volume Required</p>
+              <p class="calc-result-card__value">
+                <span id="contrast-result-volume">--</span>
+                <span class="calc-result-card__unit">mL</span>
+              </p>
+              <p class="calc-result-card__range" id="contrast-result-range"></p>
+            </div>
+
+            <div class="result-highlight">
+              <div class="result-highlight__item">
+                <p class="result-highlight__label">Dose Used</p>
+                <p class="result-highlight__value" id="result-dose-used">--</p>
+              </div>
+              <div class="result-highlight__item">
+                <p class="result-highlight__label">Concentration</p>
+                <p class="result-highlight__value" id="result-conc-used">--</p>
+              </div>
+            </div>
+
+            <div class="calc-result-card" id="infusion-rate-card" style="display: none;">
+              <p class="calc-result-card__label">Recommended Infusion Rate</p>
+              <p class="calc-result-card__value">
+                <span id="infusion-rate">--</span>
+                <span class="calc-result-card__unit">mL/sec</span>
+              </p>
+              <p class="calc-result-card__range">Total injection time: <span id="injection-time">--</span> seconds</p>
+            </div>
+
+            <div class="contraindication-panel contraindication-panel--danger" id="post-injection-note">
+              <p class="contraindication-panel__title">💉 Post-Injection Care</p>
+              <ul>
+                <li>Monitor for delayed reactions up to 30 minutes post-injection</li>
+                <li>Ensure adequate hydration post-procedure</li>
+                <li>Monitor renal parameters in at-risk patients within 24-48 hours</li>
+              </ul>
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-contrast-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-contrast-btn">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GI CONTRAST SECTION -->
+      <div class="calc-card" id="gi-contrast-section" style="display: none;">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>🍽️</span>
+            <span>GI Contrast Studies</span>
+          </h2>
+          <p class="calc-card__subtitle">Barium sulfate and water-soluble contrast for GI imaging</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species Selection -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">🐕<span class="calc-species-btn__label">Dog</span></button>
+              <button type="button" class="calc-species-btn" data-species="cat">🐈<span class="calc-species-btn__label">Cat</span></button>
+            </div>
+            <div class="species-notes" id="gi-species-notes">
+              <strong>Dogs:</strong> Barium is generally well-tolerated. Use lower volumes in toy breeds. Consider iohexol if GI perforation is suspected.
+            </div>
+          </div>
+
+          <!-- Weight Input -->
+          <div class="calc-form-group">
+            <label class="calc-label">Patient Weight</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="gi-weight" placeholder="10" min="0.1" step="0.1" data-conversion="weight" data-unit="kg">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- GI Contrast Type -->
+          <div class="calc-form-group">
+            <label class="calc-label">Contrast Agent</label>
+            <div class="contrast-type-grid">
+              <button type="button" class="contrast-type-btn active" data-gi-agent="barium-ugi">
+                <span class="contrast-type-btn__icon">🥛</span>
+                <span class="contrast-type-btn__label">Barium UGI</span>
+                <span class="contrast-type-btn__desc">5-10 mL/kg PO</span>
+              </button>
+              <button type="button" class="contrast-type-btn" data-gi-agent="barium-enema">
+                <span class="contrast-type-btn__icon">💉</span>
+                <span class="contrast-type-btn__label">Barium Enema</span>
+                <span class="contrast-type-btn__desc">10-20 mL/kg rectal</span>
+              </button>
+              <button type="button" class="contrast-type-btn" data-gi-agent="iohexol-gi">
+                <span class="contrast-type-btn__icon">💧</span>
+                <span class="contrast-type-btn__label">Iohexol (GI)</span>
+                <span class="contrast-type-btn__desc">5-10 mL/kg PO</span>
+              </button>
+              <button type="button" class="contrast-type-btn" data-gi-agent="gastrografin">
+                <span class="contrast-type-btn__icon">⚗️</span>
+                <span class="contrast-type-btn__label">Gastrografin</span>
+                <span class="contrast-type-btn__desc">Dilute before use</span>
+              </button>
+            </div>
+            <input type="hidden" id="gi-agent-type" value="barium-ugi">
+          </div>
+
+          <!-- Volume Selection -->
+          <div class="calc-form-group">
+            <label class="calc-label">Volume per kg <span class="calc-label__hint">(mL/kg)</span></label>
+            <div class="calc-chips" id="gi-volume-options">
+              <button type="button" class="calc-chip" data-vol="5">5 (conservative)</button>
+              <button type="button" class="calc-chip active" data-vol="7.5">7.5</button>
+              <button type="button" class="calc-chip" data-vol="10">10 (standard)</button>
+            </div>
+            <input type="hidden" id="gi-volume" value="7.5">
+          </div>
+
+          <!-- Barium Enema Dilution (only for barium enema) -->
+          <div class="calc-form-group" id="enema-dilution-group" style="display: none;">
+            <label class="calc-label">Enema Dilution</label>
+            <div class="calc-input-wrapper">
+              <select class="calc-select" id="enema-dilution">
+                <option value="1:1">1:1 (Barium:Water) - Standard</option>
+                <option value="1:2">1:2 (Barium:Water) - More dilute</option>
+                <option value="undiluted">Undiluted - For double contrast</option>
+              </select>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.25rem;">Dilute barium with warm water</p>
+          </div>
+
+          <!-- Gastrografin Dilution (only for gastrografin) -->
+          <div class="calc-form-group" id="gastrografin-dilution-group" style="display: none;">
+            <label class="calc-label">Gastrografin Dilution</label>
+            <select class="calc-select" id="gastrografin-dilution">
+              <option value="1:5">1:5 (Gastrografin:Water) - Standard</option>
+              <option value="1:10">1:10 (Gastrografin:Water) - Dilute</option>
+              <option value="1:3">1:3 (Gastrografin:Water) - Concentrated</option>
+            </select>
+            <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.5rem;">Undiluted Gastrografin can cause severe mucosal irritation and fluid shifts!</p>
+          </div>
+
+          <!-- Critical Safety Warning for Barium -->
+          <div class="contraindication-panel contraindication-panel--danger" id="barium-warning">
+            <p class="contraindication-panel__title">🚨 CRITICAL: Barium Contraindication</p>
+            <ul>
+              <li><strong>NEVER use barium if GI perforation is suspected!</strong></li>
+              <li>Barium in the peritoneal cavity causes severe, fatal peritonitis</li>
+              <li>Signs of perforation: Free gas on radiographs, peritonitis signs, recent GI surgery</li>
+              <li>If perforation suspected → use Iohexol or Gastrografin instead</li>
+            </ul>
+          </div>
+
+          <!-- Iohexol/Gastrografin Warning -->
+          <div class="contraindication-panel" id="water-soluble-warning" style="display: none;">
+            <p class="contraindication-panel__title">⚠️ Water-Soluble Contrast Considerations</p>
+            <ul>
+              <li><strong>Poor mucosal coating</strong> compared to barium - may miss subtle lesions</li>
+              <li><strong>Hyperosmolar</strong> (especially Gastrografin) - risk of fluid shifts</li>
+              <li><strong>Can cause diarrhea</strong> - especially Gastrografin</li>
+              <li><strong>Aspiration risk</strong> - if vomited; can cause severe pneumonitis</li>
+              <li><strong>Dilute Gastrografin properly</strong> - never use undiluted</li>
+            </ul>
+          </div>
+
+          <!-- Preparation -->
+          <div class="prep-section">
+            <p class="prep-section__title">📋 Patient Preparation for GI Studies</p>
+            <ul id="gi-prep-list">
+              <li><strong>Fasting:</strong> 12 hours for dogs, 12-18 hours for cats</li>
+              <li><strong>No food:</strong> Withhold food morning of study</li>
+              <li><strong>Water:</strong> May allow water up to 2-4 hours before</li>
+              <li><strong>Cleansing enema:</strong> For lower GI studies (6-12 hours before)</li>
+              <li><strong>Contrast temperature:</strong> Warm to body temperature before administration</li>
+            </ul>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-gi-btn">
+            <span>🍽️</span> Calculate GI Contrast Volume
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="gi-results" style="display: none;">
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Total Volume to Administer</p>
+              <p class="calc-result-card__value">
+                <span id="gi-result-volume">--</span>
+                <span class="calc-result-card__unit">mL</span>
+              </p>
+              <p class="calc-result-card__range" id="gi-result-range"></p>
+            </div>
+
+            <div class="result-highlight" id="dilution-result" style="display: none;">
+              <div class="result-highlight__item">
+                <p class="result-highlight__label">Contrast Amount</p>
+                <p class="result-highlight__value" id="contrast-amount">--</p>
+              </div>
+              <div class="result-highlight__item">
+                <p class="result-highlight__label">Diluent Amount</p>
+                <p class="result-highlight__value" id="diluent-amount">--</p>
+              </div>
+            </div>
+
+            <div class="calc-details">
+              <button type="button" class="calc-details__trigger">
+                <span>📋 Administration Protocol</span>
+                <svg class="calc-details__trigger-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="calc-details__content">
+                <div class="calc-details__inner" id="admin-protocol">
+                  <ul>
+                    <li>Administer via syringe or feeding tube slowly over 5-10 minutes</li>
+                    <li>Take survey radiograph before contrast to assess for contraindications</li>
+                    <li>Take immediate post-administration radiographs</li>
+                    <li>Continue with serial radiographs as indicated by study type</li>
+                    <li>For UGI: Images at 0, 15, 30 minutes, then hourly as needed</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-gi-btn">📋 Copy</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-gi-btn">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disclaimer -->
+      <div class="disclaimer-box">
+        <p class="disclaimer-box__title">⚕️ Important Disclaimer</p>
+        <p>This calculator provides general guidelines for contrast dosing in veterinary patients. Always consult with a board-certified veterinary radiologist or internal medicine specialist for complex cases. Individual patient factors may require dose adjustments. The veterinarian is responsible for determining the appropriate contrast agent, dose, and procedure for each patient.</p>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      // Remove no-js class
+      document.body.classList.remove('no-js');
+
+      // ==================== MODE TOGGLE ====================
+      const modeBtns = document.querySelectorAll('.calc-mode-btn');
+      const contrastMediaSection = document.getElementById('contrast-media-section');
+      const giContrastSection = document.getElementById('gi-contrast-section');
+
+      modeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          modeBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          const mode = btn.dataset.mode;
+          if (mode === 'contrast-media') {
+            contrastMediaSection.style.display = '';
+            giContrastSection.style.display = 'none';
+          } else {
+            contrastMediaSection.style.display = 'none';
+            giContrastSection.style.display = '';
+          }
+        });
+      });
+
+      // ==================== SPECIES HANDLING ====================
+      const speciesBtns = document.querySelectorAll('.calc-species-btn');
+      const speciesNotes = document.getElementById('species-notes');
+      const giSpeciesNotes = document.getElementById('gi-species-notes');
+
+      const speciesData = {
+        dog: {
+          notes: '<strong>Dogs:</strong> Generally tolerate higher contrast doses. Monitor for allergic reactions. Use lower end of dose range for geriatric patients or those with renal compromise.',
+          giNotes: '<strong>Dogs:</strong> Barium is generally well-tolerated. Use lower volumes in toy breeds. Consider iohexol if GI perforation is suspected.'
+        },
+        cat: {
+          notes: '<strong>Cats:</strong> More sensitive to contrast reactions. Use conservative doses. Higher risk of hypertensive episodes with IV contrast. Monitor thyroid status (contrast contains iodine).',
+          giNotes: '<strong>Cats:</strong> Smaller volumes needed due to body size. Barium can cause constipation. Ensure adequate hydration. Consider iohexol if any perforation risk.'
+        }
+      };
+
+      speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const parent = btn.closest('.calc-species-grid');
+          parent.querySelectorAll('.calc-species-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          const species = btn.dataset.species;
+          const isGiSection = parent.closest('#gi-contrast-section');
+          
+          if (isGiSection) {
+            giSpeciesNotes.innerHTML = speciesData[species].giNotes;
+          } else {
+            speciesNotes.innerHTML = speciesData[species].notes;
+          }
+        });
+      });
+
+      // ==================== UNIT CONVERSION ====================
+      const unitBtns = document.querySelectorAll('.calc-unit-btn');
+
+      unitBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const parent = btn.closest('.calc-input-unit');
+          const input = parent.parentElement.querySelector('.calc-input');
+          const currentUnit = parent.querySelector('.calc-unit-btn.active').dataset.unit;
+          const newUnit = btn.dataset.unit;
+          
+          if (input.value && currentUnit !== newUnit) {
+            const val = parseFloat(input.value);
+            if (!isNaN(val)) {
+              if (currentUnit === 'kg' && newUnit === 'lb') {
+                input.value = (val * 2.20462).toFixed(2);
+              } else if (currentUnit === 'lb' && newUnit === 'kg') {
+                input.value = (val / 2.20462).toFixed(2);
+              }
+            }
+          }
+          
+          parent.querySelectorAll('.calc-unit-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      // ==================== CONTRAST MEDIA CALCULATOR ====================
+      const concChips = document.querySelectorAll('.conc-chip');
+      const concentrationValue = document.getElementById('concentration-value');
+      const procedureChips = document.querySelectorAll('.procedure-chip');
+      const doseChips = document.querySelectorAll('#dose-options .calc-chip');
+      const selectedDose = document.getElementById('selected-dose');
+      const doseSelectionGroup = document.getElementById('dose-selection-group');
+      const calculateContrastBtn = document.getElementById('calculate-contrast-btn');
+      const contrastResults = document.getElementById('contrast-results');
+
+      // Concentration selection
+      concChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          concChips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          concentrationValue.value = chip.dataset.conc;
+        });
+      });
+
+      // Procedure type selection
+      procedureChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          procedureChips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          
+          const unit = chip.dataset.unit;
+          
+          // Show/hide dose selection based on procedure type
+          if (unit === 'ml-kg' || unit === 'ml-total') {
+            doseSelectionGroup.style.display = 'none';
+          } else {
+            doseSelectionGroup.style.display = '';
+            
+            // Update dose options based on procedure
+            const min = parseInt(chip.dataset.doseMin);
+            const max = parseInt(chip.dataset.doseMax);
+            const typical = parseInt(chip.dataset.doseTypical);
+            
+            doseChips.forEach(dc => {
+              const dose = parseInt(dc.dataset.dose);
+              dc.style.display = (dose >= min && dose <= max) ? '' : 'none';
+              dc.classList.toggle('active', dose === typical);
+            });
+            selectedDose.value = typical;
+          }
+        });
+      });
+
+      // Dose selection
+      doseChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          doseChips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          selectedDose.value = chip.dataset.dose;
+        });
+      });
+
+      // Calculate contrast dose
+      calculateContrastBtn.addEventListener('click', () => {
+        const weightInput = document.getElementById('contrast-weight');
+        const weightUnit = weightInput.closest('.calc-input-unit').querySelector('.calc-unit-btn.active').dataset.unit;
+        let weight = parseFloat(weightInput.value);
+        
+        if (!weight || weight <= 0) {
+          alert('Please enter a valid weight');
+          return;
+        }
+        
+        // Convert to kg if needed
+        if (weightUnit === 'lb') {
+          weight = weight / 2.20462;
+        }
+        
+        const procedure = document.querySelector('.procedure-chip.active');
+        const conc = parseInt(concentrationValue.value);
+        const unit = procedure.dataset.unit;
+        
+        let volume, doseUsed, rangeText;
+        
+        if (unit === 'ml-kg') {
+          // Volume-based procedures (myelography, epidurography)
+          const minVol = parseFloat(procedure.dataset.volumeMin);
+          const maxVol = parseFloat(procedure.dataset.volumeMax);
+          volume = (weight * ((minVol + maxVol) / 2)).toFixed(2);
+          doseUsed = `${(minVol + maxVol) / 2} mL/kg`;
+          rangeText = `Range: ${(weight * minVol).toFixed(2)}-${(weight * maxVol).toFixed(2)} mL (${minVol}-${maxVol} mL/kg)`;
+        } else if (unit === 'ml-total') {
+          // Fixed volume procedures (arthrography)
+          const minVol = parseFloat(procedure.dataset.volumeMin);
+          const maxVol = parseFloat(procedure.dataset.volumeMax);
+          volume = ((minVol + maxVol) / 2).toFixed(1);
+          doseUsed = `${minVol}-${maxVol} mL total`;
+          rangeText = `Range: ${minVol}-${maxVol} mL (joint size dependent)`;
+        } else {
+          // Dose-based procedures (CT, urography)
+          const dose = parseInt(selectedDose.value);
+          const totalIodine = weight * dose;
+          volume = (totalIodine / conc).toFixed(2);
+          doseUsed = `${dose} mg I/kg`;
+          
+          const minDose = parseInt(procedure.dataset.doseMin);
+          const maxDose = parseInt(procedure.dataset.doseMax);
+          const minVol = (weight * minDose / conc).toFixed(2);
+          const maxVol = (weight * maxDose / conc).toFixed(2);
+          rangeText = `Range: ${minVol}-${maxVol} mL (${minDose}-${maxDose} mg I/kg)`;
+        }
+        
+        // Display results
+        document.getElementById('contrast-result-volume').textContent = volume;
+        document.getElementById('contrast-result-range').textContent = rangeText;
+        document.getElementById('result-dose-used').textContent = doseUsed;
+        document.getElementById('result-conc-used').textContent = `${conc} mg I/mL`;
+        
+        // Infusion rate (for CT angiography)
+        const infusionCard = document.getElementById('infusion-rate-card');
+        if (procedure.dataset.procedure === 'ct-angio') {
+          const rate = Math.max(1, (volume / 10)).toFixed(1); // ~10 second injection
+          document.getElementById('infusion-rate').textContent = rate;
+          document.getElementById('injection-time').textContent = '10';
+          infusionCard.style.display = '';
+        } else {
+          infusionCard.style.display = 'none';
+        }
+        
+        contrastResults.style.display = '';
+        contrastResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+
+      // Copy and Reset for contrast
+      document.getElementById('copy-contrast-btn').addEventListener('click', () => {
+        const volume = document.getElementById('contrast-result-volume').textContent;
+        const dose = document.getElementById('result-dose-used').textContent;
+        const conc = document.getElementById('result-conc-used').textContent;
+        
+        const text = `Radiology Contrast:\nVolume: ${volume} mL\nDose: ${dose}\nConcentration: ${conc}`;
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('Results copied to clipboard');
+        });
+      });
+
+      document.getElementById('reset-contrast-btn').addEventListener('click', () => {
+        document.getElementById('contrast-weight').value = '';
+        contrastResults.style.display = 'none';
+      });
+
+      // ==================== GI CONTRAST CALCULATOR ====================
+      const giAgentBtns = document.querySelectorAll('.contrast-type-btn');
+      const giAgentType = document.getElementById('gi-agent-type');
+      const giVolumeChips = document.querySelectorAll('#gi-volume-options .calc-chip');
+      const giVolumeInput = document.getElementById('gi-volume');
+      const bariumWarning = document.getElementById('barium-warning');
+      const waterSolubleWarning = document.getElementById('water-soluble-warning');
+      const enemaDilutionGroup = document.getElementById('enema-dilution-group');
+      const gastrografinDilutionGroup = document.getElementById('gastrografin-dilution-group');
+      const calculateGiBtn = document.getElementById('calculate-gi-btn');
+      const giResults = document.getElementById('gi-results');
+
+      // GI agent selection
+      giAgentBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          giAgentBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          const agent = btn.dataset.giAgent;
+          giAgentType.value = agent;
+          
+          // Show/hide warnings and options
+          if (agent === 'barium-ugi' || agent === 'barium-enema') {
+            bariumWarning.style.display = '';
+            waterSolubleWarning.style.display = 'none';
+          } else {
+            bariumWarning.style.display = 'none';
+            waterSolubleWarning.style.display = '';
+          }
+          
+          enemaDilutionGroup.style.display = agent === 'barium-enema' ? '' : 'none';
+          gastrografinDilutionGroup.style.display = agent === 'gastrografin' ? '' : 'none';
+          
+          // Update volume options based on agent
+          if (agent === 'barium-enema') {
+            giVolumeChips[0].textContent = '10';
+            giVolumeChips[1].textContent = '15';
+            giVolumeChips[2].textContent = '20';
+            giVolumeChips[0].dataset.vol = '10';
+            giVolumeChips[1].dataset.vol = '15';
+            giVolumeChips[2].dataset.vol = '20';
+            giVolumeInput.value = '15';
+            giVolumeChips.forEach((c, i) => c.classList.toggle('active', i === 1));
+          } else {
+            giVolumeChips[0].textContent = '5 (conservative)';
+            giVolumeChips[1].textContent = '7.5';
+            giVolumeChips[2].textContent = '10 (standard)';
+            giVolumeChips[0].dataset.vol = '5';
+            giVolumeChips[1].dataset.vol = '7.5';
+            giVolumeChips[2].dataset.vol = '10';
+            giVolumeInput.value = '7.5';
+            giVolumeChips.forEach((c, i) => c.classList.toggle('active', i === 1));
+          }
+        });
+      });
+
+      // GI volume selection
+      giVolumeChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          giVolumeChips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          giVolumeInput.value = chip.dataset.vol;
+        });
+      });
+
+      // Calculate GI volume
+      calculateGiBtn.addEventListener('click', () => {
+        const weightInput = document.getElementById('gi-weight');
+        const weightUnit = weightInput.closest('.calc-input-unit').querySelector('.calc-unit-btn.active').dataset.unit;
+        let weight = parseFloat(weightInput.value);
+        
+        if (!weight || weight <= 0) {
+          alert('Please enter a valid weight');
+          return;
+        }
+        
+        // Convert to kg if needed
+        if (weightUnit === 'lb') {
+          weight = weight / 2.20462;
+        }
+        
+        const volumePerKg = parseFloat(giVolumeInput.value);
+        const agent = giAgentType.value;
+        let totalVolume = weight * volumePerKg;
+        let rangeText = `Range: ${(weight * (volumePerKg * 0.7)).toFixed(1)}-${(weight * (volumePerKg * 1.3)).toFixed(1)} mL`;
+        
+        // Handle dilutions
+        const dilutionResult = document.getElementById('dilution-result');
+        if (agent === 'barium-enema') {
+          const dilution = document.getElementById('enema-dilution').value;
+          if (dilution === '1:1') {
+            document.getElementById('contrast-amount').textContent = (totalVolume / 2).toFixed(1) + ' mL';
+            document.getElementById('diluent-amount').textContent = (totalVolume / 2).toFixed(1) + ' mL';
+            rangeText += ' (1:1 dilution with warm water)';
+          } else if (dilution === '1:2') {
+            document.getElementById('contrast-amount').textContent = (totalVolume / 3).toFixed(1) + ' mL';
+            document.getElementById('diluent-amount').textContent = ((totalVolume * 2) / 3).toFixed(1) + ' mL';
+            rangeText += ' (1:2 dilution with warm water)';
+          } else {
+            document.getElementById('contrast-amount').textContent = totalVolume.toFixed(1) + ' mL';
+            document.getElementById('diluent-amount').textContent = '0 mL';
+            rangeText += ' (undiluted)';
+          }
+          dilutionResult.style.display = 'grid';
+        } else if (agent === 'gastrografin') {
+          const dilution = document.getElementById('gastrografin-dilution').value;
+          const ratio = dilution === '1:3' ? [1, 3] : dilution === '1:5' ? [1, 5] : [1, 10];
+          document.getElementById('contrast-amount').textContent = (totalVolume / (ratio[0] + ratio[1])).toFixed(1) + ' mL';
+          document.getElementById('diluent-amount').textContent = ((totalVolume * ratio[1]) / (ratio[0] + ratio[1])).toFixed(1) + ' mL';
+          rangeText += ` (${dilution} dilution with water)`;
+          dilutionResult.style.display = 'grid';
+        } else {
+          dilutionResult.style.display = 'none';
+        }
+        
+        document.getElementById('gi-result-volume').textContent = totalVolume.toFixed(1);
+        document.getElementById('gi-result-range').textContent = rangeText;
+        
+        giResults.style.display = '';
+        giResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+
+      // Copy and Reset for GI
+      document.getElementById('copy-gi-btn').addEventListener('click', () => {
+        const volume = document.getElementById('gi-result-volume').textContent;
+        const agent = document.querySelector('.contrast-type-btn.active .contrast-type-btn__label').textContent;
+        
+        const text = `GI Contrast Study:\nAgent: ${agent}\nVolume: ${volume} mL`;
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('Results copied to clipboard');
+        });
+      });
+
+      document.getElementById('reset-gi-btn').addEventListener('click', () => {
+        document.getElementById('gi-weight').value = '';
+        giResults.style.display = 'none';
+      });
+
+      // ==================== UTILITY FUNCTIONS ====================
+      function showToast(message, type = 'success') {
+        const container = document.querySelector('.pc-toast-container');
+        const toast = document.createElement('div');
+        toast.className = `pc-toast pc-toast--${type}`;
+        toast.textContent = message;
+        toast.style.cssText = `
+          background: var(--pc-primary);
+          color: white;
+          padding: 0.75rem 1.5rem;
+          border-radius: 8px;
+          margin-top: 0.5rem;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          animation: slideIn 0.3s ease;
+        `;
+        container.appendChild(toast);
+        setTimeout(() => {
+          toast.style.animation = 'slideOut 0.3s ease';
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      // ==================== DETAILS TOGGLE ====================
+      const detailsTriggers = document.querySelectorAll('.calc-details__trigger');
+      detailsTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          trigger.parentElement.classList.toggle('open');
+        });
+      });
+
+      // Add animation styles
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideIn {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideOut {
+          from { opacity: 1; transform: translateY(0); }
+          to { opacity: 0; transform: translateY(-10px); }
+        }
+      `;
+      document.head.appendChild(style);
+    })();
+    </script>
+  </body>
+</html>

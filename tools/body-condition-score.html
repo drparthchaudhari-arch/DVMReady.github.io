@@ -1,0 +1,1203 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Body Condition Score" />
+    <title>Body Condition Score (BCS) Calculator | DVMReady Tools</title>
+    <meta name="description" content="Free veterinary BCS calculator for dogs and cats. Calculate body condition score using 9-point or 5-point scale, estimate ideal weight, and get feeding recommendations." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Body Condition Score (BCS) Calculator | DVMReady Tools" />
+    <meta property="og:description" content="Calculate body condition score for dogs and cats. 9-point and 5-point scales with weight estimation and feeding guidelines." />
+    <meta property="og:url" content="https://dvmready.com/tools/body-condition-score.html" />
+    <link rel="canonical" href="https://dvmready.com/tools/body-condition-score.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/calculator-print.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/legal-compliance.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Veterinary Body Condition Score Calculator",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Free veterinary BCS calculator for dogs and cats with 9-point and 5-point scales, ideal weight estimation, and feeding recommendations.",
+      "url": "https://dvmready.com/tools/body-condition-score.html",
+      "featureList": ["9-point and 5-point BCS scales", "Species-specific scoring for dogs and cats", "Ideal weight estimation", "Calorie adjustment recommendations", "Feeding guidelines"]
+    }
+    </script>
+    <style>
+      /* BCS-specific styles */
+      .bcs-scale-toggle {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        padding: 0.5rem;
+        background: var(--calc-bg-tertiary);
+        border-radius: 50px;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .bcs-scale-btn {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        background: transparent;
+        color: var(--calc-text-secondary);
+        font-size: 0.9rem;
+        font-weight: 600;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: var(--calc-transition);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .bcs-scale-btn::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--calc-surface);
+        border-radius: 50px;
+        opacity: 0;
+        transform: scale(0.8);
+        transition: var(--calc-transition);
+        box-shadow: var(--calc-shadow-sm);
+      }
+      
+      .bcs-scale-btn span {
+        position: relative;
+        z-index: 1;
+      }
+      
+      .bcs-scale-btn:hover {
+        color: var(--calc-primary);
+      }
+      
+      .bcs-scale-btn.active {
+        color: var(--calc-primary);
+      }
+      
+      .bcs-scale-btn.active::before {
+        opacity: 1;
+        transform: scale(1);
+      }
+      
+      /* BCS Score Grid */
+      .bcs-score-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      
+      .bcs-score-card {
+        border: 2px solid var(--calc-border);
+        border-radius: var(--calc-radius);
+        padding: 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: var(--calc-transition);
+        background: var(--calc-surface);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .bcs-score-card:hover {
+        border-color: var(--calc-primary-light);
+        transform: translateY(-4px);
+        box-shadow: var(--calc-shadow);
+      }
+      
+      .bcs-score-card.active {
+        border-color: var(--calc-primary);
+        background: linear-gradient(135deg, rgba(12, 96, 125, 0.05), rgba(12, 96, 125, 0.1));
+        box-shadow: var(--calc-shadow-glow);
+      }
+      
+      .bcs-score-card.active::after {
+        content: '✓';
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 20px;
+        height: 20px;
+        background: var(--calc-primary);
+        color: white;
+        border-radius: 50%;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .bcs-score-card__number {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--calc-primary);
+        margin-bottom: 0.5rem;
+      }
+      
+      .bcs-score-card__category {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.25rem 0.5rem;
+        border-radius: 50px;
+        margin-bottom: 0.75rem;
+        display: inline-block;
+      }
+      
+      .bcs-score-card__category--emaciated {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      
+      .bcs-score-card__category--thin {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      
+      .bcs-score-card__category--ideal {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      
+      .bcs-score-card__category--overweight {
+        background: #fed7aa;
+        color: #9a3412;
+      }
+      
+      .bcs-score-card__category--obese {
+        background: #fecaca;
+        color: #991b1b;
+      }
+      
+      .bcs-score-card__visual {
+        font-size: 2.5rem;
+        margin-bottom: 0.75rem;
+        line-height: 1;
+      }
+      
+      .bcs-score-card__desc {
+        font-size: 0.8rem;
+        color: var(--calc-text-muted);
+        line-height: 1.4;
+      }
+      
+      /* BCS Details Panel */
+      .bcs-details-panel {
+        background: var(--calc-bg-tertiary);
+        border-radius: var(--calc-radius-lg);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid var(--calc-border);
+      }
+      
+      .bcs-details-panel__title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--calc-text-primary);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .bcs-details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      
+      .bcs-detail-item {
+        background: var(--calc-surface);
+        padding: 1rem;
+        border-radius: var(--calc-radius);
+        border: 1px solid var(--calc-border);
+      }
+      
+      .bcs-detail-item__label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--calc-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+      }
+      
+      .bcs-detail-item__value {
+        font-size: 0.9rem;
+        color: var(--calc-text-secondary);
+        line-height: 1.5;
+      }
+      
+      /* Weight Input Section */
+      .bcs-weight-section {
+        background: var(--calc-bg-tertiary);
+        border-radius: var(--calc-radius-lg);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+      
+      .bcs-weight-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+      
+      /* Results Cards */
+      .bcs-results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .bcs-result-card {
+        background: var(--calc-bg-tertiary);
+        border: 2px solid var(--calc-border);
+        border-radius: var(--calc-radius);
+        padding: 1.25rem;
+        text-align: center;
+      }
+      
+      .bcs-result-card--highlight {
+        border-color: var(--calc-primary);
+        background: linear-gradient(135deg, rgba(12, 96, 125, 0.05), rgba(12, 96, 125, 0.1));
+      }
+      
+      .bcs-result-card__label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--calc-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+      }
+      
+      .bcs-result-card__value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--calc-primary);
+      }
+      
+      .bcs-result-card__unit {
+        font-size: 1rem;
+        color: var(--calc-text-secondary);
+        font-weight: 500;
+      }
+      
+      .bcs-result-card__context {
+        font-size: 0.8rem;
+        color: var(--calc-text-muted);
+        margin-top: 0.5rem;
+      }
+      
+      /* Recommendations */
+      .bcs-recommendations {
+        background: var(--calc-surface);
+        border: 1px solid var(--calc-border);
+        border-radius: var(--calc-radius);
+        padding: 1.25rem;
+        margin-top: 1rem;
+      }
+      
+      .bcs-recommendations__title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--calc-text-primary);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .bcs-recommendations__list {
+        margin: 0;
+        padding-left: 1.25rem;
+        font-size: 0.9rem;
+        color: var(--calc-text-secondary);
+        line-height: 1.7;
+      }
+      
+      .bcs-recommendations__list li {
+        margin-bottom: 0.5rem;
+      }
+      
+      /* Disclaimer */
+      .bcs-disclaimer {
+        background: rgba(245, 158, 11, 0.1);
+        border-left: 4px solid var(--calc-warning);
+        border-radius: var(--calc-radius-sm);
+        padding: 1rem 1.25rem;
+        margin-top: 2rem;
+        font-size: 0.85rem;
+        color: var(--calc-text-secondary);
+      }
+      
+      /* Responsive */
+      @media (max-width: 768px) {
+        .bcs-score-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .bcs-score-card {
+          padding: 0.75rem;
+        }
+        
+        .bcs-score-card__number {
+          font-size: 1.5rem;
+        }
+        
+        .bcs-score-card__visual {
+          font-size: 2rem;
+        }
+        
+        .bcs-details-grid,
+        .bcs-weight-grid,
+        .bcs-results-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+    
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+    
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/">Home</a>
+          <a class="pc-nav-link pc-is-active" href="/tools/">Tools</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
+          <a class="pc-nav-link" href="/account/">
+            <span class="pc-auth-indicator" data-pc-auth-indicator aria-hidden="true">○</span>
+            <span class="pc-nav-link__text">Account</span>
+          </a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="pc-mobile-menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+      <div id="pc-mobile-menu" class="pc-mobile-menu" aria-hidden="true">
+        <div class="pc-mobile-menu__header">
+          <span class="pc-mobile-menu__title">Menu</span>
+          <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">✕</button>
+        </div>
+        <nav class="pc-mobile-menu__nav">
+          <a class="pc-mobile-nav-link" href="/">
+            <span class="pc-mobile-nav-link__icon">🏠</span>
+            <span class="pc-mobile-nav-link__text">Home</span>
+          </a>
+          <a class="pc-mobile-nav-link pc-is-active" href="/tools/">
+            <span class="pc-mobile-nav-link__icon">🧮</span>
+            <span class="pc-mobile-nav-link__text">Tools</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/study/">
+            <span class="pc-mobile-nav-link__icon">📚</span>
+            <span class="pc-mobile-nav-link__text">Study</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/search.html">
+            <span class="pc-mobile-nav-link__icon">🔍</span>
+            <span class="pc-mobile-nav-link__text">Search</span>
+          </a>
+          <a class="pc-mobile-nav-link" href="/account/">
+            <span class="pc-mobile-nav-link__icon">👤</span>
+            <span class="pc-mobile-nav-link__text">Account</span>
+          </a>
+        </nav>
+      </div>
+    </nav>
+    
+    <main id="pc-main" class="calc-container" role="main">
+      <!-- Header -->
+      <header class="calc-header">
+        <div class="calc-header__icon">⚖️</div>
+        <h1 class="calc-header__title">Body Condition Score Calculator</h1>
+        <p class="calc-header__subtitle">Assess body condition in dogs and cats, estimate ideal weight, and get feeding recommendations</p>
+      </header>
+      
+      <!-- Scale Toggle -->
+      <div class="bcs-scale-toggle">
+        <button class="bcs-scale-btn active" data-scale="9"><span>9-Point Scale</span></button>
+        <button class="bcs-scale-btn" data-scale="5"><span>5-Point Scale</span></button>
+      </div>
+      
+      <!-- Main Calculator Card -->
+      <div class="calc-card">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>🐕</span>
+            <span>Patient Assessment</span>
+          </h2>
+          <p class="calc-card__subtitle">Select species and enter weight, then click the appropriate BCS score</p>
+        </div>
+        
+        <div class="calc-card__body">
+          <!-- Species Selection -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">
+                <span class="calc-species-btn__icon">🐕</span>
+                <span class="calc-species-btn__label">Dog</span>
+              </button>
+              <button type="button" class="calc-species-btn" data-species="cat">
+                <span class="calc-species-btn__icon">🐈</span>
+                <span class="calc-species-btn__label">Cat</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Weight Input -->
+          <div class="bcs-weight-section">
+            <div class="bcs-weight-grid">
+              <div class="calc-form-group" style="margin-bottom: 0;">
+                <label class="calc-label">
+                  Current Weight <span class="calc-label__hint">— required for ideal weight estimation</span>
+                </label>
+                <div class="calc-input-wrapper">
+                  <input type="number" class="calc-input calc-input--with-unit" id="current-weight" placeholder="10" min="0.1" step="0.1">
+                  <div class="calc-input-unit">
+                    <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                    <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="calc-form-group" style="margin-bottom: 0;">
+                <label class="calc-label">
+                  Ideal Weight (Optional) <span class="calc-label__hint">— if known from history</span>
+                </label>
+                <div class="calc-input-wrapper">
+                  <input type="number" class="calc-input calc-input--with-unit" id="known-ideal-weight" placeholder="Auto-calculated" min="0.1" step="0.1">
+                  <div class="calc-input-unit">
+                    <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                    <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- BCS Score Selection -->
+          <div class="calc-form-group">
+            <label class="calc-label">
+              Body Condition Score <span class="calc-label__hint">— click the score that matches your patient</span>
+            </label>
+            <div class="bcs-score-grid" id="bcs-score-grid">
+              <!-- Score cards will be generated by JavaScript -->
+            </div>
+          </div>
+          
+          <!-- Selected Score Details -->
+          <div class="bcs-details-panel" id="bcs-details-panel" style="display: none;">
+            <div class="bcs-details-panel__title">
+              <span>📋</span> Score Details
+            </div>
+            <div class="bcs-details-grid" id="bcs-details-grid">
+              <!-- Details will be populated by JavaScript -->
+            </div>
+          </div>
+          
+          <!-- Calculate Button -->
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>⚖️</span> Calculate Results
+          </button>
+          
+          <!-- Results Section -->
+          <div class="calc-results" id="results" style="display: none;">
+            <!-- Primary Result -->
+            <div class="calc-result-card">
+              <p class="calc-result-card__label">Body Condition Assessment</p>
+              <p class="calc-result-card__value" id="result-bcs-display">
+                <span id="result-bcs-score">--</span>
+                <span class="calc-result-card__unit" id="result-bcs-scale">/9</span>
+              </p>
+              <p class="calc-result-card__range" id="result-category">--</p>
+            </div>
+            
+            <!-- Results Grid -->
+            <div class="bcs-results-grid" style="margin-top: 1.5rem;">
+              <div class="bcs-result-card bcs-result-card--highlight">
+                <div class="bcs-result-card__label">Ideal Weight Estimate</div>
+                <div class="bcs-result-card__value">
+                  <span id="result-ideal-weight">--</span>
+                  <span class="bcs-result-card__unit" id="result-ideal-unit">kg</span>
+                </div>
+                <div class="bcs-result-card__context">Based on current BCS</div>
+              </div>
+              
+              <div class="bcs-result-card">
+                <div class="bcs-result-card__label">Weight to Lose/Gain</div>
+                <div class="bcs-result-card__value">
+                  <span id="result-weight-change">--</span>
+                  <span class="bcs-result-card__unit" id="result-change-unit">kg</span>
+                </div>
+                <div class="bcs-result-card__context">To reach ideal BCS</div>
+              </div>
+              
+              <div class="bcs-result-card">
+                <div class="bcs-result-card__label">Calorie Adjustment</div>
+                <div class="bcs-result-card__value">
+                  <span id="result-calorie-adj">--</span>
+                  <span class="bcs-result-card__unit">%</span>
+                </div>
+                <div class="bcs-result-card__context">From maintenance</div>
+              </div>
+            </div>
+            
+            <!-- Recommendations -->
+            <div class="bcs-recommendations">
+              <div class="bcs-recommendations__title">
+                <span>💡</span> Clinical Recommendations
+              </div>
+              <ul class="bcs-recommendations__list" id="recommendations-list">
+                <!-- Recommendations populated by JavaScript -->
+              </ul>
+            </div>
+            
+            <!-- Feeding Guidelines -->
+            <div class="bcs-recommendations" id="feeding-guidelines" style="margin-top: 1rem;">
+              <div class="bcs-recommendations__title">
+                <span>🥣</span> Feeding Guidelines
+              </div>
+              <ul class="bcs-recommendations__list" id="feeding-list">
+                <!-- Feeding guidelines populated by JavaScript -->
+              </ul>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="calc-actions">
+              <button type="button" class="calc-action-btn" onclick="copyResults()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                Copy Results
+              </button>
+              <button type="button" class="calc-action-btn" onclick="window.print()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                </svg>
+                Print
+              </button>
+              <a href="/tools/nutrition-rer-mer-calculator.html" class="calc-action-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                RER/MER Calculator
+              </a>
+            </div>
+          </div>
+          
+          <!-- Disclaimer -->
+          <div class="bcs-disclaimer">
+            <strong>⚠️ Veterinary Disclaimer:</strong> This calculator provides estimates based on standardized BCS scoring systems. Results should be used as a guide only and do not replace professional veterinary judgment. Individual animals may vary based on breed, age, body conformation, and health status. Always consult with a veterinarian before making significant changes to feeding plans, especially for patients with underlying health conditions.
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <script>
+      // BCS Data for 9-point scale
+      const bcsData9Point = {
+        1: {
+          category: 'emaciated',
+          label: 'Emaciated',
+          visual: '💀',
+          dog: {
+            ribs: 'Ribs, lumbar vertebrae, pelvic bones easily visible',
+            waist: 'Obvious waist and abdominal tuck',
+            fat: 'No palpable fat',
+            notes: 'Muscle atrophy evident'
+          },
+          cat: {
+            ribs: 'Ribs visible with no palpable fat',
+            waist: 'Severe abdominal tuck',
+            fat: 'Minimal fat cover',
+            notes: 'Obvious lumbar vertebrae'
+          }
+        },
+        2: {
+          category: 'very-thin',
+          label: 'Very Thin',
+          visual: '🦴',
+          dog: {
+            ribs: 'Ribs, lumbar vertebrae, pelvic bones visible',
+            waist: 'Obvious waist, marked abdominal tuck',
+            fat: 'Minimal palpable fat',
+            notes: 'Some muscle loss evident'
+          },
+          cat: {
+            ribs: 'Ribs easily visible with slight fat cover',
+            waist: 'Pronounced waist behind ribs',
+            fat: 'Minimal abdominal fat',
+            notes: 'Lumbar vertebrae visible'
+          }
+        },
+        3: {
+          category: 'thin',
+          label: 'Thin',
+          visual: '📉',
+          dog: {
+            ribs: 'Ribs easily palpable with minimal fat',
+            waist: 'Waist easily noted, abdominal tuck present',
+            fat: 'Minimal fat cover',
+            notes: 'Top of lumbar vertebrae visible'
+          },
+          cat: {
+            ribs: 'Ribs easily palpable with minimal fat',
+            waist: 'Obvious waist, minimal abdominal fat',
+            fat: 'Slight abdominal fat pad',
+            notes: 'Abdominal tuck present'
+          }
+        },
+        4: {
+          category: 'underweight',
+          label: 'Underweight',
+          visual: '📊',
+          dog: {
+            ribs: 'Ribs palpable with slight fat cover',
+            waist: 'Waist discernible, abdominal tuck present',
+            fat: 'Thin fat cover',
+            notes: 'Individual ribs barely visible in short-haired breeds'
+          },
+          cat: {
+            ribs: 'Ribs palpable with slight fat cover',
+            waist: 'Waist visible behind ribs',
+            fat: 'Minimal abdominal fat',
+            notes: 'Slight abdominal tuck'
+          }
+        },
+        5: {
+          category: 'ideal',
+          label: 'Ideal',
+          visual: '✅',
+          dog: {
+            ribs: 'Ribs palpable without excess fat',
+            waist: 'Waist observed behind ribs',
+            fat: 'Abdominal tuck present',
+            notes: 'Well-proportioned, hourglass figure'
+          },
+          cat: {
+            ribs: 'Ribs palpable with slight fat cover',
+            waist: 'Waist visible behind ribs',
+            fat: 'Minimal abdominal fat pad',
+            notes: 'Abdominal tuck present'
+          }
+        },
+        6: {
+          category: 'overweight',
+          label: 'Overweight',
+          visual: '📈',
+          dog: {
+            ribs: 'Ribs palpable with slight excess fat',
+            waist: 'Waist discernible but not prominent',
+            fat: 'Abdominal tuck present but reduced',
+            notes: 'General fleshy appearance'
+          },
+          cat: {
+            ribs: 'Ribs palpable with moderate fat cover',
+            waist: 'Waist barely visible',
+            fat: 'Moderate abdominal fat pad',
+            notes: 'Slight rounding of abdomen'
+          }
+        },
+        7: {
+          category: 'heavy',
+          label: 'Heavy',
+          visual: '⚠️',
+          dog: {
+            ribs: 'Ribs difficult to palpate due to fat',
+            waist: 'Waist poorly discernible',
+            fat: 'Obvious abdominal rounding',
+            notes: 'Broadened back, fat deposits'
+          },
+          cat: {
+            ribs: 'Ribs difficult to palpate',
+            waist: 'No waist apparent',
+            fat: 'Moderate to heavy fat pad',
+            notes: 'Abdominal rounding present'
+          }
+        },
+        8: {
+          category: 'obese',
+          label: 'Obese',
+          visual: '⚡',
+          dog: {
+            ribs: 'Ribs very difficult to palpate',
+            waist: 'No waist visible',
+            fat: 'Marked abdominal distention',
+            notes: 'Obvious fat deposits, broad back'
+          },
+          cat: {
+            ribs: 'Ribs not palpable under heavy fat',
+            waist: 'No waist, broad back',
+            fat: 'Heavy abdominal fat pad',
+            notes: 'Abdominal distention obvious'
+          }
+        },
+        9: {
+          category: 'severely-obese',
+          label: 'Severely Obese',
+          visual: '🔴',
+          dog: {
+            ribs: 'Ribs not palpable under thick fat',
+            waist: 'No waist, abdomen distended',
+            fat: 'Massive fat deposits',
+            notes: 'Abdomen may hang, impaired mobility possible'
+          },
+          cat: {
+            ribs: 'Ribs buried under thick fat layer',
+            waist: 'No waist, severely broad back',
+            fat: 'Extensive abdominal fat',
+            notes: 'Abdominal distention severe'
+          }
+        }
+      };
+      
+      // BCS Data for 5-point scale (mapped from 9-point)
+      const bcsData5Point = {
+        1: {
+          category: 'emaciated',
+          label: 'Emaciated',
+          visual: '💀',
+          equivalent: 'BCS 1-2 (9-point)',
+          description: 'Ribs, spine, and pelvic bones visible. No body fat. Significant muscle loss.'
+        },
+        2: {
+          category: 'underweight',
+          label: 'Underweight',
+          visual: '📉',
+          equivalent: 'BCS 3-4 (9-point)',
+          description: 'Ribs easily palpable with minimal fat. Waist and abdominal tuck obvious.'
+        },
+        3: {
+          category: 'ideal',
+          label: 'Ideal',
+          visual: '✅',
+          equivalent: 'BCS 5 (9-point)',
+          description: 'Ribs palpable with slight fat cover. Waist visible behind ribs. Abdominal tuck present.'
+        },
+        4: {
+          category: 'overweight',
+          label: 'Overweight',
+          visual: '📈',
+          equivalent: 'BCS 6-7 (9-point)',
+          description: 'Ribs difficult to palpate. Waist barely visible. Abdominal rounding present.'
+        },
+        5: {
+          category: 'obese',
+          label: 'Obese',
+          visual: '🔴',
+          equivalent: 'BCS 8-9 (9-point)',
+          description: 'Ribs not palpable. No waist. Heavy fat deposits. Abdominal distention marked.'
+        }
+      };
+      
+      // State
+      let currentScale = '9';
+      let selectedSpecies = 'dog';
+      let selectedBCS = null;
+      let weightUnit = 'kg';
+      
+      // DOM Elements
+      const scaleBtns = document.querySelectorAll('.bcs-scale-btn');
+      const speciesBtns = document.querySelectorAll('.calc-species-btn');
+      const scoreGrid = document.getElementById('bcs-score-grid');
+      const detailsPanel = document.getElementById('bcs-details-panel');
+      const detailsGrid = document.getElementById('bcs-details-grid');
+      const calculateBtn = document.getElementById('calculate-btn');
+      const resultsSection = document.getElementById('results');
+      const currentWeightInput = document.getElementById('current-weight');
+      const knownIdealWeightInput = document.getElementById('known-ideal-weight');
+      
+      // Unit buttons
+      document.querySelectorAll('.calc-input-unit').forEach(unitContainer => {
+        const buttons = unitContainer.querySelectorAll('.calc-unit-btn');
+        buttons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            weightUnit = btn.dataset.unit;
+          });
+        });
+      });
+      
+      // Scale toggle
+      scaleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          scaleBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentScale = btn.dataset.scale;
+          selectedBCS = null;
+          detailsPanel.style.display = 'none';
+          resultsSection.style.display = 'none';
+          renderScoreCards();
+        });
+      });
+      
+      // Species toggle
+      speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedSpecies = btn.dataset.species;
+          if (selectedBCS) {
+            showScoreDetails(selectedBCS);
+          }
+        });
+      });
+      
+      // Render score cards
+      function renderScoreCards() {
+        scoreGrid.innerHTML = '';
+        
+        if (currentScale === '9') {
+          for (let i = 1; i <= 9; i++) {
+            const data = bcsData9Point[i];
+            const card = createScoreCard(i, data);
+            scoreGrid.appendChild(card);
+          }
+        } else {
+          for (let i = 1; i <= 5; i++) {
+            const data = bcsData5Point[i];
+            const card = createScoreCard5Point(i, data);
+            scoreGrid.appendChild(card);
+          }
+        }
+      }
+      
+      function createScoreCard(score, data) {
+        const card = document.createElement('div');
+        card.className = 'bcs-score-card';
+        card.dataset.score = score;
+        
+        const categoryClass = `bcs-score-card__category--${data.category}`;
+        
+        card.innerHTML = `
+          <div class="bcs-score-card__number">${score}</div>
+          <div class="bcs-score-card__category ${categoryClass}">${data.label}</div>
+          <div class="bcs-score-card__visual">${data.visual}</div>
+          <div class="bcs-score-card__desc">${data[selectedSpecies].ribs.substring(0, 40)}...</div>
+        `;
+        
+        card.addEventListener('click', () => {
+          document.querySelectorAll('.bcs-score-card').forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+          selectedBCS = score;
+          showScoreDetails(score);
+        });
+        
+        return card;
+      }
+      
+      function createScoreCard5Point(score, data) {
+        const card = document.createElement('div');
+        card.className = 'bcs-score-card';
+        card.dataset.score = score;
+        
+        const categoryClass = `bcs-score-card__category--${data.category}`;
+        
+        card.innerHTML = `
+          <div class="bcs-score-card__number">${score}</div>
+          <div class="bcs-score-card__category ${categoryClass}">${data.label}</div>
+          <div class="bcs-score-card__visual">${data.visual}</div>
+          <div class="bcs-score-card__desc">${data.equivalent}</div>
+        `;
+        
+        card.addEventListener('click', () => {
+          document.querySelectorAll('.bcs-score-card').forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+          selectedBCS = score;
+          showScoreDetails(score);
+        });
+        
+        return card;
+      }
+      
+      function showScoreDetails(score) {
+        detailsPanel.style.display = 'block';
+        
+        if (currentScale === '9') {
+          const data = bcsData9Point[score];
+          const speciesData = data[selectedSpecies];
+          
+          detailsGrid.innerHTML = `
+            <div class="bcs-detail-item">
+              <div class="bcs-detail-item__label">Rib Palpability</div>
+              <div class="bcs-detail-item__value">${speciesData.ribs}</div>
+            </div>
+            <div class="bcs-detail-item">
+              <div class="bcs-detail-item__label">Waist Profile</div>
+              <div class="bcs-detail-item__value">${speciesData.waist}</div>
+            </div>
+            <div class="bcs-detail-item">
+              <div class="bcs-detail-item__label">Abdominal Tuck</div>
+              <div class="bcs-detail-item__value">${speciesData.fat}</div>
+            </div>
+            <div class="bcs-detail-item">
+              <div class="bcs-detail-item__label">${selectedSpecies === 'dog' ? 'Dog' : 'Cat'}-Specific Notes</div>
+              <div class="bcs-detail-item__value">${speciesData.notes}</div>
+            </div>
+          `;
+        } else {
+          const data = bcsData5Point[score];
+          
+          detailsGrid.innerHTML = `
+            <div class="bcs-detail-item">
+              <div class="bcs-detail-item__label">9-Point Equivalent</div>
+              <div class="bcs-detail-item__value">${data.equivalent}</div>
+            </div>
+            <div class="bcs-detail-item" style="grid-column: span 3;">
+              <div class="bcs-detail-item__label">Description</div>
+              <div class="bcs-detail-item__value">${data.description}</div>
+            </div>
+          `;
+        }
+      }
+      
+      // Calculate results
+      calculateBtn.addEventListener('click', () => {
+        if (!selectedBCS) {
+          showToast('Please select a BCS score first', 'warning');
+          return;
+        }
+        
+        const currentWeight = parseFloat(currentWeightInput.value);
+        if (!currentWeight || currentWeight <= 0) {
+          showToast('Please enter a valid current weight', 'warning');
+          return;
+        }
+        
+        // Convert to kg if needed
+        const weightKg = weightUnit === 'lb' ? currentWeight / 2.20462 : currentWeight;
+        
+        // Calculate ideal weight
+        // Each BCS point = ~10-15% deviation from ideal (using 12.5% average)
+        // Ideal BCS: 4-5 for 9-point, 3 for 5-point
+        let idealBCS, deviationPercent, idealWeightKg;
+        
+        if (currentScale === '9') {
+          idealBCS = 4.5; // Middle of ideal range (4-5)
+          deviationPercent = (selectedBCS - idealBCS) * 12.5;
+        } else {
+          idealBCS = 3;
+          deviationPercent = (selectedBCS - idealBCS) * 25; // 5-point scale has larger increments
+        }
+        
+        // Calculate ideal weight
+        if (selectedBCS > idealBCS) {
+          // Overweight
+          idealWeightKg = weightKg / (1 + (deviationPercent / 100));
+        } else if (selectedBCS < idealBCS) {
+          // Underweight
+          idealWeightKg = weightKg / (1 - (Math.abs(deviationPercent) / 100));
+        } else {
+          idealWeightKg = weightKg;
+        }
+        
+        // Use known ideal weight if provided
+        const knownIdeal = parseFloat(knownIdealWeightInput.value);
+        if (knownIdeal && knownIdeal > 0) {
+          idealWeightKg = weightUnit === 'lb' ? knownIdeal / 2.20462 : knownIdeal;
+        }
+        
+        const weightChangeKg = weightKg - idealWeightKg;
+        const weightChangeAbs = Math.abs(weightChangeKg);
+        
+        // Calculate calorie adjustment
+        let calorieAdj, category;
+        if (currentScale === '9') {
+          if (selectedBCS <= 3) {
+            calorieAdj = 20 + ((4 - selectedBCS) * 10); // 20-40% increase
+            category = 'Underconditioned';
+          } else if (selectedBCS >= 6) {
+            calorieAdj = -20 - ((selectedBCS - 5) * 10); // -20 to -60% decrease
+            category = 'Overconditioned';
+          } else {
+            calorieAdj = 0;
+            category = 'Ideal Body Condition';
+          }
+        } else {
+          if (selectedBCS === 1) {
+            calorieAdj = 40;
+            category = 'Emaciated';
+          } else if (selectedBCS === 2) {
+            calorieAdj = 15;
+            category = 'Underweight';
+          } else if (selectedBCS === 4) {
+            calorieAdj = -20;
+            category = 'Overweight';
+          } else if (selectedBCS === 5) {
+            calorieAdj = -40;
+            category = 'Obese';
+          } else {
+            calorieAdj = 0;
+            category = 'Ideal Body Condition';
+          }
+        }
+        
+        // Update results
+        document.getElementById('result-bcs-score').textContent = selectedBCS;
+        document.getElementById('result-bcs-scale').textContent = currentScale === '9' ? '/9' : '/5';
+        document.getElementById('result-category').textContent = category;
+        
+        // Convert ideal weight back to display unit
+        const displayIdealWeight = weightUnit === 'lb' ? idealWeightKg * 2.20462 : idealWeightKg;
+        document.getElementById('result-ideal-weight').textContent = displayIdealWeight.toFixed(1);
+        document.getElementById('result-ideal-unit').textContent = weightUnit;
+        
+        const displayChange = weightUnit === 'lb' ? weightChangeAbs * 2.20462 : weightChangeAbs;
+        const changeDirection = weightChangeKg > 0 ? 'to lose' : weightChangeKg < 0 ? 'to gain' : 'none';
+        document.getElementById('result-weight-change').textContent = displayChange.toFixed(1);
+        document.getElementById('result-change-unit').textContent = weightUnit;
+        
+        const adjSign = calorieAdj > 0 ? '+' : '';
+        document.getElementById('result-calorie-adj').textContent = `${adjSign}${calorieAdj}`;
+        
+        // Generate recommendations
+        generateRecommendations(selectedBCS, category, calorieAdj, changeDirection, selectedSpecies);
+        
+        // Show results
+        resultsSection.style.display = 'block';
+        resultsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+      
+      function generateRecommendations(bcs, category, calorieAdj, changeDirection, species) {
+        const recommendationsList = document.getElementById('recommendations-list');
+        const feedingList = document.getElementById('feeding-list');
+        
+        let recommendations = [];
+        let feedingGuidelines = [];
+        
+        if (category === 'Ideal Body Condition') {
+          recommendations = [
+            'Continue current feeding regimen',
+            'Monitor weight every 3-6 months',
+            'Adjust for life stage changes (neutering, aging)',
+            'Maintain regular exercise routine'
+          ];
+          feedingGuidelines = [
+            'Feed at maintenance energy requirement (MER)',
+            'Use RER × 1.6 for neutered dogs, 1.8 for intact',
+            'Use RER × 1.2 for neutered cats, 1.4 for intact',
+            'Divide into 2 meals/day for dogs, 2-3 for cats'
+          ];
+        } else if (category === 'Underconditioned' || category === 'Emaciated' || category === 'Underweight') {
+          recommendations = [
+            'Rule out underlying medical conditions (parasites, malabsorption, systemic disease)',
+            'Increase meal frequency to 3-4 small meals/day',
+            'Consider high-calorie therapeutic diets',
+            'Weekly weight monitoring until stable',
+            'Assess muscle condition score (MCS) separately'
+          ];
+          feedingGuidelines = [
+            `Increase calories by ${Math.abs(calorieAdj)}% above maintenance`,
+            'Feed highly digestible, calorie-dense foods',
+            'Consider adding healthy fats (omega-3s)',
+            'Supplement only after veterinary consultation'
+          ];
+        } else {
+          recommendations = [
+            'Schedule veterinary examination to rule out endocrine/metabolic disorders',
+            'Implement gradual weight loss: 1-2% body weight per week maximum',
+            'Increase controlled exercise gradually',
+            'Eliminate treats and table scraps',
+            'Biweekly weight checks until target reached'
+          ];
+          
+          const speciesNote = species === 'dog' 
+            ? 'Use weight management formulas or reduce current food by measured amount'
+            : 'Cats require careful weight loss - avoid hepatic lipidosis risk';
+          
+          feedingGuidelines = [
+            `Reduce calories by ${Math.abs(calorieAdj)}% from current intake`,
+            speciesNote,
+            species === 'cat' ? 'Never fast cats for weight loss' : 'Consider fiber-enhanced satiety diets',
+            'Use measured portions, not free feeding',
+            'Weigh food rather than using cups for accuracy'
+          ];
+        }
+        
+        recommendationsList.innerHTML = recommendations.map(r => `<li>${r}</li>`).join('');
+        feedingList.innerHTML = feedingGuidelines.map(g => `<li>${g}</li>`).join('');
+      }
+      
+      // Copy results
+      function copyResults() {
+        const bcsScore = document.getElementById('result-bcs-score').textContent;
+        const category = document.getElementById('result-category').textContent;
+        const idealWeight = document.getElementById('result-ideal-weight').textContent;
+        const unit = document.getElementById('result-ideal-unit').textContent;
+        const weightChange = document.getElementById('result-weight-change').textContent;
+        const calorieAdj = document.getElementById('result-calorie-adj').textContent;
+        
+        const text = `Body Condition Score Results:
+Species: ${selectedSpecies === 'dog' ? 'Dog' : 'Cat'}
+BCS: ${bcsScore}${currentScale === '9' ? '/9' : '/5'} (${category})
+Ideal Weight Estimate: ${idealWeight} ${unit}
+Weight Change Needed: ${weightChange} ${unit}
+Calorie Adjustment: ${calorieAdj}%
+
+Generated by DVMReady BCS Calculator`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('Results copied to clipboard', 'success');
+        }).catch(() => {
+          showToast('Failed to copy results', 'error');
+        });
+      }
+      
+      // Toast notification
+      function showToast(message, type = 'info') {
+        const container = document.querySelector('.pc-toast-container');
+        const toast = document.createElement('div');
+        toast.className = `pc-toast pc-toast--${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.classList.add('pc-toast--show');
+        }, 10);
+        
+        setTimeout(() => {
+          toast.classList.remove('pc-toast--show');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+      
+      // Initialize
+      renderScoreCards();
+      
+      // Remove no-js class
+      document.body.classList.remove('no-js');
+    </script>
+  </body>
+</html>

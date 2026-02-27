@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Echo Calculator" />
+    <title>Echocardiogram Measurements Calculator | DVMReady Tools</title>
+    <meta name="description" content="Veterinary echocardiogram calculator for M-mode measurements. Calculate Fractional Shortening (FS%), LA:Ao ratio, and interpret EPSS for dogs and cats." />
+    <link rel="canonical" href="https://dvmready.com/tools/echocardiogram.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/legal-compliance.js" defer></script>
+    <link rel="stylesheet" href="/assets/css/clinic-utilities.css" />
+    <script src="/assets/js/clinic-utilities.js" defer></script>
+    <style>
+      /* Additional styles for echocardiogram calculator */
+      .calc-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      
+      @media (max-width: 640px) {
+        .calc-grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+      
+      .calc-measurement-group {
+        background: var(--calc-bg-tertiary);
+        border-radius: var(--calc-radius);
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      
+      .calc-measurement-group__title {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--calc-text-secondary);
+        margin: 0 0 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .calc-result-normal {
+        color: var(--calc-success);
+      }
+      
+      .calc-result-abnormal {
+        color: var(--calc-warning);
+      }
+      
+      .calc-result-critical {
+        color: var(--calc-error);
+      }
+      
+      .calc-interpretation-card {
+        background: var(--calc-surface);
+        border: 1px solid var(--calc-border);
+        border-radius: var(--calc-radius);
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      
+      .calc-interpretation-card__title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--calc-text-primary);
+        margin: 0 0 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .calc-interpretation-card__content {
+        font-size: 0.875rem;
+        color: var(--calc-text-secondary);
+        margin: 0;
+      }
+      
+      .calc-reference-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.875rem;
+      }
+      
+      .calc-reference-table th,
+      .calc-reference-table td {
+        padding: 0.625rem 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid var(--calc-border);
+      }
+      
+      .calc-reference-table th {
+        font-weight: 600;
+        color: var(--calc-text-primary);
+        background: var(--calc-bg-tertiary);
+      }
+      
+      .calc-reference-table td {
+        color: var(--calc-text-secondary);
+      }
+      
+      .calc-reference-table tr:last-child td {
+        border-bottom: none;
+      }
+      
+      .calc-status-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        padding: 0.25rem 0.625rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+      
+      .calc-status-indicator--normal {
+        background: rgba(31, 127, 80, 0.15);
+        color: var(--calc-success);
+      }
+      
+      .calc-status-indicator--abnormal {
+        background: rgba(245, 158, 11, 0.15);
+        color: var(--calc-warning);
+      }
+      
+      .calc-status-indicator--critical {
+        background: rgba(220, 38, 38, 0.15);
+        color: var(--calc-error);
+      }
+      
+      .calc-disclaimer {
+        background: linear-gradient(135deg, rgba(12, 96, 125, 0.05), rgba(12, 96, 125, 0.1));
+        border: 1px solid var(--calc-border);
+        border-radius: var(--calc-radius);
+        padding: 1rem;
+        margin-top: 1.5rem;
+      }
+      
+      .calc-disclaimer__title {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--calc-text-primary);
+        margin: 0 0 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .calc-disclaimer__text {
+        font-size: 0.8rem;
+        color: var(--calc-text-muted);
+        margin: 0;
+        line-height: 1.5;
+      }
+      
+      .calc-hcm-indicator {
+        background: rgba(245, 158, 11, 0.1);
+        border-left: 4px solid var(--calc-warning);
+      }
+      
+      .calc-dcm-indicator {
+        background: rgba(220, 38, 38, 0.1);
+        border-left: 4px solid var(--calc-error);
+      }
+      
+      .calc-systolic-indicator {
+        background: rgba(30, 116, 201, 0.1);
+        border-left: 4px solid var(--calc-info);
+      }
+    </style>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <div class="pc-mobile-menu" id="pc-mobile-menu" aria-hidden="true">
+      <div class="pc-mobile-menu__header">
+        <span class="pc-mobile-menu__title">Menu</span>
+        <button type="button" class="pc-mobile-menu__close" aria-label="Close menu">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <nav class="pc-mobile-menu__nav" aria-label="Mobile navigation">
+        <a class="pc-mobile-nav-link" href="/">
+          <span class="pc-mobile-nav-link__icon">🏠</span>
+          <span class="pc-mobile-nav-link__text">Home</span>
+        </a>
+        <a class="pc-mobile-nav-link pc-is-active" href="/tools/">
+          <span class="pc-mobile-nav-link__icon">🧰</span>
+          <span class="pc-mobile-nav-link__text">Tools</span>
+        </a>
+        <a class="pc-mobile-nav-link" href="/study/">
+          <span class="pc-mobile-nav-link__icon">📚</span>
+          <span class="pc-mobile-nav-link__text">Study</span>
+        </a>
+        <a class="pc-mobile-nav-link" href="/search.html">
+          <span class="pc-mobile-nav-link__icon">🔍</span>
+          <span class="pc-mobile-nav-link__text">Search</span>
+        </a>
+        <a class="pc-mobile-nav-link" href="/account/">
+          <span class="pc-mobile-nav-link__icon">👤</span>
+          <span class="pc-mobile-nav-link__text">Account</span>
+        </a>
+      </nav>
+    </div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/">Home</a>
+          <a class="pc-nav-link pc-is-active" href="/tools/">Tools</a>
+          <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/search.html">Search</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🫀</div>
+        <h1 class="calc-header__title">Echocardiogram Calculator</h1>
+        <p class="calc-header__subtitle">M-mode measurements and cardiac function assessment for dogs and cats</p>
+      </header>
+
+      <div class="calc-card" id="echo-calculator" data-calc="echocardiogram">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>🫀</span>
+            <span>Echocardiographic Measurements</span>
+          </h2>
+          <p class="calc-card__subtitle">Enter M-mode measurements to calculate indices and assess cardiac function</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Species -->
+          <div class="calc-form-group">
+            <label class="calc-label">Species</label>
+            <div class="calc-species-grid">
+              <button type="button" class="calc-species-btn active" data-species="dog">
+                🐕<span class="calc-species-btn__label">Dog</span>
+              </button>
+              <button type="button" class="calc-species-btn" data-species="cat">
+                🐈<span class="calc-species-btn__label">Cat</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Weight for indexed values -->
+          <div class="calc-form-group">
+            <label class="calc-label">Body Weight <span class="calc-label__hint">(for indexed values)</span></label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="weight" placeholder="10" min="0.1" step="0.1">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="kg">kg</button>
+                <button type="button" class="calc-unit-btn" data-unit="lb">lb</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- M-Mode Measurements -->
+          <div class="calc-measurement-group">
+            <h3 class="calc-measurement-group__title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              Left Ventricular Dimensions
+            </h3>
+            <div class="calc-grid-2">
+              <div class="calc-form-group" style="margin-bottom: 0;">
+                <label class="calc-label">LVd <span class="calc-label__hint">(Diastole)</span></label>
+                <div class="calc-input-wrapper">
+                  <input type="number" class="calc-input calc-input--with-unit" id="lvd" placeholder="e.g., 35" min="1" step="0.1">
+                  <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.875rem;">mm</span>
+                </div>
+              </div>
+              <div class="calc-form-group" style="margin-bottom: 0;">
+                <label class="calc-label">LVs <span class="calc-label__hint">(Systole)</span></label>
+                <div class="calc-input-wrapper">
+                  <input type="number" class="calc-input calc-input--with-unit" id="lvs" placeholder="e.g., 22" min="1" step="0.1">
+                  <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.875rem;">mm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Wall Thickness Measurements -->
+          <div class="calc-measurement-group">
+            <h3 class="calc-measurement-group__title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              Wall Thickness
+            </h3>
+            <div class="calc-grid-2">
+              <div class="calc-form-group" style="margin-bottom: 0;">
+                <label class="calc-label">IVSd <span class="calc-label__hint">(Septum Diastole)</span></label>
+                <div class="calc-input-wrapper">
+                  <input type="number" class="calc-input calc-input--with-unit" id="ivsd" placeholder="e.g., 8" min="1" step="0.1">
+                  <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.875rem;">mm</span>
+                </div>
+              </div>
+              <div class="calc-form-group" style="margin-bottom: 0;">
+                <label class="calc-label">IVSs <span class="calc-label__hint">(Septum Systole)</span></label>
+                <div class="calc-input-wrapper">
+                  <input type="number" class="calc-input calc-input--with-unit" id="ivss" placeholder="e.g., 11" min="1" step="0.1">
+                  <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.875rem;">mm</span>
+                </div>
+              </div>
+            </div>
+            <div class="calc-grid-2" style="margin-top: 1rem;">
+              <div class="calc-form-group" style="margin-bottom: 0;">
+                <label class="calc-label">LVPWd <span class="calc-label__hint">(Posterior Wall Diastole)</span></label>
+                <div class="calc-input-wrapper">
+                  <input type="number" class="calc-input calc-input--with-unit" id="lvpwd" placeholder="e.g., 8" min="1" step="0.1">
+                  <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.875rem;">mm</span>
+                </div>
+              </div>
+              <div class="calc-form-group" style="margin-bottom: 0;">
+                <label class="calc-label">LVPWs <span class="calc-label__hint">(Posterior Wall Systole)</span></label>
+                <div class="calc-input-wrapper">
+                  <input type="number" class="calc-input calc-input--with-unit" id="lvpws" placeholder="e.g., 12" min="1" step="0.1">
+                  <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.875rem;">mm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LA and Ao Measurements -->
+          <div class="calc-measurement-group">
+            <h3 class="calc-measurement-group__title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M2 12c5.5-4 7-8 10-8s4.5 4 10 8c-5.5 4-7 8-10 8s-4.5-4-10-8Z"/></svg>
+              Left Atrium & Aorta
+            </h3>
+            <div class="calc-grid-2">
+              <div class="calc-form-group" style="margin-bottom: 0;">
+                <label class="calc-label">LA <span class="calc-label__hint">(Left Atrium)</span></label>
+                <div class="calc-input-wrapper">
+                  <input type="number" class="calc-input calc-input--with-unit" id="la" placeholder="e.g., 18" min="1" step="0.1">
+                  <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.875rem;">mm</span>
+                </div>
+              </div>
+              <div class="calc-form-group" style="margin-bottom: 0;">
+                <label class="calc-label">Ao <span class="calc-label__hint">(Aorta)</span></label>
+                <div class="calc-input-wrapper">
+                  <input type="number" class="calc-input calc-input--with-unit" id="ao" placeholder="e.g., 20" min="1" step="0.1">
+                  <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.875rem;">mm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- EPSS -->
+          <div class="calc-measurement-group">
+            <h3 class="calc-measurement-group__title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              Systolic Function
+            </h3>
+            <div class="calc-form-group" style="margin-bottom: 0;">
+              <label class="calc-label">EPSS <span class="calc-label__hint">(E-point to Septal Separation)</span></label>
+              <div class="calc-input-wrapper">
+                <input type="number" class="calc-input calc-input--with-unit" id="epss" placeholder="e.g., 5" min="0" step="0.1">
+                <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.875rem;">mm</span>
+              </div>
+              <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.5rem;">
+                Measured from mitral valve E-point to interventricular septum. Normal <8mm, &gt;8mm suggests reduced LV function.
+              </p>
+            </div>
+          </div>
+
+          <!-- VHS (Optional) -->
+          <div class="calc-measurement-group">
+            <h3 class="calc-measurement-group__title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h3"/><path d="M20 7V4h-3"/><path d="M4 17v3h3"/><path d="M20 17v3h-3"/><circle cx="12" cy="12" r="3"/></svg>
+              Radiographic (Optional)
+            </h3>
+            <div class="calc-form-group" style="margin-bottom: 0;">
+              <label class="calc-label">VHS <span class="calc-label__hint">(Vertebral Heart Score)</span></label>
+              <div class="calc-input-wrapper">
+                <input type="number" class="calc-input calc-input--with-unit" id="vhs" placeholder="e.g., 10.5" min="1" step="0.1">
+                <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.875rem;">v</span>
+              </div>
+              <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.5rem;">
+                Normal: Dogs 8.5-10.5v, Cats 6.7-8.1v. Values >10.5v (dogs) or >8.1v (cats) suggest cardiomegaly.
+              </p>
+            </div>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>🫀</span> Calculate & Interpret
+          </button>
+
+          <!-- Results Section -->
+          <div class="calc-results" id="results" style="display: none;">
+            
+            <!-- Primary Results -->
+            <div class="calc-grid-2">
+              <!-- FS% Result -->
+              <div class="calc-result-card" id="fs-card">
+                <p class="calc-result-card__label">Fractional Shortening</p>
+                <p class="calc-result-card__value">
+                  <span id="result-fs">--</span>
+                  <span class="calc-result-card__unit">%</span>
+                </p>
+                <p class="calc-result-card__range" id="fs-range">Normal: Dogs 25-45%, Cats 30-50%</p>
+                <div id="fs-interpretation"></div>
+              </div>
+
+              <!-- LA:Ao Result -->
+              <div class="calc-result-card" id="lao-card">
+                <p class="calc-result-card__label">LA:Ao Ratio</p>
+                <p class="calc-result-card__value">
+                  <span id="result-lao">--</span>
+                </p>
+                <p class="calc-result-card__range">Normal: <1.5 for both species</p>
+                <div id="lao-interpretation"></div>
+              </div>
+            </div>
+
+            <!-- EPSS Interpretation -->
+            <div class="calc-result-card" id="epss-card" style="margin-top: 1rem;">
+              <p class="calc-result-card__label">EPSS Interpretation</p>
+              <p class="calc-result-card__value" style="font-size: 1.5rem;">
+                <span id="result-epss-text">--</span>
+              </p>
+              <p class="calc-result-card__range" id="epss-value"></p>
+              <div id="epss-interpretation"></div>
+            </div>
+
+            <!-- Indexed Values -->
+            <div class="calc-result-card" id="indexed-card" style="margin-top: 1rem; display: none;">
+              <p class="calc-result-card__label">Indexed Measurements</p>
+              <div class="calc-info-grid" id="indexed-values"></div>
+            </div>
+
+            <!-- Wall Thickness Assessment -->
+            <div class="calc-interpretation-card" id="wall-assessment" style="margin-top: 1rem;">
+              <h4 class="calc-interpretation-card__title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+                Wall Thickness Assessment
+              </h4>
+              <div id="wall-content"></div>
+            </div>
+
+            <!-- Disease Pattern Detection -->
+            <div id="disease-patterns" style="margin-top: 1.5rem;"></div>
+
+            <!-- Actions -->
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy Results</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+          </div>
+
+          <!-- Reference Ranges Table -->
+          <div class="calc-details">
+            <button type="button" class="calc-details__trigger">
+              <span>📋 Reference Ranges</span>
+              <svg class="calc-details__trigger-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="calc-details__content">
+              <div class="calc-details__inner">
+                <h4 style="margin: 0 0 1rem; font-size: 0.95rem;">Normal Ranges by Species</h4>
+                
+                <div id="dog-reference">
+                  <h5 style="margin: 0 0 0.5rem; font-size: 0.875rem; color: var(--calc-primary);">🐕 Dogs</h5>
+                  <table class="calc-reference-table">
+                    <thead>
+                      <tr><th>Parameter</th><th>Normal Range</th><th>Notes</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>FS%</td><td>25-45%</td><td>Borderline: 20-25%</td></tr>
+                      <tr><td>LA:Ao</td><td>&lt;1.5</td><td>Borderline: 1.5-1.8</td></tr>
+                      <tr><td>IVSd</td><td>7-11 mm</td><td>Varies with breed size</td></tr>
+                      <tr><td>LVPWd</td><td>7-11 mm</td><td>Varies with breed size</td></tr>
+                      <tr><td>EPSS</td><td>&lt;8 mm</td><td>&gt;8mm suggests reduced function</td></tr>
+                      <tr><td>VHS</td><td>8.5-10.5 v</td><td>&gt;10.5v = cardiomegaly</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div id="cat-reference" style="margin-top: 1.5rem; display: none;">
+                  <h5 style="margin: 0 0 0.5rem; font-size: 0.875rem; color: var(--calc-primary);">🐈 Cats</h5>
+                  <table class="calc-reference-table">
+                    <thead>
+                      <tr><th>Parameter</th><th>Normal Range</th><th>Notes</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>FS%</td><td>30-50%</td><td>Borderline: 25-30%</td></tr>
+                      <tr><td>LA:Ao</td><td>&lt;1.5</td><td>Borderline: 1.5-1.8</td></tr>
+                      <tr><td>IVSd</td><td>4-7 mm</td><td>Papillary muscles excluded</td></tr>
+                      <tr><td>LVPWd</td><td>4-7 mm</td><td>Papillary muscles excluded</td></tr>
+                      <tr><td>EPSS</td><td>&lt;8 mm</td><td>&gt;8mm suggests reduced function</td></tr>
+                      <tr><td>VHS</td><td>6.7-8.1 v</td><td>&gt;8.1v = cardiomegaly</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Disease Pattern Guide -->
+          <div class="calc-details" style="margin-top: 1rem;">
+            <button type="button" class="calc-details__trigger">
+              <span>🔍 Disease Pattern Guide</span>
+              <svg class="calc-details__trigger-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="calc-details__content">
+              <div class="calc-details__inner">
+                <div class="calc-interpretation-card calc-dcm-indicator">
+                  <h4 class="calc-interpretation-card__title">💔 Dilated Cardiomyopathy (DCM) Indicators</h4>
+                  <ul class="calc-interpretation-card__content" style="margin: 0; padding-left: 1.25rem;">
+                    <li>FS% &lt;20% (severe systolic dysfunction)</li>
+                    <li>LVd increased, LV internal dimension increased</li>
+                    <li>Wall thickness normal or decreased (eccentric hypertrophy)</li>
+                    <li>EPSS &gt;8mm (indicates poor mitral valve closure)</li>
+                    <li>LA:Ao ratio often elevated</li>
+                    <li><strong>Common in:</strong> Dobermans, Boxers, Great Danes, Irish Wolfhounds</li>
+                  </ul>
+                </div>
+
+                <div class="calc-interpretation-card calc-hcm-indicator" style="margin-top: 1rem;">
+                  <h4 class="calc-interpretation-card__title">💓 Hypertrophic Cardiomyopathy (HCM) Indicators</h4>
+                  <ul class="calc-interpretation-card__content" style="margin: 0; padding-left: 1.25rem;">
+                    <li>IVSd and/or LVPWd &gt;6mm in cats (diastolic measurement)</li>
+                    <li>Wall thickness disproportionate to chamber size</li>
+                    <li>LA enlargement (LA:Ao &gt;1.5)</li>
+                    <li>FS% may be normal, increased, or decreased</li>
+                    <li>SAM (systolic anterior motion) of mitral valve</li>
+                    <li><strong>Most common heart disease in cats</strong></li>
+                  </ul>
+                </div>
+
+                <div class="calc-interpretation-card calc-systolic-indicator" style="margin-top: 1rem;">
+                  <h4 class="calc-interpretation-card__title">📉 Systolic Dysfunction Detection</h4>
+                  <ul class="calc-interpretation-card__content" style="margin: 0; padding-left: 1.25rem;">
+                    <li><strong>Mild:</strong> FS% 20-25% (dogs), 25-30% (cats)</li>
+                    <li><strong>Moderate:</strong> FS% 15-20%</li>
+                    <li><strong>Severe:</strong> FS% &lt;15%</li>
+                    <li>EPSS &gt;8mm strongly correlates with reduced EF</li>
+                    <li>Consider load-independent measures (S', strain) for confirmation</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            Based on ACVIM consensus statements and standard veterinary cardiology references.
+          </p>
+        </div>
+      </div>
+
+      <!-- Disclaimer -->
+      <div class="calc-disclaimer">
+        <h3 class="calc-disclaimer__title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+          Important Disclaimer
+        </h3>
+        <p class="calc-disclaimer__text">
+          This calculator is for educational purposes only and should not replace professional veterinary cardiology consultation. 
+          Echocardiographic interpretation requires training and experience. Abnormal values should be confirmed by a cardiologist 
+          or veterinarian with advanced imaging training. Consider breed-specific variations, patient sedation status, and clinical 
+          context when interpreting results. When in doubt, refer to a boarded veterinary cardiologist.
+        </p>
+      </div>
+
+      <!-- Related Tools -->
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Tools</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/chf-staging-planner.html" class="calc-chip">💔 CHF Staging</a>
+          <a href="/cardiology-chf-algorithm/" class="calc-chip">🫀 CHF Algorithm</a>
+          <a href="/murmur-approach-dog-cat/" class="calc-chip">🔊 Murmur Approach</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      // Reference ranges
+      const REFERENCE_RANGES = {
+        dog: {
+          fs: { min: 25, max: 45, borderlineLow: 20 },
+          lao: { max: 1.5, borderline: 1.8 },
+          ivsd: { min: 7, max: 11 },
+          lvpwd: { min: 7, max: 11 },
+          epss: { max: 8 },
+          vhs: { min: 8.5, max: 10.5 }
+        },
+        cat: {
+          fs: { min: 30, max: 50, borderlineLow: 25 },
+          lao: { max: 1.5, borderline: 1.8 },
+          ivsd: { min: 4, max: 6 },
+          lvpwd: { min: 4, max: 6 },
+          epss: { max: 8 },
+          vhs: { min: 6.7, max: 8.1 }
+        }
+      };
+
+      const els = {
+        speciesBtns: document.querySelectorAll('[data-species]'),
+        weight: document.getElementById('weight'),
+        lvd: document.getElementById('lvd'),
+        lvs: document.getElementById('lvs'),
+        ivsd: document.getElementById('ivsd'),
+        ivss: document.getElementById('ivss'),
+        lvpwd: document.getElementById('lvpwd'),
+        lvpws: document.getElementById('lvpws'),
+        la: document.getElementById('la'),
+        ao: document.getElementById('ao'),
+        epss: document.getElementById('epss'),
+        vhs: document.getElementById('vhs'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        resultFs: document.getElementById('result-fs'),
+        fsRange: document.getElementById('fs-range'),
+        fsInterpretation: document.getElementById('fs-interpretation'),
+        fsCard: document.getElementById('fs-card'),
+        resultLao: document.getElementById('result-lao'),
+        laoInterpretation: document.getElementById('lao-interpretation'),
+        laoCard: document.getElementById('lao-card'),
+        resultEpssText: document.getElementById('result-epss-text'),
+        epssValue: document.getElementById('epss-value'),
+        epssInterpretation: document.getElementById('epss-interpretation'),
+        epssCard: document.getElementById('epss-card'),
+        indexedCard: document.getElementById('indexed-card'),
+        indexedValues: document.getElementById('indexed-values'),
+        wallAssessment: document.getElementById('wall-assessment'),
+        wallContent: document.getElementById('wall-content'),
+        diseasePatterns: document.getElementById('disease-patterns'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn'),
+        dogReference: document.getElementById('dog-reference'),
+        catReference: document.getElementById('cat-reference')
+      };
+
+      let currentSpecies = 'dog';
+      let weightUnit = 'kg';
+
+      // Species toggle
+      els.speciesBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSpecies = btn.dataset.species;
+          els.speciesBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          // Update reference table visibility
+          els.dogReference.style.display = currentSpecies === 'dog' ? 'block' : 'none';
+          els.catReference.style.display = currentSpecies === 'cat' ? 'block' : 'none';
+          
+          // Update FS range text
+          els.fsRange.textContent = currentSpecies === 'dog' 
+            ? 'Normal: Dogs 25-45%' 
+            : 'Normal: Cats 30-50%';
+          
+          // Recalculate if results are showing
+          if (els.results.style.display === 'block') {
+            calculate();
+          }
+        });
+      });
+
+      // Weight unit toggle
+      document.querySelectorAll('[data-unit]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          weightUnit = btn.dataset.unit;
+          document.querySelectorAll('[data-unit]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      // Expandable details
+      document.querySelectorAll('.calc-details__trigger').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          trigger.closest('.calc-details').classList.toggle('open');
+        });
+      });
+
+      function getWeightKg() {
+        const w = parseFloat(els.weight.value);
+        if (!w) return null;
+        return weightUnit === 'lb' ? w * 0.453592 : w;
+      }
+
+      function getValue(element) {
+        const val = parseFloat(element.value);
+        return isNaN(val) ? null : val;
+      }
+
+      function calculateFS(lvd, lvs) {
+        return ((lvd - lvs) / lvd) * 100;
+      }
+
+      function calculateLAAo(la, ao) {
+        return la / ao;
+      }
+
+      function interpretFS(fs, species) {
+        const range = REFERENCE_RANGES[species].fs;
+        if (fs >= range.min && fs <= range.max) {
+          return { status: 'normal', text: 'Normal', class: 'calc-status-indicator--normal' };
+        } else if (fs < range.borderlineLow) {
+          return { status: 'reduced', text: 'Reduced', class: 'calc-status-indicator--critical' };
+        } else if (fs < range.min) {
+          return { status: 'borderline', text: 'Borderline Low', class: 'calc-status-indicator--abnormal' };
+        } else {
+          return { status: 'elevated', text: 'Elevated', class: 'calc-status-indicator--abnormal' };
+        }
+      }
+
+      function interpretLAAo(ratio) {
+        if (ratio < 1.5) {
+          return { status: 'normal', text: 'Normal', class: 'calc-status-indicator--normal' };
+        } else if (ratio < 1.8) {
+          return { status: 'borderline', text: 'Borderline', class: 'calc-status-indicator--abnormal' };
+        } else if (ratio < 2.0) {
+          return { status: 'enlarged', text: 'Enlarged', class: 'calc-status-indicator--critical' };
+        } else {
+          return { status: 'severely-enlarged', text: 'Severely Enlarged', class: 'calc-status-indicator--critical' };
+        }
+      }
+
+      function interpretEPSS(epss) {
+        if (epss < 5) {
+          return { status: 'normal', text: 'Normal', class: 'calc-status-indicator--normal' };
+        } else if (epss < 8) {
+          return { status: 'borderline', text: 'Borderline', class: 'calc-status-indicator--abnormal' };
+        } else {
+          return { status: 'abnormal', text: 'Reduced LV Function', class: 'calc-status-indicator--critical' };
+        }
+      }
+
+      function interpretWallThickness(value, type, species) {
+        const range = REFERENCE_RANGES[species][type];
+        if (value < range.min) {
+          return { status: 'thin', text: 'Thin', class: 'calc-status-indicator--abnormal' };
+        } else if (value <= range.max) {
+          return { status: 'normal', text: 'Normal', class: 'calc-status-indicator--normal' };
+        } else if (value <= range.max + 2) {
+          return { status: 'mild-hypertrophy', text: 'Mild Hypertrophy', class: 'calc-status-indicator--abnormal' };
+        } else {
+          return { status: 'severe-hypertrophy', text: 'Severe Hypertrophy', class: 'calc-status-indicator--critical' };
+        }
+      }
+
+      function detectDiseasePatterns(values, interpretations) {
+        const patterns = [];
+        const refs = REFERENCE_RANGES[currentSpecies];
+
+        // DCM indicators
+        const dcmIndicators = [];
+        if (values.fs !== null && values.fs < 20) {
+          dcmIndicators.push(`FS% ${values.fs.toFixed(1)}% indicates severe systolic dysfunction`);
+        }
+        if (values.epss !== null && values.epss > 8) {
+          dcmIndicators.push(`EPSS ${values.epss.toFixed(1)}mm suggests poor LV function`);
+        }
+        if (values.lao !== null && values.lao > 1.5 && values.ivsd !== null && values.ivsd < refs.ivsd.max) {
+          dcmIndicators.push('Dilated LA with normal wall thickness');
+        }
+        
+        if (dcmIndicators.length > 0) {
+          patterns.push({
+            type: 'dcm',
+            title: '💔 Consider Dilated Cardiomyopathy',
+            indicators: dcmIndicators,
+            class: 'calc-dcm-indicator'
+          });
+        }
+
+        // HCM indicators (primarily cats, but also some dogs)
+        const hcmIndicators = [];
+        if (values.ivsd !== null && values.ivsd > refs.ivsd.max) {
+          hcmIndicators.push(`IVSd ${values.ivsd.toFixed(1)}mm exceeds normal (${refs.ivsd.min}-${refs.ivsd.max}mm)`);
+        }
+        if (values.lvpwd !== null && values.lvpwd > refs.lvpwd.max) {
+          hcmIndicators.push(`LVPWd ${values.lvpwd.toFixed(1)}mm exceeds normal (${refs.lvpwd.min}-${refs.lvpwd.max}mm)`);
+        }
+        if (values.lao !== null && values.lao > 1.5) {
+          hcmIndicators.push('LA enlargement suggests chronic pressure overload');
+        }
+
+        if (hcmIndicators.length > 0) {
+          patterns.push({
+            type: 'hcm',
+            title: currentSpecies === 'cat' ? '💓 Consider Hypertrophic Cardiomyopathy' : '💓 Consider Hypertrophic Cardiomyopathy or Secondary Hypertrophy',
+            indicators: hcmIndicators,
+            class: 'calc-hcm-indicator'
+          });
+        }
+
+        // Systolic dysfunction
+        if (values.fs !== null && values.fs < 25 && !patterns.some(p => p.type === 'dcm')) {
+          let severity;
+          if (values.fs < 15) severity = 'Severe';
+          else if (values.fs < 20) severity = 'Moderate';
+          else severity = 'Mild';
+          
+          patterns.push({
+            type: 'systolic',
+            title: `📉 ${severity} Systolic Dysfunction Detected`,
+            indicators: [`FS% ${values.fs.toFixed(1)}% is below normal range`],
+            class: 'calc-systolic-indicator'
+          });
+        }
+
+        return patterns;
+      }
+
+      function calculate() {
+        const weightKg = getWeightKg();
+        const values = {
+          lvd: getValue(els.lvd),
+          lvs: getValue(els.lvs),
+          ivsd: getValue(els.ivsd),
+          ivss: getValue(els.ivss),
+          lvpwd: getValue(els.lvpwd),
+          lvpws: getValue(els.lvpws),
+          la: getValue(els.la),
+          ao: getValue(els.ao),
+          epss: getValue(els.epss),
+          vhs: getValue(els.vhs)
+        };
+
+        // Calculate FS%
+        if (values.lvd !== null && values.lvs !== null) {
+          const fs = calculateFS(values.lvd, values.lvs);
+          values.fs = fs;
+          els.resultFs.textContent = fs.toFixed(1);
+          const fsInterp = interpretFS(fs, currentSpecies);
+          els.fsInterpretation.innerHTML = `<span class="calc-status-indicator ${fsInterp.class}">${fsInterp.text}</span>`;
+          
+          // Add interpretation text
+          let fsText = '';
+          if (fsInterp.status === 'reduced') {
+            fsText = '<p class="calc-result-card__error">FS% indicates significant systolic dysfunction. Consider cardiology consultation.</p>';
+          } else if (fsInterp.status === 'borderline') {
+            fsText = '<p class="calc-result-card__warning">FS% is at the lower limit of normal. Consider monitoring and reassessment.</p>';
+          }
+          if (fsText) {
+            els.fsInterpretation.insertAdjacentHTML('beforeend', fsText);
+          }
+        } else {
+          els.resultFs.textContent = '--';
+          els.fsInterpretation.innerHTML = '<p style="font-size: 0.8rem; color: var(--calc-text-muted);">Enter LVd and LVs to calculate FS%</p>';
+        }
+
+        // Calculate LA:Ao
+        if (values.la !== null && values.ao !== null) {
+          const lao = calculateLAAo(values.la, values.ao);
+          values.lao = lao;
+          els.resultLao.textContent = lao.toFixed(2);
+          const laoInterp = interpretLAAo(lao);
+          els.laoInterpretation.innerHTML = `<span class="calc-status-indicator ${laoInterp.class}">${laoInterp.text}</span>`;
+          
+          if (laoInterp.status !== 'normal') {
+            els.laoInterpretation.insertAdjacentHTML('beforeend', 
+              `<p class="calc-result-card__warning">LA:Ao ${lao.toFixed(2)} suggests left atrial enlargement${lao >= 1.8 ? ' - consider staging for congestive heart failure' : ''}.</p>`
+            );
+          }
+        } else {
+          els.resultLao.textContent = '--';
+          els.laoInterpretation.innerHTML = '<p style="font-size: 0.8rem; color: var(--calc-text-muted);">Enter LA and Ao to calculate ratio</p>';
+        }
+
+        // Interpret EPSS
+        if (values.epss !== null) {
+          const epssInterp = interpretEPSS(values.epss);
+          els.resultEpssText.textContent = epssInterp.text;
+          els.epssValue.textContent = `${values.epss.toFixed(1)} mm`;
+          els.epssInterpretation.innerHTML = `<span class="calc-status-indicator ${epssInterp.class}">${epssInterp.text}</span>`;
+          
+          if (values.epss >= 8) {
+            els.epssInterpretation.insertAdjacentHTML('beforeend',
+              '<p class="calc-result-card__error">EPSS >8mm strongly correlates with reduced ejection fraction. Consider echocardiographic assessment of LV function.</p>'
+            );
+          }
+          els.epssCard.style.display = 'block';
+        } else {
+          els.epssCard.style.display = 'none';
+        }
+
+        // Indexed values
+        if (weightKg && (values.lvd !== null || values.lvs !== null)) {
+          let indexedHtml = '';
+          if (values.lvd !== null) {
+            const lvidDn = values.lvd / Math.pow(weightKg, 0.294);
+            indexedHtml += `<div class="calc-info-item"><span class="calc-info-item__label">LVIDd indexed (LVIDDN)</span><span class="calc-info-item__value">${lvidDn.toFixed(2)}</span></div>`;
+            indexedHtml += `<div class="calc-info-item"><span class="calc-info-item__label">Normal LVIDDN</span><span class="calc-info-item__value">${currentSpecies === 'dog' ? '1.27-1.85' : '1.28-1.94'}</span></div>`;
+          }
+          els.indexedValues.innerHTML = indexedHtml;
+          els.indexedCard.style.display = 'block';
+        } else {
+          els.indexedCard.style.display = 'none';
+        }
+
+        // Wall thickness assessment
+        let wallHtml = '';
+        if (values.ivsd !== null) {
+          const ivsdInterp = interpretWallThickness(values.ivsd, 'ivsd', currentSpecies);
+          wallHtml += `<div class="calc-info-item"><span class="calc-info-item__label">IVSd (${values.ivsd.toFixed(1)}mm)</span><span class="calc-info-item__value"><span class="calc-status-indicator ${ivsdInterp.class}">${ivsdInterp.text}</span></span></div>`;
+        }
+        if (values.lvpwd !== null) {
+          const lvpwdInterp = interpretWallThickness(values.lvpwd, 'lvpwd', currentSpecies);
+          wallHtml += `<div class="calc-info-item"><span class="calc-info-item__label">LVPWd (${values.lvpwd.toFixed(1)}mm)</span><span class="calc-info-item__value"><span class="calc-status-indicator ${lvpwdInterp.class}">${lvpwdInterp.text}</span></span></div>`;
+        }
+        if (wallHtml) {
+          els.wallContent.innerHTML = `<div class="calc-info-grid">${wallHtml}</div>`;
+          els.wallAssessment.style.display = 'block';
+        } else {
+          els.wallAssessment.style.display = 'none';
+        }
+
+        // Disease pattern detection
+        const patterns = detectDiseasePatterns(values, {});
+        if (patterns.length > 0) {
+          els.diseasePatterns.innerHTML = patterns.map(p => `
+            <div class="calc-interpretation-card ${p.class}">
+              <h4 class="calc-interpretation-card__title">${p.title}</h4>
+              <ul class="calc-interpretation-card__content" style="margin: 0.5rem 0 0; padding-left: 1.25rem;">
+                ${p.indicators.map(i => `<li>${i}</li>`).join('')}
+              </ul>
+            </div>
+          `).join('');
+        } else {
+          els.diseasePatterns.innerHTML = '';
+        }
+
+        els.results.style.display = 'block';
+      }
+
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const fs = els.resultFs.textContent;
+        const lao = els.resultLao.textContent;
+        const species = currentSpecies === 'dog' ? 'Dog' : 'Cat';
+        let text = `Echocardiogram Results (${species}):\n`;
+        if (fs !== '--') text += `FS%: ${fs}%\n`;
+        if (lao !== '--') text += `LA:Ao: ${lao}\n`;
+        if (els.epssCard.style.display !== 'none') {
+          text += `EPSS: ${els.epssValue.textContent}\n`;
+        }
+        text += `\nCalculated via DVMReady Echo Calculator`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy Results', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.weight.value = '';
+        els.lvd.value = '';
+        els.lvs.value = '';
+        els.ivsd.value = '';
+        els.ivss.value = '';
+        els.lvpwd.value = '';
+        els.lvpws.value = '';
+        els.la.value = '';
+        els.ao.value = '';
+        els.epss.value = '';
+        els.vhs.value = '';
+        els.results.style.display = 'none';
+      });
+    })();
+    </script>
+  </body>
+</html>

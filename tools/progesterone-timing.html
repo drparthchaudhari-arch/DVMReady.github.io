@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="en" data-mode="pro" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/png" href="/assets/img/dvmready-logo.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0c607d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Progesterone Timing" />
+    <title>Progesterone Timing Calculator | Canine Breeding | DVMReady Tools</title>
+    <meta name="description" content="Professional canine reproduction calculator. Track progesterone levels, predict ovulation, optimize breeding timing, and calculate whelping dates." />
+    <link rel="canonical" href="https://dvmready.com/tools/progesterone-timing.html" />
+    <link rel="stylesheet" href="/assets/css/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/portal.css" />
+    <link rel="stylesheet" href="/assets/css/logo-styles.css" />
+    <link rel="stylesheet" href="/assets/css/unified-calculator.css" />
+    <link rel="stylesheet" href="/assets/css/floating-elements.css" />
+    <script src="/assets/js/nav-status.js" defer></script>
+    <script src="/assets/js/theme-toggle.js" defer></script>
+    <script src="/assets/js/clinic-utilities.js" defer></script>
+    <script src="/assets/js/legal-compliance.js" defer></script>
+    <style>
+      /* Progesterone Timeline Styles */
+      .prog-timeline {
+        position: relative;
+        padding: 1.5rem 0;
+        margin: 1.5rem 0;
+      }
+      
+      .prog-timeline::before {
+        content: '';
+        position: absolute;
+        left: 20px;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg, 
+          #3b82f6 0%,    /* Baseline - blue */
+          #22c55e 25%,   /* Initial rise - green */
+          #f59e0b 50%,   /* Ovulation threshold - orange */
+          #ec4899 75%,   /* Optimal breeding - pink */
+          #8b5cf6 100%   /* Peak fertility - purple */
+        );
+        border-radius: 2px;
+      }
+      
+      .prog-timeline-item {
+        position: relative;
+        padding-left: 55px;
+        margin-bottom: 1.5rem;
+      }
+      
+      .prog-timeline-item:last-child {
+        margin-bottom: 0;
+      }
+      
+      .prog-timeline-dot {
+        position: absolute;
+        left: 12px;
+        top: 4px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 3px solid var(--calc-surface);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      }
+      
+      .prog-timeline-dot.baseline { background: #3b82f6; }
+      .prog-timeline-dot.initial { background: #22c55e; }
+      .prog-timeline-dot.ovulation { background: #f59e0b; }
+      .prog-timeline-dot.optimal { background: #ec4896; }
+      .prog-timeline-dot.peak { background: #8b5cf6; }
+      .prog-timeline-dot.late { background: #ef4444; }
+      
+      .prog-timeline-content {
+        background: var(--calc-bg-tertiary);
+        padding: 1rem;
+        border-radius: var(--calc-radius);
+        border-left: 4px solid var(--calc-border);
+      }
+      
+      .prog-timeline-content.baseline { border-left-color: #3b82f6; }
+      .prog-timeline-content.initial { border-left-color: #22c55e; }
+      .prog-timeline-content.ovulation { border-left-color: #f59e0b; }
+      .prog-timeline-content.optimal { border-left-color: #ec4896; }
+      .prog-timeline-content.peak { border-left-color: #8b5cf6; }
+      .prog-timeline-content.late { border-left-color: #ef4444; }
+      
+      .prog-timeline-title {
+        font-weight: 600;
+        font-size: 0.95rem;
+        margin: 0 0 0.25rem;
+        color: var(--calc-text-primary);
+      }
+      
+      .prog-timeline-range {
+        font-size: 0.85rem;
+        color: var(--calc-text-secondary);
+        font-family: 'JetBrains Mono', monospace;
+        margin: 0 0 0.5rem;
+      }
+      
+      .prog-timeline-desc {
+        font-size: 0.8rem;
+        color: var(--calc-text-muted);
+        margin: 0;
+        line-height: 1.5;
+      }
+      
+      /* Calendar View */
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+      
+      .calendar-day {
+        aspect-ratio: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--calc-radius-sm);
+        font-size: 0.75rem;
+        background: var(--calc-bg-tertiary);
+        border: 1px solid var(--calc-border);
+        transition: var(--calc-transition);
+      }
+      
+      .calendar-day.active {
+        background: linear-gradient(135deg, var(--calc-primary), var(--calc-primary-light));
+        color: white;
+        border-color: var(--calc-primary);
+      }
+      
+      .calendar-day.peak {
+        background: linear-gradient(135deg, #ec4899, #f472b6);
+        color: white;
+        border-color: #ec4899;
+      }
+      
+      .calendar-day.ovulation {
+        background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        color: white;
+        border-color: #f59e0b;
+      }
+      
+      .calendar-day-label {
+        font-size: 0.65rem;
+        opacity: 0.7;
+        text-transform: uppercase;
+      }
+      
+      .calendar-day-number {
+        font-weight: 600;
+        font-size: 1rem;
+      }
+      
+      /* Cytology Chart */
+      .cytology-bar {
+        display: flex;
+        height: 30px;
+        border-radius: var(--calc-radius-sm);
+        overflow: hidden;
+        margin: 1rem 0;
+      }
+      
+      .cytology-segment {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: white;
+      }
+      
+      .cytology-segment.basal { background: #3b82f6; }
+      .cytology-segment.intermediate { background: #22c55e; }
+      .cytology-segment.superficial { background: #f59e0b; }
+      .cytology-segment.anuclear { background: #ec4899; }
+      
+      /* Breeding Schedule Table */
+      .breeding-schedule {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+        font-size: 0.9rem;
+      }
+      
+      .breeding-schedule th,
+      .breeding-schedule td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid var(--calc-border);
+      }
+      
+      .breeding-schedule th {
+        font-weight: 600;
+        color: var(--calc-text-secondary);
+        background: var(--calc-bg-tertiary);
+      }
+      
+      .breeding-schedule tr:hover {
+        background: var(--calc-bg-tertiary);
+      }
+      
+      /* Result Cards */
+      .result-highlight {
+        background: linear-gradient(135deg, rgba(12, 96, 125, 0.1), rgba(12, 96, 125, 0.05));
+        border: 2px solid var(--calc-primary);
+        border-radius: var(--calc-radius-lg);
+        padding: 1.5rem;
+        text-align: center;
+        margin: 1rem 0;
+      }
+      
+      .result-highlight-date {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--calc-primary);
+        margin: 0.5rem 0;
+        font-family: 'JetBrains Mono', monospace;
+      }
+      
+      /* Warning Boxes */
+      .breed-warning {
+        background: rgba(245, 158, 11, 0.1);
+        border-left: 4px solid var(--calc-warning);
+        padding: 1rem;
+        border-radius: var(--calc-radius-sm);
+        margin: 1rem 0;
+      }
+      
+      .frozen-semen-note {
+        background: rgba(59, 130, 246, 0.1);
+        border-left: 4px solid #3b82f6;
+        padding: 1rem;
+        border-radius: var(--calc-radius-sm);
+        margin: 1rem 0;
+      }
+      
+      /* Status Badge */
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+      
+      .status-badge.baseline { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+      .status-badge.initial { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+      .status-badge.ovulation { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+      .status-badge.optimal { background: rgba(236, 72, 153, 0.2); color: #ec4899; }
+      .status-badge.peak { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
+      .status-badge.late { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+      
+      /* Two Column Layout */
+      .two-column {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+      
+      @media (max-width: 768px) {
+        .two-column {
+          grid-template-columns: 1fr;
+        }
+        
+        .calendar-grid {
+          grid-template-columns: repeat(7, 1fr);
+          gap: 0.25rem;
+        }
+        
+        .calendar-day {
+          font-size: 0.65rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="pc-page pc-page--study no-js">
+    <div class="pc-ambient-container">
+      <div class="pc-ambient-orb pc-ambient-orb--1"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--2"></div>
+      <div class="pc-ambient-orb pc-ambient-orb--3"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--circle"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--square"></div>
+      <div class="pc-ambient-shape pc-ambient-shape--triangle"></div>
+    </div>
+
+    <div class="pc-toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="pc-mobile-menu-overlay" aria-hidden="true"></div>
+
+    <a class="pc-skip-link" href="#pc-main">Skip to main content</a>
+
+    <nav class="pc-portal-nav" aria-label="Global portal navigation">
+      <div class="pc-portal-nav__inner">
+        <a class="pc-logo" href="/">
+          <img src="/assets/img/dvmready-logo.png" alt="" class="pc-logo__img" aria-hidden="true">
+          <span class="pc-logo__text">DVMReady</span>
+        </a>
+        <div class="pc-nav-group">
+          <a class="pc-nav-link" href="/tools/">Tools</a>
+          <a class="pc-nav-link" href="/study/">Study</a>
+          <a class="pc-nav-link" href="/account/">Account</a>
+          <button type="button" class="pc-mobile-toggle" aria-label="Toggle mobile menu">
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+            <span class="pc-mobile-toggle__bar"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="pc-main" class="calc-container" role="main">
+      <header class="calc-header">
+        <div class="calc-header__icon">🧪</div>
+        <h1 class="calc-header__title">Progesterone Timing Calculator</h1>
+        <p class="calc-header__subtitle">Canine reproduction: ovulation prediction, breeding optimization & whelping dates</p>
+      </header>
+
+      <!-- Mode Toggle -->
+      <div class="calc-mode-toggle">
+        <button type="button" class="calc-mode-btn active" data-mode="basic"><span>Basic</span></button>
+        <button type="button" class="calc-mode-btn" data-mode="advanced"><span>Advanced</span></button>
+      </div>
+
+      <!-- Input Card -->
+      <div class="calc-card" id="progesterone-calculator" data-calc="progesterone">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>🐕</span>
+            <span>Breeding Cycle Input</span>
+          </h2>
+          <p class="calc-card__subtitle">Enter cycle data to calculate optimal breeding windows</p>
+        </div>
+
+        <div class="calc-card__body">
+          <!-- Starting Point -->
+          <div class="calc-form-group">
+            <label class="calc-label">Starting Point</label>
+            <select class="calc-select" id="starting-point">
+              <option value="proestrus">First Day of Proestrus (bleeding observed)</option>
+              <option value="progesterone">First Progesterone Measurement</option>
+              <option value="lh-surge">LH Surge Date (if known)</option>
+              <option value="ovulation">Ovulation Date (if known)</option>
+            </select>
+          </div>
+
+          <!-- Date Input -->
+          <div class="calc-form-group">
+            <label class="calc-label" id="date-label">Date of First Proestrus Bleeding</label>
+            <input type="date" class="calc-input" id="cycle-date">
+          </div>
+
+          <!-- Progesterone Level (conditional) -->
+          <div class="calc-form-group" id="progesterone-group">
+            <label class="calc-label">Current Progesterone Level</label>
+            <div class="calc-input-wrapper">
+              <input type="number" class="calc-input calc-input--with-unit" id="progesterone-level" placeholder="Enter level" min="0" max="100" step="0.1">
+              <div class="calc-input-unit">
+                <button type="button" class="calc-unit-btn active" data-unit="ng">ng/mL</button>
+                <button type="button" class="calc-unit-btn" data-unit="nmol">nmol/L</button>
+              </div>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.25rem;">Enter most recent progesterone value</p>
+          </div>
+
+          <!-- Breed Size -->
+          <div class="calc-form-group">
+            <label class="calc-label">Breed Size <span class="calc-label__hint">(affects timing)</span></label>
+            <div class="calc-chips">
+              <button type="button" class="calc-chip active" data-breed="toy">Toy (&lt;10 lbs)</button>
+              <button type="button" class="calc-chip" data-breed="small">Small (10-25 lbs)</button>
+              <button type="button" class="calc-chip" data-breed="medium">Medium (25-60 lbs)</button>
+              <button type="button" class="calc-chip" data-breed="large">Large (60-100 lbs)</button>
+              <button type="button" class="calc-chip" data-breed="giant">Giant (&gt;100 lbs)</button>
+            </div>
+          </div>
+
+          <!-- Breeding Method -->
+          <div class="calc-form-group">
+            <label class="calc-label">Breeding Method</label>
+            <select class="calc-select" id="breeding-method">
+              <option value="natural">Natural Breeding</option>
+              <option value="fresh">Fresh Chilled Semen</option>
+              <option value="frozen">Frozen Semen (TCI)</option>
+              <option value="frozen-surgical">Frozen Semen (Surgical)</option>
+            </select>
+          </div>
+
+          <!-- Advanced Options -->
+          <div class="calc-advanced" id="advanced-options" style="display: none;">
+            <h3 class="calc-advanced__title">🔬 Advanced Options</h3>
+            
+            <div class="calc-form-group">
+              <label class="calc-label">Vaginal Cytology - Cornification %</label>
+              <input type="range" class="calc-input" id="cornification" min="0" max="100" value="0">
+              <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--calc-text-muted);">
+                <span>0% (Basal)</span>
+                <span id="cornification-value">0%</span>
+                <span>100% (Superficial)</span>
+              </div>
+            </div>
+
+            <div class="calc-form-group">
+              <label class="calc-label">Previous Cycle Length (days)</label>
+              <input type="number" class="calc-input" id="prev-cycle" placeholder="Optional - e.g., 21" min="14" max="35">
+            </div>
+
+            <div class="calc-form-group">
+              <label class="calc-label">Gestation Length Adjustment</label>
+              <div class="calc-input-wrapper">
+                <input type="number" class="calc-input calc-input--with-unit" id="gestation-adjust" value="63" min="58" max="68">
+                <span style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--calc-text-muted); font-size: 0.9rem;">days</span>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="calc-btn" id="calculate-btn">
+            <span>🧮</span> Calculate Breeding Schedule
+          </button>
+
+          <!-- Results Section -->
+          <div class="calc-results" id="results" style="display: none;">
+            
+            <!-- Current Status -->
+            <div class="result-highlight" id="status-card">
+              <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin: 0 0 0.5rem;">Current Status</p>
+              <span class="status-badge" id="status-badge">--</span>
+              <p style="font-size: 0.9rem; color: var(--calc-text-secondary); margin: 0.75rem 0 0;" id="status-recommendation">--</p>
+            </div>
+
+            <!-- Key Dates -->
+            <div class="two-column">
+              <div class="calc-result-card" style="border-color: #f59e0b;">
+                <p class="calc-result-card__label">Predicted Ovulation</p>
+                <p class="result-highlight-date" id="ovulation-date">--</p>
+                <p class="calc-result-card__range" style="color: #f59e0b;">
+                  <span>⚡</span> LH surge occurs ~2 days before
+                </p>
+              </div>
+
+              <div class="calc-result-card" style="border-color: #ec4899;">
+                <p class="calc-result-card__label">Optimal Breeding Window</p>
+                <p class="result-highlight-date" id="breeding-window">--</p>
+                <p class="calc-result-card__range" style="color: #ec4899;">
+                  <span>🎯</span> Peak fertility period
+                </p>
+              </div>
+            </div>
+
+            <!-- Whelping Prediction -->
+            <div class="calc-result-card" style="border-color: var(--calc-primary); margin-top: 1rem;">
+              <p class="calc-result-card__label">Expected Whelping Date</p>
+              <p class="result-highlight-date" id="whelping-date" style="color: var(--calc-primary);">--</p>
+              <p class="calc-result-card__range">
+                <span>📅</span> <span id="whelping-range">Range: --</span>
+              </p>
+            </div>
+
+            <!-- Timeline Visualization -->
+            <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem; color: var(--calc-text-primary);">📊 Progesterone Timeline</h3>
+            <div class="prog-timeline" id="timeline">
+              <div class="prog-timeline-item">
+                <div class="prog-timeline-dot baseline"></div>
+                <div class="prog-timeline-content baseline">
+                  <p class="prog-timeline-title">Baseline / Anoestrus</p>
+                  <p class="prog-timeline-range">&lt; 1.0 ng/mL</p>
+                  <p class="prog-timeline-desc">No reproductive activity. Baseline hormone levels.</p>
+                </div>
+              </div>
+              
+              <div class="prog-timeline-item">
+                <div class="prog-timeline-dot initial"></div>
+                <div class="prog-timeline-content initial">
+                  <p class="prog-timeline-title">Initial Rise (Early Proestrus)</p>
+                  <p class="prog-timeline-range">1.0 - 2.0 ng/mL</p>
+                  <p class="prog-timeline-desc">Beginning of proestrus. Follicles developing. Begin serial testing.</p>
+                </div>
+              </div>
+              
+              <div class="prog-timeline-item">
+                <div class="prog-timeline-dot ovulation"></div>
+                <div class="prog-timeline-content ovulation">
+                  <p class="prog-timeline-title">LH Surge Trigger</p>
+                  <p class="prog-timeline-range">2.0 - 4.0 ng/mL</p>
+                  <p class="prog-timeline-desc">LH surge typically begins when P4 reaches ~2-3 ng/mL. Ovulation follows in 2 days.</p>
+                </div>
+              </div>
+              
+              <div class="prog-timeline-item">
+                <div class="prog-timeline-dot ovulation"></div>
+                <div class="prog-timeline-content ovulation">
+                  <p class="prog-timeline-title">Ovulation Threshold</p>
+                  <p class="prog-timeline-range">4.0 - 6.0 ng/mL</p>
+                  <p class="prog-timeline-desc">Ovulation occurring. Eggs released but not yet mature/ready for fertilization.</p>
+                </div>
+              </div>
+              
+              <div class="prog-timeline-item">
+                <div class="prog-timeline-dot optimal"></div>
+                <div class="prog-timeline-content optimal">
+                  <p class="prog-timeline-title">Optimal Breeding Range</p>
+                  <p class="prog-timeline-range">10 - 20 ng/mL</p>
+                  <p class="prog-timeline-desc">Approximately 2 days post-ovulation. Eggs mature and ready for fertilization. IDEAL BREEDING TIME.</p>
+                </div>
+              </div>
+              
+              <div class="prog-timeline-item">
+                <div class="prog-timeline-dot peak"></div>
+                <div class="prog-timeline-content peak">
+                  <p class="prog-timeline-title">Peak Fertility</p>
+                  <p class="prog-timeline-range">20 - 40 ng/mL</p>
+                  <p class="prog-timeline-desc">Days 3-5 post-ovulation. Excellent conception rates. Eggs remain fertile.</p>
+                </div>
+              </div>
+              
+              <div class="prog-timeline-item">
+                <div class="prog-timeline-dot late"></div>
+                <div class="prog-timeline-content late">
+                  <p class="prog-timeline-title">Luteal Phase / Too Late</p>
+                  <p class="prog-timeline-range">&gt; 40 ng/mL</p>
+                  <p class="prog-timeline-desc">Eggs aging or no longer fertile. Pregnancy maintained but breeding window closed.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Breeding Schedule by Method -->
+            <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem; color: var(--calc-text-primary);">📋 Recommended Breeding Schedule</h3>
+            <table class="breeding-schedule">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Optimal Day(s)</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody id="schedule-body">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+
+            <!-- Calendar View -->
+            <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem; color: var(--calc-text-primary);">📅 Cycle Calendar</h3>
+            <div class="calendar-grid" id="cycle-calendar">
+              <!-- Populated by JS -->
+            </div>
+            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap;">
+              <span style="font-size: 0.8rem; display: flex; align-items: center; gap: 0.25rem;">
+                <span style="width: 12px; height: 12px; background: #f59e0b; border-radius: 2px;"></span> Ovulation
+              </span>
+              <span style="font-size: 0.8rem; display: flex; align-items: center; gap: 0.25rem;">
+                <span style="width: 12px; height: 12px; background: #ec4899; border-radius: 2px;"></span> Peak Fertility
+              </span>
+              <span style="font-size: 0.8rem; display: flex; align-items: center; gap: 0.25rem;">
+                <span style="width: 12px; height: 12px; background: var(--calc-primary); border-radius: 2px;"></span> Whelping
+              </span>
+            </div>
+
+            <!-- Vaginal Cytology Reference -->
+            <div id="cytology-section">
+              <h3 style="margin: 2rem 0 1rem; font-size: 1.1rem; color: var(--calc-text-primary);">🔬 Vaginal Cytology Correlation</h3>
+              <div class="cytology-bar">
+                <div class="cytology-segment basal" style="width: 20%;">Basal</div>
+                <div class="cytology-segment intermediate" style="width: 25%;">Intermediate</div>
+                <div class="cytology-segment superficial" style="width: 30%;">Superficial</div>
+                <div class="cytology-segment anuclear" style="width: 25%;">Anuclear</div>
+              </div>
+              <div class="calc-info-grid">
+                <div class="calc-info-item">
+                  <span class="calc-info-item__label">Current Cornification</span>
+                  <span class="calc-info-item__value" id="cornification-display">--%</span>
+                </div>
+                <div class="calc-info-item">
+                  <span class="calc-info-item__label">Interpretation</span>
+                  <span class="calc-info-item__value" id="cytology-interpretation">--</span>
+                </div>
+              </div>
+              <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin-top: 0.5rem;">
+                <strong>Note:</strong> When superficial cells reach &gt;80-90%, ovulation is imminent or has occurred.
+              </p>
+            </div>
+
+            <!-- Breed Variations Warning -->
+            <div class="breed-warning">
+              <h4 style="margin: 0 0 0.5rem; color: var(--calc-warning); font-size: 1rem;">⚠️ Breed Variations</h4>
+              <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.875rem; color: var(--calc-text-secondary);">
+                <li><strong>Toy breeds:</strong> May ovulate earlier in cycle (day 8-12)</li>
+                <li><strong>Giant breeds:</strong> May ovulate later (day 14-18)</li>
+                <li><strong>Individual variation:</strong> Always confirm with serial progesterone testing</li>
+                <li><strong>First vs. experienced:</strong> Maiden bitches may have less predictable cycles</li>
+              </ul>
+            </div>
+
+            <!-- Frozen Semen Note -->
+            <div class="frozen-semen-note" id="frozen-note" style="display: none;">
+              <h4 style="margin: 0 0 0.5rem; color: #3b82f6; font-size: 1rem;">🧊 Frozen Semen Considerations</h4>
+              <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.875rem; color: var(--calc-text-secondary);">
+                <li>TCI: Inseminate 4-6 days post-LH surge or when P4 = 15-25 ng/mL</li>
+                <li>Surgical: Can be done 4-6 days post-LH surge for optimal results</li>
+                <li>Tighter timing window - consider 2 inseminations 24h apart</li>
+                <li>Semen quality critical - minimum 70% progressive motility recommended</li>
+              </ul>
+            </div>
+
+            <!-- Retesting Recommendations -->
+            <div class="calc-info-box" style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 1rem; border-radius: var(--calc-radius); margin-top: 1.5rem;">
+              <h4 style="margin: 0 0 0.5rem; color: #22c55e; font-size: 1rem;">🔄 When to Recheck Progesterone</h4>
+              <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.875rem;">
+                <li><strong>&lt; 2 ng/mL:</strong> Recheck every 2-3 days</li>
+                <li><strong>2-4 ng/mL:</strong> Recheck daily or every other day</li>
+                <li><strong>4-6 ng/mL:</strong> Recheck daily (ovulation occurring)</li>
+                <li><strong>&gt; 10 ng/mL:</strong> Breeding window open - recheck if timing uncertain</li>
+              </ul>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="calc-actions">
+              <button class="calc-action-btn" id="copy-btn">📋 Copy Results</button>
+              <button class="calc-action-btn" onclick="window.print()">🖨️ Print</button>
+              <button class="calc-action-btn" id="reset-btn">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card__footer">
+          <p style="font-size: 0.8rem; color: var(--calc-text-muted); margin: 0; text-align: center;">
+            Reference: Root Kustritz (2010), Concannon (2009), AKC Breeding Guidelines
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Reference Card -->
+      <div class="calc-card">
+        <div class="calc-card__header">
+          <h2 class="calc-card__title">
+            <span>📚</span>
+            <span>Quick Reference Guide</span>
+          </h2>
+        </div>
+        <div class="calc-card__body">
+          <div class="two-column">
+            <div>
+              <h4 style="margin: 0 0 0.75rem; color: var(--calc-text-secondary); font-size: 0.95rem;">Progesterone Interpretation</h4>
+              <table class="breeding-schedule" style="font-size: 0.8rem;">
+                <tr>
+                  <td>&lt; 1.0 ng/mL</td>
+                  <td>Baseline (Anoestrus)</td>
+                </tr>
+                <tr>
+                  <td>1.0 - 2.0 ng/mL</td>
+                  <td>Early Proestrus</td>
+                </tr>
+                <tr>
+                  <td>2.0 - 4.0 ng/mL</td>
+                  <td>LH Surge Zone</td>
+                </tr>
+                <tr>
+                  <td>4.0 - 6.0 ng/mL</td>
+                  <td>Ovulation</td>
+                </tr>
+                <tr>
+                  <td>10 - 20 ng/mL</td>
+                  <td>Optimal Breeding</td>
+                </tr>
+                <tr>
+                  <td>20 - 40 ng/mL</td>
+                  <td>Peak Fertility</td>
+                </tr>
+                <tr>
+                  <td>&gt; 40 ng/mL</td>
+                  <td>Luteal Phase</td>
+                </tr>
+              </table>
+            </div>
+            <div>
+              <h4 style="margin: 0 0 0.75rem; color: var(--calc-text-secondary); font-size: 0.95rem;">Optimal Breeding Days</h4>
+              <table class="breeding-schedule" style="font-size: 0.8rem;">
+                <tr>
+                  <th>Method</th>
+                  <th>Days Post-LH</th>
+                  <th>P4 Range</th>
+                </tr>
+                <tr>
+                  <td>Natural</td>
+                  <td>Day 2-5</td>
+                  <td>10-40 ng/mL</td>
+                </tr>
+                <tr>
+                  <td>Fresh Chilled</td>
+                  <td>Day 3-5</td>
+                  <td>15-40 ng/mL</td>
+                </tr>
+                <tr>
+                  <td>Frozen (TCI)</td>
+                  <td>Day 4-6</td>
+                  <td>20-30 ng/mL</td>
+                </tr>
+                <tr>
+                  <td>Frozen (Surgical)</td>
+                  <td>Day 4-6</td>
+                  <td>20-30 ng/mL</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disclaimer -->
+      <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(220, 38, 38, 0.05); border: 1px solid rgba(220, 38, 38, 0.2); border-radius: var(--calc-radius-lg);">
+        <h4 style="margin: 0 0 0.75rem; color: var(--calc-error); font-size: 1rem;">⚠️ Important Disclaimer</h4>
+        <p style="font-size: 0.875rem; color: var(--calc-text-secondary); margin: 0; line-height: 1.6;">
+          This calculator provides estimates based on published theriogenology guidelines. Individual bitches may vary significantly. 
+          For valuable breeding or difficult cases, consultation with a board-certified veterinary theriogenologist is strongly recommended. 
+          Always confirm timing with serial progesterone testing and clinical signs. DVMReady is not liable for breeding outcomes.
+        </p>
+      </div>
+
+      <!-- Related Resources -->
+      <div style="margin-top: 2rem; text-align: center;">
+        <p style="font-size: 0.875rem; color: var(--calc-text-muted); margin-bottom: 1rem;">Related Resources</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem;">
+          <a href="/tools/gestation-wheel-calculator.html" class="calc-chip">🗓️ Gestation Wheel</a>
+          <a href="/tools/dose-calculator.html" class="calc-chip">💊 Drug Dosing</a>
+          <a href="/tools/emergency-drug-chart.html" class="calc-chip">🚨 Emergency Drugs</a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+    (function() {
+      // Elements
+      const els = {
+        startingPoint: document.getElementById('starting-point'),
+        dateLabel: document.getElementById('date-label'),
+        cycleDate: document.getElementById('cycle-date'),
+        progesteroneGroup: document.getElementById('progesterone-group'),
+        progesteroneLevel: document.getElementById('progesterone-level'),
+        unitBtns: document.querySelectorAll('[data-unit]'),
+        breedBtns: document.querySelectorAll('[data-breed]'),
+        breedingMethod: document.getElementById('breeding-method'),
+        cornification: document.getElementById('cornification'),
+        cornificationValue: document.getElementById('cornification-value'),
+        cornificationDisplay: document.getElementById('cornification-display'),
+        cytologyInterpretation: document.getElementById('cytology-interpretation'),
+        prevCycle: document.getElementById('prev-cycle'),
+        gestationAdjust: document.getElementById('gestation-adjust'),
+        calculateBtn: document.getElementById('calculate-btn'),
+        results: document.getElementById('results'),
+        statusBadge: document.getElementById('status-badge'),
+        statusRecommendation: document.getElementById('status-recommendation'),
+        ovulationDate: document.getElementById('ovulation-date'),
+        breedingWindow: document.getElementById('breeding-window'),
+        whelpingDate: document.getElementById('whelping-date'),
+        whelpingRange: document.getElementById('whelping-range'),
+        scheduleBody: document.getElementById('schedule-body'),
+        cycleCalendar: document.getElementById('cycle-calendar'),
+        frozenNote: document.getElementById('frozen-note'),
+        copyBtn: document.getElementById('copy-btn'),
+        resetBtn: document.getElementById('reset-btn'),
+        modeBtns: document.querySelectorAll('[data-mode]'),
+        advancedOptions: document.getElementById('advanced-options')
+      };
+
+      // State
+      let state = {
+        unit: 'ng',
+        breed: 'toy',
+        mode: 'basic'
+      };
+
+      // Set default date to today
+      els.cycleDate.valueAsDate = new Date();
+
+      // Unit toggle
+      els.unitBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.unit = btn.dataset.unit;
+          els.unitBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      // Breed selection
+      els.breedBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.breed = btn.dataset.breed;
+          els.breedBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      // Mode toggle
+      els.modeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.mode = btn.dataset.mode;
+          els.modeBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          els.advancedOptions.style.display = state.mode === 'advanced' ? 'block' : 'none';
+        });
+      });
+
+      // Starting point change
+      els.startingPoint.addEventListener('change', () => {
+        const point = els.startingPoint.value;
+        const labels = {
+          'proestrus': 'Date of First Proestrus Bleeding',
+          'progesterone': 'Date of First Progesterone Test',
+          'lh-surge': 'Date of LH Surge',
+          'ovulation': 'Date of Ovulation (if known)'
+        };
+        els.dateLabel.textContent = labels[point];
+        els.progesteroneGroup.style.display = point === 'progesterone' ? 'block' : 'none';
+      });
+
+      // Cornification slider
+      els.cornification.addEventListener('input', () => {
+        els.cornificationValue.textContent = els.cornification.value + '%';
+      });
+
+      // Breed size offsets (days earlier/later than average)
+      const breedOffsets = {
+        'toy': -2,
+        'small': -1,
+        'medium': 0,
+        'large': 1,
+        'giant': 2
+      };
+
+      // Calculate function
+      function calculate() {
+        const startDate = new Date(els.cycleDate.value);
+        if (isNaN(startDate)) {
+          alert('Please enter a valid date');
+          return;
+        }
+
+        const startingPoint = els.startingPoint.value;
+        const breedOffset = breedOffsets[state.breed];
+        const gestationDays = parseInt(els.gestationAdjust.value) || 63;
+        const method = els.breedingMethod.value;
+        const cornification = parseInt(els.cornification.value) || 0;
+
+        let ovulationDate, lhSurgeDate;
+        let currentP4 = parseFloat(els.progesteroneLevel.value) || 0;
+
+        // Convert if needed
+        if (state.unit === 'nmol' && currentP4 > 0) {
+          currentP4 = currentP4 / 3.18; // nmol/L to ng/mL
+        }
+
+        // Calculate ovulation date based on starting point
+        switch (startingPoint) {
+          case 'proestrus':
+            // Average day 12 from proestrus start, adjusted for breed
+            ovulationDate = addDays(startDate, 12 + breedOffset);
+            lhSurgeDate = addDays(startDate, 10 + breedOffset);
+            break;
+          case 'progesterone':
+            // Estimate based on current P4 level
+            if (currentP4 < 2) {
+              ovulationDate = addDays(startDate, 5 + breedOffset);
+              lhSurgeDate = addDays(startDate, 3 + breedOffset);
+            } else if (currentP4 < 4) {
+              ovulationDate = addDays(startDate, 2 + breedOffset);
+              lhSurgeDate = addDays(startDate, breedOffset);
+            } else if (currentP4 < 6) {
+              ovulationDate = addDays(startDate, 1);
+              lhSurgeDate = addDays(startDate, -1);
+            } else {
+              ovulationDate = startDate;
+              lhSurgeDate = addDays(startDate, -2);
+            }
+            break;
+          case 'lh-surge':
+            lhSurgeDate = startDate;
+            ovulationDate = addDays(startDate, 2);
+            break;
+          case 'ovulation':
+            ovulationDate = startDate;
+            lhSurgeDate = addDays(startDate, -2);
+            break;
+        }
+
+        // Calculate breeding window
+        const breedingStart = addDays(ovulationDate, 2);
+        const breedingEnd = addDays(ovulationDate, 4);
+
+        // Calculate whelping
+        const whelpingDate = addDays(ovulationDate, gestationDays);
+        const whelpingMin = addDays(ovulationDate, gestationDays - 2);
+        const whelpingMax = addDays(ovulationDate, gestationDays + 2);
+
+        // Determine current status
+        const today = new Date();
+        const daysFromOvulation = Math.floor((today - ovulationDate) / (1000 * 60 * 60 * 24));
+        
+        let status, statusClass, statusText;
+        if (currentP4 > 0) {
+          if (currentP4 < 1) {
+            status = 'Baseline (Anoestrus)';
+            statusClass = 'baseline';
+            statusText = 'Not in heat. Too early for breeding.';
+          } else if (currentP4 < 2) {
+            status = 'Early Proestrus';
+            statusClass = 'initial';
+            statusText = 'Monitor closely. Recheck in 2-3 days.';
+          } else if (currentP4 < 4) {
+            status = 'LH Surge Zone';
+            statusClass = 'ovulation';
+            statusText = 'Critical period! Check daily or every other day.';
+          } else if (currentP4 < 6) {
+            status = 'Ovulation Occurring';
+            statusClass = 'ovulation';
+            statusText = 'Ovulation in progress. Eggs not yet mature.';
+          } else if (currentP4 < 10) {
+            status = 'Post-Ovulation';
+            statusClass = 'optimal';
+            statusText = 'Eggs maturing. Optimal breeding approaching.';
+          } else if (currentP4 < 20) {
+            status = 'Optimal Breeding Time!';
+            statusClass = 'optimal';
+            statusText = 'IDEAL TIME TO BREED - Eggs mature and ready';
+          } else if (currentP4 < 40) {
+            status = 'Peak Fertility';
+            statusClass = 'peak';
+            statusText = 'Excellent conception rates. Window still open.';
+          } else {
+            status = 'Luteal Phase';
+            statusClass = 'late';
+            statusText = 'Breeding window may be closed. Eggs aging.';
+          }
+        } else {
+          // Estimate based on date if no P4 given
+          if (daysFromOvulation < 0) {
+            status = 'Pre-Ovulation';
+            statusClass = 'initial';
+            statusText = `~${Math.abs(daysFromOvulation)} days until predicted ovulation`;
+          } else if (daysFromOvulation < 2) {
+            status = 'Ovulation Period';
+            statusClass = 'ovulation';
+            statusText = 'Ovulation predicted around this time';
+          } else if (daysFromOvulation < 5) {
+            status = 'Optimal Breeding Time!';
+            statusClass = 'optimal';
+            statusText = 'IDEAL BREEDING WINDOW - Days ' + daysFromOvulation + ' post-ovulation';
+          } else if (daysFromOvulation < 7) {
+            status = 'Peak Fertility';
+            statusClass = 'peak';
+            statusText = 'Still good conception rates possible';
+          } else {
+            status = 'Post-Fertility';
+            statusClass = 'late';
+            statusText = 'Breeding window likely closed';
+          }
+        }
+
+        // Update results
+        els.statusBadge.textContent = status;
+        els.statusBadge.className = 'status-badge ' + statusClass;
+        els.statusRecommendation.textContent = statusText;
+
+        els.ovulationDate.textContent = formatDate(ovulationDate);
+        els.breedingWindow.textContent = `${formatDate(breedingStart)} - ${formatDate(breedingEnd)}`;
+        els.whelpingDate.textContent = formatDate(whelpingDate);
+        els.whelpingRange.textContent = `Range: ${formatDate(whelpingMin)} - ${formatDate(whelpingMax)}`;
+
+        // Update breeding schedule
+        const schedules = {
+          'natural': [
+            { method: 'Natural Breeding', days: 'Day 2-5 post-ovulation', notes: '2-3 breedings 24-48h apart' },
+            { method: 'Optimal 1st Breeding', days: formatDate(breedingStart), notes: 'When P4 reaches 10-15 ng/mL' },
+            { method: 'Optimal 2nd Breeding', days: formatDate(addDays(breedingStart, 2)), notes: '48 hours after first' }
+          ],
+          'fresh': [
+            { method: 'Fresh Chilled Semen', days: 'Day 3-5 post-ovulation', notes: 'Single insemination often sufficient' },
+            { method: 'Optimal Timing', days: formatDate(addDays(ovulationDate, 3)), notes: 'P4 = 15-25 ng/mL ideal' },
+            { method: 'Backup', days: formatDate(addDays(ovulationDate, 5)), notes: 'If first unsuccessful' }
+          ],
+          'frozen': [
+            { method: 'Frozen Semen (TCI)', days: 'Day 4-6 post-LH', notes: 'Tight timing essential' },
+            { method: '1st TCI', days: formatDate(addDays(lhSurgeDate, 5)), notes: 'P4 = 20-25 ng/mL' },
+            { method: '2nd TCI (optional)', days: formatDate(addDays(lhSurgeDate, 6)), notes: '24h after first' }
+          ],
+          'frozen-surgical': [
+            { method: 'Frozen (Surgical)', days: 'Day 4-6 post-LH', notes: 'More invasive, higher cost' },
+            { method: 'Optimal Day', days: formatDate(addDays(lhSurgeDate, 5)), notes: 'Best conception rates' },
+            { method: 'Alternative', days: formatDate(addDays(lhSurgeDate, 4)), notes: 'If semen quality excellent' }
+          ]
+        };
+
+        els.scheduleBody.innerHTML = schedules[method].map(s => `
+          <tr>
+            <td><strong>${s.method}</strong></td>
+            <td>${s.days}</td>
+            <td>${s.notes}</td>
+          </tr>
+        `).join('');
+
+        // Show frozen note if applicable
+        els.frozenNote.style.display = (method === 'frozen' || method === 'frozen-surgical') ? 'block' : 'none';
+
+        // Generate calendar
+        generateCalendar(ovulationDate, breedingStart, breedingEnd, whelpingDate);
+
+        // Update cytology
+        els.cornificationDisplay.textContent = cornification + '%';
+        let cytologyText;
+        if (cornification < 20) cytologyText = 'Early Proestrus - Continue monitoring';
+        else if (cornification < 50) cytologyText = 'Mid-Proestrus - Rising estrogen';
+        else if (cornification < 80) cytologyText = 'Late Proestrus - Approaching ovulation';
+        else if (cornification < 95) cytologyText = 'Periovulatory - Ovulation imminent/has occurred';
+        else cytologyText = 'Post-ovulatory - Diestrus transition';
+        els.cytologyInterpretation.textContent = cytologyText;
+
+        els.results.style.display = 'block';
+        els.results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function generateCalendar(ovulationDate, breedingStart, breedingEnd, whelpingDate) {
+        // Generate 14 days centered around ovulation
+        const start = addDays(ovulationDate, -5);
+        const days = [];
+        
+        for (let i = 0; i < 21; i++) {
+          const date = addDays(start, i);
+          const dayNum = i - 5; // Relative to ovulation
+          
+          let classes = ['calendar-day'];
+          let label = '';
+          
+          if (dayNum === 0) {
+            classes.push('ovulation');
+            label = 'OV';
+          } else if (date >= breedingStart && date <= breedingEnd) {
+            classes.push('peak');
+            label = 'B' + (dayNum - 1);
+          }
+          
+          const dayName = date.toLocaleDateString('en-US', { weekday: 'narrow' });
+          const dayNumber = date.getDate();
+          
+          days.push(`
+            <div class="${classes.join(' ')}">
+              <span class="calendar-day-label">${dayName}</span>
+              <span class="calendar-day-number">${dayNumber}</span>
+              ${label ? `<span style="font-size: 0.6rem; opacity: 0.9;">${label}</span>` : ''}
+            </div>
+          `);
+        }
+        
+        // Add whelping date
+        const whelpingDayName = whelpingDate.toLocaleDateString('en-US', { weekday: 'narrow' });
+        const whelpingDayNumber = whelpingDate.getDate();
+        days.push(`
+          <div class="calendar-day active">
+            <span class="calendar-day-label">${whelpingDayName}</span>
+            <span class="calendar-day-number">${whelpingDayNumber}</span>
+            <span style="font-size: 0.6rem; opacity: 0.9;">W</span>
+          </div>
+        `);
+        
+        els.cycleCalendar.innerHTML = days.join('');
+      }
+
+      function addDays(date, days) {
+        const result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result;
+      }
+
+      function formatDate(date) {
+        return date.toLocaleDateString('en-US', { 
+          month: 'short', 
+          day: 'numeric', 
+          year: 'numeric' 
+        });
+      }
+
+      // Event listeners
+      els.calculateBtn.addEventListener('click', calculate);
+
+      els.copyBtn.addEventListener('click', () => {
+        const text = `Progesterone Timing Results:
+Status: ${els.statusBadge.textContent}
+Ovulation: ${els.ovulationDate.textContent}
+Breeding Window: ${els.breedingWindow.textContent}
+Whelping: ${els.whelpingDate.textContent}`;
+        navigator.clipboard.writeText(text).then(() => {
+          els.copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => els.copyBtn.textContent = '📋 Copy Results', 2000);
+        });
+      });
+
+      els.resetBtn.addEventListener('click', () => {
+        els.cycleDate.valueAsDate = new Date();
+        els.progesteroneLevel.value = '';
+        els.cornification.value = 0;
+        els.cornificationValue.textContent = '0%';
+        els.results.style.display = 'none';
+      });
+    })();
+    </script>
+  </body>
+</html>
