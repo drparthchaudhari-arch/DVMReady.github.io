@@ -147,24 +147,53 @@
 
           <!-- BASIC: CRI Protocol -->
           <div class="calc-form-group" id="basic-options">
-            <label class="calc-label">CRI Protocol</label>
+            <label class="calc-label">CRI Protocol <span class="calc-label__hint">— concentrations editable below</span></label>
             <select class="calc-select" id="cri-protocol">
               <option value="">Select protocol...</option>
               <optgroup label="Analgesia">
-                <option value="morphine">Morphine (0.1-0.3 mg/kg/hr)</option>
-                <option value="fentanyl">Fentanyl (2-5 mcg/kg/hr)</option>
-                <option value="ketamine">Ketamine (0.12-0.6 mg/kg/hr)</option>
-                <option value="lidocaine">Lidocaine (25-50 mcg/kg/min)</option>
+                <option value="morphine">Morphine 0.2 mg/kg/hr (10 mg/mL)</option>
+                <option value="fentanyl">Fentanyl 3 mcg/kg/hr (50 mcg/mL)</option>
+                <option value="hydromorphone">Hydromorphone 0.05 mg/kg/hr (2 mg/mL)</option>
+                <option value="buprenorphine">Buprenorphine 1.2 mcg/kg/hr (0.3 mg/mL)</option>
+                <option value="ketamine">Ketamine 0.3 mg/kg/hr (100 mg/mL)</option>
+                <option value="lidocaine">Lidocaine 35 mcg/kg/min (20 mg/mL)</option>
               </optgroup>
-              <optgroup label="Sedation">
-                <option value="dexmed">Dexmedetomidine (0.5-1 mcg/kg/hr)</option>
-                <option value="propofol">Propofol (0.1-0.4 mg/kg/min)</option>
+              <optgroup label="Sedation/Anesthesia">
+                <option value="dexmed">Dexmedetomidine 0.75 mcg/kg/hr (500 mcg/mL)</option>
+                <option value="propofol">Propofol 0.2 mg/kg/min (10 mg/mL)</option>
+                <option value="midazolam">Midazolam 0.1 mg/kg/hr (5 mg/mL)</option>
               </optgroup>
-              <optgroup label="Cardiac">
-                <option value="dopamine">Dopamine (2-20 mcg/kg/min)</option>
-                <option value="dobutamine">Dobutamine (2-20 mcg/kg/min)</option>
+              <optgroup label="Cardiac/Vasoactive">
+                <option value="dopamine">Dopamine 10 mcg/kg/min (40 mg/mL)</option>
+                <option value="dobutamine">Dobutamine 10 mcg/kg/min (12.5 mg/mL)</option>
+                <option value="epinephrine_cri">Epinephrine 0.1 mcg/kg/min (1 mg/mL)</option>
+                <option value="norepinephrine">Norepinephrine 0.1 mcg/kg/min (1 mg/mL)</option>
+              </optgroup>
+              <optgroup label="GI/Miscellaneous">
+                <option value="metoclopramide">Metoclopramide 1 mg/kg/hr (5 mg/mL)</option>
+                <option value="insulin">Insulin 0.05 U/kg/hr (100 U/mL)</option>
               </optgroup>
             </select>
+            
+            <!-- Editable Protocol Parameters -->
+            <div id="protocol-details" style="margin-top: 1rem; padding: 1rem; background: var(--calc-bg-2); border-radius: var(--calc-radius-md); display: none;">
+              <div style="display: grid; gap: 0.75rem;">
+                <div class="calc-form-group" style="margin: 0;">
+                  <label class="calc-label" style="font-size: 0.8rem;">Dose Rate</label>
+                  <div class="calc-input-wrapper">
+                    <input type="number" class="calc-input" id="protocol-dose-rate" step="0.001">
+                    <span id="protocol-dose-unit" style="padding: 0 0.75rem; color: var(--calc-text-muted);"></span>
+                  </div>
+                </div>
+                <div class="calc-form-group" style="margin: 0;">
+                  <label class="calc-label" style="font-size: 0.8rem;">Drug Concentration</label>
+                  <div class="calc-input-wrapper">
+                    <input type="number" class="calc-input" id="protocol-conc" step="0.001">
+                    <span id="protocol-conc-unit" style="padding: 0 0.75rem; color: var(--calc-text-muted);"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Fluid Rate -->
@@ -353,14 +382,28 @@
       let currentSpecies = 'dog';
 
       const CRI_PROTOCOLS = {
-        morphine: { name: 'Morphine', dose: 0.2, unit: 'mg/kg/hr', conc: 10, concUnit: 'mg/mL' },
-        fentanyl: { name: 'Fentanyl', dose: 3, unit: 'mcg/kg/hr', conc: 50, concUnit: 'mcg/mL' },
-        ketamine: { name: 'Ketamine', dose: 0.3, unit: 'mg/kg/hr', conc: 100, concUnit: 'mg/mL' },
-        lidocaine: { name: 'Lidocaine', dose: 35, unit: 'mcg/kg/min', conc: 20, concUnit: 'mg/mL' },
-        dexmed: { name: 'Dexmedetomidine', dose: 0.75, unit: 'mcg/kg/hr', conc: 500, concUnit: 'mcg/mL' },
-        propofol: { name: 'Propofol', dose: 0.2, unit: 'mg/kg/min', conc: 10, concUnit: 'mg/mL' },
-        dopamine: { name: 'Dopamine', dose: 10, unit: 'mcg/kg/min', conc: 40, concUnit: 'mg/mL' },
-        dobutamine: { name: 'Dobutamine', dose: 10, unit: 'mcg/kg/min', conc: 12.5, concUnit: 'mg/mL' }
+        // Analgesics
+        morphine: { name: 'Morphine', dose: 0.2, unit: 'mg/kg/hr', conc: 10, concUnit: 'mg/mL', range: '0.1-0.3', notes: 'Opioid analgesic. Monitor for sedation/respiratory depression.' },
+        fentanyl: { name: 'Fentanyl', dose: 3, unit: 'mcg/kg/hr', conc: 50, concUnit: 'mcg/mL', range: '2-5', notes: 'Potent opioid. 50-100x more potent than morphine.' },
+        hydromorphone: { name: 'Hydromorphone', dose: 0.05, unit: 'mg/kg/hr', conc: 2, concUnit: 'mg/mL', range: '0.025-0.1', notes: 'Synthetic opioid. 5x more potent than morphine.' },
+        buprenorphine: { name: 'Buprenorphine', dose: 1.2, unit: 'mcg/kg/hr', conc: 0.3, concUnit: 'mg/mL', range: '0.5-2.4', notes: 'Partial agonist. Ceiling effect on respiratory depression.' },
+        ketamine: { name: 'Ketamine', dose: 0.3, unit: 'mg/kg/hr', conc: 100, concUnit: 'mg/mL', range: '0.12-0.6', notes: 'NMDA antagonist. Good for neuropathic pain. Can cause dysphoria.' },
+        lidocaine: { name: 'Lidocaine', dose: 35, unit: 'mcg/kg/min', conc: 20, concUnit: 'mg/mL', range: '25-50', notes: 'Class IB antiarrhythmic. Also used for analgesia/ileus.' },
+        
+        // Sedation/Anesthesia
+        dexmed: { name: 'Dexmedetomidine', dose: 0.75, unit: 'mcg/kg/hr', conc: 500, concUnit: 'mcg/mL', range: '0.5-1', notes: 'Alpha-2 agonist. Provides sedation/analgesia. Can cause bradycardia.' },
+        propofol: { name: 'Propofol', dose: 0.2, unit: 'mg/kg/min', conc: 10, concUnit: 'mg/mL', range: '0.1-0.4', notes: 'IV anesthetic. Titrate to effect. Apnea common with boluses.' },
+        midazolam: { name: 'Midazolam', dose: 0.1, unit: 'mg/kg/hr', conc: 5, concUnit: 'mg/mL', range: '0.05-0.2', notes: 'Benzodiazepine. Anxiolytic/amnestic. Reversible with flumazenil.' },
+        
+        // Cardiac/Vasoactive
+        dopamine: { name: 'Dopamine', dose: 10, unit: 'mcg/kg/min', conc: 40, concUnit: 'mg/mL', range: '2-20', notes: 'Dose-dependent: 2-5 (renal), 5-10 (cardiac), >10 (vasoconstriction).' },
+        dobutamine: { name: 'Dobutamine', dose: 10, unit: 'mcg/kg/min', conc: 12.5, concUnit: 'mg/mL', range: '2-20', notes: 'Beta-1 agonist. Increases contractility with less arrhythmias than dopamine.' },
+        epinephrine_cri: { name: 'Epinephrine CRI', dose: 0.1, unit: 'mcg/kg/min', conc: 1, concUnit: 'mg/mL', range: '0.05-1', notes: 'Alpha/beta agonist. Last resort for severe shock/bradycardia.' },
+        norepinephrine: { name: 'Norepinephrine', dose: 0.1, unit: 'mcg/kg/min', conc: 1, concUnit: 'mg/mL', range: '0.05-1', notes: 'Alpha agonist with beta activity. First-line for vasodilatory shock.' },
+        
+        // GI/Misc
+        metoclopramide: { name: 'Metoclopramide', dose: 1, unit: 'mg/kg/hr', conc: 5, concUnit: 'mg/mL', range: '0.5-2', notes: 'Prokinetic/antiemetic. Contraindicated with GI obstruction.' },
+        insulin: { name: 'Insulin', dose: 0.05, unit: 'U/kg/hr', conc: 100, concUnit: 'U/mL', range: '0.025-0.1', notes: 'DKA management. Monitor glucose hourly. Have dextrose available.' }
       };
 
       els.modeBtns.forEach(btn => {
@@ -385,39 +428,74 @@
         });
       });
 
+      // Protocol selection - show editable details
+      const protocolDetails = document.getElementById('protocol-details');
+      const protocolDoseRate = document.getElementById('protocol-dose-rate');
+      const protocolDoseUnit = document.getElementById('protocol-dose-unit');
+      const protocolConc = document.getElementById('protocol-conc');
+      const protocolConcUnit = document.getElementById('protocol-conc-unit');
+      let currentProtocol = null;
+
+      els.protocol.addEventListener('change', () => {
+        const protocolKey = els.protocol.value;
+        if (protocolKey && CRI_PROTOCOLS[protocolKey]) {
+          currentProtocol = CRI_PROTOCOLS[protocolKey];
+          protocolDetails.style.display = 'block';
+          
+          // Populate editable fields
+          protocolDoseRate.value = currentProtocol.dose;
+          protocolDoseUnit.textContent = currentProtocol.unit;
+          protocolConc.value = currentProtocol.conc;
+          protocolConcUnit.textContent = currentProtocol.concUnit;
+        } else {
+          protocolDetails.style.display = 'none';
+          currentProtocol = null;
+        }
+      });
+
       function calculate() {
         const weight = parseFloat(els.weightInput.value);
         const fluidRate = parseFloat(els.fluidRate.value);
         
-        if (!weight || !fluidRate) return;
+        if (!weight || !fluidRate) {
+          alert('Please enter weight and fluid rate');
+          return;
+        }
 
-        let drugVolume, finalConc, actualDose, drugName;
+        let drugVolume, finalConc, actualDose, drugName, doseUnit;
 
         if (currentMode === 'basic' && els.protocol.value) {
           const protocol = CRI_PROTOCOLS[els.protocol.value];
           drugName = protocol.name;
           
-          // Convert all to mg/kg/hr
-          let doseMgKgHr = protocol.dose;
-          if (protocol.unit === 'mcg/kg/hr') doseMgKgHr = protocol.dose / 1000;
-          else if (protocol.unit === 'mg/kg/min') doseMgKgHr = protocol.dose * 60;
-          else if (protocol.unit === 'mcg/kg/min') doseMgKgHr = (protocol.dose * 60) / 1000;
+          // Use editable values if available, otherwise use protocol defaults
+          const doseInput = parseFloat(protocolDoseRate.value) || protocol.dose;
+          const concInput = parseFloat(protocolConc.value) || protocol.conc;
+          doseUnit = protocol.unit;
           
-          let concMgMl = protocol.conc;
-          if (protocol.concUnit === 'mcg/mL') concMgMl = protocol.conc / 1000;
+          // Convert all to mg/kg/hr for calculation
+          let doseMgKgHr = doseInput;
+          if (protocol.unit === 'mcg/kg/hr') doseMgKgHr = doseInput / 1000;
+          else if (protocol.unit === 'U/kg/hr') doseMgKgHr = doseInput; // Keep units for insulin
+          else if (protocol.unit === 'mg/kg/min') doseMgKgHr = doseInput * 60;
+          else if (protocol.unit === 'mcg/kg/min') doseMgKgHr = (doseInput * 60) / 1000;
           
-          // Drug needed per hour (mg)
+          let concMgMl = concInput;
+          if (protocol.concUnit === 'mcg/mL') concMgMl = concInput / 1000;
+          if (protocol.concUnit === 'U/mL') concMgMl = concInput; // Keep units for insulin
+          
+          // Drug needed per hour
           const drugNeededHr = doseMgKgHr * weight;
           
           // Volume to add to dilution (mL)
           drugVolume = drugNeededHr / concMgMl;
           
-          // For simplicity, assume 250mL dilution
+          // Calculate final concentration
           const dilutionVol = 250;
           finalConc = (drugVolume * concMgMl) / dilutionVol;
-          actualDose = doseMgKgHr;
+          actualDose = doseInput;
           
-          els.doseUnit.textContent = 'mg/kg/hr';
+          els.doseUnit.textContent = protocol.unit;
         } else if (currentMode === 'advanced') {
           drugName = els.customDrugName.value || 'Custom Drug';
           const desiredDose = parseFloat(els.desiredDose.value) || 0;
@@ -438,19 +516,37 @@
         }
 
         if (drugVolume) {
-          els.resultVolume.textContent = drugVolume.toFixed(2);
-          els.volumeInstruction.textContent = `Add to ${els.dilutionVol?.value || 250}mL fluid bag`;
-          els.resultConc.textContent = finalConc.toFixed(3);
-          els.resultDose.textContent = actualDose.toFixed(3);
+          els.resultVolume.textContent = drugVolume < 0.1 ? drugVolume.toFixed(3) : drugVolume.toFixed(2);
+          els.volumeInstruction.textContent = `Add ${drugVolume < 0.1 ? drugVolume.toFixed(3) : drugVolume.toFixed(2)} mL drug to ${els.dilutionVol?.value || 250} mL fluid bag`;
+          els.resultConc.textContent = finalConc.toFixed(4);
+          els.resultDose.textContent = actualDose.toFixed(currentMode === 'basic' ? 2 : 3);
+          
+          // Show warning for very small volumes
+          const calcDetails = document.getElementById('calculation-details');
+          let warningText = '';
+          if (drugVolume < 0.1) {
+            warningText = '<div style="color: #f59e0b; margin-bottom: 1rem;">⚠️ Small volume - consider making more concentrated solution or using a syringe pump for accuracy.</div>';
+          }
+          if (currentProtocol && currentProtocol.notes) {
+            warningText += `<div style="color: var(--calc-text-muted); font-size: 0.9rem; margin-bottom: 1rem;">ℹ️ ${currentProtocol.notes}</div>`;
+          }
+          calcDetails.innerHTML = warningText;
           
           els.results.style.display = 'block';
+          els.results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
       }
 
       els.calculateBtn.addEventListener('click', calculate);
 
       els.copyBtn.addEventListener('click', () => {
-        const text = `CRI: Add ${els.resultVolume.textContent}mL to bag (${els.resultDose.textContent} mg/kg/hr)`;
+        const protocolName = els.protocol.value ? CRI_PROTOCOLS[els.protocol.value]?.name : (els.customDrugName.value || 'Custom CRI');
+        const dilutionVol = els.dilutionVol?.value || 250;
+        const text = `${protocolName} CRI:\n` +
+          `• Add ${els.resultVolume.textContent} mL drug to ${dilutionVol} mL fluid bag\n` +
+          `• Final concentration: ${els.resultConc.textContent} mg/mL\n` +
+          `• Delivering: ${els.resultDose.textContent} ${els.doseUnit.textContent}\n` +
+          `• Fluid rate: ${els.fluidRate.value} mL/hr`;
         navigator.clipboard.writeText(text).then(() => {
           els.copyBtn.textContent = '✓ Copied!';
           setTimeout(() => els.copyBtn.textContent = '📋 Copy', 2000);
