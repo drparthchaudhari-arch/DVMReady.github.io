@@ -101,7 +101,6 @@
     <lastmod>2026-02-24</lastmod>
   </url>
   <url>
-    <loc>https://dvmready.com/chf-staging-overview/</loc>
     <lastmod>2026-02-24</lastmod>
   </url>
   <url>
@@ -145,19 +144,15 @@
     <lastmod>2026-02-24</lastmod>
   </url>
   <url>
-    <loc>https://dvmready.com/mgkg-dosing-guide/</loc>
     <lastmod>2026-02-24</lastmod>
   </url>
   <url>
-    <loc>https://dvmready.com/cri-setup-guide/</loc>
     <lastmod>2026-02-24</lastmod>
   </url>
   <url>
-    <loc>https://dvmready.com/fluid-deficit-guide/</loc>
     <lastmod>2026-02-24</lastmod>
   </url>
   <url>
-    <loc>https://dvmready.com/maintenance-fluids-guide/</loc>
     <lastmod>2026-02-24</lastmod>
   </url>
   <url>
@@ -169,7 +164,6 @@
     <lastmod>2026-02-24</lastmod>
   </url>
   <url>
-    <loc>https://dvmready.com/dextrose-correction-guide/</loc>
     <lastmod>2026-02-24</lastmod>
   </url>
   <url>
@@ -177,7 +171,6 @@
     <lastmod>2026-02-24</lastmod>
   </url>
   <url>
-    <loc>https://dvmready.com/toxic-dose-calculations-guide/</loc>
     <lastmod>2026-02-24</lastmod>
   </url>
   <url>
@@ -293,7 +286,6 @@
     <lastmod>2026-02-24</lastmod>
   </url>
   <url>
-    <loc>https://dvmready.com/cardiology-chf-algorithm/</loc>
     <lastmod>2026-02-24</lastmod>
   </url>
   <url>
@@ -471,5 +463,9 @@
   <url>
     <loc>https://dvmready.com/tools/drug-interaction.html</loc>
     <lastmod>2026-02-26</lastmod>
+  </url>
+  <url>
+    <loc>https://dvmready.com/tools/apgar-score.html</loc>
+    <lastmod>2026-02-27</lastmod>
   </url>
 </urlset>
