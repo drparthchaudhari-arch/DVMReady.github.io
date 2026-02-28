@@ -377,7 +377,7 @@
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Clinical Tools", "url": "https://dvmready.com/tools/" },
             { "@type": "ListItem", "position": 2, "name": "Veterinary Calculators Hub", "url": "https://dvmready.com/veterinary-calculators/" },
-            { "@type": "ListItem", "position": 3, "name": "Clinical References", "url": "https://dvmready.com/reference/" }
+            { "@type": "ListItem", "position": 3, "name": "NAVLE Study Hub", "url": "https://dvmready.com/study/navle/" },
             { "@type": "ListItem", "position": 4, "name": "Clinical Reference Library", "url": "https://dvmready.com/reference/" }
           ]
         }
@@ -506,6 +506,7 @@
                         <a href="/tools/">📋 All Tools →</a>
                     </div>
                 </div>
+                <a class="pc-nav-link pc-nav-link--hide-mobile" href="/study/navle/">NAVLE Prep</a>
                 <a class="pc-nav-link pc-nav-link--hide-mobile" href="/about.html">About</a>
                 <a class="pc-nav-link" href="/search.html" title="Search">
                     <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -555,9 +556,17 @@
                         <span class="pc-mobile-nav-link__text" style="color: var(--pc-accent, #32e0c4); font-weight: 600;">📋 View All Tools →</span>
                     </a>
                 </div>
+                <a class="pc-mobile-nav-link" href="/study/extra/">
+                    <span class="pc-mobile-nav-link__icon">📚</span>
+                    <span class="pc-mobile-nav-link__text">Extra</span>
+                </a>
                 <a class="pc-mobile-nav-link" href="/search.html">
                     <span class="pc-mobile-nav-link__icon">🔍</span>
                     <span class="pc-mobile-nav-link__text">Search</span>
+                </a>
+                <a class="pc-mobile-nav-link" href="/study/">
+                    <span class="pc-mobile-nav-link__icon">📚</span>
+                    <span class="pc-mobile-nav-link__text">Study Plan</span>
                 </a>
                 <a class="pc-mobile-nav-link" href="/account/">
                     <span class="pc-mobile-nav-link__icon">👤</span>
@@ -987,22 +996,29 @@
                     <a class="pc-btn pc-btn--primary pc-home-tier-cta" href="/tools/">Open Clinical Tools →</a>
                 </article>
 
-                <!-- Card 2: Clinical References -->
+                <!-- Card 2: Study & Reference -->
                 <article class="pc-home-tier-card pc-home-tier-card--student" tabindex="0" data-animate="fade-up" data-delay="100">
                     <div>
-                        <span class="pc-kicker">References</span>
-                        <h2 class="pc-home-tier-title pc-gradient-text--student">Clinical References</h2>
-                        <p class="pc-home-tier-copy">Evidence-based guidelines, algorithms, and clinical decision support tools.</p>
-                        <div class="pc-home-tier-pellets" aria-label="Reference highlights">
-                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">Guidelines</span>
-                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">Algorithms</span>
-                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">Protocols</span>
+                        <span class="pc-kicker">Learning</span>
+                        <h2 class="pc-home-tier-title pc-gradient-text--student">Study & Reference</h2>
+                        <p class="pc-home-tier-copy">NAVLE preparation, clinical references, case studies, and evidence-based guidelines.</p>
+                        <div class="pc-home-tier-pellets" aria-label="Study highlights">
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">NAVLE Prep</span>
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">Practice</span>
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">References</span>
+                            <span class="pc-home-tier-pellet pc-home-tier-pellet--student">Cases</span>
                         </div>
                     </div>
                     <div class="pc-home-tier-inside">
-                        <p class="pc-home-tier-inside-label">Clinical references & guidelines</p>
+                        <p class="pc-home-tier-inside-label">Study resources & references</p>
                         <ul class="pc-link-list pc-home-tier-links pc-home-tier-links--two-col">
+                            <li><a href="/study/navle/">NAVLE Study Hub</a></li>
+                            <li><a href="/study/navle/practice/">Practice Questions</a></li>
+                            <li><a href="/study/navle/exam-simulator/">Exam Simulator</a></li>
+                            <li><a href="/study/extra/">Topic Guides</a></li>
+                            <li><a href="/study/">Study Planner</a></li>
                             <li><a href="/reference/">Reference Library</a></li>
+                            <li><a href="/study/extra/">Clinical Cases</a></li>
                             <li><a href="/cardiology-chf-algorithm/">Cardiology & CHF Guide</a></li>
                             <li><a href="/emergency-triage-algorithms/">Emergency Algorithms</a></li>
                             <li><a href="https://www.acvim.org/research/consensus-statements" target="_blank" rel="noopener noreferrer">ACVIM Cardiology Consensus</a></li>
@@ -1014,7 +1030,7 @@
                             <li><a href="/sources-and-limitations/">Sources and Limitations</a></li>
                         </ul>
                     </div>
-                    <a class="pc-btn pc-btn--mint pc-home-tier-cta" href="/reference/">View References →</a>
+                    <a class="pc-btn pc-btn--mint pc-home-tier-cta" href="/study/navle/">Open Study Hub →</a>
                 </article>
             </div>
         </section>
@@ -1079,18 +1095,28 @@
             </div>
             
             <div class="pc-footer__links-group">
+                <h4 class="pc-footer__heading">Study</h4>
+                <ul class="pc-footer__links">
+                    <li><a href="/study/navle/">NAVLE Hub</a></li>
+                    <li><a href="/study/navle/practice/">Practice Questions</a></li>
+                    <li><a href="/study/navle/exam-simulator/">Exam Simulator</a></li>
+                    <li><a href="/study/">Study Planner</a></li>
+                </ul>
+            </div>
+            
+            <div class="pc-footer__links-group">
                 <h4 class="pc-footer__heading">Resources</h4>
                 <ul class="pc-footer__links">
                     <li><a href="/reference/">Reference Library</a></li>
-                    <li><a href="/cardiology-chf-algorithm/">Cardiology Guide</a></li>
-                    <li><a href="/emergency-triage-algorithms/">Emergency Algorithms</a></li>
+                    <li><a href="/study/extra/">Clinical Cases</a></li>
+                    
                     <li><a href="/contact.html">Contact</a></li>
                 </ul>
             </div>
             
             <div class="pc-footer__newsletter">
                 <h4 class="pc-footer__heading">Stay Updated</h4>
-                <p class="pc-footer__newsletter-text">Get new calculators and clinical resources delivered to your inbox.</p>
+                <p class="pc-footer__newsletter-text">Get new calculators and study resources delivered to your inbox.</p>
                 <form class="pc-newsletter-form" action="mailto:info@dvmready.com" method="post" enctype="text/plain">
                     <div class="pc-newsletter__field">
                         <input type="email" class="pc-newsletter__input" placeholder="your@email.com" required aria-label="Email address" name="email">
