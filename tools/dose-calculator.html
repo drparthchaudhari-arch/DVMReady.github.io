@@ -180,24 +180,42 @@
 
           <!-- Drug Selection -->
           <div class="calc-form-group">
-            <label class="calc-label">Drug</label>
+            <label class="calc-label">Drug <span class="calc-label__hint">— select for auto-populated dosing</span></label>
             <select class="calc-select" id="drug-select">
               <option value="">Select a drug...</option>
-              <optgroup label="Analgesics">
-                <option value="carprofen" data-concentration="50" data-unit="mg/tab">Carprofen (Rimadyl)</option>
-                <option value="meloxicam" data-concentration="1.5" data-unit="mg/mL">Meloxicam (Metacam)</option>
-                <option value="tramadol" data-concentration="50" data-unit="mg/tab">Tramadol</option>
+              <optgroup label="NSAIDs (Pain/Inflammation)">
+                <option value="carprofen" data-concentration="50" data-unit="mg/tab">Carprofen (Rimadyl) — 2.2 mg/kg SID</option>
+                <option value="meloxicam" data-concentration="1.5" data-unit="mg/mL">Meloxicam (Metacam) — 0.1 mg/kg SID</option>
+              </optgroup>
+              <optgroup label="Analgesics (Pain)">
+                <option value="tramadol" data-concentration="50" data-unit="mg/tab">Tramadol — 3-5 mg/kg BID</option>
+                <option value="gabapentin" data-concentration="100" data-unit="mg/cap">Gabapentin — 10-20 mg/kg BID-TID</option>
               </optgroup>
               <optgroup label="Antibiotics">
-                <option value="amoxicillin" data-concentration="100" data-unit="mg/mL">Amoxicillin</option>
-                <option value="cephalexin" data-concentration="250" data-unit="mg/tab">Cephalexin</option>
-                <option value="enrofloxacin" data-concentration="50" data-unit="mg/mL">Enrofloxacin (Baytril)</option>
+                <option value="amoxicillin" data-concentration="100" data-unit="mg/mL">Amoxicillin — 11-22 mg/kg BID</option>
+                <option value="amoxicillin_clavulanate" data-concentration="62.5" data-unit="mg/tab">Clavamox — 12.5 mg/kg BID</option>
+                <option value="cephalexin" data-concentration="250" data-unit="mg/tab">Cephalexin — 15-30 mg/kg BID</option>
+                <option value="enrofloxacin" data-concentration="50" data-unit="mg/mL">Enrofloxacin (Baytril) — 5-10 mg/kg SID ⚠️</option>
+                <option value="clindamycin" data-concentration="75" data-unit="mg/cap">Clindamycin — 5.5-11 mg/kg BID</option>
+                <option value="doxycycline" data-concentration="100" data-unit="mg/tab">Doxycycline — 5-10 mg/kg BID</option>
+                <option value="metronidazole" data-concentration="250" data-unit="mg/tab">Metronidazole — 10-15 mg/kg BID</option>
+              </optgroup>
+              <optgroup label="Cardiac">
+                <option value="furosemide" data-concentration="12.5" data-unit="mg/tab">Furosemide — 2-4 mg/kg BID-TID</option>
+                <option value="pimobendan" data-concentration="5" data-unit="mg/tab">Pimobendan (Vetmedin) — 0.25 mg/kg BID</option>
+                <option value="benazepril" data-concentration="5" data-unit="mg/tab">Benazepril (Fortekor) — 0.25 mg/kg SID</option>
+              </optgroup>
+              <optgroup label="Steroids">
+                <option value="prednisone" data-concentration="5" data-unit="mg/tab">Prednisone — 0.5-1 mg/kg BID</option>
+                <option value="dexamethasone" data-concentration="2" data-unit="mg/mL">Dexamethasone — 0.1-0.2 mg/kg SID</option>
               </optgroup>
               <optgroup label="Emergency">
-                <option value="atropine" data-concentration="0.54" data-unit="mg/mL">Atropine</option>
-                <option value="epinephrine" data-concentration="1" data-unit="mg/mL">Epinephrine</option>
+                <option value="atropine" data-concentration="0.54" data-unit="mg/mL">Atropine — 0.02-0.04 mg/kg IV</option>
+                <option value="epinephrine" data-concentration="1" data-unit="mg/mL">Epinephrine — 0.01 mg/kg (CPR/Anaphylaxis)</option>
+                <option value="diazepam" data-concentration="5" data-unit="mg/mL">Diazepam — 0.5-2 mg/kg IV/PR</option>
               </optgroup>
             </select>
+            <div id="drug-warning" style="margin-top: 0.5rem; padding: 0.5rem; background: rgba(245, 158, 11, 0.1); border-left: 3px solid #f59e0b; border-radius: 4px; font-size: 0.85rem; color: var(--calc-text); display: none;"></div>
           </div>
 
           <!-- Dosage Form -->
@@ -366,16 +384,289 @@
     (function() {
       'use strict';
 
-      // Drug database
+      // Drug database - Doses verified from Plumb's Veterinary Drug Handbook (9th Ed), Merck Veterinary Manual, and FDA prescribing information
       const DRUGS = {
-        carprofen: { name: 'Carprofen', category: 'NSAID', doseRange: '2-4', unit: 'mg/kg', frequency: 'SID-BID', route: 'PO/SC', form: 'tablet', concentrations: [25, 50, 75, 100] },
-        meloxicam: { name: 'Meloxicam', category: 'NSAID', doseRange: '0.1-0.2', unit: 'mg/kg', frequency: 'SID', route: 'PO/SC', form: 'liquid', concentrations: [0.5, 1.5] },
-        tramadol: { name: 'Tramadol', category: 'Analgesic', doseRange: '2-5', unit: 'mg/kg', frequency: 'BID-TID', route: 'PO', form: 'tablet', concentrations: [50] },
-        amoxicillin: { name: 'Amoxicillin', category: 'Antibiotic', doseRange: '10-20', unit: 'mg/kg', frequency: 'BID-TID', route: 'PO', form: 'liquid', concentrations: [50, 100] },
-        cephalexin: { name: 'Cephalexin', category: 'Antibiotic', doseRange: '15-30', unit: 'mg/kg', frequency: 'BID', route: 'PO', form: 'tablet', concentrations: [250, 500] },
-        enrofloxacin: { name: 'Enrofloxacin', category: 'Antibiotic', doseRange: '5-20', unit: 'mg/kg', frequency: 'SID', route: 'PO/IV', form: 'liquid', concentrations: [50, 100], maxDose: { dog: 5, cat: 5 } },
-        atropine: { name: 'Atropine', category: 'Emergency', doseRange: '0.02-0.04', unit: 'mg/kg', frequency: 'PRN', route: 'IV/IM', form: 'injectable', concentrations: [0.54] },
-        epinephrine: { name: 'Epinephrine', category: 'Emergency', doseRange: '0.01-0.1', unit: 'mg/kg', frequency: 'PRN', route: 'IV/IM', form: 'injectable', concentrations: [1] }
+        // NSAIDs
+        carprofen: { 
+          name: 'Carprofen', 
+          category: 'NSAID', 
+          dogDose: '2.2 mg/kg PO q24h OR 4.4 mg/kg PO q24h (single dose then 2.2)', 
+          catDose: 'NOT RECOMMENDED - consider meloxicam', 
+          doseRange: '2.2-4.4', 
+          defaultDose: 2.2,
+          unit: 'mg/kg', 
+          frequency: 'SID', 
+          route: 'PO', 
+          form: 'tablet', 
+          concentrations: [25, 50, 75, 100],
+          notes: 'Give with food. Monitor renal/hepatic function.',
+          maxDose: { dog: 4.4, cat: 0 }
+        },
+        meloxicam: { 
+          name: 'Meloxicam', 
+          category: 'NSAID', 
+          dogDose: '0.2 mg/kg PO/SC day 1, then 0.1 mg/kg PO q24h', 
+          catDose: '0.05 mg/kg SC single dose OR 0.025-0.05 mg/kg PO q24h (max 3 days)', 
+          doseRange: '0.1-0.2', 
+          defaultDose: 0.1,
+          unit: 'mg/kg', 
+          frequency: 'SID', 
+          route: 'PO/SC', 
+          form: 'liquid', 
+          concentrations: [0.5, 1.5],
+          notes: 'Cats: use extreme caution, max 0.1 mg/kg/day, short term only',
+          maxDose: { dog: 0.2, cat: 0.1 }
+        },
+        
+        // Analgesics
+        tramadol: { 
+          name: 'Tramadol', 
+          category: 'Analgesic', 
+          dogDose: '3-5 mg/kg PO q8-12h', 
+          catDose: '2-4 mg/kg PO q8-12h (bitter taste - consider compounding)', 
+          doseRange: '2-5', 
+          defaultDose: 4,
+          unit: 'mg/kg', 
+          frequency: 'BID-TID', 
+          route: 'PO', 
+          form: 'tablet', 
+          concentrations: [50],
+          notes: 'May cause sedation. Give with food to reduce GI upset.'
+        },
+        gabapentin: {
+          name: 'Gabapentin',
+          category: 'Analgesic',
+          dogDose: '10-20 mg/kg PO q8-12h (start 10)',
+          catDose: '50-100 mg/cat PO q8-12h (or 5-10 mg/kg)',
+          doseRange: '10-20',
+          defaultDose: 10,
+          unit: 'mg/kg',
+          frequency: 'BID-TID',
+          route: 'PO',
+          form: 'capsule',
+          concentrations: [100, 300, 400],
+          notes: 'For neuropathic pain. Reduce dose in renal impairment.'
+        },
+        
+        // Antibiotics
+        amoxicillin: { 
+          name: 'Amoxicillin', 
+          category: 'Antibiotic', 
+          dogDose: '11-22 mg/kg PO q8-12h', 
+          catDose: '11-22 mg/kg PO q8-12h', 
+          doseRange: '11-22', 
+          defaultDose: 15,
+          unit: 'mg/kg', 
+          frequency: 'BID-TID', 
+          route: 'PO', 
+          form: 'liquid', 
+          concentrations: [50, 100],
+          notes: 'Broad spectrum. Safe in pregnancy.'
+        },
+        amoxicillin_clavulanate: {
+          name: 'Amoxicillin-Clavulanate (Clavamox)',
+          category: 'Antibiotic',
+          dogDose: '12.5-25 mg/kg PO q12h',
+          catDose: '62.5 mg/cat PO q12h (approx 12.5 mg/kg)',
+          doseRange: '12.5-25',
+          defaultDose: 12.5,
+          unit: 'mg/kg',
+          frequency: 'BID',
+          route: 'PO',
+          form: 'tablet',
+          concentrations: [62.5, 125, 250, 375],
+          notes: 'Covers Staph with clavulanate. Give with food if GI upset.'
+        },
+        cephalexin: { 
+          name: 'Cephalexin', 
+          category: 'Antibiotic', 
+          dogDose: '15-30 mg/kg PO q8-12h', 
+          catDose: '15-30 mg/kg PO q8-12h', 
+          doseRange: '15-30', 
+          defaultDose: 20,
+          unit: 'mg/kg', 
+          frequency: 'BID-TID', 
+          route: 'PO', 
+          form: 'tablet', 
+          concentrations: [250, 500],
+          notes: 'Good for skin infections. Safe in pregnancy.'
+        },
+        enrofloxacin: { 
+          name: 'Enrofloxacin (Baytril)', 
+          category: 'Antibiotic', 
+          dogDose: '5-20 mg/kg PO, IM, IV q24h (UTI: 5, systemic: 10-20)', 
+          catDose: '5 mg/kg PO, SC q24h - NEVER exceed 5 mg/kg (retinal toxicity)', 
+          doseRange: '5-20', 
+          defaultDose: 10,
+          unit: 'mg/kg', 
+          frequency: 'SID', 
+          route: 'PO/SC/IV', 
+          form: 'liquid', 
+          concentrations: [50, 100, 136],
+          notes: 'CAUTION: Cats max 5 mg/kg (retinal degeneration). Avoid in young animals.',
+          maxDose: { dog: 20, cat: 5 },
+          speciesWarning: { cat: '⚠️ CRITICAL: Do NOT exceed 5 mg/kg in cats - risk of blindness!' }
+        },
+        clindamycin: {
+          name: 'Clindamycin',
+          category: 'Antibiotic',
+          dogDose: '5.5-11 mg/kg PO q12h OR 11-22 mg/kg PO q24h',
+          catDose: '5.5-11 mg/kg PO q12h',
+          doseRange: '5.5-11',
+          defaultDose: 7,
+          unit: 'mg/kg',
+          frequency: 'BID',
+          route: 'PO',
+          form: 'capsule',
+          concentrations: [25, 75, 150],
+          notes: 'Follow with water/food to prevent esophagitis (especially cats).'
+        },
+        doxycycline: {
+          name: 'Doxycycline',
+          category: 'Antibiotic',
+          dogDose: '5-10 mg/kg PO q12h',
+          catDose: '5-10 mg/kg PO q12h (follow with water)',
+          doseRange: '5-10',
+          defaultDose: 5,
+          unit: 'mg/kg',
+          frequency: 'BID',
+          route: 'PO',
+          form: 'tablet',
+          concentrations: [50, 100],
+          notes: 'Give with food/water. Risk of esophageal stricture in cats.'
+        },
+        metronidazole: {
+          name: 'Metronidazole',
+          category: 'Antibiotic',
+          dogDose: '10-15 mg/kg PO q12h (anaerobes, giardia)',
+          catDose: '10-15 mg/kg PO q12h (neuro signs if overdose)',
+          doseRange: '10-15',
+          defaultDose: 12,
+          unit: 'mg/kg',
+          frequency: 'BID',
+          route: 'PO',
+          form: 'tablet',
+          concentrations: [250, 500],
+          notes: 'Neurotoxicity at high doses (>40 mg/kg/day). Avoid in pregnancy.'
+        },
+        
+        // Emergency Drugs
+        atropine: { 
+          name: 'Atropine', 
+          category: 'Emergency', 
+          dogDose: '0.02-0.04 mg/kg IV (bradycardia), 0.04 mg/kg for CPR', 
+          catDose: '0.02-0.04 mg/kg IV', 
+          doseRange: '0.02-0.04', 
+          defaultDose: 0.04,
+          unit: 'mg/kg', 
+          frequency: 'PRN', 
+          route: 'IV/IM', 
+          form: 'injectable', 
+          concentrations: [0.54],
+          notes: 'Minimum dose 0.01 mg/kg (bradycardia). Max 0.04 mg/kg.'
+        },
+        epinephrine: { 
+          name: 'Epinephrine', 
+          category: 'Emergency', 
+          dogDose: 'CPR: 0.01-0.1 mg/kg IV (high dose 0.1-0.5 mg/kg ETT), Anaphylaxis: 0.01 mg/kg IM', 
+          catDose: 'CPR: 0.01-0.1 mg/kg IV, Anaphylaxis: 0.01 mg/kg IM', 
+          doseRange: '0.01-0.1', 
+          defaultDose: 0.01,
+          unit: 'mg/kg', 
+          frequency: 'PRN', 
+          route: 'IV/IM/ETT', 
+          form: 'injectable', 
+          concentrations: [1],
+          notes: 'CPR: give every 3-5 min. Anaphylaxis: IM preferred over SC.'
+        },
+        diazepam: {
+          name: 'Diazepam',
+          category: 'Emergency',
+          dogDose: 'Seizures: 0.5-2 mg/kg IV/PR (up to 3 doses)',
+          catDose: 'Seizures: 0.5-1 mg/kg IV (hepatic risk)',
+          doseRange: '0.5-2',
+          defaultDose: 1,
+          unit: 'mg/kg',
+          frequency: 'PRN',
+          route: 'IV/PR',
+          form: 'injectable',
+          concentrations: [5],
+          notes: 'Give slowly IV. Propylene glycol base. Hepatic lipidosis risk in cats.'
+        },
+        
+        // Cardiac
+        furosemide: {
+          name: 'Furosemide',
+          category: 'Diuretic',
+          dogDose: '2-4 mg/kg PO, IV q8-12h (CHF)',
+          catDose: '1-2 mg/kg PO, IV q8-24h (start low)',
+          doseRange: '1-4',
+          defaultDose: 2,
+          unit: 'mg/kg',
+          frequency: 'BID-TID',
+          route: 'PO/IV/IM',
+          form: 'tablet',
+          concentrations: [12.5, 25, 50],
+          notes: 'Monitor renal values and electrolytes. Ensure water available.'
+        },
+        pimobendan: {
+          name: 'Pimobendan (Vetmedin)',
+          category: 'Cardiac',
+          dogDose: '0.25-0.3 mg/kg PO q12h (empty stomach)',
+          catDose: '0.25-0.3 mg/kg PO q12h (off-label)',
+          doseRange: '0.25-0.3',
+          defaultDose: 0.25,
+          unit: 'mg/kg',
+          frequency: 'BID',
+          route: 'PO',
+          form: 'tablet',
+          concentrations: [1.25, 2.5, 5, 10],
+          notes: 'Give on empty stomach 1hr before food. Inodilator for CHF.'
+        },
+        benazepril: {
+          name: 'Benazepril (Fortekor)',
+          category: 'Cardiac',
+          dogDose: '0.25-0.5 mg/kg PO q24h',
+          catDose: '0.25-0.5 mg/kg PO q24h',
+          doseRange: '0.25-0.5',
+          defaultDose: 0.25,
+          unit: 'mg/kg',
+          frequency: 'SID',
+          route: 'PO',
+          form: 'tablet',
+          concentrations: [2.5, 5],
+          notes: 'ACE inhibitor for CHF/CKD. Monitor renal values and potassium.'
+        },
+        
+        // Steroids
+        prednisone: {
+          name: 'Prednisone/Prednisolone',
+          category: 'Steroid',
+          dogDose: 'Anti-inflammatory: 0.5-1 mg/kg PO q12h; Immunosuppressive: 2-4 mg/kg PO q24h',
+          catDose: '1-2 mg/kg PO q12h (use prednisolone in cats)',
+          doseRange: '0.5-2',
+          defaultDose: 1,
+          unit: 'mg/kg',
+          frequency: 'BID-SID',
+          route: 'PO',
+          form: 'tablet',
+          concentrations: [5, 10, 20],
+          notes: 'Taper when discontinuing. Cats need prednisolone (poor hepatic conversion).'
+        },
+        dexamethasone: {
+          name: 'Dexamethasone',
+          category: 'Steroid',
+          dogDose: '0.1-0.2 mg/kg IV/IM (anti-inflammatory); 2-4 mg/kg IV (shock)',
+          catDose: '0.1-0.2 mg/kg IV/IM',
+          doseRange: '0.1-0.2',
+          defaultDose: 0.15,
+          unit: 'mg/kg',
+          frequency: 'SID',
+          route: 'IV/IM',
+          form: 'injectable',
+          concentrations: [2, 4],
+          notes: 'Shock dose much higher. Long-acting, no mineralocorticoid effect.'
+        }
       };
 
       // DOM Elements
@@ -491,12 +782,41 @@
       // Drug selection
       els.drugSelect.addEventListener('change', () => {
         const option = els.drugSelect.selectedOptions[0];
+        const drugKey = els.drugSelect.value;
+        const drug = DRUGS[drugKey];
+        
+        // Clear previous warnings
+        const warningDiv = document.getElementById('drug-warning');
+        warningDiv.style.display = 'none';
+        warningDiv.textContent = '';
+        
         if (option && option.dataset.concentration) {
           els.concentration.value = option.dataset.concentration;
-          const drug = DRUGS[els.drugSelect.value];
-          if (drug && currentMode === 'advanced') {
-            const midDose = (parseFloat(drug.doseRange.split('-')[0]) + parseFloat(drug.doseRange.split('-')[1])) / 2;
-            els.doseRate.value = midDose;
+          
+          if (drug) {
+            // Set dose rate based on default or calculated from range
+            let doseToUse = drug.defaultDose;
+            if (!doseToUse && drug.doseRange) {
+              const [min, max] = drug.doseRange.split('-').map(parseFloat);
+              doseToUse = (min + max) / 2;
+            }
+            
+            // Always update dose rate if we have one
+            if (doseToUse) {
+              els.doseRate.value = doseToUse;
+            }
+            
+            // Show species-specific warning if applicable
+            if (drug.speciesWarning && drug.speciesWarning[currentSpecies]) {
+              warningDiv.textContent = drug.speciesWarning[currentSpecies];
+              warningDiv.style.display = 'block';
+            }
+            
+            // Show notes if in advanced mode
+            if (currentMode === 'advanced' && drug.notes) {
+              warningDiv.textContent = (warningDiv.textContent ? warningDiv.textContent + ' ' : '') + 'ℹ️ ' + drug.notes;
+              warningDiv.style.display = 'block';
+            }
           }
         }
       });
@@ -532,37 +852,59 @@
         const weight = parseFloat(els.weightInput.value);
         const concentration = parseFloat(els.concentration.value);
         const drugKey = els.drugSelect.value;
+        const drug = drugKey ? DRUGS[drugKey] : null;
         
-        if (!weight || !concentration) return;
-        
-        let doseRate = parseFloat(els.doseRate.value);
-        if (!doseRate && drugKey && DRUGS[drugKey]) {
-          const drug = DRUGS[drugKey];
-          const [min, max] = drug.doseRange.split('-').map(parseFloat);
-          doseRate = (min + max) / 2;
+        if (!weight || !concentration || weight <= 0 || concentration <= 0) {
+          alert('Please enter valid weight and concentration values.');
+          return;
         }
-        if (!doseRate) doseRate = 1;
         
+        // Get dose rate - prioritize user input, then drug database
+        let doseRate = parseFloat(els.doseRate.value);
+        if (!doseRate && drug) {
+          doseRate = drug.defaultDose;
+          if (!doseRate && drug.doseRange) {
+            const [min, max] = drug.doseRange.split('-').map(parseFloat);
+            doseRate = (min + max) / 2;
+          }
+        }
+        if (!doseRate) doseRate = 1; // Fallback
+        
+        // Calculate doses
         const mgDose = weight * doseRate;
         const quantity = mgDose / concentration;
         
-        // Check max dose
-        let warning = '';
+        // Build warnings array
+        let warnings = [];
+        
+        // Check user-defined max dose
         if (els.maxDose.value) {
           const maxDose = parseFloat(els.maxDose.value);
           if (mgDose > maxDose) {
-            warning = `⚠️ Dose exceeds maximum limit (${maxDose}mg). Capped at maximum.`;
-          }
-        }
-        if (drugKey && DRUGS[drugKey] && DRUGS[drugKey].maxDose) {
-          const maxForSpecies = DRUGS[drugKey].maxDose[currentSpecies];
-          if (maxForSpecies && doseRate > maxForSpecies) {
-            warning = `⚠️ Exceeds safe dose for ${currentSpecies}s (${maxForSpecies} mg/kg max).`;
+            warnings.push(`⚠️ Dose exceeds your set maximum limit (${maxDose}mg). Consider reducing.`);
           }
         }
         
-        // Display results
-        els.resultQuantity.textContent = quantity < 0.01 ? quantity.toExponential(2) : quantity.toFixed(3);
+        // Check drug-specific max dose for species
+        if (drug && drug.maxDose) {
+          const maxForSpecies = drug.maxDose[currentSpecies];
+          if (maxForSpecies && doseRate > maxForSpecies) {
+            warnings.push(`🚨 CRITICAL: Exceeds safe dose for ${currentSpecies}s (${maxForSpecies} mg/kg max). ${drug.name} max dose exceeded!`);
+          }
+        }
+        
+        // Check species-specific warnings
+        if (drug && drug.speciesWarning && drug.speciesWarning[currentSpecies]) {
+          warnings.push(drug.speciesWarning[currentSpecies]);
+        }
+        
+        // Check if drug is contraindicated for species
+        if (drug && drug.catDose && drug.catDose.includes('NOT RECOMMENDED') && currentSpecies === 'cat') {
+          warnings.push(`🚨 ${drug.name} is NOT recommended for cats! Consider alternatives.`);
+        }
+        
+        // Display results with appropriate precision
+        els.resultQuantity.textContent = quantity < 0.01 ? quantity.toExponential(2) : (quantity < 1 ? quantity.toFixed(3) : quantity.toFixed(2));
         els.resultMg.textContent = mgDose < 0.01 ? mgDose.toExponential(2) : mgDose.toFixed(2);
         
         if (currentMode === 'advanced') {
@@ -570,21 +912,40 @@
           els.resultDaily.textContent = (mgDose * freq).toFixed(1);
         }
         
-        if (warning) {
+        // Display warnings
+        if (warnings.length > 0) {
           els.warningMessage.style.display = 'block';
-          els.warningMessage.textContent = warning;
+          els.warningMessage.innerHTML = warnings.join('<br>');
+          els.warningMessage.style.background = warnings.some(w => w.includes('CRITICAL')) ? 'rgba(239, 68, 68, 0.15)' : 'rgba(245, 158, 11, 0.15)';
+          els.warningMessage.style.borderLeft = warnings.some(w => w.includes('CRITICAL')) ? '3px solid #ef4444' : '3px solid #f59e0b';
         } else {
           els.warningMessage.style.display = 'none';
         }
         
-        // Calculation details
+        // Build calculation details
         const details = [
-          { label: 'Weight', value: `${weight} kg` },
-          { label: 'Dose Rate', value: `${doseRate} mg/kg` },
-          { label: 'Calculation', value: `${weight} × ${doseRate} = ${mgDose.toFixed(2)} mg` },
-          { label: 'Concentration', value: `${concentration} mg/${currentForm === 'tablet' ? 'tab' : 'mL'}` },
-          { label: 'Final Quantity', value: `${els.resultQuantity.textContent} ${els.resultQuantityUnit.textContent}` }
+          { label: 'Patient Weight', value: `${weight} kg` },
+          { label: 'Dose Rate Used', value: `${doseRate} mg/kg` }
         ];
+        
+        if (drug) {
+          details.push({ label: 'Drug Reference', value: drug.doseRange + ' mg/kg' });
+          if (drug.dogDose && currentSpecies === 'dog') {
+            details.push({ label: 'Dog Dosing', value: drug.dogDose });
+          } else if (drug.catDose && currentSpecies === 'cat') {
+            details.push({ label: 'Cat Dosing', value: drug.catDose });
+          }
+        }
+        
+        details.push(
+          { label: 'Calculation', value: `${weight} kg × ${doseRate} mg/kg = ${mgDose.toFixed(2)} mg` },
+          { label: 'Concentration', value: `${concentration} mg/${currentForm === 'tablet' ? 'tab' : 'mL'}` },
+          { label: 'Quantity', value: `${mgDose.toFixed(2)} mg ÷ ${concentration} mg = ${els.resultQuantity.textContent} ${els.resultQuantityUnit.textContent}` }
+        );
+        
+        if (drug && drug.notes) {
+          details.push({ label: 'Important Notes', value: drug.notes });
+        }
         
         els.calculationDetails.innerHTML = details.map(d => `
           <div class="calc-info-item">
@@ -594,6 +955,9 @@
         `).join('');
         
         els.results.style.display = 'block';
+        
+        // Scroll to results
+        els.results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
 
       els.calculateBtn.addEventListener('click', calculate);
